@@ -28,11 +28,16 @@ const web =
         )
       );
 
+const api = Router().use("/api/data.json", (_req, res) =>
+  res.json(require("./data"))
+);
+
 const PORT = 8080;
 
 export default express()
   .use(require("morgan")("combined"))
   // .use(cors({ origin: '*'}))
+  .use(api)
   .use(web)
   .listen(PORT, () =>
     console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`)

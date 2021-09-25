@@ -1,4 +1,4 @@
-// import CopyWebpackPlugin from "copy-webpack-plugin";
+import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import * as path from "path";
 import webpack from "webpack";
@@ -70,11 +70,18 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin({
-      FFMPEG_CORE_PATH: "ffmpeg/ffmpeg-core.js",
       NODE_ENV: "development",
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          context: path.resolve(__dirname, "src/assets"),
+          from: "api/*.json",
+        },
+      ],
     }),
     new HtmlWebpackPlugin({
       favicon: require.resolve("./src/assets/favicon.ico"),
