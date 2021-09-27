@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
-import Map from "./Map";
+import Map, { useBounds } from "./Map";
 import useDebounce from "./useDebounce";
 import usePlace from "./usePlace";
 import styles from "./Scrap.module.scss";
@@ -28,27 +28,65 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const [radius, setRadius] = useState(15);
+
+  const onChangeRadius = useCallback(
+    ({ target }) => setRadius(Number(target.value)),
+    []
+  );
+
+  const list = useMemo(
+    () =>
+      results
+        .filter(({ description_short }) =>
+          description_short.toLowerCase().match(filter)
+        )
+        .map((item, i) => {
+          const { latitude: lat, longitude: lng, our_url: name } = item;
+          return {
+            i,
+            position: { lat, lng },
+            name,
+            item,
+          };
+        }),
+    [results, filter]
+  );
+
+  const bounds = useBounds(list);
+  const [center, setCenter] = useState(() => bounds.getCenter());
+
+  const nearby = useMemo(
+    () =>
+      list.filter(
+        ({ position }) => center.distanceTo(position) < radius * 1000
+      ),
+    [list, center, radius]
+  );
+
   return (
     <div>
+      <Map
+        bounds={bounds}
+        center={center}
+        setCenter={setCenter}
+        list={nearby}
+      />
       [{total_found}]
       <fieldset>
         <input type="search" value={search} onChange={onChangeSearch} />
+        <input
+          type="range"
+          min={0}
+          max={100}
+          value={radius}
+          onChange={onChangeRadius}
+        />
+        <span>{`${radius} km`}</span>
       </fieldset>
-      <Map
-        list={results
-          .filter(({ description_short }) =>
-            description_short.toLowerCase().match(filter)
-          )
-          .map(({ latitude: lat, longitude: lng, our_url: name }) => ({
-            position: { lat, lng },
-            name,
-          }))}
-      />
       <ol>
-        {results
-          .filter(({ description_short }) =>
-            description_short.toLowerCase().match(filter)
-          )
+        {list
+          .map(({ item }) => item)
           .map(
             (
               {

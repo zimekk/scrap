@@ -9,14 +9,22 @@ import React, {
   useState,
 } from "react";
 import L from "leaflet";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  CircleMarker,
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 // import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import cx from "classnames";
 import styles from "./Map.module.scss";
 
-function DraggableMarker({ position, children, onOpen, setPosition }) {
+function DraggableMarker({ position, children, setPosition }) {
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
     () => ({
@@ -37,9 +45,7 @@ function DraggableMarker({ position, children, onOpen, setPosition }) {
       position={position}
       ref={markerRef}
     >
-      <Popup minWidth={90} onOpen={onOpen}>
-        <span>{children}</span>
-      </Popup>
+      <Tooltip>{children}</Tooltip>
     </Marker>
   );
 }
@@ -117,7 +123,17 @@ function DisplayPosition({ map }) {
   );
 }
 
-export default function Map({ list }) {
+export function useBounds(list) {
+  return useMemo(
+    () =>
+      L.featureGroup(
+        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
+      ).getBounds(),
+    []
+  );
+}
+
+export default function Map({ bounds, center, setCenter, list }) {
   // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -127,14 +143,6 @@ export default function Map({ list }) {
       shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
     });
   }, []);
-
-  const bounds = useMemo(
-    () =>
-      L.featureGroup(
-        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
-      ).getBounds(),
-    []
-  );
 
   const [map, setMap] = useState(null);
 
@@ -150,21 +158,24 @@ export default function Map({ list }) {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {list
-          .map(({ ...item }, i) => ({ ...item, i }))
-          .map(({ i, position, name, setPosition }) => (
-            <DraggableMarker
-              key={i}
-              position={position}
-              setPosition={setPosition}
-            >
-              {name}
-            </DraggableMarker>
-          ))}
+        <DraggableMarker position={center} setPosition={setCenter}>
+          {`${center.lat},${center.lng}`}
+        </DraggableMarker>
+        {list.map(({ i, position, name }) => (
+          <CircleMarker
+            key={i}
+            center={position}
+            pathOptions={{ color: "purple" }}
+          >
+            <Popup minWidth={90}>
+              {name} ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
+            </Popup>
+          </CircleMarker>
+        ))}
         <LocateControl />
       </MapContainer>
     ),
-    [list]
+    [list, center]
   );
 
   // https://react-leaflet.js.org/docs/start-setup/
