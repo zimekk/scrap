@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { createAsset } from "use-asset";
+import Map from "./Map";
 import useDebounce from "./useDebounce";
 import usePlace from "./usePlace";
 import styles from "./Scrap.module.scss";
@@ -33,6 +34,16 @@ function Data({ version = "v1" }) {
       <fieldset>
         <input type="search" value={search} onChange={onChangeSearch} />
       </fieldset>
+      <Map
+        list={results
+          .filter(({ description_short }) =>
+            description_short.toLowerCase().match(filter)
+          )
+          .map(({ latitude: lat, longitude: lng, our_url: name }) => ({
+            position: { lat, lng },
+            name,
+          }))}
+      />
       <ol>
         {results
           .filter(({ description_short }) =>
