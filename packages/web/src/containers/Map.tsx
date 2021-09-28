@@ -161,14 +161,15 @@ export default function Map({ bounds, center, setCenter, list }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ i, position, name }) => (
+        {list.map(({ i, id, position, name }) => (
           <CircleMarker
             key={i}
             center={position}
             pathOptions={{ color: "purple" }}
           >
             <Popup minWidth={90}>
-              {name} ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
+              [{id}] {name} (
+              {`${center.distanceTo(position).toFixed(0) / 1000} km`})
             </Popup>
           </CircleMarker>
         ))}

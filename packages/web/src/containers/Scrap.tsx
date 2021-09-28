@@ -14,7 +14,8 @@ const PRICE_LIST = [
   0, 100, 200, 400, 800, 1000, 1200, 1400, 1600, 1800, 2000, 5000, 10000,
 ];
 const TOTAL_LIST = [
-  100000, 500000, 1000000, 1500000, 2000000, 5000000, 10000000, 50000000,
+  100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 1000000,
+  1200000, 1500000, 2000000, 5000000,
 ];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -93,7 +94,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [price, setPrice] = useState(10000000);
+  const [price, setPrice] = useState(1000000);
 
   const onChangePrice = useCallback(
     ({ target }) => setPrice(Number(target.value)),
@@ -113,9 +114,10 @@ function Data({ version = "v1" }) {
             total <= price
         )
         .map((item, i) => {
-          const { latitude: lat, longitude: lng, our_url: name } = item;
+          const { id, latitude: lat, longitude: lng, our_url: name } = item;
           return {
             i,
+            id,
             position: { lat, lng },
             name,
             item,
@@ -260,6 +262,7 @@ function Data({ version = "v1" }) {
               max={TOTAL_LIST[TOTAL_LIST.length - 1]}
               value={price}
               onChange={onChangePrice}
+              style={{ width: 350 }}
             />
             <datalist id="total-list">
               {TOTAL_LIST.map((value) => (

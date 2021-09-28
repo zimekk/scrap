@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@dev/api": "1.0.0",
-    "isomorphic-fetch": "^3.0.0"
+    "isomorphic-fetch": "^3.0.0",
+    "rxjs": "^7.3.0"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
