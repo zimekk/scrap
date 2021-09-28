@@ -1,4 +1,5 @@
 *.log
-lib
-node_modules
-public
+.env
+lib/
+node_modules/
+public/

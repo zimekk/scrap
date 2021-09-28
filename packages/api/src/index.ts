@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import nedb from "nedb";
 
-class Items {
+class Entities {
   public db: any;
 
   constructor(filename: string) {
@@ -39,4 +39,6 @@ class Items {
   }
 }
 
-export const items = new Items(resolve(__dirname, "../temp/items.db"));
+export const items = new Entities(resolve(__dirname, "../temp/items.db"));
+
+export const requests = new Entities(resolve(__dirname, "../temp/requests.db"));
