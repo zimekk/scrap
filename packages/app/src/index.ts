@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 // import cors from "cors";
 import path from "path";
+import { items } from "@dev/api";
 
 const web =
   process.env.NODE_ENV === "development"
@@ -29,7 +30,7 @@ const web =
       );
 
 const api = Router().use("/api/data.json", (_req, res) =>
-  res.json(require("./data"))
+  items.find({}).then((results) => res.json({ results }))
 );
 
 const PORT = 8080;
