@@ -135,6 +135,7 @@ function Link({ href, ...props }) {
   );
 }
 
+// https://stackoverflow.com/questions/41071779/template-literal-trapped-in-a-string-variable
 const evalTemplate = (s, params) =>
   Function(...Object.keys(params), `return \`${s}\``)(...Object.values(params));
 
@@ -176,20 +177,129 @@ export default function Map({ bounds, center, setCenter, list }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ i, id, position, name }) => (
+        {list.map(({ i, id, position, name, item }) => (
           <CircleMarker
             key={i}
             center={position}
             pathOptions={{ color: "purple" }}
           >
             <Popup minWidth={90}>
-              [
-              <Link
-                href={evalTemplate(process.env.HREF_TEMPLATE, { id, name })}
-              >
-                {id}
-              </Link>
-              ] {name} ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
+              {(({
+                description_short,
+                description = description_short,
+                our_title,
+                title,
+              }) => (
+                <section>
+                  <header>
+                    <Link
+                      href={evalTemplate(process.env.HREF_TEMPLATE, {
+                        id,
+                        name,
+                      })}
+                    >
+                      {title || our_title}
+                    </Link>{" "}
+                    ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
+                  </header>
+                  <p dangerouslySetInnerHTML={{ __html: description }} />
+                </section>
+              ))(item)}
+              {(({
+                kind,
+                type,
+                location_user,
+                offerowner_name,
+                f,
+                format,
+                format_specific,
+                created,
+                changed,
+              }) => (
+                <table>
+                  <tbody>
+                    <tr>
+                      <th>Format:</th>
+                      <td>{format}</td>
+                    </tr>
+                    <tr>
+                      <th>Typ nieruchomości:</th>
+                      <td>
+                        {
+                          {
+                            "1": {
+                              "1": "mieszkanie na sprzedaż",
+                              "2": "mieszkanie do wynajęcia",
+                            },
+                            "2": {
+                              "1": "dom na sprzedaż",
+                            },
+                            "4": {
+                              "1": "działka na sprzedaż",
+                            },
+                          }[kind][type]
+                        }
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Dodano:</th>
+                      <td>{created}</td>
+                    </tr>
+                    <tr>
+                      <th>Ostatnia aktualizacja:</th>
+                      <td>{changed}</td>
+                    </tr>
+                    <tr>
+                      <th>Powierzchnia:</th>
+                      <td>
+                        {f.area_m2} m² ({f.area_m2_4} {f.area_m2_4t})
+                      </td>
+                    </tr>
+                    <tr>
+                      <th>Cena:</th>
+                      <td>{f.p_pln} zł</td>
+                    </tr>
+                    <tr>
+                      <th>Cena za m²:</th>
+                      <td>{f.pp_m2_pln_wz} zł</td>
+                    </tr>
+                    <tr>
+                      <th>Cena za ar:</th>
+                      <td>{f.pp_m2_pln_4} zł</td>
+                    </tr>
+                    <tr>
+                      <th>Lokalizacja:</th>
+                      <td>{location_user}</td>
+                    </tr>
+                    {format_specific && (
+                      <tr>
+                        <th>Dojazd:</th>
+                        <td>{format_specific.id_dojazd}</td>
+                      </tr>
+                    )}
+                    {format_specific && (
+                      <tr>
+                        <th>Agent prowadzący:</th>
+                        <td>{format_specific.kontakt_osoba}</td>
+                      </tr>
+                    )}
+                    {format_specific && (
+                      <tr>
+                        <th>Rodzaj działki:</th>
+                        <td>{format_specific.id_rodzaj_dzialki}</td>
+                      </tr>
+                    )}
+                    <tr>
+                      <th>Pośrednik:</th>
+                      <td>{offerowner_name}</td>
+                    </tr>
+                    <tr>
+                      <th>Nr ogłoszenia:</th>
+                      <td>{id}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              ))(item)}
             </Popup>
           </CircleMarker>
         ))}

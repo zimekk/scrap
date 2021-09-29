@@ -25,7 +25,7 @@ const asset = createAsset(async (version) => {
 });
 
 function Data({ version = "v1" }) {
-  const { total_found, results } = asset.read(version); // As many cache keys as you need
+  const { results } = asset.read(version); // As many cache keys as you need
   const link = usePlace(
     results.map(
       ({ latitude, longitude, our_url }) =>
@@ -145,7 +145,6 @@ function Data({ version = "v1" }) {
         setCenter={setCenter}
         list={nearby}
       />
-      [{total_found}]
       <fieldset>
         <div>
           <label>
