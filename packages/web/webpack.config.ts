@@ -70,6 +70,7 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.EnvironmentPlugin({
+      HREF_TEMPLATE: "#scrap/${id}",
       NODE_ENV: "development",
     }),
     new webpack.ProvidePlugin({

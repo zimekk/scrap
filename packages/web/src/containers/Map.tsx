@@ -123,6 +123,21 @@ function DisplayPosition({ map }) {
   );
 }
 
+function Link({ href, ...props }) {
+  const hash = href[0] === "#";
+  return (
+    <a
+      href={href}
+      target={hash ? undefined : "_blank"}
+      rel={hash ? undefined : "noopener noreferrer"}
+      {...props}
+    />
+  );
+}
+
+const evalTemplate = (s, params) =>
+  Function(...Object.keys(params), `return \`${s}\``)(...Object.values(params));
+
 export function useBounds(list) {
   return useMemo(
     () =>
@@ -168,8 +183,13 @@ export default function Map({ bounds, center, setCenter, list }) {
             pathOptions={{ color: "purple" }}
           >
             <Popup minWidth={90}>
-              [{id}] {name} (
-              {`${center.distanceTo(position).toFixed(0) / 1000} km`})
+              [
+              <Link
+                href={evalTemplate(process.env.HREF_TEMPLATE, { id, name })}
+              >
+                {id}
+              </Link>
+              ] {name} ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
             </Popup>
           </CircleMarker>
         ))}

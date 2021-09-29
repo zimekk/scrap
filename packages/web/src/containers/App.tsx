@@ -12,7 +12,7 @@ const PAGES = {
 
 const getPage = (location: { hash: string }) => {
   const [path, hash = Object.keys(PAGES)[0]] =
-    decodeURI(location.hash).match(/^#(.+)/) || [];
+    decodeURI(location.hash).match(/^#([-\w]+)/) || [];
   return hash;
 };
 
