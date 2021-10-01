@@ -80,7 +80,7 @@ const config = {
       patterns: [
         {
           context: path.resolve(__dirname, "src/assets"),
-          from: "api/*.json",
+          from: "api/**/*.json",
         },
       ],
     }),

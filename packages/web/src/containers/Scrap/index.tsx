@@ -3,7 +3,7 @@ import { createAsset } from "use-asset";
 import Map, { useBounds } from "./Map";
 import useDebounce from "./useDebounce";
 import usePlace from "./usePlace";
-import styles from "./Scrap.module.scss";
+import styles from "./styles.module.scss";
 
 const RADIUS_LIST = [1, 3, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 const AREA_LIST = [
@@ -324,9 +324,9 @@ function Data({ version = "v1" }) {
   );
 }
 
-export default function Scrap() {
+export default function Section() {
   return (
-    <div className={styles.Scrap}>
+    <div className={styles.Section}>
       <h2>Scrap</h2>
       <Data />
     </div>
