@@ -2,6 +2,7 @@ import express, { Router } from "express";
 // import cors from "cors";
 import path from "path";
 import { items } from "@dev/api";
+import { stationItems } from "@dev/api/stations";
 
 const web =
   process.env.NODE_ENV === "development"
@@ -29,9 +30,13 @@ const web =
         )
       );
 
-const api = Router().use("/api/data.json", (_req, res) =>
-  items.find({}).then((results) => res.json({ results }))
-);
+const api = Router()
+  .use("/api/data.json", (_req, res) =>
+    items.find({}).then((results) => res.json({ results }))
+  )
+  .use("/api/stations/data.json", (_req, res) =>
+    stationItems.find({}).then((results) => res.json({ results }))
+  );
 
 const PORT = 8080;
 

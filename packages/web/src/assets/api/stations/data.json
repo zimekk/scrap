@@ -1,94 +1,106 @@
 {
   "results": [
     {
-      "station_id": 1464,
-      "x": 52.1187406,
-      "y": 21.1039737,
-      "network_id": 196,
+      "id": 108,
+      "station_id": 108,
+      "x": 50.345668,
+      "y": 18.9293375,
       "network_name": "Shell",
-      "map_img": "/ac-file/station-map-img/593aa782582c7d4a768b4573/shell.png"
+      "petrol_list": [{ "type": "on+", "price": "5.75" }],
+      "_id": "2tDc0np8ju48SfEM"
     },
     {
-      "station_id": 8921,
-      "x": 52.1330488,
-      "y": 21.1009318,
-      "network_id": 34,
-      "network_name": "BP",
-      "map_img": "/ac-file/station-map-img/593aa6fc592c7ded238b4570/bp.png"
-    },
-    {
-      "station_id": 7118,
-      "x": 52.15378686833356,
-      "y": 21.0916793346405,
-      "network_id": 205,
-      "network_name": "Circle K (Statoil)",
-      "map_img": "/ac-file/station-map-img/593aa790582c7d74768b4573/circle-k-statoil.png"
-    },
-    {
-      "station_id": 3798,
-      "x": 52.1808605,
-      "y": 21.0710317,
-      "network_id": 166,
-      "network_name": "PKN ORLEN",
-      "map_img": "/ac-file/station-map-img/593aa735582c7d30bd8b4567/pkn-orlen.png"
-    },
-    {
-      "station_id": 6951,
-      "x": 52.17019759261764,
-      "y": 21.04077637195587,
-      "network_id": 205,
-      "network_name": "Circle K (Statoil)",
-      "map_img": "/ac-file/station-map-img/593aa790582c7d74768b4573/circle-k-statoil.png"
-    },
-    {
-      "station_id": 4606,
-      "x": 52.17672794983751,
-      "y": 21.04532539844513,
-      "network_id": 166,
-      "network_name": "PKN ORLEN",
-      "map_img": "/ac-file/station-map-img/593aa735582c7d30bd8b4567/pkn-orlen.png"
-    },
-    {
-      "station_id": 6372,
-      "x": 52.17980034042948,
-      "y": 21.04426860809326,
-      "network_id": 34,
-      "network_name": "BP",
-      "map_img": "/ac-file/station-map-img/593aa6fc592c7ded238b4570/bp.png"
-    },
-    {
-      "station_id": 1463,
-      "x": 52.18679959835106,
-      "y": 21.04654312133789,
-      "network_id": 196,
+      "station_id": 3768,
+      "x": 52.58735423749279,
+      "y": 20.45551300048828,
       "network_name": "Shell",
-      "map_img": "/ac-file/station-map-img/593aa782582c7d4a768b4573/shell.png"
+      "petrol_list": [{ "type": "on", "price": "6.28" }],
+      "_id": "3UPXwYdpVwo7tmRr"
+    },
+    {
+      "id": 6111,
+      "station_id": 6111,
+      "x": 50.0092835264255,
+      "y": 22.6761245727539,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "lpg", "price": "3.13" }],
+      "_id": "5SpyEP3qcvGdNiaf"
+    },
+    {
+      "id": 385,
+      "station_id": 385,
+      "x": 54.18293853784956,
+      "y": 16.1832983571777,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "lpg", "price": "3.05" }],
+      "_id": "EmxRS19LS3xJTXwd"
+    },
+    {
+      "id": 438,
+      "station_id": 438,
+      "x": 49.78795907006032,
+      "y": 22.77692047567143,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [{ "type": "lpg+", "price": "2.99" }],
+      "_id": "H3wboKSzikBVW8LK"
+    },
+    {
+      "id": 182,
+      "station_id": 182,
+      "x": 51.21395410672331,
+      "y": 22.68775463104248,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "pb", "price": "5.81" }],
+      "_id": "Meem7zAkFSSF4SUB"
+    },
+    {
+      "id": 254,
+      "station_id": 254,
+      "x": 54.1749838,
+      "y": 19.4047277,
+      "network_name": "BP",
+      "petrol_list": [
+        { "type": "pb", "price": "5.89" },
+        { "type": "on+", "price": "5.86" },
+        { "type": "lpg", "price": "3.09" }
+      ],
+      "_id": "Mt8UnnYqeH2IG1ti"
+    },
+    {
+      "id": 112,
+      "station_id": 112,
+      "x": 50.326063217959,
+      "y": 19.206526279449,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "pb", "price": "5.87" }],
+      "_id": "RmWzbj1aJFGijJNU"
+    },
+    {
+      "id": 8819,
+      "station_id": 8819,
+      "x": 52.271262836429,
+      "y": 20.968388915062,
+      "network_name": "Prywatna",
+      "petrol_list": [{ "type": "on", "price": "5.67" }],
+      "_id": "aqezUUEml3ppYsik"
+    },
+    {
+      "id": 3768,
+      "station_id": 3768,
+      "x": 52.58735423749279,
+      "y": 20.45551300048828,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "on", "price": "6.28" }],
+      "_id": "nbumHTGORpMXLgpj"
+    },
+    {
+      "id": 156,
+      "station_id": 156,
+      "x": 52.2129115895872,
+      "y": 21.046254438298547,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "pb", "price": "5.82" }],
+      "_id": "qnXSBiEDUKKzCyFc"
     }
-  ],
-  "stations": {
-    "1464": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595394b3592c7d0d2b8b4571/shell.png\" alt=\"Shell\" /></div>\n        <div class=\"name\">Shell</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/shell/shell-lukasza-drewny-2-warszawa/\"><strong><b>Warszawa</b>, Łukasza Drewny 2</strong></a>\n        <ul class=\"petrol-list\">\n                    </ul>\n        <a href=\"/stacje-paliw/shell/shell-lukasza-drewny-2-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "8921": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595393d8592c7d54248b4572/bp.png\" alt=\"BP\" /></div>\n        <div class=\"name\">BP</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/bp/bp-przyczolkowa-141-warszawa/\"><strong><b>Warszawa</b>, Przyczółkowa 141</strong></a>\n        <ul class=\"petrol-list\">\n                                            <li><div class=\"fuel-logo on big\">on</div><div class=\"price\">5.55</div></li>\n                    </ul>\n        <a href=\"/stacje-paliw/bp/bp-przyczolkowa-141-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "7118": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595395c3582c7d04308b4574/circle-k-statoil.png\" alt=\"Circle K (Statoil)\" /></div>\n        <div class=\"name\">Circle K (Statoil)</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/circle-k-statoil/circle-k-statoil-europejska-127-warszawa/\"><strong><b>Warszawa</b>, Europejska 127</strong></a>\n        <ul class=\"petrol-list\">\n                    </ul>\n        <a href=\"/stacje-paliw/circle-k-statoil/circle-k-statoil-europejska-127-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "3798": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595394a9592c7d34248b4570/pkn-orlen.png\" alt=\"PKN ORLEN\" /></div>\n        <div class=\"name\">PKN ORLEN</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/pkn-orlen/pkn-orlen-powsinska-14-warszawa/\"><strong><b>Warszawa</b>, Powsińska 14</strong></a>\n        <ul class=\"petrol-list\">\n                    </ul>\n        <a href=\"/stacje-paliw/pkn-orlen/pkn-orlen-powsinska-14-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "6951": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595395c3582c7d04308b4574/circle-k-statoil.png\" alt=\"Circle K (Statoil)\" /></div>\n        <div class=\"name\">Circle K (Statoil)</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/circle-k-statoil/circle-k-statoil-nowoursynowska-183-warszawa/\"><strong><b>Warszawa</b>, Nowoursynowska 183</strong></a>\n        <ul class=\"petrol-list\">\n                                            <li><div class=\"fuel-logo on big\">on</div><div class=\"price\">5.63</div></li>\n                    </ul>\n        <a href=\"/stacje-paliw/circle-k-statoil/circle-k-statoil-nowoursynowska-183-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "4606": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595394a9592c7d34248b4570/pkn-orlen.png\" alt=\"PKN ORLEN\" /></div>\n        <div class=\"name\">PKN ORLEN</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/pkn-orlen/pkn-orlen-srodziemnomorska-2-warszawa/\"><strong><b>Warszawa</b>, Śródziemnomorska 2</strong></a>\n        <ul class=\"petrol-list\">\n                    </ul>\n        <a href=\"/stacje-paliw/pkn-orlen/pkn-orlen-srodziemnomorska-2-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "6372": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595393d8592c7d54248b4572/bp.png\" alt=\"BP\" /></div>\n        <div class=\"name\">BP</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/bp/bp-aleja-generala-wladyslawa-sikorskiego-warszawa/\"><strong><b>Warszawa</b>, Aleja Generała Władysława Sikorskiego</strong></a>\n        <ul class=\"petrol-list\">\n                    </ul>\n        <a href=\"/stacje-paliw/bp/bp-aleja-generala-wladyslawa-sikorskiego-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    },
-    "1463": {
-      "html": "<div class=\"map-station-pop-up\">\n    <div class=\"left-side\">\n        <div class=\"photo\"><img src=\"/ac-file/station-logo-img/595394b3592c7d0d2b8b4571/shell.png\" alt=\"Shell\" /></div>\n        <div class=\"name\">Shell</div>\n    </div>\n\n    <div class=\"right-side\">\n        <a href=\"/stacje-paliw/shell/shell-mangalia-warszawa/\"><strong><b>Warszawa</b>, Mangalia</strong></a>\n        <ul class=\"petrol-list\">\n                                            <li><div class=\"fuel-logo pb big\">pb</div><div class=\"price\">5.89</div></li>\n                    </ul>\n        <a href=\"/stacje-paliw/shell/shell-mangalia-warszawa/dodawanie-cen-paliw/\" class=\"refresh-price\"><i class=\"icon-arrows-ccw\"></i> Aktualizuj ceny</a>\n    </div>\n</div>\n"
-    }
-  }
+  ]
 }

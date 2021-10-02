@@ -114,7 +114,7 @@ export default function Map({ bounds, center, setCenter, list }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ i, id, position, name, item, html }) => (
+        {list.map(({ i, id, position, name, item }) => (
           <CircleMarker
             key={i}
             center={position}
@@ -127,7 +127,16 @@ export default function Map({ bounds, center, setCenter, list }) {
                     center.distanceTo(position).toFixed(0) / 1000
                   } km)`}
                 </header>
-                <main dangerouslySetInnerHTML={{ __html: html }} />
+                <table>
+                  <tbody>
+                    {item.petrol_list.map(({ type, price }, key) => (
+                      <tr key={key}>
+                        <th>{type}</th>
+                        <td>{price}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </section>
             </Popup>
           </CircleMarker>

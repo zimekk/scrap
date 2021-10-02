@@ -42,3 +42,11 @@ class Entities {
 export const items = new Entities(resolve(__dirname, "../temp/items.db"));
 
 export const requests = new Entities(resolve(__dirname, "../temp/requests.db"));
+
+export const stationItems = new Entities(
+  resolve(__dirname, "../temp/station-items.db")
+);
+
+export const stationRequests = new Entities(
+  resolve(__dirname, "../temp/station-requests.db")
+);

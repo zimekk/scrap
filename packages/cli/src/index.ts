@@ -1,11 +1,13 @@
 import fetch from "isomorphic-fetch";
-import { BehaviorSubject, from } from "rxjs";
-import { map, distinct, filter, mergeMap } from "rxjs/operators";
+import cheerio from "cheerio";
+import { BehaviorSubject, Subject, from, interval } from "rxjs";
+import { distinct, filter, map, mergeMap, take, tap } from "rxjs/operators";
 import { items, requests } from "@dev/api";
+import { stationItems, stationRequests } from "@dev/api/stations";
 
 require("dotenv").config();
 
-const { URL } = process.env;
+const { URL, STATIONS_URL } = process.env;
 
 const timeout =
   (timeout = 3000) =>
@@ -39,6 +41,9 @@ const request = ({
         )
           .then((response: any) => {
             console.log(["request"], id, requestLimit--);
+            if (requestLimit < 0) {
+              throw new Error("Request limit has been exceeded");
+            }
             if (response.status >= 400) {
               throw new Error("Bad response from server");
             }
@@ -50,7 +55,7 @@ const request = ({
   );
 };
 
-let requestLimit = 50;
+let requestLimit = 5;
 
 export default function () {
   // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
@@ -85,11 +90,113 @@ export default function () {
     })
   );
 
-  fetchPages$.subscribe(({ page, next_page }: any) => {
+  fetchPages$.subscribe(({ next_page }: any) => {
     if (next_page && requestLimit > 0) {
       pages$.next(next_page);
     }
   });
+
+  enum Method {
+    GetStations = "stations-get-stations",
+    GetStation = "stations-get-station",
+  }
+
+  const stations$ = new BehaviorSubject(Method.GetStations);
+
+  const stationItem$ = new Subject();
+
+  const stationRequest = ({
+    method,
+    station_id,
+  }: {
+    method: Method;
+    station_id?: number;
+  }) => {
+    const id = [method, station_id].filter(Boolean).join("-");
+    console.log({ id });
+    return stationRequests.findOne({ id }).then((data: any) =>
+      data
+        ? Promise.resolve(data.json)
+        : fetch(
+            {
+              [Method.GetStations]: `${STATIONS_URL}stations-get-stations?zoom=6`,
+              [Method.GetStation]: `${STATIONS_URL}stations-get-station?station_id=${station_id}`,
+            }[method]
+          )
+            .then((response: any) => {
+              console.log(["request"], id, requestLimit--);
+              if (requestLimit < 0) {
+                throw new Error("Request limit has been exceeded");
+              }
+              if (response.status >= 400) {
+                throw new Error("Bad response from server");
+              }
+              return response.json();
+            })
+            .then((json: any) => stationRequests.insert({ id, json }))
+            .then(timeout())
+            .then(({ json }: any) => json)
+    );
+  };
+
+  const fetchStations$ = stations$.pipe(
+    mergeMap((method) => {
+      return from(stationRequest({ method }));
+    }),
+    mergeMap((data: any) => {
+      return data;
+    }),
+    take(100),
+    map((data: any) => {
+      return data;
+    }),
+    mergeMap((data: any) => {
+      const { station_id } = data;
+      return from(
+        stationRequest({ method: Method.GetStation, station_id })
+      ).pipe(
+        map(({ html }: any) => {
+          const $ = cheerio.load(html);
+          return {
+            html,
+            petrol_list: $("ul.petrol-list > li")
+              .map((_i, $el) => {
+                return {
+                  type: $($el.children[0]).text(),
+                  price: $($el.children[1]).text(),
+                };
+              })
+              .get(),
+          };
+        }),
+        map(({ html, petrol_list }) => ({ ...data, html, petrol_list })),
+        map(({ station_id, x, y, network_name, petrol_list }) => ({
+          id: station_id,
+          station_id,
+          x,
+          y,
+          network_name,
+          petrol_list,
+        }))
+      );
+    }, 1)
+  );
+
+  fetchStations$.subscribe(({ ...item }: any) => {
+    // console.log({item})
+    stationItems
+      .findOne({ id: item.id })
+      .then((exists: any) => exists || stationItems.insert(item));
+  });
+
+  // interval(200).pipe(
+  //   take(10),
+  //   map(n => n*2),
+  //   mergeMap((n) => {
+  //     console.log({n})
+  //     return [1,2,3]
+  //   })
+  // ).subscribe(console.log)
 
   // items.findOne({ id: 355583 }).then(console.log);
 }

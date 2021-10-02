@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import Map, { useBounds } from "./Map";
-import useDebounce from "./useDebounce";
+import useDebounce from "../useDebounce";
 import usePlace from "./usePlace";
 import styles from "./styles.module.scss";
 
