@@ -10,7 +10,7 @@ require("dotenv").config();
 const { URL, STATIONS_URL } = process.env;
 
 const timeout =
-  (timeout = 3000) =>
+  (timeout = 1000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
@@ -55,7 +55,7 @@ const request = ({
   );
 };
 
-let requestLimit = 5;
+let requestLimit = 100;
 
 export default function () {
   // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
@@ -146,7 +146,7 @@ export default function () {
     mergeMap((data: any) => {
       return data;
     }),
-    take(100),
+    // take(100),
     map((data: any) => {
       return data;
     }),

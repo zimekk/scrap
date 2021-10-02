@@ -7,10 +7,13 @@ import styles from "./styles.module.scss";
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const TYPES = {
+  "": "",
   pb: "pb",
+  "pb+": "pb+",
   on: "on",
   "on+": "on+",
   lpg: "lpg",
+  "lpg+": "lpg+",
 };
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -80,12 +83,14 @@ function Data({ version = "v1" }) {
         .filter(
           ({ name, item: { petrol_list } }) =>
             name.toLowerCase().match(filter) &&
-            ((item) =>
-              Boolean(item) &&
-              priceFrom <= item.price &&
-              item.price <= priceTo)(
-              petrol_list.find((item) => item.type === type)
-            )
+            (type
+              ? ((item) =>
+                  Boolean(item) &&
+                  priceFrom <= item.price &&
+                  item.price <= priceTo)(
+                  petrol_list.find((item) => item.type === type)
+                )
+              : true)
         ),
     [results, filter, type, priceFrom, priceTo]
   );
