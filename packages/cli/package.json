@@ -20,7 +20,7 @@
     "@dev/api": "1.0.0",
     "cheerio": "^1.0.0-rc.10",
     "isomorphic-fetch": "^3.0.0",
-    "rxjs": "^7.3.0"
+    "rxjs": "^7.3.1"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
