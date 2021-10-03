@@ -10,7 +10,7 @@ require("dotenv").config();
 const { URL, STATIONS_URL } = process.env;
 
 const timeout =
-  (timeout = 1000) =>
+  (timeout = Math.random() * 5000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
