@@ -22,14 +22,19 @@ const prepare =
       Math.ceil(Number(data.total_found) / items) > page ? page + 1 : null,
   });
 
+const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
+  mktime - (mktime % period);
+
 const request = ({
+  time = Date.now(),
   lat = 52.1530829,
   lng = 21.1104411,
   circle = 25014.985524846034,
   items = 20,
   page = 1,
 }) => {
-  const id = [lat, lng, circle, items, page].join("-");
+  const mk = timestamp(time);
+  const id = [mk, lat, lng, circle, items, page].join("-");
   console.log({ id });
   return requests.findOne({ id }).then((data: any) =>
     data
@@ -102,8 +107,6 @@ export default function () {
   }
 
   const stations$ = new BehaviorSubject(Method.GetStations);
-
-  const stationItem$ = new Subject();
 
   const stationRequest = ({
     method,
@@ -182,12 +185,12 @@ export default function () {
     }, 1)
   );
 
-  fetchStations$.subscribe(({ ...item }: any) => {
-    // console.log({item})
-    stationItems
-      .findOne({ id: item.id })
-      .then((exists: any) => exists || stationItems.insert(item));
-  });
+  // fetchStations$.subscribe(({ ...item }: any) => {
+  //   // console.log({item})
+  //   stationItems
+  //     .findOne({ id: item.id })
+  //     .then((exists: any) => exists || stationItems.insert(item));
+  // });
 
   // interval(200).pipe(
   //   take(10),
