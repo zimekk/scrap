@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
+import { format } from "date-fns";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import usePlace from "./usePlace";
@@ -7,8 +8,8 @@ import styles from "./styles.module.scss";
 
 const RADIUS_LIST = [1, 3, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 const AREA_LIST = [
-  0, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 5000, 10000, 50000,
-  80000,
+  0, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000, 5000,
+  // 10000, 50000, 80000,
 ];
 const PRICE_LIST = [
   0, 100, 200, 400, 800, 1000, 1200, 1400, 1600, 1800, 2000, 5000, 10000,
@@ -45,6 +46,31 @@ function Data({ version = "v1" }) {
 
   const onChangeRadius = useCallback(
     ({ target }) => setRadius(Number(target.value)),
+    []
+  );
+
+  const [dateFrom, setDateFrom] = useState(() =>
+    format(Date.now() - 1000 * 3600 * 24 * 30, "yyyy-MM-dd")
+  );
+  const [dateTo, setDateTo] = useState(() => format(Date.now(), "yyyy-MM-dd"));
+
+  const onChangeDateFrom = useCallback(
+    ({ target }) =>
+      setDateTo((to) => {
+        const from = target.value;
+        setDateFrom(from);
+        return to < from ? from : to;
+      }),
+    []
+  );
+
+  const onChangeDateTo = useCallback(
+    ({ target }) =>
+      setDateFrom((from) => {
+        const to = target.value;
+        setDateTo(to);
+        return to > from ? from : to;
+      }),
     []
   );
 
@@ -105,8 +131,16 @@ function Data({ version = "v1" }) {
     () =>
       results
         .filter(
-          ({ description_short, area_m2, price: total, price_per_m2_pln }) =>
+          ({
+            description_short,
+            area_m2,
+            price: total,
+            price_per_m2_pln,
+            created,
+          }) =>
             description_short.toLowerCase().match(filter) &&
+            `${dateFrom} 00:00:00` <= created &&
+            created <= `${dateTo} 23:59:59` &&
             areaFrom <= area_m2 &&
             area_m2 <= areaTo &&
             priceFrom <= price_per_m2_pln &&
@@ -123,7 +157,17 @@ function Data({ version = "v1" }) {
             item,
           };
         }),
-    [results, filter, areaFrom, areaTo, priceFrom, priceTo, price]
+    [
+      results,
+      filter,
+      dateFrom,
+      dateTo,
+      areaFrom,
+      areaTo,
+      priceFrom,
+      priceTo,
+      price,
+    ]
   );
 
   const bounds = useBounds(list);
@@ -173,6 +217,16 @@ function Data({ version = "v1" }) {
               ))}
             </datalist>
             <span>{`max ${radius} km`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Date From</span>
+            <input type="date" value={dateFrom} onChange={onChangeDateFrom} />
+          </label>
+          <label>
+            <span>Date To</span>
+            <input type="date" value={dateTo} onChange={onChangeDateTo} />
           </label>
         </div>
         <div>
@@ -280,6 +334,7 @@ function Data({ version = "v1" }) {
           </label>
         </div>
       </fieldset>
+      <div>{`Found ${nearby.length} locations (out of ${list.length}) out of a total of ${results.length}`}</div>
       <ol>
         {list
           .map(({ item }) => item)
