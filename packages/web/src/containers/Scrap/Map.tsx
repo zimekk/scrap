@@ -21,22 +21,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 // import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import cx from "classnames";
+import Tabs, { Tab, TabList, TabPanel } from "./Tabs";
 import { KIND_TYPES } from "./constants";
+import cx from "classnames";
 import styles from "./Map.module.scss";
 
-function Gallery({ images }) {
-  {
-    console.log({ images });
-  }
-
+function Gallery({ images }: { images: Array<string> }) {
   return images.length ? (
     <div className={styles.Gallery}>
       {images.map((image, index) => (
         <img
           key={index}
           src={image}
-          alt={index + 1}
+          alt={`Image #${index + 1}`}
           referrerPolicy="no-referrer"
         />
       ))}
@@ -259,7 +256,7 @@ function DisplayPosition({ map }) {
 
 function Link({ href, ...props }) {
   const hash = href[0] === "#";
-  console.log({ href });
+
   return (
     <a
       href={href}
@@ -319,14 +316,24 @@ export default function Map({ bounds, center, setCenter, list }) {
             pathOptions={{ color: "purple" }}
           >
             <Popup minWidth={90}>
-              <Summary
-                id={id}
-                name={name}
-                center={center}
-                position={position}
-                {...item}
-              />
-              <Details id={id} {...item} />
+              <Tabs>
+                <TabList>
+                  <Tab>Summary</Tab>
+                  <Tab>Details</Tab>
+                </TabList>
+                <TabPanel>
+                  <Summary
+                    id={id}
+                    name={name}
+                    center={center}
+                    position={position}
+                    {...item}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <Details id={id} {...item} />
+                </TabPanel>
+              </Tabs>
             </Popup>
           </CircleMarker>
         ))}

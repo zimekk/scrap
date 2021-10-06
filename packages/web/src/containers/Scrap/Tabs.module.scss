@@ -1,0 +1,23 @@
+.Tabs {
+  display: flex;
+  flex-direction: column;
+
+  .TabPanel {
+  }
+}
+
+.TabList {
+  display: flex;
+  flex-direction: row;
+  background: gray;
+}
+
+.Tab {
+  flex: 1;
+  color: lightgray;
+  padding: 1em;
+
+  &.selected {
+    color: white;
+  }
+}
