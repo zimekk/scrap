@@ -3,6 +3,18 @@
 .Layout {
 }
 
+.Gallery {
+  overflow-x: auto;
+  display: flex;
+  flex-direction: row;
+  scroll-snap-type: x mandatory;
+
+  img {
+    max-width: 100%;
+    scroll-snap-align: center;
+  }
+}
+
 .Map {
   height: 75vh;
   border: 2px solid red;

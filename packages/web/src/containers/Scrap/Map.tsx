@@ -25,6 +25,139 @@ import cx from "classnames";
 import { KIND_TYPES } from "./constants";
 import styles from "./Map.module.scss";
 
+function Gallery({ images }) {
+  {
+    console.log({ images });
+  }
+
+  return images.length ? (
+    <div className={styles.Gallery}>
+      {images.map((image, index) => (
+        <img
+          key={index}
+          src={image}
+          alt={index + 1}
+          referrerPolicy="no-referrer"
+        />
+      ))}
+    </div>
+  ) : null;
+}
+
+function Summary({
+  description_short,
+  description = description_short,
+  our_title,
+  title,
+  images,
+  id,
+  name,
+  center,
+  position,
+}) {
+  return (
+    <section>
+      <header>
+        <Link
+          href={evalTemplate(process.env.HREF_TEMPLATE, {
+            id,
+            name,
+          })}
+        >
+          {title || our_title}
+        </Link>{" "}
+        ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
+      </header>
+      <Gallery images={images} />
+      <p dangerouslySetInnerHTML={{ __html: description }} />
+    </section>
+  );
+}
+
+function Details({
+  kind,
+  type,
+  location_user,
+  offerowner_name,
+  f,
+  format,
+  format_specific,
+  created,
+  changed,
+  id,
+}) {
+  return (
+    <table>
+      <tbody>
+        <tr>
+          <th>Format:</th>
+          <td>{format}</td>
+        </tr>
+        <tr>
+          <th>Typ nieruchomości:</th>
+          <td>{KIND_TYPES[kind][type]}</td>
+        </tr>
+        <tr>
+          <th>Dodano:</th>
+          <td>{created}</td>
+        </tr>
+        <tr>
+          <th>Ostatnia aktualizacja:</th>
+          <td>{changed}</td>
+        </tr>
+        <tr>
+          <th>Powierzchnia:</th>
+          <td>
+            {f.area_m2} m² ({f.area_m2_4} {f.area_m2_4t})
+          </td>
+        </tr>
+        <tr>
+          <th>Cena:</th>
+          <td>{f.p_pln} zł</td>
+        </tr>
+        <tr>
+          <th>Cena za m²:</th>
+          <td>{f.pp_m2_pln_wz} zł</td>
+        </tr>
+        <tr>
+          <th>Cena za ar:</th>
+          <td>{f.pp_m2_pln_4} zł</td>
+        </tr>
+        <tr>
+          <th>Lokalizacja:</th>
+          <td>{location_user}</td>
+        </tr>
+        {format_specific && (
+          <tr>
+            <th>Dojazd:</th>
+            <td>{format_specific.id_dojazd}</td>
+          </tr>
+        )}
+        {format_specific && (
+          <tr>
+            <th>Agent prowadzący:</th>
+            <td>{format_specific.kontakt_osoba}</td>
+          </tr>
+        )}
+        {format_specific && (
+          <tr>
+            <th>Rodzaj działki:</th>
+            <td>{format_specific.id_rodzaj_dzialki}</td>
+          </tr>
+        )}
+        <tr>
+          <th>Pośrednik:</th>
+          <td>{offerowner_name}</td>
+        </tr>
+        <tr>
+          <th>Nr ogłoszenia:</th>
+          <td>{id}</td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
+
 function DraggableMarker({ position, children, setPosition }) {
   const markerRef = useRef(null);
   const eventHandlers = useMemo(
@@ -126,6 +259,7 @@ function DisplayPosition({ map }) {
 
 function Link({ href, ...props }) {
   const hash = href[0] === "#";
+  console.log({ href });
   return (
     <a
       href={href}
@@ -185,107 +319,14 @@ export default function Map({ bounds, center, setCenter, list }) {
             pathOptions={{ color: "purple" }}
           >
             <Popup minWidth={90}>
-              {(({
-                description_short,
-                description = description_short,
-                our_title,
-                title,
-              }) => (
-                <section>
-                  <header>
-                    <Link
-                      href={evalTemplate(process.env.HREF_TEMPLATE, {
-                        id,
-                        name,
-                      })}
-                    >
-                      {title || our_title}
-                    </Link>{" "}
-                    ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
-                  </header>
-                  <p dangerouslySetInnerHTML={{ __html: description }} />
-                </section>
-              ))(item)}
-              {(({
-                kind,
-                type,
-                location_user,
-                offerowner_name,
-                f,
-                format,
-                format_specific,
-                created,
-                changed,
-              }) => (
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>Format:</th>
-                      <td>{format}</td>
-                    </tr>
-                    <tr>
-                      <th>Typ nieruchomości:</th>
-                      <td>{KIND_TYPES[kind][type]}</td>
-                    </tr>
-                    <tr>
-                      <th>Dodano:</th>
-                      <td>{created}</td>
-                    </tr>
-                    <tr>
-                      <th>Ostatnia aktualizacja:</th>
-                      <td>{changed}</td>
-                    </tr>
-                    <tr>
-                      <th>Powierzchnia:</th>
-                      <td>
-                        {f.area_m2} m² ({f.area_m2_4} {f.area_m2_4t})
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>Cena:</th>
-                      <td>{f.p_pln} zł</td>
-                    </tr>
-                    <tr>
-                      <th>Cena za m²:</th>
-                      <td>{f.pp_m2_pln_wz} zł</td>
-                    </tr>
-                    <tr>
-                      <th>Cena za ar:</th>
-                      <td>{f.pp_m2_pln_4} zł</td>
-                    </tr>
-                    <tr>
-                      <th>Lokalizacja:</th>
-                      <td>{location_user}</td>
-                    </tr>
-                    {format_specific && (
-                      <tr>
-                        <th>Dojazd:</th>
-                        <td>{format_specific.id_dojazd}</td>
-                      </tr>
-                    )}
-                    {format_specific && (
-                      <tr>
-                        <th>Agent prowadzący:</th>
-                        <td>{format_specific.kontakt_osoba}</td>
-                      </tr>
-                    )}
-                    {format_specific && (
-                      <tr>
-                        <th>Rodzaj działki:</th>
-                        <td>{format_specific.id_rodzaj_dzialki}</td>
-                      </tr>
-                    )}
-                    <tr>
-                      <th>Pośrednik:</th>
-                      <td>{offerowner_name}</td>
-                    </tr>
-                    <tr>
-                      <th>Nr ogłoszenia:</th>
-                      <td>{id}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              ))(item)}
+              <Summary
+                id={id}
+                name={name}
+                center={center}
+                position={position}
+                {...item}
+              />
+              <Details id={id} {...item} />
             </Popup>
           </CircleMarker>
         ))}
