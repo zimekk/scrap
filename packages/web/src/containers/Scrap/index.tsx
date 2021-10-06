@@ -4,7 +4,20 @@ import { format } from "date-fns";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import usePlace from "./usePlace";
+import { KIND_TYPES } from "./constants";
 import styles from "./styles.module.scss";
+
+const getKindType = (kind: string, type: string) => [kind, type].join(":");
+
+const TYPES = Object.entries(KIND_TYPES).reduce(
+  (result, [kind, types]) =>
+    Object.entries(types).reduce(
+      (result, [type, name]) =>
+        Object.assign(result, { [getKindType(kind, type)]: name }),
+      result
+    ),
+  {}
+);
 
 const RADIUS_LIST = [1, 3, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 const AREA_LIST = [
@@ -48,6 +61,10 @@ function Data({ version = "v1" }) {
     ({ target }) => setRadius(Number(target.value)),
     []
   );
+
+  const [kindType, setType] = useState(() => Object.keys(TYPES)[3]);
+
+  const onChangeType = useCallback(({ target }) => setType(target.value), []);
 
   const [dateFrom, setDateFrom] = useState(() =>
     format(Date.now() - 1000 * 3600 * 24 * 30, "yyyy-MM-dd")
@@ -137,8 +154,11 @@ function Data({ version = "v1" }) {
             price: total,
             price_per_m2_pln,
             created,
+            kind,
+            type,
           }) =>
             description_short.toLowerCase().match(filter) &&
+            kindType === getKindType(kind, type) &&
             `${dateFrom} 00:00:00` <= created &&
             created <= `${dateTo} 23:59:59` &&
             areaFrom <= area_m2 &&
@@ -160,6 +180,7 @@ function Data({ version = "v1" }) {
     [
       results,
       filter,
+      kindType,
       dateFrom,
       dateTo,
       areaFrom,
@@ -217,6 +238,18 @@ function Data({ version = "v1" }) {
               ))}
             </datalist>
             <span>{`max ${radius} km`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Type</span>
+            <select value={kindType} onChange={onChangeType}>
+              {Object.entries(TYPES).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
           </label>
         </div>
         <div>

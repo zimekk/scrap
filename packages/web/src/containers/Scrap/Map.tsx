@@ -22,6 +22,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 // import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import cx from "classnames";
+import { KIND_TYPES } from "./constants";
 import styles from "./Map.module.scss";
 
 function DraggableMarker({ position, children, setPosition }) {
@@ -224,22 +225,7 @@ export default function Map({ bounds, center, setCenter, list }) {
                     </tr>
                     <tr>
                       <th>Typ nieruchomości:</th>
-                      <td>
-                        {
-                          {
-                            "1": {
-                              "1": "mieszkanie na sprzedaż",
-                              "2": "mieszkanie do wynajęcia",
-                            },
-                            "2": {
-                              "1": "dom na sprzedaż",
-                            },
-                            "4": {
-                              "1": "działka na sprzedaż",
-                            },
-                          }[kind][type]
-                        }
-                      </td>
+                      <td>{KIND_TYPES[kind][type]}</td>
                     </tr>
                     <tr>
                       <th>Dodano:</th>

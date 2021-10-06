@@ -30,11 +30,15 @@ const request = ({
   lat = 52.1530829,
   lng = 21.1104411,
   circle = 25014.985524846034,
+  kind = 4,
+  type = 1, // dzialki/do-sprzedania
+  // kind = 2, type = 1, // domy/do-sprzedania
+  // kind = 1, type = 2, // mieszkania/do-wynajecia
   items = 20,
   page = 1,
 }) => {
   const mk = timestamp(time);
-  const id = [mk, lat, lng, circle, items, page].join("-");
+  const id = [mk, lat, lng, circle, kind, type, items, page].join("-");
   console.log({ id });
   return requests.findOne({ id }).then((data: any) =>
     data
@@ -42,7 +46,7 @@ const request = ({
           prepare(json)({ items, page })
         )
       : fetch(
-          `${URL}?dump=list&type=1&kind=4&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
+          `${URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
         )
           .then((response: any) => {
             console.log(["request"], id, requestLimit--);
