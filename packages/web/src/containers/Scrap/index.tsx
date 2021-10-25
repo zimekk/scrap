@@ -191,7 +191,9 @@ function Data({ version = "v1" }) {
     ]
   );
 
-  const bounds = useBounds(list);
+  const bounds = useBounds(
+    list.length ? list : [{ position: { lat: 52.232855, lng: 20.921111 } }]
+  );
   const [center, setCenter] = useState(() => bounds.getCenter());
 
   const nearby = useMemo(
