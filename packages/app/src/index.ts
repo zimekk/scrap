@@ -36,6 +36,9 @@ const api = Router()
   )
   .use("/api/stations/data.json", (_req, res) =>
     stationItems.find({}).then((results) => res.json({ results }))
+  )
+  .use("/api/vehicles/data.json", (_req, res) =>
+    res.json(require("../../web/src/assets/api/vehicles/data.json"))
   );
 
 const PORT = 8080;
