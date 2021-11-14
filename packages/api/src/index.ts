@@ -50,3 +50,11 @@ export const stationItems = new Entities(
 export const stationRequests = new Entities(
   resolve(__dirname, "../temp/station-requests.db")
 );
+
+export const vehicleItems = new Entities(
+  resolve(__dirname, "../temp/vehicle-items.db")
+);
+
+export const vehicleRequests = new Entities(
+  resolve(__dirname, "../temp/vehicle-requests.db")
+);

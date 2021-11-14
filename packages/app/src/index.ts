@@ -2,7 +2,7 @@ import express, { Router } from "express";
 // import cors from "cors";
 import path from "path";
 import { items } from "@dev/api";
-import { stationItems } from "@dev/api/stations";
+import { stationItems, vehicleItems } from "@dev/api/stations";
 
 const web =
   process.env.NODE_ENV === "development"
@@ -38,7 +38,8 @@ const api = Router()
     stationItems.find({}).then((results) => res.json({ results }))
   )
   .use("/api/vehicles/data.json", (_req, res) =>
-    res.json(require("../../web/src/assets/api/vehicles/data.json"))
+    // res.json(require('../../web/src/assets/api/vehicles/data.json'))
+    vehicleItems.find({}).then(($list) => res.json({ $list }))
   );
 
 const PORT = 8080;

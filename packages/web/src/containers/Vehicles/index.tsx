@@ -9,44 +9,62 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
   1000000,
 ];
+const YEAR_LIST = [...Array(15)]
+  .map((_, i) => new Date().getFullYear() - i)
+  .reverse();
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/vehicles/data.json?${version}`);
-  return await res.json().then(({ $list }) => ({
-    results: $list,
-    options: $list.reduce(
-      (options, item) =>
-        [
-          "bodyType",
-          "brand",
-          "color",
-          "emissionStandard",
-          "fuel",
-          "series",
-          "seriesCode",
-          "modelCode",
-          "transmission",
-        ].reduce(
-          (options, prop) => ({
-            ...options,
-            [prop]: Object.assign(
-              {},
-              options[prop],
-              typeof item[prop] === "object"
-                ? {
-                    [item[prop].id]: item[prop].label,
-                  }
-                : {
-                    [item[prop]]: item[prop],
-                  }
+  return await res
+    .json()
+    .then(({ $list }) => ({
+      results: $list,
+      options: $list.reduce(
+        (options, item) =>
+          [
+            "bodyType",
+            "brand",
+            "color",
+            "emissionStandard",
+            "fuel",
+            "series",
+            "seriesCode",
+            "modelCode",
+            "transmission",
+          ].reduce(
+            (options, prop) => ({
+              ...options,
+              [prop]: Object.assign(
+                {},
+                options[prop],
+                typeof item[prop] === "object"
+                  ? {
+                      [item[prop].id]: item[prop].label,
+                    }
+                  : {
+                      [item[prop]]: item[prop],
+                    }
+              ),
+            }),
+            options
+          ),
+        {}
+      ),
+    }))
+    .then(({ options, ...rest }) => {
+      Object.keys(options).forEach((key) =>
+        Object.assign(options, {
+          [key]: Object.entries(options[key])
+            .sort(([a], [b]) => (String(a) > String(b) ? 1 : -1))
+            .reduce(
+              (result, [key, value]) => Object.assign(result, { [key]: value }),
+              {}
             ),
-          }),
-          options
-        ),
-      {}
-    ),
-  }));
+        })
+      );
+      return { options, ...rest };
+    });
 });
 
 function Gallery({ images }) {
@@ -147,6 +165,29 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const [yearFrom, setYearFrom] = useState(YEAR_LIST[0]);
+  const [yearTo, setYearTo] = useState(YEAR_LIST[YEAR_LIST.length - 1]);
+
+  const onChangeYearFrom = useCallback(
+    ({ target }) =>
+      setYearTo((to) => {
+        const from = Number(target.value);
+        setYearFrom(from);
+        return to < from ? from : to;
+      }),
+    []
+  );
+
+  const onChangeYearTo = useCallback(
+    ({ target }) =>
+      setYearFrom((from) => {
+        const to = Number(target.value);
+        setYearTo(to);
+        return to > from ? from : to;
+      }),
+    []
+  );
+
   console.log({ options, results });
 
   const list = useMemo(
@@ -166,10 +207,12 @@ function Data({ version = "v1" }) {
           };
         })
         .filter(
-          ({ name, item }) =>
-            name.toLowerCase().match(filter) &&
+          ({ item }) =>
+            item.title.toLowerCase().match(filter) &&
             priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= priceTo &&
+            yearFrom <= item.productionYear &&
+            item.productionYear <= yearTo &&
             Object.entries(criteria).findIndex(
               ([prop, value]) =>
                 ![
@@ -180,7 +223,7 @@ function Data({ version = "v1" }) {
                 ].includes(value)
             ) === -1
         ),
-    [results, filter, criteria, priceFrom, priceTo]
+    [results, filter, criteria, yearFrom, yearTo, priceFrom, priceTo]
   );
 
   const bounds = useBounds(
@@ -232,6 +275,44 @@ function Data({ version = "v1" }) {
               ))}
             </datalist>
             <span>{`max ${radius} km`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Year From</span>
+            <input
+              type="range"
+              list="year-list"
+              min={YEAR_LIST[0]}
+              max={YEAR_LIST[YEAR_LIST.length - 1]}
+              value={yearFrom}
+              onChange={onChangeYearFrom}
+            />
+            <datalist id="year-list">
+              {YEAR_LIST.map((value) => (
+                <option
+                  key={value}
+                  value={value}
+                  label={
+                    [0, 2010, 2015, 2020].includes(value)
+                      ? `${value}`
+                      : undefined
+                  }
+                ></option>
+              ))}
+            </datalist>
+          </label>
+          <label>
+            <span>Year To</span>
+            <input
+              type="range"
+              list="year-list"
+              min={YEAR_LIST[0]}
+              max={YEAR_LIST[YEAR_LIST.length - 1]}
+              value={yearTo}
+              onChange={onChangeYearTo}
+            />
+            <span>{`${yearFrom}-${yearTo}`}</span>
           </label>
         </div>
         <div>
@@ -291,6 +372,7 @@ function Data({ version = "v1" }) {
       <div>{`Found ${list.length} vehicles out of a total of ${results.length}`}</div>
       <ol>
         {list
+          .slice(0, 100)
           .map(({ item }) => item)
           .map(
             (
@@ -298,7 +380,7 @@ function Data({ version = "v1" }) {
                 id,
                 title,
                 brand,
-                series,
+                series = {},
                 seriesCode,
                 bodyType,
                 modelCode,
@@ -324,17 +406,19 @@ function Data({ version = "v1" }) {
               },
               key: number
             ) => (
-              <li key={key}>
+              <li key={key} className={styles.Row}>
                 <Gallery
-                  images={[...Array(images)].map(
-                    (
-                      _,
-                      i,
-                      _list,
-                      size = "322/255b28ffdad35cd984ff32f30da17158"
-                    ) =>
-                      `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
-                  )}
+                  images={[...Array(images)]
+                    .slice(0, 3)
+                    .map(
+                      (
+                        _,
+                        i,
+                        _list,
+                        size = "322/255b28ffdad35cd984ff32f30da17158"
+                      ) =>
+                        `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
+                    )}
                 />
                 <ul>
                   <li>

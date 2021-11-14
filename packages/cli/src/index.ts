@@ -3,7 +3,12 @@ import cheerio from "cheerio";
 import { BehaviorSubject, Subject, from, interval } from "rxjs";
 import { distinct, filter, map, mergeMap, take, tap } from "rxjs/operators";
 import { items, requests } from "@dev/api";
-import { stationItems, stationRequests } from "@dev/api/stations";
+import {
+  stationItems,
+  stationRequests,
+  vehicleItems,
+  vehicleRequests,
+} from "@dev/api/stations";
 
 require("dotenv").config();
 
@@ -99,11 +104,11 @@ export default function () {
     })
   );
 
-  fetchPages$.subscribe(({ next_page }: any) => {
-    if (next_page && requestLimit > 0) {
-      pages$.next(next_page);
-    }
-  });
+  // fetchPages$.subscribe(({ next_page }: any) => {
+  //   if (next_page && requestLimit > 0) {
+  //     pages$.next(next_page);
+  //   }
+  // });
 
   enum Method {
     GetStations = "stations-get-stations",
@@ -188,6 +193,90 @@ export default function () {
       );
     }, 1)
   );
+
+  const vehicleRequest = ({
+    time = Date.now(),
+    $match = {
+      transactionalPrice: {
+        $min: 0,
+        $max: 1790000,
+      },
+      brand: 1,
+      // "series":5
+    },
+    $skip = 0,
+    $limit = 250,
+  }) => {
+    const URL =
+      "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/search";
+    const mk = timestamp(time, 1000 * 3600);
+    // const id = ['najlepszeoferty', mk, $match.brand, $match.series, $limit, $skip].join("-");
+    const id = ["najlepszeoferty", mk, $match.brand, $limit, $skip].join("-");
+    console.log({ id });
+    return requests
+      .findOne({ id })
+      .then((data: any) =>
+        data
+          ? Promise.resolve(data)
+          : fetch(URL, {
+              method: "POST",
+              body: JSON.stringify({
+                $match,
+                $skip,
+                $limit,
+              }),
+            })
+              .then((response: any) => {
+                console.log(["request"], id, requestLimit--);
+                if (requestLimit < 0) {
+                  throw new Error("Request limit has been exceeded");
+                }
+                if (response.status >= 400) {
+                  throw new Error("Bad response from server");
+                }
+                return response.json();
+              })
+              .then(
+                (json: any) =>
+                  Boolean(console.log({ id, json })) ||
+                  requests.insert({ id, json: JSON.stringify(json) })
+              )
+              .then(timeout())
+      )
+      .then(({ json }: any) => JSON.parse(json));
+  };
+
+  const vehicles$ = new BehaviorSubject({
+    $skip: 0,
+    $limit: 250,
+  });
+  vehicles$
+    .pipe(
+      mergeMap(({ $skip, $limit }) =>
+        from(vehicleRequest({ $skip, $limit })).pipe(
+          map(({ $list, $count }) => ({
+            $skip,
+            $limit,
+            $list,
+            $count,
+          })),
+          tap(({ $skip, $limit, $count: { $total } }) => {
+            const $next = $skip + $limit;
+            console.log({ $skip, $limit, $next, $total });
+            if ($next < $total) {
+              vehicles$.next({ $skip: $next, $limit });
+            }
+          })
+        )
+      ),
+      mergeMap(({ $list }) => $list)
+    )
+    .subscribe((item: any) => {
+      // console.log({item})
+      vehicleItems
+        .findOne({ id: item.id })
+        .then((exists: any) => exists || vehicleItems.insert(item));
+    });
 
   // fetchStations$.subscribe(({ ...item }: any) => {
   //   // console.log({item})
