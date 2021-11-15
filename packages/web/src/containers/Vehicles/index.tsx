@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
+import createKDTree from "static-kdtree";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
@@ -85,6 +86,10 @@ function Gallery({ images }) {
       ))}
     </div>
   ) : null;
+}
+
+function Button({ ...props }) {
+  return <button {...props} />;
 }
 
 function Color({ color }) {
@@ -197,6 +202,52 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const onClickCompare = useCallback(({ target }) => {
+    const id = Number(target.value);
+    const getPoint = (item) => [
+      item.capacity,
+      item.powerHP,
+      item.consumptionFuel,
+      item.emission,
+      item.newPrice,
+      item.optionsPrice,
+      item.productionYear,
+      item.age,
+      item.mileage,
+      item.transactionalPrice,
+      item.warranty,
+    ];
+
+    const tree = createKDTree(results.map(getPoint));
+
+    console.table(
+      tree
+        .knn(
+          getPoint(
+            results.find((item) => item.id === id),
+            10
+          )
+        )
+        .slice(0, 10)
+        .map((index) => results[index])
+        .map((item) => [
+          item.id,
+          item.title,
+          item.capacity,
+          item.powerHP,
+          item.consumptionFuel,
+          item.emission,
+          item.newPrice,
+          item.optionsPrice,
+          item.productionYear,
+          item.age,
+          item.mileage,
+          item.transactionalPrice,
+          item.warranty,
+        ])
+    );
+  }, []);
+
   console.log({ options, results });
 
   const list = useMemo(
@@ -217,7 +268,8 @@ function Data({ version = "v1" }) {
         })
         .filter(
           ({ item }) =>
-            item.title.toLowerCase().match(filter) &&
+            (item.title.toLowerCase().match(filter) ||
+              filter.trim() === String(item.id)) &&
             ["", item.isNew ? "N" : "U"].includes(type) &&
             priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= priceTo &&
@@ -446,6 +498,9 @@ function Data({ version = "v1" }) {
                     <Link
                       href={`//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`}
                     >{`[${id}] ${title}`}</Link>
+                    <Button onClick={onClickCompare} value={id}>
+                      Compare
+                    </Button>
                   </li>
                   <li>
                     [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}
