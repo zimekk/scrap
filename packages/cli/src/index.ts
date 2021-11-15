@@ -7,7 +7,7 @@ import {
   stationItems,
   stationRequests,
   vehicleItems,
-  vehicleRequests,
+  vehicle2Items,
 } from "@dev/api/stations";
 
 require("dotenv").config();
@@ -201,8 +201,9 @@ export default function () {
         $min: 0,
         $max: 1790000,
       },
-      brand: 1,
-      // "series":5
+      brand: 1, // BMW
+      // brand: 65, // MINI
+      // series :5
     },
     $skip = 0,
     $limit = 250,
@@ -250,33 +251,102 @@ export default function () {
     $skip: 0,
     $limit: 250,
   });
-  vehicles$
+  vehicles$.pipe(
+    mergeMap(({ $skip, $limit }) =>
+      from(vehicleRequest({ $skip, $limit })).pipe(
+        map(({ $list, $count }) => ({
+          $skip,
+          $limit,
+          $list,
+          $count,
+        })),
+        tap(({ $skip, $limit, $count: { $total } }) => {
+          const $next = $skip + $limit;
+          console.log({ $skip, $limit, $next, $total });
+          if ($next < $total) {
+            vehicles$.next({ $skip: $next, $limit });
+          }
+        })
+      )
+    ),
+    mergeMap(({ $list }) => $list)
+  );
+  // .subscribe((item: any) => {
+  //   // console.log({item})
+  //   vehicleItems
+  //     .findOne({ id: item.id })
+  //     .then((exists: any) => exists || vehicleItems.insert(item));
+  // });
+
+  const vehicle2Request = ({
+    $time = Date.now(),
+    $from = 0,
+    $size = 25,
+    $sort = "prices.retail%3Aasc",
+  }) => {
+    const URL = `https://scs.audi.de/api/v2/search/filter/pluc/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`;
+    const mk = timestamp($time, 1000 * 3600);
+    const id = ["scs", mk, $size, $from].join("-");
+    console.log({ id });
+    return requests
+      .findOne({ id })
+      .then((data: any) =>
+        data
+          ? Promise.resolve(data)
+          : fetch(URL)
+              .then((response: any) => {
+                console.log(["request"], id, requestLimit--);
+                if (requestLimit < 0) {
+                  throw new Error("Request limit has been exceeded");
+                }
+                if (response.status >= 400) {
+                  throw new Error("Bad response from server");
+                }
+                return response.json();
+              })
+              .then(
+                (json: any) =>
+                  Boolean(console.log({ id, json })) ||
+                  requests.insert({ id, json: JSON.stringify(json) })
+              )
+              .then(timeout())
+      )
+      .then(({ json }: any) => JSON.parse(json));
+  };
+
+  const vehicles2$ = new BehaviorSubject({
+    $from: 0,
+    $size: 25,
+  });
+  vehicles2$
     .pipe(
-      mergeMap(({ $skip, $limit }) =>
-        from(vehicleRequest({ $skip, $limit })).pipe(
-          map(({ $list, $count }) => ({
-            $skip,
-            $limit,
-            $list,
-            $count,
+      mergeMap(({ $from, $size }) =>
+        from(vehicle2Request({ $from, $size })).pipe(
+          map(({ vehicleBasic, totalCount }) => ({
+            $from,
+            $size,
+            vehicleBasic,
+            totalCount,
           })),
-          tap(({ $skip, $limit, $count: { $total } }) => {
-            const $next = $skip + $limit;
-            console.log({ $skip, $limit, $next, $total });
-            if ($next < $total) {
-              vehicles$.next({ $skip: $next, $limit });
+          tap(({ $from, $size, totalCount }) => {
+            const $next = $from + $size;
+            console.log({ $from, $size, $next, totalCount });
+            if ($next < totalCount) {
+              vehicles2$.next({ $from: $next, $size });
             }
           })
         )
       ),
-      mergeMap(({ $list }) => $list)
+      mergeMap(({ vehicleBasic }) => vehicleBasic)
     )
     .subscribe((item: any) => {
       // console.log({item})
-      vehicleItems
+      vehicle2Items
         .findOne({ id: item.id })
-        .then((exists: any) => exists || vehicleItems.insert(item));
+        .then((exists: any) => exists || vehicle2Items.insert(item));
     });
+
+  // await fetch('https://scs.audi.de/api/v2/search/filter/pluc/pl?svd=svd-2021-11-15t01_48_13_593-23&size=1000').then(res => res.json())
 
   // fetchStations$.subscribe(({ ...item }: any) => {
   //   // console.log({item})
