@@ -9,6 +9,11 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
   1000000,
 ];
+const TYPES = {
+  "": "",
+  N: "New",
+  U: "Used",
+};
 const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
@@ -134,6 +139,10 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const [type, setType] = useState("");
+
+  const onChangeType = useCallback(({ target }) => setType(target.value), []);
+
   const [radius, setRadius] = useState(RADIUS_LIST[RADIUS_LIST.length - 1]);
 
   const onChangeRadius = useCallback(
@@ -210,8 +219,9 @@ function Data({ version = "v1" }) {
           };
         })
         .filter(
-          ({ item, name, transactionalPrice }) =>
-            name.toLowerCase().match(filter) &&
+          ({ item, transactionalPrice }) =>
+            item.model.description.toLowerCase().match(filter) &&
+            ["", item.type].includes(type) &&
             priceFrom <= transactionalPrice &&
             transactionalPrice <= priceTo &&
             yearFrom <= item.productionYear &&
@@ -228,7 +238,7 @@ function Data({ version = "v1" }) {
                 ].includes(value)
             ) === -1
         ),
-    [results, filter, criteria, yearFrom, yearTo, priceFrom, priceTo]
+    [results, filter, type, criteria, yearFrom, yearTo, priceFrom, priceTo]
   );
 
   const bounds = useBounds(
@@ -254,6 +264,16 @@ function Data({ version = "v1" }) {
       />
       <fieldset>
         <div>
+          <label>
+            <span>Type</span>
+            <select value={type} onChange={onChangeType}>
+              {Object.entries(TYPES).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
           <label>
             <span>Search</span>
             <input type="search" value={search} onChange={onChangeSearch} />
@@ -379,7 +399,7 @@ function Data({ version = "v1" }) {
         {list
           .slice(0, 100)
           .map(({ item }) => item)
-          .map(({ id, carId, model, pictures, ...item }, key: number) => (
+          .map(({ id, carId, model, pictures = [], ...item }, key: number) => (
             <li key={key} className={styles.Row}>
               <Gallery images={pictures.slice(0, 3).map(({ url }) => url)} />
               <ul>
@@ -396,10 +416,14 @@ function Data({ version = "v1" }) {
                 </li>
                 <li>
                   modelYear: {item.modelYear} powerDisplay: {item.powerDisplay}
-                  initialRegistration: {item.used.initialRegistration}{" "}
-                  {`${item.used.mileageFormatted} ${item.used.mileageUnit}`}{" "}
-                  {item.typedPrices[0].formatted}
                 </li>
+                {item.used && (
+                  <li>
+                    initialRegistration: {item.used.initialRegistration}{" "}
+                    {`${item.used.mileageFormatted} ${item.used.mileageUnit}`}{" "}
+                    {item.typedPrices[0].formatted}
+                  </li>
+                )}
               </ul>
             </li>
           ))}

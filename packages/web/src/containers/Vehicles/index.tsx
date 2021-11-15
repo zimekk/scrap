@@ -9,6 +9,11 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
   1000000,
 ];
+const TYPES = {
+  "": "",
+  N: "New",
+  U: "Used",
+};
 const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
@@ -135,6 +140,10 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const [type, setType] = useState("");
+
+  const onChangeType = useCallback(({ target }) => setType(target.value), []);
+
   const [radius, setRadius] = useState(RADIUS_LIST[RADIUS_LIST.length - 1]);
 
   const onChangeRadius = useCallback(
@@ -209,6 +218,7 @@ function Data({ version = "v1" }) {
         .filter(
           ({ item }) =>
             item.title.toLowerCase().match(filter) &&
+            ["", item.isNew ? "N" : "U"].includes(type) &&
             priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= priceTo &&
             yearFrom <= item.productionYear &&
@@ -223,7 +233,7 @@ function Data({ version = "v1" }) {
                 ].includes(value)
             ) === -1
         ),
-    [results, filter, criteria, yearFrom, yearTo, priceFrom, priceTo]
+    [results, filter, type, criteria, yearFrom, yearTo, priceFrom, priceTo]
   );
 
   const bounds = useBounds(
@@ -249,6 +259,16 @@ function Data({ version = "v1" }) {
       />
       <fieldset>
         <div>
+          <label>
+            <span>Type</span>
+            <select value={type} onChange={onChangeType}>
+              {Object.entries(TYPES).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
           <label>
             <span>Search</span>
             <input type="search" value={search} onChange={onChangeSearch} />
@@ -428,9 +448,8 @@ function Data({ version = "v1" }) {
                     >{`[${id}] ${title}`}</Link>
                   </li>
                   <li>
-                    [{seriesCode}] {brand.label} {series.label}{" "}
-                    {seriesCode.label} {bodyType.label} {fuel.label}{" "}
-                    {transmission.label}
+                    [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}
+                    {fuel.label} {transmission.label}
                   </li>
                   <li>
                     [{modelCode}] capacity: {capacity} powerHP: {powerHP}{" "}
@@ -439,8 +458,9 @@ function Data({ version = "v1" }) {
                     {emission}
                   </li>
                   <li>
-                    productionYear: {productionYear} registration:{" "}
-                    {registration.split("T")[0]} age: {age} mileage: {mileage}
+                    productionYear: {productionYear} age: {age} mileage:{" "}
+                    {mileage} registration:{" "}
+                    {registration ? registration.split("T")[0] : "-"}
                   </li>
                   <li>
                     transactionalPrice: {transactionalPrice} newPrice:{" "}

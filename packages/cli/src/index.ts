@@ -195,24 +195,27 @@ export default function () {
   );
 
   const vehicleRequest = ({
-    time = Date.now(),
+    $time = Date.now(),
+    // $type = 'bmw-used',
+    $type = "bmw-new",
+    // $type = 'mini-new',
     $match = {
       transactionalPrice: {
         $min: 0,
         $max: 1790000,
       },
-      brand: 1, // BMW
+      // brand: 1, // BMW
       // brand: 65, // MINI
       // series :5
     },
     $skip = 0,
     $limit = 250,
   }) => {
-    const URL =
-      "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/search";
-    const mk = timestamp(time, 1000 * 3600);
-    // const id = ['najlepszeoferty', mk, $match.brand, $match.series, $limit, $skip].join("-");
-    const id = ["najlepszeoferty", mk, $match.brand, $limit, $skip].join("-");
+    //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
+    const URL = `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`;
+    const mk = timestamp($time, 1000 * 3600);
+    // const id = ["najlepszeoferty", mk, $match.brand, $limit, $skip].join("-");
+    const id = ["najlepszeoferty", mk, $type, $limit, $skip].join("-");
     console.log({ id });
     return requests
       .findOne({ id })
@@ -248,45 +251,52 @@ export default function () {
   };
 
   const vehicles$ = new BehaviorSubject({
+    // $type: 'bmw-new',
+    // $type: 'bmw-used',
+    $type: "mini-new",
     $skip: 0,
-    $limit: 250,
+    $limit: 100,
   });
-  vehicles$.pipe(
-    mergeMap(({ $skip, $limit }) =>
-      from(vehicleRequest({ $skip, $limit })).pipe(
-        map(({ $list, $count }) => ({
-          $skip,
-          $limit,
-          $list,
-          $count,
-        })),
-        tap(({ $skip, $limit, $count: { $total } }) => {
-          const $next = $skip + $limit;
-          console.log({ $skip, $limit, $next, $total });
-          if ($next < $total) {
-            vehicles$.next({ $skip: $next, $limit });
-          }
-        })
-      )
-    ),
-    mergeMap(({ $list }) => $list)
-  );
-  // .subscribe((item: any) => {
-  //   // console.log({item})
-  //   vehicleItems
-  //     .findOne({ id: item.id })
-  //     .then((exists: any) => exists || vehicleItems.insert(item));
-  // });
+  vehicles$
+    .pipe(
+      mergeMap(({ $type, $skip, $limit }) =>
+        from(vehicleRequest({ $type, $skip, $limit })).pipe(
+          map(({ $list, $count }) => ({
+            $type,
+            $skip,
+            $limit,
+            $list,
+            $count,
+          })),
+          tap(({ $type, $skip, $limit, $count: { $total } }) => {
+            const $next = $skip + $limit;
+            console.log({ $type, $skip, $limit, $next, $total });
+            if ($next < $total) {
+              vehicles$.next({ $type, $skip: $next, $limit });
+            }
+          })
+        )
+      ),
+      mergeMap(({ $list }) => $list)
+    )
+    .subscribe((item: any) => {
+      // console.log({item})
+      vehicleItems
+        .findOne({ id: item.id })
+        .then((exists: any) => exists || vehicleItems.insert(item));
+    });
 
   const vehicle2Request = ({
     $time = Date.now(),
+    // $type = 'pluc',
+    $type = "pl",
     $from = 0,
-    $size = 25,
+    $size = 100,
     $sort = "prices.retail%3Aasc",
   }) => {
-    const URL = `https://scs.audi.de/api/v2/search/filter/pluc/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`;
+    const URL = `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`;
     const mk = timestamp($time, 1000 * 3600);
-    const id = ["scs", mk, $size, $from].join("-");
+    const id = ["scs", mk, $type, $size, $from].join("-");
     console.log({ id });
     return requests
       .findOne({ id })
@@ -315,24 +325,27 @@ export default function () {
   };
 
   const vehicles2$ = new BehaviorSubject({
+    $type: "pluc",
+    // $type: 'pl',
     $from: 0,
-    $size: 25,
+    $size: 100,
   });
   vehicles2$
     .pipe(
-      mergeMap(({ $from, $size }) =>
-        from(vehicle2Request({ $from, $size })).pipe(
+      mergeMap(({ $type, $from, $size }) =>
+        from(vehicle2Request({ $type, $from, $size })).pipe(
           map(({ vehicleBasic, totalCount }) => ({
+            $type,
             $from,
             $size,
             vehicleBasic,
             totalCount,
           })),
-          tap(({ $from, $size, totalCount }) => {
+          tap(({ $type, $from, $size, totalCount }) => {
             const $next = $from + $size;
-            console.log({ $from, $size, $next, totalCount });
+            console.log({ $type, $from, $size, $next, totalCount });
             if ($next < totalCount) {
-              vehicles2$.next({ $from: $next, $size });
+              vehicles2$.next({ $type, $from: $next, $size });
             }
           })
         )
@@ -345,8 +358,6 @@ export default function () {
         .findOne({ id: item.id })
         .then((exists: any) => exists || vehicle2Items.insert(item));
     });
-
-  // await fetch('https://scs.audi.de/api/v2/search/filter/pluc/pl?svd=svd-2021-11-15t01_48_13_593-23&size=1000').then(res => res.json())
 
   // fetchStations$.subscribe(({ ...item }: any) => {
   //   // console.log({item})
