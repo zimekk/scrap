@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
+import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
@@ -309,6 +310,7 @@ function Data({ version = "v1" }) {
         setCenter={setCenter}
         list={nearby}
       />
+      <Chart list={list} />
       <fieldset>
         <div>
           <label>
