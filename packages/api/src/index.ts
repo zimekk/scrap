@@ -37,6 +37,14 @@ class Entities {
       )
     );
   }
+
+  update(i: any) {
+    return new Promise((resolve, reject) =>
+      this.db.update({ _id: i._id }, i, {}, (err: any, res: object) =>
+        err ? reject(err) : resolve(res)
+      )
+    );
+  }
 }
 
 export const items = new Entities(resolve(__dirname, "../temp/items.db"));

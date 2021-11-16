@@ -2,6 +2,7 @@ import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import { BehaviorSubject, Subject, from, interval } from "rxjs";
 import { distinct, filter, map, mergeMap, take, tap } from "rxjs/operators";
+import { diffString } from "json-diff";
 import { items, requests } from "@dev/api";
 import {
   stationItems,
@@ -13,6 +14,9 @@ import {
 require("dotenv").config();
 
 const { URL, STATIONS_URL } = process.env;
+const ERA = 24 * 3600 * 1000;
+const _time = Date.now();
+const _past = _time - ERA;
 
 const timeout =
   (timeout = Math.random() * 5000) =>
@@ -250,16 +254,22 @@ export default function () {
       .then(({ json }: any) => JSON.parse(json));
   };
 
-  const vehicles$ = new BehaviorSubject({
-    // $type: 'bmw-new',
-    // $type: 'bmw-used',
-    $type: "mini-new",
-    $skip: 0,
-    $limit: 100,
-  });
+  const vehicles$ = new Subject<{
+    $type: string;
+    $skip?: number;
+    $limit?: number;
+  }>();
+  // const vehicles$ = new BehaviorSubject({
+  //   $type: 'bmw-new',
+  //   // $type: 'bmw-used',
+  //   // $type: "mini-new",
+  //   $skip: 0,
+  //   $limit: 100,
+  // });
+
   vehicles$
     .pipe(
-      mergeMap(({ $type, $skip, $limit }) =>
+      mergeMap(({ $type, $skip = 0, $limit = 100 }) =>
         from(vehicleRequest({ $type, $skip, $limit })).pipe(
           map(({ $list, $count }) => ({
             $type,
@@ -283,8 +293,58 @@ export default function () {
       // console.log({item})
       vehicleItems
         .findOne({ id: item.id })
-        .then((exists: any) => exists || vehicleItems.insert(item));
+        // .then((exists: any) => exists || vehicleItems.insert(item));
+        .then((exists: any) => {
+          if (exists) {
+            const diff = diffItem(exists, item);
+            if (diff) {
+              console.log(`[${exists.id}]`);
+              console.log(diff);
+              vehicleItems.update(updateItem(exists, item));
+            }
+          } else {
+            vehicleItems.insert(createItem(item));
+          }
+        });
     });
+
+  const createItem = (item: {}) => ({ ...item, _created: _time });
+  const diffItem = (
+    {
+      lastChange,
+      _id,
+      _created,
+      _updated,
+      _history,
+      ..._item
+    }: {
+      lastChange?: any;
+      _id: string;
+      _created: number;
+      _updated: number;
+      _history: {};
+    },
+    { lastChange: _lastChange, ...item }: { lastChange?: any }
+  ) => diffString(_item, item);
+  const updateItem = (
+    {
+      _id,
+      _created = _past,
+      _updated = _created,
+      _history = {},
+      ..._item
+    }: { _id: string; _created: number; _updated: number; _history: {} },
+    item: {}
+  ) => ({
+    ...item,
+    _id,
+    _created,
+    _updated: _time,
+    _history: {
+      ..._history,
+      [_updated]: _item,
+    },
+  });
 
   const vehicle2Request = ({
     $time = Date.now(),
@@ -324,15 +384,20 @@ export default function () {
       .then(({ json }: any) => JSON.parse(json));
   };
 
-  const vehicles2$ = new BehaviorSubject({
-    $type: "pluc",
-    // $type: 'pl',
-    $from: 0,
-    $size: 100,
-  });
+  const vehicles2$ = new Subject<{
+    $type: string;
+    $from?: number;
+    $size?: number;
+  }>();
+  // const vehicles2$ = new BehaviorSubject({
+  //   $type: "pluc",
+  //   // $type: 'pl',
+  //   $from: 0,
+  //   $size: 100,
+  // });
   vehicles2$
     .pipe(
-      mergeMap(({ $type, $from, $size }) =>
+      mergeMap(({ $type, $from = 0, $size = 100 }) =>
         from(vehicle2Request({ $type, $from, $size })).pipe(
           map(({ vehicleBasic, totalCount }) => ({
             $type,
@@ -356,8 +421,30 @@ export default function () {
       // console.log({item})
       vehicle2Items
         .findOne({ id: item.id })
-        .then((exists: any) => exists || vehicle2Items.insert(item));
+        // .then((exists: any) => exists || vehicle2Items.insert(item));
+        .then((exists: any) => {
+          if (exists) {
+            const diff = diffItem(exists, item);
+            if (diff) {
+              console.log(`[${exists.id}]`);
+              console.log(diff);
+              vehicle2Items.update(updateItem(exists, item));
+            }
+          } else {
+            vehicle2Items.insert(createItem(item));
+          }
+        });
     });
+
+  from(["bmw-new", "bmw-used", "mini-new"]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles$.next({ $type });
+  });
+
+  from(["pluc", "pl"]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles2$.next({ $type });
+  });
 
   // fetchStations$.subscribe(({ ...item }: any) => {
   //   // console.log({item})

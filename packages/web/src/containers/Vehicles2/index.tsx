@@ -220,7 +220,9 @@ function Data({ version = "v1" }) {
         })
         .filter(
           ({ item, transactionalPrice }) =>
-            item.model.description.toLowerCase().match(filter) &&
+            (item.model.description.toLowerCase().match(filter) ||
+              filter.trim().replace(/=$/, "") ===
+                item.id.toLowerCase().replace(/=$/, "")) &&
             ["", item.type].includes(type) &&
             priceFrom <= transactionalPrice &&
             transactionalPrice <= priceTo &&
