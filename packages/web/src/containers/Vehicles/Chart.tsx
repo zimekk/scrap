@@ -27,17 +27,39 @@ const { width, height, left, right, top, bottom } = {
   bottom: 20,
 };
 
+const PROPS = {
+  accessoriesPrice: "accessoriesPrice",
+  age: "age",
+  capacity: "capacity",
+  consumptionFuel: "consumptionFuel",
+  emission: "emission",
+  id: "id",
+  images: "images",
+  mileage: "mileage",
+  newPrice: "newPrice",
+  optionsPrice: "optionsPrice",
+  powerHP: "powerHP",
+  powerKW: "powerKW",
+  productionYear: "productionYear",
+  transactionalPrice: "transactionalPrice",
+  warranty: "warranty",
+};
+
 // https://betterprogramming.pub/construct-d3-charts-in-react-cfecc2848ae2
 // https://wattenberger.com/blog/react-and-d3
 export default function Chart({ list }) {
+  const [{ xProp, yProp }, setProps] = useState(() => ({
+    xProp: "transactionalPrice",
+    yProp: "newPrice",
+  }));
   const xAxisRef = useRef(null);
   const yAxisRef = useRef(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
     const dataset = list
-      .slice(0, 500)
-      .map(({ item }) => [item.mileage, item.transactionalPrice]);
+      .slice(0, 2000)
+      .map(({ item }) => [item[xProp], item[yProp]]);
 
     const xx = dataset.map(([x = 0]) => x);
     const yy = dataset.map(([, y = 0]) => y);
@@ -51,10 +73,11 @@ export default function Chart({ list }) {
 
     const yScale = scaleLinear()
       .domain(yDomain)
-      .range([top, height - bottom]);
+      .range([height - bottom, top]);
 
     const color = scaleLinear().domain(xDomain).range(["red", "blue"]);
 
+    select(containerRef.current).selectAll("circle").remove();
     select(containerRef.current)
       .selectAll("circle")
       .data(dataset)
@@ -88,10 +111,42 @@ export default function Chart({ list }) {
 
     const yAxis = axisLeft(yScale).ticks(5).tickSizeOuter(0);
     select(yAxisRef.current).call(yAxis);
-  }, [list]);
+  }, [list, xProp, yProp]);
 
   return (
     <div className={cx(styles.Chart)}>
+      <fieldset>
+        <label>
+          <span>x</span>
+          <select
+            value={xProp}
+            onChange={(e) =>
+              setProps((props) => ({ ...props, xProp: e.target.value }))
+            }
+          >
+            {Object.entries(PROPS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>y</span>
+          <select
+            value={yProp}
+            onChange={(e) =>
+              setProps((props) => ({ ...props, yProp: e.target.value }))
+            }
+          >
+            {Object.entries(PROPS).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </fieldset>
       <svg
         ref={containerRef}
         width={width}
