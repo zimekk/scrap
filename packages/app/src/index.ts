@@ -39,7 +39,10 @@ const api = Router()
   )
   .use("/api/vehicles/data.json", (_req, res) =>
     // res.json(require('../../web/src/assets/api/vehicles/data.json'))
-    vehicleItems.find({}).then(($list) => res.json({ $list }))
+    vehicleItems
+      .find({})
+      .then(($list: any) => $list.slice(0, 5000))
+      .then(($list) => res.json({ $list }))
   )
   .use("/api/vehicles2/data.json", (_req, res) =>
     vehicle2Items.find({}).then((vehicleBasic) => res.json({ vehicleBasic }))
