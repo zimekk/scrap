@@ -7,6 +7,15 @@ import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
+const SORT_BY = {
+  transactionalPrice: 1,
+  mileage: 1,
+  consumptionFuel: 1,
+  productionYear: -1,
+  powerHP: -1,
+  newPrice: -1,
+  warranty: -1,
+};
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
@@ -144,6 +153,13 @@ function Data({ version = "v1" }) {
         ...criteria,
         [target.name]: target.value,
       })),
+    []
+  );
+
+  const [sortBy, setSortBy] = useState("transactionalPrice");
+
+  const onChangeSortBy = useCallback(
+    ({ target }) => setSortBy(target.value),
     []
   );
 
@@ -303,6 +319,14 @@ function Data({ version = "v1" }) {
     [list, center, radius]
   );
 
+  const sorted = useMemo(
+    () =>
+      list.sort(
+        (a, b) => SORT_BY[sortBy] * (a.item[sortBy] > b.item[sortBy] ? 1 : -1)
+      ),
+    [list, sortBy]
+  );
+
   return (
     <div>
       <Map
@@ -327,6 +351,16 @@ function Data({ version = "v1" }) {
           <label>
             <span>Search</span>
             <input type="search" value={search} onChange={onChangeSearch} />
+          </label>
+          <label>
+            <span>Sort</span>
+            <select value={sortBy} onChange={onChangeSortBy}>
+              {Object.entries(SORT_BY).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
           </label>
           <label>
             <span>Radius</span>
@@ -446,7 +480,7 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} vehicles out of a total of ${results.length}`}</div>
       <ol>
-        {list
+        {sorted
           .slice(0, 100)
           .map(({ item }) => item)
           .map(({ id, images, ...item }, key: number) => (
@@ -465,7 +499,7 @@ function Data({ version = "v1" }) {
                   )}
               />
               <Details item={{ id, ...item }} onClickCompare={onClickCompare} />
-              {Object.entries(item._history)
+              {Object.entries(item._history || {})
                 .reverse()
                 .map(([_time, _item], key, list) => (
                   <Details
