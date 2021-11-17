@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
+import cx from "classnames";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
@@ -448,90 +449,123 @@ function Data({ version = "v1" }) {
         {list
           .slice(0, 100)
           .map(({ item }) => item)
-          .map(
-            (
-              {
-                id,
-                title,
-                brand,
-                series = {},
-                seriesCode,
-                bodyType,
-                modelCode,
-                fuel,
-                color,
-                transmission,
-                capacity,
-                consumptionFuel,
-                emissionStandard,
-                emissionMeasurementStandard,
-                emission,
-                powerHP,
-                productionYear,
-                registration,
-                age,
-                mileage,
-                transactionalPrice,
-                newPrice,
-                warranty,
-                created,
-                images,
-                imagesLastChanged,
-              },
-              key: number
-            ) => (
-              <li key={key} className={styles.Row}>
-                <Gallery
-                  images={[...Array(images)]
-                    .slice(0, 3)
-                    .map(
-                      (
-                        _,
-                        i,
-                        _list,
-                        size = "322/255b28ffdad35cd984ff32f30da17158"
-                      ) =>
-                        `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
-                    )}
-                />
-                <ul>
-                  <li>
-                    <Color color={color} />
-                    <Link
-                      href={`//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`}
-                    >{`[${id}] ${title}`}</Link>
-                    <Button onClick={onClickCompare} value={id}>
-                      Compare
-                    </Button>
-                  </li>
-                  <li>
-                    [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}
-                    {fuel.label} {transmission.label}
-                  </li>
-                  <li>
-                    [{modelCode}] capacity: {capacity} powerHP: {powerHP}{" "}
-                    consumptionFuel: {consumptionFuel} emissionStandard:{" "}
-                    {emissionStandard.label} {emissionMeasurementStandard}{" "}
-                    {emission}
-                  </li>
-                  <li>
-                    productionYear: {productionYear} age: {age} mileage:{" "}
-                    {mileage} registration:{" "}
-                    {registration ? registration.split("T")[0] : "-"}
-                  </li>
-                  <li>
-                    transactionalPrice: {transactionalPrice} newPrice:{" "}
-                    {newPrice} warranty: {warranty}
-                  </li>
-                  <li>
-                    {created} (imagesLastChanged: {imagesLastChanged})
-                  </li>
-                </ul>
-              </li>
-            )
-          )}
+          .map(({ id, images, ...item }, key: number) => (
+            <li key={key} className={styles.Row}>
+              <Gallery
+                images={[...Array(images)]
+                  .slice(0, 3)
+                  .map(
+                    (
+                      _,
+                      i,
+                      _list,
+                      size = "322/255b28ffdad35cd984ff32f30da17158"
+                    ) =>
+                      `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
+                  )}
+              />
+              <Details item={{ id, ...item }} onClickCompare={onClickCompare} />
+              {Object.entries(item._history)
+                .reverse()
+                .map(([_time, _item], key, list) => (
+                  <Details
+                    key={_time}
+                    _time={_time}
+                    item={{ id, ..._item }}
+                    onClickCompare={onClickCompare}
+                    prev={key ? list[key - 1][1] : item}
+                  />
+                ))}
+            </li>
+          ))}
       </ol>
     </div>
+  );
+}
+
+function Details({ _time, item, onClickCompare, prev }) {
+  const {
+    id,
+    title,
+    brand,
+    series = {},
+    seriesCode,
+    bodyType,
+    modelCode,
+    fuel,
+    color,
+    transmission,
+    capacity,
+    consumptionFuel,
+    emissionStandard,
+    emissionMeasurementStandard,
+    emission,
+    powerHP,
+    productionYear,
+    registration,
+    age,
+    mileage,
+    transactionalPrice,
+    newPrice,
+    warranty,
+    created,
+    imagesLastChanged,
+  } = item;
+
+  const changed = (prop) => item && prev && item[prop] !== prev[prop];
+
+  return (
+    <ul className={styles.Details}>
+      <li>
+        <Color color={color} />
+        <Link
+          href={`//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`}
+        >{`[${id}] ${title}`}</Link>
+        <Button onClick={onClickCompare} value={id}>
+          Compare
+        </Button>
+      </li>
+      <li>
+        [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}
+        {fuel.label} {transmission.label}
+      </li>
+      <li>
+        [{modelCode}] capacity: {capacity} powerHP: {powerHP} consumptionFuel:{" "}
+        {consumptionFuel} emissionStandard: {emissionStandard.label}{" "}
+        {emissionMeasurementStandard} {emission}
+      </li>
+      <li>
+        productionYear: {productionYear} newPrice: {newPrice} registration:{" "}
+        {registration ? registration.split("T")[0] : "-"}
+      </li>
+      <li>
+        <span
+          className={cx(
+            styles.Compare,
+            changed("transactionalPrice") && styles.changed
+          )}
+        >
+          transactionalPrice: {transactionalPrice}
+        </span>{" "}
+        <span className={cx(styles.Compare, changed("age") && styles.changed)}>
+          age: {age}
+        </span>{" "}
+        <span
+          className={cx(styles.Compare, changed("mileage") && styles.changed)}
+        >
+          mileage: {mileage}
+        </span>{" "}
+        <span
+          className={cx(styles.Compare, changed("warranty") && styles.changed)}
+        >
+          warranty: {warranty}
+        </span>
+      </li>
+      <li>
+        [{_time ? new Date(Number(_time)).toISOString() : "-"}] {created}{" "}
+        (imagesLastChanged: {imagesLastChanged})
+      </li>
+    </ul>
   );
 }
 

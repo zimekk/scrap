@@ -25,3 +25,13 @@
     scroll-snap-align: center;
   }
 }
+.Details {
+  color: gray;
+
+  .Compare {
+    color: black;
+    &.changed {
+      color: red;
+    }
+  }
+}
