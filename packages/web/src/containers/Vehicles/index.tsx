@@ -8,19 +8,27 @@ import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
+  created: 1,
+  registration: -1,
   transactionalPrice: 1,
   mileage: 1,
   consumptionFuel: 1,
   productionYear: -1,
   powerHP: -1,
   newPrice: -1,
+  optionsPrice: -1,
+  accessoriesPrice: -1,
   warranty: -1,
+  modelCode: 1,
+  seriesCode: 1,
+  title: 1,
 };
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
   1000000,
 ];
+const POWER_LIST = [0, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900];
 const TYPES = {
   "": "",
   N: "New",
@@ -197,6 +205,29 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const [powerFrom, setPowerFrom] = useState(POWER_LIST[0]);
+  const [powerTo, setPowerTo] = useState(POWER_LIST[POWER_LIST.length - 1]);
+
+  const onChangePowerFrom = useCallback(
+    ({ target }) =>
+      setPowerTo((to) => {
+        const from = Number(target.value);
+        setPowerFrom(from);
+        return to < from ? from : to;
+      }),
+    []
+  );
+
+  const onChangePowerTo = useCallback(
+    ({ target }) =>
+      setPowerFrom((from) => {
+        const to = Number(target.value);
+        setPowerTo(to);
+        return to > from ? from : to;
+      }),
+    []
+  );
+
   const [yearFrom, setYearFrom] = useState(YEAR_LIST[0]);
   const [yearTo, setYearTo] = useState(YEAR_LIST[YEAR_LIST.length - 1]);
 
@@ -291,6 +322,8 @@ function Data({ version = "v1" }) {
             ["", item.isNew ? "N" : "U"].includes(type) &&
             priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= priceTo &&
+            powerFrom <= item.powerHP &&
+            item.powerHP <= powerTo &&
             yearFrom <= item.productionYear &&
             item.productionYear <= yearTo &&
             Object.entries(criteria).findIndex(
@@ -303,7 +336,18 @@ function Data({ version = "v1" }) {
                 ].includes(value)
             ) === -1
         ),
-    [results, filter, type, criteria, yearFrom, yearTo, priceFrom, priceTo]
+    [
+      results,
+      filter,
+      type,
+      criteria,
+      yearFrom,
+      yearTo,
+      priceFrom,
+      priceTo,
+      powerFrom,
+      powerTo,
+    ]
   );
 
   const bounds = useBounds(
@@ -462,6 +506,40 @@ function Data({ version = "v1" }) {
             <span>{`${priceFrom}-${priceTo} pln`}</span>
           </label>
         </div>
+        <div>
+          <label>
+            <span>Power From</span>
+            <input
+              type="range"
+              list="power-list"
+              min={POWER_LIST[0]}
+              max={POWER_LIST[POWER_LIST.length - 1]}
+              value={powerFrom}
+              onChange={onChangePowerFrom}
+            />
+            <datalist id="power-list">
+              {POWER_LIST.map((value) => (
+                <option
+                  key={value}
+                  value={value}
+                  label={POWER_LIST.includes(value) ? `${value} hp` : undefined}
+                ></option>
+              ))}
+            </datalist>
+          </label>
+          <label>
+            <span>Power To</span>
+            <input
+              type="range"
+              list="power-list"
+              min={POWER_LIST[0]}
+              max={POWER_LIST[POWER_LIST.length - 1]}
+              value={powerTo}
+              onChange={onChangePowerTo}
+            />
+            <span>{`${powerFrom}-${powerTo} hp`}</span>
+          </label>
+        </div>
         {Object.entries(criteria).map(([name, value], key) => (
           <div key={key}>
             <label>
@@ -565,12 +643,18 @@ function Details({ _time, item, onClickCompare, prev }) {
       </li>
       <li>
         [{modelCode}] capacity: {capacity} powerHP: {powerHP} consumptionFuel:{" "}
-        {consumptionFuel} emissionStandard: {emissionStandard.label}{" "}
-        {emissionMeasurementStandard} {emission}
+        {consumptionFuel && <span>{consumptionFuel}</span>} emissionStandard:{" "}
+        {emissionStandard.label} {emissionMeasurementStandard}{" "}
+        {emission && <span>{emission}</span>}
       </li>
       <li>
-        productionYear: {productionYear} newPrice: {newPrice} registration:{" "}
-        {registration ? registration.split("T")[0] : "-"}
+        productionYear: {productionYear} newPrice: {newPrice}{" "}
+        {Boolean(item.optionsPrice) && (
+          <span>optionsPrice: {item.optionsPrice}</span>
+        )}{" "}
+        {Boolean(item.accessoriesPrice) && (
+          <span>accessoriesPrice: {item.accessoriesPrice}</span>
+        )}
       </li>
       <li>
         <span
@@ -581,6 +665,7 @@ function Details({ _time, item, onClickCompare, prev }) {
         >
           transactionalPrice: {transactionalPrice}
         </span>{" "}
+        registration: {registration ? registration.split("T")[0] : "-"}{" "}
         <span className={cx(styles.Compare, changed("age") && styles.changed)}>
           age: {age}
         </span>{" "}
