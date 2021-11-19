@@ -198,42 +198,73 @@ export default function () {
     }, 1)
   );
 
-  const vehicleRequest = ({
-    $time = Date.now(),
-    // $type = 'bmw-used',
-    $type = "bmw-new",
-    // $type = 'mini-new',
-    $match = {
-      transactionalPrice: {
-        $min: 0,
-        $max: 1790000,
-      },
-      // brand: 1, // BMW
-      // brand: 65, // MINI
-      // series :5
+  const config = {
+    "scs.audi.de": ({
+      $time = Date.now(),
+      // $type = 'pluc',
+      $type = "pl",
+      $from = 0,
+      $size = 100,
+      $sort = "prices.retail%3Aasc",
+    }) => {
+      const mk = timestamp($time, 1000 * 3600);
+
+      return {
+        id: ["scs", mk, $type, $size, $from].join("-"),
+        request: () =>
+          fetch(
+            `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`
+          ),
+      };
     },
-    $skip = 0,
-    $limit = 250,
-  }) => {
-    //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
-    const URL = `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`;
-    const mk = timestamp($time, 1000 * 3600);
-    // const id = ["najlepszeoferty", mk, $match.brand, $limit, $skip].join("-");
-    const id = ["najlepszeoferty", mk, $type, $limit, $skip].join("-");
-    console.log({ id });
-    return requests
-      .findOne({ id })
-      .then((data: any) =>
-        data
-          ? Promise.resolve(data)
-          : fetch(URL, {
+    "najlepszeoferty.bmw.pl": ({
+      $time = Date.now(),
+      // $type = 'bmw-used',
+      $type = "bmw-new",
+      // $type = 'mini-new',
+      $match = {
+        transactionalPrice: {
+          $min: 0,
+          $max: 1790000,
+        },
+        // brand: 1, // BMW
+        // brand: 65, // MINI
+        // series :5
+      },
+      $skip = 0,
+      $limit = 250,
+    }) => {
+      const mk = timestamp($time, 1000 * 3600);
+
+      return {
+        id: ["najlepszeoferty", mk, $type, $limit, $skip].join("-"),
+        //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
+        request: () =>
+          fetch(
+            `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
+            {
               method: "POST",
               body: JSON.stringify({
                 $match,
                 $skip,
                 $limit,
               }),
-            })
+            }
+          ),
+      };
+    },
+  };
+
+  const vehicleRequest = ({ $type, ...rest }: any) => {
+    const [site, type] = $type.split(":");
+    // @ts-ignore
+    const { id, request } = config[site]({ $type: type, ...rest });
+    return requests
+      .findOne({ id })
+      .then((data: any) =>
+        data
+          ? Promise.resolve(data)
+          : request()
               .then((response: any) => {
                 console.log(["request"], id, requestLimit--);
                 if (requestLimit < 0) {
@@ -259,13 +290,6 @@ export default function () {
     $skip?: number;
     $limit?: number;
   }>();
-  // const vehicles$ = new BehaviorSubject({
-  //   $type: 'bmw-new',
-  //   // $type: 'bmw-used',
-  //   // $type: "mini-new",
-  //   $skip: 0,
-  //   $limit: 100,
-  // });
 
   vehicles$
     .pipe(
@@ -312,6 +336,7 @@ export default function () {
   const diffItem = (
     {
       lastChange,
+      comfortLeaseProduct,
       _id,
       _created,
       _updated,
@@ -319,12 +344,17 @@ export default function () {
       ..._item
     }: {
       lastChange?: any;
+      comfortLeaseProduct?: any;
       _id: string;
       _created: number;
       _updated: number;
       _history: {};
     },
-    { lastChange: _lastChange, ...item }: { lastChange?: any }
+    {
+      lastChange: _lastChange,
+      comfortLeaseProduct: _comfortLeaseProduct,
+      ...item
+    }: { lastChange?: any; comfortLeaseProduct?: any }
   ) => diffString(_item, item);
   const updateItem = (
     {
@@ -346,59 +376,16 @@ export default function () {
     },
   });
 
-  const vehicle2Request = ({
-    $time = Date.now(),
-    // $type = 'pluc',
-    $type = "pl",
-    $from = 0,
-    $size = 100,
-    $sort = "prices.retail%3Aasc",
-  }) => {
-    const URL = `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`;
-    const mk = timestamp($time, 1000 * 3600);
-    const id = ["scs", mk, $type, $size, $from].join("-");
-    console.log({ id });
-    return requests
-      .findOne({ id })
-      .then((data: any) =>
-        data
-          ? Promise.resolve(data)
-          : fetch(URL)
-              .then((response: any) => {
-                console.log(["request"], id, requestLimit--);
-                if (requestLimit < 0) {
-                  throw new Error("Request limit has been exceeded");
-                }
-                if (response.status >= 400) {
-                  throw new Error("Bad response from server");
-                }
-                return response.json();
-              })
-              .then(
-                (json: any) =>
-                  Boolean(console.log({ id, json })) ||
-                  requests.insert({ id, json: JSON.stringify(json) })
-              )
-              .then(timeout())
-      )
-      .then(({ json }: any) => JSON.parse(json));
-  };
-
   const vehicles2$ = new Subject<{
     $type: string;
     $from?: number;
     $size?: number;
   }>();
-  // const vehicles2$ = new BehaviorSubject({
-  //   $type: "pluc",
-  //   // $type: 'pl',
-  //   $from: 0,
-  //   $size: 100,
-  // });
+
   vehicles2$
     .pipe(
       mergeMap(({ $type, $from = 0, $size = 100 }) =>
-        from(vehicle2Request({ $type, $from, $size })).pipe(
+        from(vehicleRequest({ $type, $from, $size })).pipe(
           map(({ vehicleBasic, totalCount }) => ({
             $type,
             $from,
@@ -436,12 +423,16 @@ export default function () {
         });
     });
 
-  from(["bmw-new", "bmw-used", "mini-new"]).subscribe(($type) => {
+  from([
+    "najlepszeoferty.bmw.pl:bmw-new",
+    "najlepszeoferty.bmw.pl:bmw-used",
+    "najlepszeoferty.bmw.pl:mini-new",
+  ]).subscribe(($type) => {
     console.log({ $type });
     vehicles$.next({ $type });
   });
 
-  from(["pluc", "pl"]).subscribe(($type) => {
+  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
     console.log({ $type });
     vehicles2$.next({ $type });
   });
