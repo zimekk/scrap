@@ -8,7 +8,7 @@ import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
-  created: 1,
+  created: -1,
   registration: -1,
   transactionalPrice: 1,
   mileage: 1,
