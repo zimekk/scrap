@@ -13,7 +13,10 @@ import {
 
 require("dotenv").config();
 
-const { URL, STATIONS_URL } = process.env;
+const { URL, STATIONS_URL } = process.env as {
+  URL: string;
+  STATIONS_URL: string;
+};
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
@@ -23,97 +26,12 @@ const timeout =
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
-const prepare =
-  (data: any) =>
-  ({ items, page }: any) => ({
-    ...data,
-    next_page:
-      Math.ceil(Number(data.total_found) / items) > page ? page + 1 : null,
-  });
-
 const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
   mktime - (mktime % period);
-
-const request = ({
-  time = Date.now(),
-  lat = 52.1530829,
-  lng = 21.1104411,
-  circle = 25014.985524846034,
-  kind = 4,
-  type = 1, // dzialki/do-sprzedania
-  // kind = 2, type = 1, // domy/do-sprzedania
-  // kind = 1, type = 2, // mieszkania/do-wynajecia
-  items = 20,
-  page = 1,
-}) => {
-  const mk = timestamp(time);
-  const id = [mk, lat, lng, circle, kind, type, items, page].join("-");
-  console.log({ id });
-  return requests.findOne({ id }).then((data: any) =>
-    data
-      ? Promise.resolve(data.json).then((json) =>
-          prepare(json)({ items, page })
-        )
-      : fetch(
-          `${URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
-        )
-          .then((response: any) => {
-            console.log(["request"], id, requestLimit--);
-            if (requestLimit < 0) {
-              throw new Error("Request limit has been exceeded");
-            }
-            if (response.status >= 400) {
-              throw new Error("Bad response from server");
-            }
-            return response.json();
-          })
-          .then((json: any) => requests.insert({ id, json }))
-          .then(timeout())
-          .then(({ json }: any) => prepare(json)({ items, page }))
-  );
-};
 
 let requestLimit = 100;
 
 export default function () {
-  // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
-  const pages$ = new BehaviorSubject(1);
-
-  const uniquePages$ = pages$.pipe(
-    filter((page: number) => page > 0),
-    map((page: number) => page),
-    distinct()
-  );
-
-  const fetchPages$ = uniquePages$.pipe(
-    mergeMap((page: any) => {
-      return from(
-        request({ page }).then((data: any) =>
-          Promise.all(
-            data.results.map((item: any) =>
-              items
-                .findOne({ id: item.id })
-                .then((exists: any) => exists || items.insert(item))
-            )
-          ).then(() => data)
-        )
-      ).pipe(
-        map(({ results, total_found, next_page }) => ({
-          page,
-          results,
-          total_found,
-          next_page,
-        }))
-      );
-    })
-  );
-
-  // fetchPages$.subscribe(({ next_page }: any) => {
-  //   if (next_page && requestLimit > 0) {
-  //     pages$.next(next_page);
-  //   }
-  // });
-
   enum Method {
     GetStations = "stations-get-stations",
     GetStation = "stations-get-station",
@@ -199,6 +117,29 @@ export default function () {
   );
 
   const config = {
+    klik: ({
+      time = Date.now(),
+      lat = 52.1530829,
+      lng = 21.1104411,
+      circle = 25014.985524846034,
+      $type: type = 1,
+      $kind: kind = 4,
+      // kind = 4, type = 1, // dzialki/do-sprzedania
+      // kind = 2, type = 1, // domy/do-sprzedania
+      // kind = 1, type = 2, // mieszkania/do-wynajecia
+      items = 20,
+      page = 1,
+    }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["klik", mk, lat, lng, circle, kind, type, items, page].join("-"),
+        request: () =>
+          fetch(
+            `${URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
+          ),
+      };
+    },
     "scs.audi.de": ({
       $time = Date.now(),
       // $type = 'pluc',
@@ -207,7 +148,7 @@ export default function () {
       $size = 100,
       $sort = "prices.retail%3Aasc",
     }) => {
-      const mk = timestamp($time, 1000 * 3600);
+      const mk = timestamp($time);
 
       return {
         id: ["scs", mk, $type, $size, $from].join("-"),
@@ -234,7 +175,7 @@ export default function () {
       $skip = 0,
       $limit = 250,
     }) => {
-      const mk = timestamp($time, 1000 * 3600);
+      const mk = timestamp($time);
 
       return {
         id: ["najlepszeoferty", mk, $type, $limit, $skip].join("-"),
@@ -255,10 +196,11 @@ export default function () {
     },
   };
 
-  const vehicleRequest = ({ $type, ...rest }: any) => {
-    const [site, type] = $type.split(":");
+  const request = ({ $type, ...rest }: any) => {
+    const [site, type, kind] = $type.split(":");
+    console.log({ $type, site, type, kind });
     // @ts-ignore
-    const { id, request } = config[site]({ $type: type, ...rest });
+    const { id, request } = config[site]({ $type: type, $kind: kind, ...rest });
     return requests
       .findOne({ id })
       .then((data: any) =>
@@ -285,6 +227,38 @@ export default function () {
       .then(({ json }: any) => JSON.parse(json));
   };
 
+  // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
+  const pages$ = new Subject<{
+    $type: string;
+    items?: number;
+    page?: number;
+  }>();
+
+  pages$
+    .pipe(
+      distinct(),
+      mergeMap(
+        ({ $type, items = 20, page = 1 }) =>
+          from(request({ $type, items, page })).pipe(
+            tap(({ total_found }) => {
+              const next =
+                Math.ceil(Number(total_found) / items) > page ? page + 1 : null;
+              if (next) {
+                pages$.next({ $type, page: next });
+              }
+            })
+          ),
+        1
+      ),
+      mergeMap(({ results }) => results)
+    )
+    .subscribe((item: any) => {
+      // console.log({item})
+      items
+        .findOne({ id: item.id })
+        .then((exists: any) => exists || items.insert(item));
+    });
+
   const vehicles$ = new Subject<{
     $type: string;
     $skip?: number;
@@ -293,23 +267,25 @@ export default function () {
 
   vehicles$
     .pipe(
-      mergeMap(({ $type, $skip = 0, $limit = 100 }) =>
-        from(vehicleRequest({ $type, $skip, $limit })).pipe(
-          map(({ $list, $count }) => ({
-            $type,
-            $skip,
-            $limit,
-            $list,
-            $count,
-          })),
-          tap(({ $type, $skip, $limit, $count: { $total } }) => {
-            const $next = $skip + $limit;
-            console.log({ $type, $skip, $limit, $next, $total });
-            if ($next < $total) {
-              vehicles$.next({ $type, $skip: $next, $limit });
-            }
-          })
-        )
+      mergeMap(
+        ({ $type, $skip = 0, $limit = 100 }) =>
+          from(request({ $type, $skip, $limit })).pipe(
+            map(({ $list, $count }) => ({
+              $type,
+              $skip,
+              $limit,
+              $list,
+              $count,
+            })),
+            tap(({ $type, $skip, $limit, $count: { $total } }) => {
+              const $next = $skip + $limit;
+              console.log({ $type, $skip, $limit, $next, $total });
+              if ($next < $total) {
+                vehicles$.next({ $type, $skip: $next, $limit });
+              }
+            })
+          ),
+        1
       ),
       mergeMap(({ $list }) => $list)
     )
@@ -337,6 +313,7 @@ export default function () {
     {
       lastChange,
       comfortLeaseProduct,
+      vehicleDataVersion,
       _id,
       _created,
       _updated,
@@ -345,6 +322,7 @@ export default function () {
     }: {
       lastChange?: any;
       comfortLeaseProduct?: any;
+      vehicleDataVersion?: any;
       _id: string;
       _created: number;
       _updated: number;
@@ -353,8 +331,9 @@ export default function () {
     {
       lastChange: _lastChange,
       comfortLeaseProduct: _comfortLeaseProduct,
+      vehicleDataVersion: _vehicleDataVersion,
       ...item
-    }: { lastChange?: any; comfortLeaseProduct?: any }
+    }: { lastChange?: any; comfortLeaseProduct?: any; vehicleDataVersion?: any }
   ) => diffString(_item, item);
   const updateItem = (
     {
@@ -384,23 +363,25 @@ export default function () {
 
   vehicles2$
     .pipe(
-      mergeMap(({ $type, $from = 0, $size = 100 }) =>
-        from(vehicleRequest({ $type, $from, $size })).pipe(
-          map(({ vehicleBasic, totalCount }) => ({
-            $type,
-            $from,
-            $size,
-            vehicleBasic,
-            totalCount,
-          })),
-          tap(({ $type, $from, $size, totalCount }) => {
-            const $next = $from + $size;
-            console.log({ $type, $from, $size, $next, totalCount });
-            if ($next < totalCount) {
-              vehicles2$.next({ $type, $from: $next, $size });
-            }
-          })
-        )
+      mergeMap(
+        ({ $type, $from = 0, $size = 100 }) =>
+          from(request({ $type, $from, $size })).pipe(
+            map(({ vehicleBasic, totalCount }) => ({
+              $type,
+              $from,
+              $size,
+              vehicleBasic,
+              totalCount,
+            })),
+            tap(({ $type, $from, $size, totalCount }) => {
+              const $next = $from + $size;
+              console.log({ $type, $from, $size, $next, totalCount });
+              if ($next < totalCount) {
+                vehicles2$.next({ $type, $from: $next, $size });
+              }
+            })
+          ),
+        1
       ),
       mergeMap(({ vehicleBasic }) => vehicleBasic)
     )
@@ -422,6 +403,11 @@ export default function () {
           }
         });
     });
+
+  from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
+    console.log({ $type });
+    pages$.next({ $type });
+  });
 
   from([
     "najlepszeoferty.bmw.pl:bmw-new",
