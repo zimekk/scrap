@@ -1,15 +1,10 @@
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
-import { BehaviorSubject, Subject, from, interval } from "rxjs";
-import { distinct, filter, map, mergeMap, take, tap } from "rxjs/operators";
+import { Subject, from } from "rxjs";
+import { distinct, map, mergeMap, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { items, requests } from "@dev/api";
-import {
-  stationItems,
-  stationRequests,
-  vehicleItems,
-  vehicle2Items,
-} from "@dev/api/stations";
+import { stationItems, vehicleItems, vehicle2Items } from "@dev/api/stations";
 
 require("dotenv").config();
 
@@ -22,7 +17,7 @@ const _time = Date.now();
 const _past = _time - ERA;
 
 const timeout =
-  (timeout = Math.random() * 5000) =>
+  (timeout = Math.random() * 15000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
@@ -32,90 +27,6 @@ const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
 let requestLimit = 100;
 
 export default function () {
-  enum Method {
-    GetStations = "stations-get-stations",
-    GetStation = "stations-get-station",
-  }
-
-  const stations$ = new BehaviorSubject(Method.GetStations);
-
-  const stationRequest = ({
-    method,
-    station_id,
-  }: {
-    method: Method;
-    station_id?: number;
-  }) => {
-    const id = [method, station_id].filter(Boolean).join("-");
-    console.log({ id });
-    return stationRequests.findOne({ id }).then((data: any) =>
-      data
-        ? Promise.resolve(data.json)
-        : fetch(
-            {
-              [Method.GetStations]: `${STATIONS_URL}stations-get-stations?zoom=6`,
-              [Method.GetStation]: `${STATIONS_URL}stations-get-station?station_id=${station_id}`,
-            }[method]
-          )
-            .then((response: any) => {
-              console.log(["request"], id, requestLimit--);
-              if (requestLimit < 0) {
-                throw new Error("Request limit has been exceeded");
-              }
-              if (response.status >= 400) {
-                throw new Error("Bad response from server");
-              }
-              return response.json();
-            })
-            .then((json: any) => stationRequests.insert({ id, json }))
-            .then(timeout())
-            .then(({ json }: any) => json)
-    );
-  };
-
-  const fetchStations$ = stations$.pipe(
-    mergeMap((method) => {
-      return from(stationRequest({ method }));
-    }),
-    mergeMap((data: any) => {
-      return data;
-    }),
-    // take(100),
-    map((data: any) => {
-      return data;
-    }),
-    mergeMap((data: any) => {
-      const { station_id } = data;
-      return from(
-        stationRequest({ method: Method.GetStation, station_id })
-      ).pipe(
-        map(({ html }: any) => {
-          const $ = cheerio.load(html);
-          return {
-            html,
-            petrol_list: $("ul.petrol-list > li")
-              .map((_i, $el) => {
-                return {
-                  type: $($el.children[0]).text(),
-                  price: $($el.children[1]).text(),
-                };
-              })
-              .get(),
-          };
-        }),
-        map(({ html, petrol_list }) => ({ ...data, html, petrol_list })),
-        map(({ station_id, x, y, network_name, petrol_list }) => ({
-          id: station_id,
-          station_id,
-          x,
-          y,
-          network_name,
-          petrol_list,
-        }))
-      );
-    }, 1)
-  );
-
   const config = {
     klik: ({
       time = Date.now(),
@@ -194,6 +105,26 @@ export default function () {
           ),
       };
     },
+    "get-stations": ({ $time = Date.now(), $zoom = 6 }) => {
+      const mk = timestamp($time);
+
+      return {
+        id: ["get-stations", mk, $zoom].join("-"),
+        request: () =>
+          fetch(`${STATIONS_URL}stations-get-stations?zoom=${$zoom}`),
+      };
+    },
+    "get-station": ({ $time = Date.now(), $station_id = 0 }) => {
+      const mk = timestamp($time);
+
+      return {
+        id: ["get-station", mk, $station_id].join("-"),
+        request: () =>
+          fetch(
+            `${STATIONS_URL}stations-get-station?station_id=${$station_id}`
+          ),
+      };
+    },
   };
 
   const request = ({ $type, ...rest }: any) => {
@@ -227,6 +158,120 @@ export default function () {
       .then(({ json }: any) => JSON.parse(json));
   };
 
+  const stations$ = new Subject<{
+    $type: string;
+  }>();
+
+  stations$
+    .pipe(
+      mergeMap(({ $type }) => from(request({ $type })), 1),
+      mergeMap((list) => list),
+      mergeMap(
+        (item: any) =>
+          from(
+            request({ $type: "get-station", $station_id: item.station_id })
+          ).pipe(
+            map(({ html }: any) => {
+              const $ = cheerio.load(html);
+              return {
+                html,
+                petrol_list: $("ul.petrol-list > li")
+                  .map((_i, $el) => {
+                    return {
+                      type: $($el.children[0]).text(),
+                      price: $($el.children[1]).text(),
+                    };
+                  })
+                  .get(),
+              };
+            }),
+            map(({ html, petrol_list }) => ({ ...item, html, petrol_list })),
+            map(
+              ({
+                station_id,
+                x,
+                y,
+                network_id,
+                network_name,
+                petrol_list,
+              }) => ({
+                id: station_id,
+                station_id,
+                x,
+                y,
+                network_id,
+                network_name,
+                petrol_list,
+                petrol: petrol_list.reduce(
+                  (petrol: any, { type, price }: any) =>
+                    Object.assign(petrol, { [type]: price }),
+                  {}
+                ),
+              })
+            )
+          ),
+        1
+      )
+    )
+    .subscribe((item: any) => {
+      // console.log({ item });
+      stationItems
+        .findOne({ id: item.id })
+        //   .then((exists: any) => exists || stationItems.insert(item));
+        .then(
+          ({
+            _created = _past,
+            _updated = _created,
+            _history = {},
+            ...last
+          }: any) => {
+            if (last) {
+              const diff = diffString(last.petrol, item.petrol);
+              if (diff) {
+                console.log(`[${last.id}]`);
+                console.log(diff);
+
+                if (!last.petrol) {
+                  Object.assign(last, {
+                    petrol: last.petrol_list.reduce(
+                      (petrol: any, { type, price }: any) =>
+                        Object.assign(petrol, { [type]: price }),
+                      {}
+                    ),
+                  });
+                }
+
+                const update = {
+                  ...item,
+                  _created,
+                  _updated: _time,
+                  _history: Object.assign(
+                    {
+                      ..._history,
+                    },
+                    Object.keys(last.petrol).length
+                      ? {
+                          [_updated]: last.petrol,
+                        }
+                      : {}
+                  ),
+                };
+                console.log(update);
+
+                stationItems.update(update);
+              }
+            } else {
+              stationItems.insert({ ...item, _created: _time });
+            }
+          }
+        );
+    });
+
+  from(["get-stations"]).subscribe(($type) => {
+    console.log({ $type });
+    stations$.next({ $type });
+  });
+
   // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
   const pages$ = new Subject<{
     $type: string;
@@ -253,7 +298,7 @@ export default function () {
       mergeMap(({ results }) => results)
     )
     .subscribe((item: any) => {
-      // console.log({item})
+      // console.log({ item });
       items
         .findOne({ id: item.id })
         .then((exists: any) => exists || items.insert(item));
@@ -290,7 +335,7 @@ export default function () {
       mergeMap(({ $list }) => $list)
     )
     .subscribe((item: any) => {
-      // console.log({item})
+      // console.log({ item });
       vehicleItems
         .findOne({ id: item.id })
         // .then((exists: any) => exists || vehicleItems.insert(item));
@@ -404,40 +449,22 @@ export default function () {
         });
     });
 
-  from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
-    console.log({ $type });
-    pages$.next({ $type });
-  });
-
-  from([
-    "najlepszeoferty.bmw.pl:bmw-new",
-    "najlepszeoferty.bmw.pl:bmw-used",
-    "najlepszeoferty.bmw.pl:mini-new",
-  ]).subscribe(($type) => {
-    console.log({ $type });
-    vehicles$.next({ $type });
-  });
-
-  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
-    console.log({ $type });
-    vehicles2$.next({ $type });
-  });
-
-  // fetchStations$.subscribe(({ ...item }: any) => {
-  //   // console.log({item})
-  //   stationItems
-  //     .findOne({ id: item.id })
-  //     .then((exists: any) => exists || stationItems.insert(item));
+  // from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
+  //   console.log({ $type });
+  //   pages$.next({ $type });
   // });
 
-  // interval(200).pipe(
-  //   take(10),
-  //   map(n => n*2),
-  //   mergeMap((n) => {
-  //     console.log({n})
-  //     return [1,2,3]
-  //   })
-  // ).subscribe(console.log)
+  // from([
+  //   "najlepszeoferty.bmw.pl:bmw-new",
+  //   "najlepszeoferty.bmw.pl:bmw-used",
+  //   "najlepszeoferty.bmw.pl:mini-new",
+  // ]).subscribe(($type) => {
+  //   console.log({ $type });
+  //   vehicles$.next({ $type });
+  // });
 
-  // items.findOne({ id: 355583 }).then(console.log);
+  // from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
+  //   console.log({ $type });
+  //   vehicles2$.next({ $type });
+  // });
 }
