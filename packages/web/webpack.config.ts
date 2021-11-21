@@ -72,6 +72,7 @@ const config = {
     new webpack.EnvironmentPlugin({
       HREF_TEMPLATE: "#scrap/${id}",
       NODE_ENV: "development",
+      STORE_URL: "/",
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],

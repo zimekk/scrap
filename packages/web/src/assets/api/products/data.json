@@ -1,0 +1,76 @@
+{
+  "results": [
+    {
+      "id": "460088",
+      "title": "Apple Pencil 2 do iPad Pro",
+      "image": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+      ],
+      "stars": "(7 opinii)",
+      "brand": "Apple",
+      "label": ["od: Apple", "kod producenta: MU8F2ZM/A", "kod x-kom: 460088"],
+      "price": ["659,00 zł"],
+      "proms": ["darmowa dostawa od 99 zł"],
+      "codes": [],
+      "links": [
+        ["Powiadom o dostępności"],
+        ["Czasowo niedostępny", "Powiadom o dostępności"],
+        ["Darmowy odbiór w salonie", "Koszty dostawy"],
+        ["Rata tylko 20,32 zł", "Oblicz ratę"]
+      ],
+      "_created": 1637510081038,
+      "_id": "1svj8fekTyiKOZ4n"
+    },
+    {
+      "id": "682156",
+      "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
+      "image": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+      ],
+      "stars": "(0 opinii)",
+      "brand": "Apple",
+      "label": ["od: Apple", "kod producenta: MKQ03WB/A", "kod x-kom: 682156"],
+      "price": ["1 349,00 zł"],
+      "proms": ["darmowa dostawa od 99 zł"],
+      "codes": [],
+      "links": [
+        ["Dodaj do koszyka"],
+        ["Wydłużony czas dostawy", "Zapytaj o termin"],
+        ["Darmowa dostawa", "Sprawdź szczegóły"],
+        ["Rata tylko 41,59 zł", "Oblicz ratę"]
+      ],
+      "_created": 1637510081038,
+      "_id": "2wf98Yx2QtUpUony"
+    },
+    {
+      "id": "681208",
+      "title": "Apple New iPad Mini 64GB Wi-Fi Purple",
+      "image": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
+      ],
+      "stars": "(2 opinie)",
+      "brand": "Apple",
+      "label": ["od: Apple", "kod producenta: MK7R3FD/A", "kod x-kom: 681208"],
+      "price": ["2 599,00 zł"],
+      "proms": ["darmowa dostawa od 99 zł", "kup usługę x-care "],
+      "codes": [],
+      "links": [
+        ["Dodaj do koszyka"],
+        ["Wydłużony czas dostawy", "Zapytaj o termin"],
+        ["Darmowa dostawa", "Sprawdź szczegóły"],
+        ["Rata tylko 80,14 zł", "Oblicz ratę"]
+      ],
+      "_created": 1637510081038,
+      "_id": "3FOVjiTOy4Qr4IQK"
+    }
+  ]
+}

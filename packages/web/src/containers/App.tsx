@@ -7,6 +7,7 @@ const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
   scrap: lazy(() => import("./Scrap")),
+  products: lazy(() => import("./Products")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
   vehicles2: lazy(() => import("./Vehicles2")),

@@ -3,14 +3,26 @@ import cheerio from "cheerio";
 import { Subject, from } from "rxjs";
 import { distinct, map, mergeMap, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
+import { parse } from "node-html-parser";
 import { items, requests } from "@dev/api";
-import { stationItems, vehicleItems, vehicle2Items } from "@dev/api/stations";
+import {
+  productItems,
+  stationItems,
+  vehicleItems,
+  vehicle2Items,
+} from "@dev/api/stations";
+import {
+  openChromeBrowser,
+  openPage,
+  navigateAndGetPageSource,
+} from "./chrome";
 
 require("dotenv").config();
 
-const { URL, STATIONS_URL } = process.env as {
+const { URL, STATIONS_URL, STORE_URL } = process.env as {
   URL: string;
   STATIONS_URL: string;
+  STORE_URL: string;
 };
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -125,6 +137,15 @@ export default function () {
           ),
       };
     },
+    "get-product": ({ time = Date.now(), type = "0" }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["get-product", mk, type].join("-"),
+        // url: `http://makarewicz.eu/p/${$product_id}.html`
+        url: `${STORE_URL}p/${type}.html`,
+      };
+    },
   };
 
   const request = ({ $type, ...rest }: any) => {
@@ -157,6 +178,210 @@ export default function () {
       )
       .then(({ json }: any) => JSON.parse(json));
   };
+
+  const browser = ({ $type, ...rest }: any) => {
+    const [site, type, kind] = $type.split(":");
+    console.log({ $type, site, type, kind });
+    // @ts-ignore
+    const { id, url } = config[site]({ type, kind, ...rest });
+    return requests
+      .findOne({ id })
+      .then((data: any) =>
+        data
+          ? Promise.resolve(data)
+          : Promise.resolve(url)
+              .then(async (url) => {
+                const NEW_PAGE_TIMEOUT_MS = 5000;
+                console.log({ url });
+
+                const browser = await openChromeBrowser();
+
+                const timeoutPromise = new Promise((resolve) =>
+                  setTimeout(resolve, NEW_PAGE_TIMEOUT_MS)
+                );
+                const [completed, page] = await Promise.race(
+                  [timeoutPromise, openPage(browser)].map((promise) =>
+                    promise.then((result) => [promise, result])
+                  )
+                );
+                if (completed === timeoutPromise) {
+                  await browser.close();
+                  throw new Error(
+                    `timeout of ${NEW_PAGE_TIMEOUT_MS} exceeded opening new page`
+                  );
+                }
+
+                const response = await navigateAndGetPageSource(url, page);
+
+                if (!response.ok) {
+                  console.log(url);
+                } else {
+                  console.error(response.text);
+                }
+
+                await page.close();
+                await browser.close();
+
+                return response.text;
+              })
+              .then(
+                (html: any) =>
+                  Boolean(console.log({ id, html })) ||
+                  requests.insert({ id, html })
+              )
+              .then(timeout())
+      )
+      .then(({ html }: any) => html)
+      .catch(console.error);
+  };
+
+  const pathToRoot = ($el: any) => {
+    const $path = [];
+    while ($el && $el.tagName !== "HTML") {
+      $path.push(($el = $el.parentNode));
+    }
+    return $path;
+  };
+
+  const products$ = new Subject<{
+    $type: string;
+  }>();
+
+  products$
+    .pipe(
+      mergeMap(
+        ({ $type }: any) =>
+          from(browser({ $type })).pipe(
+            map((html) => {
+              const id = $type.split(":")[1].split("-")[0];
+
+              const $root = parse(html);
+
+              const title = $root.querySelector("h1")?.text;
+              const stars = $root
+                .querySelector("h1")
+                ?.parentNode?.nextElementSibling?.querySelector(
+                  "div > a"
+                )?.text;
+              const brand = $root
+                .querySelector("h1")
+                ?.parentNode?.nextElementSibling?.querySelector(
+                  "span > a"
+                )?.text;
+              const label = $root
+                .querySelector("h1")
+                ?.parentNode?.nextElementSibling?.querySelector("span > a")
+                ?.parentNode?.parentNode?.text.split("|");
+
+              const image = $root
+                .querySelectorAll(
+                  "div[order] > div > div > div + div + div img"
+                )
+                .map(($img: any) => $img.getAttribute("src"));
+
+              const $cart = $root
+                .querySelectorAll("div")
+                .find(($div) =>
+                  $div.text.match(
+                    /^(Dodaj do koszyka|Powiadom o dostępności|Sprawdź inne produkty)$/
+                  )
+                );
+              const price = pathToRoot($cart)
+                .find(($div) => $div.rawText.match(/zł/))
+                ?.querySelectorAll("*")
+                .find(($div: any) => $div.text.match(/zł$/))
+                ?.querySelectorAll("div")
+                .filter(
+                  ($div: any) =>
+                    $div.childNodes.length > 0 &&
+                    $div.childNodes[0].nodeType === 3
+                )
+                .map(($div: any) => $div.text);
+              const links = pathToRoot($cart)
+                .find(($div) => $div.rawText.match(/zł/))
+                ?.querySelectorAll("button")
+                .map(($div: any) =>
+                  $div
+                    .querySelectorAll("span")
+                    .filter(($div: any) => $div.text)
+                    .filter(
+                      ($div: any) =>
+                        $div.childNodes.length > 0 &&
+                        $div.childNodes[0].nodeType === 3
+                    )
+                    .map(($div: any) => $div.text)
+                )
+                .filter((array: any) => array.length > 0);
+
+              const $prom = $root
+                .querySelectorAll("h2")
+                .find(($div: any) => $div.text.match(/^(Promocje|Promocja)$/));
+              const proms = pathToRoot($prom)
+                .find(($div) => $div.querySelector("h3"))
+                ?.querySelectorAll("h3")
+                .map(($div: any) => $div.text);
+              const codes = pathToRoot($prom)
+                .find(($div) => $div.rawText.match(/Skopiowano kod/))
+                ?.querySelectorAll("p")
+                .filter(($div: any) => $div.text.match(/aktywuj kod rabatowy/))
+                .map(($div: any) => $div.nextElementSibling.text);
+
+              return {
+                id,
+                title,
+                image,
+                stars,
+                brand,
+                label,
+                price,
+                proms,
+                codes,
+                links,
+              };
+            })
+          ),
+        1
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+
+      productItems
+        .findOne({ id: item.id })
+        //   .then((exists: any) => exists || stationItems.insert(item));
+        .then((last: any) => {
+          if (last) {
+            const {
+              _id,
+              _created = _past,
+              _updated = _created,
+              _history = {},
+              ...rest
+            } = last;
+            const diff = diffString(rest, item);
+            if (diff) {
+              console.log(`[${last.id}]`);
+              console.log(diff);
+
+              const update = {
+                _id,
+                ...item,
+                _created,
+                _updated: _time,
+                _history: Object.assign({
+                  ..._history,
+                  [_updated]: rest,
+                }),
+              };
+              console.log(update);
+
+              productItems.update(update);
+            }
+          } else {
+            productItems.insert({ ...item, _created: _time });
+          }
+        });
+    });
 
   const stations$ = new Subject<{
     $type: string;
@@ -266,11 +491,6 @@ export default function () {
           }
         );
     });
-
-  from(["get-stations"]).subscribe(($type) => {
-    console.log({ $type });
-    stations$.next({ $type });
-  });
 
   // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
   const pages$ = new Subject<{
@@ -449,22 +669,53 @@ export default function () {
         });
     });
 
-  // from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
-  //   console.log({ $type });
-  //   pages$.next({ $type });
-  // });
+  from([
+    "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
+    "get-product:681280-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-angielska-lawenda",
+    "get-product:681284-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-czarny",
+    "get-product:460088-rysik-do-tabletu-apple-pencil-2-do-ipad-pro",
+    "get-product:392666-rysik-do-tabletu-apple-pencil-tips",
+    "get-product:464941-smartwatch-apple-watch-3-38-space-gray-aluminium-blacksport-gps",
+    "get-product:516123-smartwatch-apple-watch-3-42-space-gray-black-sport-gps",
+    "get-product:682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps",
+    "get-product:682191-smartwatch-lte-apple-watch-se-40-gold-aluminium-starlight-sport-lte",
+    "get-product:681152-smartfon-telefon-apple-iphone-13-128gb-midnight",
+    "get-product:592143-smartfon-telefon-apple-iphone-12-64gb-black-5g",
+    "get-product:681136-smartfon-telefon-apple-iphone-13-mini-128gb-midnight",
+    "get-product:592124-smartfon-telefon-apple-iphone-12-mini-64gb-black-5g",
+    "get-product:602826-smartfon-telefon-apple-iphone-11-64gb-black",
+    "get-product:602851-smartfon-telefon-apple-iphone-se-64gb-black",
+    "get-product:567460-etui-obudowa-na-smartfona-apple-leather-case-do-iphone-7-8-se-nocny-blekit",
+    "get-product:567459-etui-obudowa-na-smartfona-apple-leather-case-do-iphone-7-8-se-czarny",
+    "get-product:530119-statyw-rode-psa1-studio-arm",
+    "get-product:563133-dysk-ssd-kingston-1tb-m2-pcie-nvme-kc2500",
+    "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
+  ]).subscribe(($type) => {
+    console.log({ $type });
+    products$.next({ $type });
+  });
 
-  // from([
-  //   "najlepszeoferty.bmw.pl:bmw-new",
-  //   "najlepszeoferty.bmw.pl:bmw-used",
-  //   "najlepszeoferty.bmw.pl:mini-new",
-  // ]).subscribe(($type) => {
-  //   console.log({ $type });
-  //   vehicles$.next({ $type });
-  // });
+  from(["get-stations"]).subscribe(($type) => {
+    console.log({ $type });
+    stations$.next({ $type });
+  });
 
-  // from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
-  //   console.log({ $type });
-  //   vehicles2$.next({ $type });
-  // });
+  from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
+    console.log({ $type });
+    pages$.next({ $type });
+  });
+
+  from([
+    "najlepszeoferty.bmw.pl:bmw-new",
+    "najlepszeoferty.bmw.pl:bmw-used",
+    "najlepszeoferty.bmw.pl:mini-new",
+  ]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles$.next({ $type });
+  });
+
+  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles2$.next({ $type });
+  });
 }
