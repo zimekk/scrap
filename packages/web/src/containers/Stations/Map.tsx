@@ -86,7 +86,7 @@ export function useBounds(list) {
   );
 }
 
-export default function Map({ bounds, center, setCenter, list }) {
+export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
   // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;
@@ -97,14 +97,12 @@ export default function Map({ bounds, center, setCenter, list }) {
     });
   }, []);
 
-  const [map, setMap] = useState(null);
-
   const displayMap = useMemo(
     () => (
       <MapContainer
         bounds={bounds}
-        whenCreated={setMap}
-        zoom={13}
+        center={center}
+        zoom={zoom}
         className={cx(styles.Map)}
       >
         <TileLayer

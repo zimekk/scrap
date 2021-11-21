@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
+import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
@@ -19,7 +20,16 @@ const TYPES = {
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/stations/data.json?${version}`);
-  return await res.json();
+  return await res.json().then(({ results }) => ({
+    results: results.map((item: any) => ({
+      ...item.petrol_list.reduce(
+        (list: any, { type, price }: any) =>
+          Object.assign(list, { [`_petrol_${type}`]: Number(price) || 0 }),
+        {}
+      ),
+      ...item,
+    })),
+  }));
 });
 
 function Data({ version = "v1" }) {
@@ -33,7 +43,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [radius, setRadius] = useState(RADIUS_LIST[RADIUS_LIST.length - 1]);
+  const [radius, setRadius] = useState(5);
 
   const onChangeRadius = useCallback(
     ({ target }) => setRadius(Number(target.value)),
@@ -67,6 +77,8 @@ function Data({ version = "v1" }) {
     []
   );
 
+  console.log({ results });
+
   const list = useMemo(
     () =>
       results
@@ -95,12 +107,29 @@ function Data({ version = "v1" }) {
     [results, filter, type, priceFrom, priceTo]
   );
 
-  const bounds = useBounds(list);
-  const [center, setCenter] = useState(() => bounds.getCenter());
+  const middle = useBounds([{ position: { lat: 52.232855, lng: 20.921111 } }]);
+
+  const [center, setCenter] = useState(() => middle.getCenter());
+
+  const nearby = useMemo(
+    () =>
+      list.filter(
+        ({ position }) => center.distanceTo(position) < radius * 1000
+      ),
+    [list, center, radius]
+  );
+
+  const bounds = useBounds(nearby);
 
   return (
     <div>
-      <Map bounds={bounds} center={center} setCenter={setCenter} list={list} />
+      <Map
+        bounds={bounds}
+        center={center}
+        setCenter={setCenter}
+        list={nearby}
+      />
+      <Chart list={nearby} />
       <fieldset>
         <div>
           <label>

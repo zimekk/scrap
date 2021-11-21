@@ -29,7 +29,7 @@ const _time = Date.now();
 const _past = _time - ERA;
 
 const timeout =
-  (timeout = Math.random() * 15000) =>
+  (timeout = Math.random() * 5000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
@@ -445,6 +445,7 @@ export default function () {
         //   .then((exists: any) => exists || stationItems.insert(item));
         .then(
           ({
+            _id,
             _created = _past,
             _updated = _created,
             _history = {},
@@ -467,6 +468,7 @@ export default function () {
                 }
 
                 const update = {
+                  _id,
                   ...item,
                   _created,
                   _updated: _time,
