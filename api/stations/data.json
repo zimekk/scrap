@@ -1,106 +1,931 @@
 {
   "results": [
     {
-      "id": 108,
-      "station_id": 108,
-      "x": 50.345668,
-      "y": 18.9293375,
-      "network_name": "Shell",
-      "petrol_list": [{ "type": "on+", "price": "5.75" }],
-      "_id": "2tDc0np8ju48SfEM"
+      "id": 7837,
+      "station_id": 7837,
+      "x": 52.22432725328856,
+      "y": 20.96388959849719,
+      "network_name": "CNG Auto",
+      "petrol_list": [],
+      "_id": "0El0zzwUFF4agGg0"
     },
     {
-      "station_id": 3768,
-      "x": 52.58735423749279,
-      "y": 20.45551300048828,
-      "network_name": "Shell",
-      "petrol_list": [{ "type": "on", "price": "6.28" }],
-      "_id": "3UPXwYdpVwo7tmRr"
+      "_id": "2IKZ675LdErXPyz0",
+      "id": 5013,
+      "station_id": 5013,
+      "x": 52.20043314659687,
+      "y": 20.93752741813659,
+      "network_id": 119,
+      "network_name": "Leclerc",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.95"
+        },
+        {
+          "type": "lpg",
+          "price": "3.09"
+        }
+      ],
+      "petrol": {
+        "pb": "5.95",
+        "lpg": "3.09"
+      },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": {}
     },
     {
-      "id": 6111,
-      "station_id": 6111,
-      "x": 50.0092835264255,
-      "y": 22.6761245727539,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [{ "type": "lpg", "price": "3.13" }],
-      "_id": "5SpyEP3qcvGdNiaf"
-    },
-    {
-      "id": 385,
-      "station_id": 385,
-      "x": 54.18293853784956,
-      "y": 16.1832983571777,
-      "network_name": "BP",
-      "petrol_list": [{ "type": "lpg", "price": "3.05" }],
-      "_id": "EmxRS19LS3xJTXwd"
-    },
-    {
-      "id": 438,
-      "station_id": 438,
-      "x": 49.78795907006032,
-      "y": 22.77692047567143,
-      "network_name": "Circle K (Statoil)",
-      "petrol_list": [{ "type": "lpg+", "price": "2.99" }],
-      "_id": "H3wboKSzikBVW8LK"
-    },
-    {
-      "id": 182,
-      "station_id": 182,
-      "x": 51.21395410672331,
-      "y": 22.68775463104248,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [{ "type": "pb", "price": "5.81" }],
-      "_id": "Meem7zAkFSSF4SUB"
-    },
-    {
-      "id": 254,
-      "station_id": 254,
-      "x": 54.1749838,
-      "y": 19.4047277,
+      "_id": "3c91l88TlC1DSNtx",
+      "id": 1452,
+      "station_id": 1452,
+      "x": 52.20086056603021,
+      "y": 20.96855521202087,
+      "network_id": 34,
       "network_name": "BP",
       "petrol_list": [
-        { "type": "pb", "price": "5.89" },
-        { "type": "on+", "price": "5.86" },
-        { "type": "lpg", "price": "3.09" }
+        {
+          "type": "lpg",
+          "price": "3.39"
+        }
       ],
-      "_id": "Mt8UnnYqeH2IG1ti"
+      "petrol": {
+        "lpg": "3.39"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {
+        "1637431632981": {
+          "lpg": "2.83"
+        }
+      }
     },
     {
-      "id": 112,
-      "station_id": 112,
-      "x": 50.326063217959,
-      "y": 19.206526279449,
-      "network_name": "BP",
-      "petrol_list": [{ "type": "pb", "price": "5.87" }],
-      "_id": "RmWzbj1aJFGijJNU"
+      "id": 1837,
+      "station_id": 1837,
+      "x": 52.2595912,
+      "y": 20.97438,
+      "network_name": "Auto-Gaz",
+      "petrol_list": [],
+      "_id": "3pHOaxjh8PncfyW4"
     },
     {
-      "id": 8819,
-      "station_id": 8819,
-      "x": 52.271262836429,
-      "y": 20.968388915062,
-      "network_name": "Prywatna",
-      "petrol_list": [{ "type": "on", "price": "5.67" }],
-      "_id": "aqezUUEml3ppYsik"
-    },
-    {
-      "id": 3768,
-      "station_id": 3768,
-      "x": 52.58735423749279,
-      "y": 20.45551300048828,
-      "network_name": "Shell",
-      "petrol_list": [{ "type": "on", "price": "6.28" }],
-      "_id": "nbumHTGORpMXLgpj"
-    },
-    {
-      "id": 156,
-      "station_id": 156,
-      "x": 52.2129115895872,
-      "y": 21.046254438298547,
+      "_id": "4OVFSj4hJeInc9hw",
+      "id": 1765,
+      "station_id": 1765,
+      "x": 52.224000833819,
+      "y": 20.957129001617,
+      "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [{ "type": "pb", "price": "5.82" }],
-      "_id": "qnXSBiEDUKKzCyFc"
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.02"
+        },
+        {
+          "type": "on+",
+          "price": "6.22"
+        }
+      ],
+      "petrol": {
+        "pb": "6.02",
+        "on+": "6.22"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {
+        "1637431632981": {
+          "on": "5.71",
+          "on+": "5.99"
+        }
+      }
+    },
+    {
+      "_id": "4boDVR9492ub0H1t",
+      "id": 7108,
+      "station_id": 7108,
+      "x": 52.20011093538356,
+      "y": 20.9412395954132,
+      "network_id": 153,
+      "network_name": "Pegas",
+      "petrol_list": [
+        {
+          "type": "lpg",
+          "price": "3.25"
+        }
+      ],
+      "petrol": {
+        "lpg": "3.25"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {}
+    },
+    {
+      "_id": "5HNBKBRiaNQ30mYD",
+      "id": 790,
+      "station_id": 790,
+      "x": 52.25935847599353,
+      "y": 20.95972537994384,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.87"
+        },
+        {
+          "type": "on",
+          "price": "6.04"
+        }
+      ],
+      "petrol": {
+        "pb": "5.87",
+        "on": "6.04"
+      },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": {
+        "1637434477040": {
+          "lpg": "2.92"
+        }
+      }
+    },
+    {
+      "id": 7845,
+      "station_id": 7845,
+      "x": 52.25554945641249,
+      "y": 20.97870612109545,
+      "network_name": "KONPAL",
+      "petrol_list": [],
+      "_id": "6PTB4qfkw4B0Nkhg"
+    },
+    {
+      "id": 2408,
+      "station_id": 2408,
+      "x": 52.23946916253053,
+      "y": 20.90517997741699,
+      "network_name": "Tesco",
+      "petrol_list": [],
+      "_id": "6hmBSHxbByQilNIw"
+    },
+    {
+      "id": 4691,
+      "station_id": 4691,
+      "x": 52.22340932939733,
+      "y": 20.95748305320739,
+      "network_name": "Wasbruk",
+      "petrol_list": [],
+      "_id": "85UPKOUf3efdMSs4"
+    },
+    {
+      "id": 9595,
+      "station_id": 9595,
+      "x": 52.20098509999999,
+      "y": 20.938396799999964,
+      "network_name": "Stacja LPG",
+      "petrol_list": [],
+      "_id": "8UyDCFnYaIgp6Obw"
+    },
+    {
+      "id": 9008,
+      "station_id": 9008,
+      "x": 52.22549960000001,
+      "y": 20.95828000000006,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.89"
+        }
+      ],
+      "_id": "8ifK15msMaNxI8HT"
+    },
+    {
+      "id": 4527,
+      "station_id": 4527,
+      "x": 52.22446088736571,
+      "y": 20.9603476524353,
+      "network_name": "Stacja LPG",
+      "petrol_list": [],
+      "_id": "ApkuwbnrRhT9vGOB"
+    },
+    {
+      "id": 3601,
+      "station_id": 3601,
+      "x": 52.22182537320394,
+      "y": 20.95803022384643,
+      "network_name": "Amic (Lukoil)",
+      "petrol_list": [
+        {
+          "type": "lpg",
+          "price": "2.84"
+        }
+      ],
+      "_id": "AqkqaM510Dj3s39Z"
+    },
+    {
+      "id": 791,
+      "station_id": 791,
+      "x": 52.25053155893441,
+      "y": 20.98238468170166,
+      "network_name": "Shell",
+      "petrol_list": [
+        {
+          "type": "pb+",
+          "price": "5.89"
+        },
+        {
+          "type": "on+",
+          "price": "5.84"
+        }
+      ],
+      "_id": "BOvnqeifiIj8dnQJ"
+    },
+    {
+      "id": 765,
+      "station_id": 765,
+      "x": 52.2434372276191,
+      "y": 20.96819043159485,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "on+",
+          "price": "5.79"
+        }
+      ],
+      "_id": "BqIt1mJRrjqLJU0F"
+    },
+    {
+      "id": 4694,
+      "station_id": 4694,
+      "x": 52.2570731035006,
+      "y": 20.97718119621277,
+      "network_name": "Wasbruk",
+      "petrol_list": [],
+      "_id": "FfYF7ApQxxRWHHzT"
+    },
+    {
+      "id": 9715,
+      "station_id": 9715,
+      "x": 52.2113641,
+      "y": 20.95022459999999,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "_id": "G3AQmMH8aPFPgdeB"
+    },
+    {
+      "id": 1034,
+      "station_id": 1034,
+      "x": 52.22422428899396,
+      "y": 20.93663692474365,
+      "network_name": "Poczta Polska",
+      "petrol_list": [],
+      "_id": "GOA6F3HufiV5o6MM"
+    },
+    {
+      "id": 177,
+      "station_id": 177,
+      "x": 52.23847380577559,
+      "y": 20.98270118236541,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "HQXoIz29TiElstXR"
+    },
+    {
+      "id": 1303,
+      "station_id": 1303,
+      "x": 52.2113241,
+      "y": 20.9502336,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "_id": "Hs34ne9aJUg7dg4b"
+    },
+    {
+      "_id": "I2aiHPb4fevIBV4y",
+      "id": 734,
+      "station_id": 734,
+      "x": 52.2230658,
+      "y": 20.931123,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        {
+          "type": "pb+",
+          "price": "6.97"
+        },
+        {
+          "type": "pb",
+          "price": "6.08"
+        },
+        {
+          "type": "pb+",
+          "price": "6.57"
+        },
+        {
+          "type": "on",
+          "price": "6.06"
+        },
+        {
+          "type": "on+",
+          "price": "6.09"
+        },
+        {
+          "type": "lpg+",
+          "price": "3.42"
+        }
+      ],
+      "petrol": {
+        "pb+": "6.57",
+        "pb": "6.08",
+        "on": "6.06",
+        "on+": "6.09",
+        "lpg+": "3.42"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {}
+    },
+    {
+      "id": 6261,
+      "station_id": 6261,
+      "x": 52.2163763953586,
+      "y": 20.85916399955749,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.84"
+        }
+      ],
+      "_id": "Irtv4sfjz2rFZmYG"
+    },
+    {
+      "id": 9231,
+      "station_id": 9231,
+      "x": 52.22589277352563,
+      "y": 20.982449054718018,
+      "network_name": "Prywatna",
+      "petrol_list": [],
+      "_id": "KD5jo3tA6pKW6wo8"
+    },
+    {
+      "id": 3961,
+      "station_id": 3961,
+      "x": 52.19982160087483,
+      "y": 20.89367866516113,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "MkGS0YQhEXe9Pu4s"
+    },
+    {
+      "_id": "MrX7TBrGbqFnjifl",
+      "id": 5801,
+      "station_id": 5801,
+      "x": 52.241387542936,
+      "y": 20.931615829468,
+      "network_id": 19,
+      "network_name": "Auchan",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.95"
+        },
+        {
+          "type": "on",
+          "price": "5.97"
+        }
+      ],
+      "petrol": {
+        "pb": "5.95",
+        "on": "5.97"
+      },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": {
+        "1637434477040": {
+          "pb": "5.88",
+          "on": "5.6"
+        }
+      }
+    },
+    {
+      "id": 3173,
+      "station_id": 3173,
+      "x": 52.192513,
+      "y": 20.9493163,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "NiSC84UaYISkbmQN"
+    },
+    {
+      "id": 9034,
+      "station_id": 9034,
+      "x": 52.216217,
+      "y": 20.884759,
+      "network_name": "Prywatna",
+      "petrol_list": [],
+      "_id": "NuCveBnjQDl4Czta"
+    },
+    {
+      "id": 6342,
+      "station_id": 6342,
+      "x": 52.27061287387328,
+      "y": 20.9327745437622,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "ROAbJmCDIMJOVkaT"
+    },
+    {
+      "id": 7918,
+      "station_id": 7918,
+      "x": 52.19250870338249,
+      "y": 20.94487810099963,
+      "network_name": "Shell",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.79"
+        }
+      ],
+      "_id": "SliOPvFHIF4KXQZp"
+    },
+    {
+      "id": 6388,
+      "station_id": 6388,
+      "x": 52.21218239624743,
+      "y": 20.96914529800415,
+      "network_name": "Prywatna",
+      "petrol_list": [],
+      "_id": "SouQZUjh1tQJLkam"
+    },
+    {
+      "_id": "U32iT3PXwTTjHYI7",
+      "id": 4060,
+      "station_id": 4060,
+      "x": 52.21872959446411,
+      "y": 20.97457408905029,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.07"
+        }
+      ],
+      "petrol": {
+        "pb": "6.07"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {
+        "1637431632981": {
+          "pb": "5.88"
+        }
+      }
+    },
+    {
+      "id": 6348,
+      "station_id": 6348,
+      "x": 52.21598856566205,
+      "y": 20.88166236877441,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "UkjK3b6rLlkAzGZQ"
+    },
+    {
+      "id": 6479,
+      "station_id": 6479,
+      "x": 52.23988306668865,
+      "y": 20.92913746833801,
+      "network_name": "Stacja LPG",
+      "petrol_list": [],
+      "_id": "XHOL1ZRYemzTSPVp"
+    },
+    {
+      "id": 4167,
+      "station_id": 4167,
+      "x": 52.1940345151315,
+      "y": 20.93539237976074,
+      "network_name": "AS 24",
+      "petrol_list": [],
+      "_id": "XZ8vOaTKrUfAwCPq"
+    },
+    {
+      "_id": "YkDaYzwWePoIkoI6",
+      "id": 3517,
+      "station_id": 3517,
+      "x": 52.23833583377069,
+      "y": 20.95538221299648,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.04"
+        },
+        {
+          "type": "on",
+          "price": "6.01"
+        }
+      ],
+      "petrol": {
+        "pb": "6.04",
+        "on": "6.01"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {}
+    },
+    {
+      "id": 1460,
+      "station_id": 1460,
+      "x": 52.2276303,
+      "y": 20.9876427,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [],
+      "_id": "ZCsjFqnIyVy4yhZE"
+    },
+    {
+      "id": 6848,
+      "station_id": 6848,
+      "x": 52.23935090349061,
+      "y": 20.93487739562988,
+      "network_name": "BP",
+      "petrol_list": [],
+      "_id": "ZCyYu15WBL6etew5"
+    },
+    {
+      "id": 9736,
+      "station_id": 9736,
+      "x": 52.2163762394242,
+      "y": 20.859124639374222,
+      "network_name": "Lotos",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.69"
+        }
+      ],
+      "_id": "ZbWGTLZ8Cyuw7Nvc"
+    },
+    {
+      "_id": "Zmaf6F4CtUGq0sC7",
+      "id": 959,
+      "station_id": 959,
+      "x": 52.2617668,
+      "y": 20.9264293,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "on",
+          "price": "6.06"
+        }
+      ],
+      "petrol": {
+        "on": "6.06"
+      },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": {}
+    },
+    {
+      "id": 2839,
+      "station_id": 2839,
+      "x": 52.2171051,
+      "y": 20.8986626,
+      "network_name": "Amic (Lukoil)",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.87"
+        }
+      ],
+      "_id": "aFIrl6cyZTH6xC8e"
+    },
+    {
+      "_id": "aztyOddLpiwgosYC",
+      "id": 4164,
+      "station_id": 4164,
+      "x": 52.23887786417968,
+      "y": 20.89707970619201,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.04"
+        },
+        {
+          "type": "on",
+          "price": "6.04"
+        }
+      ],
+      "petrol": {
+        "pb": "6.04",
+        "on": "6.04"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {
+        "1637431632981": {
+          "pb": "5.87",
+          "pb+": "5.99",
+          "on": "5.79",
+          "on+": "5.99"
+        }
+      }
+    },
+    {
+      "id": 6199,
+      "station_id": 6199,
+      "x": 52.230809139579,
+      "y": 20.93868613243103,
+      "network_name": "Prywatna",
+      "petrol_list": [],
+      "_id": "c1i5w5eKyK8A6OUm"
+    },
+    {
+      "id": 767,
+      "station_id": 767,
+      "x": 52.2205567,
+      "y": 20.9153733,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.92"
+        }
+      ],
+      "_id": "dA2VzFBXqRJDtWOT"
+    },
+    {
+      "id": 6332,
+      "station_id": 6332,
+      "x": 52.20118934741247,
+      "y": 20.93459844589233,
+      "network_name": "Makro Cash and Carry",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.58"
+        }
+      ],
+      "_id": "dAvTcXvNhzHV2MPJ"
+    },
+    {
+      "id": 3680,
+      "station_id": 3680,
+      "x": 52.2217324,
+      "y": 20.9561694,
+      "network_name": "BP",
+      "petrol_list": [],
+      "_id": "dyZpaUDwvvQOJV8f"
+    },
+    {
+      "id": 7938,
+      "station_id": 7938,
+      "x": 52.198485048271,
+      "y": 20.919133543794,
+      "network_name": "Shell",
+      "petrol_list": [
+        {
+          "type": "on",
+          "price": "5.76"
+        }
+      ],
+      "_id": "fhUsjr6A0ICiY96g"
+    },
+    {
+      "_id": "fq8e1UNVvtEbjvAK",
+      "id": 7384,
+      "station_id": 7384,
+      "x": 52.27058880086943,
+      "y": 20.93295192578807,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "on",
+          "price": "5.99"
+        }
+      ],
+      "petrol": {
+        "on": "5.99"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {}
+    },
+    {
+      "id": 3283,
+      "station_id": 3283,
+      "x": 52.2251247,
+      "y": 20.9585686,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "h2CaaPm6wjOLJPXa"
+    },
+    {
+      "id": 3619,
+      "station_id": 3619,
+      "x": 52.2339658,
+      "y": 20.9850428,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "izcCSnz4sdgwpp9Q"
+    },
+    {
+      "_id": "jQOCH13QZLcsW5dH",
+      "id": 733,
+      "station_id": 733,
+      "x": 52.24793043583101,
+      "y": 20.91170310974121,
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.02"
+        }
+      ],
+      "petrol": {
+        "pb": "6.02"
+      },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": {
+        "1637434477040": {
+          "pb": "6.24"
+        }
+      }
+    },
+    {
+      "id": 3121,
+      "station_id": 3121,
+      "x": 52.25152336116669,
+      "y": 20.98003506660461,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "kKXbHTviCCn0LvSr"
+    },
+    {
+      "id": 6190,
+      "station_id": 6190,
+      "x": 52.222209865688,
+      "y": 20.988070964813,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "_id": "mrwd6qGOZsxEF0m3"
+    },
+    {
+      "id": 44,
+      "station_id": 44,
+      "x": 52.2149868,
+      "y": 20.9558781,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "on",
+          "price": "5.81"
+        }
+      ],
+      "_id": "oNIvTRiqprBZF2f2"
+    },
+    {
+      "id": 8394,
+      "station_id": 8394,
+      "x": 52.24027561508149,
+      "y": 20.9299649298191,
+      "network_name": "Stacja LPG",
+      "petrol_list": [],
+      "_id": "ocgPmdX7SzqizRs6"
+    },
+    {
+      "_id": "pia5oIEcT4TazRCH",
+      "id": 977,
+      "station_id": 977,
+      "x": 52.19353468601617,
+      "y": 20.92359066009521,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "6.07"
+        },
+        {
+          "type": "on",
+          "price": "6.07"
+        }
+      ],
+      "petrol": {
+        "pb": "6.07",
+        "on": "6.07"
+      },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {}
+    },
+    {
+      "id": 2555,
+      "station_id": 2555,
+      "x": 52.27275311863703,
+      "y": 20.9252643585205,
+      "network_name": "Auto-Gaz",
+      "petrol_list": [],
+      "_id": "rEnEkCDxkouJebG2"
+    },
+    {
+      "id": 8475,
+      "station_id": 8475,
+      "x": 52.22994544510559,
+      "y": 20.89594881228549,
+      "network_name": "Shell",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.86"
+        },
+        {
+          "type": "pb+",
+          "price": "5.87"
+        },
+        {
+          "type": "on",
+          "price": "5.84"
+        },
+        {
+          "type": "lpg+",
+          "price": "2.92"
+        }
+      ],
+      "_id": "rwYc10yS5toITywV"
+    },
+    {
+      "id": 1459,
+      "station_id": 1459,
+      "x": 52.2529493,
+      "y": 20.9824515,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [],
+      "_id": "ujmSDRjUBxKqA3sb"
+    },
+    {
+      "id": 718,
+      "station_id": 718,
+      "x": 52.2193675,
+      "y": 20.9154491,
+      "network_name": "BP",
+      "petrol_list": [
+        {
+          "type": "on",
+          "price": "5.79"
+        }
+      ],
+      "_id": "xWhypbVBGKbc2ybD"
+    },
+    {
+      "id": 7873,
+      "station_id": 7873,
+      "x": 52.19909058453017,
+      "y": 20.89170742030546,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "_id": "yOowIVTyf2zzbdBo"
+    },
+    {
+      "id": 5541,
+      "station_id": 5541,
+      "x": 52.22737883029672,
+      "y": 20.98950862884521,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        {
+          "type": "pb",
+          "price": "5.89"
+        }
+      ],
+      "_id": "yY8mSQjmOMGW4gIk"
+    },
+    {
+      "id": 9123,
+      "station_id": 9123,
+      "x": 52.22199441064106,
+      "y": 20.957299321889877,
+      "network_name": "MOYA",
+      "petrol_list": [],
+      "_id": "zWoQjlcxGeMYKqSt"
+    },
+    {
+      "id": 8850,
+      "station_id": 8850,
+      "x": 52.25727012300922,
+      "y": 20.920334458351135,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [],
+      "_id": "zqDdNZ1sJly0LYPH"
     }
   ]
 }
