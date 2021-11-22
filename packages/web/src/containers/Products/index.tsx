@@ -190,7 +190,7 @@ function Data({ version = "v1" }) {
             <h5>{item.price.join(" ")}</h5>
             <div>{item.stars}</div>
             <div>{item.label.join(" | ")}</div>
-            <div>{item.proms.join(" | ")}</div>
+            {item.proms && <div>{item.proms.join(" | ")}</div>}
             <ul>
               {item.links.map((link, key) => (
                 <li key={key}>{link.join(" | ")}</li>
