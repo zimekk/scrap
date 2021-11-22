@@ -20,6 +20,7 @@ const PROPS = {
   network_id: "network_id",
   _petrol_on: "_petrol_on",
   _petrol_pb: "_petrol_pb",
+  _distance: "_distance",
   _created: "_created",
   _updated: "_updated",
 };

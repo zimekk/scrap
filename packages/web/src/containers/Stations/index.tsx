@@ -113,9 +113,16 @@ function Data({ version = "v1" }) {
 
   const nearby = useMemo(
     () =>
-      list.filter(
-        ({ position }) => center.distanceTo(position) < radius * 1000
-      ),
+      list
+        .map(({ position, item, ...rest }: any) => ({
+          position,
+          item: {
+            ...item,
+            _distance: center.distanceTo(position),
+          },
+          ...rest,
+        }))
+        .filter(({ item }: any) => item._distance < radius * 1000),
     [list, center, radius]
   );
 
