@@ -45,8 +45,20 @@ const config = {
         loader: "babel-loader",
         exclude: /node_modules/,
         options: {
-          presets: ["@babel/preset-react", "@babel/preset-typescript"],
-          plugins: ["react-hot-loader/babel"],
+          presets: [
+            "@babel/preset-env",
+            "@babel/preset-react",
+            "@babel/preset-typescript",
+          ],
+          plugins: ["react-hot-loader/babel", "@babel/transform-runtime"],
+        },
+      },
+      {
+        test: /\.js$/,
+        loader: "babel-loader",
+        include: /node_modules\/.+\/esm\//,
+        options: {
+          presets: ["@babel/preset-env"],
         },
       },
     ],
