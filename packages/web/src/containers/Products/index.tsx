@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import useDebounce from "../useDebounce";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -106,6 +107,16 @@ function Data({ version = "v1" }) {
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
           ...item,
+          _history: Object.entries(item._history).reduce(
+            (history, [time, item], i, list) =>
+              Object.assign(
+                history,
+                i > 0 && JSON.stringify(item) === JSON.stringify(list[i - 1][1])
+                  ? {}
+                  : { [time]: item }
+              ),
+            {}
+          ),
         }))
         .filter(
           (item: any) =>
@@ -188,17 +199,67 @@ function Data({ version = "v1" }) {
             </h3>
             <h4>{item.brand}</h4>
             <h5>{item.price.join(" ")}</h5>
-            <div>{item.stars}</div>
             <div>{item.label.join(" | ")}</div>
-            {item.proms && <div>{item.proms.join(" | ")}</div>}
-            <ul>
-              {item.links.map((link, key) => (
-                <li key={key}>{link.join(" | ")}</li>
+            <Details item={item} />
+            {Object.entries(item._history)
+              .reverse()
+              .map(([time, prev], key, list) => (
+                <Details
+                  key={key}
+                  item={prev}
+                  prev={key > 0 ? list[key - 1][1] : item}
+                  time={time}
+                />
               ))}
-            </ul>
           </li>
         ))}
       </ol>
+    </div>
+  );
+}
+
+function Details({
+  item,
+  prev,
+  time,
+}: {
+  item: any;
+  prev: any;
+  time?: string;
+}) {
+  return (
+    <div className={styles.Details}>
+      {time && <div>{new Date(Number(time)).toISOString()}</div>}
+      <div
+        className={cx(
+          styles.Feature,
+          prev && prev.stars !== item.stars && styles.changed
+        )}
+      >
+        {item.stars}
+      </div>
+      {item.proms && (
+        <div
+          className={cx(
+            styles.Feature,
+            prev && prev.proms !== item.proms && styles.changed
+          )}
+        >
+          {item.proms.join(" | ")}
+        </div>
+      )}
+      <ul
+        className={cx(
+          styles.Feature,
+          prev &&
+            prev.links.join(":") !== item.links.join(":") &&
+            styles.changed
+        )}
+      >
+        {item.links.map((link, key) => (
+          <li key={key}>{link.join(" | ")}</li>
+        ))}
+      </ul>
     </div>
   );
 }

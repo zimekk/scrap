@@ -18,3 +18,10 @@
     scroll-snap-align: center;
   }
 }
+.Details {
+  .Feature {
+    &.changed {
+      color: blueviolet;
+    }
+  }
+}

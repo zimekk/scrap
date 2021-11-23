@@ -311,31 +311,37 @@ export default function () {
               const links = pathToRoot($cart)
                 .find(($div) => $div.rawText.match(/zł/))
                 ?.querySelectorAll("button")
-                .map(($div: any) =>
-                  $div
-                    .querySelectorAll("span")
-                    .filter(($div: any) => $div.text)
-                    .filter(
-                      ($div: any) =>
-                        $div.childNodes.length > 0 &&
-                        $div.childNodes[0].nodeType === 3
-                    )
-                    .map(($div: any) => $div.text)
+                .map(
+                  ($div: any) =>
+                    $div
+                      .querySelectorAll("span")
+                      .filter(($div: any) => $div.text)
+                      .filter(
+                        ($div: any) =>
+                          $div.childNodes.length > 0 &&
+                          $div.childNodes[0].nodeType === 3
+                      )
+                      .map(($div: any) => $div.text)
+                  // .filter((text:string) => !text.match(/Kup teraz/))
                 )
                 .filter((array: any) => array.length > 0);
 
               const $prom = $root
                 .querySelectorAll("h2")
                 .find(($div: any) => $div.text.match(/^(Promocje|Promocja)$/));
-              const proms = pathToRoot($prom)
-                .find(($div) => $div.querySelector("h3"))
-                ?.querySelectorAll("h3")
-                .map(($div: any) => $div.text);
-              const codes = pathToRoot($prom)
-                .find(($div) => $div.rawText.match(/Skopiowano kod/))
-                ?.querySelectorAll("p")
-                .filter(($div: any) => $div.text.match(/aktywuj kod rabatowy/))
-                .map(($div: any) => $div.nextElementSibling.text);
+              const proms =
+                pathToRoot($prom)
+                  .find(($div) => $div.querySelector("h3"))
+                  ?.querySelectorAll("h3")
+                  .map(($div: any) => $div.text) || [];
+              const codes =
+                pathToRoot($prom)
+                  .find(($div) => $div.rawText.match(/Skopiowano kod/))
+                  ?.querySelectorAll("p")
+                  .filter(($div: any) =>
+                    $div.text.match(/aktywuj kod rabatowy/)
+                  )
+                  .map(($div: any) => $div.nextElementSibling.text) || [];
 
               return {
                 id,
@@ -386,7 +392,7 @@ export default function () {
               };
               console.log(update);
 
-              productItems.update(update);
+              // productItems.update(update);
             }
           } else {
             productItems.insert({ ...item, _created: _time });
@@ -727,6 +733,8 @@ export default function () {
     "get-product:530119-statyw-rode-psa1-studio-arm",
     "get-product:563133-dysk-ssd-kingston-1tb-m2-pcie-nvme-kc2500",
     "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
+    "get-product:583534-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-essential",
+    "get-product:583538-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-1s",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });
