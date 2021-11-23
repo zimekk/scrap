@@ -112,7 +112,7 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ i, id, position, name, item }) => (
+        {list.map(({ i, id, position, name, item }: any) => (
           <CircleMarker
             key={i}
             center={position}
@@ -121,7 +121,7 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
             <Popup minWidth={90}>
               <section>
                 <header>
-                  {`[${id}] ${name} (${
+                  {`[${id}] ${[name].concat(item.address || []).join(" - ")} (${
                     center.distanceTo(position).toFixed(0) / 1000
                   } km)`}
                 </header>

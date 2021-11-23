@@ -93,8 +93,9 @@ function Data({ version = "v1" }) {
           };
         })
         .filter(
-          ({ name, item: { petrol_list } }) =>
-            name.toLowerCase().match(filter) &&
+          ({ name, item: { petrol_list, address = "" } }) =>
+            (name.toLowerCase().match(filter) ||
+              address.toLowerCase().match(filter)) &&
             (type
               ? ((item) =>
                   Boolean(item) &&

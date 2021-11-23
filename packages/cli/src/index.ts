@@ -4,6 +4,7 @@ import { Subject, from } from "rxjs";
 import { distinct, map, mergeMap, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
+import { headingDistanceTo } from "geolocation-utils";
 import { items, requests } from "@dev/api";
 import {
   productItems,
@@ -19,7 +20,17 @@ import {
 
 require("dotenv").config();
 
-const { URL, STATIONS_URL, STORE_URL } = process.env as {
+const {
+  NEARBY_LAT = "52.1530829",
+  NEARBY_LNG = "21.1104411",
+  NEARBY_RADIUS = "25014.985524846034",
+  URL,
+  STATIONS_URL,
+  STORE_URL,
+} = process.env as {
+  NEARBY_LAT: string;
+  NEARBY_LNG: string;
+  NEARBY_RADIUS: string;
   URL: string;
   STATIONS_URL: string;
   STORE_URL: string;
@@ -42,8 +53,8 @@ export default function () {
   const config = {
     klik: ({
       time = Date.now(),
-      lat = 52.1530829,
-      lng = 21.1104411,
+      lat = Number(NEARBY_LAT),
+      lng = Number(NEARBY_LNG),
       circle = 25014.985524846034,
       $type: type = 1,
       $kind: kind = 4,
@@ -383,13 +394,35 @@ export default function () {
         });
     });
 
+  interface LatLng {
+    lat: number;
+    lng: number;
+  }
+
   const stations$ = new Subject<{
     $type: string;
+    $center?: LatLng;
+    $radius?: number;
   }>();
 
   stations$
     .pipe(
-      mergeMap(({ $type }) => from(request({ $type })), 1),
+      mergeMap(
+        ({
+          $type,
+          $center = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) },
+          $radius = Number(NEARBY_RADIUS),
+        }) =>
+          from(
+            request({ $type }).then((list) =>
+              list.filter(
+                ({ x: lat, y: lng }: any) =>
+                  headingDistanceTo($center, { lat, lng }).distance < $radius
+              )
+            )
+          ),
+        1
+      ),
       mergeMap((list) => list),
       mergeMap(
         (item: any) =>
@@ -399,7 +432,8 @@ export default function () {
             map(({ html }: any) => {
               const $ = cheerio.load(html);
               return {
-                html,
+                ...item,
+                address: $("div.right-side > a:first-child").text(),
                 petrol_list: $("ul.petrol-list > li")
                   .map((_i, $el) => {
                     return {
@@ -410,12 +444,12 @@ export default function () {
                   .get(),
               };
             }),
-            map(({ html, petrol_list }) => ({ ...item, html, petrol_list })),
             map(
               ({
                 station_id,
                 x,
                 y,
+                address,
                 network_id,
                 network_name,
                 petrol_list,
@@ -424,6 +458,7 @@ export default function () {
                 station_id,
                 x,
                 y,
+                address,
                 network_id,
                 network_name,
                 petrol_list,
