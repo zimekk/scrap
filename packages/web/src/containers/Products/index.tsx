@@ -106,17 +106,18 @@ function Data({ version = "v1" }) {
               .replace(",", ".")
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
+          _history: {},
           ...item,
-          _history: Object.entries(item._history).reduce(
-            (history, [time, item], i, list) =>
-              Object.assign(
-                history,
-                i > 0 && JSON.stringify(item) === JSON.stringify(list[i - 1][1])
-                  ? {}
-                  : { [time]: item }
-              ),
-            {}
-          ),
+          // _history: Object.entries(item._history || {}).reduce(
+          //   (history, [time, item], i, list) =>
+          //     Object.assign(
+          //       history,
+          //       i > 0 && JSON.stringify(item) === JSON.stringify(list[i - 1][1])
+          //         ? {}
+          //         : { [time]: item }
+          //     ),
+          //   {}
+          // ),
         }))
         .filter(
           (item: any) =>

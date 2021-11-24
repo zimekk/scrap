@@ -43,11 +43,13 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/vehicles/data.json?${version}`);
   return await res
     .json()
-    .then(({ $list }) => ({
-      results: $list,
-      options: $list.reduce(
+    .then(({ $list }) => $list)
+    .then((list) => ({
+      results: list,
+      options: list.reduce(
         (options, item) =>
           [
+            "dealer",
             "bodyType",
             "brand",
             "color",
@@ -57,6 +59,7 @@ const asset = createAsset(async (version) => {
             "seriesCode",
             "modelCode",
             "transmission",
+            "warranty",
           ].reduce(
             (options, prop) => ({
               ...options,
@@ -65,7 +68,7 @@ const asset = createAsset(async (version) => {
                 options[prop],
                 typeof item[prop] === "object"
                   ? {
-                      [item[prop].id]: item[prop].label,
+                      [item[prop].id]: item[prop].label || item[prop].name,
                     }
                   : {
                       [item[prop]]: item[prop],
