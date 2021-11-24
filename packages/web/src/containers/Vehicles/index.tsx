@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
+import createPersistedState from "use-persisted-state";
 import cx from "classnames";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
@@ -37,6 +38,8 @@ const TYPES = {
 const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
+
+const useFavorites = createPersistedState("favorites-vehicles");
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
@@ -114,6 +117,15 @@ function Button({ ...props }) {
   return <button {...props} />;
 }
 
+function Toggle({ children, ...props }) {
+  return (
+    <label>
+      <input type="checkbox" {...props} />
+      <span>{children}</span>
+    </label>
+  );
+}
+
 function Color({ color }) {
   return (
     <a
@@ -124,7 +136,7 @@ function Color({ color }) {
   );
 }
 
-function Link({ href, ...props }) {
+function Link({ href = "#", ...props }) {
   const hash = href[0] === "#";
 
   return (
@@ -321,7 +333,10 @@ function Data({ version = "v1" }) {
         .filter(
           ({ item }) =>
             (item.title.toLowerCase().match(filter) ||
-              filter.trim() === String(item.id)) &&
+              filter
+                .split(",")
+                .map((s) => s.trim())
+                .includes(String(item.id))) &&
             ["", item.isNew ? "N" : "U"].includes(type) &&
             priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= priceTo &&
@@ -373,6 +388,8 @@ function Data({ version = "v1" }) {
       ),
     [list, sortBy]
   );
+
+  const [favorites, setFavorites] = useFavorites([]);
 
   return (
     <div>
@@ -559,6 +576,26 @@ function Data({ version = "v1" }) {
           </div>
         ))}
       </fieldset>
+      {favorites.length > 0 ? (
+        <div>
+          {`Your favorites: ${favorites
+            .map((favorite) => `[${favorite}]`)
+            .join(", ")}`}{" "}
+          <Link
+            onClick={(e) => (
+              e.preventDefault(), setSearch(favorites.join(`, `))
+            )}
+          >
+            search
+          </Link>{" "}
+          |{" "}
+          <Link onClick={(e) => (e.preventDefault(), setFavorites([]))}>
+            clear
+          </Link>
+        </div>
+      ) : (
+        <div>{`You don't have favorites`}</div>
+      )}
       <div>{`Found ${list.length} vehicles out of a total of ${results.length}`}</div>
       <ol>
         {sorted
@@ -579,7 +616,12 @@ function Data({ version = "v1" }) {
                       `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
                   )}
               />
-              <Details item={{ id, ...item }} onClickCompare={onClickCompare} />
+              <Details
+                item={{ id, ...item }}
+                onClickCompare={onClickCompare}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
               {Object.entries(item._history || {})
                 .reverse()
                 .map(([_time, _item], key, list) => (
@@ -587,7 +629,6 @@ function Data({ version = "v1" }) {
                     key={_time}
                     _time={_time}
                     item={{ id, ..._item }}
-                    onClickCompare={onClickCompare}
                     prev={key ? list[key - 1][1] : item}
                   />
                 ))}
@@ -598,7 +639,14 @@ function Data({ version = "v1" }) {
   );
 }
 
-function Details({ _time, item, onClickCompare, prev }) {
+function Details({
+  _time,
+  item,
+  onClickCompare,
+  prev,
+  favorites,
+  setFavorites,
+}) {
   const {
     id,
     title,
@@ -636,9 +684,25 @@ function Details({ _time, item, onClickCompare, prev }) {
         <Link
           href={`//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`}
         >{`[${id}] ${title}`}</Link>
-        <Button onClick={onClickCompare} value={id}>
-          Compare
-        </Button>
+        {onClickCompare && (
+          <Button onClick={onClickCompare} value={id}>
+            Compare
+          </Button>
+        )}
+        {setFavorites && (
+          <Toggle
+            checked={favorites.includes(id)}
+            onChange={(e) =>
+              setFavorites((favorites) =>
+                e.target.checked
+                  ? favorites.concat(id)
+                  : favorites.filter((favorite) => favorite !== id)
+              )
+            }
+          >
+            Favorite
+          </Toggle>
+        )}
       </li>
       <li>
         [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}

@@ -32,7 +32,8 @@
     "rxjs": "^7.4.0",
     "static-kdtree": "^1.0.2",
     "tesseract.js": "^2.1.5",
-    "use-asset": "^1.0.4"
+    "use-asset": "^1.0.4",
+    "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
