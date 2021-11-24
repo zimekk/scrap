@@ -70,7 +70,17 @@ const asset = createAsset(async (version) => {
       Object.keys(options).forEach((key) =>
         Object.assign(options, {
           [key]: Object.entries(options[key])
-            .sort(([a], [b]) => (String(a) > String(b) ? 1 : -1))
+            .sort(
+              [
+                "model",
+                "modelCode",
+                "symbolicCarline",
+                "upholsteryColor",
+                "upholsteryType",
+              ].includes(key)
+                ? ([, a], [, b]) => (String(a) > String(b) ? 1 : -1)
+                : ([a], [b]) => (String(a) > String(b) ? 1 : -1)
+            )
             .reduce(
               (result, [key, value]) => Object.assign(result, { [key]: value }),
               {}
