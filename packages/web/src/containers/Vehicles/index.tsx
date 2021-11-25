@@ -1,10 +1,12 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
+import { useInView } from "react-intersection-observer";
 import createPersistedState from "use-persisted-state";
 import cx from "classnames";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
+import { Spinner } from "../../components/Spinner";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
@@ -98,17 +100,41 @@ const asset = createAsset(async (version) => {
     });
 });
 
-function Gallery({ images }) {
+const image = createAsset(async (src) => {
+  return new Promise((onload) => {
+    const img = new Image();
+    Object.assign(img, {
+      onload,
+      src,
+    });
+  });
+});
+
+function Img({ src, ...props }) {
+  image.read(src);
+
+  return <img src={src} {...props} referrerPolicy="no-referrer" />;
+}
+
+function Loader() {
+  return (
+    <div className={styles.Loader}>
+      <Spinner />
+    </div>
+  );
+}
+
+function Gallery({ images }: any) {
+  const [ref, inView] = useInView({ delay: 100, triggerOnce: true });
+
   return images.length ? (
-    <div className={styles.Gallery}>
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Image #${index + 1}`}
-          referrerPolicy="no-referrer"
-        />
-      ))}
+    <div ref={ref} className={styles.Gallery}>
+      <Suspense fallback={<Loader />}>
+        {inView &&
+          images.map((image, index) => (
+            <Img key={index} src={image} alt={`Image #${index + 1}`} />
+          ))}
+      </Suspense>
     </div>
   ) : null;
 }
