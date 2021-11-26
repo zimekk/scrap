@@ -186,111 +186,29 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [criteria, setCriteria] = useState(() =>
-    Object.keys(options).reduce(
+  const [criteria, setCriteria] = useState(() => ({
+    type: "",
+    radius: RADIUS_LIST[RADIUS_LIST.length - 1],
+
+    priceFrom: PRICE_LIST[0],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+
+    powerFrom: POWER_LIST[0],
+    powerTo: POWER_LIST[POWER_LIST.length - 1],
+
+    yearFrom: YEAR_LIST[0],
+    yearTo: YEAR_LIST[YEAR_LIST.length - 1],
+
+    entries: Object.keys(options).reduce(
       (criteria, prop) =>
         Object.assign(criteria, {
           [prop]: "",
         }),
       {}
-    )
-  );
-
-  const onChangeCriteria = useCallback(
-    ({ target }) =>
-      setCriteria((criteria) => ({
-        ...criteria,
-        [target.name]: target.value,
-      })),
-    []
-  );
+    ),
+  }));
 
   const [sortBy, setSortBy] = useState("transactionalPrice");
-
-  const onChangeSortBy = useCallback(
-    ({ target }) => setSortBy(target.value),
-    []
-  );
-
-  const [type, setType] = useState("");
-
-  const onChangeType = useCallback(({ target }) => setType(target.value), []);
-
-  const [radius, setRadius] = useState(RADIUS_LIST[RADIUS_LIST.length - 1]);
-
-  const onChangeRadius = useCallback(
-    ({ target }) => setRadius(Number(target.value)),
-    []
-  );
-
-  const [priceFrom, setPriceFrom] = useState(PRICE_LIST[0]);
-  const [priceTo, setPriceTo] = useState(PRICE_LIST[PRICE_LIST.length - 1]);
-
-  const onChangePriceFrom = useCallback(
-    ({ target }) =>
-      setPriceTo((to) => {
-        const from = Number(target.value);
-        setPriceFrom(from);
-        return to < from ? from : to;
-      }),
-    []
-  );
-
-  const onChangePriceTo = useCallback(
-    ({ target }) =>
-      setPriceFrom((from) => {
-        const to = Number(target.value);
-        setPriceTo(to);
-        return to > from ? from : to;
-      }),
-    []
-  );
-
-  const [powerFrom, setPowerFrom] = useState(POWER_LIST[0]);
-  const [powerTo, setPowerTo] = useState(POWER_LIST[POWER_LIST.length - 1]);
-
-  const onChangePowerFrom = useCallback(
-    ({ target }) =>
-      setPowerTo((to) => {
-        const from = Number(target.value);
-        setPowerFrom(from);
-        return to < from ? from : to;
-      }),
-    []
-  );
-
-  const onChangePowerTo = useCallback(
-    ({ target }) =>
-      setPowerFrom((from) => {
-        const to = Number(target.value);
-        setPowerTo(to);
-        return to > from ? from : to;
-      }),
-    []
-  );
-
-  const [yearFrom, setYearFrom] = useState(YEAR_LIST[0]);
-  const [yearTo, setYearTo] = useState(YEAR_LIST[YEAR_LIST.length - 1]);
-
-  const onChangeYearFrom = useCallback(
-    ({ target }) =>
-      setYearTo((to) => {
-        const from = Number(target.value);
-        setYearFrom(from);
-        return to < from ? from : to;
-      }),
-    []
-  );
-
-  const onChangeYearTo = useCallback(
-    ({ target }) =>
-      setYearFrom((from) => {
-        const to = Number(target.value);
-        setYearTo(to);
-        return to > from ? from : to;
-      }),
-    []
-  );
 
   const onClickCompare = useCallback(({ target }) => {
     const id = Number(target.value);
@@ -358,19 +276,19 @@ function Data({ version = "v1" }) {
         })
         .filter(
           ({ item }) =>
-            (item.title.toLowerCase().match(filter) ||
-              filter
+            (item.title.toLowerCase().match(criteria.filter) ||
+              criteria.filter
                 .split(",")
                 .map((s) => s.trim())
                 .includes(String(item.id))) &&
-            ["", item.isNew ? "N" : "U"].includes(type) &&
-            priceFrom <= item.transactionalPrice &&
-            item.transactionalPrice <= priceTo &&
-            powerFrom <= item.powerHP &&
-            item.powerHP <= powerTo &&
-            yearFrom <= item.productionYear &&
-            item.productionYear <= yearTo &&
-            Object.entries(criteria).findIndex(
+            ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
+            criteria.priceFrom <= item.transactionalPrice &&
+            item.transactionalPrice <= criteria.priceTo &&
+            criteria.powerFrom <= item.powerHP &&
+            item.powerHP <= criteria.powerTo &&
+            criteria.yearFrom <= item.productionYear &&
+            item.productionYear <= criteria.yearTo &&
+            Object.entries(criteria.entries).findIndex(
               ([prop, value]) =>
                 ![
                   String(
@@ -380,18 +298,7 @@ function Data({ version = "v1" }) {
                 ].includes(value)
             ) === -1
         ),
-    [
-      results,
-      filter,
-      type,
-      criteria,
-      yearFrom,
-      yearTo,
-      priceFrom,
-      priceTo,
-      powerFrom,
-      powerTo,
-    ]
+    [results, criteria]
   );
 
   const bounds = useBounds(
@@ -402,9 +309,9 @@ function Data({ version = "v1" }) {
   const nearby = useMemo(
     () =>
       list.filter(
-        ({ position }) => center.distanceTo(position) < radius * 1000
+        ({ position }) => center.distanceTo(position) < criteria.radius * 1000
       ),
-    [list, center, radius]
+    [list, center, criteria.radius]
   );
 
   const sorted = useMemo(
@@ -416,6 +323,7 @@ function Data({ version = "v1" }) {
   );
 
   const [favorites, setFavorites] = useFavorites([]);
+  // const [criterion, setCriterion] = useFavorites([]);
 
   return (
     <div>
@@ -425,183 +333,15 @@ function Data({ version = "v1" }) {
         setCenter={setCenter}
         list={nearby}
       />
-      <Chart list={list} />
-      <fieldset>
-        <div>
-          <label>
-            <span>Type</span>
-            <select value={type} onChange={onChangeType}>
-              {Object.entries(TYPES).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Search</span>
-            <input type="search" value={search} onChange={onChangeSearch} />
-          </label>
-          <label>
-            <span>Sort</span>
-            <select value={sortBy} onChange={onChangeSortBy}>
-              {Object.entries(SORT_BY).map(([value, label]) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            <span>Radius</span>
-            <input
-              type="range"
-              list="range-list"
-              min={RADIUS_LIST[0]}
-              max={RADIUS_LIST[RADIUS_LIST.length - 1]}
-              value={radius}
-              onChange={onChangeRadius}
-            />
-            <datalist id="range-list">
-              {RADIUS_LIST.map((value) => (
-                <option
-                  key={value}
-                  value={value}
-                  label={
-                    [1, 25, 100].includes(value) ? `${value} km` : undefined
-                  }
-                ></option>
-              ))}
-            </datalist>
-            <span>{`max ${radius} km`}</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <span>Year From</span>
-            <input
-              type="range"
-              list="year-list"
-              min={YEAR_LIST[0]}
-              max={YEAR_LIST[YEAR_LIST.length - 1]}
-              value={yearFrom}
-              onChange={onChangeYearFrom}
-            />
-            <datalist id="year-list">
-              {YEAR_LIST.map((value) => (
-                <option
-                  key={value}
-                  value={value}
-                  label={
-                    [0, 2010, 2015, 2020].includes(value)
-                      ? `${value}`
-                      : undefined
-                  }
-                ></option>
-              ))}
-            </datalist>
-          </label>
-          <label>
-            <span>Year To</span>
-            <input
-              type="range"
-              list="year-list"
-              min={YEAR_LIST[0]}
-              max={YEAR_LIST[YEAR_LIST.length - 1]}
-              value={yearTo}
-              onChange={onChangeYearTo}
-            />
-            <span>{`${yearFrom}-${yearTo}`}</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <span>Price From</span>
-            <input
-              type="range"
-              list="price-list"
-              min={PRICE_LIST[0]}
-              max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceFrom}
-              onChange={onChangePriceFrom}
-            />
-            <datalist id="price-list">
-              {PRICE_LIST.map((value) => (
-                <option
-                  key={value}
-                  value={value}
-                  label={
-                    [0, 100000, 200000, 300000, 400000, 500000].includes(value)
-                      ? `${value} pln`
-                      : undefined
-                  }
-                ></option>
-              ))}
-            </datalist>
-          </label>
-          <label>
-            <span>Price To</span>
-            <input
-              type="range"
-              list="price-list"
-              min={PRICE_LIST[0]}
-              max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceTo}
-              onChange={onChangePriceTo}
-            />
-            <span>{`${priceFrom}-${priceTo} pln`}</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <span>Power From</span>
-            <input
-              type="range"
-              list="power-list"
-              min={POWER_LIST[0]}
-              max={POWER_LIST[POWER_LIST.length - 1]}
-              value={powerFrom}
-              onChange={onChangePowerFrom}
-            />
-            <datalist id="power-list">
-              {POWER_LIST.map((value) => (
-                <option
-                  key={value}
-                  value={value}
-                  label={POWER_LIST.includes(value) ? `${value} hp` : undefined}
-                ></option>
-              ))}
-            </datalist>
-          </label>
-          <label>
-            <span>Power To</span>
-            <input
-              type="range"
-              list="power-list"
-              min={POWER_LIST[0]}
-              max={POWER_LIST[POWER_LIST.length - 1]}
-              value={powerTo}
-              onChange={onChangePowerTo}
-            />
-            <span>{`${powerFrom}-${powerTo} hp`}</span>
-          </label>
-        </div>
-        {Object.entries(criteria).map(([name, value], key) => (
-          <div key={key}>
-            <label>
-              <span>{name}</span>
-              <select name={name} value={value} onChange={onChangeCriteria}>
-                <option value={""}>--</option>
-                {Object.entries(options[name]).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-        ))}
-      </fieldset>
+      <Chart list={list} onSelect={(id: number) => setSearch(String(id))} />
+      <Criteria
+        {...criteria}
+        options={options}
+        setCriteria={setCriteria}
+        setSearch={setSearch}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
       {favorites.length > 0 ? (
         <div>
           {`Your favorites: ${favorites
@@ -665,6 +405,311 @@ function Data({ version = "v1" }) {
   );
 }
 
+function Criteria({
+  search,
+  options,
+  entries,
+  type,
+  yearFrom,
+  yearTo,
+  priceFrom,
+  priceTo,
+  powerFrom,
+  powerTo,
+  radius,
+  setCriteria,
+  setSearch,
+  sortBy,
+  setSortBy,
+}) {
+  const onChangeSearch = useCallback(
+    ({ target }) => setSearch(target.value),
+    []
+  );
+
+  const onChangeCriteria = useCallback(
+    ({ target }) =>
+      setCriteria(({ entries, ...criteria }: { entries: {} }) => ({
+        ...criteria,
+        entries: {
+          ...entries,
+          [target.name]: target.value,
+        },
+      })),
+    []
+  );
+
+  const onChangeSortBy = useCallback(
+    ({ target }) => setSortBy(target.value),
+    []
+  );
+
+  const onChangeType = useCallback(
+    ({ target }) =>
+      setCriteria((criteria) => ({ ...criteria, type: target.value })),
+    []
+  );
+
+  const onChangeRadius = useCallback(
+    ({ target }) =>
+      setCriteria((criteria) => ({
+        ...criteria,
+        radius: Number(target.value),
+      })),
+    []
+  );
+
+  const onChangePriceFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ priceTo, ...criteria }) => {
+        const priceFrom = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom,
+          priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+        };
+      }),
+    []
+  );
+  const onChangePriceTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ priceFrom, ...criteria }) => {
+        const priceTo = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+          priceTo,
+        };
+      }),
+    []
+  );
+
+  const onChangePowerFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ powerTo, ...criteria }) => {
+        const powerFrom = Number(target.value);
+        return {
+          ...criteria,
+          powerFrom,
+          powerTo: powerTo < powerFrom ? powerFrom : powerTo,
+        };
+      }),
+    []
+  );
+  const onChangePowerTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ powerFrom, ...criteria }) => {
+        const powerTo = Number(target.value);
+        return {
+          ...criteria,
+          powerFrom: powerTo > powerFrom ? powerFrom : powerTo,
+          powerTo,
+        };
+      }),
+    []
+  );
+
+  const onChangeYearFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ yearTo, ...criteria }) => {
+        const yearFrom = Number(target.value);
+        return {
+          ...criteria,
+          yearFrom,
+          yearTo: yearTo < yearFrom ? yearFrom : yearTo,
+        };
+      }),
+    []
+  );
+  const onChangeYearTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ yearFrom, ...criteria }) => {
+        const yearTo = Number(target.value);
+        return {
+          ...criteria,
+          yearFrom: yearTo > yearFrom ? yearFrom : yearTo,
+          yearTo,
+        };
+      }),
+    []
+  );
+
+  return (
+    <fieldset>
+      <div>
+        <label>
+          <span>Type</span>
+          <select value={type} onChange={onChangeType}>
+            {Object.entries(TYPES).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Search</span>
+          <input type="search" value={search} onChange={onChangeSearch} />
+        </label>
+        <label>
+          <span>Sort</span>
+          <select value={sortBy} onChange={onChangeSortBy}>
+            {Object.entries(SORT_BY).map(([value, label]) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Radius</span>
+          <input
+            type="range"
+            list="range-list"
+            min={RADIUS_LIST[0]}
+            max={RADIUS_LIST[RADIUS_LIST.length - 1]}
+            value={radius}
+            onChange={onChangeRadius}
+          />
+          <datalist id="range-list">
+            {RADIUS_LIST.map((value) => (
+              <option
+                key={value}
+                value={value}
+                label={[1, 25, 100].includes(value) ? `${value} km` : undefined}
+              ></option>
+            ))}
+          </datalist>
+          <span>{`max ${radius} km`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Year From</span>
+          <input
+            type="range"
+            list="year-list"
+            min={YEAR_LIST[0]}
+            max={YEAR_LIST[YEAR_LIST.length - 1]}
+            value={yearFrom}
+            onChange={onChangeYearFrom}
+          />
+          <datalist id="year-list">
+            {YEAR_LIST.map((value) => (
+              <option
+                key={value}
+                value={value}
+                label={
+                  [0, 2010, 2015, 2020].includes(value) ? `${value}` : undefined
+                }
+              ></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Year To</span>
+          <input
+            type="range"
+            list="year-list"
+            min={YEAR_LIST[0]}
+            max={YEAR_LIST[YEAR_LIST.length - 1]}
+            value={yearTo}
+            onChange={onChangeYearTo}
+          />
+          <span>{`${yearFrom}-${yearTo}`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Price From</span>
+          <input
+            type="range"
+            list="price-list"
+            min={PRICE_LIST[0]}
+            max={PRICE_LIST[PRICE_LIST.length - 1]}
+            value={priceFrom}
+            onChange={onChangePriceFrom}
+          />
+          <datalist id="price-list">
+            {PRICE_LIST.map((value) => (
+              <option
+                key={value}
+                value={value}
+                label={
+                  [0, 100000, 200000, 300000, 400000, 500000].includes(value)
+                    ? `${value} pln`
+                    : undefined
+                }
+              ></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Price To</span>
+          <input
+            type="range"
+            list="price-list"
+            min={PRICE_LIST[0]}
+            max={PRICE_LIST[PRICE_LIST.length - 1]}
+            value={priceTo}
+            onChange={onChangePriceTo}
+          />
+          <span>{`${priceFrom}-${priceTo} pln`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Power From</span>
+          <input
+            type="range"
+            list="power-list"
+            min={POWER_LIST[0]}
+            max={POWER_LIST[POWER_LIST.length - 1]}
+            value={powerFrom}
+            onChange={onChangePowerFrom}
+          />
+          <datalist id="power-list">
+            {POWER_LIST.map((value) => (
+              <option
+                key={value}
+                value={value}
+                label={POWER_LIST.includes(value) ? `${value} hp` : undefined}
+              ></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Power To</span>
+          <input
+            type="range"
+            list="power-list"
+            min={POWER_LIST[0]}
+            max={POWER_LIST[POWER_LIST.length - 1]}
+            value={powerTo}
+            onChange={onChangePowerTo}
+          />
+          <span>{`${powerFrom}-${powerTo} hp`}</span>
+        </label>
+      </div>
+      {Object.entries(entries).map(([name, value], key) => (
+        <div key={key}>
+          <label>
+            <span>{name}</span>
+            <select name={name} value={value} onChange={onChangeCriteria}>
+              <option value={""}>--</option>
+              {Object.entries(options[name]).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      ))}
+    </fieldset>
+  );
+}
+
 function Details({
   _time,
   item,
@@ -672,7 +717,7 @@ function Details({
   prev,
   favorites,
   setFavorites,
-}) {
+}: any) {
   const {
     id,
     title,

@@ -34,7 +34,7 @@ const PROPS = {
 
 // https://betterprogramming.pub/construct-d3-charts-in-react-cfecc2848ae2
 // https://wattenberger.com/blog/react-and-d3
-export default function Chart({ list }) {
+export default function Chart({ list, onSelect }) {
   const [selected, setSelected] = useState<{
     top: number;
     left: number;
@@ -67,6 +67,7 @@ export default function Chart({ list }) {
         item[xProp],
         item[yProp],
         `[${item.id}] ${item.title}`,
+        item.id,
       ]);
 
     const xx = dataset.map(([x = 0]) => x);
@@ -97,6 +98,7 @@ export default function Chart({ list }) {
             .attr("cy", ([, y = 0]) => yScale(y))
             .attr("r", 0)
             .attr("fill", ([x = 0]) => color(x))
+            .on("click", (e, [, , , id]) => onSelect(id))
             .on("mouseover", (e, [, , label]) =>
               selected$.next({ left: e.layerX, top: e.layerY, label })
             )
