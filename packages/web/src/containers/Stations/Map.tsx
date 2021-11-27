@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import L from "leaflet";
 import {
   CircleMarker,
@@ -17,7 +11,6 @@ import {
 } from "react-leaflet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-// import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import cx from "classnames";
 import styles from "./Map.module.scss";
 
@@ -76,6 +69,31 @@ function LocateControl() {
   );
 }
 
+function Table({ data }) {
+  return (
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <td></td>
+            {Object.keys(data.header).map((name, key) => (
+              <th key={key}>{name}</th>
+            ))}
+          </tr>
+          {data.rows.map(({ date, list }, key) => (
+            <tr key={key}>
+              <th>{date}</th>
+              {Object.keys(data.header).map((name, key) => (
+                <td key={key}>{list[name]}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export function useBounds(list) {
   return useMemo(
     () =>
@@ -125,16 +143,44 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
                     center.distanceTo(position).toFixed(0) / 1000
                   } km)`}
                 </header>
-                <table>
-                  <tbody>
-                    {item.petrol_list.map(({ type, price }, key) => (
-                      <tr key={key}>
-                        <th>{type}</th>
-                        <td>{price}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <Table
+                  data={Object.entries(
+                    Object.assign(
+                      {
+                        [item._updated || item._created]:
+                          item.petrol_list.reduce(
+                            (list, { type, price }) =>
+                              Object.assign(list, { [type]: price }),
+                            {}
+                          ),
+                      },
+                      item._history
+                    )
+                  )
+                    .sort(([a], [b]) => a > b)
+                    .reduce(
+                      (table, [time, list]: any) =>
+                        Object.assign(table, {
+                          header: Object.keys(list).reduce(
+                            (header, item) =>
+                              Object.assign(header, { [item]: item }),
+                            table.header
+                          ),
+                          rows: table.rows.concat([
+                            {
+                              date: new Date(Number(time))
+                                .toISOString()
+                                .split("T")[0],
+                              list,
+                            },
+                          ]),
+                        }),
+                      {
+                        header: {},
+                        rows: [],
+                      }
+                    )}
+                />
               </section>
             </Popup>
           </CircleMarker>
