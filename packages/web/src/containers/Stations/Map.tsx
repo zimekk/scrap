@@ -80,14 +80,16 @@ function Table({ data }) {
               <th key={key}>{name}</th>
             ))}
           </tr>
-          {data.rows.map(({ date, list }, key) => (
-            <tr key={key}>
-              <th>{date}</th>
-              {Object.keys(data.header).map((name, key) => (
-                <td key={key}>{list[name]}</td>
-              ))}
-            </tr>
-          ))}
+          {data.rows
+            .sort((a, b) => b.date - a.date)
+            .map(({ date, list }, key) => (
+              <tr key={key}>
+                <th>{new Date(date).toISOString().split("T")[0]}</th>
+                {Object.keys(data.header).map((name, key) => (
+                  <td key={key}>{list[name]}</td>
+                ))}
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>
@@ -156,30 +158,26 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
                       },
                       item._history
                     )
-                  )
-                    .sort(([a], [b]) => a > b)
-                    .reduce(
-                      (table, [time, list]: any) =>
-                        Object.assign(table, {
-                          header: Object.keys(list).reduce(
-                            (header, item) =>
-                              Object.assign(header, { [item]: item }),
-                            table.header
-                          ),
-                          rows: table.rows.concat([
-                            {
-                              date: new Date(Number(time))
-                                .toISOString()
-                                .split("T")[0],
-                              list,
-                            },
-                          ]),
-                        }),
-                      {
-                        header: {},
-                        rows: [],
-                      }
-                    )}
+                  ).reduce(
+                    (table, [time, list]: any) =>
+                      Object.assign(table, {
+                        header: Object.keys(list).reduce(
+                          (header, item) =>
+                            Object.assign(header, { [item]: item }),
+                          table.header
+                        ),
+                        rows: table.rows.concat([
+                          {
+                            date: Number(time),
+                            list,
+                          },
+                        ]),
+                      }),
+                    {
+                      header: {},
+                      rows: [],
+                    }
+                  )}
                 />
               </section>
             </Popup>
