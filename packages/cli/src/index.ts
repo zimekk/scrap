@@ -47,7 +47,7 @@ const timeout =
 const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
   mktime - (mktime % period);
 
-let requestLimit = 100;
+let requestLimit = 1000;
 
 export default function () {
   const config = {
@@ -311,18 +311,17 @@ export default function () {
               const links = pathToRoot($cart)
                 .find(($div) => $div.rawText.match(/zł/))
                 ?.querySelectorAll("button")
-                .map(
-                  ($div: any) =>
-                    $div
-                      .querySelectorAll("span")
-                      .filter(($div: any) => $div.text)
-                      .filter(
-                        ($div: any) =>
-                          $div.childNodes.length > 0 &&
-                          $div.childNodes[0].nodeType === 3
-                      )
-                      .map(($div: any) => $div.text)
-                  // .filter((text:string) => !text.match(/Kup teraz/))
+                .map(($div: any) =>
+                  $div
+                    .querySelectorAll("span")
+                    .filter(($div: any) => $div.text)
+                    .filter(
+                      ($div: any) =>
+                        $div.childNodes.length > 0 &&
+                        $div.childNodes[0].nodeType === 3
+                    )
+                    .map(($div: any) => $div.text)
+                    .filter((text: string) => !text.match(/Kup teraz/))
                 )
                 .filter((array: any) => array.length > 0);
 

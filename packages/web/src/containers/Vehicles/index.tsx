@@ -39,6 +39,9 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 600000, 700000, 800000, 900000,
   1000000,
 ];
+const MILEAGE_LIST = [
+  0, 1000, 5000, 10000, 20000, 50000, 100000, 150000, 200000, 500000,
+];
 const POWER_LIST = [0, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900];
 const TYPES = {
   "": "",
@@ -57,7 +60,208 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/vehicles/data.json?${version}`);
   return await res
     .json()
-    .then(({ $list }) => $list)
+    .then(({ $list = [], vehicleBasic = [] }) =>
+      []
+        .concat(
+          $list.map(({ _id, _created, _updated, ...source }) => ({
+            _id,
+            _created,
+            _updated,
+            source,
+            title: source.title,
+            dealer: (({ dealer: { id, name, lat, lng } }) => ({
+              id,
+              name,
+              lat,
+              lng,
+            }))(source),
+            ...(({
+              id,
+              isNew,
+              vatReclaimable,
+              warranty,
+              productionYear,
+              newPrice,
+              optionsPrice,
+              accessoriesPrice,
+              transactionalPrice,
+              brand,
+              bodyType,
+              series,
+              seriesCode,
+              modelCode,
+              powerHP,
+              powerKW,
+              capacity,
+              fuel,
+              consumptionFuel,
+              transmission,
+              color,
+              images,
+            }) => ({
+              id,
+              href: `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`,
+              isNew,
+              newPrice,
+              optionsPrice,
+              accessoriesPrice,
+              vatReclaimable,
+              warranty: Boolean(warranty > 0) ? 1 : 0,
+              productionYear,
+              transactionalPrice,
+              brand,
+              bodyType,
+              series,
+              seriesCode,
+              modelCode,
+              powerHP,
+              powerKW,
+              capacity,
+              fuel,
+              consumptionFuel,
+              transmission,
+              color,
+              images: [...Array(images)].map(
+                (_, i, _list, size = "322/255b28ffdad35cd984ff32f30da17158") =>
+                  `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
+              ),
+            }))(source),
+            ...(source.isNew
+              ? {}
+              : (({ mileage, registration }) => ({
+                  registration,
+                  mileage,
+                }))(source)),
+          }))
+        )
+        .concat(
+          vehicleBasic.map(({ _id, _created, _updated, ...source }) => ({
+            _id,
+            _created,
+            _updated,
+            source,
+            title: source.model.description,
+            dealer: (({
+              dealer: {
+                id,
+                name,
+                geoLocation: { lat, lon: lng },
+              },
+            }) => ({
+              id,
+              name,
+              lat,
+              lng,
+            }))(source),
+            ...(({
+              id,
+              carId,
+              used,
+              vatReclaimable,
+              warrantyPlus,
+              productionYear,
+              typedPrices,
+              brand,
+              model,
+              symbolicCarline,
+              symbolicCarlineGroup,
+              bodyType,
+              driveType,
+              gearBox,
+              powerDisplay = "",
+              io: { fuels },
+              gearType,
+              extColor,
+              pictures = [],
+            }) => ({
+              id: carId,
+              href: `//www.audi.pl/pl/web/pl/wyszukiwarka-samochodow-uzywanych/details.sc_detail.${id}.html`,
+              isNew: !Boolean(used),
+              vatReclaimable,
+              warranty: warrantyPlus ? 1 : 0,
+              productionYear,
+              transactionalPrice: typedPrices[0].amount,
+              brand: (({ code, description = "Audi" }) => ({
+                id: code,
+                label: description,
+              }))(brand),
+
+              series: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(symbolicCarlineGroup || {}),
+              seriesCode: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(symbolicCarline),
+              modelCode: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(model),
+
+              bodyType: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(bodyType || {}),
+              driveType: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(driveType || {}),
+              ...((m) =>
+                m
+                  ? {
+                      powerKW: Number(m[1]),
+                      powerHP: Number(m[2]),
+                    }
+                  : {})(powerDisplay.match(/(\d+) kW \((\d+) KM\)/)),
+              ...(fuels
+                ? {
+                    fuel:
+                      {
+                        DIESEL: { id: 2, label: "Diesel" },
+                        PETROL: { id: 1, label: "Benzyna" },
+                        ELECTRICAL: { id: 3, label: "Elektryczny" },
+                      }[fuels[0].fuel] || {},
+                    consumptionFuel: (({
+                      consumption: {
+                        consolidated: { value },
+                      },
+                    }) => Number(value.replace(",", ".")))(fuels[0]),
+                  }
+                : { fuel: {} }),
+              gearBox: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(gearBox || {}),
+              transmission: (({ code, description }) => ({
+                id: {
+                  ["gear-type.automatic"]: 0,
+                  ["gear-type.null"]: 0,
+                  ["gear-type.manual"]: 1,
+                }[code],
+                label: description,
+              }))(gearType),
+              color: (({ code, description }) => ({
+                id: code,
+                label: description,
+              }))(extColor),
+              images: used?.pictureUrls
+                ? used.pictureUrls
+                : pictures.map(({ url }) => url),
+            }))(source),
+            ...(source.type === "N"
+              ? {}
+              : (({
+                  used: { numPreviousOwners, mileage, initialRegistrationDate },
+                }) => ({
+                  numPreviousOwners,
+                  registration: new Date(initialRegistrationDate).toISOString(),
+                  mileage,
+                }))(source)),
+          }))
+        )
+    )
+    .then((list) => list.sort((a, b) => (a._id > b._id ? 1 : -1)))
     .then((list) => ({
       results: list,
       options: list.reduce(
@@ -65,14 +269,15 @@ const asset = createAsset(async (version) => {
           [
             "dealer",
             "bodyType",
+            "driveType",
             "brand",
             "color",
-            "emissionStandard",
             "fuel",
             "series",
             "seriesCode",
             "modelCode",
             "transmission",
+            "gearBox",
             "warranty",
           ].reduce(
             (options, prop) => ({
@@ -198,6 +403,9 @@ function Data({ version = "v1" }) {
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
 
+    mileageFrom: MILEAGE_LIST[0],
+    mileageTo: MILEAGE_LIST[MILEAGE_LIST.length - 1],
+
     powerFrom: POWER_LIST[0],
     powerTo: POWER_LIST[POWER_LIST.length - 1],
 
@@ -306,6 +514,9 @@ function Data({ version = "v1" }) {
             ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
             criteria.priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= criteria.priceTo &&
+            (item.mileage === undefined ||
+              (criteria.mileageFrom <= item.mileage &&
+                item.mileage <= criteria.mileageTo)) &&
             criteria.powerFrom <= item.powerHP &&
             item.powerHP <= criteria.powerTo &&
             criteria.yearFrom <= item.productionYear &&
@@ -324,7 +535,16 @@ function Data({ version = "v1" }) {
   );
 
   const bounds = useBounds(
-    list.length ? list : [{ position: { lat: 52.232855, lng: 20.921111 } }]
+    list.length
+      ? list
+      : [
+          {
+            position: {
+              lat: process.env.NEARBY_LAT,
+              lng: process.env.NEARBY_LNG,
+            },
+          },
+        ]
   );
   const [center, setCenter] = useState(() => bounds.getCenter());
 
@@ -410,19 +630,7 @@ function Data({ version = "v1" }) {
           .map(({ item }) => item)
           .map(({ id, images, ...item }, key: number) => (
             <li key={key} className={styles.Row}>
-              <Gallery
-                images={[...Array(images)]
-                  .slice(0, 10)
-                  .map(
-                    (
-                      _,
-                      i,
-                      _list,
-                      size = "322/255b28ffdad35cd984ff32f30da17158"
-                    ) =>
-                      `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
-                  )}
-              />
+              <Gallery images={images.slice(0, 5)} />
               <Details
                 item={{ id, ...item }}
                 onClickCompare={onClickCompare}
@@ -553,6 +761,8 @@ function CriteriaLabel({
   yearTo,
   priceFrom,
   priceTo,
+  mileageFrom,
+  mileageTo,
   powerFrom,
   powerTo,
   radius,
@@ -562,42 +772,37 @@ function CriteriaLabel({
     <fieldset>
       {type && (
         <div>
-          <span>Type</span>
-          <span>{TYPES[type]}</span>
+          <span>Type</span> <span>{TYPES[type]}</span>
         </div>
       )}
       {filter && (
         <div>
-          <span>Search</span>
-          <span>{filter}</span>
+          <span>Search</span> <span>{filter}</span>
         </div>
       )}
       <div>
-        <span>Sort</span>
-        <span>{sortBy}</span>
+        <span>Sort</span> <span>{sortBy}</span>
       </div>
       <div>
-        <span>Radius</span>
-        <span>{`max ${radius} km`}</span>
+        <span>Radius</span> <span>{`max ${radius} km`}</span>
       </div>
       <div>
-        <span>Year</span>
-        <span>{`${yearFrom}-${yearTo}`}</span>
+        <span>Year</span> <span>{`${yearFrom}-${yearTo}`}</span>
       </div>
       <div>
-        <span>Price</span>
-        <span>{`${priceFrom}-${priceTo} pln`}</span>
+        <span>Mileage</span> <span>{`${mileageFrom}-${mileageTo} km`}</span>
       </div>
       <div>
-        <span>Power</span>
-        <span>{`${powerFrom}-${powerTo} hp`}</span>
+        <span>Price</span> <span>{`${priceFrom}-${priceTo} pln`}</span>
+      </div>
+      <div>
+        <span>Power</span> <span>{`${powerFrom}-${powerTo} hp`}</span>
       </div>
       {Object.entries(entries)
         .filter(([, value]: any) => value !== "")
         .map(([name, value]: any, key) => (
           <div key={key}>
-            <span>{name}</span>
-            <span>{options[name][value]}</span>
+            <span>{name}</span> <span>{options[name][value]}</span>
           </div>
         ))}
     </fieldset>
@@ -613,6 +818,8 @@ function Criteria({
   yearTo,
   priceFrom,
   priceTo,
+  mileageFrom,
+  mileageTo,
   powerFrom,
   powerTo,
   radius,
@@ -678,6 +885,31 @@ function Criteria({
           ...criteria,
           priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
           priceTo,
+        };
+      }),
+    []
+  );
+
+  const onChangeMileageFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ mileageTo, ...criteria }) => {
+        const mileageFrom = Number(target.value);
+        return {
+          ...criteria,
+          mileageFrom,
+          mileageTo: mileageTo < mileageFrom ? mileageFrom : mileageTo,
+        };
+      }),
+    []
+  );
+  const onChangeMileageTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ mileageFrom, ...criteria }) => {
+        const mileageTo = Number(target.value);
+        return {
+          ...criteria,
+          mileageFrom: mileageTo > mileageFrom ? mileageFrom : mileageTo,
+          mileageTo,
         };
       }),
     []
@@ -820,6 +1052,40 @@ function Criteria({
       </div>
       <div>
         <label>
+          <span>Mileage From</span>
+          <input
+            type="range"
+            list="mileage-list"
+            min={MILEAGE_LIST[0]}
+            max={MILEAGE_LIST[MILEAGE_LIST.length - 1]}
+            value={mileageFrom}
+            onChange={onChangeMileageFrom}
+          />
+          <datalist id="mileage-list">
+            {MILEAGE_LIST.map((value) => (
+              <option
+                key={value}
+                value={value}
+                label={MILEAGE_LIST.includes(value) ? `${value}` : undefined}
+              ></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Mileage To</span>
+          <input
+            type="range"
+            list="mileage-list"
+            min={MILEAGE_LIST[0]}
+            max={MILEAGE_LIST[MILEAGE_LIST.length - 1]}
+            value={mileageTo}
+            onChange={onChangeMileageTo}
+          />
+          <span>{`${mileageFrom}-${mileageTo} km`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
           <span>Price From</span>
           <input
             type="range"
@@ -919,6 +1185,7 @@ function Details({
 }: any) {
   const {
     id,
+    href,
     title,
     brand,
     series = {},
@@ -930,8 +1197,8 @@ function Details({
     transmission,
     capacity,
     consumptionFuel,
-    emissionStandard,
-    emissionMeasurementStandard,
+    // emissionStandard,
+    // emissionMeasurementStandard,
     emission,
     powerHP,
     productionYear,
@@ -951,9 +1218,7 @@ function Details({
     <ul className={styles.Details}>
       <li>
         <Color color={color} />
-        <Link
-          href={`//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`}
-        >{`[${id}] ${title}`}</Link>
+        <Link href={href}>{`[${id}] ${title}`}</Link>
         {onClickCompare && (
           <Button onClick={onClickCompare} value={id}>
             Compare
@@ -975,17 +1240,20 @@ function Details({
         )}
       </li>
       <li>
-        [{seriesCode}] {brand.label} {series.label} {bodyType.label}{" "}
-        {fuel.label} {transmission.label}
+        [{typeof seriesCode === "object" ? seriesCode.label : seriesCode}]{" "}
+        {brand.label} {series.label} {bodyType.label} {fuel.label}{" "}
+        {transmission.label}
       </li>
       <li>
-        [{modelCode}] capacity: {capacity} powerHP: {powerHP} consumptionFuel:{" "}
-        {consumptionFuel && <span>{consumptionFuel}</span>} emissionStandard:{" "}
-        {emissionStandard.label} {emissionMeasurementStandard}{" "}
-        {emission && <span>{emission}</span>}
+        [{typeof modelCode === "object" ? modelCode.label : modelCode}]{" "}
+        {capacity && <span>capacity: {capacity}</span>}{" "}
+        {powerHP && <span>powerHP: {powerHP}</span>}{" "}
+        {consumptionFuel && <span>consumptionFuel: {consumptionFuel}</span>}{" "}
+        {emission && <span>emission: {emission}</span>}
       </li>
       <li>
-        productionYear: {productionYear} newPrice: {newPrice}{" "}
+        <span>productionYear: {productionYear}</span>{" "}
+        {Boolean(newPrice) && <span>newPrice: {newPrice}</span>}{" "}
         {Boolean(item.optionsPrice) && (
           <span>optionsPrice: {item.optionsPrice}</span>
         )}{" "}
@@ -1002,25 +1270,37 @@ function Details({
         >
           transactionalPrice: {transactionalPrice}
         </span>{" "}
-        registration: {registration ? registration.split("T")[0] : "-"}{" "}
-        <span className={cx(styles.Compare, changed("age") && styles.changed)}>
-          age: {age}
-        </span>{" "}
-        <span
-          className={cx(styles.Compare, changed("mileage") && styles.changed)}
-        >
-          mileage: {mileage}
-        </span>{" "}
+        {registration && (
+          <span>registration: {registration.split("T")[0]}</span>
+        )}
+        {age && (
+          <span
+            className={cx(styles.Compare, changed("age") && styles.changed)}
+          >
+            age: {age}
+          </span>
+        )}{" "}
+        {mileage && (
+          <span
+            className={cx(styles.Compare, changed("mileage") && styles.changed)}
+          >
+            mileage: {mileage}
+          </span>
+        )}{" "}
         <span
           className={cx(styles.Compare, changed("warranty") && styles.changed)}
         >
           warranty: {warranty}
         </span>
       </li>
-      <li>
-        [{_time ? new Date(Number(_time)).toISOString() : "-"}] {created}{" "}
-        (imagesLastChanged: {imagesLastChanged})
-      </li>
+      {(_time || imagesLastChanged) && (
+        <li>
+          [{_time ? new Date(Number(_time)).toISOString() : "-"}] {created}{" "}
+          {imagesLastChanged && (
+            <span>imagesLastChanged: {imagesLastChanged}</span>
+          )}
+        </li>
+      )}
     </ul>
   );
 }
