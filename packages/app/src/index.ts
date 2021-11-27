@@ -1,6 +1,7 @@
 import express, { Router } from "express";
 // import cors from "cors";
 import path from "path";
+import { headingDistanceTo } from "geolocation-utils";
 import { items } from "@dev/api";
 import {
   productItems,
@@ -8,6 +9,21 @@ import {
   vehicleItems,
   vehicle2Items,
 } from "@dev/api/stations";
+
+require("dotenv").config();
+
+const {
+  NEARBY_LAT = "52.1530829",
+  NEARBY_LNG = "21.1104411",
+  NEARBY_RADIUS = "25014.985524846034",
+} = process.env as {
+  NEARBY_LAT: string;
+  NEARBY_LNG: string;
+  NEARBY_RADIUS: string;
+};
+
+const CENTER = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) };
+const RADIUS = Number(NEARBY_RADIUS);
 
 const web =
   process.env.NODE_ENV === "development"
@@ -43,7 +59,20 @@ const api = Router()
     productItems.find({}).then((results) => res.json({ results }))
   )
   .use("/api/stations/data.json", (_req, res) =>
-    stationItems.find({}).then((results) => res.json({ results }))
+    stationItems
+      .find({})
+      // .then((results: any) =>
+      //   results.filter((item: any) => Object.keys(item._history || {}).length)
+      // )
+      .then((results: any) =>
+        results.filter(
+          (item: any) =>
+            // Object.keys(item._history || {}).length &&
+            headingDistanceTo(CENTER, { lat: item.x, lng: item.y }).distance <
+            RADIUS
+        )
+      )
+      .then((results) => res.json({ results }))
   )
   .use("/api/vehicles/data.json", (_req, res) =>
     // res.json(require('../../web/src/assets/api/vehicles/data.json'))

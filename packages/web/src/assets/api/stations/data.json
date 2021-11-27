@@ -1,13 +1,39 @@
 {
   "results": [
     {
-      "id": 7837,
-      "station_id": 7837,
-      "x": 52.22432725328856,
-      "y": 20.96388959849719,
-      "network_name": "CNG Auto",
+      "_id": "0fVNDh5eBuuFYMmu",
+      "id": 515,
+      "station_id": 515,
+      "x": 52.2732873,
+      "y": 21.0626858,
+      "address": "Warszawa, Trocka 2",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        { "type": "pb", "price": "6.04" },
+        { "type": "on", "price": "6.13" }
+      ],
+      "petrol": { "pb": "6.04", "on": "6.13" },
+      "_created": 1637431632981,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637431632981": { "pb": "5.86" },
+        "1637518032981": { "on": "6.13" }
+      }
+    },
+    {
+      "_id": "1DIM6lvT793DYHR8",
+      "id": 1463,
+      "station_id": 1463,
+      "x": 52.18679959835106,
+      "y": 21.04654312133789,
+      "network_id": 196,
+      "network_name": "Shell",
       "petrol_list": [],
-      "_id": "0El0zzwUFF4agGg0"
+      "petrol": {},
+      "_created": 1637514068237,
+      "_updated": 1637600468237,
+      "_history": { "1637514068237": { "pb": "5.89" } }
     },
     {
       "_id": "2IKZ675LdErXPyz0",
@@ -15,25 +41,17 @@
       "station_id": 5013,
       "x": 52.20043314659687,
       "y": 20.93752741813659,
+      "address": "Warszawa, Jutrzenki 156",
       "network_id": 119,
       "network_name": "Leclerc",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.95"
-        },
-        {
-          "type": "lpg",
-          "price": "3.09"
-        }
-      ],
-      "petrol": {
-        "pb": "5.95",
-        "lpg": "3.09"
-      },
+      "petrol_list": [{ "type": "pb", "price": "5.99" }],
+      "petrol": { "pb": "5.99" },
       "_created": 1637434477040,
-      "_updated": 1637520877040,
-      "_history": {}
+      "_updated": 1638003268995,
+      "_history": {
+        "1637520877040": { "pb": "5.95", "lpg": "3.09" },
+        "1637868256211": { "pb": "5.99", "lpg": "3.09" }
+      }
     },
     {
       "_id": "3c91l88TlC1DSNtx",
@@ -41,33 +59,52 @@
       "station_id": 1452,
       "x": 52.20086056603021,
       "y": 20.96855521202087,
+      "address": "Warszawa, Grójecka 125A",
       "network_id": 34,
       "network_name": "BP",
       "petrol_list": [
-        {
-          "type": "lpg",
-          "price": "3.39"
-        }
+        { "type": "on", "price": "6.07" },
+        { "type": "lpg", "price": "3.39" }
       ],
-      "petrol": {
-        "lpg": "3.39"
-      },
+      "petrol": { "on": "6.07", "lpg": "3.39" },
       "_created": 1637431632981,
-      "_updated": 1637518032981,
+      "_updated": 1637691326653,
       "_history": {
-        "1637431632981": {
-          "lpg": "2.83"
-        }
+        "1637431632981": { "lpg": "2.83" },
+        "1637518032981": { "lpg": "3.39" }
       }
     },
     {
-      "id": 1837,
-      "station_id": 1837,
-      "x": 52.2595912,
-      "y": 20.97438,
-      "network_name": "Auto-Gaz",
+      "_id": "4EgMYMxjmcYx6faF",
+      "id": 2471,
+      "station_id": 2471,
+      "x": 52.250556,
+      "y": 21.0660982,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "lpg", "price": "3.44" }],
+      "petrol": { "lpg": "3.44" },
+      "_created": 1637431632981,
+      "_updated": 1637573320453,
+      "_history": {
+        "1637431632981": { "lpg": "3.14" },
+        "1637518032981": { "lpg": "3.39" }
+      }
+    },
+    {
+      "_id": "4LwDILR80hRFZMyA",
+      "id": 5906,
+      "station_id": 5906,
+      "x": 52.24765455019297,
+      "y": 20.84501266479492,
+      "address": "Stare Babice,  Warszawska 191",
+      "network_id": 34,
+      "network_name": "BP",
       "petrol_list": [],
-      "_id": "3pHOaxjh8PncfyW4"
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.89" } }
     },
     {
       "_id": "4OVFSj4hJeInc9hw",
@@ -75,51 +112,17 @@
       "station_id": 1765,
       "x": 52.224000833819,
       "y": 20.957129001617,
+      "address": "Warszawa, Prymasa Tysiąclecia 81",
       "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.02"
-        },
-        {
-          "type": "on+",
-          "price": "6.22"
-        }
-      ],
-      "petrol": {
-        "pb": "6.02",
-        "on+": "6.22"
-      },
+      "petrol_list": [{ "type": "pb", "price": "6.02" }],
+      "petrol": { "pb": "6.02" },
       "_created": 1637431632981,
-      "_updated": 1637518032981,
+      "_updated": 1637946880990,
       "_history": {
-        "1637431632981": {
-          "on": "5.71",
-          "on+": "5.99"
-        }
+        "1637431632981": { "on": "5.71", "on+": "5.99" },
+        "1637518032981": { "pb": "6.02", "on+": "6.22" }
       }
-    },
-    {
-      "_id": "4boDVR9492ub0H1t",
-      "id": 7108,
-      "station_id": 7108,
-      "x": 52.20011093538356,
-      "y": 20.9412395954132,
-      "network_id": 153,
-      "network_name": "Pegas",
-      "petrol_list": [
-        {
-          "type": "lpg",
-          "price": "3.25"
-        }
-      ],
-      "petrol": {
-        "lpg": "3.25"
-      },
-      "_created": 1637431632981,
-      "_updated": 1637518032981,
-      "_history": {}
     },
     {
       "_id": "5HNBKBRiaNQ30mYD",
@@ -127,179 +130,446 @@
       "station_id": 790,
       "x": 52.25935847599353,
       "y": 20.95972537994384,
+      "address": "Warszawa, Powązkowska 43",
       "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.87"
-        },
-        {
-          "type": "on",
-          "price": "6.04"
-        }
-      ],
-      "petrol": {
-        "pb": "5.87",
-        "on": "6.04"
-      },
+      "petrol_list": [{ "type": "on", "price": "6.04" }],
+      "petrol": { "on": "6.04" },
       "_created": 1637434477040,
-      "_updated": 1637520877040,
+      "_updated": 1637874046291,
       "_history": {
-        "1637434477040": {
-          "lpg": "2.92"
-        }
+        "1637434477040": { "lpg": "2.92" },
+        "1637520877040": { "pb": "5.87", "on": "6.04" }
       }
     },
     {
-      "id": 7845,
-      "station_id": 7845,
-      "x": 52.25554945641249,
-      "y": 20.97870612109545,
-      "network_name": "KONPAL",
-      "petrol_list": [],
-      "_id": "6PTB4qfkw4B0Nkhg"
+      "_id": "5J76SjD9PzcEnEqS",
+      "id": 1454,
+      "station_id": 1454,
+      "x": 52.3052556,
+      "y": 20.9883101,
+      "address": "Warszawa,  Modlińska 54",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "on", "price": "6.09" }],
+      "petrol": { "on": "6.09" },
+      "_created": 1637531866877,
+      "_updated": 1637873829736,
+      "_history": { "1637531866877": { "pb": "5.96", "lpg": "2.92" } }
     },
     {
-      "id": 2408,
-      "station_id": 2408,
-      "x": 52.23946916253053,
-      "y": 20.90517997741699,
-      "network_name": "Tesco",
+      "_id": "6m6C5hSjZaxF5l79",
+      "id": 9563,
+      "station_id": 9563,
+      "x": 52.2879543,
+      "y": 20.876257799999962,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "6hmBSHxbByQilNIw"
+      "petrol": {},
+      "_created": 1637514068237,
+      "_updated": 1637600468237,
+      "_history": { "1637514068237": { "pb": "5.88" } }
     },
     {
-      "id": 4691,
-      "station_id": 4691,
-      "x": 52.22340932939733,
-      "y": 20.95748305320739,
-      "network_name": "Wasbruk",
-      "petrol_list": [],
-      "_id": "85UPKOUf3efdMSs4"
+      "_id": "7E9sh6h4hdP6utnd",
+      "id": 9442,
+      "station_id": 9442,
+      "x": 52.33654932222764,
+      "y": 21.028502122090117,
+      "address": "Warszawa, Płochocińska 93",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "lpg", "price": "3.39" }],
+      "petrol": { "lpg": "3.39" },
+      "_created": 1637431632981,
+      "_updated": 1638003268995,
+      "_history": { "1637518032981": { "pb": "5.99", "lpg": "3.39" } }
     },
     {
-      "id": 9595,
-      "station_id": 9595,
-      "x": 52.20098509999999,
-      "y": 20.938396799999964,
-      "network_name": "Stacja LPG",
-      "petrol_list": [],
-      "_id": "8UyDCFnYaIgp6Obw"
+      "_id": "7TsWGweG9fM1YNw1",
+      "id": 239,
+      "station_id": 239,
+      "x": 52.152029275481,
+      "y": 21.016931533813,
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [{ "type": "pb", "price": "6.07" }],
+      "petrol": { "pb": "6.07" },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": { "1637431632981": { "lpg+": "2.89" } }
     },
     {
+      "_id": "83Sx07s1kwla6TQt",
+      "id": 6951,
+      "station_id": 6951,
+      "x": 52.17019759261764,
+      "y": 21.04077637195587,
+      "address": "Warszawa, Nowoursynowska 183",
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637763488322,
+      "_history": {
+        "1637511896541": { "on": "5.63" },
+        "1637598296541": { "on": "6.09" }
+      }
+    },
+    {
+      "_id": "8ATOMPhgFUD5odOZ",
+      "id": 1458,
+      "station_id": 1458,
+      "x": 52.1936311,
+      "y": 20.9605477,
+      "address": "Warszawa, Aleja Krakowska 269",
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "on": "5.87" } }
+    },
+    {
+      "_id": "8ifK15msMaNxI8HT",
       "id": 9008,
       "station_id": 9008,
       "x": 52.22549960000001,
       "y": 20.95828000000006,
+      "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.89"
-        }
-      ],
-      "_id": "8ifK15msMaNxI8HT"
-    },
-    {
-      "id": 4527,
-      "station_id": 4527,
-      "x": 52.22446088736571,
-      "y": 20.9603476524353,
-      "network_name": "Stacja LPG",
       "petrol_list": [],
-      "_id": "ApkuwbnrRhT9vGOB"
+      "petrol": {},
+      "_created": 1637518345185,
+      "_updated": 1637604745185,
+      "_history": { "1637518345185": { "pb": "5.89" } }
     },
     {
+      "_id": "AqkqaM510Dj3s39Z",
       "id": 3601,
       "station_id": 3601,
       "x": 52.22182537320394,
       "y": 20.95803022384643,
+      "address": "Warszawa, Aleja Prymasa Tysiąclecia 81A",
+      "network_id": 125,
       "network_name": "Amic (Lukoil)",
-      "petrol_list": [
-        {
-          "type": "lpg",
-          "price": "2.84"
-        }
-      ],
-      "_id": "AqkqaM510Dj3s39Z"
+      "petrol_list": [{ "type": "pb", "price": "6.11" }],
+      "petrol": { "pb": "6.11" },
+      "_created": 1637605404511,
+      "_updated": 1637763022495,
+      "_history": { "1637605404511": { "lpg": "2.84" } }
     },
     {
+      "_id": "BOvnqeifiIj8dnQJ",
       "id": 791,
       "station_id": 791,
       "x": 52.25053155893441,
       "y": 20.98238468170166,
+      "network_id": 196,
       "network_name": "Shell",
-      "petrol_list": [
-        {
-          "type": "pb+",
-          "price": "5.89"
-        },
-        {
-          "type": "on+",
-          "price": "5.84"
-        }
-      ],
-      "_id": "BOvnqeifiIj8dnQJ"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637535245064,
+      "_updated": 1637621645064,
+      "_history": { "1637535245064": { "pb+": "5.89", "on+": "5.84" } }
     },
     {
+      "_id": "BaxuAO4R8TAtKJz9",
+      "id": 3103,
+      "station_id": 3103,
+      "x": 52.18819405572063,
+      "y": 21.04997634887695,
+      "address": "Warszawa, Limanowskiego",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        { "type": "pb", "price": "6.04" },
+        { "type": "pb+", "price": "6.32" },
+        { "type": "on", "price": "6.04" },
+        { "type": "on+", "price": "6.29" }
+      ],
+      "petrol": { "pb": "6.04", "pb+": "6.32", "on": "6.04", "on+": "6.29" },
+      "_created": 1637431632981,
+      "_updated": 1637763022495,
+      "_history": { "1637518032981": { "pb": "5.92" } }
+    },
+    {
+      "_id": "BqIt1mJRrjqLJU0F",
       "id": 765,
       "station_id": 765,
       "x": 52.2434372276191,
       "y": 20.96819043159485,
+      "address": "Warszawa, Obozowa 14",
+      "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "on+",
-          "price": "5.79"
-        }
-      ],
-      "_id": "BqIt1mJRrjqLJU0F"
-    },
-    {
-      "id": 4694,
-      "station_id": 4694,
-      "x": 52.2570731035006,
-      "y": 20.97718119621277,
-      "network_name": "Wasbruk",
       "petrol_list": [],
-      "_id": "FfYF7ApQxxRWHHzT"
+      "petrol": {},
+      "_created": 1637492451737,
+      "_updated": 1637963099073,
+      "_history": {
+        "1637492451737": { "on+": "5.79" },
+        "1637578851737": { "pb": "5.99" }
+      }
     },
     {
-      "id": 9715,
-      "station_id": 9715,
-      "x": 52.2113641,
-      "y": 20.95022459999999,
+      "_id": "DJLKTODR3hmGobbX",
+      "id": 9334,
+      "station_id": 9334,
+      "x": 52.175420089393356,
+      "y": 20.797879792473168,
+      "address": "Pruszków, Poznańska 6",
+      "network_id": 123,
+      "network_name": "Lotos",
+      "petrol_list": [
+        { "type": "pb", "price": "6.07" },
+        { "type": "pb+", "price": "6.34" },
+        { "type": "on", "price": "6.07" },
+        { "type": "on+", "price": "6.37" },
+        { "type": "lpg", "price": "3.49" }
+      ],
+      "petrol": {
+        "pb": "6.07",
+        "pb+": "6.34",
+        "on": "6.07",
+        "on+": "6.37",
+        "lpg": "3.49"
+      },
+      "_created": 1637511896541,
+      "_updated": 1637942232188,
+      "_history": {
+        "1637598296541": {
+          "pb": "6.02",
+          "pb+": "6.23",
+          "on": "6.04",
+          "on+": "6.25",
+          "lpg": "3.41"
+        }
+      }
+    },
+    {
+      "_id": "DK76p8hsxLA64jQp",
+      "id": 2520,
+      "station_id": 2520,
+      "x": 52.08194249868938,
+      "y": 21.01554368465576,
+      "address": "Piaseczno, Mleczarska 1",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637874046291,
+      "_history": { "1637598296541": { "pb": "5.99" } }
+    },
+    {
+      "_id": "DKgW4mRGzAenb04i",
+      "id": 8654,
+      "station_id": 8654,
+      "x": 52.31434262233162,
+      "y": 21.19306147098541,
+      "address": "Turów, Wyszyńskiego",
+      "network_id": 291,
+      "network_name": "Mewa",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637874046291,
+      "_history": { "1637598296541": { "pb": "5.92" } }
+    },
+    {
+      "_id": "E3LUt6eLIrCNb86q",
+      "id": 1878,
+      "station_id": 1878,
+      "x": 52.1701196,
+      "y": 20.9361127,
+      "address": "Warszawa, Aleja Krakowska 51",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "lpg": "2.89" } }
+    },
+    {
+      "_id": "E5bwJ1eQGBpNOHl5",
+      "id": 485,
+      "station_id": 485,
+      "x": 52.1581457,
+      "y": 21.0204746,
+      "address": "Warszawa, Wawrzyńca Surowieckiego 12",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.89", "lpg": "2.94" } }
+    },
+    {
+      "_id": "EDe9RfAOtyODc3qW",
+      "id": 1457,
+      "station_id": 1457,
+      "x": 52.2202291,
+      "y": 21.0914197,
+      "address": "Warszawa, Wał Miedzeszyński 670",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.79" } }
+    },
+    {
+      "_id": "EKs4STJldiqT4mNp",
+      "id": 7810,
+      "station_id": 7810,
+      "x": 52.154332124889,
+      "y": 21.042253017076,
+      "address": "Warszawa, Ciszewskiego 15",
+      "network_id": 119,
+      "network_name": "Leclerc",
+      "petrol_list": [{ "type": "on", "price": "5.94" }],
+      "petrol": { "on": "5.94" },
+      "_created": 1637431632981,
+      "_updated": 1638003268995,
+      "_history": {
+        "1637431632981": { "pb": "5.64", "on": "5.56" },
+        "1637518032981": { "pb": "5.92", "on": "5.94" },
+        "1637873829736": { "pb": "5.92" },
+        "1637946695259": { "pb": "5.92", "on": "5.94" }
+      }
+    },
+    {
+      "_id": "EcHkWnOkACzfVlvn",
+      "id": 7987,
+      "station_id": 7987,
+      "x": 52.28625255159713,
+      "y": 21.08157420123461,
+      "address": "Warszawa, Łodygowa 20",
+      "network_id": 256,
+      "network_name": "LOTOS Optima",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "lpg": "2.79" } }
+    },
+    {
+      "_id": "FOcUxx7v8QdMLRNV",
+      "id": 7261,
+      "station_id": 7261,
+      "x": 52.3636638888961,
+      "y": 21.02766036987304,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "pb+", "price": "6.09" }],
+      "petrol": { "pb+": "6.09" },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": { "1637431632981": { "lpg+": "2.89" } }
+    },
+    {
+      "_id": "FmYJkjsOEShExGA7",
+      "id": 1195,
+      "station_id": 1195,
+      "x": 52.2428577,
+      "y": 21.0982766,
+      "address": "Warszawa,  Grochowska 149/151",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637492451737,
+      "_updated": 1637963099073,
+      "_history": { "1637578851737": { "pb": "6.02" } }
+    },
+    {
+      "_id": "Fye62QgouaeicU74",
+      "id": 1442,
+      "station_id": 1442,
+      "x": 52.30469796144445,
+      "y": 21.09021481691888,
+      "network_id": 196,
       "network_name": "Shell",
       "petrol_list": [],
-      "_id": "G3AQmMH8aPFPgdeB"
+      "petrol": {},
+      "_created": 1637518345185,
+      "_updated": 1637604745185,
+      "_history": { "1637518345185": { "pb+": "5.94" } }
     },
     {
-      "id": 1034,
-      "station_id": 1034,
-      "x": 52.22422428899396,
-      "y": 20.93663692474365,
-      "network_name": "Poczta Polska",
-      "petrol_list": [],
-      "_id": "GOA6F3HufiV5o6MM"
+      "_id": "Gv8j5woWHcdybyVK",
+      "id": 3080,
+      "station_id": 3080,
+      "x": 52.29417613062974,
+      "y": 21.00002288818359,
+      "network_id": 19,
+      "network_name": "Auchan",
+      "petrol_list": [
+        { "type": "pb", "price": "5.98" },
+        { "type": "on", "price": "5.98" }
+      ],
+      "petrol": { "pb": "5.98", "on": "5.98" },
+      "_created": 1637431632981,
+      "_updated": 1637570362343,
+      "_history": {
+        "1637431632981": { "pb": "5.67", "on": "5.47" },
+        "1637518032981": { "pb": "5.98" }
+      }
     },
     {
+      "_id": "HQXoIz29TiElstXR",
       "id": 177,
       "station_id": 177,
       "x": 52.23847380577559,
       "y": 20.98270118236541,
+      "address": "Warszawa, Aleja Solidarności 100",
+      "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "HQXoIz29TiElstXR"
+      "petrol_list": [{ "type": "pb+", "price": "6.36" }],
+      "petrol": { "pb+": "6.36" },
+      "_created": 1637511896541,
+      "_updated": 1638003268995,
+      "_history": {
+        "1637598296541": { "on": "5.91" },
+        "1637687205456": { "pb+": "6.36", "on": "5.91" },
+        "1637763022495": { "pb+": "6.36" },
+        "1637875944399": { "pb+": "6.36", "on": "5.99" }
+      }
     },
     {
-      "id": 1303,
-      "station_id": 1303,
-      "x": 52.2113241,
-      "y": 20.9502336,
-      "network_name": "Shell",
+      "_id": "HcKtBRdthuDbDw5u",
+      "id": 26,
+      "station_id": 26,
+      "x": 52.2656128,
+      "y": 21.0588871,
+      "address": "Warszawa, Radzymińska 96",
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
       "petrol_list": [],
-      "_id": "Hs34ne9aJUg7dg4b"
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.78", "pb+": "5.97" } }
+    },
+    {
+      "_id": "Hg76TitbSQqUeWUI",
+      "id": 1245,
+      "station_id": 1245,
+      "x": 52.233233,
+      "y": 21.0963219,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637514068237,
+      "_updated": 1637600468237,
+      "_history": { "1637514068237": { "pb": "5.87", "pb+": "5.87" } }
     },
     {
       "_id": "I2aiHPb4fevIBV4y",
@@ -310,73 +580,115 @@
       "network_id": 196,
       "network_name": "Shell",
       "petrol_list": [
-        {
-          "type": "pb+",
-          "price": "6.97"
-        },
-        {
-          "type": "pb",
-          "price": "6.08"
-        },
-        {
-          "type": "pb+",
-          "price": "6.57"
-        },
-        {
-          "type": "on",
-          "price": "6.06"
-        },
-        {
-          "type": "on+",
-          "price": "6.09"
-        },
-        {
-          "type": "lpg+",
-          "price": "3.42"
-        }
+        { "type": "pb+", "price": "6.99" },
+        { "type": "pb", "price": "6.11" },
+        { "type": "pb+", "price": "6.59" },
+        { "type": "on", "price": "6.11" },
+        { "type": "on+", "price": "6.59" },
+        { "type": "lpg+", "price": "3.47" }
       ],
       "petrol": {
-        "pb+": "6.57",
-        "pb": "6.08",
-        "on": "6.06",
-        "on+": "6.09",
-        "lpg+": "3.42"
+        "pb+": "6.59",
+        "pb": "6.11",
+        "on": "6.11",
+        "on+": "6.59",
+        "lpg+": "3.47"
       },
       "_created": 1637431632981,
-      "_updated": 1637518032981,
-      "_history": {}
+      "_updated": 1637687205456,
+      "_history": {
+        "1637518032981": {
+          "pb+": "6.57",
+          "pb": "6.08",
+          "on": "6.06",
+          "on+": "6.09",
+          "lpg+": "3.42"
+        },
+        "1637568917647": {
+          "pb+": "6.58",
+          "pb": "6.09",
+          "on": "6.11",
+          "on+": "6.59",
+          "lpg+": "3.45"
+        }
+      }
     },
     {
+      "_id": "IHD0mPO0T8zCnh5p",
+      "id": 8921,
+      "station_id": 8921,
+      "x": 52.1330488,
+      "y": 21.1009318,
+      "address": "Warszawa, Przyczółkowa 141",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "on": "5.55" } }
+    },
+    {
+      "_id": "Irtv4sfjz2rFZmYG",
       "id": 6261,
       "station_id": 6261,
       "x": 52.2163763953586,
       "y": 20.85916399955749,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.84"
-        }
-      ],
-      "_id": "Irtv4sfjz2rFZmYG"
-    },
-    {
-      "id": 9231,
-      "station_id": 9231,
-      "x": 52.22589277352563,
-      "y": 20.982449054718018,
-      "network_name": "Prywatna",
-      "petrol_list": [],
-      "_id": "KD5jo3tA6pKW6wo8"
-    },
-    {
-      "id": 3961,
-      "station_id": 3961,
-      "x": 52.19982160087483,
-      "y": 20.89367866516113,
+      "address": "Jawczyce, Poznańska 42",
+      "network_id": 166,
       "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "MkGS0YQhEXe9Pu4s"
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.84" } }
+    },
+    {
+      "_id": "ItFVQqctk0XLtxot",
+      "id": 1242,
+      "station_id": 1242,
+      "x": 52.11836490045944,
+      "y": 21.24773025512695,
+      "address": "Otwock, Kołłątaja 61",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637436103231,
+      "_updated": 1638003268995,
+      "_history": {
+        "1637522503231": { "pb": "5.97", "on": "5.99", "lpg": "3.36" },
+        "1637691326653": { "pb": "5.97", "lpg": "3.36" }
+      }
+    },
+    {
+      "_id": "K8XG8zyxyJqyF5hq",
+      "id": 7858,
+      "station_id": 7858,
+      "x": 52.08350373981908,
+      "y": 21.03745078900829,
+      "address": "Piaseczno, Okulickiego",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb+": "5.89", "lpg+": "2.94" } }
+    },
+    {
+      "_id": "LGk2FOMmN1hUdKsX",
+      "id": 7800,
+      "station_id": 7800,
+      "x": 52.17807447693995,
+      "y": 21.00688004458788,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "pb+", "price": "6.07" }],
+      "petrol": { "pb+": "6.07" },
+      "_created": 1637513637431,
+      "_updated": 1637687205456,
+      "_history": { "1637600037431": { "pb+": "5.99" } }
     },
     {
       "_id": "MrX7TBrGbqFnjifl",
@@ -386,78 +698,150 @@
       "y": 20.931615829468,
       "network_id": 19,
       "network_name": "Auchan",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.95"
-        },
-        {
-          "type": "on",
-          "price": "5.97"
-        }
-      ],
-      "petrol": {
-        "pb": "5.95",
-        "on": "5.97"
-      },
+      "petrol_list": [{ "type": "on", "price": "5.97" }],
+      "petrol": { "on": "5.97" },
       "_created": 1637434477040,
-      "_updated": 1637520877040,
+      "_updated": 1637573908909,
       "_history": {
-        "1637434477040": {
-          "pb": "5.88",
-          "on": "5.6"
-        }
+        "1637434477040": { "pb": "5.88", "on": "5.6" },
+        "1637520877040": { "pb": "5.95", "on": "5.97" }
       }
     },
     {
-      "id": 3173,
-      "station_id": 3173,
-      "x": 52.192513,
-      "y": 20.9493163,
+      "_id": "N5BhoMSMVCi4ZK7Q",
+      "id": 3687,
+      "station_id": 3687,
+      "x": 52.2224144,
+      "y": 21.2450222,
+      "address": "Warszawa, Trakt Brzeski 110/114",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "pb", "price": "6.09" }],
+      "petrol": { "pb": "6.09" },
+      "_created": 1637604926653,
+      "_updated": 1637691326653,
+      "_history": { "1637604926653": { "lpg": "2.94" } }
+    },
+    {
+      "_id": "NwM74RFgTKoMx3Zx",
+      "id": 9445,
+      "station_id": 9445,
+      "x": 52.0993745,
+      "y": 20.80601539999998,
+      "network_id": 259,
+      "network_name": "MOYA",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637533679370,
+      "_updated": 1637620079370,
+      "_history": { "1637533679370": { "on": "5.69" } }
+    },
+    {
+      "_id": "OCt4ayTZ6qAqBJAc",
+      "id": 6610,
+      "station_id": 6610,
+      "x": 52.09839924126364,
+      "y": 20.90992212295532,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637526840895,
+      "_updated": 1637613240895,
+      "_history": { "1637526840895": { "on": "5.75" } }
+    },
+    {
+      "_id": "PRzpoCtSEI8Ug48i",
+      "id": 3152,
+      "station_id": 3152,
+      "x": 52.30369633161428,
+      "y": 21.05568408966064,
+      "address": "Warszawa, Głębocka 15",
+      "network_id": 40,
+      "network_name": "Carrefour",
+      "petrol_list": [{ "type": "lpg", "price": "3.29" }],
+      "petrol": { "lpg": "3.29" },
+      "_created": 1637431632981,
+      "_updated": 1637763231871,
+      "_history": {
+        "1637431632981": { "lpg": "2.87" },
+        "1637518032981": { "on": "5.97", "lpg": "3.29" }
+      }
+    },
+    {
+      "_id": "QLr0g3JkrFyNSbwb",
+      "id": 7915,
+      "station_id": 7915,
+      "x": 52.13263354891004,
+      "y": 20.89295053447131,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637518345185,
+      "_updated": 1637604745185,
+      "_history": { "1637518345185": { "pb+": "5.88" } }
+    },
+    {
+      "_id": "Qk9gFmREy62R9lkr",
+      "id": 3894,
+      "station_id": 3894,
+      "x": 52.24900768713257,
+      "y": 21.04086756706237,
+      "network_id": 166,
       "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "NiSC84UaYISkbmQN"
+      "petrol": {},
+      "_created": 1637528812361,
+      "_updated": 1637615212361,
+      "_history": { "1637528812361": { "pb": "5.89", "on": "5.79" } }
     },
     {
-      "id": 9034,
-      "station_id": 9034,
-      "x": 52.216217,
-      "y": 20.884759,
-      "network_name": "Prywatna",
+      "_id": "R46voDa1yoelAIb4",
+      "id": 8688,
+      "station_id": 8688,
+      "x": 52.0813257983545,
+      "y": 21.0212767124176,
+      "address": "Piaseczno, Leopolda Okulickiego 5B",
+      "network_id": 34,
+      "network_name": "BP",
       "petrol_list": [],
-      "_id": "NuCveBnjQDl4Czta"
+      "petrol": {},
+      "_created": 1637492451737,
+      "_updated": 1638003268995,
+      "_history": { "1637578851737": { "pb": "6.02" } }
     },
     {
-      "id": 6342,
-      "station_id": 6342,
-      "x": 52.27061287387328,
-      "y": 20.9327745437622,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "ROAbJmCDIMJOVkaT"
-    },
-    {
+      "_id": "SliOPvFHIF4KXQZp",
       "id": 7918,
       "station_id": 7918,
       "x": 52.19250870338249,
       "y": 20.94487810099963,
+      "network_id": 196,
       "network_name": "Shell",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.79"
-        }
-      ],
-      "_id": "SliOPvFHIF4KXQZp"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637531389640,
+      "_updated": 1637617789640,
+      "_history": { "1637531389640": { "pb": "5.79" } }
     },
     {
-      "id": 6388,
-      "station_id": 6388,
-      "x": 52.21218239624743,
-      "y": 20.96914529800415,
-      "network_name": "Prywatna",
+      "_id": "TXRMdkPiIWBjJG78",
+      "id": 8400,
+      "station_id": 8400,
+      "x": 52.36096457323533,
+      "y": 21.24713748693466,
+      "address": "Wołomin, Geodetów 40",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "SouQZUjh1tQJLkam"
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637874046291,
+      "_history": {
+        "1637598296541": { "on": "5.91", "lpg": "3.26" },
+        "1637763231871": { "on": "5.91" }
+      }
     },
     {
       "_id": "U32iT3PXwTTjHYI7",
@@ -467,142 +851,132 @@
       "y": 20.97457408905029,
       "network_id": 34,
       "network_name": "BP",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.07"
-        }
-      ],
-      "petrol": {
-        "pb": "6.07"
-      },
+      "petrol_list": [{ "type": "pb", "price": "6.07" }],
+      "petrol": { "pb": "6.07" },
       "_created": 1637431632981,
       "_updated": 1637518032981,
-      "_history": {
-        "1637431632981": {
-          "pb": "5.88"
-        }
-      }
+      "_history": { "1637431632981": { "pb": "5.88" } }
     },
     {
+      "_id": "UkjK3b6rLlkAzGZQ",
       "id": 6348,
       "station_id": 6348,
       "x": 52.21598856566205,
       "y": 20.88166236877441,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "UkjK3b6rLlkAzGZQ"
-    },
-    {
-      "id": 6479,
-      "station_id": 6479,
-      "x": 52.23988306668865,
-      "y": 20.92913746833801,
-      "network_name": "Stacja LPG",
-      "petrol_list": [],
-      "_id": "XHOL1ZRYemzTSPVp"
-    },
-    {
-      "id": 4167,
-      "station_id": 4167,
-      "x": 52.1940345151315,
-      "y": 20.93539237976074,
-      "network_name": "AS 24",
-      "petrol_list": [],
-      "_id": "XZ8vOaTKrUfAwCPq"
-    },
-    {
-      "_id": "YkDaYzwWePoIkoI6",
-      "id": 3517,
-      "station_id": 3517,
-      "x": 52.23833583377069,
-      "y": 20.95538221299648,
+      "address": "Warszawa, Połczyńska- Mory 121",
       "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.04"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637763488322,
+      "_history": { "1637598296541": { "pb": "5.83" } }
+    },
+    {
+      "_id": "UnXnNic2LbLq6QI0",
+      "id": 9310,
+      "station_id": 9310,
+      "x": 52.081964,
+      "y": 21.015492999999992,
+      "address": "Piaseczno, Okulickiego 1",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.89" } }
+    },
+    {
+      "_id": "WQSOUXy7SdyU8pOW",
+      "id": 1065,
+      "station_id": 1065,
+      "x": 52.17100045779914,
+      "y": 21.15530179206541,
+      "address": "Warszawa, Wał Miedzeszyński 219",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637513637431,
+      "_updated": 1637691326653,
+      "_history": {
+        "1637513637431": {
+          "pb+": "5.82",
+          "pb": "5.82",
+          "on": "5.68",
+          "on+": "6.17",
+          "lpg+": "2.86"
         },
-        {
-          "type": "on",
-          "price": "6.01"
+        "1637600037431": {
+          "pb+": "6.07",
+          "pb": "6.07",
+          "on": "6.08",
+          "on+": "6.57",
+          "lpg+": "3.32"
         }
-      ],
-      "petrol": {
-        "pb": "6.04",
-        "on": "6.01"
-      },
+      }
+    },
+    {
+      "_id": "Z3LXdxir1l9iVc8w",
+      "id": 711,
+      "station_id": 711,
+      "x": 52.16566032168527,
+      "y": 20.93215227127075,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "pb", "price": "6.06" }],
+      "petrol": { "pb": "6.06" },
       "_created": 1637431632981,
       "_updated": 1637518032981,
-      "_history": {}
+      "_history": { "1637431632981": { "on": "5.74" } }
     },
     {
-      "id": 1460,
-      "station_id": 1460,
-      "x": 52.2276303,
-      "y": 20.9876427,
-      "network_name": "Circle K (Statoil)",
-      "petrol_list": [],
-      "_id": "ZCsjFqnIyVy4yhZE"
-    },
-    {
-      "id": 6848,
-      "station_id": 6848,
-      "x": 52.23935090349061,
-      "y": 20.93487739562988,
-      "network_name": "BP",
-      "petrol_list": [],
-      "_id": "ZCyYu15WBL6etew5"
-    },
-    {
+      "_id": "ZbWGTLZ8Cyuw7Nvc",
       "id": 9736,
       "station_id": 9736,
       "x": 52.2163762394242,
       "y": 20.859124639374222,
+      "address": "Jawczyce, DK92 (Poznańska 42)",
+      "network_id": 123,
       "network_name": "Lotos",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.69"
-        }
-      ],
-      "_id": "ZbWGTLZ8Cyuw7Nvc"
+      "petrol_list": [{ "type": "pb", "price": "6.32" }],
+      "petrol": { "pb": "6.32" },
+      "_created": 1637604926653,
+      "_updated": 1637691326653,
+      "_history": { "1637604926653": { "pb": "5.69" } }
     },
     {
-      "_id": "Zmaf6F4CtUGq0sC7",
-      "id": 959,
-      "station_id": 959,
-      "x": 52.2617668,
-      "y": 20.9264293,
-      "network_id": 34,
-      "network_name": "BP",
-      "petrol_list": [
-        {
-          "type": "on",
-          "price": "6.06"
-        }
-      ],
-      "petrol": {
-        "on": "6.06"
-      },
-      "_created": 1637434477040,
-      "_updated": 1637520877040,
-      "_history": {}
-    },
-    {
+      "_id": "aFIrl6cyZTH6xC8e",
       "id": 2839,
       "station_id": 2839,
       "x": 52.2171051,
       "y": 20.8986626,
+      "network_id": 125,
       "network_name": "Amic (Lukoil)",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.87"
-        }
-      ],
-      "_id": "aFIrl6cyZTH6xC8e"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637531866877,
+      "_updated": 1637618266877,
+      "_history": { "1637531866877": { "pb": "5.87" } }
+    },
+    {
+      "_id": "aqezUUEml3ppYsik",
+      "id": 8819,
+      "station_id": 8819,
+      "x": 52.271262836429,
+      "y": 20.968388915062,
+      "address": "Warszawa, Włościańska 52",
+      "network_id": 179,
+      "network_name": "Prywatna",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637492451737,
+      "_updated": 1637963099073,
+      "_history": {
+        "1637492451737": { "on": "5.67" },
+        "1637578851737": { "on": "6.09" }
+      }
     },
     {
       "_id": "aztyOddLpiwgosYC",
@@ -610,131 +984,311 @@
       "station_id": 4164,
       "x": 52.23887786417968,
       "y": 20.89707970619201,
+      "address": "Warszawa, Lazurowa 40",
       "network_id": 166,
       "network_name": "PKN ORLEN",
       "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.04"
-        },
-        {
-          "type": "on",
-          "price": "6.04"
-        }
+        { "type": "pb", "price": "6.04" },
+        { "type": "pb+", "price": "6.38" },
+        { "type": "on", "price": "6.04" }
       ],
-      "petrol": {
-        "pb": "6.04",
-        "on": "6.04"
-      },
+      "petrol": { "pb": "6.04", "pb+": "6.38", "on": "6.04" },
       "_created": 1637431632981,
-      "_updated": 1637518032981,
+      "_updated": 1637868256211,
       "_history": {
         "1637431632981": {
           "pb": "5.87",
           "pb+": "5.99",
           "on": "5.79",
           "on+": "5.99"
-        }
+        },
+        "1637518032981": { "pb": "6.04", "on": "6.04" }
       }
     },
     {
-      "id": 6199,
-      "station_id": 6199,
-      "x": 52.230809139579,
-      "y": 20.93868613243103,
-      "network_name": "Prywatna",
-      "petrol_list": [],
-      "_id": "c1i5w5eKyK8A6OUm"
+      "_id": "baaHmu0BPExRbZzC",
+      "id": 9270,
+      "station_id": 9270,
+      "x": 52.18360599466406,
+      "y": 21.14593505859375,
+      "address": "Warszawa, Trakt Lubelski 63",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [{ "type": "lpg", "price": "3.31" }],
+      "petrol": { "lpg": "3.31" },
+      "_created": 1637431632981,
+      "_updated": 1637873829736,
+      "_history": {
+        "1637431632981": { "lpg": "2.86" },
+        "1637518032981": { "on": "5.99", "lpg": "3.31" }
+      }
     },
     {
+      "_id": "bpsTScHCSjbgBdJN",
+      "id": 811,
+      "station_id": 811,
+      "x": 52.1402184,
+      "y": 21.0187401,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        { "type": "pb+", "price": "6.98" },
+        { "type": "lpg+", "price": "3.26" }
+      ],
+      "petrol": { "pb+": "6.98", "lpg+": "3.26" },
+      "_created": 1637431632981,
+      "_updated": 1637687205456,
+      "_history": {
+        "1637431632981": { "on+": "5.61", "lpg+": "2.89" },
+        "1637518032981": { "lpg+": "3.26" }
+      }
+    },
+    {
+      "_id": "cI2J8mi2uqFF1HSx",
+      "id": 9505,
+      "station_id": 9505,
+      "x": 52.17559092092159,
+      "y": 20.77203895733021,
+      "address": "Pruszków, Przejazdowa 5",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        { "type": "pb", "price": "6.07" },
+        { "type": "on", "price": "6.07" }
+      ],
+      "petrol": { "pb": "6.07", "on": "6.07" },
+      "_created": 1637434477040,
+      "_updated": 1637873231742,
+      "_history": { "1637520877040": { "pb": "6.04", "on": "6.04" } }
+    },
+    {
+      "_id": "cp5x0rQOuQvmcOA2",
+      "id": 4756,
+      "station_id": 4756,
+      "x": 52.07953237816098,
+      "y": 21.03401184082031,
+      "address": "Piaseczno, Armii Krajowej 20",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "on+", "price": "6.09" }],
+      "petrol": { "on+": "6.09" },
+      "_created": 1637511896541,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637511896541": { "on+": "5.73" },
+        "1637598296541": { "pb": "5.99" }
+      }
+    },
+    {
+      "_id": "dA2VzFBXqRJDtWOT",
       "id": 767,
       "station_id": 767,
       "x": 52.2205567,
       "y": 20.9153733,
+      "network_id": 205,
       "network_name": "Circle K (Statoil)",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.92"
-        }
-      ],
-      "_id": "dA2VzFBXqRJDtWOT"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637531389640,
+      "_updated": 1637617789640,
+      "_history": { "1637531389640": { "pb": "5.92" } }
     },
     {
+      "_id": "dAvTcXvNhzHV2MPJ",
       "id": 6332,
       "station_id": 6332,
       "x": 52.20118934741247,
       "y": 20.93459844589233,
+      "address": "Warszawa, Aleja Jerozolimskie 184",
+      "network_id": 241,
       "network_name": "Makro Cash and Carry",
       "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.58"
-        }
+        { "type": "pb", "price": "6.09" },
+        { "type": "pb+", "price": "6.32" },
+        { "type": "on", "price": "5.97" }
       ],
-      "_id": "dAvTcXvNhzHV2MPJ"
+      "petrol": { "pb": "6.09", "pb+": "6.32", "on": "5.97" },
+      "_created": 1637518345185,
+      "_updated": 1638003268995,
+      "_history": {
+        "1637518345185": { "pb": "5.58" },
+        "1637687205456": { "on": "5.97" },
+        "1637873231742": { "pb": "5.98", "pb+": "6.32", "on": "5.97" }
+      }
     },
     {
-      "id": 3680,
-      "station_id": 3680,
-      "x": 52.2217324,
-      "y": 20.9561694,
-      "network_name": "BP",
+      "_id": "dR2mmYDVt5RiWcE9",
+      "id": 8557,
+      "station_id": 8557,
+      "x": 52.20964148160871,
+      "y": 21.17224015295505,
+      "address": "Warszawa, Konopna 11",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "dyZpaUDwvvQOJV8f"
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "on": "5.99" } }
     },
     {
+      "_id": "df9fK0bHFmZYQa5T",
+      "id": 2094,
+      "station_id": 2094,
+      "x": 52.2847274,
+      "y": 20.927946,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "pb+", "price": "6.05" }],
+      "petrol": { "pb+": "6.05" },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": {
+        "1637431632981": { "pb": "5.88", "pb+": "6.37", "on+": "6.36" }
+      }
+    },
+    {
+      "_id": "dlDgM0vcRfEQ1Qpd",
+      "id": 3320,
+      "station_id": 3320,
+      "x": 52.2839881,
+      "y": 20.9065376,
+      "address": "Warszawa, Arkuszowa 22",
+      "network_id": 123,
+      "network_name": "Lotos",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.86" } }
+    },
+    {
+      "_id": "eeIrOih7qzhlh78O",
+      "id": 7044,
+      "station_id": 7044,
+      "x": 52.1565222,
+      "y": 21.2191612,
+      "address": "Warszawa, Ochocza 2",
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [{ "type": "lpg+", "price": "3.42" }],
+      "petrol": { "lpg+": "3.42" },
+      "_created": 1637434477040,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637434477040": { "pb": "5.89", "on": "5.79", "lpg+": "3.04" },
+        "1637520877040": { "lpg+": "3.36" },
+        "1637687205456": { "lpg+": "3.44" }
+      }
+    },
+    {
+      "_id": "fZt6NnEmt4T6IpUE",
+      "id": 9661,
+      "station_id": 9661,
+      "x": 52.1714296,
+      "y": 20.8569579,
+      "address": "Reguły , Wiejska 11",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637513637431,
+      "_updated": 1637691326653,
+      "_history": {
+        "1637513637431": { "pb+": "5.89" },
+        "1637600037431": { "pb+": "6.01" }
+      }
+    },
+    {
+      "_id": "fhUsjr6A0ICiY96g",
       "id": 7938,
       "station_id": 7938,
       "x": 52.198485048271,
       "y": 20.919133543794,
+      "network_id": 196,
       "network_name": "Shell",
-      "petrol_list": [
-        {
-          "type": "on",
-          "price": "5.76"
-        }
-      ],
-      "_id": "fhUsjr6A0ICiY96g"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637514068237,
+      "_updated": 1637600468237,
+      "_history": { "1637514068237": { "on": "5.76" } }
     },
     {
-      "_id": "fq8e1UNVvtEbjvAK",
-      "id": 7384,
-      "station_id": 7384,
-      "x": 52.27058880086943,
-      "y": 20.93295192578807,
+      "_id": "gzcmk513VGMPpPDR",
+      "id": 8617,
+      "station_id": 8617,
+      "x": 52.3268157935472,
+      "y": 20.9005907177925,
+      "network_id": 19,
+      "network_name": "Auchan",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637514068237,
+      "_updated": 1637600468237,
+      "_history": { "1637514068237": { "pb": "5.68", "pb+": "5.98" } }
+    },
+    {
+      "_id": "h0DS0Xvba73TCEKN",
+      "id": 9459,
+      "station_id": 9459,
+      "x": 52.14238792733004,
+      "y": 21.02366766339287,
+      "address": "Warszawa, Puławska 427",
+      "network_id": 205,
+      "network_name": "Circle K (Statoil)",
+      "petrol_list": [{ "type": "lpg+", "price": "3.3" }],
+      "petrol": { "lpg+": "3.3" },
+      "_created": 1637482517647,
+      "_updated": 1637868256211,
+      "_history": { "1637568917647": { "lpg+": "3.28" } }
+    },
+    {
+      "_id": "hS2GZFJxm81C1DvJ",
+      "id": 7386,
+      "station_id": 7386,
+      "x": 52.16272296774468,
+      "y": 20.85609626490622,
+      "address": "Michałowice, Powstańców Warszawy 17",
       "network_id": 34,
       "network_name": "BP",
-      "petrol_list": [
-        {
-          "type": "on",
-          "price": "5.99"
-        }
-      ],
-      "petrol": {
-        "on": "5.99"
-      },
-      "_created": 1637431632981,
-      "_updated": 1637518032981,
-      "_history": {}
+      "petrol_list": [{ "type": "pb", "price": "6.04" }],
+      "petrol": { "pb": "6.04" },
+      "_created": 1637511896541,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637598296541": { "pb": "5.99" },
+        "1637691326653": { "pb": "6.45" }
+      }
     },
     {
-      "id": 3283,
-      "station_id": 3283,
-      "x": 52.2251247,
-      "y": 20.9585686,
+      "_id": "hgO5RuJu3rfTnFEG",
+      "id": 3919,
+      "station_id": 3919,
+      "x": 52.28370367787418,
+      "y": 21.023134943367356,
+      "address": "Warszawa, Władysława Syrokomli 4",
+      "network_id": 166,
       "network_name": "PKN ORLEN",
       "petrol_list": [],
-      "_id": "h2CaaPm6wjOLJPXa"
+      "petrol": {},
+      "_created": 1637605904300,
+      "_updated": 1637692304300,
+      "_history": { "1637605904300": { "on": "5.68" } }
     },
     {
-      "id": 3619,
-      "station_id": 3619,
-      "x": 52.2339658,
-      "y": 20.9850428,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "izcCSnz4sdgwpp9Q"
+      "_id": "hnoJwXagIKIanTnh",
+      "id": 8906,
+      "station_id": 8906,
+      "x": 52.0845768,
+      "y": 20.879079300000058,
+      "address": "Łazy, aleja Krakowska 208",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "pb", "price": "6.15" }],
+      "petrol": { "pb": "6.15" },
+      "_created": 1637531866877,
+      "_updated": 1637946695259,
+      "_history": { "1637531866877": { "pb": "5.89" } }
     },
     {
       "_id": "jQOCH13QZLcsW5dH",
@@ -742,65 +1296,136 @@
       "station_id": 733,
       "x": 52.24793043583101,
       "y": 20.91170310974121,
+      "address": "Warszawa, Powstańców Śląskich 90",
       "network_id": 205,
       "network_name": "Circle K (Statoil)",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.02"
-        }
-      ],
-      "petrol": {
-        "pb": "6.02"
-      },
+      "petrol_list": [{ "type": "pb", "price": "6.07" }],
+      "petrol": { "pb": "6.07" },
       "_created": 1637434477040,
-      "_updated": 1637520877040,
+      "_updated": 1637763022495,
       "_history": {
-        "1637434477040": {
-          "pb": "6.24"
-        }
+        "1637434477040": { "pb": "6.24" },
+        "1637520877040": { "pb": "6.02" }
       }
     },
     {
-      "id": 3121,
-      "station_id": 3121,
-      "x": 52.25152336116669,
-      "y": 20.98003506660461,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "kKXbHTviCCn0LvSr"
+      "_id": "jTpHhaoCOthbtct9",
+      "id": 2702,
+      "station_id": 2702,
+      "x": 52.3191153,
+      "y": 20.9660882,
+      "address": "Warszawa, Światowida 18",
+      "network_id": 40,
+      "network_name": "Carrefour",
+      "petrol_list": [{ "type": "pb", "price": "5.99" }],
+      "petrol": { "pb": "5.99" },
+      "_created": 1637492451737,
+      "_updated": 1637946880990,
+      "_history": {
+        "1637492451737": { "on": "5.43", "lpg": "2.89" },
+        "1637578851737": { "pb": "5.99", "lpg": "3.14" }
+      }
     },
     {
-      "id": 6190,
-      "station_id": 6190,
-      "x": 52.222209865688,
-      "y": 20.988070964813,
-      "network_name": "PKN ORLEN",
-      "petrol_list": [],
-      "_id": "mrwd6qGOZsxEF0m3"
+      "_id": "lcMx8OoWRdL7kKB0",
+      "id": 2258,
+      "station_id": 2258,
+      "x": 52.26335102808434,
+      "y": 21.05330228805542,
+      "address": "Warszawa, Stalowa 60/64",
+      "network_id": 213,
+      "network_name": "Tesco",
+      "petrol_list": [
+        { "type": "pb", "price": "5.99" },
+        { "type": "lpg", "price": "3.28" }
+      ],
+      "petrol": { "pb": "5.99", "lpg": "3.28" },
+      "_created": 1637511896541,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637511896541": { "lpg": "2.82" },
+        "1637598296541": { "pb": "5.98", "lpg": "3.26" },
+        "1637763022495": { "pb": "5.99", "lpg": "3.26" }
+      }
     },
     {
+      "_id": "mZmRXeqT8oKVdClF",
+      "id": 378,
+      "station_id": 378,
+      "x": 52.09397000261621,
+      "y": 21.0201609134674,
+      "network_id": 19,
+      "network_name": "Auchan",
+      "petrol_list": [{ "type": "pb", "price": "5.96" }],
+      "petrol": { "pb": "5.96" },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": { "1637431632981": { "pb": "5.58" } }
+    },
+    {
+      "_id": "mo7H2UG0IwEDYue5",
+      "id": 8710,
+      "station_id": 8710,
+      "x": 52.3016822351173,
+      "y": 21.0563975572586,
+      "address": "Warszawa, Głębocka 15",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [{ "type": "pb", "price": "6.04" }],
+      "petrol": { "pb": "6.04" },
+      "_created": 1637431632981,
+      "_updated": 1637763231871,
+      "_history": {
+        "1637431632981": { "pb+": "5.74", "pb": "5.84" },
+        "1637518032981": { "pb": "6.04", "on": "5.97" }
+      }
+    },
+    {
+      "_id": "niNqzohEV0Ls3rzo",
+      "id": 2051,
+      "station_id": 2051,
+      "x": 52.2252911,
+      "y": 21.1489153,
+      "address": "Warszawa, Wydawnicza 72",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.89", "lpg": "2.89" } }
+    },
+    {
+      "_id": "oNIvTRiqprBZF2f2",
       "id": 44,
       "station_id": 44,
       "x": 52.2149868,
       "y": 20.9558781,
+      "address": "Warszawa, Aleje Jerozolimskie 144c",
+      "network_id": 34,
       "network_name": "BP",
-      "petrol_list": [
-        {
-          "type": "on",
-          "price": "5.81"
-        }
-      ],
-      "_id": "oNIvTRiqprBZF2f2"
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637513637431,
+      "_updated": 1637691326653,
+      "_history": {
+        "1637513637431": { "on": "5.81" },
+        "1637600037431": { "pb": "5.99" }
+      }
     },
     {
-      "id": 8394,
-      "station_id": 8394,
-      "x": 52.24027561508149,
-      "y": 20.9299649298191,
-      "network_name": "Stacja LPG",
+      "_id": "ovX373RtubaheBsC",
+      "id": 3554,
+      "station_id": 3554,
+      "x": 52.2882463,
+      "y": 20.9338706,
+      "network_id": 125,
+      "network_name": "Amic (Lukoil)",
       "petrol_list": [],
-      "_id": "ocgPmdX7SzqizRs6"
+      "petrol": {},
+      "_created": 1637533679370,
+      "_updated": 1637620079370,
+      "_history": { "1637533679370": { "pb": "5.86" } }
     },
     {
       "_id": "pia5oIEcT4TazRCH",
@@ -808,124 +1433,381 @@
       "station_id": 977,
       "x": 52.19353468601617,
       "y": 20.92359066009521,
+      "address": "Warszawa, Aleje Jerozolimskie 202",
       "network_id": 34,
       "network_name": "BP",
       "petrol_list": [
-        {
-          "type": "pb",
-          "price": "6.07"
-        },
-        {
-          "type": "on",
-          "price": "6.07"
-        }
+        { "type": "pb", "price": "6.09" },
+        { "type": "on", "price": "5.94" }
       ],
-      "petrol": {
-        "pb": "6.07",
-        "on": "6.07"
-      },
+      "petrol": { "pb": "6.09", "on": "5.94" },
       "_created": 1637431632981,
-      "_updated": 1637518032981,
-      "_history": {}
+      "_updated": 1637942232188,
+      "_history": {
+        "1637518032981": { "pb": "6.07", "on": "6.07" },
+        "1637873231742": { "pb": "6.09", "on": "6.09" }
+      }
     },
     {
-      "id": 2555,
-      "station_id": 2555,
-      "x": 52.27275311863703,
-      "y": 20.9252643585205,
-      "network_name": "Auto-Gaz",
+      "_id": "pzeGKgg9OZxyAvLX",
+      "id": 9616,
+      "station_id": 9616,
+      "x": 52.28454884120755,
+      "y": 20.87580992586812,
+      "address": "Warszawa, Estrady 9",
+      "network_id": 34,
+      "network_name": "BP",
       "petrol_list": [],
-      "_id": "rEnEkCDxkouJebG2"
+      "petrol": {},
+      "_created": 1637513637431,
+      "_updated": 1637691326653,
+      "_history": { "1637600037431": { "pb": "6.35" } }
     },
     {
+      "_id": "q1BnZiIp91oEmaFK",
+      "id": 3589,
+      "station_id": 3589,
+      "x": 52.182726,
+      "y": 20.8853905,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637531866877,
+      "_updated": 1637618266877,
+      "_history": { "1637531866877": { "pb+": "5.99" } }
+    },
+    {
+      "_id": "qG9p6pNbyQTBWRUv",
+      "id": 226,
+      "station_id": 226,
+      "x": 52.23226792641687,
+      "y": 21.11383438110351,
+      "address": "Warszawa, Ostrobramska 75",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        { "type": "pb+", "price": "6.09" },
+        { "type": "pb+", "price": "6.09" },
+        { "type": "on+", "price": "6.07" }
+      ],
+      "petrol": { "pb+": "6.09", "on+": "6.07" },
+      "_created": 1637492451737,
+      "_updated": 1637873829736,
+      "_history": {
+        "1637492451737": { "pb+": "5.89", "on+": "5.87" },
+        "1637578851737": { "pb+": "5.99", "on+": "5.99" },
+        "1637687042782": { "pb+": "6.09", "on+": "5.99" }
+      }
+    },
+    {
+      "_id": "qL0wHyktJyi8UvX4",
+      "id": 7019,
+      "station_id": 7019,
+      "x": 52.1524304,
+      "y": 20.7913115,
+      "address": "Pruszków, Wojska Polskiego 127",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [
+        { "type": "pb", "price": "6.05" },
+        { "type": "pb+", "price": "6.09" },
+        { "type": "pb+", "price": "6.49" },
+        { "type": "on", "price": "6.05" },
+        { "type": "lpg", "price": "3.43" }
+      ],
+      "petrol": { "pb": "6.05", "pb+": "6.49", "on": "6.05", "lpg": "3.43" },
+      "_created": 1637431632981,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637431632981": { "on": "5.89" },
+        "1637518032981": {
+          "pb": "6.09",
+          "pb+": "6.49",
+          "on": "6.09",
+          "lpg": "3.49"
+        }
+      }
+    },
+    {
+      "_id": "qnXSBiEDUKKzCyFc",
+      "id": 156,
+      "station_id": 156,
+      "x": 52.2129115895872,
+      "y": 21.046254438298547,
+      "address": "Warszawa, Czerniakowska 149",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.82" } }
+    },
+    {
+      "_id": "r6HO6ikDqD8bArtb",
+      "id": 1757,
+      "station_id": 1757,
+      "x": 52.02421749039881,
+      "y": 21.30639553070068,
+      "address": "Karczew, Całowanie 109A",
+      "network_id": 259,
+      "network_name": "MOYA",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637436103231,
+      "_updated": 1638003268995,
+      "_history": {
+        "1637522503231": {
+          "pb": "6.06",
+          "on": "6.05",
+          "on+": "6.39",
+          "lpg": "3.24"
+        }
+      }
+    },
+    {
+      "_id": "rUh4Y6I2nAxr6DaT",
+      "id": 7566,
+      "station_id": 7566,
+      "x": 52.29271500540755,
+      "y": 21.07951354963006,
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637528812361,
+      "_updated": 1637615212361,
+      "_history": { "1637528812361": { "on": "5.76" } }
+    },
+    {
+      "_id": "rwYc10yS5toITywV",
       "id": 8475,
       "station_id": 8475,
       "x": 52.22994544510559,
       "y": 20.89594881228549,
+      "address": "Warszawa, Lazurowa 73",
+      "network_id": 196,
       "network_name": "Shell",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.86"
+      "petrol_list": [{ "type": "pb+", "price": "6.04" }],
+      "petrol": { "pb+": "6.04" },
+      "_created": 1637511896541,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637511896541": {
+          "pb": "5.86",
+          "pb+": "5.87",
+          "on": "5.84",
+          "lpg+": "2.92"
         },
-        {
-          "type": "pb+",
-          "price": "5.87"
-        },
-        {
-          "type": "on",
-          "price": "5.84"
-        },
-        {
-          "type": "lpg+",
-          "price": "2.92"
-        }
-      ],
-      "_id": "rwYc10yS5toITywV"
+        "1637598296541": { "on": "6.02" },
+        "1637763022495": { "pb+": "6.04", "on": "6.02" }
+      }
     },
     {
+      "_id": "s53dKU3a2sVG8lIL",
+      "id": 3642,
+      "station_id": 3642,
+      "x": 52.29944333141282,
+      "y": 21.08632296323776,
+      "address": "Warszawa, Radzymińska 324",
+      "network_id": 125,
+      "network_name": "Amic (Lukoil)",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637511896541,
+      "_updated": 1637763488322,
+      "_history": { "1637598296541": { "on": "5.92" } }
+    },
+    {
+      "_id": "t9Kcano0K7w89eHV",
+      "id": 1263,
+      "station_id": 1263,
+      "x": 52.1674392,
+      "y": 20.8062094,
+      "address": "Pruszków, Aleja Wojska Polskiego 4",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        { "type": "pb+", "price": "6.94" },
+        { "type": "pb", "price": "6.05" },
+        { "type": "pb+", "price": "6.56" },
+        { "type": "on", "price": "6.05" },
+        { "type": "lpg+", "price": "3.34" }
+      ],
+      "petrol": { "pb+": "6.56", "pb": "6.05", "on": "6.05", "lpg+": "3.34" },
+      "_created": 1637431632981,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637431632981": { "pb+": "5.89" },
+        "1637518032981": {
+          "pb+": "6.56",
+          "pb": "6.07",
+          "on": "6.08",
+          "lpg+": "3.42"
+        }
+      }
+    },
+    {
+      "_id": "u5YGI1C7uedf5rke",
+      "id": 1453,
+      "station_id": 1453,
+      "x": 52.3033513,
+      "y": 20.987748,
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637518345185,
+      "_updated": 1637604745185,
+      "_history": { "1637518345185": { "pb": "5.88" } }
+    },
+    {
+      "_id": "ufPRd4X6NvKjRGvX",
+      "id": 6116,
+      "station_id": 6116,
+      "x": 52.13808785600831,
+      "y": 20.7688982784748,
+      "network_id": 153,
+      "network_name": "Pegas",
+      "petrol_list": [{ "type": "lpg", "price": "3.29" }],
+      "petrol": { "lpg": "3.29" },
+      "_created": 1637434477040,
+      "_updated": 1637520877040,
+      "_history": { "1637434477040": { "lpg": "2.75" } }
+    },
+    {
+      "_id": "ujmSDRjUBxKqA3sb",
       "id": 1459,
       "station_id": 1459,
       "x": 52.2529493,
       "y": 20.9824515,
+      "address": "Warszawa, Dzika 29",
+      "network_id": 205,
       "network_name": "Circle K (Statoil)",
       "petrol_list": [],
-      "_id": "ujmSDRjUBxKqA3sb"
+      "petrol": {},
+      "_created": 1637436103231,
+      "_updated": 1638003268995,
+      "_history": { "1637522503231": { "pb": "5.99" } }
     },
     {
+      "_id": "wMLmSpdNKRhiGbeX",
+      "id": 9546,
+      "station_id": 9546,
+      "x": 52.215601391987654,
+      "y": 20.84952288988893,
+      "address": "Jawczyce, Poznańska 74",
+      "network_id": 34,
+      "network_name": "BP",
+      "petrol_list": [{ "type": "pb", "price": "6.09" }],
+      "petrol": { "pb": "6.09" },
+      "_created": 1637531389640,
+      "_updated": 1637873829736,
+      "_history": { "1637531389640": { "pb": "5.86" } }
+    },
+    {
+      "_id": "whtuM7WHqQQc09E0",
+      "id": 1518,
+      "station_id": 1518,
+      "x": 52.26182759667282,
+      "y": 21.05501890182495,
+      "address": "Warszawa, Radzymińska 76",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [],
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "lpg": "2.85" } }
+    },
+    {
+      "_id": "wnPTmW5UP2ME1lug",
+      "id": 4404,
+      "station_id": 4404,
+      "x": 52.33543740782451,
+      "y": 21.22268915176391,
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        { "type": "pb", "price": "6.11" },
+        { "type": "lpg+", "price": "3.44" }
+      ],
+      "petrol": { "pb": "6.11", "lpg+": "3.44" },
+      "_created": 1637431632981,
+      "_updated": 1637518032981,
+      "_history": { "1637431632981": { "pb": "5.89", "lpg+": "2.94" } }
+    },
+    {
+      "_id": "xOAQ9Mchi92gw6g4",
+      "id": 94,
+      "station_id": 94,
+      "x": 52.17135240061579,
+      "y": 20.8121395111084,
+      "address": "Pruszków, Bohaterów Warszawy 7",
+      "network_id": 166,
+      "network_name": "PKN ORLEN",
+      "petrol_list": [
+        { "type": "pb", "price": "6.07" },
+        { "type": "on", "price": "6.07" },
+        { "type": "lpg", "price": "3.43" }
+      ],
+      "petrol": { "pb": "6.07", "on": "6.07", "lpg": "3.43" },
+      "_created": 1637431632981,
+      "_updated": 1637868256211,
+      "_history": {
+        "1637518032981": { "pb": "6.07", "on": "6.07", "lpg": "3.39" }
+      }
+    },
+    {
+      "_id": "xWhypbVBGKbc2ybD",
       "id": 718,
       "station_id": 718,
       "x": 52.2193675,
       "y": 20.9154491,
+      "network_id": 34,
       "network_name": "BP",
-      "petrol_list": [
-        {
-          "type": "on",
-          "price": "5.79"
-        }
-      ],
-      "_id": "xWhypbVBGKbc2ybD"
-    },
-    {
-      "id": 7873,
-      "station_id": 7873,
-      "x": 52.19909058453017,
-      "y": 20.89170742030546,
-      "network_name": "Shell",
       "petrol_list": [],
-      "_id": "yOowIVTyf2zzbdBo"
+      "petrol": {},
+      "_created": 1637531866877,
+      "_updated": 1637618266877,
+      "_history": { "1637531866877": { "on": "5.79" } }
     },
     {
+      "_id": "y4JSrUycO2JMt9O2",
+      "id": 6954,
+      "station_id": 6954,
+      "x": 52.14544591408189,
+      "y": 21.03662967681884,
+      "address": "Warszawa, RTM. Witolda Pileckiego 101",
+      "network_id": 196,
+      "network_name": "Shell",
+      "petrol_list": [
+        { "type": "pb", "price": "6.01" },
+        { "type": "pb+", "price": "6.03" }
+      ],
+      "petrol": { "pb": "6.01", "pb+": "6.03" },
+      "_created": 1637431632981,
+      "_updated": 1637946880990,
+      "_history": {
+        "1637431632981": { "pb": "5.72", "pb+": "5.72" },
+        "1637518032981": { "pb": "6.01", "pb+": "6.03", "lpg+": "3.26" }
+      }
+    },
+    {
+      "_id": "yY8mSQjmOMGW4gIk",
       "id": 5541,
       "station_id": 5541,
       "x": 52.22737883029672,
       "y": 20.98950862884521,
+      "address": "Warszawa, Srebrna 9",
+      "network_id": 166,
       "network_name": "PKN ORLEN",
-      "petrol_list": [
-        {
-          "type": "pb",
-          "price": "5.89"
-        }
-      ],
-      "_id": "yY8mSQjmOMGW4gIk"
-    },
-    {
-      "id": 9123,
-      "station_id": 9123,
-      "x": 52.22199441064106,
-      "y": 20.957299321889877,
-      "network_name": "MOYA",
       "petrol_list": [],
-      "_id": "zWoQjlcxGeMYKqSt"
-    },
-    {
-      "id": 8850,
-      "station_id": 8850,
-      "x": 52.25727012300922,
-      "y": 20.920334458351135,
-      "network_name": "Circle K (Statoil)",
-      "petrol_list": [],
-      "_id": "zqDdNZ1sJly0LYPH"
+      "petrol": {},
+      "_created": 1637605404511,
+      "_updated": 1637691804511,
+      "_history": { "1637605404511": { "pb": "5.89" } }
     }
   ]
 }
