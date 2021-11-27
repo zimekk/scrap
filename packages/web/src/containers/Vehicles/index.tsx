@@ -1,13 +1,21 @@
-import React, { Suspense, useCallback, useMemo, useState } from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
 import { useInView } from "react-intersection-observer";
 import createPersistedState from "use-persisted-state";
+import update from "immutability-helper";
 import cx from "classnames";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
 import { Spinner } from "../../components/Spinner";
-import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -41,6 +49,7 @@ const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
 
+const useCriterion = createPersistedState("criterion-vehicles");
 const useFavorites = createPersistedState("favorites-vehicles");
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -179,14 +188,10 @@ function Data({ version = "v1" }) {
   const { results, options } = asset.read(version); // As many cache keys as you need
 
   const [search, setSearch] = useState("");
-  const [filter] = useDebounce(search);
-
-  const onChangeSearch = useCallback(
-    ({ target }) => setSearch(target.value),
-    []
-  );
 
   const [criteria, setCriteria] = useState(() => ({
+    filter: search,
+    sortBy: "transactionalPrice",
     type: "",
     radius: RADIUS_LIST[RADIUS_LIST.length - 1],
 
@@ -208,7 +213,24 @@ function Data({ version = "v1" }) {
     ),
   }));
 
-  const [sortBy, setSortBy] = useState("transactionalPrice");
+  const search$ = useMemo(() => new Subject<string>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(
+        map((search) => search.trim()),
+        distinctUntilChanged(),
+        debounceTime(400)
+      )
+      .subscribe((filter) =>
+        setCriteria((criteria) => ({ ...criteria, filter }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(search);
+  }, [search]);
 
   const onClickCompare = useCallback(({ target }) => {
     const id = Number(target.value);
@@ -317,13 +339,27 @@ function Data({ version = "v1" }) {
   const sorted = useMemo(
     () =>
       list.sort(
-        (a, b) => SORT_BY[sortBy] * (a.item[sortBy] > b.item[sortBy] ? 1 : -1)
+        (a, b) =>
+          SORT_BY[criteria.sortBy] *
+          (a.item[criteria.sortBy] > b.item[criteria.sortBy] ? 1 : -1)
       ),
-    [list, sortBy]
+    [list, criteria.sortBy]
   );
 
   const [favorites, setFavorites] = useFavorites([]);
-  // const [criterion, setCriterion] = useFavorites([]);
+
+  const [criterion, setCriterion] = useCriterion(() => ({
+    selected: "",
+    list: [],
+  }));
+
+  useEffect(() => {
+    if (criterion.selected !== "") {
+      const { criteria } = criterion.list[criterion.selected];
+      setCriteria(criteria);
+      setSearch(criteria.filter);
+    }
+  }, [setCriteria, setSearch, criterion.selected]);
 
   return (
     <div>
@@ -338,9 +374,14 @@ function Data({ version = "v1" }) {
         {...criteria}
         options={options}
         setCriteria={setCriteria}
+        search={search}
         setSearch={setSearch}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
+      />
+      <CriteriaLabel {...criteria} options={options} />
+      <SavedFilters
+        criterion={criterion}
+        setCriterion={setCriterion}
+        criteria={criteria}
       />
       {favorites.length > 0 ? (
         <div>
@@ -371,7 +412,7 @@ function Data({ version = "v1" }) {
             <li key={key} className={styles.Row}>
               <Gallery
                 images={[...Array(images)]
-                  .slice(0, 3)
+                  .slice(0, 10)
                   .map(
                     (
                       _,
@@ -405,6 +446,164 @@ function Data({ version = "v1" }) {
   );
 }
 
+function SavedFilters({ criterion, setCriterion, criteria }) {
+  const onCreateFilter = useCallback(
+    () =>
+      setCriterion((criterion) => ({
+        ...criterion,
+        selected: String(criterion.list.length),
+        list: criterion.list.concat([
+          { label: prompt("Filter name:"), criteria },
+        ]),
+      })),
+    [criterion, criteria]
+  );
+
+  const onUpdateFilter = useCallback(
+    () =>
+      setCriterion((criterion) =>
+        update(criterion, {
+          list: {
+            [criterion.selected]: {
+              criteria: {
+                $apply: () => criteria,
+              },
+            },
+          },
+        })
+      ),
+    [criterion, criteria]
+  );
+
+  const onRenameFilter = useCallback(
+    () =>
+      setCriterion((criterion) =>
+        update(criterion, {
+          list: {
+            [criterion.selected]: {
+              label: {
+                $apply: (label) => prompt("Rename filter:", label),
+              },
+            },
+          },
+        })
+      ),
+    [criterion]
+  );
+
+  const onRemoveFilter = useCallback(
+    () =>
+      setCriterion((criterion) => ({
+        ...criterion,
+        selected: "",
+        list: criterion.list.filter(
+          (_item, key) => String(key) !== criterion.selected
+        ),
+      })),
+    [criterion]
+  );
+
+  const onChangeSelectedFilter = useCallback(
+    ({ target }) =>
+      setCriterion((criterion) => ({ ...criterion, selected: target.value })),
+    [criterion]
+  );
+  const sameCriteria = useMemo(
+    () =>
+      criterion.selected !== "" &&
+      JSON.stringify(criterion.list[criterion.selected].criteria) ===
+        JSON.stringify(criteria),
+    [criterion, criteria]
+  );
+
+  return (
+    <div>
+      <label>
+        <span>Saved Filters</span>
+        <select value={criterion.selected} onChange={onChangeSelectedFilter}>
+          <option value="">--</option>
+          {criterion.list.map(({ label }, value) => (
+            <option key={value} value={String(value)}>
+              {label}
+            </option>
+          ))}
+        </select>
+        {criterion.selected === "" ? (
+          <button onClick={onCreateFilter}>Save as new criteria</button>
+        ) : (
+          <>
+            <button onClick={onUpdateFilter} disabled={sameCriteria}>
+              Update criteria
+            </button>
+            <button onClick={onRenameFilter}>Rename criteria</button>
+            <button onClick={onRemoveFilter}>Remove criteria</button>
+          </>
+        )}
+      </label>
+    </div>
+  );
+}
+
+function CriteriaLabel({
+  filter,
+  options,
+  entries,
+  type,
+  yearFrom,
+  yearTo,
+  priceFrom,
+  priceTo,
+  powerFrom,
+  powerTo,
+  radius,
+  sortBy,
+}) {
+  return (
+    <fieldset>
+      {type && (
+        <div>
+          <span>Type</span>
+          <span>{TYPES[type]}</span>
+        </div>
+      )}
+      {filter && (
+        <div>
+          <span>Search</span>
+          <span>{filter}</span>
+        </div>
+      )}
+      <div>
+        <span>Sort</span>
+        <span>{sortBy}</span>
+      </div>
+      <div>
+        <span>Radius</span>
+        <span>{`max ${radius} km`}</span>
+      </div>
+      <div>
+        <span>Year</span>
+        <span>{`${yearFrom}-${yearTo}`}</span>
+      </div>
+      <div>
+        <span>Price</span>
+        <span>{`${priceFrom}-${priceTo} pln`}</span>
+      </div>
+      <div>
+        <span>Power</span>
+        <span>{`${powerFrom}-${powerTo} hp`}</span>
+      </div>
+      {Object.entries(entries)
+        .filter(([, value]: any) => value !== "")
+        .map(([name, value]: any, key) => (
+          <div key={key}>
+            <span>{name}</span>
+            <span>{options[name][value]}</span>
+          </div>
+        ))}
+    </fieldset>
+  );
+}
+
 function Criteria({
   search,
   options,
@@ -420,7 +619,6 @@ function Criteria({
   setCriteria,
   setSearch,
   sortBy,
-  setSortBy,
 }) {
   const onChangeSearch = useCallback(
     ({ target }) => setSearch(target.value),
@@ -440,7 +638,8 @@ function Criteria({
   );
 
   const onChangeSortBy = useCallback(
-    ({ target }) => setSortBy(target.value),
+    ({ target }) =>
+      setCriteria((criteria) => ({ ...criteria, sortBy: target.value })),
     []
   );
 
@@ -554,7 +753,7 @@ function Criteria({
         <label>
           <span>Sort</span>
           <select value={sortBy} onChange={onChangeSortBy}>
-            {Object.entries(SORT_BY).map(([value, label]) => (
+            {Object.entries(SORT_BY).map(([value]) => (
               <option key={value} value={value}>
                 {value}
               </option>
@@ -697,7 +896,7 @@ function Criteria({
             <span>{name}</span>
             <select name={name} value={value} onChange={onChangeCriteria}>
               <option value={""}>--</option>
-              {Object.entries(options[name]).map(([value, label]) => (
+              {Object.entries(options[name]).map(([value, label]: any) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
