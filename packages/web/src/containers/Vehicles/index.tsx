@@ -60,260 +60,7 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/vehicles/data.json?${version}`);
   return await res
     .json()
-    .then(({ $list = [], vehicleBasic = [], list = [] }) =>
-      []
-        .concat(
-          list.map(({ _id, _created, _updated, ...source }) => ({
-            _id,
-            _created,
-            _updated,
-            source,
-            id: source.id,
-            href: `https://shop.mercedes-benz.com/pl-pl/cars/pdp/${source.code}`,
-            title: source.name,
-            dealer: {
-              id: source.pointOfServiceDisplayName,
-              name: source.pointOfServiceDisplayName,
-              lat: process.env.NEARBY_LAT,
-              lng: process.env.NEARBY_LNG,
-            },
-            vatReclaimable: source.vatReclaimable,
-            // warranty:0,
-            productionYear: 2021,
-            // newPrice,
-            // optionsPrice,
-            // accessoriesPrice,
-            transactionalPrice: source.price.value,
-            brand: (({ code, description = "Mercedes" }) => ({
-              id: code,
-              label: description,
-            }))({}),
-            bodyType: (({ code, name }) => ({
-              id: code,
-              label: name,
-            }))(source.bodyType),
-            series: source.model,
-            seriesCode: source.name,
-            modelCode: source.modelDesignation,
-            powerHP: source.combustionPowerSecondary.value,
-            powerKW: source.combustionPower.value,
-            // capacity,
-            fuel: (({ code, name }) => ({
-              id: code,
-              label: name,
-            }))(source.fuelType),
-            // consumptionFuel,
-            transmission: (({ code, name }) => ({
-              id: code,
-              label: name,
-            }))(source.gearBox),
-            color: ((name) => ({
-              id: name,
-              label: name,
-            }))(source.colorGroup),
-            images: [source.primaryImage.url],
-          }))
-        )
-        .concat(
-          $list.map(({ _id, _created, _updated, ...source }) => ({
-            _id,
-            _created,
-            _updated,
-            source,
-            title: source.title,
-            dealer: (({ dealer: { id, name, lat, lng } }) => ({
-              id,
-              name,
-              lat,
-              lng,
-            }))(source),
-            ...(({
-              id,
-              isNew,
-              vatReclaimable,
-              warranty,
-              productionYear,
-              newPrice,
-              optionsPrice,
-              accessoriesPrice,
-              transactionalPrice,
-              brand,
-              bodyType,
-              series,
-              seriesCode,
-              modelCode,
-              powerHP,
-              powerKW,
-              capacity,
-              fuel,
-              consumptionFuel,
-              transmission,
-              color,
-              images,
-            }) => ({
-              id,
-              href: `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`,
-              isNew,
-              newPrice,
-              optionsPrice,
-              accessoriesPrice,
-              vatReclaimable,
-              warranty: Boolean(warranty > 0) ? 1 : 0,
-              productionYear,
-              transactionalPrice,
-              brand,
-              bodyType,
-              series,
-              seriesCode,
-              modelCode,
-              powerHP,
-              powerKW,
-              capacity,
-              fuel,
-              consumptionFuel,
-              transmission,
-              color,
-              images: [...Array(images)].map(
-                (_, i, _list, size = "322/255b28ffdad35cd984ff32f30da17158") =>
-                  `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
-              ),
-            }))(source),
-            ...(source.isNew
-              ? {}
-              : (({ mileage, registration }) => ({
-                  registration,
-                  mileage,
-                }))(source)),
-          }))
-        )
-        .concat(
-          vehicleBasic.map(({ _id, _created, _updated, ...source }) => ({
-            _id,
-            _created,
-            _updated,
-            source,
-            title: source.model.description,
-            dealer: (({
-              dealer: {
-                id,
-                name,
-                geoLocation: { lat, lon: lng },
-              },
-            }) => ({
-              id,
-              name,
-              lat,
-              lng,
-            }))(source),
-            ...(({
-              id,
-              carId,
-              used,
-              vatReclaimable,
-              warrantyPlus,
-              productionYear,
-              typedPrices,
-              brand,
-              model,
-              symbolicCarline,
-              symbolicCarlineGroup,
-              bodyType,
-              driveType,
-              gearBox,
-              powerDisplay = "",
-              io: { fuels },
-              gearType,
-              extColor,
-              pictures = [],
-            }) => ({
-              id: carId,
-              href: `//www.audi.pl/pl/web/pl/wyszukiwarka-samochodow-uzywanych/details.sc_detail.${id}.html`,
-              isNew: !Boolean(used),
-              vatReclaimable,
-              warranty: warrantyPlus ? 1 : 0,
-              productionYear,
-              transactionalPrice: typedPrices[0].amount,
-              brand: (({ code, description = "Audi" }) => ({
-                id: code,
-                label: description,
-              }))(brand),
-
-              series: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(symbolicCarlineGroup || {}),
-              seriesCode: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(symbolicCarline),
-              modelCode: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(model),
-
-              bodyType: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(bodyType || {}),
-              driveType: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(driveType || {}),
-              ...((m) =>
-                m
-                  ? {
-                      powerKW: Number(m[1]),
-                      powerHP: Number(m[2]),
-                    }
-                  : {})(powerDisplay.match(/(\d+) kW \((\d+) KM\)/)),
-              ...(fuels
-                ? {
-                    fuel:
-                      {
-                        DIESEL: { id: 2, label: "Diesel" },
-                        PETROL: { id: 1, label: "Benzyna" },
-                        ELECTRICAL: { id: 3, label: "Elektryczny" },
-                      }[fuels[0].fuel] || {},
-                    consumptionFuel: (({
-                      consumption: {
-                        consolidated: { value },
-                      },
-                    }) => Number(value.replace(",", ".")))(fuels[0]),
-                  }
-                : { fuel: {} }),
-              gearBox: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(gearBox || {}),
-              transmission: (({ code, description }) => ({
-                id: {
-                  ["gear-type.automatic"]: 0,
-                  ["gear-type.null"]: 0,
-                  ["gear-type.manual"]: 1,
-                }[code],
-                label: description,
-              }))(gearType),
-              color: (({ code, description }) => ({
-                id: code,
-                label: description,
-              }))(extColor),
-              images: used?.pictureUrls
-                ? used.pictureUrls
-                : pictures.map(({ url }) => url),
-            }))(source),
-            ...(source.type === "N"
-              ? {}
-              : (({
-                  used: { numPreviousOwners, mileage, initialRegistrationDate },
-                }) => ({
-                  numPreviousOwners,
-                  registration: new Date(initialRegistrationDate).toISOString(),
-                  mileage,
-                }))(source)),
-          }))
-        )
-    )
-    .then((list) => list.sort((a, b) => (a._id > b._id ? 1 : -1)))
+    .then(({ results }) => results) // 236 MB -> 26.1 MB
     .then((list) => ({
       results: list,
       options: list.reduce(
@@ -330,6 +77,7 @@ const asset = createAsset(async (version) => {
             "modelCode",
             "transmission",
             "gearBox",
+            "vatReclaimable",
             "warranty",
           ].reduce(
             (options, prop) => ({
@@ -1324,17 +1072,16 @@ function Details({
         )}
       </li>
       <li>
-        <span
-          className={cx(
-            styles.Compare,
-            changed("transactionalPrice") && styles.changed
-          )}
-        >
-          transactionalPrice: {transactionalPrice}
-        </span>{" "}
         {registration && (
-          <span>registration: {registration.split("T")[0]}</span>
-        )}
+          <span
+            className={cx(
+              styles.Compare,
+              changed("registration") && styles.changed
+            )}
+          >
+            registration: {registration.split("T")[0]}
+          </span>
+        )}{" "}
         {age && (
           <span
             className={cx(styles.Compare, changed("age") && styles.changed)}
@@ -1348,7 +1095,25 @@ function Details({
           >
             mileage: {mileage}
           </span>
-        )}{" "}
+        )}
+      </li>
+      <li>
+        <span
+          className={cx(
+            styles.Compare,
+            changed("transactionalPrice") && styles.changed
+          )}
+        >
+          transactionalPrice: {transactionalPrice}
+        </span>{" "}
+        <span
+          className={cx(
+            styles.Compare,
+            changed("vatReclaimable") && styles.changed
+          )}
+        >
+          vatReclaimable: {item.vatReclaimable}
+        </span>{" "}
         <span
           className={cx(styles.Compare, changed("warranty") && styles.changed)}
         >

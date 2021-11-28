@@ -10,7 +10,6 @@ const PAGES = {
   products: lazy(() => import("./Products")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
-  vehicles2: lazy(() => import("./Vehicles2")),
   reader: lazy(() => import("./Reader")),
   hello: lazy(() => import("./Hello")),
 };
