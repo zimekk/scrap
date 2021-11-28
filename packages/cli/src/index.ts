@@ -11,6 +11,7 @@ import {
   stationItems,
   vehicleItems,
   vehicle2Items,
+  vehicle3Items,
 } from "@dev/api/stations";
 import {
   openChromeBrowser,
@@ -145,6 +146,21 @@ export default function () {
         request: () =>
           fetch(
             `${STATIONS_URL}stations-get-station?station_id=${$station_id}`
+          ),
+      };
+    },
+    "mercedes-benz": ({
+      $time = Date.now(),
+      currentPage = 0,
+      pageSize = 12,
+    }) => {
+      const mk = timestamp($time);
+
+      return {
+        id: ["mercedes-benz", mk, pageSize, currentPage].join("-"),
+        request: () =>
+          fetch(
+            `https://shop.mercedes-benz.com/cars-backend/dcp-api/v2/mpvehicles-pl/products/search?lang=pl&query=%3Aprice-asc%3AallCategories%3Ampvehicles-pl-vehicles&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`
           ),
       };
     },
@@ -391,7 +407,7 @@ export default function () {
               };
               console.log(update);
 
-              // productItems.update(update);
+              productItems.update(update);
             }
           } else {
             productItems.insert({ ...item, _created: _time });
@@ -711,6 +727,73 @@ export default function () {
         });
     });
 
+  const vehicles3$ = new Subject<{
+    $type: string;
+    currentPage?: number;
+    pageSize?: number;
+  }>();
+
+  vehicles3$
+    .pipe(
+      mergeMap(
+        ({ $type, currentPage = 0, pageSize = 48 }: any) =>
+          from(request({ $type, currentPage, pageSize })).pipe(
+            tap(({ pagination }) => {
+              const { currentPage, pageSize, totalPages } = pagination;
+              if (currentPage + 1 < totalPages) {
+                vehicles3$.next({
+                  $type,
+                  currentPage: currentPage + 1,
+                  pageSize,
+                });
+              }
+            })
+          ),
+        1
+      ),
+      mergeMap(({ products }) =>
+        products.map((item: any) => ({ id: item.commissionNumber, ...item }))
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+      vehicle3Items
+        .findOne({ id: item.id })
+        // .then((exists: any) => exists || vehicle3Items.insert(item));
+        .then((last: any) => {
+          if (last) {
+            const {
+              _id,
+              _created = _past,
+              _updated = _created,
+              _history = {},
+              ...rest
+            } = last;
+            const diff = diffString(rest, item);
+            if (diff) {
+              console.log(`[${last.id}]`);
+              console.log(diff);
+
+              const update = {
+                _id,
+                ...item,
+                _created,
+                _updated: _time,
+                _history: Object.assign({
+                  ..._history,
+                  [_updated]: rest,
+                }),
+              };
+              console.log(update);
+
+              vehicle3Items.update(update);
+            }
+          } else {
+            vehicle3Items.insert({ ...item, _created: _time });
+          }
+        });
+    });
+
   from([
     "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
     "get-product:681280-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-angielska-lawenda",
@@ -761,5 +844,10 @@ export default function () {
   from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
     console.log({ $type });
     vehicles2$.next({ $type });
+  });
+
+  from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles3$.next({ $type });
   });
 }

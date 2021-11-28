@@ -66,3 +66,7 @@ export const vehicleItems = new Entities(
 export const vehicle2Items = new Entities(
   resolve(__dirname, "../temp/vehicle2-items.db")
 );
+
+export const vehicle3Items = new Entities(
+  resolve(__dirname, "../temp/vehicle3-items.db")
+);

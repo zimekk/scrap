@@ -60,8 +60,60 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/vehicles/data.json?${version}`);
   return await res
     .json()
-    .then(({ $list = [], vehicleBasic = [] }) =>
+    .then(({ $list = [], vehicleBasic = [], list = [] }) =>
       []
+        .concat(
+          list.map(({ _id, _created, _updated, ...source }) => ({
+            _id,
+            _created,
+            _updated,
+            source,
+            id: source.id,
+            href: `https://shop.mercedes-benz.com/pl-pl/cars/pdp/${source.code}`,
+            title: source.name,
+            dealer: {
+              id: source.pointOfServiceDisplayName,
+              name: source.pointOfServiceDisplayName,
+              lat: process.env.NEARBY_LAT,
+              lng: process.env.NEARBY_LNG,
+            },
+            vatReclaimable: source.vatReclaimable,
+            // warranty:0,
+            productionYear: 2021,
+            // newPrice,
+            // optionsPrice,
+            // accessoriesPrice,
+            transactionalPrice: source.price.value,
+            brand: (({ code, description = "Mercedes" }) => ({
+              id: code,
+              label: description,
+            }))({}),
+            bodyType: (({ code, name }) => ({
+              id: code,
+              label: name,
+            }))(source.bodyType),
+            series: source.model,
+            seriesCode: source.name,
+            modelCode: source.modelDesignation,
+            powerHP: source.combustionPowerSecondary.value,
+            powerKW: source.combustionPower.value,
+            // capacity,
+            fuel: (({ code, name }) => ({
+              id: code,
+              label: name,
+            }))(source.fuelType),
+            // consumptionFuel,
+            transmission: (({ code, name }) => ({
+              id: code,
+              label: name,
+            }))(source.gearBox),
+            color: ((name) => ({
+              id: name,
+              label: name,
+            }))(source.colorGroup),
+            images: [source.primaryImage.url],
+          }))
+        )
         .concat(
           $list.map(({ _id, _created, _updated, ...source }) => ({
             _id,
@@ -389,37 +441,45 @@ function Link({ href = "#", ...props }) {
   );
 }
 
+const createCriteria =
+  ({ search, options }) =>
+  (defaults = {}) =>
+    Object.assign(
+      {
+        filter: search,
+        sortBy: "transactionalPrice",
+        type: "",
+        radius: RADIUS_LIST[RADIUS_LIST.length - 1],
+
+        priceFrom: PRICE_LIST[0],
+        priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+
+        mileageFrom: MILEAGE_LIST[0],
+        mileageTo: MILEAGE_LIST[MILEAGE_LIST.length - 1],
+
+        powerFrom: POWER_LIST[0],
+        powerTo: POWER_LIST[POWER_LIST.length - 1],
+
+        yearFrom: YEAR_LIST[0],
+        yearTo: YEAR_LIST[YEAR_LIST.length - 1],
+
+        entries: Object.keys(options).reduce(
+          (criteria, prop) =>
+            Object.assign(criteria, {
+              [prop]: "",
+            }),
+          {}
+        ),
+      },
+      defaults
+    );
+
 function Data({ version = "v1" }) {
   const { results, options } = asset.read(version); // As many cache keys as you need
 
   const [search, setSearch] = useState("");
 
-  const [criteria, setCriteria] = useState(() => ({
-    filter: search,
-    sortBy: "transactionalPrice",
-    type: "",
-    radius: RADIUS_LIST[RADIUS_LIST.length - 1],
-
-    priceFrom: PRICE_LIST[0],
-    priceTo: PRICE_LIST[PRICE_LIST.length - 1],
-
-    mileageFrom: MILEAGE_LIST[0],
-    mileageTo: MILEAGE_LIST[MILEAGE_LIST.length - 1],
-
-    powerFrom: POWER_LIST[0],
-    powerTo: POWER_LIST[POWER_LIST.length - 1],
-
-    yearFrom: YEAR_LIST[0],
-    yearTo: YEAR_LIST[YEAR_LIST.length - 1],
-
-    entries: Object.keys(options).reduce(
-      (criteria, prop) =>
-        Object.assign(criteria, {
-          [prop]: "",
-        }),
-      {}
-    ),
-  }));
+  const [criteria, setCriteria] = useState(createCriteria({ search, options }));
 
   const search$ = useMemo(() => new Subject<string>(), []);
 
@@ -486,7 +546,7 @@ function Data({ version = "v1" }) {
     );
   }, []);
 
-  console.log({ options, results });
+  console.log({ options, criteria, results });
 
   const list = useMemo(
     () =>
@@ -576,7 +636,7 @@ function Data({ version = "v1" }) {
   useEffect(() => {
     if (criterion.selected !== "") {
       const { criteria } = criterion.list[criterion.selected];
-      setCriteria(criteria);
+      setCriteria(createCriteria({ search, options })(criteria));
       setSearch(criteria.filter);
     }
   }, [setCriteria, setSearch, criterion.selected]);
@@ -1156,21 +1216,23 @@ function Criteria({
           <span>{`${powerFrom}-${powerTo} hp`}</span>
         </label>
       </div>
-      {Object.entries(entries).map(([name, value], key) => (
-        <div key={key}>
-          <label>
-            <span>{name}</span>
-            <select name={name} value={value} onChange={onChangeCriteria}>
-              <option value={""}>--</option>
-              {Object.entries(options[name]).map(([value, label]: any) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      ))}
+      {Object.entries(entries)
+        .filter(([name]) => options[name])
+        .map(([name, value], key) => (
+          <div key={key}>
+            <label>
+              <span>{name}</span>
+              <select name={name} value={value} onChange={onChangeCriteria}>
+                <option value={""}>--</option>
+                {Object.entries(options[name]).map(([value, label]: any) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+        ))}
     </fieldset>
   );
 }

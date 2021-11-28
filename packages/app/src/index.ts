@@ -8,6 +8,7 @@ import {
   stationItems,
   vehicleItems,
   vehicle2Items,
+  vehicle3Items,
 } from "@dev/api/stations";
 
 require("dotenv").config();
@@ -81,7 +82,10 @@ const api = Router()
       vehicle2Items
         .find({})
         .then((vehicleBasic: any) => vehicleBasic.slice(0, 5000)),
-    ]).then(([$list, vehicleBasic]) => res.json({ $list, vehicleBasic }))
+      vehicle3Items.find({}).then((list: any) => list.slice(0, 5000)),
+    ]).then(([$list, vehicleBasic, list]) =>
+      res.json({ $list, vehicleBasic, list })
+    )
   )
   .use("/api/vehicles2/data.json", (_req, res) =>
     vehicle2Items.find({}).then((vehicleBasic) => res.json({ vehicleBasic }))
