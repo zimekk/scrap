@@ -7,6 +7,7 @@ import { parse } from "node-html-parser";
 import { headingDistanceTo } from "geolocation-utils";
 import { items, requests } from "@dev/api";
 import {
+  gameItems,
   productItems,
   stationItems,
   vehicleItems,
@@ -164,12 +165,22 @@ export default function () {
           ),
       };
     },
+    xbox: ({ $time = Date.now(), $type = "9NKX70BBCDRN" }) => {
+      const mk = timestamp($time);
+
+      return {
+        id: ["displaycatalog", mk, $type].join("-"),
+        request: () =>
+          fetch(
+            `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${$type}&market=PL&languages=pl-pl`
+          ),
+      };
+    },
     "get-product": ({ time = Date.now(), type = "0" }) => {
       const mk = timestamp(time);
 
       return {
         id: ["get-product", mk, type].join("-"),
-        // url: `http://makarewicz.eu/p/${$product_id}.html`
         url: `${STORE_URL}p/${type}.html`,
       };
     },
@@ -413,6 +424,56 @@ export default function () {
             productItems.insert({ ...item, _created: _time });
           }
         });
+    });
+
+  const games$ = new Subject<{
+    $type: string;
+  }>();
+
+  games$
+    .pipe(
+      mergeMap(
+        ({ $type }) => from(request({ $type })).pipe(tap(console.log)),
+        1
+      ),
+      mergeMap(({ Products }) =>
+        Products.map((Product: any) => ({ id: Product.ProductId, ...Product }))
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+      gameItems.findOne({ id: item.id }).then((last: any) => {
+        if (last) {
+          const {
+            _id,
+            _created = _past,
+            _updated = _created,
+            _history = {},
+            ...rest
+          } = last;
+          const diff = diffString(rest, item);
+          if (diff) {
+            console.log(`[${last.id}]`);
+            console.log(diff);
+
+            const update = {
+              _id,
+              ...item,
+              _created,
+              _updated: _time,
+              _history: Object.assign({
+                ..._history,
+                [_updated]: rest,
+              }),
+            };
+            console.log(update);
+
+            gameItems.update(update);
+          }
+        } else {
+          gameItems.insert({ ...item, _created: _time });
+        }
+      });
     });
 
   interface LatLng {
@@ -793,6 +854,17 @@ export default function () {
           }
         });
     });
+
+  from([
+    "xbox:9NKX70BBCDRN,9Z1W36CRQ9DF,B4X7PC56X1VV,9MTLKM2DJMZ2,C08JXNK0VG5L",
+    "xbox:9N9J38LPVSM3,9P6SRW1HVW9K,BVH2R2SBWL51,9PNJXVCVWD4K,9MZ0SR207MG8",
+    "xbox:9P4SH7HLMLFS,9N1CS194W1Q6,9P1HX37NMJLT,BRZZLBF5T245,9P513P4MWC71",
+    "xbox:C2MBDNDS3H5W,BWVBNCMF22ZK,9N6J02VPG635,BS5RXLL3WQ2J,C2HQVXVVLMKG",
+    "xbox:BVJLKDG2TX8H,C4VKLMG1HLZW,9N04KQK2LBZL,9NMBJQ0265ZK,BSMZH25V6V46",
+  ]).subscribe(($type) => {
+    console.log({ $type });
+    games$.next({ $type });
+  });
 
   from([
     "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",

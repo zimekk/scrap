@@ -4,6 +4,7 @@ import path from "path";
 import { headingDistanceTo } from "geolocation-utils";
 import { items } from "@dev/api";
 import {
+  gameItems,
   productItems,
   stationItems,
   vehicleItems,
@@ -55,6 +56,9 @@ const web =
 const api = Router()
   .use("/api/data.json", (_req, res) =>
     items.find({}).then((results) => res.json({ results }))
+  )
+  .use("/api/games/data.json", (_req, res) =>
+    gameItems.find({}).then((Products) => res.json({ Products }))
   )
   .use("/api/products/data.json", (_req, res) =>
     productItems.find({}).then((results) => res.json({ results }))
@@ -356,11 +360,11 @@ const api = Router()
           .then((list) =>
             list.sort((a: any, b: any) => (a._id > b._id ? 1 : -1))
           )
-          .then((list) =>
-            list.filter(
-              ({ transactionalPrice }) => transactionalPrice >= 700000
-            )
-          )
+          // .then((list) =>
+          //   list.filter(
+          //     ({ transactionalPrice }) => transactionalPrice >= 700000
+          //   )
+          // )
           .then((results) => res.json({ results }))
   )
   .use("/api/vehicles2/data.json", (_req, res) =>
