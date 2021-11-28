@@ -3,13 +3,13 @@ import React, {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
-import { useInView } from "react-intersection-observer";
 import createPersistedState from "use-persisted-state";
 import update from "immutability-helper";
 import cx from "classnames";
@@ -138,17 +138,59 @@ function Loader() {
   );
 }
 
+function ImgWrapper({ ...props }) {
+  return (
+    <div className={styles.ImgWrapper}>
+      <Suspense fallback={<Loader />}>
+        <Img {...props} />
+      </Suspense>
+    </div>
+  );
+}
+
 function Gallery({ images }: any) {
-  const [ref, inView] = useInView({ delay: 100, triggerOnce: true });
+  const [inView, setInView] = useState(false);
+  const [isMore, setIsMore] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const handleObserve = ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        setInView(true);
+      }
+    };
+    const handleScroll = ({
+      target: { scrollLeft, scrollWidth, offsetWidth },
+    }) => {
+      if (scrollLeft === scrollWidth - offsetWidth) {
+        setIsMore(true);
+      }
+    };
+    if (ref.current instanceof HTMLElement) {
+      const observer = new IntersectionObserver(handleObserve, {
+        root: null,
+        rootMargin: "0px",
+        threshold: 1.0,
+      });
+      observer.observe(ref.current);
+      ref.current.addEventListener("scroll", handleScroll);
+      return () => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+          ref.current.removeEventListener("scroll", handleScroll);
+        }
+      };
+    }
+  }, [ref]);
 
   return images.length ? (
     <div ref={ref} className={styles.Gallery}>
-      <Suspense fallback={<Loader />}>
-        {inView &&
-          images.map((image, index) => (
-            <Img key={index} src={image} alt={`Image #${index + 1}`} />
+      {inView &&
+        images
+          .slice(0, isMore ? images.length : 3)
+          .map((image, index) => (
+            <ImgWrapper key={index} src={image} alt={`Image #${index + 1}`} />
           ))}
-      </Suspense>
     </div>
   ) : null;
 }
@@ -438,7 +480,7 @@ function Data({ version = "v1" }) {
           .map(({ item }) => item)
           .map(({ id, images, ...item }, key: number) => (
             <li key={key} className={styles.Row}>
-              <Gallery images={images.slice(0, 5)} />
+              <Gallery images={images} />
               <Details
                 item={{ id, ...item }}
                 onClickCompare={onClickCompare}
