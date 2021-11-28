@@ -13,6 +13,7 @@ import {
   vehicleItems,
   vehicle2Items,
   vehicle3Items,
+  vehicle4Items,
 } from "@dev/api/stations";
 import {
   openChromeBrowser,
@@ -162,6 +163,19 @@ export default function () {
         request: () =>
           fetch(
             `https://shop.mercedes-benz.com/cars-backend/dcp-api/v2/mpvehicles-pl/products/search?lang=pl&query=%3Aprice-asc%3AallCategories%3Ampvehicles-pl-vehicles&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`
+          ),
+      };
+    },
+    porsche: ({ $time = Date.now(), page = 1 }) => {
+      const mk = timestamp($time);
+
+      return {
+        id: ["porsche", mk, page].join("-"),
+        request: () =>
+          fetch(
+            `https://finder.porsche.com/api/pl/pl-PL/search?${
+              page > 1 ? `page=${page}&` : ``
+            }orderBy=recommended_desc&distanceUnit=kilometer`
           ),
       };
     },
@@ -817,7 +831,7 @@ export default function () {
       )
     )
     .subscribe((item: any) => {
-      console.log({ item });
+      // console.log({ item });
       vehicle3Items
         .findOne({ id: item.id })
         // .then((exists: any) => exists || vehicle3Items.insert(item));
@@ -853,6 +867,72 @@ export default function () {
             vehicle3Items.insert({ ...item, _created: _time });
           }
         });
+    });
+
+  const vehicles4$ = new Subject<{
+    $type: string;
+    page?: number;
+  }>();
+
+  vehicles4$
+    .pipe(
+      mergeMap(
+        ({ $type, page }: any) =>
+          from(request({ $type, page })).pipe(
+            tap(({ pages }) => {
+              const { activePage, totalPages } = pages;
+              if (activePage < totalPages) {
+                vehicles4$.next({
+                  $type,
+                  page: activePage + 1,
+                });
+              }
+            })
+          ),
+        1
+      ),
+      mergeMap(({ results }) =>
+        results.map((item: any) => ({
+          id: item.description.listingId,
+          ...item,
+        }))
+      )
+    )
+    .subscribe((item: any) => {
+      // console.log({ item });
+      console.log(item);
+      vehicle4Items.findOne({ id: item.id }).then((last: any) => {
+        if (last) {
+          const {
+            _id,
+            _created = _past,
+            _updated = _created,
+            _history = {},
+            ...rest
+          } = last;
+          const diff = diffString(rest, item);
+          if (diff) {
+            console.log(`[${last.id}]`);
+            console.log(diff);
+
+            const update = {
+              _id,
+              ...item,
+              _created,
+              _updated: _time,
+              _history: Object.assign({
+                ..._history,
+                [_updated]: rest,
+              }),
+            };
+            console.log(update);
+
+            vehicle4Items.update(update);
+          }
+        } else {
+          vehicle4Items.insert({ ...item, _created: _time });
+        }
+      });
     });
 
   from([
@@ -921,5 +1001,10 @@ export default function () {
   from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe(($type) => {
     console.log({ $type });
     vehicles3$.next({ $type });
+  });
+
+  from(["porsche:search"]).subscribe(($type) => {
+    console.log({ $type });
+    vehicles4$.next({ $type });
   });
 }
