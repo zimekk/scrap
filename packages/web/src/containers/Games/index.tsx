@@ -37,10 +37,37 @@ const image = createAsset(async (src) => {
   });
 });
 
-function Img({ src, ...props }) {
+const unify = ({
+  DisplaySkuAvailabilities: [
+    {
+      Availabilities: [
+        {
+          OrderManagementData: { Price },
+        },
+      ],
+    },
+  ],
+  LocalizedProperties: [
+    { Images, ProductDescription, ProductTitle, PublisherName },
+  ],
+  LastModifiedDate,
+}: any) => ({
+  _filter: ProductTitle.toLowerCase(),
+  _price: Price.MSRP,
+  Images: Images.sort((a: any, b: any) => a.Width - b.Width)
+    .slice(0, 1)
+    .map(({ Uri }: { Uri: string }) => Uri),
+  LastModifiedDate: new Date(LastModifiedDate),
+  Price,
+  ProductDescription,
+  ProductTitle,
+  PublisherName,
+});
+
+function Img({ src, ...props }: { src: string; alt?: string }) {
   image.read(src);
 
-  return <img src={src} {...props} referrerPolicy="no-referrer" />;
+  return <img src={src} referrerPolicy="no-referrer" {...props} />;
 }
 
 function Loader() {
@@ -51,12 +78,12 @@ function Loader() {
   );
 }
 
-function Gallery({ images }: any) {
+function Gallery({ images }: { images: string[] }) {
   const [inView, setInView] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleObserve = ([{ isIntersecting }]) => {
+    const handleObserve = ([{ isIntersecting }]: any) => {
       if (isIntersecting) {
         setInView(true);
       }
@@ -88,7 +115,13 @@ function Gallery({ images }: any) {
   ) : null;
 }
 
-function Link({ href, ...props }) {
+function Link({
+  href,
+  ...props
+}: {
+  children: React.ReactChild;
+  href: string;
+}) {
   const hash = href[0] === "#";
 
   return (
@@ -147,35 +180,16 @@ function Data({ version = "v1" }) {
   const list = useMemo(
     () =>
       results
-        .map(
-          ({
-            DisplaySkuAvailabilities: [
-              {
-                Availabilities: [
-                  {
-                    OrderManagementData: { Price },
-                  },
-                ],
-              },
-            ],
-            LocalizedProperties: [
-              { Images, ProductDescription, ProductTitle, PublisherName },
-            ],
-            LastModifiedDate,
-          }: any) => ({
-            _filter: ProductTitle.toLowerCase(),
-            _price: Price.MSRP,
-            _history: {},
-            Images: Images.sort((a, b) => a.Width - b.Width)
-              .slice(0, 1)
-              .map(({ Uri }) => Uri),
-            LastModifiedDate: new Date(LastModifiedDate),
-            Price,
-            ProductDescription,
-            ProductTitle,
-            PublisherName,
-          })
-        )
+        .map(({ _history = {}, ...item }: any) => ({
+          _history: [item]
+            .concat(Object.values(_history))
+            .map(unify)
+            .filter(
+              (item, i, list) =>
+                i === 0 || JSON.stringify(item) !== JSON.stringify(list[i - 1])
+            ),
+          ...unify(item),
+        }))
         .filter(
           (item: any) =>
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
@@ -187,7 +201,9 @@ function Data({ version = "v1" }) {
 
   const sorted = useMemo(
     () =>
-      list.sort((a, b) => SORT_BY[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)),
+      list.sort(
+        (a: any, b: any) => SORT_BY[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)
+      ),
     [list, sortBy]
   );
 
@@ -201,7 +217,7 @@ function Data({ version = "v1" }) {
         <label>
           <span>Sort</span>
           <select value={sortBy} onChange={onChangeSortBy}>
-            {Object.entries(SORT_BY).map(([value, label]) => (
+            {Object.entries(SORT_BY).map(([value]) => (
               <option key={value} value={value}>
                 {value}
               </option>
@@ -247,48 +263,87 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted
-          .slice(0, 100)
-          .map(
-            (
-              {
-                Images,
-                LastModifiedDate,
-                Price,
-                ProductDescription,
-                ProductTitle,
-                PublisherName,
-              },
-              key: number
-            ) => (
-              <li key={key} className={styles.Row}>
-                <Gallery images={Images} />
-                <h3>
-                  <Link href={`#`}>{ProductTitle}</Link>
-                </h3>
-                <h4>{PublisherName}</h4>
-                <h5>
-                  {Price.ListPrice < Price.MSRP ? (
-                    <span className={styles.Sale}>
-                      <s>{[Price.MSRP, Price.CurrencyCode].join(" ")}</s>
-                    </span>
-                  ) : (
-                    <span>{[Price.MSRP, Price.CurrencyCode].join(" ")}</span>
-                  )}
-                  {" / "}
-                  <span>{[Price.ListPrice, Price.CurrencyCode].join(" ")}</span>
-                  {" / "}
-                  <span>
-                    {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(
-                      " "
-                    )}
-                  </span>
-                </h5>
-                <div>{LastModifiedDate.toISOString().split("T")[0]}</div>
-              </li>
-            )
-          )}
+        {sorted.slice(0, 100).map(
+          (
+            {
+              Images,
+              LastModifiedDate,
+              Price,
+              ProductTitle,
+              PublisherName,
+              _history,
+            }: {
+              Images: string[];
+              LastModifiedDate: Date;
+              Price: any;
+              ProductTitle: string;
+              PublisherName: string;
+              _history: any;
+            },
+            key: number
+          ) => (
+            <li key={key} className={styles.Row}>
+              <Gallery images={Images} />
+              <Summary {...{ ProductTitle, PublisherName }} />
+              {_history.map((item: any, key: number) => (
+                <Details key={key} {...item} />
+              ))}
+            </li>
+          )
+        )}
       </ol>
+    </div>
+  );
+}
+
+function Summary({
+  ProductTitle,
+  PublisherName,
+}: {
+  ProductTitle: string;
+  PublisherName: string;
+}) {
+  return (
+    <div className={styles.Summary}>
+      <h3>
+        <Link href={`#`}>{ProductTitle}</Link>
+      </h3>
+      <h4>{PublisherName}</h4>
+    </div>
+  );
+}
+
+function Details({
+  LastModifiedDate,
+  Price,
+}: {
+  LastModifiedDate: Date;
+  Price: {
+    CurrencyCode: string;
+    ListPrice: number;
+    MSRP: number;
+    WholesaleCurrencyCode: string;
+    WholesalePrice: number;
+  };
+}) {
+  return (
+    <div className={styles.Details}>
+      <h5>
+        {Price.ListPrice < Price.MSRP ? (
+          <span className={styles.Sale}>
+            <s>{[Price.MSRP, Price.CurrencyCode].join(" ")}</s>
+          </span>
+        ) : (
+          <span>{[Price.MSRP, Price.CurrencyCode].join(" ")}</span>
+        )}
+        {" / "}
+        <span>{[Price.ListPrice, Price.CurrencyCode].join(" ")}</span>
+        {" / "}
+        <span>
+          {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(" ")}
+        </span>
+      </h5>
+      <div>{LastModifiedDate.toISOString().split("T")[0]}</div>
     </div>
   );
 }

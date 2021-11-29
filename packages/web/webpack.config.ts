@@ -71,6 +71,7 @@ const config = {
     },
     // https://webpack.js.org/configuration/resolve/#resolvefallback
     fallback: {
+      // assert: require.resolve('assert'),
       buffer: require.resolve("buffer"),
       stream: require.resolve("stream-browserify"),
     },
