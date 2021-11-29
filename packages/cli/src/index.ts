@@ -362,7 +362,9 @@ export default function () {
                         $div.childNodes[0].nodeType === 3
                     )
                     .map(($div: any) => $div.text)
-                    .filter((text: string) => !text.match(/Kup teraz/))
+                    .filter(
+                      (text: string) => !text.match(/Kup teraz|Zapłać w ciągu/)
+                    )
                 )
                 .filter((array: any) => array.length > 0);
 
