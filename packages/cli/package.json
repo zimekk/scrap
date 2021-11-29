@@ -11,7 +11,8 @@
     "lib/"
   ],
   "bin": {
-    "import": "bin/import.js"
+    "import": "bin/import.js",
+    "verify": "bin/verify.js"
   },
   "scripts": {
     "build": "NODE_ENV=production tsc"
