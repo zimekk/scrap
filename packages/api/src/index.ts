@@ -51,6 +51,10 @@ export const items = new Entities(resolve(__dirname, "../temp/items.db"));
 
 export const requests = new Entities(resolve(__dirname, "../temp/requests.db"));
 
+export const requestsHtml = new Entities(
+  resolve(__dirname, "../temp/requests-html.db")
+);
+
 export const productItems = new Entities(
   resolve(__dirname, "../temp/product-items.db")
 );

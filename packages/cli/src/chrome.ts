@@ -1,13 +1,16 @@
 // https://github.com/calebj0seph/stock-checker/blob/master/src/chrome.js
 import puppeteer from "puppeteer-extra";
-
-import { loadConfig } from "./file-system";
-
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
 puppeteer.use(StealthPlugin());
 
 export async function openChromeBrowser() {
-  const config = await loadConfig();
+  const config = {
+    chrome: {
+      path: "",
+      args: [],
+    },
+  };
 
   // Open Chrome with the given command and arguments
   return await puppeteer.launch({

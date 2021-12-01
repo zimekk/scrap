@@ -5,7 +5,7 @@ import { distinct, map, mergeMap, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
 import { headingDistanceTo } from "geolocation-utils";
-import { items, requests } from "@dev/api";
+import { items, requests, requestsHtml } from "@dev/api";
 import {
   gameItems,
   productItems,
@@ -30,6 +30,7 @@ const {
   URL,
   STATIONS_URL,
   STORE_URL,
+  STORE_ALTO_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
@@ -37,6 +38,7 @@ const {
   URL: string;
   STATIONS_URL: string;
   STORE_URL: string;
+  STORE_ALTO_URL: string;
 };
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -239,6 +241,14 @@ export default function () {
           ),
       };
     },
+    "get-product-alto": ({ time = Date.now(), type = "0" }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["get-product-alto", mk, type].join("-"),
+        url: `${STORE_ALTO_URL}p/${type}.html`,
+      };
+    },
     "get-product": ({ time = Date.now(), type = "0" }) => {
       const mk = timestamp(time);
 
@@ -270,10 +280,9 @@ export default function () {
                 }
                 return response.json();
               })
-              .then(
-                (json: any) =>
-                  Boolean(console.log({ id, json })) ||
-                  requests.insert({ id, json: JSON.stringify(json) })
+              .then((json: any) =>
+                // Boolean(console.log({ id, json })) ||
+                requests.insert({ id, json: JSON.stringify(json) })
               )
               .then(timeout())
       )
@@ -285,7 +294,7 @@ export default function () {
     console.log({ $type, site, type, kind });
     // @ts-ignore
     const { id, url } = config[site]({ type, kind, ...rest });
-    return requests
+    return requestsHtml
       .findOne({ id })
       .then((data: any) =>
         data
@@ -293,7 +302,7 @@ export default function () {
           : Promise.resolve(url)
               .then(async (url) => {
                 const NEW_PAGE_TIMEOUT_MS = 5000;
-                console.log({ url });
+                // console.log({ url });
 
                 const browser = await openChromeBrowser();
 
@@ -312,23 +321,25 @@ export default function () {
                   );
                 }
 
-                const response = await navigateAndGetPageSource(url, page);
+                const { text, ...response } = await navigateAndGetPageSource(
+                  url,
+                  page
+                );
+
+                console.log({ url, response });
 
                 if (!response.ok) {
-                  console.log(url);
-                } else {
-                  console.error(response.text);
+                  console.error(text);
                 }
 
                 await page.close();
                 await browser.close();
 
-                return response.text;
+                return text;
               })
-              .then(
-                (html: any) =>
-                  Boolean(console.log({ id, html })) ||
-                  requests.insert({ id, html })
+              .then((html: any) =>
+                // Boolean(console.log({ id, html })) ||
+                requestsHtml.insert({ id, html })
               )
               .then(timeout())
       )
@@ -452,8 +463,7 @@ export default function () {
       )
     )
     .subscribe((item: any) => {
-      console.log({ item });
-
+      // console.log({ item });
       productItems
         .findOne({ id: item.id })
         //   .then((exists: any) => exists || stationItems.insert(item));
@@ -498,7 +508,11 @@ export default function () {
   games$
     .pipe(
       mergeMap(
-        ({ $type }) => from(request({ $type })).pipe(tap(console.log)),
+        ({ $type }) =>
+          from(request({ $type }))
+            .pipe
+            // tap(console.log)
+            (),
         1
       ),
       mergeMap(({ Products }) =>
@@ -506,7 +520,7 @@ export default function () {
       )
     )
     .subscribe((item: any) => {
-      console.log({ item });
+      // console.log({ item });
       gameItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
           const {
@@ -728,7 +742,7 @@ export default function () {
             })),
             tap(({ $type, $skip, $limit, $count: { $total } }) => {
               const $next = $skip + $limit;
-              console.log({ $type, $skip, $limit, $next, $total });
+              // console.log({ $type, $skip, $limit, $next, $total });
               if ($next < $total) {
                 vehicles$.next({ $type, $skip: $next, $limit });
               }
@@ -824,7 +838,7 @@ export default function () {
             })),
             tap(({ $type, $from, $size, totalCount }) => {
               const $next = $from + $size;
-              console.log({ $type, $from, $size, $next, totalCount });
+              // console.log({ $type, $from, $size, $next, totalCount });
               if ($next < totalCount) {
                 vehicles2$.next({ $type, $from: $next, $size });
               }
@@ -951,7 +965,6 @@ export default function () {
     )
     .subscribe((item: any) => {
       // console.log({ item });
-      console.log(item);
       vehicle4Items.findOne({ id: item.id }).then((last: any) => {
         if (last) {
           const {
@@ -1020,6 +1033,14 @@ export default function () {
     "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
     "get-product:583534-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-essential",
     "get-product:583538-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-1s",
+    "get-product-alto:1022665-klocki-lego-lego-technic-42128-ciezki-samochod-pomocy-drogowej",
+    "get-product-alto:576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37",
+    "get-product-alto:467576-klocki-lego-lego-technic-42096-porsche-911-rsr",
+    "get-product-alto:436955-klocki-lego-lego-technic-42083-bugatti-chiron",
+    "get-product-alto:1012754-klocki-lego-lego-technic-42125-ferrari-488-gte-af-corse-51",
+    "get-product-alto:532359-klocki-lego-lego-technic-42109-auto-wyscigowe-top-gear",
+    "get-product-alto:608398-robot-lego-mindstorms-wynalazca-robotow",
+    "get-product-alto:558550-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-pro-white",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });
