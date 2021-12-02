@@ -258,7 +258,7 @@ function Details({
         )}
       >
         {item.links.map((link, key) => (
-          <li key={key}>{link.join(" | ")}</li>
+          <li key={key}>{link}</li>
         ))}
       </ul>
     </div>

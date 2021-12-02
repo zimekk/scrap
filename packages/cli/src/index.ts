@@ -411,20 +411,13 @@ export default function () {
                 .map(($div: any) => $div.text);
               const links = pathToRoot($cart)
                 .find(($div) => $div.rawText.match(/zł/))
-                ?.querySelectorAll("button")
-                .map(($div: any) =>
-                  $div
-                    .querySelectorAll("span")
-                    .filter(($div: any) => $div.text)
-                    .filter(
-                      ($div: any) =>
-                        $div.childNodes.length > 0 &&
-                        $div.childNodes[0].nodeType === 3
-                    )
-                    .map(($div: any) => $div.text)
-                    .filter(
-                      (text: string) => !text.match(/Kup teraz|Zapłać w ciągu/)
-                    )
+                ?.querySelectorAll("button > span > span > span")
+                .filter(($div: any) => $div.text)
+                .map(($div: any) => $div.text)
+                .filter(
+                  (text: string) =>
+                    Boolean(false && console.log({ text })) ||
+                    !text.match(/Kup teraz|Zapłać w ciągu/)
                 )
                 .filter((array: any) => array.length > 0);
 
