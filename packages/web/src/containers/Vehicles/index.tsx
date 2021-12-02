@@ -19,7 +19,6 @@ import { Spinner } from "../../components/Spinner";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
-  created: -1,
   registration: -1,
   transactionalPrice: 1,
   mileage: 1,
@@ -33,6 +32,8 @@ const SORT_BY = {
   modelCode: 1,
   seriesCode: 1,
   title: 1,
+  _created: -1,
+  _updated: -1,
 };
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [
@@ -411,7 +412,11 @@ function Data({ version = "v1" }) {
       list.sort(
         (a, b) =>
           SORT_BY[criteria.sortBy] *
-          (a.item[criteria.sortBy] > b.item[criteria.sortBy] ? 1 : -1)
+          (a.item[criteria.sortBy] === b.item[criteria.sortBy]
+            ? 0
+            : (a.item[criteria.sortBy] || 0) > (b.item[criteria.sortBy] || 0)
+            ? 1
+            : -1)
       ),
     [list, criteria.sortBy]
   );
@@ -1167,6 +1172,22 @@ function Details({
           [{_time ? new Date(Number(_time)).toISOString() : "-"}] {created}{" "}
           {imagesLastChanged && (
             <span>imagesLastChanged: {imagesLastChanged}</span>
+          )}
+        </li>
+      )}
+      {(item._created || item._updated) && (
+        <li>
+          {item._created && (
+            <span className={cx(styles.Compare)}>
+              _created:{" "}
+              {new Date(Number(item._created)).toISOString().split("T")[0]}{" "}
+            </span>
+          )}
+          {item._updated && (
+            <span className={cx(styles.Compare)}>
+              _updated:{" "}
+              {new Date(Number(item._updated)).toISOString().split(".")[0]}{" "}
+            </span>
           )}
         </li>
       )}

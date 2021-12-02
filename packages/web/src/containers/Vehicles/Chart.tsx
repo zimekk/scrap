@@ -30,6 +30,8 @@ const PROPS = {
   productionYear: "productionYear",
   transactionalPrice: "transactionalPrice",
   warranty: "warranty",
+  _created: "_created",
+  _updated: "_updated",
 };
 
 // https://betterprogramming.pub/construct-d3-charts-in-react-cfecc2848ae2
