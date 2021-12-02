@@ -1041,6 +1041,8 @@ export default function () {
     "get-product-alto:532359-klocki-lego-lego-technic-42109-auto-wyscigowe-top-gear",
     "get-product-alto:608398-robot-lego-mindstorms-wynalazca-robotow",
     "get-product-alto:558550-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-pro-white",
+    "get-product-alto:1010924-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-essential",
+    "get-product-alto:1011153-oczyszczacz-powietrza-xiaomi-mi-air-purifier-pro-h",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });

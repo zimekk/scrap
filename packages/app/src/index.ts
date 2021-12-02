@@ -169,193 +169,204 @@ const api = Router()
             .find({})
             .then((list: any) => list.slice(0, 5000))
             .then((list) =>
-              list.map(({ _id, _created, _updated, ...source }: any) => ({
-                _id,
-                _created,
-                _updated,
-                // source,
-                title: source.model.description,
-                dealer: (({
-                  dealer: {
-                    id,
-                    name,
-                    geoLocation: { lat, lon: lng },
-                  },
-                }) => ({
-                  id,
-                  name,
-                  lat,
-                  lng,
-                }))(source),
-                ...(({
-                  id,
-                  carId,
-                  used,
-                  vatReclaimable,
-                  warrantyPlus,
-                  productionYear,
-                  typedPrices,
-                  brand,
-                  model,
-                  symbolicCarline,
-                  symbolicCarlineGroup,
-                  bodyType,
-                  driveType,
-                  gearBox,
-                  powerDisplay = "",
-                  io: { fuels },
-                  gearType,
-                  extColor,
-                  pictures = [],
-                }) => ({
-                  id: carId,
-                  href: `//www.audi.pl/pl/web/pl/wyszukiwarka-samochodow-uzywanych/details.sc_detail.${id}.html`,
-                  isNew: !Boolean(used),
-                  vatReclaimable: Boolean(vatReclaimable) ? 1 : 0,
-                  warranty: warrantyPlus ? 1 : 0,
-                  productionYear,
-                  transactionalPrice: typedPrices[0].amount,
-                  brand: (({ code, description = "Audi" }) => ({
-                    id: code,
-                    label: description,
-                  }))(brand),
-
-                  series: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(symbolicCarlineGroup || {}),
-                  seriesCode: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(symbolicCarline),
-                  modelCode: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(model),
-
-                  bodyType: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(bodyType || {}),
-                  driveType: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(driveType || {}),
-                  ...((m) =>
-                    m
-                      ? {
-                          powerKW: Number(m[1]),
-                          powerHP: Number(m[2]),
-                        }
-                      : {})(powerDisplay.match(/(\d+) kW \((\d+) KM\)/)),
-                  ...(fuels
-                    ? {
-                        fuel:
-                          // @ts-ignore
-                          {
-                            DIESEL: { id: 2, label: "Diesel" },
-                            PETROL: { id: 1, label: "Benzyna" },
-                            ELECTRICAL: { id: 3, label: "Elektryczny" },
-                          }[fuels[0].fuel] || {},
-                        consumptionFuel: (({
-                          consumption: {
-                            consolidated: { value },
-                          },
-                        }) => Number(value.replace(",", ".")))(fuels[0]),
-                      }
-                    : { fuel: {} }),
-                  gearBox: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(gearBox || {}),
-                  transmission: (({ code, description }) => ({
-                    // @ts-ignore
-                    id: {
-                      ["gear-type.automatic"]: 0,
-                      ["gear-type.null"]: 0,
-                      ["gear-type.manual"]: 1,
-                    }[code],
-                    label: description,
-                  }))(gearType),
-                  color: (({ code, description }) => ({
-                    id: code,
-                    label: description,
-                  }))(extColor),
-                  images: used?.pictureUrls
-                    ? used.pictureUrls
-                    : pictures.map(({ url }: any) => url),
-                }))(source),
-                ...(source.type === "N"
-                  ? {}
-                  : (({
-                      used: {
-                        numPreviousOwners,
-                        mileage,
-                        initialRegistrationDate,
+              list.map(
+                ({ _id, _created, _updated, ...source }: any) =>
+                  Boolean(false && console.log(source.io.fuels)) || {
+                    _id,
+                    _created,
+                    _updated,
+                    // source,
+                    title: source.model.description,
+                    dealer: (({
+                      dealer: {
+                        id,
+                        name,
+                        geoLocation: { lat, lon: lng },
                       },
                     }) => ({
-                      numPreviousOwners,
-                      registration: new Date(
-                        initialRegistrationDate
-                      ).toISOString(),
-                      mileage,
-                    }))(source)),
-              }))
+                      id,
+                      name,
+                      lat,
+                      lng,
+                    }))(source),
+                    ...(({
+                      id,
+                      carId,
+                      used,
+                      vatReclaimable,
+                      warrantyPlus,
+                      productionYear,
+                      typedPrices,
+                      brand,
+                      model,
+                      symbolicCarline,
+                      symbolicCarlineGroup,
+                      bodyType,
+                      driveType,
+                      gearBox,
+                      powerDisplay = "",
+                      io: { fuels },
+                      gearType,
+                      extColor,
+                      pictures = [],
+                    }) => ({
+                      id: carId,
+                      href: `//www.audi.pl/pl/web/pl/wyszukiwarka-samochodow-uzywanych/details.sc_detail.${id}.html`,
+                      isNew: !Boolean(used),
+                      vatReclaimable: Boolean(vatReclaimable) ? 1 : 0,
+                      warranty: warrantyPlus ? 1 : 0,
+                      productionYear,
+                      transactionalPrice: typedPrices[0].amount,
+                      brand: (({ code, description = "Audi" }) => ({
+                        id: code,
+                        label: description,
+                      }))(brand),
+
+                      series: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(symbolicCarlineGroup || {}),
+                      seriesCode: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(symbolicCarline),
+                      modelCode: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(model),
+
+                      bodyType: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(bodyType || {}),
+                      driveType: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(driveType || {}),
+                      ...((m) =>
+                        m
+                          ? {
+                              powerKW: Number(m[1]),
+                              powerHP: Number(m[2]),
+                            }
+                          : {})(powerDisplay.match(/(\d+) kW \((\d+) KM\)/)),
+                      ...(fuels
+                        ? {
+                            fuel:
+                              // @ts-ignore
+                              {
+                                DIESEL: { id: 2, label: "Diesel" },
+                                PETROL: { id: 1, label: "Benzyna" },
+                                ELECTRICAL: { id: 3, label: "Elektryczny" },
+                              }[fuels[0].fuel] || {},
+                            consumptionFuel: (({
+                              consumption: {
+                                consolidated: { value },
+                              },
+                            }) =>
+                              value
+                                ? Number(value.replace(",", "."))
+                                : undefined)(fuels[0]),
+                          }
+                        : { fuel: {} }),
+                      gearBox: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(gearBox || {}),
+                      transmission: (({ code, description }) => ({
+                        // @ts-ignore
+                        id: {
+                          ["gear-type.automatic"]: 0,
+                          ["gear-type.null"]: 0,
+                          ["gear-type.manual"]: 1,
+                        }[code],
+                        label: description,
+                      }))(gearType),
+                      color: (({ code, description }) => ({
+                        id: code,
+                        label: description,
+                      }))(extColor),
+                      images: used?.pictureUrls
+                        ? used.pictureUrls
+                        : pictures.map(({ url }: any) => url),
+                    }))(source),
+                    ...(source.type === "N"
+                      ? {}
+                      : (({
+                          used: {
+                            numPreviousOwners,
+                            mileage,
+                            initialRegistrationDate,
+                          },
+                        }) => ({
+                          numPreviousOwners,
+                          registration: new Date(
+                            initialRegistrationDate
+                          ).toISOString(),
+                          mileage,
+                        }))(source)),
+                  }
+              )
             ),
           vehicle3Items
             .find({})
             .then(($list: any) => $list.slice(0, 5000))
             .then((list) =>
-              list.map(({ _id, _created, _updated, ...source }: any) => ({
-                _id,
-                _created,
-                _updated,
-                // source,
-                id: source.id,
-                href: `https://shop.mercedes-benz.com/pl-pl/cars/pdp/${source.code}`,
-                title: source.name,
-                dealer: {
-                  id: source.pointOfServiceDisplayName,
-                  name: source.pointOfServiceDisplayName,
-                  lat: NEARBY_LAT,
-                  lng: NEARBY_LNG,
-                },
-                vatReclaimable: Boolean(source.vatReclaimable) ? 1 : 0,
-                // warranty:0,
-                productionYear: 2021,
-                // newPrice,
-                // optionsPrice,
-                // accessoriesPrice,
-                transactionalPrice: source.price.value,
-                brand: (({ code, description = "Mercedes" }: any) => ({
-                  id: code,
-                  label: description,
-                }))({}),
-                bodyType: (({ code, name }) => ({
-                  id: code,
-                  label: name,
-                }))(source.bodyType),
-                series: source.model,
-                seriesCode: source.name,
-                modelCode: source.modelDesignation,
-                powerHP: source.combustionPowerSecondary.value,
-                powerKW: source.combustionPower.value,
-                // capacity,
-                fuel: (({ code, name }) => ({
-                  id: code,
-                  label: name,
-                }))(source.fuelType),
-                // consumptionFuel,
-                transmission: (({ code, name }) => ({
-                  id: code,
-                  label: name,
-                }))(source.gearBox),
-                color: ((name) => ({
-                  id: name,
-                  label: name,
-                }))(source.colorGroup),
-                images: [source.primaryImage.url],
-              }))
+              list.map(
+                ({ _id, _created, _updated, ...source }: any) =>
+                  Boolean(false && console.log(source)) || {
+                    _id,
+                    _created,
+                    _updated,
+                    // source,
+                    id: source.id,
+                    href: `https://shop.mercedes-benz.com/pl-pl/cars/pdp/${source.code}`,
+                    title: source.name,
+                    dealer: {
+                      id: source.pointOfServiceDisplayName,
+                      name: source.pointOfServiceDisplayName,
+                      lat: NEARBY_LAT,
+                      lng: NEARBY_LNG,
+                    },
+                    vatReclaimable: Boolean(source.vatReclaimable) ? 1 : 0,
+                    // warranty:0,
+                    productionYear: 2021,
+                    // newPrice,
+                    // optionsPrice,
+                    // accessoriesPrice,
+                    transactionalPrice: source.price.value,
+                    brand: (({ code, description = "Mercedes" }: any) => ({
+                      id: code,
+                      label: description,
+                    }))({}),
+                    bodyType: (({ code, name }) => ({
+                      id: code,
+                      label: name,
+                    }))(source.bodyType),
+                    series: source.model,
+                    seriesCode: source.name,
+                    modelCode: source.modelDesignation,
+                    powerHP: source.combustionPowerSecondary.value,
+                    powerKW: source.combustionPower.value,
+                    // capacity,
+                    fuel: (({ code, name }) => ({
+                      id: code,
+                      label: name,
+                    }))(source.fuelType),
+                    // consumptionFuel,
+                    transmission: (({ code, name }) => ({
+                      id: code,
+                      label: name,
+                    }))(source.gearBox),
+                    color: ((name) => ({
+                      id: name,
+                      label: name,
+                    }))(source.colorGroup),
+                    images: [].concat(
+                      source.primaryImage ? source.primaryImage.url : []
+                    ),
+                  }
+              )
             ),
           vehicle4Items
             .find({})
@@ -363,7 +374,7 @@ const api = Router()
             .then((list) =>
               list.map(
                 ({ _id, _created, _updated, ...source }: any) =>
-                  Boolean(console.log(source)) || {
+                  Boolean(false && console.log(source)) || {
                     _id,
                     _created,
                     _updated,
@@ -453,6 +464,7 @@ const api = Router()
           //   )
           // )
           .then((results) => res.json({ results }))
+          .catch(console.error)
   )
   .use("/api/vehicles2/data.json", (_req, res) =>
     vehicle2Items.find({}).then((vehicleBasic) => res.json({ vehicleBasic }))
