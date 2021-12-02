@@ -291,51 +291,49 @@ function Data({ version = "v1" }) {
     search$.next(search);
   }, [search]);
 
-  const onClickCompare = useCallback(({ target }) => {
-    const id = Number(target.value);
-    const getPoint = (item) => [
-      item.capacity,
-      item.powerHP,
-      item.consumptionFuel,
-      item.emission,
-      item.newPrice,
-      item.optionsPrice,
-      item.productionYear,
-      item.age,
-      item.mileage,
-      item.transactionalPrice,
-      item.warranty,
-    ];
+  const onClickCompare = useCallback(
+    ({ target }) => {
+      const _id = target.value;
+      const getPoint = (item) => [
+        // item.capacity,
+        item.powerHP,
+        // item.consumptionFuel,
+        // item.emission,
+        item.newPrice,
+        item.optionsPrice,
+        item.productionYear,
+        // item.age,
+        item.mileage,
+        item.transactionalPrice,
+        item.warranty,
+      ];
 
-    const tree = createKDTree(results.map(getPoint));
+      const tree = createKDTree(results.map(getPoint));
 
-    console.table(
-      tree
-        .knn(
-          getPoint(
-            results.find((item) => item.id === id),
-            10
-          )
-        )
-        .slice(0, 10)
-        .map((index) => results[index])
-        .map((item) => [
-          item.id,
-          item.title,
-          item.capacity,
-          item.powerHP,
-          item.consumptionFuel,
-          item.emission,
-          item.newPrice,
-          item.optionsPrice,
-          item.productionYear,
-          item.age,
-          item.mileage,
-          item.transactionalPrice,
-          item.warranty,
-        ])
-    );
-  }, []);
+      console.table(
+        tree
+          .knn(getPoint(results.find((item) => item._id === _id)), 10)
+          .slice(0, 10)
+          .map((index) => results[index])
+          .map((item) => [
+            item.id,
+            item.title,
+            // item.capacity,
+            item.powerHP,
+            // item.consumptionFuel,
+            // item.emission,
+            item.newPrice,
+            item.optionsPrice,
+            item.productionYear,
+            // item.age,
+            item.mileage,
+            item.transactionalPrice,
+            item.warranty,
+          ])
+      );
+    },
+    [results]
+  );
 
   console.log({ options, criteria, results });
 
@@ -1077,7 +1075,7 @@ function Details({
         <Color color={color} />
         <Link href={href}>{`[${id}] ${title}`}</Link>
         {onClickCompare && (
-          <Button onClick={onClickCompare} value={id}>
+          <Button onClick={onClickCompare} value={item._id}>
             Compare
           </Button>
         )}
