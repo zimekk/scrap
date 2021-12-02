@@ -15,16 +15,15 @@
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MU8F2ZM/A", "kod x-kom: 460088"],
       "price": ["659,00 zł"],
-      "proms": ["darmowa dostawa od 99 zł"],
+      "proms": [],
       "codes": [],
       "links": [
-        ["Powiadom o dostępności"],
-        ["Czasowo niedostępny", "Powiadom o dostępności"],
-        ["Darmowy odbiór w salonie", "Koszty dostawy"],
-        ["Rata tylko 20,32 zł", "Oblicz ratę"]
+        "Czasowo niedostępny",
+        "Darmowy odbiór w salonie",
+        "Rata tylko 20,32 zł"
       ],
-      "_created": 1637510081038,
-      "_id": "1svj8fekTyiKOZ4n"
+      "_created": 1638409540907,
+      "_id": "RqKyZhfV8YxNyErf"
     },
     {
       "id": "682156",
@@ -39,16 +38,11 @@
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MKQ03WB/A", "kod x-kom: 682156"],
       "price": ["1 349,00 zł"],
-      "proms": ["darmowa dostawa od 99 zł"],
+      "proms": [],
       "codes": [],
-      "links": [
-        ["Dodaj do koszyka"],
-        ["Wydłużony czas dostawy", "Zapytaj o termin"],
-        ["Darmowa dostawa", "Sprawdź szczegóły"],
-        ["Rata tylko 41,59 zł", "Oblicz ratę"]
-      ],
-      "_created": 1637510081038,
-      "_id": "2wf98Yx2QtUpUony"
+      "links": ["Dostępny", "Darmowa dostawa", "Rata tylko 41,59 zł"],
+      "_created": 1638409540907,
+      "_id": "SU4ofb4IO0JnjHAN"
     },
     {
       "id": "681208",
@@ -61,16 +55,15 @@
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MK7R3FD/A", "kod x-kom: 681208"],
       "price": ["2 599,00 zł"],
-      "proms": ["darmowa dostawa od 99 zł", "kup usługę x-care "],
+      "proms": ["kup usługę x-care "],
       "codes": [],
       "links": [
-        ["Dodaj do koszyka"],
-        ["Wydłużony czas dostawy", "Zapytaj o termin"],
-        ["Darmowa dostawa", "Sprawdź szczegóły"],
-        ["Rata tylko 80,14 zł", "Oblicz ratę"]
+        "Wydłużony czas dostawy",
+        "Darmowa dostawa",
+        "Rata tylko 80,14 zł"
       ],
-      "_created": 1637510081038,
-      "_id": "3FOVjiTOy4Qr4IQK"
+      "_created": 1638409540907,
+      "_id": "LRtup4mV6puHrcwZ"
     }
   ]
 }
