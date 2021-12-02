@@ -8,6 +8,7 @@ import React, {
 } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
 import createPersistedState from "use-persisted-state";
@@ -254,6 +255,9 @@ const createCriteria =
         yearFrom: YEAR_LIST[0],
         yearTo: YEAR_LIST[YEAR_LIST.length - 1],
 
+        createdFrom: format(Date.now() - 1000 * 3600 * 24 * 30, "yyyy-MM-dd"),
+        createdTo: format(Date.now(), "yyyy-MM-dd"),
+
         entries: Object.keys(options).reduce(
           (criteria, prop) =>
             Object.assign(criteria, {
@@ -370,6 +374,10 @@ function Data({ version = "v1" }) {
             item.powerHP <= criteria.powerTo &&
             criteria.yearFrom <= item.productionYear &&
             item.productionYear <= criteria.yearTo &&
+            new Date(`${criteria.createdFrom} 00:00:00`).getTime() <=
+              item._created &&
+            item._created <=
+              new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
             Object.entries(criteria.entries).findIndex(
               ([prop, value]) =>
                 ![
@@ -612,6 +620,8 @@ function CriteriaLabel({
   type,
   yearFrom,
   yearTo,
+  createdFrom,
+  createdTo,
   priceFrom,
   priceTo,
   mileageFrom,
@@ -651,6 +661,9 @@ function CriteriaLabel({
       <div>
         <span>Power</span> <span>{`${powerFrom}-${powerTo} hp`}</span>
       </div>
+      <div>
+        <span>Created</span> <span>{`${createdFrom}-${createdTo}`}</span>
+      </div>
       {Object.entries(entries)
         .filter(([, value]: any) => value !== "")
         .map(([name, value]: any, key) => (
@@ -669,6 +682,8 @@ function Criteria({
   type,
   yearFrom,
   yearTo,
+  createdFrom,
+  createdTo,
   priceFrom,
   priceTo,
   mileageFrom,
@@ -813,6 +828,31 @@ function Criteria({
           ...criteria,
           yearFrom: yearTo > yearFrom ? yearFrom : yearTo,
           yearTo,
+        };
+      }),
+    []
+  );
+
+  const onChangeCreatedFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ createdTo, ...criteria }) => {
+        const createdFrom = target.value;
+        return {
+          ...criteria,
+          createdFrom,
+          createdTo: createdTo < createdFrom ? createdFrom : createdTo,
+        };
+      }),
+    []
+  );
+  const onChangeCreatedTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ createdFrom, ...criteria }) => {
+        const createdTo = target.value;
+        return {
+          ...criteria,
+          createdFrom: createdTo > createdFrom ? createdFrom : createdTo,
+          createdTo,
         };
       }),
     []
@@ -1007,6 +1047,20 @@ function Criteria({
             onChange={onChangePowerTo}
           />
           <span>{`${powerFrom}-${powerTo} hp`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Created From</span>
+          <input
+            type="date"
+            value={createdFrom}
+            onChange={onChangeCreatedFrom}
+          />
+        </label>
+        <label>
+          <span>Created To</span>
+          <input type="date" value={createdTo} onChange={onChangeCreatedTo} />
         </label>
       </div>
       {Object.entries(entries)
