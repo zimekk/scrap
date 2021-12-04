@@ -1,0 +1,3 @@
+describe("cli", () => {
+  it("works", () => {});
+});

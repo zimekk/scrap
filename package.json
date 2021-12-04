@@ -11,6 +11,7 @@
   "eslintConfig": {
     "env": {
       "browser": true,
+      "jest/globals": true,
       "node": true
     },
     "extends": [
@@ -23,9 +24,13 @@
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
+      "jest",
       "prettier"
     ],
     "settings": {
+      "jest": {
+        "version": 27
+      },
       "react": {
         "version": "detect"
       }
@@ -44,6 +49,7 @@
     "build": "yarn workspaces run build",
     "clean": "rm -rf packages/*/public packages/*/lib",
     "lint": "eslint . --ext .json,.js,.jsx,.ts,.tsx",
+    "test": "yarn workspaces run jest",
     "reset": "rm -rf node_modules packages/*/node_modules",
     "serve": "yarn workspace @dev/app serve",
     "start": "yarn workspace @dev/app start",
@@ -59,15 +65,22 @@
   "devDependencies": {
     "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^15.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.5.0",
-    "@typescript-eslint/parser": "^5.5.0",
-    "eslint": "^8.3.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.0",
     "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.27.1",
     "husky": "^7.0.4",
-    "prettier": "^2.5.0",
+    "jest": "^27.4.3",
+    "prettier": "^2.5.1",
     "pretty-quick": "^3.1.2",
+    "ts-jest": "^27.1.0",
     "type-coverage": "^2.19.0",
     "typescript": "^4.5.2",
     "yarn-deduplicate": "^3.1.0"

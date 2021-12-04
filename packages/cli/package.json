@@ -14,6 +14,10 @@
     "import": "bin/import.js",
     "verify": "bin/verify.js"
   },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
   "scripts": {
     "build": "NODE_ENV=production tsc"
   },
