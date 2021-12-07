@@ -1026,6 +1026,11 @@ export default function () {
     "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
     "get-product:583534-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-essential",
     "get-product:583538-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-1s",
+    "get-product:670611-inteligentny-glosnik-google-nest-hub-2-czarny",
+    "get-product:640845-wideorejestrator-xblitz-s5-duo-full-hd-245-120",
+    "get-product:489051-wideorejestrator-mio-mivue-c570-fullhd-150-2",
+    "get-product:186950-akcesorium-sieciowe-ubiquiti-zasilacz-poe-24v-24w-1a",
+    "get-product:645129-dron-dji-air-2s-mavic-air-2s",
     "get-product-alto:1022665-klocki-lego-lego-technic-42128-ciezki-samochod-pomocy-drogowej",
     "get-product-alto:576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37",
     "get-product-alto:467576-klocki-lego-lego-technic-42096-porsche-911-rsr",
@@ -1036,6 +1041,7 @@ export default function () {
     "get-product-alto:558550-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-pro-white",
     "get-product-alto:1010924-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-essential",
     "get-product-alto:1011153-oczyszczacz-powietrza-xiaomi-mi-air-purifier-pro-h",
+    "get-product-alto:1017784-urzadzenie-do-dezynfekcji-rak-xiaomi-mi-automatic-foaming-soap-dispenser",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });
