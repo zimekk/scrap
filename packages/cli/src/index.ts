@@ -438,8 +438,13 @@ export default function () {
                   )
                   .map(($div: any) => $div.nextElementSibling.text) || [];
 
+              const url = $root
+                .querySelector("link[rel=canonical]")
+                ?.getAttribute("href");
+
               return {
                 id,
+                url,
                 title,
                 image,
                 stars,

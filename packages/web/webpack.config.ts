@@ -87,7 +87,6 @@ const config = {
       NEARBY_LAT: "52.1530829",
       NEARBY_LNG: "21.1104411",
       NODE_ENV: "development",
-      STORE_URL: "/",
     }),
     new webpack.ProvidePlugin({
       Buffer: ["buffer", "Buffer"],

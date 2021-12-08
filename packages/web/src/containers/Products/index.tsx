@@ -18,11 +18,12 @@ const PRICE_LIST = [
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
+  // copy({results:temp1.results.filter(item=>[460088,682156,681208].includes(Number(item.id))).map(({_id,_history,...item }) => item)})
   const res = await fetch(`api/products/data.json?${version}`);
   return await res.json();
 });
 
-function Gallery({ images }) {
+function Gallery({ images }: { images: string[] }) {
   return images.length ? (
     <div className={styles.Gallery}>
       {images.map((image, index) => (
@@ -97,7 +98,7 @@ function Data({ version = "v1" }) {
     () =>
       results
         .map((item: any) => ({
-          _image: item.image.filter((src) => src.match(/small/)),
+          _image: item.image.filter((src: string) => src.match(/small/)),
           _title: item.title.toLowerCase(),
           _price: Number(
             item.price
@@ -192,11 +193,11 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map(({ id, _image, ...item }, key: number) => (
+        {sorted.slice(0, 100).map(({ url, _image, ...item }, key: number) => (
           <li key={key} className={styles.Row}>
             <Gallery images={_image} />
             <h3>
-              <Link href={`${process.env.STORE_URL}p/${id}`}>{item.title}</Link>
+              <Link href={url}>{item.title}</Link>
             </h3>
             <h4>{item.brand}</h4>
             <h5>{item.price.join(" ")}</h5>
@@ -225,7 +226,7 @@ function Details({
   time,
 }: {
   item: any;
-  prev: any;
+  prev?: any;
   time?: string;
 }) {
   return (
