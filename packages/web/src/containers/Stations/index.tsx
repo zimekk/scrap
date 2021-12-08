@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
@@ -7,6 +8,17 @@ import styles from "./styles.module.scss";
 
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const SORT_BY = {
+  _distance: 1,
+  _petrol_pb: 1,
+  "_petrol_pb+": 1,
+  _petrol_on: 1,
+  "_petrol_on+": 1,
+  network_name: 1,
+  address: 1,
+  _created: -1,
+  _updated: -1,
+};
 const TYPES = {
   "": "",
   pb: "pb",
@@ -50,12 +62,14 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [type, setType] = useState(() => Object.keys(TYPES)[0]);
+  const [type, setType] = useState(() => Object.keys(TYPES)[1]);
 
   const onChangeType = useCallback(({ target }) => setType(target.value), []);
 
   const [priceFrom, setPriceFrom] = useState(PRICE_LIST[0]);
   const [priceTo, setPriceTo] = useState(PRICE_LIST[PRICE_LIST.length - 1]);
+
+  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[0]);
 
   const onChangePriceFrom = useCallback(
     ({ target }) =>
@@ -77,12 +91,17 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const onChangeSortBy = useCallback(
+    ({ target }) => setSortBy(target.value),
+    []
+  );
+
   console.log({ results });
 
   const list = useMemo(
     () =>
       results
-        .map((item, i) => {
+        .map((item: any, i: string) => {
           const { station_id: id, x: lat, y: lng, network_name: name } = item;
           return {
             i,
@@ -93,7 +112,7 @@ function Data({ version = "v1" }) {
           };
         })
         .filter(
-          ({ name, item: { petrol_list, address = "" } }) =>
+          ({ name, item: { petrol_list, address = "" } }: any) =>
             (name.toLowerCase().match(filter) ||
               address.toLowerCase().match(filter)) &&
             (type
@@ -101,14 +120,14 @@ function Data({ version = "v1" }) {
                   Boolean(item) &&
                   priceFrom <= item.price &&
                   item.price <= priceTo)(
-                  petrol_list.find((item) => item.type === type)
+                  petrol_list.find((item: any) => item.type === type)
                 )
               : true)
         ),
     [results, filter, type, priceFrom, priceTo]
   );
 
-  const middle = useBounds([{ position: { lat: 52.232855, lng: 20.921111 } }]);
+  const middle = useBounds([{ position: { lat: 52.1793, lng: 21.0498 } }]);
 
   const [center, setCenter] = useState(() => middle.getCenter());
 
@@ -125,6 +144,20 @@ function Data({ version = "v1" }) {
         }))
         .filter(({ item }: any) => item._distance < radius * 1000),
     [list, center, radius]
+  );
+
+  const sorted = useMemo(
+    () =>
+      nearby.sort(
+        (a, b) =>
+          SORT_BY[sortBy] *
+          (a.item[sortBy] === b.item[sortBy]
+            ? 0
+            : (a.item[sortBy] || 0) > (b.item[sortBy] || 0)
+            ? 1
+            : -1)
+      ),
+    [nearby, sortBy]
   );
 
   const bounds = useBounds(nearby);
@@ -179,6 +212,16 @@ function Data({ version = "v1" }) {
               ))}
             </select>
           </label>
+          <label>
+            <span>Sort</span>
+            <select value={sortBy} onChange={onChangeSortBy}>
+              {Object.entries(SORT_BY).map(([value]) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
         <div>
           <label>
@@ -219,6 +262,34 @@ function Data({ version = "v1" }) {
           </label>
         </div>
       </fieldset>
+      <table className={styles.Table}>
+        <tbody>
+          <tr>
+            <th>#</th>
+            {Object.keys(TYPES).map((key) => (
+              <th key={key}>{key ? key : <div>name</div>}</th>
+            ))}
+            <th>updated</th>
+          </tr>
+          {sorted.map(({ i, name, item }: any, key: string) => (
+            <tr key={key}>
+              <td>{i}</td>
+              {Object.keys(TYPES).map((key) => (
+                <td key={key}>
+                  {key ? (
+                    item.petrol[key] ?? "-"
+                  ) : (
+                    <div className={styles.Station}>
+                      {name} <address>{item.address}</address>
+                    </div>
+                  )}
+                </td>
+              ))}
+              <td>{format(item._updated, "yyyy-MM-dd")}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
