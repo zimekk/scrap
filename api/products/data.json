@@ -1,51 +1,8 @@
 {
   "results": [
     {
-      "id": "460088",
-      "title": "Apple Pencil 2 do iPad Pro",
-      "image": [
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
-      ],
-      "stars": "(7 opinii)",
-      "brand": "Apple",
-      "label": ["od: Apple", "kod producenta: MU8F2ZM/A", "kod x-kom: 460088"],
-      "price": ["659,00 zł"],
-      "proms": [],
-      "codes": [],
-      "links": [
-        "Czasowo niedostępny",
-        "Darmowy odbiór w salonie",
-        "Rata tylko 20,32 zł"
-      ],
-      "_created": 1638409540907,
-      "_id": "RqKyZhfV8YxNyErf"
-    },
-    {
-      "id": "682156",
-      "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
-      "image": [
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
-      ],
-      "stars": "(0 opinii)",
-      "brand": "Apple",
-      "label": ["od: Apple", "kod producenta: MKQ03WB/A", "kod x-kom: 682156"],
-      "price": ["1 349,00 zł"],
-      "proms": [],
-      "codes": [],
-      "links": ["Dostępny", "Darmowa dostawa", "Rata tylko 41,59 zł"],
-      "_created": 1638409540907,
-      "_id": "SU4ofb4IO0JnjHAN"
-    },
-    {
       "id": "681208",
+      "url": "https://www.x-kom.pl/p/681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple.html",
       "title": "Apple New iPad Mini 64GB Wi-Fi Purple",
       "image": [
         "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg",
@@ -63,7 +20,59 @@
         "Rata tylko 80,14 zł"
       ],
       "_created": 1638409540907,
-      "_id": "LRtup4mV6puHrcwZ"
+      "_updated": 1638994338753
+    },
+    {
+      "id": "460088",
+      "url": "https://www.x-kom.pl/p/460088-rysik-do-tabletu-apple-pencil-2-generacji.html",
+      "title": "Apple Pencil (2. generacji)",
+      "image": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+      ],
+      "stars": "(7 opinii)",
+      "brand": "Apple",
+      "label": ["od: Apple", "kod producenta: MU8F2ZM/A", "kod x-kom: 460088"],
+      "price": ["659,00 zł"],
+      "proms": [],
+      "codes": [],
+      "links": [
+        "Dostępny",
+        "Dowiedz się więcej",
+        "Darmowy odbiór w salonie",
+        "Rata tylko 20,32 zł"
+      ],
+      "_created": 1638409540907,
+      "_updated": 1638994338753
+    },
+    {
+      "id": "682156",
+      "url": "https://www.x-kom.pl/p/682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps.html",
+      "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
+      "image": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+      ],
+      "stars": "(0 opinii)",
+      "brand": "Apple",
+      "label": ["od: Apple", "kod producenta: MKQ03WB/A", "kod x-kom: 682156"],
+      "price": ["1 349,00 zł"],
+      "proms": [],
+      "codes": [],
+      "links": [
+        "Dostępny",
+        "Dowiedz się więcej",
+        "Darmowa dostawa",
+        "Rata tylko 41,59 zł"
+      ],
+      "_created": 1638409540907,
+      "_updated": 1638994338753
     }
   ]
 }
