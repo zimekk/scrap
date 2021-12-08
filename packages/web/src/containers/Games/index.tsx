@@ -1,14 +1,8 @@
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import useDebounce from "../useDebounce";
-import { Spinner } from "../../components/Spinner";
+import { Gallery } from "../../components/Gallery";
+import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -25,16 +19,6 @@ const PRICE_LIST = [0, 100, 200, 300, 400, 500, 1000];
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/games/data.json?${version}`);
   return await res.json().then(({ Products }) => ({ results: Products }));
-});
-
-const image = createAsset(async (src) => {
-  return new Promise((onload) => {
-    const img = new Image();
-    Object.assign(img, {
-      onload,
-      src,
-    });
-  });
 });
 
 const unify = ({
@@ -63,76 +47,6 @@ const unify = ({
   ProductTitle,
   PublisherName,
 });
-
-function Img({ src, ...props }: { src: string; alt?: string }) {
-  image.read(src);
-
-  return <img src={src} referrerPolicy="no-referrer" {...props} />;
-}
-
-function Loader() {
-  return (
-    <div className={styles.Loader}>
-      <Spinner />
-    </div>
-  );
-}
-
-function Gallery({ images }: { images: string[] }) {
-  const [inView, setInView] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleObserve = ([{ isIntersecting }]: any) => {
-      if (isIntersecting) {
-        setInView(true);
-      }
-    };
-    if (ref.current instanceof HTMLElement) {
-      const observer = new IntersectionObserver(handleObserve, {
-        root: null,
-        rootMargin: "0px",
-        threshold: 0.5,
-      });
-      observer.observe(ref.current);
-      return () => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      };
-    }
-  }, [ref]);
-
-  return images.length ? (
-    <div ref={ref} className={styles.Gallery}>
-      <Suspense fallback={<Loader />}>
-        {inView &&
-          images.map((image, index) => (
-            <Img key={index} src={image} alt={`Image #${index + 1}`} />
-          ))}
-      </Suspense>
-    </div>
-  ) : null;
-}
-
-function Link({
-  href,
-  ...props
-}: {
-  children: React.ReactChild;
-  href: string;
-}) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
 
 function Data({ version = "v1" }) {
   const { results } = asset.read(version); // As many cache keys as you need
@@ -283,7 +197,7 @@ function Data({ version = "v1" }) {
             key: number
           ) => (
             <li key={key} className={styles.Row}>
-              <Gallery images={Images} />
+              <Gallery className={styles.Gallery} images={Images} />
               <Summary {...{ ProductTitle, PublisherName }} />
               {_history.map((item: any, key: number) => (
                 <Details key={key} {...item} />

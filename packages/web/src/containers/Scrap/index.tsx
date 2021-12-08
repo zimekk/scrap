@@ -2,6 +2,8 @@ import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
 import Map, { useBounds } from "./Map";
+import { Gallery } from "../../components/Gallery";
+import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";
 import usePlace from "./usePlace";
 import { KIND_TYPES } from "./constants";
@@ -204,6 +206,8 @@ function Data({ version = "v1" }) {
     [list, center, radius]
   );
 
+  console.log({ nearby });
+
   return (
     <div>
       <Map
@@ -376,6 +380,7 @@ function Data({ version = "v1" }) {
           .map(
             (
               {
+                images,
                 latitude,
                 longitude,
                 kind,
@@ -394,7 +399,10 @@ function Data({ version = "v1" }) {
               <li key={key}>
                 <ul>
                   <li>
-                    <a href={link}>{`${latitude},${longitude}|${our_url}`}</a>
+                    <Gallery className={styles.Gallery} images={images} />
+                    <Link
+                      href={link}
+                    >{`${latitude},${longitude}|${our_url}`}</Link>
                   </li>
                   <li>{kind}</li>
                   <li>{type}</li>

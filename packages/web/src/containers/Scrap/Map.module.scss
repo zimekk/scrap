@@ -4,7 +4,6 @@
 }
 
 .Gallery {
-  overflow-x: auto;
   display: flex;
   flex-direction: row;
   scroll-snap-type: x mandatory;

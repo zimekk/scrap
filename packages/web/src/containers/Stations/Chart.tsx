@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { axisBottom, axisLeft, select, scaleLinear } from "d3";
-import cx from "classnames";
 import { Subject, of } from "rxjs";
 import { delay, switchMap } from "rxjs/operators";
+import cx from "classnames";
 import styles from "./Chart.module.scss";
 
 const { width, height, left, right, top, bottom } = {

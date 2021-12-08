@@ -1,7 +1,4 @@
 import React, {
-  // Component,
-  // Fragment,
-  // forwardRef,
   useCallback,
   useEffect,
   useMemo,
@@ -21,25 +18,11 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 // import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { Gallery } from "../../components/Gallery";
 import Tabs, { Tab, TabList, TabPanel } from "./Tabs";
 import { KIND_TYPES } from "./constants";
 import cx from "classnames";
 import styles from "./Map.module.scss";
-
-function Gallery({ images }: { images: Array<string> }) {
-  return images.length ? (
-    <div className={styles.Gallery}>
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Image #${index + 1}`}
-          referrerPolicy="no-referrer"
-        />
-      ))}
-    </div>
-  ) : null;
-}
 
 function Summary({
   description_short,
@@ -51,7 +34,7 @@ function Summary({
   name,
   center,
   position,
-}) {
+}: any) {
   return (
     <section>
       <header>
@@ -65,7 +48,7 @@ function Summary({
         </Link>{" "}
         ({`${center.distanceTo(position).toFixed(0) / 1000} km`})
       </header>
-      <Gallery images={images} />
+      <Gallery className={styles.Gallery} images={images} />
       <p dangerouslySetInnerHTML={{ __html: description }} />
     </section>
   );
@@ -82,7 +65,7 @@ function Details({
   created,
   changed,
   id,
-}) {
+}: any) {
   return (
     <table>
       <tbody>
@@ -254,7 +237,7 @@ function DisplayPosition({ map }) {
   );
 }
 
-function Link({ href, ...props }) {
+function Link({ href, ...props }: { href: string }) {
   const hash = href[0] === "#";
 
   return (
@@ -281,7 +264,7 @@ export function useBounds(list) {
   );
 }
 
-export default function Map({ bounds, center, setCenter, list }) {
+export default function Map({ bounds, center, setCenter, list }: any) {
   // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
   useEffect(() => {
     delete L.Icon.Default.prototype._getIconUrl;

@@ -1,11 +1,4 @@
-import React, {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { format } from "date-fns";
@@ -13,10 +6,11 @@ import { createAsset } from "use-asset";
 import createKDTree from "static-kdtree";
 import createPersistedState from "use-persisted-state";
 import update from "immutability-helper";
-import cx from "classnames";
+import { Gallery } from "../../components/Gallery";
+import { Link } from "../../components/Link";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
-import { Spinner } from "../../components/Spinner";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -116,87 +110,6 @@ const asset = createAsset(async (version) => {
     });
 });
 
-const image = createAsset(async (src) => {
-  return new Promise((onload) => {
-    const img = new Image();
-    Object.assign(img, {
-      onload,
-      src,
-    });
-  });
-});
-
-function Img({ src, ...props }) {
-  image.read(src);
-
-  return <img src={src} {...props} referrerPolicy="no-referrer" />;
-}
-
-function Loader() {
-  return (
-    <div className={styles.Loader}>
-      <Spinner />
-    </div>
-  );
-}
-
-function ImgWrapper({ ...props }) {
-  return (
-    <div className={styles.ImgWrapper}>
-      <Suspense fallback={<Loader />}>
-        <Img {...props} />
-      </Suspense>
-    </div>
-  );
-}
-
-function Gallery({ images }: any) {
-  const [inView, setInView] = useState(false);
-  const [isMore, setIsMore] = useState(false);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const handleObserve = ([{ isIntersecting }]) => {
-      if (isIntersecting) {
-        setInView(true);
-      }
-    };
-    const handleScroll = ({
-      target: { scrollLeft, scrollWidth, offsetWidth },
-    }) => {
-      if (scrollLeft === scrollWidth - offsetWidth) {
-        setIsMore(true);
-      }
-    };
-    if (ref.current instanceof HTMLElement) {
-      const observer = new IntersectionObserver(handleObserve, {
-        root: null,
-        rootMargin: "0px",
-        threshold: 1.0,
-      });
-      observer.observe(ref.current);
-      ref.current.addEventListener("scroll", handleScroll);
-      return () => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-          ref.current.removeEventListener("scroll", handleScroll);
-        }
-      };
-    }
-  }, [ref]);
-
-  return images.length ? (
-    <div ref={ref} className={styles.Gallery}>
-      {inView &&
-        images
-          .slice(0, isMore ? images.length : 3)
-          .map((image, index) => (
-            <ImgWrapper key={index} src={image} alt={`Image #${index + 1}`} />
-          ))}
-    </div>
-  ) : null;
-}
-
 function Button({ ...props }) {
   return <button {...props} />;
 }
@@ -217,19 +130,6 @@ function Color({ color }) {
       style={{ backgroundColor: color.code }}
       title={color.label}
     ></a>
-  );
-}
-
-function Link({ href = "#", ...props }) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
   );
 }
 
@@ -491,7 +391,7 @@ function Data({ version = "v1" }) {
           .map(({ item }) => item)
           .map(({ id, images, ...item }, key: number) => (
             <li key={key} className={styles.Row}>
-              <Gallery images={images} />
+              <Gallery className={styles.Gallery} images={images} />
               <Details
                 item={{ id, ...item }}
                 onClickCompare={onClickCompare}

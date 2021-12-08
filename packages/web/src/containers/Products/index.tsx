@@ -1,5 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
+import { Gallery } from "../../components/Gallery";
+import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -22,34 +24,6 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/products/data.json?${version}`);
   return await res.json();
 });
-
-function Gallery({ images }: { images: string[] }) {
-  return images.length ? (
-    <div className={styles.Gallery}>
-      {images.map((image, index) => (
-        <img
-          key={index}
-          src={image}
-          alt={`Image #${index + 1}`}
-          referrerPolicy="no-referrer"
-        />
-      ))}
-    </div>
-  ) : null;
-}
-
-function Link({ href, ...props }) {
-  const hash = href[0] === "#";
-
-  return (
-    <a
-      href={href}
-      target={hash ? undefined : "_blank"}
-      rel={hash ? undefined : "noopener noreferrer"}
-      {...props}
-    />
-  );
-}
 
 function Data({ version = "v1" }) {
   const { results } = asset.read(version); // As many cache keys as you need
@@ -195,7 +169,7 @@ function Data({ version = "v1" }) {
       <ol>
         {sorted.slice(0, 100).map(({ url, _image, ...item }, key: number) => (
           <li key={key} className={styles.Row}>
-            <Gallery images={_image} />
+            <Gallery className={styles.Gallery} images={_image} />
             <h3>
               <Link href={url}>{item.title}</Link>
             </h3>
