@@ -174,7 +174,6 @@ function Data({ version = "v1" }) {
               <Link href={url}>{item.title}</Link>
             </h3>
             <h4>{item.brand}</h4>
-            <h5>{item.price.join(" ")}</h5>
             <div>{item.label.join(" | ")}</div>
             <Details item={item} />
             {Object.entries(item._history)
@@ -197,22 +196,29 @@ function Data({ version = "v1" }) {
 function Details({
   item,
   prev,
-  time,
+  time = item._updated || item._created,
 }: {
   item: any;
   prev?: any;
   time?: string;
 }) {
   return (
-    <div className={styles.Details}>
-      {time && <div>{new Date(Number(time)).toISOString()}</div>}
-      <div
-        className={cx(
-          styles.Feature,
-          prev && prev.stars !== item.stars && styles.changed
+    <div className={cx(styles.Details, prev && styles.separator)}>
+      <div className={styles.Sidebar}>
+        {time && (
+          <div className={styles.Date}>
+            {new Date(Number(time)).toISOString()}
+          </div>
         )}
-      >
-        {item.stars}
+        <h5>{item.price.join(" ")}</h5>
+        <div
+          className={cx(
+            styles.Feature,
+            prev && prev.stars !== item.stars && styles.changed
+          )}
+        >
+          {item.stars}
+        </div>
       </div>
       {item.proms && (
         <div

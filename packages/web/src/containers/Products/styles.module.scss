@@ -1,5 +1,11 @@
 .Section {
   color: purple;
+  h4 {
+    margin: 0.5em 0;
+  }
+  h5 {
+    margin: 0.25em 0;
+  }
 }
 .Row {
   clear: both;
@@ -10,9 +16,20 @@
   height: 150px;
 }
 .Details {
+  clear: both;
+  .Sidebar {
+    float: right;
+    text-align: right;
+    margin: 0 2em;
+  }
   .Feature {
     &.changed {
       color: blueviolet;
     }
+  }
+  &.separator {
+    border-top: 1px solid lightgray;
+    margin-top: 0.5em;
+    padding-top: 0.5em;
   }
 }
