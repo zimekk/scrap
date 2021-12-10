@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import useDebounce from "../useDebounce";
 import { Gallery } from "../../components/Gallery";
@@ -257,7 +258,7 @@ function Details({
           {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(" ")}
         </span>
       </h5>
-      <div>{LastModifiedDate.toISOString().split("T")[0]}</div>
+      <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div>
     </div>
   );
 }

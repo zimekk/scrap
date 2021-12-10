@@ -1121,7 +1121,7 @@ function Details({
       </li>
       {(_time || imagesLastChanged) && (
         <li>
-          [{_time ? new Date(Number(_time)).toISOString() : "-"}] {created}{" "}
+          [{_time ? format(Number(_time), "yyyy-MM-dd HH:mm") : "-"}] {created}{" "}
           {imagesLastChanged && (
             <span>imagesLastChanged: {imagesLastChanged}</span>
           )}
@@ -1131,14 +1131,12 @@ function Details({
         <li>
           {item._created && (
             <span className={cx(styles.Compare)}>
-              _created:{" "}
-              {new Date(Number(item._created)).toISOString().split("T")[0]}{" "}
+              _created: {format(Number(item._created), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
           {item._updated && (
             <span className={cx(styles.Compare)}>
-              _updated:{" "}
-              {new Date(Number(item._updated)).toISOString().split(".")[0]}{" "}
+              _updated: {format(Number(item._updated), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
         </li>

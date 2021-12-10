@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
@@ -207,7 +208,7 @@ function Details({
       <div className={styles.Sidebar}>
         {time && (
           <div className={styles.Date}>
-            {new Date(Number(time)).toISOString()}
+            {format(Number(time), "yyyy-MM-dd HH:mm")}
           </div>
         )}
         <h5>{item.price.join(" ")}</h5>
