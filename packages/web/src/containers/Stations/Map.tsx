@@ -1,73 +1,9 @@
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo } from "react";
 import L from "leaflet";
-import {
-  CircleMarker,
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  Tooltip,
-  useMap,
-} from "react-leaflet";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { CircleMarker, MapContainer, TileLayer, Popup } from "react-leaflet";
+import { DraggableMarker, LocateControl } from "../../components/Map";
 import cx from "classnames";
 import styles from "./Map.module.scss";
-
-function DraggableMarker({ position, children, setPosition }) {
-  const markerRef = useRef(null);
-  const eventHandlers = useMemo(
-    () => ({
-      dragend() {
-        const marker = markerRef.current;
-        if (marker != null) {
-          setPosition(marker.getLatLng());
-        }
-      },
-    }),
-    []
-  );
-
-  return (
-    <Marker
-      draggable
-      eventHandlers={eventHandlers}
-      position={position}
-      ref={markerRef}
-    >
-      <Tooltip>{children}</Tooltip>
-    </Marker>
-  );
-}
-
-function LocateControl() {
-  const map = useMap();
-
-  const onLocate = useCallback(
-    (event) => {
-      event.preventDefault();
-      map.locate({
-        setView: true,
-      });
-    },
-    [map]
-  );
-
-  return (
-    <div className="leaflet-top leaflet-left" style={{ top: 80, fontSize: 16 }}>
-      <div className="leaflet-control-locate leaflet-bar leaflet-control">
-        <a
-          className="leaflet-bar-part leaflet-bar-part-single"
-          title="Locate"
-          href="#"
-          onClick={onLocate}
-        >
-          <FontAwesomeIcon icon={faCrosshairs} />
-        </a>
-      </div>
-    </div>
-  );
-}
 
 function Table({ data }) {
   return (
