@@ -65,7 +65,7 @@
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "react-hot-loader": "^4.13.0",
-    "sass": "^1.44.0",
+    "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
     "serve": "^13.0.2",
     "stream-browserify": "^3.0.0",
