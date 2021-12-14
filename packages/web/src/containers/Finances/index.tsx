@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import styles from "./styles.module.scss";
 
 const METADATA = Object.assign(
@@ -145,50 +145,121 @@ const METADATA = Object.assign(
   }
 );
 
-const PRODUCT_TYPES = {
-  COMFORT_LEASE: "Comfort Lease",
-  LEASE: "Leasing",
-};
-
 console.log({ METADATA });
 
-function Calculator() {
-  const [productType, setProductType] = useState(Object.keys(PRODUCT_TYPES)[0]);
-  const [criteria, setCriteria] = useState({
-    downPaymentGross: 0,
-    downPayment: 0,
-    term: 0,
-    annualMileage: 0,
-    residualValueGross: 0,
-    residualValue: 0,
-    installmentGross: 0,
-    installment: 0,
+function Calculator({
+  product: {
+    type,
+    label,
+    downPaymentLimits,
+    termLimits,
+    totalAgeLimit,
+    residualValueFactorLimits,
+    residualValueStep,
+    residualValueDefault,
+    interestRates,
+    annualMileageLimits,
+  },
+}) {
+  const { taxes } = METADATA;
+  const { transactionalPrice } = METADATA.vehicle;
+
+  console.log({
+    type,
+    label,
+    downPaymentLimits,
+    termLimits,
+    totalAgeLimit,
+    residualValueFactorLimits,
+    residualValueStep,
+    residualValueDefault,
+    interestRates,
   });
 
+  const [criteria, setCriteria] = useState(
+    Object.assign(
+      {
+        downPaymentGross: downPaymentLimits.default * transactionalPrice,
+        // downPayment: 0,
+        term: termLimits.default,
+        // installmentGross: 0,
+        // installment: 0,
+      },
+      annualMileageLimits
+        ? {
+            annualMileage: annualMileageLimits.default,
+          }
+        : {},
+      residualValueFactorLimits
+        ? {
+            residualValueGross:
+              residualValueFactorLimits
+                .filter(({ term }) => term <= termLimits.default)
+                .at(-1)[residualValueDefault] * transactionalPrice,
+            // residualValue: 0,
+          }
+        : {}
+    )
+  );
+  console.log(criteria);
+  const downPayment = useMemo(
+    () => (100 * criteria.downPaymentGross) / transactionalPrice,
+    [criteria.downPaymentGross, transactionalPrice]
+  );
+  const residualValueLimits = useMemo(
+    () =>
+      residualValueFactorLimits
+        ? residualValueFactorLimits
+            .filter(({ term }) => term <= criteria.term)
+            .at(-1)
+        : undefined,
+    [criteria.term, residualValueFactorLimits]
+  );
+  const residualValue = useMemo(
+    () => (100 * criteria.residualValueGross) / transactionalPrice,
+    [criteria.residualValueGross, transactionalPrice]
+  );
+  const interestRate = useMemo(
+    () =>
+      interestRates.filter(({ term }) => term <= criteria.term).at(-1).value,
+    [criteria.term, interestRates]
+  );
+  const installment = useMemo(() => {
+    // const interestRate = interestRates.filter(({term}) => term <= criteria.term).at(-1);
+    const interestRatePerMonth = interestRate / 12;
+    const financedAmount = transactionalPrice - criteria.downPaymentGross;
+    console.log({ interestRate, interestRatePerMonth, financedAmount });
+    if (interestRatePerMonth === 0) {
+      return (financedAmount + residualValue) / criteria.term;
+    }
+    const n = Math.pow(interestRatePerMonth + 1, criteria.term);
+    console.log({ n, residualValue });
+    return (
+      ((financedAmount * n - (residualValue || 0)) * interestRatePerMonth) /
+      (n - 1)
+    );
+  }, [
+    criteria.downPaymentGross,
+    criteria.term,
+    transactionalPrice,
+    residualValue,
+    interestRate,
+  ]);
+  const installmentGross = useMemo(
+    () => (taxes + 1) * installment,
+    [installment, taxes]
+  );
   return (
     <div>
       <fieldset>
-        <label>
-          <span>Product</span>
-          <select
-            value={productType}
-            onChange={useCallback(
-              ({ target }) => setProductType(target.value),
-              []
-            )}
-          >
-            {Object.entries(PRODUCT_TYPES).map(([value]) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
         <div>
           <label>
             <span>Opłata wstępna</span>
             <input
               type="range"
+              min={downPaymentLimits.min * transactionalPrice}
+              max={downPaymentLimits.max * transactionalPrice}
+              step={downPaymentLimits.step}
               value={criteria.downPaymentGross}
               onChange={useCallback(
                 ({ target }) =>
@@ -207,6 +278,9 @@ function Calculator() {
             <span>Okres</span>
             <input
               type="range"
+              min={termLimits.min}
+              max={termLimits.max}
+              step={termLimits.step}
               value={criteria.term}
               onChange={useCallback(
                 ({ target }) =>
@@ -220,50 +294,66 @@ function Calculator() {
             <span>{`${criteria.term} Miesiące`}</span>
           </label>
         </div>
-        <div>
-          <label>
-            <span>Roczny przebieg</span>
-            <input
-              type="range"
-              value={criteria.annualMileage}
-              onChange={useCallback(
-                ({ target }) =>
-                  setCriteria((criteria) => ({
-                    ...criteria,
-                    annualMileage: Number(target.value),
-                  })),
-                []
-              )}
-            />
-            <span>{`${criteria.annualMileage} km`}</span>
-          </label>
-        </div>
-        <div>
-          <label>
-            <span>Wartość końcowa</span>
-            <input
-              type="range"
-              value={criteria.residualValueGross}
-              onChange={useCallback(
-                ({ target }) =>
-                  setCriteria((criteria) => ({
-                    ...criteria,
-                    residualValueGross: Number(target.value),
-                  })),
-                []
-              )}
-            />
-            <span>{`${criteria.residualValueGross} zł`}</span>
-          </label>
-        </div>
+        {annualMileageLimits && (
+          <div>
+            <label>
+              <span>Roczny przebieg</span>
+              <input
+                type="range"
+                min={annualMileageLimits.min}
+                max={annualMileageLimits.max}
+                step={annualMileageLimits.step}
+                value={criteria.annualMileage}
+                onChange={useCallback(
+                  ({ target }) =>
+                    setCriteria((criteria) => ({
+                      ...criteria,
+                      annualMileage: Number(target.value),
+                    })),
+                  []
+                )}
+              />
+              <span>{`${criteria.annualMileage} km`}</span>
+            </label>
+          </div>
+        )}
+        {residualValueLimits && (
+          <div>
+            <label>
+              <span>Wartość końcowa</span>
+              <input
+                type="range"
+                min={residualValueLimits.min * transactionalPrice}
+                max={residualValueLimits.max * transactionalPrice}
+                step={residualValueStep * transactionalPrice}
+                value={criteria.residualValueGross}
+                onChange={useCallback(
+                  ({ target }) =>
+                    setCriteria((criteria) => ({
+                      ...criteria,
+                      residualValueGross: Number(target.value),
+                    })),
+                  []
+                )}
+              />
+              <span>{`${criteria.residualValueGross} zł`}</span>
+            </label>
+          </div>
+        )}
       </fieldset>
-      <div>{PRODUCT_TYPES[productType]}</div>
+      <div>{type}</div>
       <ul>
-        <li>{`Opłata wstępna: ${criteria.downPaymentGross} zł (${criteria.downPayment}%)`}</li>
+        <li>{`Opłata wstępna: ${criteria.downPaymentGross} zł (${
+          Math.round(downPayment * 100) / 100
+        }%)`}</li>
         <li>{`Okres: ${criteria.term} Miesiące`}</li>
-        <li>{`Roczny przebieg: ${criteria.annualMileage}km`}</li>
-        <li>{`Wartość końcowa: ${criteria.residualValueGross} zł (${criteria.residualValue}%)`}</li>
-        <li>{`Miesięczna rata: ${criteria.installmentGross} zł (netto ${criteria.installment} zł)`}</li>
+        {criteria.annualMileage !== undefined && (
+          <li>{`Roczny przebieg: ${criteria.annualMileage}km`}</li>
+        )}
+        {criteria.residualValueGross !== undefined && (
+          <li>{`Wartość końcowa: ${criteria.residualValueGross} zł (${residualValue}%)`}</li>
+        )}
+        <li>{`Miesięczna rata: ${installmentGross} zł (netto ${installment} zł)`}</li>
       </ul>
     </div>
   );
@@ -273,7 +363,8 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Finances</h2>
-      <Calculator />
+      <Calculator product={METADATA.vehicle.comfortLeaseProduct} />
+      <Calculator product={METADATA.vehicle.leaseProduct} />
     </div>
   );
 }
