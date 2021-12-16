@@ -721,6 +721,30 @@ function Calculator({ productType }: { productType: ProductTypes }) {
         <li>{`Miesięczna rata: ${Math.round(
           calculator.installmentGross
         )} zł (netto ${Math.round(calculator.installment)} zł)`}</li>
+        <li>{`Suma opłat: ${Math.round(
+          calculator.downPaymentGross +
+            calculator.installmentGross * calculator.term
+        )} zł (łącznie z wykupem ${Math.round(
+          calculator.downPaymentGross +
+            calculator.installmentGross * calculator.term +
+            calculator.residualValueGross
+        )} zł)`}</li>
+        <li>{`Nadpłata: ${Math.round(
+          calculator.downPaymentGross +
+            calculator.installmentGross * calculator.term +
+            calculator.residualValueGross -
+            calculator.transactionalPriceGross
+        )} zł (${
+          Math.round(
+            ((calculator.downPaymentGross +
+              calculator.installmentGross * calculator.term +
+              calculator.residualValueGross -
+              calculator.transactionalPriceGross) /
+              calculator.transactionalPriceGross) *
+              100 *
+              100
+          ) / 100
+        } %)`}</li>
       </ul>
     </div>
   );
