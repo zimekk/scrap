@@ -95,6 +95,12 @@ const api = Router()
                 _updated,
                 // source,
                 title: source.title,
+                ...(({ leasable, leaseProduct, comfortLeaseProduct, age }) => ({
+                  leasable,
+                  leaseProduct,
+                  comfortLeaseProduct,
+                  age,
+                }))(source),
                 dealer: (({ dealer: { id, name, lat, lng } }) => ({
                   id,
                   name,

@@ -8,6 +8,7 @@ import createPersistedState from "use-persisted-state";
 import update from "immutability-helper";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import { Calculator, ProductTypes } from "../../components/Calculator";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
 import cx from "classnames";
@@ -1141,7 +1142,34 @@ function Details({
           )}
         </li>
       )}
+      {item.leasable && (
+        <li>
+          <Leasing item={item} />
+        </li>
+      )}
     </ul>
+  );
+}
+
+function Leasing({ item }) {
+  const [expand, setExpand] = useState(false);
+
+  return (
+    <div>
+      <div>
+        <Link
+          onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
+        >
+          {expand ? "Hide leasing" : "Show leasing"}
+        </Link>
+      </div>
+      {expand && item.comfortLeaseProduct && (
+        <Calculator productType={ProductTypes.COMFORT_LEASE} vehicle={item} />
+      )}
+      {expand && item.leaseProduct && (
+        <Calculator productType={ProductTypes.LEASE} vehicle={item} />
+      )}
+    </div>
   );
 }
 
