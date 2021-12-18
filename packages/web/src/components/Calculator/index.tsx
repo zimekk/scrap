@@ -614,9 +614,12 @@ export function Calculator({
           </div>
         )}
       </fieldset>
-      <div>{`${calculator.product.type} (${
-        calculator.product.calculationMode ?? "-"
-      })`}</div>
+      <div>{`${calculator.product.label} (${[
+        calculator.product.type,
+        calculator.product.calculationMode,
+      ]
+        .filter(Boolean)
+        .join(" / ")})`}</div>
       <ul>
         <li>{`Cena: ${
           calculator.transactionalPriceGross

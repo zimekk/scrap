@@ -1161,7 +1161,19 @@ function Leasing({ item }) {
           onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
         >
           {expand ? "Hide leasing" : "Show leasing"}
-        </Link>
+        </Link>{" "}
+        {item.comfortLeaseProduct &&
+          (({ label, type, calculationMode }) => (
+            <span>{`${label} (${[type, calculationMode]
+              .filter(Boolean)
+              .join(" / ")})`}</span>
+          ))(item.comfortLeaseProduct)}{" "}
+        {item.leaseProduct &&
+          (({ label, type, calculationMode }) => (
+            <span>{`${label} (${[type, calculationMode]
+              .filter(Boolean)
+              .join(" / ")})`}</span>
+          ))(item.leaseProduct)}
       </div>
       {expand && item.comfortLeaseProduct && (
         <Calculator productType={ProductTypes.COMFORT_LEASE} vehicle={item} />
