@@ -1,0 +1,513 @@
+[
+  {
+    "nodeCode": "MODVAR",
+    "name": "Wersja wyposażenia",
+    "salesGroupCode": "MODVAR",
+    "singleSelection": false,
+    "visible": false,
+    "sortOrder": 1,
+    "options": ["S07MH"]
+  },
+  {
+    "nodeCode": "GEAR",
+    "name": "Transmission",
+    "salesGroupCode": "Drive and transmission",
+    "singleSelection": false,
+    "visible": false,
+    "sortOrder": 2,
+    "options": ["S01CB", "S02TB"]
+  },
+  {
+    "nodeCode": "EXTERIOR",
+    "name": "Zewnątrz",
+    "singleSelection": false,
+    "visible": true,
+    "sortOrder": 3,
+    "nodes": [
+      {
+        "nodeCode": "BODY_COLOURS",
+        "name": "Lakiery",
+        "salesGroupCode": "Paint",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 1,
+        "options": [
+          "P0300",
+          "P0416",
+          "P0475",
+          "P0A90",
+          "P0C1M",
+          "P0C3Z",
+          "P0C4P",
+          "P0C57"
+        ]
+      },
+      {
+        "nodeCode": "RIMS",
+        "name": "Koła",
+        "singleSelection": true,
+        "visible": true,
+        "sortOrder": 2,
+        "nodes": [
+          {
+            "nodeCode": "RIMS_16",
+            "name": "16\"",
+            "salesGroupCode": "RIMS_16",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 1
+          },
+          {
+            "nodeCode": "RIMS_17",
+            "name": "17\"",
+            "salesGroupCode": "RIMS_17",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 2
+          },
+          {
+            "nodeCode": "RIMS_18",
+            "name": "18\"",
+            "salesGroupCode": "RIMS_18",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 3
+          },
+          {
+            "nodeCode": "RIMS_18_19",
+            "name": "18/19\"",
+            "salesGroupCode": "RIMS_18_19",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 4
+          },
+          {
+            "nodeCode": "RIMS_19",
+            "name": "19\"",
+            "salesGroupCode": "RIMS_19",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 5
+          },
+          {
+            "nodeCode": "RIMS_19_20",
+            "name": "19/20\"",
+            "salesGroupCode": "RIMS_19_20",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 6
+          },
+          {
+            "nodeCode": "RIMS_20",
+            "name": "20\"",
+            "salesGroupCode": "RIMS_20",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 7,
+            "options": [
+              "S01RX",
+              "S01RY",
+              "S01VP",
+              "S01YX",
+              "S01YY",
+              "S020R",
+              "S022V",
+              "S022W"
+            ]
+          },
+          {
+            "nodeCode": "RIMS_21",
+            "name": "21\"",
+            "salesGroupCode": "RIMS_21",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 8,
+            "options": ["S01VN", "S02NQ"]
+          },
+          {
+            "nodeCode": "RIMS_21_22",
+            "name": "21/22\"",
+            "salesGroupCode": "RIMS_21_22",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 9
+          },
+          {
+            "nodeCode": "RIMS_22",
+            "name": "22\"",
+            "salesGroupCode": "RIMS_22",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 10
+          }
+        ]
+      },
+      {
+        "nodeCode": "MIRROR_CAPS",
+        "name": "Lusterka",
+        "salesGroupCode": "Mirror Caps",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 3
+      },
+      {
+        "nodeCode": "TOP_COLOURS",
+        "name": "Dachy",
+        "salesGroupCode": "Top Colours",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 4
+      }
+    ]
+  },
+  {
+    "nodeCode": "INTERIOR",
+    "name": "Wewnątrz",
+    "singleSelection": false,
+    "visible": true,
+    "sortOrder": 4,
+    "nodes": [
+      {
+        "nodeCode": "UPHOLSTERY",
+        "name": "Tapicerki",
+        "salesGroupCode": "Upholstery",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 1,
+        "options": [
+          "FKHFR",
+          "FKHG7",
+          "FKHRI",
+          "FKHSW",
+          "FMAH7",
+          "FMAH8",
+          "FMAMU",
+          "FMANL",
+          "FMAOI",
+          "FMAPQ",
+          "FVAHZ",
+          "FVATQ"
+        ]
+      },
+      {
+        "nodeCode": "TRIMS",
+        "name": "Listwy",
+        "salesGroupCode": "Trims",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 2,
+        "options": ["S04K1", "S04K9", "S04KG", "S04KN", "S04MC", "S04ML"]
+      }
+    ]
+  },
+  {
+    "nodeCode": "PACKAGES_AND_OPTIONS",
+    "name": "Pakiety & Opcje",
+    "singleSelection": false,
+    "visible": true,
+    "sortOrder": 5,
+    "nodes": [
+      {
+        "nodeCode": "PACKAGES",
+        "name": "Pakiety",
+        "salesGroupCode": "Equipment packages",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 1,
+        "options": ["S0ZBC", "S0ZD7", "S0ZPH", "S0ZPI"]
+      },
+      {
+        "nodeCode": "OPTIONS",
+        "name": "Opcje",
+        "singleSelection": false,
+        "visible": true,
+        "sortOrder": 2,
+        "nodes": [
+          {
+            "nodeCode": "OPTION_GROUP_1",
+            "name": "Bezpieczeństwo",
+            "salesGroupCode": "Safety",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 1,
+            "options": [
+              "S08AP",
+              "S02PA",
+              "S02VB",
+              "S02VC",
+              "S0428",
+              "S05DA",
+              "S06AC"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_2",
+            "name": "Stylistyka zewnętrzna",
+            "salesGroupCode": "Exterior design",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 2,
+            "options": [
+              "S0320",
+              "S03AT",
+              "S03DZ",
+              "S03MC",
+              "S03ME",
+              "S0715",
+              "S0760",
+              "S07M9"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_3",
+            "name": "Stylistyka wnętrza",
+            "salesGroupCode": "Interior design",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 3,
+            "options": ["S04AW", "S04GQ", "S04U0", "S0775"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_4",
+            "name": "Układ jezdny",
+            "salesGroupCode": "Running gear",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 4,
+            "options": [
+              "S02NH",
+              "S02T4",
+              "S02VF",
+              "S02VG",
+              "S02VL",
+              "S03M2",
+              "S0704"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_6",
+            "name": "Systemy asystujące",
+            "salesGroupCode": "Driver assistance",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 5,
+            "options": [
+              "S0508",
+              "S05AL",
+              "S05AS",
+              "S05AU",
+              "S05AV",
+              "S05DM",
+              "S05DN"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_7",
+            "name": "Światła i widoczność",
+            "salesGroupCode": "Sight and lights",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 6,
+            "options": ["S03MF", "S0430", "S0431", "S0552", "S05AC", "S05AZ"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_8",
+            "name": "Fotele / komfort siedzeń",
+            "salesGroupCode": "Seat/seat comfort",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 7,
+            "options": [
+              "S0459",
+              "S0461",
+              "S0481",
+              "S0488",
+              "S0490",
+              "S0494",
+              "S04FH",
+              "S04HA",
+              "S0711"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_9",
+            "name": "Kierownice",
+            "salesGroupCode": "Steering wheels",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 8,
+            "options": ["S0248", "S0710"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_10",
+            "name": "Funkcjonalne wyposażenie",
+            "salesGroupCode": "Functional equipment",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 9,
+            "options": [
+              "S0302",
+              "S0319",
+              "S0322",
+              "S03AC",
+              "S03DS",
+              "S03KA",
+              "S0402",
+              "S0413",
+              "S0423",
+              "S0493",
+              "S04UR"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_11",
+            "name": "Radio / nawigacja",
+            "salesGroupCode": "Radio/navigation",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 10,
+            "options": ["S06U2", "S0610", "S0654", "S06U3"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_5",
+            "name": "Komfort",
+            "salesGroupCode": "Climate comfort",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 11,
+            "options": ["S0417", "S0420", "S04NM", "S0534", "S0536"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_12",
+            "name": "Komunikacja oraz informacja",
+            "salesGroupCode": "Communication and information",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 12,
+            "options": [
+              "S0676",
+              "S0688",
+              "S0548",
+              "S06AE",
+              "S06AK",
+              "S06C3",
+              "S06DR",
+              "S06NS",
+              "S06U8",
+              "S06WD"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_15",
+            "name": "Systemy HiFi oraz zestawy rozrywki",
+            "salesGroupCode": "HiFi systems and entertainment",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 13
+          },
+          {
+            "nodeCode": "OPTION_GROUP_13",
+            "name": "Pakiety serwisowe",
+            "salesGroupCode": "Services",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 14,
+            "options": ["S07N7", "S07NH", "S07NW"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_14",
+            "name": "Pakiety naprawcze",
+            "salesGroupCode": "Warranty",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 15,
+            "options": ["S07CG", "S07CH", "S07CK"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_16",
+            "name": "ausblenden",
+            "salesGroupCode": "Wheels/tyres",
+            "singleSelection": false,
+            "visible": false,
+            "sortOrder": 16,
+            "options": ["S0258", "S02PA"]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_17",
+            "name": "ausblenden",
+            "salesGroupCode": "Internal control",
+            "singleSelection": false,
+            "visible": false,
+            "sortOrder": 17,
+            "options": [
+              "S06S2",
+              "S0801",
+              "S0851",
+              "S08A2",
+              "S08A4",
+              "S08A5",
+              "S08A6",
+              "S08AE",
+              "S08AK",
+              "S08AL",
+              "S08AR",
+              "S08AV",
+              "S08KA",
+              "S08R9",
+              "S08S3",
+              "S08TF",
+              "S08TR",
+              "S0999",
+              "S09AA",
+              "S01CE",
+              "S01DF",
+              "S032Z",
+              "S0853",
+              "S085C",
+              "S0879",
+              "S0880",
+              "S08A1",
+              "S08AT",
+              "S08WG"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_18",
+            "name": "ausblenden",
+            "salesGroupCode": "Others",
+            "singleSelection": false,
+            "visible": false,
+            "sortOrder": 18,
+            "options": [
+              "P0490",
+              "S0230",
+              "S04NE",
+              "S08AU",
+              "S08SM",
+              "S0902",
+              "S0925",
+              "S0941",
+              "S0993",
+              "S0997",
+              "S0998",
+              "S09AB",
+              "S0ZTP",
+              "S048Z",
+              "S06P1",
+              "S09KA",
+              "S09KB"
+            ]
+          },
+          {
+            "nodeCode": "OPTION_GROUP_19",
+            "name": "Zawartość pakietu",
+            "salesGroupCode": "Package content",
+            "singleSelection": false,
+            "visible": true,
+            "sortOrder": 19
+          }
+        ]
+      }
+    ]
+  }
+]

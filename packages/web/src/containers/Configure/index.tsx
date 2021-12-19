@@ -1,5 +1,6 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
+import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
 
 const asset = createAsset(async (version) => {
@@ -16,6 +17,17 @@ const asset = createAsset(async (version) => {
       {}
     )
   );
+});
+
+const optionsAsset = createAsset(async (version) => {
+  return Promise.all([
+    require("./assets/pricing-model-81dp.json"),
+    require("./assets/localisations-81dp-options.json"),
+  ]).then(([{ availableOptions, priceTreeNode }, options]) => ({
+    availableOptions,
+    priceTreeNode,
+    options,
+  }));
 });
 
 function Configure({ version = "v1" }) {
@@ -54,11 +66,11 @@ function Configure({ version = "v1" }) {
 
   const [criteria, setCriteria] = useState(() => ({
     fuelType: "",
-    enginePowerFrom: ENGINE_POWERS[0],
+    enginePowerFrom: ENGINE_POWERS[7],
     enginePowerTo: ENGINE_POWERS[ENGINE_POWERS.length - 1],
+    search: "",
   }));
 
-  console.log({ FUEL_TYPES, ENGINE_POWERS });
   console.log({ modelRanges });
 
   return (
@@ -147,6 +159,131 @@ function Configure({ version = "v1" }) {
       {Object.values(modelRanges).map((series, key) => (
         <Series key={key} criteria={criteria} {...series} />
       ))}
+      <fieldset>
+        <div>
+          <label>
+            <span>search</span>
+            <input
+              type="search"
+              value={criteria.search}
+              onChange={useCallback(
+                ({ target }) =>
+                  setCriteria((criteria) => ({
+                    ...criteria,
+                    search: target.value,
+                  })),
+                []
+              )}
+            />
+          </label>
+        </div>
+      </fieldset>
+      <Options criteria={criteria} setCriteria={setCriteria} />
+    </div>
+  );
+}
+
+function IdLink({
+  children: id,
+  setSearch,
+}: {
+  children: string;
+  setSearch: Function;
+}) {
+  return (
+    <Link
+      onClick={(e) => (
+        e.preventDefault(),
+        setSearch((search: string) =>
+          (e.metaKey ? search.split(",").map((s) => s.trim()) : [])
+            .concat(String(id))
+            .filter((s) => s.length > 0)
+            .join(", ")
+        )
+      )}
+    >
+      {id}
+    </Link>
+  );
+}
+
+function Options({ criteria, setCriteria, version = 1 }) {
+  const { availableOptions, priceTreeNode, options } =
+    optionsAsset.read(version);
+
+  console.log({ availableOptions, priceTreeNode, options });
+
+  const filter = useMemo(
+    () => criteria.search.toLowerCase(),
+    [criteria.search]
+  );
+
+  const list = useMemo(
+    () =>
+      availableOptions
+        .map((item) => ({
+          ...item,
+          details: options[item.optionCode],
+        }))
+        .filter(
+          ({
+            optionCode,
+            details: {
+              familyCode,
+              phrases: { longDescription },
+            },
+          }) =>
+            ((labels) =>
+              labels.findIndex(
+                (label) =>
+                  optionCode.toLowerCase().match(label) ||
+                  familyCode.toLowerCase().match(label) ||
+                  longDescription.toLowerCase().match(label)
+              ) > -1)(filter.split(",").map((s) => s.trim()))
+        ),
+    [availableOptions, priceTreeNode, options, filter]
+  );
+
+  const setSearch = (set) =>
+    setCriteria(({ search, ...criteria }) => ({
+      ...criteria,
+      search: set(search),
+    }));
+
+  return (
+    <div className={styles.Options}>
+      <ul>
+        {list.map(
+          ({ optionCode, grossPrice, combinationPrices, details }, key) => (
+            <li key={key}>
+              [<IdLink setSearch={setSearch}>{optionCode}</IdLink>
+              {details.familyCode && (
+                <>
+                  /<IdLink setSearch={setSearch}>{details.familyCode}</IdLink>
+                </>
+              )}
+              ]{details.salesGroupCodes.join(", ")} - {details.optionType} -{" "}
+              {details.phrases.longDescription} ({grossPrice})
+              {details.causesAdditions &&
+                details.causesAdditions.map((code, key) => (
+                  <Fragment key={key}>
+                    [<IdLink setSearch={setSearch}>{code}</IdLink>]
+                  </Fragment>
+                ))}
+              {combinationPrices && (
+                <ul>
+                  {combinationPrices.map(({ optionCode, grossPrice }, key) => (
+                    <li key={key}>
+                      [<IdLink setSearch={setSearch}>{optionCode}</IdLink>]{" "}
+                      {grossPrice}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          )
+        )}
+      </ul>
     </div>
   );
 }

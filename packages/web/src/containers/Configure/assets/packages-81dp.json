@@ -1,0 +1,95 @@
+{
+  "S07MH": {
+    "packageComponents": [
+      {
+        "default": "S03MF",
+        "alternatives": ["S03MF", "S05AZ"],
+        "deselectable": false
+      },
+      { "default": "S03M2", "alternatives": ["S03M2"], "deselectable": false },
+      { "default": "S03ME", "alternatives": ["S03ME"], "deselectable": false },
+      {
+        "default": "FMAH8",
+        "alternatives": ["FMAH8", "FMANL", "FMAPQ", "FVAHZ"],
+        "deselectable": false
+      },
+      {
+        "default": "S0490",
+        "alternatives": ["S0490", "S0711"],
+        "deselectable": false
+      },
+      { "default": "S07M9", "alternatives": ["S07M9"], "deselectable": false },
+      { "default": "S04MC", "alternatives": ["S04MC"], "deselectable": false },
+      {
+        "default": "S01YY",
+        "alternatives": ["S01YY", "S01VN", "S01VP", "S01YX", "S02NQ"],
+        "deselectable": false
+      },
+      { "default": "S04GQ", "alternatives": ["S04GQ"], "deselectable": false },
+      { "default": "P0490", "alternatives": ["P0490"], "deselectable": false }
+    ],
+    "causesAdditions": [
+      ["S03MF", "S05AZ"],
+      ["S02NQ", "S01VN", "S01VP", "S01YX", "S01YY"],
+      ["S03M2"],
+      ["S04MC"],
+      ["S03ME"],
+      ["P0490"],
+      ["S0711", "S0490"],
+      ["S04GQ"],
+      ["FVAHZ", "FMAH8", "FMAPQ", "FMANL"],
+      ["S07M9"]
+    ]
+  },
+  "S0ZBC": {
+    "packageComponents": [
+      { "default": "S0322", "alternatives": ["S0322"], "deselectable": false },
+      { "default": "S03KA", "alternatives": ["S03KA"], "deselectable": false },
+      {
+        "default": "S0494",
+        "alternatives": ["S0494", "S04HA"],
+        "deselectable": false
+      }
+    ],
+    "causesAdditions": [["S04HA", "S0494"], ["S03KA"], ["S0322"]]
+  },
+  "S0ZD7": {
+    "packageComponents": [
+      { "default": "S06U3", "alternatives": ["S06U3"], "deselectable": false },
+      { "default": "S06U8", "alternatives": ["S06U8"], "deselectable": false },
+      { "default": "S06NS", "alternatives": ["S06NS"], "deselectable": false }
+    ],
+    "causesAdditions": [["S06U8"], ["S06NS"], ["S06U3"]]
+  },
+  "S0ZPH": {
+    "packageComponents": [
+      { "default": "S06NS", "alternatives": ["S06NS"], "deselectable": false },
+      { "default": "S0536", "alternatives": ["S0536"], "deselectable": false },
+      { "default": "S0248", "alternatives": ["S0248"], "deselectable": false },
+      { "default": "S03DS", "alternatives": ["S03DS"], "deselectable": false },
+      {
+        "default": "S0494",
+        "alternatives": ["S0494", "S04HA"],
+        "deselectable": false
+      }
+    ],
+    "causesAdditions": [
+      ["S0248"],
+      ["S04HA", "S0494"],
+      ["S0536"],
+      ["S06NS"],
+      ["S03DS"]
+    ]
+  },
+  "S0ZPI": {
+    "packageComponents": [
+      { "default": "S0610", "alternatives": ["S0610"], "deselectable": false },
+      {
+        "default": "S05AS",
+        "alternatives": ["S05AS", "S05AU"],
+        "deselectable": false
+      }
+    ],
+    "causesAdditions": [["S0610"], ["S05AS", "S05AU"]]
+  }
+}

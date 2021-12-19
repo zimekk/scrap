@@ -1,0 +1,1492 @@
+{
+  "packagePricingList": {
+    "S07MH": {
+      "packageCode": "S07MH",
+      "price": {
+        "netPrice": 23252.01,
+        "grossPriceUnrounded": 28599.97,
+        "grossPrice": 28600.0,
+        "totalTaxes": 5347.96,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 5347.96,
+            "taxBase": 23252.01
+          }
+        ]
+      },
+      "includedFeaturesSum": {
+        "netPrice": 7073.25,
+        "grossPriceUnrounded": 8700.1,
+        "grossPrice": 8700.1,
+        "totalTaxes": 1626.85,
+        "roundingDifference": 0.0,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1626.85,
+            "taxBase": 7073.25
+          }
+        ]
+      },
+      "takeAllFeaturesSaving": {
+        "netPrice": -16178.76,
+        "grossPriceUnrounded": -19899.87,
+        "grossPrice": -19899.9,
+        "totalTaxes": -3721.11,
+        "roundingDifference": 0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": -3721.11,
+            "taxBase": -16178.76
+          }
+        ]
+      },
+      "selectedFeaturesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedFeaturesActualSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "notSelectedFeaturesSum": {
+        "netPrice": 7073.25,
+        "grossPriceUnrounded": 8700.1,
+        "grossPrice": 8700.1,
+        "totalTaxes": 1626.85,
+        "roundingDifference": 0.0,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1626.85,
+            "taxBase": 7073.25
+          }
+        ]
+      },
+      "upsellingPrice": {
+        "netPrice": 23252.01,
+        "grossPriceUnrounded": 28599.97,
+        "grossPrice": 28600.0,
+        "totalTaxes": 5347.96,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 5347.96,
+            "taxBase": 23252.01
+          }
+        ]
+      },
+      "selectedUpgradesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedUpgradesSumWithPack": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "packPriceWithUpgrades": {
+        "netPrice": 23252.01,
+        "grossPriceUnrounded": 28599.97,
+        "grossPrice": 28600.0,
+        "totalTaxes": 5347.96,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 5347.96,
+            "taxBase": 23252.01
+          }
+        ]
+      },
+      "packageFeatures": [
+        {
+          "featureCode": "S03M2",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "FMAH8",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S04MC",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 3170.74,
+            "grossPriceUnrounded": 3900.01,
+            "grossPrice": 3900.0,
+            "totalTaxes": 729.27,
+            "roundingDifference": 0.01,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 729.27,
+                "taxBase": 3170.74
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S03ME",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S0490",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 813.03,
+            "grossPriceUnrounded": 1000.03,
+            "grossPrice": 1000.0,
+            "totalTaxes": 187.0,
+            "roundingDifference": 0.03,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 187.0,
+                "taxBase": 813.03
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "P0490",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S03MF",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 975.62,
+            "grossPriceUnrounded": 1200.01,
+            "grossPrice": 1200.0,
+            "totalTaxes": 224.39,
+            "roundingDifference": 0.01,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 224.39,
+                "taxBase": 975.62
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S04GQ",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 1138.24,
+            "grossPriceUnrounded": 1400.04,
+            "grossPrice": 1400.0,
+            "totalTaxes": 261.8,
+            "roundingDifference": 0.04,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 261.8,
+                "taxBase": 1138.24
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S01YY",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S07M9",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 975.62,
+            "grossPriceUnrounded": 1200.01,
+            "grossPrice": 1200.0,
+            "totalTaxes": 224.39,
+            "roundingDifference": 0.01,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 224.39,
+                "taxBase": 975.62
+              }
+            ]
+          }
+        }
+      ],
+      "selectedFeaturesCount": 0,
+      "selected": false,
+      "packageRecommendation": 0
+    },
+    "S0ZBC": {
+      "packageCode": "S0ZBC",
+      "price": {
+        "netPrice": 3821.11,
+        "grossPriceUnrounded": 4699.97,
+        "grossPrice": 4700.0,
+        "totalTaxes": 878.86,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 878.86,
+            "taxBase": 3821.11
+          }
+        ]
+      },
+      "includedFeaturesSum": {
+        "netPrice": 4715.46,
+        "grossPriceUnrounded": 5800.02,
+        "grossPrice": 5800.0,
+        "totalTaxes": 1084.56,
+        "roundingDifference": 0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1084.56,
+            "taxBase": 4715.46
+          }
+        ]
+      },
+      "takeAllFeaturesSaving": {
+        "netPrice": 894.35,
+        "grossPriceUnrounded": 1100.05,
+        "grossPrice": 1100.1,
+        "totalTaxes": 205.7,
+        "roundingDifference": -0.05,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 205.7,
+            "taxBase": 894.35
+          }
+        ]
+      },
+      "selectedFeaturesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedFeaturesActualSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "notSelectedFeaturesSum": {
+        "netPrice": 4715.46,
+        "grossPriceUnrounded": 5800.02,
+        "grossPrice": 5800.0,
+        "totalTaxes": 1084.56,
+        "roundingDifference": 0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1084.56,
+            "taxBase": 4715.46
+          }
+        ]
+      },
+      "upsellingPrice": {
+        "netPrice": 3821.11,
+        "grossPriceUnrounded": 4699.97,
+        "grossPrice": 4700.0,
+        "totalTaxes": 878.86,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 878.86,
+            "taxBase": 3821.11
+          }
+        ]
+      },
+      "selectedUpgradesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedUpgradesSumWithPack": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "packPriceWithUpgrades": {
+        "netPrice": 3821.11,
+        "grossPriceUnrounded": 4699.97,
+        "grossPrice": 4700.0,
+        "totalTaxes": 878.86,
+        "roundingDifference": -0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 878.86,
+            "taxBase": 3821.11
+          }
+        ]
+      },
+      "packageFeatures": [
+        {
+          "featureCode": "S03KA",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 813.03,
+            "grossPriceUnrounded": 1000.03,
+            "grossPrice": 1000.0,
+            "totalTaxes": 187.0,
+            "roundingDifference": 0.03,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 187.0,
+                "taxBase": 813.03
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S0494",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 1625.99,
+            "grossPriceUnrounded": 1999.97,
+            "grossPrice": 2000.0,
+            "totalTaxes": 373.98,
+            "roundingDifference": -0.03,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 373.98,
+                "taxBase": 1625.99
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S0322",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 2276.44,
+            "grossPriceUnrounded": 2800.02,
+            "grossPrice": 2800.0,
+            "totalTaxes": 523.58,
+            "roundingDifference": 0.02,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 523.58,
+                "taxBase": 2276.44
+              }
+            ]
+          }
+        }
+      ],
+      "selectedFeaturesCount": 0,
+      "selected": false,
+      "packageRecommendation": 0
+    },
+    "S0ZD7": {
+      "packageCode": "S0ZD7",
+      "price": {
+        "netPrice": 6422.76,
+        "grossPriceUnrounded": 7899.99,
+        "grossPrice": 7900.0,
+        "totalTaxes": 1477.23,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1477.23,
+            "taxBase": 6422.76
+          }
+        ]
+      },
+      "includedFeaturesSum": {
+        "netPrice": 7235.79,
+        "grossPriceUnrounded": 8900.02,
+        "grossPrice": 8900.0,
+        "totalTaxes": 1664.23,
+        "roundingDifference": 0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1664.23,
+            "taxBase": 7235.79
+          }
+        ]
+      },
+      "takeAllFeaturesSaving": {
+        "netPrice": 813.03,
+        "grossPriceUnrounded": 1000.03,
+        "grossPrice": 1000.0,
+        "totalTaxes": 187.0,
+        "roundingDifference": 0.03,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 187.0,
+            "taxBase": 813.03
+          }
+        ]
+      },
+      "selectedFeaturesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedFeaturesActualSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "notSelectedFeaturesSum": {
+        "netPrice": 7235.79,
+        "grossPriceUnrounded": 8900.02,
+        "grossPrice": 8900.0,
+        "totalTaxes": 1664.23,
+        "roundingDifference": 0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1664.23,
+            "taxBase": 7235.79
+          }
+        ]
+      },
+      "upsellingPrice": {
+        "netPrice": 6422.76,
+        "grossPriceUnrounded": 7899.99,
+        "grossPrice": 7900.0,
+        "totalTaxes": 1477.23,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1477.23,
+            "taxBase": 6422.76
+          }
+        ]
+      },
+      "selectedUpgradesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedUpgradesSumWithPack": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "packPriceWithUpgrades": {
+        "netPrice": 6422.76,
+        "grossPriceUnrounded": 7899.99,
+        "grossPrice": 7900.0,
+        "totalTaxes": 1477.23,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1477.23,
+            "taxBase": 6422.76
+          }
+        ]
+      },
+      "packageFeatures": [
+        {
+          "featureCode": "S06U8",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 1138.24,
+            "grossPriceUnrounded": 1400.04,
+            "grossPrice": 1400.0,
+            "totalTaxes": 261.8,
+            "roundingDifference": 0.04,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 261.8,
+                "taxBase": 1138.24
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S06NS",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S06U3",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 6097.55,
+            "grossPriceUnrounded": 7499.99,
+            "grossPrice": 7500.0,
+            "totalTaxes": 1402.44,
+            "roundingDifference": -0.01,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 1402.44,
+                "taxBase": 6097.55
+              }
+            ]
+          }
+        }
+      ],
+      "selectedFeaturesCount": 0,
+      "selected": false,
+      "packageRecommendation": 0
+    },
+    "S0ZPH": {
+      "packageCode": "S0ZPH",
+      "price": {
+        "netPrice": 6991.86,
+        "grossPriceUnrounded": 8599.99,
+        "grossPrice": 8600.0,
+        "totalTaxes": 1608.13,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1608.13,
+            "taxBase": 6991.86
+          }
+        ]
+      },
+      "includedFeaturesSum": {
+        "netPrice": 8780.47,
+        "grossPriceUnrounded": 10799.98,
+        "grossPrice": 10800.0,
+        "totalTaxes": 2019.51,
+        "roundingDifference": -0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 2019.51,
+            "taxBase": 8780.47
+          }
+        ]
+      },
+      "takeAllFeaturesSaving": {
+        "netPrice": 1788.61,
+        "grossPriceUnrounded": 2199.99,
+        "grossPrice": 2200.0,
+        "totalTaxes": 411.38,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 411.38,
+            "taxBase": 1788.61
+          }
+        ]
+      },
+      "selectedFeaturesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedFeaturesActualSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "notSelectedFeaturesSum": {
+        "netPrice": 8780.47,
+        "grossPriceUnrounded": 10799.98,
+        "grossPrice": 10800.0,
+        "totalTaxes": 2019.51,
+        "roundingDifference": -0.02,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 2019.51,
+            "taxBase": 8780.47
+          }
+        ]
+      },
+      "upsellingPrice": {
+        "netPrice": 6991.86,
+        "grossPriceUnrounded": 8599.99,
+        "grossPrice": 8600.0,
+        "totalTaxes": 1608.13,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1608.13,
+            "taxBase": 6991.86
+          }
+        ]
+      },
+      "selectedUpgradesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedUpgradesSumWithPack": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "packPriceWithUpgrades": {
+        "netPrice": 6991.86,
+        "grossPriceUnrounded": 8599.99,
+        "grossPrice": 8600.0,
+        "totalTaxes": 1608.13,
+        "roundingDifference": -0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1608.13,
+            "taxBase": 6991.86
+          }
+        ]
+      },
+      "packageFeatures": [
+        {
+          "featureCode": "S0248",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 1056.93,
+            "grossPriceUnrounded": 1300.02,
+            "grossPrice": 1300.0,
+            "totalTaxes": 243.09,
+            "roundingDifference": 0.02,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 243.09,
+                "taxBase": 1056.93
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S0536",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 6097.55,
+            "grossPriceUnrounded": 7499.99,
+            "grossPrice": 7500.0,
+            "totalTaxes": 1402.44,
+            "roundingDifference": -0.01,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 1402.44,
+                "taxBase": 6097.55
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S06NS",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S0494",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 1625.99,
+            "grossPriceUnrounded": 1999.97,
+            "grossPrice": 2000.0,
+            "totalTaxes": 373.98,
+            "roundingDifference": -0.03,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 373.98,
+                "taxBase": 1625.99
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S03DS",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          }
+        }
+      ],
+      "selectedFeaturesCount": 0,
+      "selected": false,
+      "packageRecommendation": 0
+    },
+    "S0ZPI": {
+      "packageCode": "S0ZPI",
+      "price": {
+        "netPrice": 6829.27,
+        "grossPriceUnrounded": 8400.0,
+        "grossPrice": 8400.0,
+        "totalTaxes": 1570.73,
+        "roundingDifference": 0.0,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1570.73,
+            "taxBase": 6829.27
+          }
+        ]
+      },
+      "includedFeaturesSum": {
+        "netPrice": 7804.89,
+        "grossPriceUnrounded": 9600.01,
+        "grossPrice": 9600.0,
+        "totalTaxes": 1795.12,
+        "roundingDifference": 0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1795.12,
+            "taxBase": 7804.89
+          }
+        ]
+      },
+      "takeAllFeaturesSaving": {
+        "netPrice": 975.62,
+        "grossPriceUnrounded": 1200.01,
+        "grossPrice": 1200.0,
+        "totalTaxes": 224.39,
+        "roundingDifference": 0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 224.39,
+            "taxBase": 975.62
+          }
+        ]
+      },
+      "selectedFeaturesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedFeaturesActualSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "notSelectedFeaturesSum": {
+        "netPrice": 7804.89,
+        "grossPriceUnrounded": 9600.01,
+        "grossPrice": 9600.0,
+        "totalTaxes": 1795.12,
+        "roundingDifference": 0.01,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1795.12,
+            "taxBase": 7804.89
+          }
+        ]
+      },
+      "upsellingPrice": {
+        "netPrice": 6829.27,
+        "grossPriceUnrounded": 8400.0,
+        "grossPrice": 8400.0,
+        "totalTaxes": 1570.73,
+        "roundingDifference": 0.0,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1570.73,
+            "taxBase": 6829.27
+          }
+        ]
+      },
+      "selectedUpgradesSum": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "selectedUpgradesSumWithPack": {
+        "netPrice": 0,
+        "grossPriceUnrounded": 0,
+        "grossPrice": 0,
+        "totalTaxes": 0,
+        "roundingDifference": 0,
+        "taxes": []
+      },
+      "packPriceWithUpgrades": {
+        "netPrice": 6829.27,
+        "grossPriceUnrounded": 8400.0,
+        "grossPrice": 8400.0,
+        "totalTaxes": 1570.73,
+        "roundingDifference": 0.0,
+        "taxes": [
+          {
+            "taxCategory": "PRODUCT",
+            "taxKey": "VAT",
+            "taxPercentage": 0.23,
+            "taxValue": 1570.73,
+            "taxBase": 6829.27
+          }
+        ]
+      },
+      "packageFeatures": [
+        {
+          "featureCode": "S0610",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 4471.53,
+            "grossPriceUnrounded": 5499.98,
+            "grossPrice": 5500.0,
+            "totalTaxes": 1028.45,
+            "roundingDifference": -0.02,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 1028.45,
+                "taxBase": 4471.53
+              }
+            ]
+          }
+        },
+        {
+          "featureCode": "S05AS",
+          "combinationPrice": {
+            "netPrice": 0.0,
+            "grossPriceUnrounded": 0.0,
+            "grossPrice": 0.0,
+            "totalTaxes": 0.0,
+            "roundingDifference": 0.0,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 0.0,
+                "taxBase": 0.0
+              }
+            ]
+          },
+          "alonePrice": {
+            "netPrice": 3333.36,
+            "grossPriceUnrounded": 4100.03,
+            "grossPrice": 4100.0,
+            "totalTaxes": 766.67,
+            "roundingDifference": 0.03,
+            "taxes": [
+              {
+                "taxCategory": "PRODUCT",
+                "taxKey": "VAT",
+                "taxPercentage": 0.23,
+                "taxValue": 766.67,
+                "taxBase": 3333.36
+              }
+            ]
+          }
+        }
+      ],
+      "selectedFeaturesCount": 0,
+      "selected": false,
+      "packageRecommendation": 0
+    }
+  },
+  "invalidOptionCodes": [],
+  "optionsWithUndefinedPrices": [],
+  "metadata": { "currency": "EUR" }
+}
