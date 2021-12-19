@@ -261,10 +261,20 @@ function Data({ version = "v1" }) {
         .filter(
           ({ item }) =>
             (item.title.toLowerCase().match(criteria.filter) ||
-              criteria.filter
-                .split(",")
-                .map((s) => s.trim())
-                .includes(String(item.id))) &&
+              ((labels) =>
+                labels.includes(
+                  typeof item.seriesCode === "object"
+                    ? item.seriesCode.label
+                    : item.seriesCode
+                ) ||
+                labels.includes(
+                  typeof item.modelCode === "object"
+                    ? item.modelCode.label
+                    : item.modelCode
+                ) ||
+                labels.includes(String(item.id)))(
+                (criteria.filter as string).split(",").map((s) => s.trim())
+              )) &&
             ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
             criteria.priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= criteria.priceTo &&
@@ -367,9 +377,12 @@ function Data({ version = "v1" }) {
       />
       {favorites.length > 0 ? (
         <div>
-          {`Your favorites: ${favorites
-            .map((favorite) => `[${favorite}]`)
-            .join(", ")}`}{" "}
+          {`Your favorites: `}
+          {favorites.map((favorite, key) => (
+            <IdLink key={key} setSearch={setSearch}>
+              {favorite}
+            </IdLink>
+          ))}{" "}
           <Link
             onClick={(e) => (
               e.preventDefault(), setSearch(favorites.join(`, `))
@@ -398,6 +411,7 @@ function Data({ version = "v1" }) {
                 onClickCompare={onClickCompare}
                 favorites={favorites}
                 setFavorites={setFavorites}
+                setSearch={setSearch}
               />
               {Object.entries(item._history || {})
                 .reverse()
@@ -985,6 +999,34 @@ function Criteria({
   );
 }
 
+function IdLink({
+  children: id,
+  setSearch,
+}: {
+  children: string;
+  setSearch: Function;
+}) {
+  return (
+    <>
+      [
+      <Link
+        onClick={(e) => (
+          e.preventDefault(),
+          setSearch((search: string) =>
+            (e.metaKey ? search.split(",").map((s) => s.trim()) : [])
+              .concat(String(id))
+              .filter((s) => s.length > 0)
+              .join(", ")
+          )
+        )}
+      >
+        {id}
+      </Link>
+      ]
+    </>
+  );
+}
+
 function Details({
   _time,
   item,
@@ -992,6 +1034,7 @@ function Details({
   prev,
   favorites,
   setFavorites,
+  setSearch,
 }: any) {
   const {
     id,
@@ -1028,7 +1071,8 @@ function Details({
     <ul className={styles.Details}>
       <li>
         <Color color={color} />
-        <Link href={href}>{`[${id}] ${title}`}</Link>
+        <IdLink setSearch={setSearch}>{id}</IdLink>
+        <Link href={href}>{title}</Link>
         {onClickCompare && (
           <Button onClick={onClickCompare} value={item._id}>
             Compare
@@ -1050,12 +1094,16 @@ function Details({
         )}
       </li>
       <li>
-        [{typeof seriesCode === "object" ? seriesCode.label : seriesCode}]{" "}
+        <IdLink setSearch={setSearch}>
+          {typeof seriesCode === "object" ? seriesCode.label : seriesCode}
+        </IdLink>{" "}
         {brand.label} {series.label} {bodyType.label} {fuel.label}{" "}
         {transmission.label}
       </li>
       <li>
-        [{typeof modelCode === "object" ? modelCode.label : modelCode}]{" "}
+        <IdLink setSearch={setSearch}>
+          {typeof modelCode === "object" ? modelCode.label : modelCode}
+        </IdLink>{" "}
         {capacity && <span>capacity: {capacity}</span>}{" "}
         {powerHP && <span>powerHP: {powerHP}</span>}{" "}
         {consumptionFuel && <span>consumptionFuel: {consumptionFuel}</span>}{" "}
