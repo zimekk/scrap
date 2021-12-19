@@ -207,6 +207,31 @@ function IdLink({
   );
 }
 
+function TreeNode({ node, options }) {
+  const {
+    subNodes,
+    key,
+    category,
+    effectivePrice: { grossPrice },
+  } = node;
+  return (
+    <div>
+      <div>
+        {key && `[${key}]`} {category}{" "}
+        {key && options[key] && options[key].phrases.longDescription} (
+        {grossPrice})
+      </div>
+      <ul>
+        {subNodes.map((node, key) => (
+          <li key={key}>
+            <TreeNode node={node} options={options} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 function Options({ criteria, setCriteria, version = 1 }) {
   const { availableOptions, priceTreeNode, options } =
     optionsAsset.read(version);
@@ -241,7 +266,7 @@ function Options({ criteria, setCriteria, version = 1 }) {
                   longDescription.toLowerCase().match(label)
               ) > -1)(filter.split(",").map((s) => s.trim()))
         ),
-    [availableOptions, priceTreeNode, options, filter]
+    [availableOptions, options, filter]
   );
 
   const setSearch = (set) =>
@@ -284,6 +309,7 @@ function Options({ criteria, setCriteria, version = 1 }) {
           )
         )}
       </ul>
+      <TreeNode node={priceTreeNode} options={options} />
     </div>
   );
 }
