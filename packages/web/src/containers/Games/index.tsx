@@ -199,10 +199,8 @@ function Data({ version = "v1" }) {
           ) => (
             <li key={key} className={styles.Row}>
               <Gallery className={styles.Gallery} images={Images} />
-              <Summary {...{ ProductTitle, PublisherName }} />
-              {_history.map((item: any, key: number) => (
-                <Details key={key} {...item} />
-              ))}
+              <Summary {...{ LastModifiedDate, ProductTitle, PublisherName }} />
+              <History history={_history} />
             </li>
           )
         )}
@@ -211,10 +209,35 @@ function Data({ version = "v1" }) {
   );
 }
 
+const HISTORY_LIMIT = 2;
+
+function History({ history }: { history: any[] }) {
+  const [more, setMore] = useState(() =>
+    history.length > HISTORY_LIMIT ? false : true
+  );
+
+  return (
+    <div className={styles.History}>
+      {(more ? history : history.slice(0, HISTORY_LIMIT)).map(
+        (item: any, key: number) => (
+          <Details key={key} {...item} />
+        )
+      )}
+      {more === false && (
+        <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
+          more...
+        </Link>
+      )}
+    </div>
+  );
+}
+
 function Summary({
+  LastModifiedDate,
   ProductTitle,
   PublisherName,
 }: {
+  LastModifiedDate: Date;
   ProductTitle: string;
   PublisherName: string;
 }) {
@@ -224,6 +247,7 @@ function Summary({
         <Link href={`#`}>{ProductTitle}</Link>
       </h3>
       <h4>{PublisherName}</h4>
+      {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
   );
 }

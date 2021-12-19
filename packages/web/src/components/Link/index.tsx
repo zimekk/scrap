@@ -1,11 +1,12 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 export function Link({
   href = "#",
   ...props
 }: {
   children: React.ReactChild;
-  href: string;
+  href?: string;
+  onClick?: MouseEventHandler;
 }) {
   const hash = href[0] === "#";
 
