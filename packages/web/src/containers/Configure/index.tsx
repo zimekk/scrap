@@ -232,7 +232,90 @@ function TreeNode({ node, options }) {
   );
 }
 
+const getDescription = (details: {
+  familyCode: string;
+  phrases: { longDescription: string };
+}) =>
+  [details.phrases.longDescription]
+    .concat(
+      {
+        MET: "Metalizowany",
+      }[details.familyCode] || []
+    )
+    .join(" ");
+
 function Options({ criteria, setCriteria, version = 1 }) {
+  const [text, setText] = useState(`WYPOSAŻENIE
+KOMUNIKACJA
+Zestaw HiFi Harman Kardon Surround Sound
+Hotspot Wi-Fi
+Radio cyfrowe DAB+
+Obsługa za pomocą gestów
+Telefonia komfortowa
+Usługi ConnectedDrive
+Teleserwis
+Cyfrowy zestaw wskaźników
+Inteligentne połączenie alarmowe
+Pakiet ConnectedDrive Plus
+EDYCJE I PAKIETY
+Pakiet Connected Professional
+Pakiet dodatkowych schowków
+M Shadowline o rozszerzonym zakresie
+Obramowania M Shadowline czarne na wysoki połysk
+Pakiet aerodynamiczny M
+Pakiet Business Class
+WYPOSAŻENIE ZEWNĘTRZNE
+Szklany dach panoramiczny
+21" aluminiowe obręcze M Double-spoke 718 Bicolor z ogumieniem Runflat
+Sportowy układ hamulcowy M
+Przyciemniana szyba tylna i tylne szyby boczne
+Relingi dachowe M Shadowline czarne na wysoki połysk
+Opony z funkcją jazdy awaryjnej Runflat
+WYPOSAŻENIE WNĘTRZA
+Sportowe fotele przednie
+Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy
+Klimatyzacja automatyczna
+Podparcie lędzwiowe przód
+Pakiet dodatkowych funkcji lusterek
+Lusterko wsteczne przyciemniane automatycznie
+Kierownica sportowa M, skórzana
+Dostęp komfortowy
+Podsufitka M Anthracite
+Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec
+Oświetlenie ambientowe
+Ogrzewanie kierownicy
+Ogrzewanie foteli przednich
+Siatka oddzielająca bagażnik
+Szyby przednie o zwiększonej izolacji akustycznej
+Galwanizowane wykończenie elementów obsługi
+Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie
+Śruby zabezpieczające
+Elektryczna regulacja szerokości oparcia
+Dywaniki welurowe
+OŚWIETLENIE
+Reflektory laserowe
+Asystent świateł drogowych
+BEZPIECZEŃSTWO I OCHRONA
+Active Guard
+System bezpieczeństwa Active Protection
+Kamera 360 stopni
+Asystent parkowania Plus z systemem kamer 360
+System alarmowy
+Systemy asystujące kierowcy Professional
+System monitorowania ciśnienia opon
+Aktywna ochrona pieszych
+BMW Drive Recorder
+INNE
+Zawieszenie adaptacyjne M
+Zmienny, sportowy układ kierowniczy
+Sportowa automatyczna skrzynia biegów z łopatkami
+Sportowy dyferencjał M
+Performance Control
+Funkcja dezaktywacji poduszki powietrznej
+Zwiększony bak paliwa
+Mild Hybrid - permanentny system Start/Stop
+`);
+  const [checkedOptions, setCheckedOptions] = useState<string[]>([]);
   const { availableOptions, priceTreeNode, options } =
     optionsAsset.read(version);
 
@@ -275,39 +358,131 @@ function Options({ criteria, setCriteria, version = 1 }) {
       search: set(search),
     }));
 
+  const onToggleOption = useCallback(
+    ({ target }) =>
+      setCheckedOptions((checked) =>
+        target.checked
+          ? checked.concat(target.value)
+          : checked.filter((value) => value !== target.value)
+      ),
+    []
+  );
+
+  const optionCode = useMemo(
+    () =>
+      availableOptions
+        .filter(({ optionCode }: { optionCode: number }) =>
+          checkedOptions.includes(optionCode)
+        )
+        .reduce((result, { grossPrice }) => result + grossPrice, 0)
+        .toString(),
+    [availableOptions, checkedOptions]
+  );
+
+  const textLabels = useMemo(
+    () =>
+      text
+        .split("\n")
+        .map((s) => s.split("\t"))
+        .flat()
+        .map((s) => s.toLowerCase().trim())
+        .filter((s) => s.length > 0),
+    [text]
+  );
+
+  const onSelectMatched = useCallback(
+    () =>
+      setCheckedOptions(
+        availableOptions
+          .filter(({ optionCode }) =>
+            ((description) => textLabels.includes(description.toLowerCase()))(
+              getDescription(options[optionCode])
+            )
+          )
+          .map(({ optionCode }) => optionCode)
+      ),
+    [options, textLabels]
+  );
+
   return (
     <div className={styles.Options}>
+      <fieldset>
+        <div>
+          <textarea
+            value={text}
+            onChange={useCallback(({ target }) => setText(target.value), [])}
+          />
+        </div>
+        <div>
+          <input type="text" value={optionCode} readOnly />
+          <button onClick={onSelectMatched}>select matched</button>
+        </div>
+      </fieldset>
       <ul>
-        {list.map(
-          ({ optionCode, grossPrice, combinationPrices, details }, key) => (
-            <li key={key}>
-              [<IdLink setSearch={setSearch}>{optionCode}</IdLink>
-              {details.familyCode && (
-                <>
-                  /<IdLink setSearch={setSearch}>{details.familyCode}</IdLink>
-                </>
-              )}
-              ]{details.salesGroupCodes.join(", ")} - {details.optionType} -{" "}
-              {details.phrases.longDescription} ({grossPrice})
-              {details.causesAdditions &&
-                details.causesAdditions.map((code, key) => (
-                  <Fragment key={key}>
-                    [<IdLink setSearch={setSearch}>{code}</IdLink>]
-                  </Fragment>
+        {list.map(({ optionCode, grossPrice, combinationPrices, details }) => (
+          <li key={optionCode}>
+            {grossPrice > 0 ? (
+              <input
+                type="checkbox"
+                value={optionCode}
+                onChange={onToggleOption}
+                checked={checkedOptions.includes(optionCode)}
+              />
+            ) : (
+              <input type="checkbox" value={optionCode} checked disabled />
+            )}
+            [<IdLink setSearch={setSearch}>{optionCode}</IdLink>
+            {details.familyCode && (
+              <>
+                /<IdLink setSearch={setSearch}>{details.familyCode}</IdLink>
+              </>
+            )}
+            ]{details.salesGroupCodes.join(", ")} - {details.optionType} -{" "}
+            {((description) => (
+              <span
+                style={{
+                  textDecoration: textLabels.includes(description.toLowerCase())
+                    ? "underline"
+                    : "none",
+                }}
+              >
+                {description}
+              </span>
+            ))(getDescription(details))}{" "}
+            (<strong>{grossPrice}</strong>)
+            {details.causesAdditions &&
+              details.causesAdditions.map((code, key) => (
+                <Fragment key={key}>
+                  [<IdLink setSearch={setSearch}>{code}</IdLink>]
+                </Fragment>
+              ))}
+            {combinationPrices && (
+              <ul>
+                {combinationPrices.map(({ optionCode, grossPrice }, key) => (
+                  <li key={key}>
+                    {grossPrice > 0 ? (
+                      <input
+                        type="checkbox"
+                        value={optionCode}
+                        onChange={onToggleOption}
+                        checked={checkedOptions.includes(optionCode)}
+                      />
+                    ) : (
+                      <input
+                        type="checkbox"
+                        value={optionCode}
+                        checked
+                        disabled
+                      />
+                    )}
+                    [<IdLink setSearch={setSearch}>{optionCode}</IdLink>]{" "}
+                    {grossPrice}
+                  </li>
                 ))}
-              {combinationPrices && (
-                <ul>
-                  {combinationPrices.map(({ optionCode, grossPrice }, key) => (
-                    <li key={key}>
-                      [<IdLink setSearch={setSearch}>{optionCode}</IdLink>]{" "}
-                      {grossPrice}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          )
-        )}
+              </ul>
+            )}
+          </li>
+        ))}
       </ul>
       <TreeNode node={priceTreeNode} options={options} />
     </div>
