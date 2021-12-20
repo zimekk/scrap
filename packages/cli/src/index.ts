@@ -1,7 +1,7 @@
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
-import { Subject, from } from "rxjs";
-import { distinct, map, mergeMap, tap } from "rxjs/operators";
+import { Subject, from, of } from "rxjs";
+import { delay, distinct, map, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
 import { headingDistanceTo } from "geolocation-utils";
@@ -51,6 +51,65 @@ const timeout =
 
 const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
   mktime - (mktime % period);
+
+export const remove = () => {
+  const check$ = new Subject<{
+    id: number;
+  }>();
+
+  check$
+    .pipe(
+      take(100),
+      mergeMap(
+        (item) =>
+          of(item).pipe(
+            map(
+              ({ id }) =>
+                `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
+            ),
+            mergeMap((href) =>
+              fetch(href)
+                .then((response: any) =>
+                  Boolean(console.log(href, response.status)) ||
+                  response.status === 404
+                    ? { ...item, _removed: _time }
+                    : { ...item, _checked: _time }
+                )
+                .then((item) =>
+                  vehicleItems
+                    .update(item)
+                    .then(timeout())
+                    .then(() => item)
+                )
+            ),
+            delay(100)
+          ),
+        1
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+    });
+
+  vehicleItems.find({}).then((list: any) =>
+    list
+      .sort((a: any, b: any) => a._created - b._created)
+      .filter(
+        ({
+          _checked = 0,
+          _removed = 0,
+        }: {
+          _checked: number;
+          _removed: number;
+        }) => _checked < _past && _removed < _time
+      )
+      .slice(0, 1000)
+      .map((item: any, i: number, list: any[]) => {
+        // console.log(`${i}/${list.length}`);
+        check$.next(item);
+      })
+  );
+};
 
 export const verify = () => {
   const unify = ({
@@ -1078,7 +1137,7 @@ export default function () {
 
   from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe(($type) => {
     console.log({ $type });
-    vehicles3$.next({ $type });
+    // vehicles3$.next({ $type });
   });
 
   from(["porsche:search"]).subscribe(($type) => {
