@@ -45,6 +45,14 @@ class Entities {
       )
     );
   }
+
+  remove(i: any) {
+    return new Promise((resolve, reject) =>
+      this.db.remove({ _id: i._id }, {}, (err: any, res: object) =>
+        err ? reject(err) : resolve(res)
+      )
+    );
+  }
 }
 
 export const items = new Entities(resolve(__dirname, "../temp/items.db"));

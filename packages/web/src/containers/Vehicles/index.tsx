@@ -166,6 +166,8 @@ const createCriteria =
             }),
           {}
         ),
+
+        removed: "0",
       },
       defaults
     );
@@ -276,6 +278,8 @@ function Data({ version = "v1" }) {
                 (criteria.filter as string).split(",").map((s) => s.trim())
               )) &&
             ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
+            (criteria.removed == "" ||
+              criteria.removed === ((item._removed || 0) > 0 ? "1" : "0")) &&
             criteria.priceFrom <= item.transactionalPrice &&
             item.transactionalPrice <= criteria.priceTo &&
             (item.mileage === undefined ||
@@ -609,6 +613,7 @@ function Criteria({
   setCriteria,
   setSearch,
   sortBy,
+  removed,
 }) {
   const onChangeSearch = useCallback(
     ({ target }) => setSearch(target.value),
@@ -995,6 +1000,28 @@ function Criteria({
             </label>
           </div>
         ))}
+      <div>
+        <label>
+          <span>Sold</span>
+          <select
+            value={removed}
+            onChange={useCallback(
+              ({ target }) =>
+                setCriteria((criteria) => ({
+                  ...criteria,
+                  removed: target.value,
+                })),
+              []
+            )}
+          >
+            {["", "0", "1"].map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
     </fieldset>
   );
 }
@@ -1176,7 +1203,7 @@ function Details({
           )}
         </li>
       )}
-      {(item._created || item._updated) && (
+      {(item._created || item._updated || item._removed) && (
         <li>
           {item._created && (
             <span className={cx(styles.Compare)}>
@@ -1186,6 +1213,11 @@ function Details({
           {item._updated && (
             <span className={cx(styles.Compare)}>
               _updated: {format(Number(item._updated), "yyyy-MM-dd HH:mm")}{" "}
+            </span>
+          )}
+          {item._removed && (
+            <span className={cx(styles.Compare)}>
+              _removed: {format(Number(item._removed), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
         </li>

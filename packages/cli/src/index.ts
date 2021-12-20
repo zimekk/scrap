@@ -55,6 +55,7 @@ const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
 export const remove = () => {
   const check$ = new Subject<{
     id: number;
+    isNew: boolean;
   }>();
 
   check$
@@ -63,9 +64,10 @@ export const remove = () => {
       mergeMap(
         (item) =>
           of(item).pipe(
-            map(
-              ({ id }) =>
-                `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
+            map(({ id, isNew }) =>
+              isNew
+                ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
+                : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
             ),
             mergeMap((href) =>
               fetch(href)
@@ -92,20 +94,26 @@ export const remove = () => {
     });
 
   vehicleItems.find({}).then((list: any) =>
+    // list
+    //   .filter(({ id }: any) => id === undefined)
+    //   .map((item: any) => vehicleItems.remove(item)) ||
     list
       .sort((a: any, b: any) => a._created - b._created)
       .filter(
         ({
           _checked = 0,
           _removed = 0,
-        }: {
+        }: // isNew,
+        {
           _checked: number;
           _removed: number;
+          // isNew: boolean;
         }) => _checked < _past && _removed < _time
+        // _removed > 0 && isNew
       )
       .slice(0, 1000)
-      .map((item: any, i: number, list: any[]) => {
-        // console.log(`${i}/${list.length}`);
+      .map(({ _removed, ...item }: any, i: number, list: any[]) => {
+        // console.log(`${i + 1}/${list.length}`);
         check$.next(item);
       })
   );

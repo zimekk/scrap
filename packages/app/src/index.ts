@@ -89,87 +89,99 @@ const api = Router()
             .find({})
             .then((vehicleBasic: any) => vehicleBasic.slice(0, 5000))
             .then((list) =>
-              list.map(({ _id, _created, _updated, ...source }: any) => ({
-                _id,
-                _created,
-                _updated,
-                // source,
-                title: source.title,
-                ...(({ leasable, leaseProduct, comfortLeaseProduct, age }) => ({
-                  leasable,
-                  leaseProduct,
-                  comfortLeaseProduct,
-                  age,
-                }))(source),
-                dealer: (({ dealer: { id, name, lat, lng } }) => ({
-                  id,
-                  name,
-                  lat,
-                  lng,
-                }))(source),
-                ...(({
-                  id,
-                  isNew,
-                  vatReclaimable,
-                  warranty,
-                  productionYear,
-                  newPrice,
-                  optionsPrice,
-                  accessoriesPrice,
-                  transactionalPrice,
-                  brand,
-                  bodyType,
-                  series,
-                  seriesCode,
-                  modelCode,
-                  powerHP,
-                  powerKW,
-                  capacity,
-                  fuel,
-                  consumptionFuel,
-                  transmission,
-                  color,
-                  images,
-                }) => ({
-                  id,
-                  href: `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`,
-                  isNew,
-                  newPrice,
-                  optionsPrice,
-                  accessoriesPrice,
-                  vatReclaimable: Boolean(vatReclaimable) ? 1 : 0,
-                  warranty: Boolean(warranty > 0) ? 1 : 0,
-                  productionYear,
-                  transactionalPrice,
-                  brand,
-                  bodyType,
-                  series,
-                  seriesCode,
-                  modelCode,
-                  powerHP,
-                  powerKW,
-                  capacity,
-                  fuel,
-                  consumptionFuel,
-                  transmission,
-                  color,
-                  images: [...Array(images)].map(
-                    (
-                      _,
-                      i,
-                      _list,
-                      size = "322/255b28ffdad35cd984ff32f30da17158"
-                    ) =>
-                      `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
-                  ),
-                }))(source),
-                ...(source.isNew
-                  ? {}
-                  : (({ mileage, registration }) => ({
-                      registration,
-                      mileage,
-                    }))(source)),
-              }))
+              list.map(
+                ({ _id, _created, _updated, _removed = 0, ...source }: any) =>
+                  // Boolean(console.log(source))||
+                  ({
+                    _id,
+                    _created,
+                    _updated,
+                    _removed,
+                    // source,
+                    title: source.title,
+                    ...(({
+                      leasable,
+                      leaseProduct,
+                      comfortLeaseProduct,
+                      age,
+                    }) => ({
+                      leasable,
+                      leaseProduct,
+                      comfortLeaseProduct,
+                      age,
+                    }))(source),
+                    dealer: (({ dealer: { id, name, lat, lng } }) => ({
+                      id,
+                      name,
+                      lat,
+                      lng,
+                    }))(source),
+                    ...(({
+                      id,
+                      isNew,
+                      vatReclaimable,
+                      warranty,
+                      productionYear,
+                      newPrice,
+                      optionsPrice,
+                      accessoriesPrice,
+                      transactionalPrice,
+                      brand,
+                      bodyType,
+                      series,
+                      seriesCode,
+                      modelCode,
+                      powerHP,
+                      powerKW,
+                      capacity,
+                      fuel,
+                      consumptionFuel,
+                      transmission,
+                      color,
+                      images,
+                    }) => ({
+                      id,
+                      href: isNew
+                        ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
+                        : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`,
+                      isNew,
+                      newPrice,
+                      optionsPrice,
+                      accessoriesPrice,
+                      vatReclaimable: Boolean(vatReclaimable) ? 1 : 0,
+                      warranty: Boolean(warranty > 0) ? 1 : 0,
+                      productionYear,
+                      transactionalPrice,
+                      brand,
+                      bodyType,
+                      series,
+                      seriesCode,
+                      modelCode,
+                      powerHP,
+                      powerKW,
+                      capacity,
+                      fuel,
+                      consumptionFuel,
+                      transmission,
+                      color,
+                      images: [...Array(images)].map(
+                        (
+                          _,
+                          i,
+                          _list,
+                          size = "322/255b28ffdad35cd984ff32f30da17158"
+                        ) =>
+                          `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
+                      ),
+                    }))(source),
+                    ...(source.isNew
+                      ? {}
+                      : (({ mileage, registration }) => ({
+                          registration,
+                          mileage,
+                        }))(source)),
+                  })
+              )
             ),
           vehicle2Items
             .find({})
