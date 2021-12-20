@@ -1180,6 +1180,9 @@ function Details({
           )}
         >
           transactionalPrice: {transactionalPrice}
+          {Boolean(newPrice) && (
+            <span> ({Math.round((100 * transactionalPrice) / newPrice)}%)</span>
+          )}
         </span>{" "}
         <span
           className={cx(
