@@ -407,9 +407,10 @@ Mild Hybrid - permanentny system Start/Stop
   return (
     <div className={styles.Options}>
       <fieldset>
-        <div>
+        <div className={styles.Textarea}>
           <textarea
             value={text}
+            rows={10}
             onChange={useCallback(({ target }) => setText(target.value), [])}
           />
         </div>

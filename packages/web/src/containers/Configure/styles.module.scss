@@ -1,3 +1,9 @@
 .Section {
   color: purple;
 }
+.Options {
+  .Textarea {
+    display: flex;
+    flex-direction: column;
+  }
+}

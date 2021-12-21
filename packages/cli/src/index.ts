@@ -20,6 +20,7 @@ import {
   openPage,
   navigateAndGetPageSource,
 } from "./chrome";
+import { scrapOptions } from "./utils";
 
 require("dotenv").config();
 
@@ -45,7 +46,7 @@ const _time = Date.now();
 const _past = _time - ERA;
 
 const timeout =
-  (timeout = Math.random() * 5000) =>
+  (timeout = Math.random() * 3000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
@@ -60,7 +61,7 @@ export const remove = () => {
 
   check$
     .pipe(
-      take(100),
+      take(1000),
       mergeMap(
         (item) =>
           of(item).pipe(
@@ -75,7 +76,10 @@ export const remove = () => {
                   Boolean(console.log(href, response.status)) ||
                   response.status === 404
                     ? { ...item, _removed: _time }
-                    : { ...item, _checked: _time }
+                    : response.text().then((html: string) => ({
+                        ...scrapOptions(item, html),
+                        _checked: _time,
+                      }))
                 )
                 .then((item) =>
                   vehicleItems
@@ -108,7 +112,7 @@ export const remove = () => {
           _checked: number;
           _removed: number;
           // isNew: boolean;
-        }) => _checked < _past && _removed < _time
+        }) => _checked < _past && _removed === 0
         // _removed > 0 && isNew
       )
       .slice(0, 1000)
@@ -845,7 +849,10 @@ export default function () {
       _id,
       _created,
       _updated,
+      _checked,
+      _removed,
       _history,
+      options,
       ..._item
     }: {
       lastChange?: any;
@@ -854,7 +861,10 @@ export default function () {
       _id: string;
       _created: number;
       _updated: number;
+      _checked: number;
+      _removed: number;
       _history: {};
+      options: string[];
     },
     {
       lastChange: _lastChange,

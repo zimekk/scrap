@@ -1230,6 +1230,11 @@ function Details({
           <Leasing item={item} />
         </li>
       )}
+      {item.options && (
+        <li>
+          <Options options={item.options} />
+        </li>
+      )}
     </ul>
   );
 }
@@ -1263,6 +1268,30 @@ function Leasing({ item }) {
       )}
       {expand && item.leaseProduct && (
         <Calculator productType={ProductTypes.LEASE} vehicle={item} />
+      )}
+    </div>
+  );
+}
+
+function Options({ options }: { options: string[] }) {
+  const [expand, setExpand] = useState(false);
+
+  return (
+    <div className={styles.Options}>
+      <Link
+        onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
+      >
+        {expand ? "Hide options" : "Show options"}
+      </Link>{" "}
+      {expand && (
+        <div className={styles.Textarea}>
+          <textarea
+            value={options.join("\n")}
+            rows={options.length}
+            onFocus={({ target }) => target.select()}
+            readOnly
+          />
+        </div>
       )}
     </div>
   );

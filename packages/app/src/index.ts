@@ -98,6 +98,7 @@ const api = Router()
                     _updated,
                     _removed,
                     // source,
+                    options: source.options,
                     title: source.title,
                     ...(({
                       leasable,
