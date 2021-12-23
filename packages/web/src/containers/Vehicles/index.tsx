@@ -379,30 +379,12 @@ function Data({ version = "v1" }) {
         setCriterion={setCriterion}
         criteria={criteria}
       />
-      {favorites.length > 0 ? (
-        <div>
-          {`Your favorites: `}
-          {favorites.map((favorite, key) => (
-            <IdLink key={key} setSearch={setSearch}>
-              {favorite}
-            </IdLink>
-          ))}{" "}
-          <Link
-            onClick={(e) => (
-              e.preventDefault(), setSearch(favorites.join(`, `))
-            )}
-          >
-            search
-          </Link>{" "}
-          |{" "}
-          <Link onClick={(e) => (e.preventDefault(), setFavorites([]))}>
-            clear
-          </Link>
-        </div>
-      ) : (
-        <div>{`You don't have favorites`}</div>
-      )}
-      <div>{`Found ${list.length} vehicles out of a total of ${results.length}`}</div>
+      <Favorite
+        favorites={favorites}
+        setFavorites={setFavorites}
+        setSearch={setSearch}
+      />
+      <Summary list={list} results={results} />
       <ol>
         {sorted
           .slice(0, 100)
@@ -431,6 +413,101 @@ function Data({ version = "v1" }) {
           ))}
       </ol>
     </div>
+  );
+}
+
+function Summary({
+  list,
+  results,
+}: {
+  list: { _created?: number; _updated?: number; _removed?: number }[];
+  results: { _created?: number; _updated?: number; _removed?: number }[];
+}) {
+  const [expand, setExpand] = useState(false);
+  const summary = useMemo(
+    () =>
+      list.reduce(
+        (summary, { item }) =>
+          Object.assign(
+            summary,
+            item._created
+              ? {
+                  created: update(summary.created, {
+                    [format(item._created, "yyyy-MM-dd")]: {
+                      $apply: (count = 0) => count + 1,
+                    },
+                  }),
+                }
+              : {},
+            item._updated
+              ? {
+                  updated: update(summary.updated, {
+                    [format(item._updated, "yyyy-MM-dd")]: {
+                      $apply: (count = 0) => count + 1,
+                    },
+                  }),
+                }
+              : {},
+            item._removed
+              ? {
+                  removed: update(summary.removed, {
+                    [format(item._removed, "yyyy-MM-dd")]: {
+                      $apply: (count = 0) => count + 1,
+                    },
+                  }),
+                }
+              : {}
+          ),
+        {
+          created: {},
+          updated: {},
+          removed: {},
+        }
+      ),
+    [list]
+  );
+  return (
+    <div>
+      <div>
+        {`Found ${list.length} vehicles out of a total of ${results.length}`}{" "}
+        <Link
+          onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
+        >
+          {expand ? "Hide summary" : "Show summary"}
+        </Link>
+      </div>
+      {expand && <pre>{JSON.stringify(summary, null, 2)}</pre>}
+    </div>
+  );
+}
+
+function Favorite({
+  favorites,
+  setFavorites,
+  setSearch,
+}: {
+  favorites: string[];
+  setFavorites: Function;
+  setSearch: Function;
+}) {
+  return favorites.length > 0 ? (
+    <div>
+      {`Your favorites: `}
+      {favorites.map((favorite, key) => (
+        <IdLink key={key} setSearch={setSearch}>
+          {favorite}
+        </IdLink>
+      ))}{" "}
+      <Link
+        onClick={(e) => (e.preventDefault(), setSearch(favorites.join(`, `)))}
+      >
+        search
+      </Link>{" "}
+      |{" "}
+      <Link onClick={(e) => (e.preventDefault(), setFavorites([]))}>clear</Link>
+    </div>
+  ) : (
+    <div>{`You don't have favorites`}</div>
   );
 }
 
