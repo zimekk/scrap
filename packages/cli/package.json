@@ -28,7 +28,7 @@
     "geolocation-utils": "^1.2.5",
     "isomorphic-fetch": "^3.0.0",
     "json-diff": "^0.7.1",
-    "node-html-parser": "^5.1.0",
+    "node-html-parser": "^5.2.0",
     "puppeteer": "^13.0.1",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
