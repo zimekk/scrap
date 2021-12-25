@@ -58,6 +58,10 @@ export const remove = () => {
     id: number;
     isNew: boolean;
   }>();
+  const summary = <Record<"checked" | "removed", number[]>>{
+    checked: [],
+    removed: [],
+  };
 
   check$
     .pipe(
@@ -93,11 +97,17 @@ export const remove = () => {
         1
       )
     )
-    .subscribe((item: any) => {
-      console.log({ item });
+    .subscribe({
+      next: (item: { id: number; _removed?: number }) => {
+        console.log({ item });
+        summary[item._removed ? "removed" : "checked"].push(item.id);
+      },
+      complete: () => {
+        console.log(summary);
+      },
     });
 
-  vehicleItems.find({}).then((list: any) =>
+  vehicleItems.find({}).then((list: any) => {
     // list
     //   .filter(({ id }: any) => id === undefined)
     //   .map((item: any) => vehicleItems.remove(item)) ||
@@ -119,8 +129,9 @@ export const remove = () => {
       .map(({ _removed, ...item }: any, i: number, list: any[]) => {
         // console.log(`${i + 1}/${list.length}`);
         check$.next(item);
-      })
-  );
+      });
+    check$.complete();
+  });
 };
 
 export const verify = () => {
@@ -174,6 +185,12 @@ export const verify = () => {
 
 export default function () {
   let requestLimit = 1000;
+
+  const summary = <Record<string, number[]>>{
+    created: [],
+    skipped: [],
+    updated: [],
+  };
 
   const config = {
     klik: ({
@@ -821,23 +838,32 @@ export default function () {
       ),
       mergeMap(({ $list }) => $list)
     )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      vehicleItems
-        .findOne({ id: item.id })
-        // .then((exists: any) => exists || vehicleItems.insert(item));
-        .then((exists: any) => {
-          if (exists) {
-            const diff = diffItem(exists, item);
-            if (diff) {
-              console.log(`[${exists.id}]`);
-              console.log(diff);
-              vehicleItems.update(updateItem(exists, item));
+    .subscribe({
+      next: (item: any) => {
+        // console.log({ item });
+        vehicleItems
+          .findOne({ id: item.id })
+          // .then((exists: any) => exists || vehicleItems.insert(item));
+          .then((exists: any) => {
+            if (exists) {
+              const diff = diffItem(exists, item);
+              if (diff) {
+                console.log(`[${exists.id}]`);
+                console.log(diff);
+                vehicleItems.update(updateItem(exists, item));
+                summary.updated.push(item.id);
+              } else {
+                summary.skipped.push(item.id);
+              }
+            } else {
+              vehicleItems.insert(createItem(item));
+              summary.created.push(item.id);
             }
-          } else {
-            vehicleItems.insert(createItem(item));
-          }
-        });
+          });
+      },
+      complete: () => {
+        console.log(summary);
+      },
     });
 
   const createItem = (item: {}) => ({ ...item, _created: _time });
