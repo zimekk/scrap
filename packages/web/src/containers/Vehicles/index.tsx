@@ -416,52 +416,72 @@ function Data({ version = "v1" }) {
   );
 }
 
+const sortByKey = (list: object) =>
+  Object.entries(list)
+    .sort(([a], [b]) => (a < b ? 1 : -1))
+    .reduce((list, [key, item]) => Object.assign(list, { [key]: item }), {});
+
 function Summary({
   list,
   results,
 }: {
-  list: { _created?: number; _updated?: number; _removed?: number }[];
-  results: { _created?: number; _updated?: number; _removed?: number }[];
+  list: { item: { _created?: number; _updated?: number; _removed?: number } }[];
+  results: {
+    item: { _created?: number; _updated?: number; _removed?: number };
+  }[];
 }) {
   const [expand, setExpand] = useState(false);
   const summary = useMemo(
     () =>
-      list.reduce(
-        (summary, { item }) =>
-          Object.assign(
-            summary,
-            item._created
-              ? {
-                  created: update(summary.created, {
-                    [format(item._created, "yyyy-MM-dd")]: {
-                      $apply: (count = 0) => count + 1,
-                    },
-                  }),
-                }
-              : {},
-            item._updated
-              ? {
-                  updated: update(summary.updated, {
-                    [format(item._updated, "yyyy-MM-dd")]: {
-                      $apply: (count = 0) => count + 1,
-                    },
-                  }),
-                }
-              : {},
-            item._removed
-              ? {
-                  removed: update(summary.removed, {
-                    [format(item._removed, "yyyy-MM-dd")]: {
-                      $apply: (count = 0) => count + 1,
-                    },
-                  }),
-                }
-              : {}
-          ),
+      update(
+        list.reduce(
+          (summary, { item }) =>
+            Object.assign(
+              summary,
+              item._created
+                ? {
+                    created: update(summary.created, {
+                      [format(item._created, "yyyy-MM-dd")]: {
+                        $apply: (count = 0) => count + 1,
+                      },
+                    }),
+                  }
+                : {},
+              item._updated
+                ? {
+                    updated: update(summary.updated, {
+                      [format(item._updated, "yyyy-MM-dd")]: {
+                        $apply: (count = 0) => count + 1,
+                      },
+                    }),
+                  }
+                : {},
+              item._removed
+                ? {
+                    removed: update(summary.removed, {
+                      [format(item._removed, "yyyy-MM-dd")]: {
+                        $apply: (count = 0) => count + 1,
+                      },
+                    }),
+                  }
+                : {}
+            ),
+          {
+            created: {},
+            updated: {},
+            removed: {},
+          }
+        ),
         {
-          created: {},
-          updated: {},
-          removed: {},
+          created: {
+            $apply: sortByKey,
+          },
+          updated: {
+            $apply: sortByKey,
+          },
+          removed: {
+            $apply: sortByKey,
+          },
         }
       ),
     [list]
