@@ -177,19 +177,41 @@ function Data({ version = "v1" }) {
             <h4>{item.brand}</h4>
             <div>{item.label.join(" | ")}</div>
             <Details item={item} />
-            {Object.entries(item._history)
-              .reverse()
-              .map(([time, prev], key, list) => (
-                <Details
-                  key={key}
-                  item={prev}
-                  prev={key > 0 ? list[key - 1][1] : item}
-                  time={time}
-                />
-              ))}
+            <History
+              history={Object.entries(item._history).reverse()}
+              item={item}
+            />
           </li>
         ))}
       </ol>
+    </div>
+  );
+}
+
+const HISTORY_LIMIT = 1;
+
+function History({ history, item }: { history: any[]; item: unknown }) {
+  const [more, setMore] = useState(() =>
+    history.length > HISTORY_LIMIT ? false : true
+  );
+
+  return (
+    <div className={styles.History}>
+      {(more ? history : history.slice(0, HISTORY_LIMIT)).map(
+        ([time, prev], key, list) => (
+          <Details
+            key={key}
+            item={prev}
+            prev={key > 0 ? list[key - 1][1] : item}
+            time={time}
+          />
+        )
+      )}
+      {more === false && (
+        <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
+          more...
+        </Link>
+      )}
     </div>
   );
 }
