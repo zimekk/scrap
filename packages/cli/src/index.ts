@@ -853,6 +853,7 @@ export default function () {
                 vehicleItems.update(updateItem(exists, item));
                 summary.updated.push(item.id);
               } else {
+                vehicleItems.update({ ...exists, _checked: _time });
                 summary.skipped.push(item.id);
               }
             } else {
