@@ -32,7 +32,7 @@
     "puppeteer": "^13.0.1",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
-    "rxjs": "^7.4.0"
+    "rxjs": "^7.5.1"
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35",
