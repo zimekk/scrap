@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
+import slug from "slug";
 import useDebounce from "../useDebounce";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
@@ -22,6 +23,15 @@ const asset = createAsset(async (version) => {
   return await res.json().then(({ Products }) => ({ results: Products }));
 });
 
+const createHref = ({
+  ProductId,
+  ProductTitle,
+}: {
+  ProductId: string;
+  ProductTitle: string;
+}) =>
+  `https://www.xbox.com/pl-pl/games/store/${slug(ProductTitle)}/${ProductId}`;
+
 const unify = ({
   DisplaySkuAvailabilities: [
     {
@@ -36,6 +46,7 @@ const unify = ({
     { Images, ProductDescription, ProductTitle, PublisherName },
   ],
   LastModifiedDate,
+  ProductId,
 }: any) => ({
   _filter: ProductTitle.toLowerCase(),
   _price: Price.MSRP,
@@ -45,6 +56,7 @@ const unify = ({
   LastModifiedDate: new Date(LastModifiedDate),
   Price,
   ProductDescription,
+  ProductId,
   ProductTitle,
   PublisherName,
 });
@@ -183,7 +195,7 @@ function Data({ version = "v1" }) {
             {
               Images,
               LastModifiedDate,
-              Price,
+              ProductId,
               ProductTitle,
               PublisherName,
               _history,
@@ -191,6 +203,7 @@ function Data({ version = "v1" }) {
               Images: string[];
               LastModifiedDate: Date;
               Price: any;
+              ProductId: string;
               ProductTitle: string;
               PublisherName: string;
               _history: any;
@@ -199,7 +212,14 @@ function Data({ version = "v1" }) {
           ) => (
             <li key={key} className={styles.Row}>
               <Gallery className={styles.Gallery} images={Images} />
-              <Summary {...{ LastModifiedDate, ProductTitle, PublisherName }} />
+              <Summary
+                {...{
+                  LastModifiedDate,
+                  ProductId,
+                  ProductTitle,
+                  PublisherName,
+                }}
+              />
               <History history={_history} />
             </li>
           )
@@ -233,18 +253,22 @@ function History({ history }: { history: any[] }) {
 }
 
 function Summary({
-  LastModifiedDate,
+  // LastModifiedDate,
+  ProductId,
   ProductTitle,
   PublisherName,
 }: {
-  LastModifiedDate: Date;
+  // LastModifiedDate: Date;
+  ProductId: string;
   ProductTitle: string;
   PublisherName: string;
 }) {
   return (
     <div className={styles.Summary}>
       <h3>
-        <Link href={`#`}>{ProductTitle}</Link>
+        <Link href={createHref({ ProductId, ProductTitle })}>
+          {ProductTitle}
+        </Link>
       </h3>
       <h4>{PublisherName}</h4>
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
