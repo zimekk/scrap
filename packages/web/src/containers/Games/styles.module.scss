@@ -9,13 +9,40 @@
   width: 150px;
   height: 200px;
 }
+.Summary {
+  h3 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+  h4 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+  h5 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+  h6 {
+    float: right;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+}
 .Sale {
   color: lightgray;
 }
 .Details {
+  border-top: 1px solid lightgray;
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+
   .Feature {
     &.changed {
       color: blueviolet;
     }
+  }
+  h5 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
   }
 }
