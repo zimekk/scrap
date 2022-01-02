@@ -9,9 +9,11 @@ import styles from "./styles.module.scss";
 
 const SORT_BY = {
   LastModifiedDate: -1,
+  OriginalReleaseDate: -1,
   ProductTitle: 1,
   PublisherName: 1,
   _price: 1,
+  _rating: -1,
   _created: -1,
 };
 
@@ -46,19 +48,25 @@ const unify = ({
     { Images, ProductDescription, ProductTitle, PublisherName },
   ],
   LastModifiedDate,
+  MarketProperties: [{ OriginalReleaseDate, UsageData }],
   ProductId,
+  Properties: { Categories },
 }: any) => ({
   _filter: ProductTitle.toLowerCase(),
   _price: Price.MSRP,
+  _rating: UsageData[UsageData.length - 1].AverageRating,
+  Categories,
   Images: Images.sort((a: any, b: any) => a.Width - b.Width)
     .slice(0, 1)
     .map(({ Uri }: { Uri: string }) => Uri),
   LastModifiedDate: new Date(LastModifiedDate),
+  OriginalReleaseDate: new Date(OriginalReleaseDate),
   Price,
   ProductDescription,
   ProductId,
   ProductTitle,
   PublisherName,
+  UsageData,
 });
 
 function Data({ version = "v1" }) {
@@ -194,11 +202,8 @@ function Data({ version = "v1" }) {
           (
             {
               Images,
-              LastModifiedDate,
-              ProductId,
-              ProductTitle,
-              PublisherName,
               _history,
+              ...rest
             }: {
               Images: string[];
               LastModifiedDate: Date;
@@ -212,14 +217,7 @@ function Data({ version = "v1" }) {
           ) => (
             <li key={key} className={styles.Row}>
               <Gallery className={styles.Gallery} images={Images} />
-              <Summary
-                {...{
-                  LastModifiedDate,
-                  ProductId,
-                  ProductTitle,
-                  PublisherName,
-                }}
-              />
+              <Summary {...rest} />
               <History history={_history} />
             </li>
           )
@@ -253,15 +251,27 @@ function History({ history }: { history: any[] }) {
 }
 
 function Summary({
+  Categories,
+  OriginalReleaseDate,
   // LastModifiedDate,
   ProductId,
   ProductTitle,
   PublisherName,
+  UsageData,
 }: {
+  Categories: [string];
+  OriginalReleaseDate: Date;
   // LastModifiedDate: Date;
   ProductId: string;
   ProductTitle: string;
   PublisherName: string;
+  UsageData: [
+    {
+      AggregateTimeSpan: string;
+      AverageRating: number;
+      RatingCount: number;
+    }
+  ];
 }) {
   return (
     <div className={styles.Summary}>
@@ -271,6 +281,30 @@ function Summary({
         </Link>
       </h3>
       <h4>{PublisherName}</h4>
+      {Categories && (
+        <div>
+          <span>Categories: </span>
+          {Categories.join(", ")}
+        </div>
+      )}
+      {OriginalReleaseDate && (
+        <div>
+          <span>OriginalReleaseDate: </span>
+          {format(OriginalReleaseDate, "yyyy-MM-dd HH:mm")}
+        </div>
+      )}
+      {UsageData && (
+        <div>
+          <span>AverageRating: </span>
+          {UsageData.map(
+            ({ AggregateTimeSpan, AverageRating, RatingCount }, key) => (
+              <span key={key}>
+                {AggregateTimeSpan}: {AverageRating} ({RatingCount}){" "}
+              </span>
+            )
+          )}
+        </div>
+      )}
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
   );
