@@ -115,14 +115,16 @@ export const remove = () => {
       .sort((a: any, b: any) => a._created - b._created)
       .filter(
         ({
+          options,
           _checked = 0,
           _removed = 0,
         }: // isNew,
         {
+          options: any;
           _checked: number;
           _removed: number;
           // isNew: boolean;
-        }) => _checked < _past && _removed === 0
+        }) => (options === undefined || _checked < _past) && _removed === 0
         // _removed > 0 && isNew
       )
       .slice(0, 1000)
