@@ -1083,6 +1083,7 @@ export default function () {
     "get-product:648851-etui-na-tablet-apple-smart-folio-ipada-pro-11-3-gen-granat",
     "get-product:555272-klawiatura-do-tabletu-apple-smart-keyboard-folio-ipad-pro-11-3gen-air-4gen",
     "get-product:555273-klawiatura-do-tabletu-apple-magic-keyboard-ipad-pro-11air-4gen-czarny",
+    "get-product:592404-tablet-10-apple-ipad-air-109-256gb-wi-fi-space-gray",
     "get-product:553107-tablety-11-apple-2020-ipad-pro-11-1-tb-wi-fi-space-gray",
     "get-product:648721-tablety-11-apple-ipad-pro-11-m1-128-gb-wi-fi-space-gray",
     "get-product:648729-tablety-11-apple-ipad-pro-11-m1-1-tb-wi-fi-space-gray",

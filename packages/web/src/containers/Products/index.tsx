@@ -16,7 +16,7 @@ const SORT_BY = {
 };
 
 const PRICE_LIST = [
-  0, 100, 200, 300, 400, 500, 1000, 1500, 2000, 3000, 4000, 5000,
+  0, 100, 200, 500, 1000, 1500, 2000, 3000, 4000, 5000, 10000, 15000, 20000,
 ];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -168,8 +168,8 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map(({ url, _image, ...item }, key: number) => (
-          <li key={key} className={styles.Row}>
+        {sorted.slice(0, 100).map(({ url, _image, ...item }) => (
+          <li key={item.id} className={styles.Row}>
             <Gallery className={styles.Gallery} images={_image} />
             <h3>
               <Link href={url}>{item.title}</Link>

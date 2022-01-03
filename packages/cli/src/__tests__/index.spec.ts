@@ -84,7 +84,7 @@ Wyposażenie zewnętrzne
       expect(scrapOptions(item, html)).toEqual(result)
     ));
 
-  it("scrapProduct", () =>
+  xit("scrapProduct", () =>
     [
       {
         item: { id: "186950" },
