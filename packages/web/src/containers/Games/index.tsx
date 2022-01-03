@@ -39,6 +39,7 @@ const unify = ({
     {
       Availabilities: [
         {
+          Conditions,
           OrderManagementData: { Price },
         },
       ],
@@ -56,6 +57,7 @@ const unify = ({
   _price: Price.MSRP,
   _rating: UsageData[UsageData.length - 1].AverageRating,
   Categories,
+  Conditions,
   Images: Images.sort((a: any, b: any) => a.Width - b.Width)
     .slice(0, 1)
     .map(({ Uri }: { Uri: string }) => Uri),
@@ -261,31 +263,28 @@ function Data({ version = "v1" }) {
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
         {sorted.slice(0, 100).map(
-          (
-            {
-              Images,
-              _history,
-              ...rest
-            }: {
-              Categories: [string];
-              Images: string[];
-              LastModifiedDate: Date;
-              OriginalReleaseDate: Date;
-              Price: any;
-              ProductId: string;
-              ProductTitle: string;
-              PublisherName: string;
-              UsageData: [
-                {
-                  AggregateTimeSpan: string;
-                  AverageRating: number;
-                  RatingCount: number;
-                }
-              ];
-              _history: any;
-            },
-            key: number
-          ) => (
+          ({
+            Images,
+            _history,
+            ...rest
+          }: {
+            Categories: [string];
+            Images: string[];
+            LastModifiedDate: Date;
+            OriginalReleaseDate: Date;
+            Price: any;
+            ProductId: string;
+            ProductTitle: string;
+            PublisherName: string;
+            UsageData: [
+              {
+                AggregateTimeSpan: string;
+                AverageRating: number;
+                RatingCount: number;
+              }
+            ];
+            _history: any;
+          }) => (
             <li key={rest.ProductId} className={styles.Row}>
               <Gallery className={styles.Gallery} images={Images} />
               <Summary {...rest} />
@@ -362,10 +361,15 @@ function Summary({
 }
 
 function Details({
+  Conditions,
   LastModifiedDate,
   Price,
   UsageData,
 }: {
+  Conditions: {
+    StartDate: string;
+    EndDate: string;
+  };
   LastModifiedDate: Date;
   Price: {
     CurrencyCode: string;
@@ -397,7 +401,13 @@ function Details({
         {" / "}
         <span>
           {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(" ")}
+        </span>{" "}
+        (
+        <span>
+          {format(new Date(Conditions.StartDate), "yyyy-MM-dd")} -{" "}
+          {format(new Date(Conditions.EndDate), "yyyy-MM-dd")}
         </span>
+        )
       </h5>
       <div>
         <span>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</span>
