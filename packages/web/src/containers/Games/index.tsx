@@ -46,7 +46,7 @@ const unify = ({
     },
   ],
   LocalizedProperties: [
-    { Images, ProductDescription, ProductTitle, PublisherName },
+    { DeveloperName, Images, ProductDescription, ProductTitle, PublisherName },
   ],
   LastModifiedDate,
   MarketProperties: [{ OriginalReleaseDate, UsageData }],
@@ -58,6 +58,7 @@ const unify = ({
   _rating: UsageData[UsageData.length - 1].AverageRating,
   Categories,
   Conditions,
+  DeveloperName,
   Images: Images.sort((a: any, b: any) => a.Width - b.Width)
     .slice(0, 1)
     .map(({ Uri }: { Uri: string }) => Uri),
@@ -269,6 +270,7 @@ function Data({ version = "v1" }) {
             ...rest
           }: {
             Categories: [string];
+            DeveloperName: string;
             Images: string[];
             LastModifiedDate: Date;
             OriginalReleaseDate: Date;
@@ -322,6 +324,7 @@ function History({ history }: { history: any[] }) {
 
 function Summary({
   Categories,
+  DeveloperName,
   OriginalReleaseDate,
   // LastModifiedDate,
   ProductId,
@@ -329,6 +332,7 @@ function Summary({
   PublisherName,
 }: {
   Categories: [string];
+  DeveloperName: string;
   OriginalReleaseDate: Date;
   // LastModifiedDate: Date;
   ProductId: string;
@@ -348,7 +352,9 @@ function Summary({
           {ProductTitle}
         </Link>
       </h3>
-      <h4>{PublisherName}</h4>
+      <h4>
+        {PublisherName} / {DeveloperName}
+      </h4>
       {Categories && (
         <h5>
           <span>Categories: </span>
