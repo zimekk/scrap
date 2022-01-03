@@ -3,7 +3,6 @@ import cheerio from "cheerio";
 import { Subject, from, of } from "rxjs";
 import { delay, distinct, map, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
-import { parse } from "node-html-parser";
 import { headingDistanceTo } from "geolocation-utils";
 import { items, requests, requestsHtml } from "@dev/api";
 import {
@@ -20,7 +19,7 @@ import {
   openPage,
   navigateAndGetPageSource,
 } from "./chrome";
-import { scrapOptions } from "./utils";
+import { saveProductHtml, scrapOptions, scrapProduct } from "./utils";
 
 require("dotenv").config();
 
@@ -437,14 +436,6 @@ export default function () {
       .catch(console.error);
   };
 
-  const pathToRoot = ($el: any) => {
-    const $path = [];
-    while ($el && $el.tagName !== "HTML") {
-      $path.push(($el = $el.parentNode));
-    }
-    return $path;
-  };
-
   const products$ = new Subject<{
     $type: string;
   }>();
@@ -455,96 +446,12 @@ export default function () {
         ({ $type }: any) =>
           from(browser({ $type })).pipe(
             map((html) => {
-              const id = $type.split(":")[1].split("-")[0];
+              const name = $type.split(":")[1];
+              const id = name.split("-")[0];
 
-              const $root = parse(html);
+              saveProductHtml(name, html);
 
-              const title = $root.querySelector("h1")?.text;
-              const stars = $root
-                .querySelector("h1")
-                ?.parentNode?.nextElementSibling?.querySelector(
-                  "div > a"
-                )?.text;
-              const brand = $root
-                .querySelector("h1")
-                ?.parentNode?.nextElementSibling?.querySelector(
-                  "span > a"
-                )?.text;
-              const label = $root
-                .querySelector("h1")
-                ?.parentNode?.nextElementSibling?.querySelector("span > a")
-                ?.parentNode?.parentNode?.text.split("|");
-
-              const image = $root
-                .querySelectorAll(
-                  "div[order] > div > div > div + div + div img"
-                )
-                .map(($img: any) => $img.getAttribute("src"));
-
-              const $cart = $root
-                .querySelectorAll("div")
-                .find(($div) =>
-                  $div.text.match(
-                    /^(Dodaj do koszyka|Powiadom o dostępności|Sprawdź inne produkty)$/
-                  )
-                );
-              const price = pathToRoot($cart)
-                .find(($div) => $div.rawText.match(/zł/))
-                ?.querySelectorAll("*")
-                .find(($div: any) => $div.text.match(/zł$/))
-                ?.querySelectorAll("div")
-                .filter(
-                  ($div: any) =>
-                    $div.childNodes.length > 0 &&
-                    $div.childNodes[0].nodeType === 3
-                )
-                .map(($div: any) => $div.text);
-              const links = pathToRoot($cart)
-                .find(($div) => $div.rawText.match(/zł/))
-                ?.querySelectorAll("button > span > span > span")
-                .filter(($div: any) => $div.text)
-                .map(($div: any) => $div.text)
-                .filter(
-                  (text: string) =>
-                    Boolean(false && console.log({ text })) ||
-                    !text.match(/Kup teraz|Zapłać w ciągu/)
-                )
-                .filter((array: any) => array.length > 0);
-
-              const $prom = $root
-                .querySelectorAll("h2")
-                .find(($div: any) => $div.text.match(/^(Promocje|Promocja)$/));
-              const proms =
-                pathToRoot($prom)
-                  .find(($div) => $div.querySelector("h3"))
-                  ?.querySelectorAll("h3")
-                  .map(($div: any) => $div.text) || [];
-              const codes =
-                pathToRoot($prom)
-                  .find(($div) => $div.rawText.match(/Skopiowano kod/))
-                  ?.querySelectorAll("p")
-                  .filter(($div: any) =>
-                    $div.text.match(/aktywuj kod rabatowy/)
-                  )
-                  .map(($div: any) => $div.nextElementSibling.text) || [];
-
-              const url = $root
-                .querySelector("link[rel=canonical]")
-                ?.getAttribute("href");
-
-              return {
-                id,
-                url,
-                title,
-                image,
-                stars,
-                brand,
-                label,
-                price,
-                proms,
-                codes,
-                links,
-              };
+              return scrapProduct({ id }, html);
             })
           ),
         1
@@ -1154,6 +1061,31 @@ export default function () {
     "get-product-alto:1010924-robot-sprzatajacy-xiaomi-mi-robot-vacuum-mop-essential",
     "get-product-alto:1011153-oczyszczacz-powietrza-xiaomi-mi-air-purifier-pro-h",
     "get-product-alto:1017784-urzadzenie-do-dezynfekcji-rak-xiaomi-mi-automatic-foaming-soap-dispenser",
+    "get-product-alto:1014810-urzadzenie-kosmetyczne-inface-ultrasonic-ion-cleansing-instrument-bialy",
+    "get-product-alto:1014811-urzadzenie-kosmetyczne-inface-ultrasonic-ion-cleansing-instrument-kolor-czarny",
+    "get-product-alto:1014825-urzadzenie-kosmetyczne-inface-ultrasonic-ion-cleansing-instrument-kolor-rozowy",
+    "get-product:473070-etui-na-laptopa-apple-skorzany-futeral-na-macbook-pro-air-13-czarny",
+    "get-product:584249-etui-na-laptopa-apple-skorzany-futeral-na-macbook-pro-air-13-braz",
+    "get-product:631749-etui-na-laptopa-apple-skorzany-futeral-na-macbook-pro-air-13-blekit",
+    "get-product:622284-notebook-laptop-133-apple-macbook-air-m1-8gb-256-mac-os-gold-us",
+    "get-product:606019-notebook-laptop-133-apple-macbook-air-m1-8gb-256-mac-os-space-gray",
+    "get-product:606366-notebook-laptop-133-apple-macbook-air-m1-16gb-512-mac-os-space-gray",
+    "get-product:606369-notebook-laptop-133-apple-macbook-air-m1-16gb-1tb-mac-os-space-gray",
+    "get-product:606027-notebook-laptop-133-apple-macbook-pro-m1-8gb-256-mac-os-space-gray",
+    "get-product:606377-notebook-laptop-133-apple-macbook-pro-m1-16gb-512-mac-os-space-gray",
+    "get-product:606383-notebook-laptop-133-apple-macbook-pro-m1-16gb-1tb-mac-os-space-gray",
+    "get-product:692730-notebook-laptop-140-apple-macbook-pro-m1-pro-16gb-512-mac-os-space-gray",
+    "get-product:690347-notebook-laptop-140-apple-macbook-pro-m1-pro-16gb-512-mac-os-space-gray",
+    "get-product:690350-notebook-laptop-140-apple-macbook-pro-m1-pro-16gb-1tb-mac-os-space-gray",
+    "get-product:690352-notebook-laptop-140-apple-macbook-pro-m1-max-32gb-1tb-mac-os-space-gray",
+    "get-product:690352-notebook-laptop-140-apple-macbook-pro-m1-max-32gb-1tb-mac-os-space-gray",
+    "get-product:690353-notebook-laptop-140-apple-macbook-pro-m1-max-32gb-1tb-mac-os-space-gray",
+    "get-product:648851-etui-na-tablet-apple-smart-folio-ipada-pro-11-3-gen-granat",
+    "get-product:555272-klawiatura-do-tabletu-apple-smart-keyboard-folio-ipad-pro-11-3gen-air-4gen",
+    "get-product:555273-klawiatura-do-tabletu-apple-magic-keyboard-ipad-pro-11air-4gen-czarny",
+    "get-product:553107-tablety-11-apple-2020-ipad-pro-11-1-tb-wi-fi-space-gray",
+    "get-product:648721-tablety-11-apple-ipad-pro-11-m1-128-gb-wi-fi-space-gray",
+    "get-product:648729-tablety-11-apple-ipad-pro-11-m1-1-tb-wi-fi-space-gray",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });
