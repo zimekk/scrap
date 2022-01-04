@@ -359,7 +359,7 @@ export default function () {
       const mk = timestamp(time);
 
       return {
-        id: ["gratka", mk, type.replace("/", "-"), page].join("-"),
+        id: ["gratka", mk, type.replace(/\//g, "-"), page].join("-"),
         url: `${GRATKA_URL}${type}${page > 1 ? `?page=${page}` : ``}`,
       };
     },
@@ -1086,7 +1086,7 @@ export default function () {
           from(browser({ $type, page })).pipe(
             map((html) => {
               const name = $type.split(":")[1];
-              const id = name.replace("/", "-");
+              const id = name.replace(/\//g, "-");
               saveProductHtml(`gratka-${id}-${page}`, html);
               return scrapPropertyList({ id }, html);
             }),
@@ -1116,11 +1116,11 @@ export default function () {
     });
 
   from([
-    // "gratka:nieruchomosci/dzialki-grunty/warszawa",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
-    // "gratka:nieruchomosci/komorow-34074",
+    "gratka:nieruchomosci/dzialki-grunty/warszawa",
+    "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
+    "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
+    "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
+    "gratka:nieruchomosci/komorow-34074",
     "gratka:nieruchomosci/podkowa-lesna",
   ]).subscribe(($type) => {
     console.log({ $type });

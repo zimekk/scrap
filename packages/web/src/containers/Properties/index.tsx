@@ -14,14 +14,13 @@ const SORT_BY = {
 };
 
 const PRICE_LIST = [
-  0, 100000, 200000, 300000, 400000, 500000, 1000000, 2000000, 5000000,
-  15000000,
+  0, 100000, 200000, 300000, 400000, 500000, 1000000, 1500000, 2000000,
 ];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
-  return await res.json(); //.then(({ Products }) => ({ results: Products }));
+  return await res.json();
 });
 
 const unify = (item: { title: string; price: number }) => ({
@@ -45,7 +44,7 @@ function Data({ version = "v1" }) {
     category: "",
     search: "",
     priceFrom: PRICE_LIST[0],
-    priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
   }));
 
   const [filter] = useDebounce(filters.search);
@@ -92,14 +91,15 @@ function Data({ version = "v1" }) {
         .filter(
           (item: {
             id: string;
-            categories: [string];
+            categories: string[];
             _filter: string;
             _price: number;
           }) =>
             (!filters.category || item.categories.includes(filters.category)) &&
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
-            filters.priceFrom <= item._price &&
-            item._price <= filters.priceTo
+            (filters.priceTo === PRICE_LIST[0] ||
+              (filters.priceFrom <= item._price &&
+                item._price <= filters.priceTo))
         ),
     [results, filter, filters.category, filters.priceFrom, filters.priceTo]
   );
@@ -107,7 +107,8 @@ function Data({ version = "v1" }) {
   const sorted = useMemo(
     () =>
       list.sort(
-        (a: any, b: any) => SORT_BY[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)
+        (a: any, b: any) =>
+          (SORT_BY as any)[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)
       ),
     [list, sortBy]
   );
@@ -199,13 +200,26 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map((item: { id: string; images: [string] }) => (
-          <li key={item.id} className={styles.Row}>
-            <Gallery className={styles.Gallery} images={item.images} />
-            <Summary {...item} />
-            <Details {...item} />
-          </li>
-        ))}
+        {sorted
+          .slice(0, 100)
+          .map(
+            (item: {
+              id: string;
+              images: string[];
+              canonical: string;
+              title: string;
+              price: number;
+              description: string[];
+              parameters: [{ label: string; value: string }];
+              _created: number;
+            }) => (
+              <li key={item.id} className={styles.Row}>
+                <Gallery className={styles.Gallery} images={item.images} />
+                <Summary {...item} />
+                <Details {...item} />
+              </li>
+            )
+          )}
       </ol>
     </div>
   );
@@ -237,16 +251,18 @@ function Details({
   description,
   parameters,
 }: {
-  description: string;
+  description: string[];
   parameters: [{ label: string; value: string }];
 }) {
   return (
     <div className={styles.Details}>
-      <p>{description}</p>
+      {description.map((paragraph, key) => (
+        <p key={key}>{paragraph}</p>
+      ))}
       <ul>
         {parameters.map(({ label, value }, key) => (
           <li key={key}>
-            <b>{label}</b>: {value}
+            {label}: <b>{value}</b>
           </li>
         ))}
       </ul>

@@ -7,7 +7,7 @@
 }
 .Gallery {
   float: left;
-  width: 150px;
+  width: 200px;
   height: 200px;
 }
 .Summary {
@@ -23,4 +23,8 @@
 }
 .Details {
   border-bottom: 1px solid lightgray;
+
+  p {
+    margin: 0;
+  }
 }

@@ -222,8 +222,13 @@ Wyposażenie zewnętrzne
           ],
           title: "Dom Podkowa Leśna",
           price: 1450000,
-          description:
-            "Do sprzedania przedwojenny dom (pod opieką konserwatora) położony w cichym miejscu. Budynek wykonany z drewna obłożony cegłą. Parter składa się obecnie z trzech kuchni, trzech łazienek i sześciu pokoi. Piętro to jeden pokój. Nieruchomość wymaga generalnego remonty. Idealna nieruchomość dla ludzi ceniących ciszę i spokój.Polub nas na Facebooku https://www.facebook.com/nconceptpl/Niniejsze ogłoszenie jest wyłącznie informacją handlową i nie stanowi oferty w myśl art. 66, 1. Kodeksu Cywilnego. Nie odpowiadamy za ewentualne błędy lub nieaktualność ogłoszenia.Oferta wysłana z programu IMO dla biur nieruchomości",
+          description: [
+            "Do sprzedania przedwojenny dom (pod opieką konserwatora) położony w cichym miejscu. Budynek wykonany z drewna obłożony cegłą. Parter składa się obecnie z trzech kuchni, trzech łazienek i sześciu pokoi. Piętro to jeden pokój. Nieruchomość wymaga generalnego remonty. Idealna nieruchomość dla ludzi ceniących ciszę i spokój.",
+            "Polub nas na Facebooku",
+            "https://www.facebook.com/nconceptpl/",
+            "Niniejsze ogłoszenie jest wyłącznie informacją handlową i nie stanowi oferty w myśl art. 66, 1. Kodeksu Cywilnego. Nie odpowiadamy za ewentualne błędy lub nieaktualność ogłoszenia.",
+            "Oferta wysłana z programu IMO dla biur nieruchomości",
+          ],
           parameters: [
             {
               label: "Lokalizacja",

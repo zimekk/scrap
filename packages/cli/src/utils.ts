@@ -160,7 +160,7 @@ export const scrapPropertyItem = (
       images: z.array(z.string()),
       title: z.string(),
       price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
-      description: z.string().transform((value) => value.replace(/\s+/g, " ")),
+      description: z.array(z.string()),
       parameters: z.array(
         z.object({
           label: z.string(),
@@ -182,7 +182,17 @@ export const scrapPropertyItem = (
       price: $root
         .querySelector("span.priceInfo__value")
         ?.firstChild.text.trim(),
-      description: $root.querySelector("div.description__rolled")?.text.trim(),
+      description: $root
+        .querySelector("div.description__rolled")
+        ?.childNodes.reduce((result: string[], $node: any) => {
+          if ($node.nodeType === 3) {
+            result[result.length - 1] += $node.text.trim();
+          } else if ($node.nodeType === 1 && $node.rawTagName === "br") {
+            result.push("");
+          }
+          return result;
+        }, [])
+        .filter((s) => s.length > 0),
       parameters: $root
         .querySelectorAll(".parameters__value")
         .map(($div: any) => ({
