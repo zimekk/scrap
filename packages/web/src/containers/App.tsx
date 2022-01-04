@@ -11,6 +11,7 @@ const PAGES = {
   games: lazy(() => import("./Games")),
   scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
+  properties: lazy(() => import("./Properties")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
   reader: lazy(() => import("./Reader")),

@@ -1,0 +1,26 @@
+.Section {
+  color: purple;
+}
+.Row {
+  clear: both;
+  padding: 0.5em 0;
+}
+.Gallery {
+  float: left;
+  width: 150px;
+  height: 200px;
+}
+.Summary {
+  h3 {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+  h4 {
+    float: right;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+  }
+}
+.Details {
+  border-bottom: 1px solid lightgray;
+}

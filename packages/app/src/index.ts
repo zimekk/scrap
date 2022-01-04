@@ -2,11 +2,12 @@ import express, { Router } from "express";
 // import cors from "cors";
 import path from "path";
 import { headingDistanceTo } from "geolocation-utils";
-import { diffString } from "json-diff";
+// import { diffString } from "json-diff";
 import { items } from "@dev/api";
 import {
   gameItems,
   productItems,
+  propertyItems,
   stationItems,
   vehicleItems,
   vehicle2Items,
@@ -64,6 +65,9 @@ const api = Router()
   )
   .use("/api/products/data.json", (_req, res) =>
     productItems.find({}).then((results) => res.json({ results }))
+  )
+  .use("/api/properties/data.json", (_req, res) =>
+    propertyItems.find({}).then((results) => res.json({ results }))
   )
   .use("/api/stations/data.json", (_req, res) =>
     stationItems
