@@ -20,10 +20,18 @@ const PRICE_LIST = [
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
-  return await res.json();
+  return await res.json().then(({ results }) => ({
+    results: results.map((item: { parameters: any }) =>
+      Object.assign(item, {
+        location: item.parameters.find(({ label }: { label: string }) =>
+          ["Lokalizacja"].includes(label)
+        ).value,
+      })
+    ),
+  }));
 });
 
-const unify = (item: { title: string; price: number }) => ({
+const unify = (item: { title: string; price: number; parameters: any[] }) => ({
   ...item,
   categories: [],
   _filter: item.title.toLowerCase(),
@@ -35,13 +43,23 @@ function Data({ version = "v1" }) {
 
   const options = useMemo(
     () => ({
-      category: [],
+      category: [""],
+      location: [""].concat(
+        results
+          .map(({ location }: any) => location)
+          .filter(
+            (value: any, index: number, array: any[]) =>
+              array.indexOf(value) === index
+          )
+          .sort((a: string, b: string) => a.localeCompare(b))
+      ),
     }),
     [results]
   );
 
   const [filters, setFilters] = useState(() => ({
     category: "",
+    location: "",
     search: "",
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 2],
@@ -92,16 +110,25 @@ function Data({ version = "v1" }) {
           (item: {
             id: string;
             categories: string[];
+            location: string;
             _filter: string;
             _price: number;
           }) =>
             (!filters.category || item.categories.includes(filters.category)) &&
+            (!filters.location || item.location.includes(filters.location)) &&
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
             (filters.priceTo === PRICE_LIST[0] ||
               (filters.priceFrom <= item._price &&
                 item._price <= filters.priceTo))
         ),
-    [results, filter, filters.category, filters.priceFrom, filters.priceTo]
+    [
+      results,
+      filter,
+      filters.category,
+      filters.location,
+      filters.priceFrom,
+      filters.priceTo,
+    ]
   );
 
   const sorted = useMemo(
@@ -130,6 +157,26 @@ function Data({ version = "v1" }) {
             )}
           >
             {options.category.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Location</span>
+          <select
+            value={filters.location}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  location: target.value,
+                })),
+              []
+            )}
+          >
+            {options.location.map((value) => (
               <option key={value} value={value}>
                 {value}
               </option>
