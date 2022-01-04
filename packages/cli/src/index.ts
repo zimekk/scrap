@@ -8,6 +8,7 @@ import { items, requests, requestsHtml } from "@dev/api";
 import {
   gameItems,
   productItems,
+  propertyItems,
   stationItems,
   vehicleItems,
   vehicle2Items,
@@ -19,7 +20,13 @@ import {
   openPage,
   navigateAndGetPageSource,
 } from "./chrome";
-import { saveProductHtml, scrapOptions, scrapProduct } from "./utils";
+import {
+  saveProductHtml,
+  scrapOptions,
+  scrapProduct,
+  scrapPropertyList,
+  scrapPropertyItem,
+} from "./utils";
 
 require("dotenv").config();
 
@@ -27,7 +34,8 @@ const {
   NEARBY_LAT = "52.1530829",
   NEARBY_LNG = "21.1104411",
   NEARBY_RADIUS = "25014.985524846034",
-  URL,
+  KLIK_URL,
+  GRATKA_URL,
   STATIONS_URL,
   STORE_URL,
   STORE_ALTO_URL,
@@ -35,7 +43,8 @@ const {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
   NEARBY_RADIUS: string;
-  URL: string;
+  KLIK_URL: string;
+  GRATKA_URL: string;
   STATIONS_URL: string;
   STORE_URL: string;
   STORE_ALTO_URL: string;
@@ -213,7 +222,7 @@ export default function () {
         id: ["klik", mk, lat, lng, circle, kind, type, items, page].join("-"),
         request: () =>
           fetch(
-            `${URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
+            `${KLIK_URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
           ),
       };
     },
@@ -346,6 +355,30 @@ export default function () {
         url: `${STORE_URL}p/${type}.html`,
       };
     },
+    gratka: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["gratka", mk, type.replace("/", "-"), page].join("-"),
+        url: `${GRATKA_URL}${type}${page > 1 ? `?page=${page}` : ``}`,
+      };
+    },
+    "gratka-item": ({
+      time = Date.now(),
+      name,
+      href,
+    }: {
+      time: number;
+      name: string;
+      href: string;
+    }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["gratka-item", mk, name].join("-"),
+        url: href,
+      };
+    },
   };
 
   const request = ({ $type, ...rest }: any) => {
@@ -449,7 +482,7 @@ export default function () {
               const name = $type.split(":")[1];
               const id = name.split("-")[0];
 
-              saveProductHtml(name, html);
+              // saveProductHtml(name, html);
 
               return scrapProduct({ id }, html);
             })
@@ -1009,6 +1042,90 @@ export default function () {
         }
       });
     });
+
+  const property$ = new Subject<{
+    name: string;
+    href: string;
+  }>();
+
+  property$
+    .pipe(
+      mergeMap(
+        ({ name, href }) =>
+          from(browser({ $type: "gratka-item", name, href })).pipe(
+            map((html) => {
+              const id = name.split("-")[1];
+              saveProductHtml(`gratka-${name}`, html);
+              console.log({ id, name });
+              return scrapPropertyItem({ id }, html);
+            })
+          ),
+        1
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+      propertyItems.findOne({ id: item.id }).then((last: any) => {
+        if (last) {
+          // propertyItems.update({ ...last, ...item, _updated: _time });
+        } else {
+          propertyItems.insert({ ...item, _created: _time });
+        }
+      });
+    });
+
+  const properties$ = new Subject<{
+    $type: string;
+    page?: number;
+  }>();
+
+  properties$
+    .pipe(
+      mergeMap(
+        ({ $type, page = 1 }) =>
+          from(browser({ $type, page })).pipe(
+            map((html) => {
+              const name = $type.split(":")[1];
+              const id = name.replace("/", "-");
+              saveProductHtml(`gratka-${id}-${page}`, html);
+              return scrapPropertyList({ id }, html);
+            }),
+            tap(({ nextPage }) => {
+              console.log({ nextPage });
+              if (nextPage) {
+                const page = Number(new URL(nextPage).searchParams.get("page"));
+                console.log({ page });
+                properties$.next({ $type, page });
+              }
+            }),
+            mergeMap(({ items }) => items),
+            tap(({ name, href }) => {
+              const id = name.split("-")[1];
+              propertyItems.findOne({ id }).then((item: any) => {
+                if (!item) {
+                  property$.next({ name, href });
+                }
+              });
+            })
+          ),
+        1
+      )
+    )
+    .subscribe((item: any) => {
+      console.log({ item });
+    });
+
+  from([
+    // "gratka:nieruchomosci/dzialki-grunty/warszawa",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
+    // "gratka:nieruchomosci/komorow-34074",
+    "gratka:nieruchomosci/podkowa-lesna",
+  ]).subscribe(($type) => {
+    console.log({ $type });
+    properties$.next({ $type });
+  });
 
   from([
     "xbox:9NKX70BBCDRN,9Z1W36CRQ9DF,B4X7PC56X1VV,9MTLKM2DJMZ2,C08JXNK0VG5L",

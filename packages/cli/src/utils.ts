@@ -1,4 +1,5 @@
 import { parse } from "node-html-parser";
+import { z } from "zod";
 
 const pathToRoot = ($el: any) => {
   const $path = [];
@@ -115,4 +116,80 @@ export const scrapProduct = (item: Partial<{ id: string }>, html: string) => {
     codes,
     links,
   };
+};
+
+export const scrapPropertyList = (
+  item: Partial<{ id: string }>,
+  html: string
+) => {
+  const $root = parse(html);
+
+  return z
+    .object({
+      id: z.string(),
+      items: z.array(
+        z.object({
+          name: z.string(),
+          href: z.string(),
+        })
+      ),
+      nextPage: z.string().optional(),
+    })
+    .parse({
+      ...item,
+      items: $root
+        .querySelectorAll("article.teaserUnified")
+        .map(($item: any) => ({
+          name: $item.getAttribute("id"),
+          href: $item.getAttribute("data-href"),
+        })),
+      nextPage: $root.querySelector("link[rel=next]")?.getAttribute("href"),
+    });
+};
+
+export const scrapPropertyItem = (
+  item: Partial<{ id: string }>,
+  html: string
+) => {
+  const $root = parse(html);
+
+  return z
+    .object({
+      id: z.string(),
+      canonical: z.string(),
+      images: z.array(z.string()),
+      title: z.string(),
+      price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
+      description: z.string().transform((value) => value.replace(/\s+/g, " ")),
+      parameters: z.array(
+        z.object({
+          label: z.string(),
+          value: z.string().transform((value) => value.replace(/\s+/g, " ")),
+        })
+      ),
+    })
+    .parse({
+      ...item,
+      canonical: $root
+        .querySelector("link[rel=canonical]")
+        ?.getAttribute("href"),
+      images: [
+        $root
+          .querySelector('meta[property="og:image"]')
+          ?.getAttribute("content"),
+      ],
+      title: $root.querySelector("h1.sticker__title")?.text.trim(),
+      price: $root
+        .querySelector("span.priceInfo__value")
+        ?.firstChild.text.trim(),
+      description: $root.querySelector("div.description__rolled")?.text.trim(),
+      parameters: $root
+        .querySelectorAll(".parameters__value")
+        .map(($div: any) => ({
+          label: $div.parentNode.childNodes
+            .find(($div: any) => $div.nodeType === 1)
+            .text.trim(),
+          value: $div.text.trim(),
+        })),
+    });
 };

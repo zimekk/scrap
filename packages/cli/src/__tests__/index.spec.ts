@@ -1,4 +1,10 @@
-import { loadProductHtml, scrapOptions, scrapProduct } from "../utils";
+import {
+  loadProductHtml,
+  scrapOptions,
+  scrapProduct,
+  scrapPropertyList,
+  scrapPropertyItem,
+} from "../utils";
 
 describe("cli", () => {
   it("scrapOptions", () =>
@@ -156,5 +162,145 @@ Wyposażenie zewnętrzne
       },
     ].forEach(({ item, html, result }) =>
       expect(scrapProduct(item, html)).toEqual(result)
+    ));
+
+  xit("scrapPropertyList", () =>
+    [
+      {
+        item: { id: "gratka" },
+        html: loadProductHtml("gratka-nieruchomosci-podkowa-lesna-1"),
+        result: {
+          id: "gratka",
+          items: [
+            {
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22807857",
+              name: "item-22807857",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna/ob/23424923",
+              name: "item-23424923",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22587393",
+              name: "item-22587393",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23265061",
+              name: "item-23265061",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24200813",
+              name: "item-24200813",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24355267",
+              name: "item-24355267",
+            },
+            {
+              href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24261309",
+              name: "item-24261309",
+            },
+          ],
+          nextPage: "https://gratka.pl/nieruchomosci/podkowa-lesna?page=2",
+        },
+      },
+    ].forEach(({ item, html, result }) =>
+      expect(scrapPropertyList(item, html)).toEqual(result)
+    ));
+
+  xit("scrapPropertyItem", () =>
+    [
+      {
+        item: { id: "22587393" },
+        html: loadProductHtml("gratka-item-22587393"),
+        result: {
+          id: "22587393",
+          canonical:
+            "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22587393",
+          images: [
+            "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848463_dom-podkowa-lesna_xlarge.jpg",
+          ],
+          title: "Dom Podkowa Leśna",
+          price: 1450000,
+          description:
+            "Do sprzedania przedwojenny dom (pod opieką konserwatora) położony w cichym miejscu. Budynek wykonany z drewna obłożony cegłą. Parter składa się obecnie z trzech kuchni, trzech łazienek i sześciu pokoi. Piętro to jeden pokój. Nieruchomość wymaga generalnego remonty. Idealna nieruchomość dla ludzi ceniących ciszę i spokój.Polub nas na Facebooku https://www.facebook.com/nconceptpl/Niniejsze ogłoszenie jest wyłącznie informacją handlową i nie stanowi oferty w myśl art. 66, 1. Kodeksu Cywilnego. Nie odpowiadamy za ewentualne błędy lub nieaktualność ogłoszenia.Oferta wysłana z programu IMO dla biur nieruchomości",
+          parameters: [
+            {
+              label: "Lokalizacja",
+              value: "Podkowa Leśna, grodziski, mazowieckie",
+            },
+            {
+              label: "Numer referencyjny",
+              value: "gratka-1203",
+            },
+            {
+              label: "Kanalizacja",
+              value: "miejska",
+            },
+            {
+              label: "Droga dojazdowa",
+              value: "utwardzana",
+            },
+            {
+              label: "Liczba pięter w budynku",
+              value: "1",
+            },
+            {
+              label: "Rok budowy",
+              value: "1943",
+            },
+            {
+              label: "Stan",
+              value: "do remontu",
+            },
+            {
+              label: "Forma własności",
+              value: "własność",
+            },
+            {
+              label: "Liczba pokoi",
+              value: "6",
+            },
+            {
+              label: "Dach",
+              value: "papa",
+            },
+            {
+              label: "Powierzchnia działki w m2",
+              value: "1 806 m2",
+            },
+            {
+              label: "Powierzchnia użytkowa w m2",
+              value: "145 m2",
+            },
+            {
+              label: "Powierzchnia w m2",
+              value: "145 m2",
+            },
+            {
+              label: "Typ budynku",
+              value: "pałac/dworek/willa",
+            },
+            {
+              label: "Media",
+              value: "woda, prąd, siła",
+            },
+            {
+              label: "Ogrzewanie i energia",
+              value: "gazowe",
+            },
+            {
+              label: "Zaktualizowane",
+              value: "ponad miesiąc temu",
+            },
+            {
+              label: "Dodane",
+              value: "ponad miesiąc temu",
+            },
+          ],
+        },
+      },
+    ].forEach(({ item, html, result }) =>
+      expect(scrapPropertyItem(item, html)).toEqual(result)
     ));
 });

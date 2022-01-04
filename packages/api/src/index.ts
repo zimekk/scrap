@@ -67,6 +67,10 @@ export const productItems = new Entities(
   resolve(__dirname, "../temp/product-items.db")
 );
 
+export const propertyItems = new Entities(
+  resolve(__dirname, "../temp/property-items.db")
+);
+
 export const gameItems = new Entities(
   resolve(__dirname, "../temp/game-items.db")
 );
