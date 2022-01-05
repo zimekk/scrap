@@ -10,6 +10,7 @@ const SORT_BY = {
   id: 1,
   price: 1,
   title: 1,
+  _area: 1,
   _created: -1,
 };
 
@@ -17,15 +18,25 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 1000000, 1500000, 2000000,
 ];
 
+const AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
   return await res.json().then(({ results }) => ({
     results: results.map((item: { parameters: any }) =>
       Object.assign(item, {
+        _area: Number(
+          item.parameters
+            .find(({ label }: { label: string }) =>
+              ["Powierzchnia działki w m2"].includes(label)
+            )
+            ?.value.replace(/^([\d\s]+) m2$/g, "$1")
+            .replace(/\s/, "")
+        ),
         location: item.parameters.find(({ label }: { label: string }) =>
           ["Lokalizacja"].includes(label)
-        ).value,
+        )?.value,
       })
     ),
   }));
@@ -63,6 +74,8 @@ function Data({ version = "v1" }) {
     search: "",
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 2],
+    areaFrom: AREA_LIST[0],
+    areaTo: AREA_LIST[AREA_LIST.length - 1],
   }));
 
   const [filter] = useDebounce(filters.search);
@@ -71,32 +84,6 @@ function Data({ version = "v1" }) {
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
-    []
-  );
-
-  const onChangePriceFrom = useCallback(
-    ({ target }) =>
-      setFilters(({ priceTo, ...criteria }) => {
-        const priceFrom = Number(target.value);
-        return {
-          ...criteria,
-          priceFrom,
-          priceTo: priceTo < priceFrom ? priceFrom : priceTo,
-        };
-      }),
-    []
-  );
-
-  const onChangePriceTo = useCallback(
-    ({ target }) =>
-      setFilters(({ priceFrom, ...criteria }) => {
-        const priceTo = Number(target.value);
-        return {
-          ...criteria,
-          priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
-          priceTo,
-        };
-      }),
     []
   );
 
@@ -113,10 +100,14 @@ function Data({ version = "v1" }) {
             location: string;
             _filter: string;
             _price: number;
+            _area: number;
           }) =>
             (!filters.category || item.categories.includes(filters.category)) &&
             (!filters.location || item.location.includes(filters.location)) &&
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
+            (filters.areaTo === AREA_LIST[0] ||
+              (filters.areaFrom <= item._area &&
+                item._area <= filters.areaTo)) &&
             (filters.priceTo === PRICE_LIST[0] ||
               (filters.priceFrom <= item._price &&
                 item._price <= filters.priceTo))
@@ -126,6 +117,8 @@ function Data({ version = "v1" }) {
       filter,
       filters.category,
       filters.location,
+      filters.areaFrom,
+      filters.areaTo,
       filters.priceFrom,
       filters.priceTo,
     ]
@@ -210,6 +203,60 @@ function Data({ version = "v1" }) {
         </label>
         <div>
           <label>
+            <span>Area From</span>
+            <input
+              type="range"
+              list="area-list"
+              min={AREA_LIST[0]}
+              max={AREA_LIST[AREA_LIST.length - 1]}
+              value={filters.areaFrom}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ areaTo, ...criteria }) => {
+                    const areaFrom = Number(target.value);
+                    return {
+                      ...criteria,
+                      areaFrom,
+                      areaTo: areaTo < areaFrom ? areaFrom : areaTo,
+                    };
+                  }),
+                []
+              )}
+            />
+            <datalist id="area-list">
+              {AREA_LIST.map((value) => (
+                <option key={value} value={value}></option>
+              ))}
+            </datalist>
+          </label>
+          <label>
+            <span>Area To</span>
+            <input
+              type="range"
+              list="area-list"
+              min={AREA_LIST[0]}
+              max={AREA_LIST[AREA_LIST.length - 1]}
+              value={filters.areaTo}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ areaFrom, ...criteria }) => {
+                    const areaTo = Number(target.value);
+                    return {
+                      ...criteria,
+                      areaFrom: areaTo > areaFrom ? areaFrom : areaTo,
+                      areaTo,
+                    };
+                  }),
+                []
+              )}
+            />
+            <span>{`${new Intl.NumberFormat().format(
+              filters.areaFrom
+            )} - ${new Intl.NumberFormat().format(filters.areaTo)} m2`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
             <span>Price From</span>
             <input
               type="range"
@@ -217,17 +264,22 @@ function Data({ version = "v1" }) {
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
               value={filters.priceFrom}
-              onChange={onChangePriceFrom}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ priceTo, ...criteria }) => {
+                    const priceFrom = Number(target.value);
+                    return {
+                      ...criteria,
+                      priceFrom,
+                      priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                    };
+                  }),
+                []
+              )}
             />
             <datalist id="price-list">
               {PRICE_LIST.map((value) => (
-                <option
-                  key={value}
-                  value={value}
-                  label={
-                    PRICE_LIST.includes(value) ? `${value} PLN` : undefined
-                  }
-                ></option>
+                <option key={value} value={value}></option>
               ))}
             </datalist>
           </label>
@@ -239,9 +291,22 @@ function Data({ version = "v1" }) {
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
               value={filters.priceTo}
-              onChange={onChangePriceTo}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ priceFrom, ...criteria }) => {
+                    const priceTo = Number(target.value);
+                    return {
+                      ...criteria,
+                      priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                      priceTo,
+                    };
+                  }),
+                []
+              )}
             />
-            <span>{`${filters.priceFrom}-${filters.priceTo} pln`}</span>
+            <span>{`${new Intl.NumberFormat().format(
+              filters.priceFrom
+            )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
           </label>
         </div>
       </fieldset>
@@ -286,7 +351,7 @@ function Summary({
   return (
     <div className={styles.Summary}>
       <div>{format(_created, "yyyy-MM-dd HH:mm")}</div>
-      <h4>{`${price} PLN`}</h4>
+      <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
       <h3>
         <Link href={canonical}>{title}</Link>
       </h3>
