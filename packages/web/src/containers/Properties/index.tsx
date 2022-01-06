@@ -37,6 +37,12 @@ const asset = createAsset(async (version) => {
         location: item.parameters.find(({ label }: { label: string }) =>
           ["Lokalizacja"].includes(label)
         )?.value,
+        road: item.parameters.find(({ label }: { label: string }) =>
+          ["Droga dojazdowa"].includes(label)
+        )?.value,
+        building: item.parameters.find(({ label }: { label: string }) =>
+          ["Typ budynku"].includes(label)
+        )?.value,
       })
     ),
   }));
@@ -64,13 +70,33 @@ function Data({ version = "v1" }) {
           )
           .sort((a: string, b: string) => a.localeCompare(b))
       ),
+      road: [""].concat(
+        results
+          .map(({ road }: any) => road)
+          .filter(
+            (value: any, index: number, array: any[]) =>
+              value !== undefined && array.indexOf(value) === index
+          )
+          .sort((a: string, b: string) => a.localeCompare(b))
+      ),
+      building: [""].concat(
+        results
+          .map(({ building }: any) => building)
+          .filter(
+            (value: any, index: number, array: any[]) =>
+              value !== undefined && array.indexOf(value) === index
+          )
+          .sort((a: string, b: string) => a.localeCompare(b))
+      ),
     }),
     [results]
   );
 
   const [filters, setFilters] = useState(() => ({
-    category: "",
-    location: "",
+    category: options.category[0],
+    location: options.location[0],
+    road: options.road[0],
+    building: options.building[0],
     search: "",
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 2],
@@ -98,12 +124,16 @@ function Data({ version = "v1" }) {
             id: string;
             categories: string[];
             location: string;
+            road: string;
+            building: string;
             _filter: string;
             _price: number;
             _area: number;
           }) =>
             (!filters.category || item.categories.includes(filters.category)) &&
-            (!filters.location || item.location.includes(filters.location)) &&
+            (!filters.location || [item.location].includes(filters.location)) &&
+            (!filters.road || [item.road].includes(filters.road)) &&
+            (!filters.building || [item.building].includes(filters.building)) &&
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
             (filters.areaTo === AREA_LIST[0] ||
               (filters.areaFrom <= item._area &&
@@ -112,16 +142,7 @@ function Data({ version = "v1" }) {
               (filters.priceFrom <= item._price &&
                 item._price <= filters.priceTo))
         ),
-    [
-      results,
-      filter,
-      filters.category,
-      filters.location,
-      filters.areaFrom,
-      filters.areaTo,
-      filters.priceFrom,
-      filters.priceTo,
-    ]
+    [results, filter, filters]
   );
 
   const sorted = useMemo(
@@ -157,26 +178,6 @@ function Data({ version = "v1" }) {
           </select>
         </label>
         <label>
-          <span>Location</span>
-          <select
-            value={filters.location}
-            onChange={useCallback(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  location: target.value,
-                })),
-              []
-            )}
-          >
-            {options.location.map((value) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
           <span>Search</span>
           <input
             type="search"
@@ -201,6 +202,72 @@ function Data({ version = "v1" }) {
             ))}
           </select>
         </label>
+        <div>
+          <label>
+            <span>Location</span>
+            <select
+              value={filters.location}
+              onChange={useCallback(
+                ({ target: { value } }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    location: value,
+                  })),
+                []
+              )}
+            >
+              {options.location.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Road</span>
+            <select
+              value={filters.road}
+              onChange={useCallback(
+                ({ target: { value } }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    road: value,
+                  })),
+                []
+              )}
+            >
+              {options.road.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Building</span>
+            <select
+              value={filters.building}
+              onChange={useCallback(
+                ({ target: { value } }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    building: value,
+                  })),
+                []
+              )}
+            >
+              {options.building.map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
         <div>
           <label>
             <span>Area From</span>
