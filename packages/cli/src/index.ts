@@ -1121,7 +1121,9 @@ export default function () {
     "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
     "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
     "gratka:nieruchomosci/komorow-34074",
+    "gratka:nieruchomosci/ozarow-mazowiecki",
     "gratka:nieruchomosci/podkowa-lesna",
+    "gratka:nieruchomosci/stare-babice",
   ]).subscribe(($type) => {
     console.log({ $type });
     properties$.next({ $type });

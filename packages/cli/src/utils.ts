@@ -167,6 +167,15 @@ export const scrapPropertyItem = (
           value: z.string().transform((value) => value.replace(/\s+/g, " ")),
         })
       ),
+      address: z
+        .object({
+          lokalizacja_gmina: z.string(),
+          lokalizacja_region: z.string(),
+          lokalizacja_powiat: z.string(),
+          lokalizacja_miejscowosc: z.string(),
+          lokalizacja_kraj: z.string(),
+        })
+        .passthrough(),
     })
     .parse({
       ...item,
@@ -201,5 +210,12 @@ export const scrapPropertyItem = (
             .text.trim(),
           value: $div.text.trim(),
         })),
+      address: $root
+        .querySelectorAll("script")
+        ?.map(($node: any) =>
+          $node.text.match(/const addressObject = (\{.+\});/)
+        )
+        .filter(Boolean)
+        .map((m) => JSON.parse(m[1]))[0],
     });
 };

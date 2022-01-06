@@ -24,7 +24,7 @@ const AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
   return await res.json().then(({ results }) => ({
-    results: results.map((item: { parameters: any }) =>
+    results: results.map((item: { parameters: any; address: any }) =>
       Object.assign(item, {
         _area: Number(
           item.parameters
@@ -34,6 +34,17 @@ const asset = createAsset(async (version) => {
             ?.value.replace(/^([\d\s]+) m2$/g, "$1")
             .replace(/\s/, "")
         ),
+        _address: item.address
+          ? [
+              "lokalizacja_kraj",
+              "lokalizacja_region",
+              "lokalizacja_powiat",
+              "lokalizacja_gmina",
+              "lokalizacja_miejscowosc",
+            ]
+              .map((key) => item.address[key])
+              .filter(Boolean)
+          : null,
         location: item.parameters.find(({ label }: { label: string }) =>
           ["Lokalizacja"].includes(label)
         )?.value,
@@ -390,6 +401,7 @@ function Data({ version = "v1" }) {
               price: number;
               description: string[];
               parameters: [{ label: string; value: string }];
+              _address: string[];
               _created: number;
             }) => (
               <li key={item.id} className={styles.Row}>
@@ -408,11 +420,13 @@ function Summary({
   canonical,
   price,
   title,
+  _address,
   _created,
 }: {
   canonical: string;
   price: number;
   title: string;
+  _address: string[];
   _created: number;
 }) {
   return (
@@ -422,6 +436,7 @@ function Summary({
       <h3>
         <Link href={canonical}>{title}</Link>
       </h3>
+      {_address && <h6>{_address.join(" / ")}</h6>}
     </div>
   );
 }

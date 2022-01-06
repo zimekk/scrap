@@ -308,4 +308,22 @@ Wyposażenie zewnętrzne
     ].forEach(({ item, html, result }) =>
       expect(scrapPropertyItem(item, html)).toEqual(result)
     ));
+  it("scrapPropertyItem.address", () =>
+    [
+      {
+        item: { id: "24331711" },
+        html: loadProductHtml("gratka-item-22587393"),
+        result: {
+          "lokalizacja_dlugosc-geograficzna-x": 20.7265083,
+          lokalizacja_gmina: "Podkowa Leśna",
+          lokalizacja_kraj: "Polska",
+          lokalizacja_miejscowosc: "Podkowa Leśna",
+          lokalizacja_powiat: "grodziski",
+          lokalizacja_region: "mazowieckie",
+          "lokalizacja_szerokosc-geograficzna-y": 52.1199928,
+        },
+      },
+    ].forEach(({ item, html, result }) =>
+      expect(scrapPropertyItem(item, html).address).toEqual(result)
+    ));
 });
