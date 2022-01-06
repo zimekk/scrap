@@ -1215,12 +1215,12 @@ export default function () {
 
   from(["get-stations"]).subscribe(($type) => {
     console.log({ $type });
-    stations$.next({ $type });
+    // stations$.next({ $type });
   });
 
   from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
     console.log({ $type });
-    pages$.next({ $type });
+    // pages$.next({ $type });
   });
 
   from([

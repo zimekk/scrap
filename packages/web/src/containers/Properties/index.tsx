@@ -1,7 +1,8 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
-import useDebounce from "../useDebounce";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
@@ -62,7 +63,7 @@ const asset = createAsset(async (version) => {
 const unify = (item: { title: string; price: number; parameters: any[] }) => ({
   ...item,
   categories: [],
-  _filter: item.title.toLowerCase(),
+  _search: item.title.toLowerCase(),
   _price: item.price,
 });
 
@@ -115,7 +116,7 @@ function Data({ version = "v1" }) {
     areaTo: AREA_LIST[AREA_LIST.length - 1],
   }));
 
-  const [filter] = useDebounce(filters.search);
+  const [queries, setQueries] = useState(() => filters);
 
   const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[0]);
 
@@ -123,6 +124,27 @@ function Data({ version = "v1" }) {
     ({ target }) => setSortBy(target.value),
     []
   );
+
+  const search$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(
+        map(({ search, ...filters }) =>
+          JSON.stringify({ ...queries, ...filters, search: search.trim() })
+        ),
+        distinctUntilChanged(),
+        debounceTime(400)
+      )
+      .subscribe((filters) =>
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(filters);
+  }, [filters]);
 
   console.log({ options, filters, results });
 
@@ -137,23 +159,24 @@ function Data({ version = "v1" }) {
             location: string;
             road: string;
             building: string;
-            _filter: string;
+            _search: string;
             _price: number;
             _area: number;
           }) =>
-            (!filters.category || item.categories.includes(filters.category)) &&
-            (!filters.location || [item.location].includes(filters.location)) &&
-            (!filters.road || [item.road].includes(filters.road)) &&
-            (!filters.building || [item.building].includes(filters.building)) &&
-            (item._filter.match(filter) || filter.trim() === String(item.id)) &&
-            (filters.areaTo === AREA_LIST[0] ||
-              (filters.areaFrom <= item._area &&
-                item._area <= filters.areaTo)) &&
-            (filters.priceTo === PRICE_LIST[0] ||
-              (filters.priceFrom <= item._price &&
-                item._price <= filters.priceTo))
+            (!queries.category || item.categories.includes(queries.category)) &&
+            (!queries.location || [item.location].includes(queries.location)) &&
+            (!queries.road || [item.road].includes(queries.road)) &&
+            (!queries.building || [item.building].includes(queries.building)) &&
+            (item._search.match(queries.search) ||
+              queries.search === String(item.id)) &&
+            (queries.areaTo === AREA_LIST[0] ||
+              (queries.areaFrom <= item._area &&
+                item._area <= queries.areaTo)) &&
+            (queries.priceTo === PRICE_LIST[0] ||
+              (queries.priceFrom <= item._price &&
+                item._price <= queries.priceTo))
         ),
-    [results, filter, filters]
+    [results, queries]
   );
 
   const sorted = useMemo(
