@@ -182,11 +182,23 @@ export const scrapPropertyItem = (
       canonical: $root
         .querySelector("link[rel=canonical]")
         ?.getAttribute("href"),
-      images: [
+      images:
         $root
-          .querySelector('meta[property="og:image"]')
-          ?.getAttribute("content"),
-      ],
+          .querySelectorAll("script")
+          ?.map(($node: any) => $node.text.match(/dataJson: (\[{.+}\]),/))
+          .filter(Boolean)
+          .map((m) => JSON.parse(m[1]))
+          .map(([{ data }]) =>
+            z
+              .array(
+                z.object({
+                  url: z.string(),
+                  thumb: z.string(),
+                })
+              )
+              .parse(data)
+              .map(({ url }) => url)
+          )[0] || [],
       title: $root.querySelector("h1.sticker__title")?.text.trim(),
       price: $root
         .querySelector("span.priceInfo__value")

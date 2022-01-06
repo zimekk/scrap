@@ -308,10 +308,10 @@ Wyposażenie zewnętrzne
     ].forEach(({ item, html, result }) =>
       expect(scrapPropertyItem(item, html)).toEqual(result)
     ));
-  it("scrapPropertyItem.address", () =>
+
+  xit("scrapPropertyItem.address", () =>
     [
       {
-        item: { id: "24331711" },
         html: loadProductHtml("gratka-item-22587393"),
         result: {
           "lokalizacja_dlugosc-geograficzna-x": 20.7265083,
@@ -323,7 +323,27 @@ Wyposażenie zewnętrzne
           "lokalizacja_szerokosc-geograficzna-y": 52.1199928,
         },
       },
-    ].forEach(({ item, html, result }) =>
-      expect(scrapPropertyItem(item, html).address).toEqual(result)
+    ].forEach(({ html, result }) =>
+      expect(scrapPropertyItem({ id: "" }, html).address).toEqual(result)
+    ));
+
+  xit("scrapPropertyItem.images", () =>
+    [
+      {
+        html: loadProductHtml("gratka-item-22587393"),
+        result: [
+          "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848463_dom-podkowa-lesna_xlarge.jpg",
+          "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848465_dom-podkowa-lesna_xlarge.jpg",
+          "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848469_dom-podkowa-lesna_xlarge.jpg",
+          "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848479_dom-podkowa-lesna_xlarge.jpg",
+          "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848485_dom-podkowa-lesna_xlarge.jpg",
+        ],
+      },
+      {
+        html: loadProductHtml("gratka-item-18369371"),
+        result: [],
+      },
+    ].forEach(({ html, result }) =>
+      expect(scrapPropertyItem({ id: "" }, html).images).toEqual(result)
     ));
 });
