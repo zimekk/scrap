@@ -1,7 +1,15 @@
 import fetch from "isomorphic-fetch";
 import cheerio from "cheerio";
 import { Subject, from, of } from "rxjs";
-import { delay, distinct, map, mergeMap, take, tap } from "rxjs/operators";
+import {
+  delay,
+  distinct,
+  filter,
+  map,
+  mergeMap,
+  take,
+  tap,
+} from "rxjs/operators";
 import { diffString } from "json-diff";
 import { headingDistanceTo } from "geolocation-utils";
 import { items, requests, requestsHtml } from "@dev/api";
@@ -481,14 +489,13 @@ export default function () {
             map((html) => {
               const name = $type.split(":")[1];
               const id = name.split("-")[0];
-
               // saveProductHtml(name, html);
-
-              return scrapProduct({ id }, html);
+              return html && scrapProduct({ id }, html);
             })
           ),
         1
-      )
+      ),
+      filter(Boolean)
     )
     .subscribe((item: any) => {
       // console.log({ item });
@@ -1055,16 +1062,16 @@ export default function () {
           from(browser({ $type: "gratka-item", name, href })).pipe(
             map((html) => {
               const id = name.split("-")[1];
-              saveProductHtml(`gratka-${name}`, html);
-              console.log({ id, name });
-              return scrapPropertyItem({ id }, html);
+              // saveProductHtml(`gratka-${name}`, html);
+              return html && scrapPropertyItem({ id }, html);
             })
           ),
         1
-      )
+      ),
+      filter(Boolean)
     )
     .subscribe((item: any) => {
-      console.log({ item });
+      // console.log({ item });
       propertyItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
           // propertyItems.update({ ...last, ...item, _updated: _time });
@@ -1087,9 +1094,10 @@ export default function () {
             map((html) => {
               const name = $type.split(":")[1];
               const id = name.replace(/\//g, "-");
-              saveProductHtml(`gratka-${id}-${page}`, html);
-              return scrapPropertyList({ id }, html);
+              // saveProductHtml(`gratka-${id}-${page}`, html);
+              return html ? scrapPropertyList({ id }, html) : null;
             }),
+            filter(Boolean),
             tap(({ nextPage }) => {
               console.log({ nextPage });
               if (nextPage) {

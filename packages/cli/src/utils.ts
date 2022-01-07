@@ -82,7 +82,9 @@ export const scrapProduct = (item: Partial<{ id: string }>, html: string) => {
     .filter(
       (text: string) =>
         Boolean(false && console.log({ text })) ||
-        !text.match(/Kup teraz|Zapłać w ciągu/)
+        !text.match(
+          /Dowiedz się więcej|Kup teraz, otrzymasz w|Kup, otrzymasz w|Zapłać w ciągu/
+        )
     )
     .filter((array: any) => array.length > 0);
 
@@ -203,17 +205,18 @@ export const scrapPropertyItem = (
       price: $root
         .querySelector("span.priceInfo__value")
         ?.firstChild.text.trim(),
-      description: $root
-        .querySelector("div.description__rolled")
-        ?.childNodes.reduce((result: string[], $node: any) => {
-          if ($node.nodeType === 3) {
-            result[result.length - 1] += $node.text.trim();
-          } else if ($node.nodeType === 1 && $node.rawTagName === "br") {
-            result.push("");
-          }
-          return result;
-        }, [])
-        .filter((s) => s.length > 0),
+      description:
+        $root
+          .querySelector("div.description__rolled")
+          ?.childNodes.reduce((result: string[], $node: any) => {
+            if ($node.nodeType === 3) {
+              result[result.length - 1] += $node.text.trim();
+            } else if ($node.nodeType === 1 && $node.rawTagName === "br") {
+              result.push("");
+            }
+            return result;
+          }, [])
+          .filter((s) => s.length > 0) || [],
       parameters: $root
         .querySelectorAll(".parameters__value")
         .map(($div: any) => ({

@@ -164,6 +164,34 @@ Wyposażenie zewnętrzne
       expect(scrapProduct(item, html)).toEqual(result)
     ));
 
+  xit("scrapProduct.links", () =>
+    [
+      {
+        html: loadProductHtml(
+          "460088-rysik-do-tabletu-apple-pencil-2-do-ipad-pro"
+        ),
+        result: ["Dostępny", "Darmowy odbiór w salonie", "Rata tylko 20,32 zł"],
+      },
+      {
+        html: loadProductHtml(
+          "682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps"
+        ),
+        result: [
+          "Wydłużony czas dostawy",
+          "Darmowa dostawa",
+          "Rata tylko 44,68 zł",
+        ],
+      },
+      {
+        html: loadProductHtml(
+          "592143-smartfon-telefon-apple-iphone-12-64gb-black-5g"
+        ),
+        result: ["Dostępny", "Darmowa dostawa", "Rata tylko 114,05 zł"],
+      },
+    ].forEach(({ html, result }) =>
+      expect(scrapProduct({ id: "" }, html).links).toEqual(result)
+    ));
+
   xit("scrapPropertyList", () =>
     [
       {
@@ -345,5 +373,25 @@ Wyposażenie zewnętrzne
       },
     ].forEach(({ html, result }) =>
       expect(scrapPropertyItem({ id: "" }, html).images).toEqual(result)
+    ));
+
+  xit("scrapPropertyItem.description", () =>
+    [
+      {
+        html: loadProductHtml("gratka-item-22587393"),
+        result: [
+          "Do sprzedania przedwojenny dom (pod opieką konserwatora) położony w cichym miejscu. Budynek wykonany z drewna obłożony cegłą. Parter składa się obecnie z trzech kuchni, trzech łazienek i sześciu pokoi. Piętro to jeden pokój. Nieruchomość wymaga generalnego remonty. Idealna nieruchomość dla ludzi ceniących ciszę i spokój.",
+          "Polub nas na Facebooku",
+          "https://www.facebook.com/nconceptpl/",
+          "Niniejsze ogłoszenie jest wyłącznie informacją handlową i nie stanowi oferty w myśl art. 66, 1. Kodeksu Cywilnego. Nie odpowiadamy za ewentualne błędy lub nieaktualność ogłoszenia.",
+          "Oferta wysłana z programu IMO dla biur nieruchomości",
+        ],
+      },
+      {
+        html: loadProductHtml("gratka-item-23597317"),
+        result: [],
+      },
+    ].forEach(({ html, result }) =>
+      expect(scrapPropertyItem({ id: "" }, html).description).toEqual(result)
     ));
 });
