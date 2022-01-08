@@ -1962,10 +1962,10 @@
     jest-diff "^27.0.0"
     pretty-format "^27.0.0"
 
-"@types/json-diff@^0.5.2":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@types/json-diff/-/json-diff-0.5.2.tgz#83689a504b3c7759f046d125d5521d6760ab9d0d"
-  integrity sha512-2oqXStJYYLDHCciNAClY277Ti3kXT+JLvPD7lLm/490i+B7g0GR6M4qiW+bd2V5vpB+yMKY8IelbsHMAYX1D0A==
+"@types/json-diff@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@types/json-diff/-/json-diff-0.7.0.tgz#4ad45c305ec62515408bf8df070cab5aabac2485"
+  integrity sha512-20IJqupGHywtIaE6fS30iygh3dVqVdzmsnrYn/VFuRaQKxLx/RGH5K9hhCfctVxgN7KzJlnD7gYFAOrNwiCgtA==
 
 "@types/json-schema@*", "@types/json-schema@^7.0.5", "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
   version "7.0.9"
@@ -3885,10 +3885,10 @@ d3-zoom@3:
     d3-selection "2 - 3"
     d3-transition "2 - 3"
 
-d3@^7.2.1:
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-7.2.1.tgz#97eafaa6fc8cd7c564c3ace1e6678cbecf63f3ea"
-  integrity sha512-E/5sP0aeK6YPXI/+4QlefvBFgmcyR2jYftId0PrYWv4Y/gW3c3thp1XG4rQzF0eUwV9tR1x05X5eWuJ6rQXvew==
+d3@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-7.3.0.tgz#f3d5a22c1f658952a6491cf50132f5267ed7a40a"
+  integrity sha512-MDRLJCMK232OJQRqGljQ/gCxtB8k3/sLKFjftMjzPB3nKVUODpdW9Rb3vcq7U8Ka5YKoZkAmp++Ur6I+6iNWIw==
   dependencies:
     d3-array "3"
     d3-axis "3"
@@ -7816,10 +7816,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-leaflet@^3.2.2:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.2.tgz#3d779662c32a1d8729e73d24e8ad96ee5b38beef"
-  integrity sha512-5W7iWjI9+CdTGVAICe8RUyK0n+uLshr+eLQa8eBCbmstPNpCHZJTUSbju4Ws5dkS/PUCr9t5VmoIE9CXuSBEhw==
+react-leaflet@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/react-leaflet/-/react-leaflet-3.2.3.tgz#ab63dc079f0de1b994ba21dfe878c4c3a6727a66"
+  integrity sha512-EbOCqf+bq7hap98wpjZQ4UHt/qVDT63EtL5TUFX8Gu8C89OaPV8YfqEM+BPOQQQIAfLVweZc9hG/yYYV8OSK+w==
   dependencies:
     "@react-leaflet/core" "^1.1.1"
 
@@ -8141,10 +8141,10 @@ sass-loader@^12.4.0:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-sass@^1.46.0:
-  version "1.46.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.46.0.tgz#923117049525236026a7ede69715580eb0fac751"
-  integrity sha512-Z4BYTgioAOlMmo4LU3Ky2txR8KR0GRPLXxO38kklaYxgo7qMTgy+mpNN4eKsrXDTFlwS5vdruvazG4cihxHRVQ==
+sass@^1.47.0:
+  version "1.47.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.47.0.tgz#c22dd0eed2e4a991430dae0b03c8e694bc41c2b4"
+  integrity sha512-GtXwvwgD7/6MLUZPnlA5/8cdRgC9SzT5kAnnJMRmEZQFRE3J56Foswig4NyyyQGsnmNvg6EUM/FP0Pe9Y2zywQ==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
