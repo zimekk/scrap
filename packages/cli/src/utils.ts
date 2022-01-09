@@ -376,6 +376,7 @@ export const scrapPropertyItem1 = (
                   geoLevels: z.array(
                     z.object({
                       label: z.string(),
+                      type: z.string(),
                     })
                   ),
                 }),
@@ -402,6 +403,7 @@ export const scrapPropertyItem1 = (
                   description,
                   id,
                   images,
+                  location: { geoLevels },
                   target: { Country, Price, Province, Subregion },
                   title,
                   url,
@@ -411,23 +413,33 @@ export const scrapPropertyItem1 = (
                 // }
               },
             },
-          }) => ({
-            ...item,
-            address: {
-              lokalizacja_gmina: "Komorów",
-              lokalizacja_region: Province,
-              lokalizacja_powiat: Subregion,
-              lokalizacja_miejscowosc: "Komorów",
-              lokalizacja_kraj: Country,
-            },
-            canonical: url,
-            description: [description],
-            id: String(id),
-            images: images.map(({ large }) => large),
-            parameters: [],
-            price: Price,
-            title,
-          })
+          }) =>
+            // Boolean(console.log(parse(description).childNodes.map(p => p.text).filter(Boolean)))||
+            ({
+              ...item,
+              address: ((location: any) => ({
+                lokalizacja_gmina: location.city,
+                lokalizacja_region: location.region,
+                lokalizacja_powiat: location["sub-region"],
+                lokalizacja_miejscowosc: location.city,
+                lokalizacja_kraj: Country,
+              }))(
+                geoLevels.reduce(
+                  (result, { label, type }) =>
+                    Object.assign(result, { [type]: label }),
+                  {}
+                )
+              ),
+              canonical: url,
+              description: parse(description)
+                .childNodes.map((p) => p.text)
+                .filter(Boolean),
+              id: String(id),
+              images: images.map(({ large }) => large),
+              parameters: [],
+              price: Price,
+              title,
+            })
         )
         .parse(json ? JSON.parse(json) : {})
     );
