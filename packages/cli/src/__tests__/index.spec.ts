@@ -571,15 +571,29 @@ Wyposażenie zewnętrzne
   xit("scrapPropertyItem", () =>
     [
       {
-        item: { id: "22587393" },
+        item: { id: "gratka-22587393" },
         html: loadProductHtml("gratka-item-22587393"),
         result: {
-          id: "22587393",
+          id: "gratka-22587393",
+          address: {
+            "lokalizacja_dlugosc-geograficzna-x": 20.7265083,
+            lokalizacja_gmina: "Podkowa Leśna",
+            lokalizacja_kraj: "Polska",
+            lokalizacja_miejscowosc: "Podkowa Leśna",
+            lokalizacja_powiat: "grodziski",
+            lokalizacja_region: "mazowieckie",
+            "lokalizacja_szerokosc-geograficzna-y": 52.1199928,
+          },
           canonical:
             "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22587393",
           images: [
             "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848463_dom-podkowa-lesna_xlarge.jpg",
+            "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848465_dom-podkowa-lesna_xlarge.jpg",
+            "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848469_dom-podkowa-lesna_xlarge.jpg",
+            "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848479_dom-podkowa-lesna_xlarge.jpg",
+            "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848485_dom-podkowa-lesna_xlarge.jpg",
           ],
+          location: ["Podkowa Leśna", "grodziski", "mazowieckie"],
           title: "Dom Podkowa Leśna",
           price: 1450000,
           description: [
@@ -730,10 +744,17 @@ Wyposażenie zewnętrzne
   xit("scrapPropertyItem1", () =>
     [
       {
-        item: { id: "55875684" },
+        item: { id: "otodom-55875684" },
         html: loadProductHtml("otodom-55875684"),
         result: {
-          id: "55875684",
+          id: "otodom-55875684",
+          address: {
+            lokalizacja_gmina: "Komorów",
+            lokalizacja_region: "mazowieckie",
+            lokalizacja_powiat: "pruszkowski",
+            lokalizacja_miejscowosc: "Komorów",
+            lokalizacja_kraj: "Polska",
+          },
           canonical:
             "https://www.otodom.pl/pl/oferta/uslugowo-mieszkaniowa-1033-m-komorow-ID3MrOI.html",
           images: [
@@ -747,6 +768,7 @@ Wyposażenie zewnętrzne
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Ijlvd2FjZGQ4NmUzMDMtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.1FaV7HbzoS-rkUeCuXPBv6r2L75VJP60Toep-RUdRgQ/image;s=1280x1024;q=80",
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6ImRzczhyamhlMGV6MS1BUEwiLCJ3IjpbeyJmbiI6ImVudmZxcWUxYXk0azEtQVBMIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.praVScMdYTXY_fCE8wXI14B9-dE4hZdo6KhOm2twwLM/image;s=1280x1024;q=80",
           ],
+          location: ["Komorów", "pruszkowski", "mazowieckie"],
           title: "Usługowo-Mieszkaniowa, 1033 m², Komorów",
           price: 790000,
           description: [
@@ -757,13 +779,6 @@ Wyposażenie zewnętrzne
             "Zapraszam zainteresowanych do kontaktu.",
           ],
           parameters: [],
-          address: {
-            lokalizacja_gmina: "Komorów",
-            lokalizacja_region: "mazowieckie",
-            lokalizacja_powiat: "pruszkowski",
-            lokalizacja_miejscowosc: "Komorów",
-            lokalizacja_kraj: "Polska",
-          },
         },
       },
     ].forEach(({ item, html, result }) =>

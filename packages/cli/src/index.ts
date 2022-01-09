@@ -189,7 +189,7 @@ export const verify = () => {
         _history = {},
       } = item;
 
-      console.log({ ProductTitle });
+      // console.log({ ProductTitle });
 
       [item]
         .concat(Object.values(_history))
@@ -1083,7 +1083,7 @@ export default function () {
 
   const property$ = new Subject<{
     $type: string;
-    id: number;
+    id: string;
     name: string;
     href: string;
   }>();
@@ -1096,10 +1096,10 @@ export default function () {
             map((html) => {
               if ($type === "otodom-item") {
                 // saveProductHtml(`otodom-${id}`, html);
-                return html && scrapPropertyItem1({ id: String(id) }, html);
+                return html && scrapPropertyItem1({ id }, html);
               }
               // saveProductHtml(`gratka-${id}`, html);
-              return html && scrapPropertyItem({ id: String(id) }, html);
+              return html && scrapPropertyItem({ id }, html);
             })
           ),
         1
@@ -1182,14 +1182,14 @@ export default function () {
     });
 
   from([
-    "gratka:nieruchomosci/dzialki-grunty/warszawa",
-    "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
-    "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
-    "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
+    // "gratka:nieruchomosci/dzialki-grunty/warszawa",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
+    // "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
     "gratka:nieruchomosci/komorow-34074",
-    "gratka:nieruchomosci/ozarow-mazowiecki",
-    "gratka:nieruchomosci/podkowa-lesna",
-    "gratka:nieruchomosci/stare-babice",
+    // "gratka:nieruchomosci/ozarow-mazowiecki",
+    // "gratka:nieruchomosci/podkowa-lesna",
+    // "gratka:nieruchomosci/stare-babice",
     "otodom:dzialka/komorow_5600",
   ]).subscribe(($type) => {
     console.log({ $type });

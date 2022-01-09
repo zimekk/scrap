@@ -131,7 +131,7 @@ export const scrapPropertyList = (
       id: z.string(),
       items: z.array(
         z.object({
-          id: z.number(),
+          id: z.string(),
           name: z.string(),
           href: z.string(),
         })
@@ -143,7 +143,7 @@ export const scrapPropertyList = (
       items: $root
         .querySelectorAll("article.teaserUnified")
         .map(($item: any) => ({
-          id: Number($item.getAttribute("id").split("-").pop()),
+          id: `gratka-${$item.getAttribute("id").split("-").pop()}`,
           name: $item.getAttribute("id"),
           href: $item.getAttribute("data-href"),
         })),
@@ -163,7 +163,7 @@ export const scrapPropertyList1 = (
       id: z.string(),
       items: z.array(
         z.object({
-          id: z.number(),
+          id: z.string(),
           name: z.string(),
           href: z.string(),
         })
@@ -227,7 +227,7 @@ export const scrapPropertyList1 = (
           }) => ({
             ...item,
             items: items.map(({ id, slug, title }) => ({
-              id,
+              id: `otodom-${id}`,
               name: title,
               href: slug,
             })),
@@ -250,17 +250,6 @@ export const scrapPropertyItem = (
   return z
     .object({
       id: z.string(),
-      canonical: z.string(),
-      images: z.array(z.string()),
-      title: z.string(),
-      price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
-      description: z.array(z.string()),
-      parameters: z.array(
-        z.object({
-          label: z.string(),
-          value: z.string().transform((value) => value.replace(/\s+/g, " ")),
-        })
-      ),
       address: z
         .object({
           lokalizacja_gmina: z.string(),
@@ -270,9 +259,28 @@ export const scrapPropertyItem = (
           lokalizacja_kraj: z.string(),
         })
         .passthrough(),
+      canonical: z.string(),
+      images: z.array(z.string()),
+      location: z.array(z.string()),
+      title: z.string(),
+      price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
+      description: z.array(z.string()),
+      parameters: z.array(
+        z.object({
+          label: z.string(),
+          value: z.string().transform((value) => value.replace(/\s+/g, " ")),
+        })
+      ),
     })
     .parse({
       ...item,
+      address: $root
+        .querySelectorAll("script")
+        ?.map(($node: any) =>
+          $node.text.match(/const addressObject = (\{.+\});/)
+        )
+        .filter(Boolean)
+        .map((m) => JSON.parse(m[1]))[0],
       canonical: $root
         .querySelector("link[rel=canonical]")
         ?.getAttribute("href"),
@@ -293,6 +301,19 @@ export const scrapPropertyItem = (
               .parse(data)
               .map(({ url }) => url)
           )[0] || [],
+      location: (({
+        lokalizacja_miejscowosc,
+        lokalizacja_powiat,
+        lokalizacja_region,
+      }) => [lokalizacja_miejscowosc, lokalizacja_powiat, lokalizacja_region])(
+        $root
+          .querySelectorAll("script")
+          ?.map(($node: any) =>
+            $node.text.match(/const addressObject = (\{.+\});/)
+          )
+          .filter(Boolean)
+          .map((m) => JSON.parse(m[1]))[0]
+      ),
       title: $root.querySelector("h1.sticker__title")?.text.trim(),
       price: $root
         .querySelector("span.priceInfo__value")
@@ -317,13 +338,6 @@ export const scrapPropertyItem = (
             .text.trim(),
           value: $div.text.trim(),
         })),
-      address: $root
-        .querySelectorAll("script")
-        ?.map(($node: any) =>
-          $node.text.match(/const addressObject = (\{.+\});/)
-        )
-        .filter(Boolean)
-        .map((m) => JSON.parse(m[1]))[0],
     });
 };
 
@@ -337,8 +351,18 @@ export const scrapPropertyItem1 = (
   return z
     .object({
       id: z.string(),
+      address: z
+        .object({
+          lokalizacja_gmina: z.string(),
+          lokalizacja_region: z.string(),
+          lokalizacja_powiat: z.string(),
+          lokalizacja_miejscowosc: z.string(),
+          lokalizacja_kraj: z.string(),
+        })
+        .passthrough(),
       canonical: z.string(),
       images: z.array(z.string()),
+      location: z.array(z.string()),
       title: z.string(),
       // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
       price: z.number(),
@@ -349,15 +373,6 @@ export const scrapPropertyItem1 = (
           value: z.string().transform((value) => value.replace(/\s+/g, " ")),
         })
       ),
-      address: z
-        .object({
-          lokalizacja_gmina: z.string(),
-          lokalizacja_region: z.string(),
-          lokalizacja_powiat: z.string(),
-          lokalizacja_miejscowosc: z.string(),
-          lokalizacja_kraj: z.string(),
-        })
-        .passthrough(),
     })
     .parse(
       z
@@ -434,8 +449,11 @@ export const scrapPropertyItem1 = (
               description: parse(description)
                 .childNodes.map((p) => p.text)
                 .filter(Boolean),
-              id: String(id),
               images: images.map(({ large }) => large),
+              location: geoLevels
+                .filter(({ type }) => type !== "")
+                .map(({ label }) => label)
+                .reverse(),
               parameters: [],
               price: Price,
               title,

@@ -27,7 +27,7 @@ const asset = createAsset(async (version) => {
   return await res.json().then(({ results }) => ({
     results: results
       // .filter((item: { canonical: string }) => item.canonical.match(/otodom/))
-      .map((item: { parameters: any; address: any }) =>
+      .map((item: { parameters: any; address: any; location: any[] }) =>
         Object.assign(item, {
           _area: Number(
             item.parameters
@@ -48,9 +48,7 @@ const asset = createAsset(async (version) => {
                 .map((key) => item.address[key])
                 .filter(Boolean)
             : null,
-          location: item.parameters.find(({ label }: { label: string }) =>
-            ["Lokalizacja"].includes(label)
-          )?.value,
+          location: item.location.join(", "),
           road: item.parameters.find(({ label }: { label: string }) =>
             ["Droga dojazdowa"].includes(label)
           )?.value,
