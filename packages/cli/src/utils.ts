@@ -83,7 +83,7 @@ export const scrapProduct = (item: Partial<{ id: string }>, html: string) => {
       (text: string) =>
         Boolean(false && console.log({ text })) ||
         !text.match(
-          /Dowiedz się więcej|Kup teraz, otrzymasz w|Kup, otrzymasz w|Zapłać w ciągu/
+          /Dowiedz się więcej|Kup( teraz)?, otrzymasz |Zapłać w ciągu/
         )
     )
     .filter((array: any) => array.length > 0);

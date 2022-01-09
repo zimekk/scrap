@@ -190,6 +190,12 @@ Wyposażenie zewnętrzne
         ),
         result: ["Dostępny", "Darmowa dostawa", "Rata tylko 114,05 zł"],
       },
+      {
+        html: loadProductHtml(
+          "1014810-urzadzenie-kosmetyczne-inface-ultrasonic-ion-cleansing-instrument-bialy"
+        ),
+        result: ["Dostępny", "Dostawa od: 8,90 zł"],
+      },
     ].forEach(({ html, result }) =>
       expect(scrapProduct({ id: "" }, html).links).toEqual(result)
     ));
