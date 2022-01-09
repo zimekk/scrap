@@ -33,7 +33,9 @@ import {
   scrapOptions,
   scrapProduct,
   scrapPropertyList,
+  scrapPropertyList1,
   scrapPropertyItem,
+  scrapPropertyItem1,
 } from "./utils";
 
 require("dotenv").config();
@@ -44,6 +46,7 @@ const {
   NEARBY_RADIUS = "25014.985524846034",
   KLIK_URL,
   GRATKA_URL,
+  OTODOM_URL,
   STATIONS_URL,
   STORE_URL,
   STORE_ALTO_URL,
@@ -53,6 +56,7 @@ const {
   NEARBY_RADIUS: string;
   KLIK_URL: string;
   GRATKA_URL: string;
+  OTODOM_URL: string;
   STATIONS_URL: string;
   STORE_URL: string;
   STORE_ALTO_URL: string;
@@ -387,6 +391,32 @@ export default function () {
         url: href,
       };
     },
+    otodom: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["otodom", mk, type.replace(/\//g, "-"), page].join("-"),
+        url: `${OTODOM_URL}oferty/sprzedaz/${type}${
+          page > 1 ? `?page=${page}` : ``
+        }`,
+      };
+    },
+    "otodom-item": ({
+      time = Date.now(),
+      name,
+      href,
+    }: {
+      time: number;
+      name: string;
+      href: string;
+    }) => {
+      const mk = timestamp(time);
+
+      return {
+        id: ["otodom-item", mk, name].join("-"),
+        url: `${OTODOM_URL}oferta/${href}`,
+      };
+    },
   };
 
   const request = ({ $type, ...rest }: any) => {
@@ -424,6 +454,7 @@ export default function () {
     console.log({ $type, site, type, kind });
     // @ts-ignore
     const { id, url } = config[site]({ type, kind, ...rest });
+    console.log({ id, url });
     return requestsHtml
       .findOne({ id })
       .then((data: any) =>
@@ -1051,6 +1082,8 @@ export default function () {
     });
 
   const property$ = new Subject<{
+    $type: string;
+    id: number;
     name: string;
     href: string;
   }>();
@@ -1058,12 +1091,15 @@ export default function () {
   property$
     .pipe(
       mergeMap(
-        ({ name, href }) =>
-          from(browser({ $type: "gratka-item", name, href })).pipe(
+        ({ $type, id, name, href }) =>
+          from(browser({ $type, name, href })).pipe(
             map((html) => {
-              const id = name.split("-")[1];
-              // saveProductHtml(`gratka-${name}`, html);
-              return html && scrapPropertyItem({ id }, html);
+              if ($type === "otodom-item") {
+                // saveProductHtml(`otodom-${id}`, html);
+                return html && scrapPropertyItem1({ id: String(id) }, html);
+              }
+              // saveProductHtml(`gratka-${id}`, html);
+              return html && scrapPropertyItem({ id: String(id) }, html);
             })
           ),
         1
@@ -1094,26 +1130,48 @@ export default function () {
             map((html) => {
               const name = $type.split(":")[1];
               const id = name.replace(/\//g, "-");
-              // saveProductHtml(`gratka-${id}-${page}`, html);
+              console.log({ $type });
+              if ($type.split(":")[0] === "otodom") {
+                saveProductHtml(`otodom-${id}-${page}`, html);
+                return html ? scrapPropertyList1({ id }, html) : null;
+              }
+              saveProductHtml(`gratka-${id}-${page}`, html);
               return html ? scrapPropertyList({ id }, html) : null;
             }),
             filter(Boolean),
             tap(({ nextPage }) => {
               console.log({ nextPage });
               if (nextPage) {
-                const page = Number(new URL(nextPage).searchParams.get("page"));
+                // console.log({$type})
+                const page =
+                  $type.split(":")[0] === "otodom"
+                    ? Number(
+                        new URL(nextPage, GRATKA_URL).searchParams.get("page")
+                      )
+                    : Number(
+                        new URL(nextPage, OTODOM_URL).searchParams.get("page")
+                      );
                 console.log({ page });
                 properties$.next({ $type, page });
               }
             }),
             mergeMap(({ items }) => items),
-            tap(({ name, href }) => {
-              const id = name.split("-")[1];
-              propertyItems.findOne({ id }).then((item: any) => {
-                if (!item) {
-                  property$.next({ name, href });
-                }
-              });
+            tap(({ id, name, href }) => {
+              // const id = name.split("-")[1];
+              // console.log({id, name, href})
+              if ($type.split(":")[0] === "otodom") {
+                propertyItems.findOne({ id }).then((item: any) => {
+                  if (!item) {
+                    property$.next({ $type: "otodom-item", id, name, href });
+                  }
+                });
+              } else {
+                propertyItems.findOne({ id }).then((item: any) => {
+                  if (!item) {
+                    property$.next({ $type: "gratka-item", id, name, href });
+                  }
+                });
+              }
             })
           ),
         1
@@ -1132,6 +1190,7 @@ export default function () {
     "gratka:nieruchomosci/ozarow-mazowiecki",
     "gratka:nieruchomosci/podkowa-lesna",
     "gratka:nieruchomosci/stare-babice",
+    "otodom:dzialka/komorow_5600",
   ]).subscribe(($type) => {
     console.log({ $type });
     properties$.next({ $type });

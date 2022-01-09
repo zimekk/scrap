@@ -25,38 +25,40 @@ const AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
   return await res.json().then(({ results }) => ({
-    results: results.map((item: { parameters: any; address: any }) =>
-      Object.assign(item, {
-        _area: Number(
-          item.parameters
-            .find(({ label }: { label: string }) =>
-              ["Powierzchnia działki w m2"].includes(label)
-            )
-            ?.value.replace(/^([\d\s]+) m2$/g, "$1")
-            .replace(/\s/, "")
-        ),
-        _address: item.address
-          ? [
-              "lokalizacja_kraj",
-              "lokalizacja_region",
-              "lokalizacja_powiat",
-              "lokalizacja_gmina",
-              "lokalizacja_miejscowosc",
-            ]
-              .map((key) => item.address[key])
-              .filter(Boolean)
-          : null,
-        location: item.parameters.find(({ label }: { label: string }) =>
-          ["Lokalizacja"].includes(label)
-        )?.value,
-        road: item.parameters.find(({ label }: { label: string }) =>
-          ["Droga dojazdowa"].includes(label)
-        )?.value,
-        building: item.parameters.find(({ label }: { label: string }) =>
-          ["Typ budynku"].includes(label)
-        )?.value,
-      })
-    ),
+    results: results
+      // .filter((item: { canonical: string }) => item.canonical.match(/otodom/))
+      .map((item: { parameters: any; address: any }) =>
+        Object.assign(item, {
+          _area: Number(
+            item.parameters
+              .find(({ label }: { label: string }) =>
+                ["Powierzchnia działki w m2"].includes(label)
+              )
+              ?.value.replace(/^([\d\s]+) m2$/g, "$1")
+              .replace(/\s/, "") || 0
+          ),
+          _address: item.address
+            ? [
+                "lokalizacja_kraj",
+                "lokalizacja_region",
+                "lokalizacja_powiat",
+                "lokalizacja_gmina",
+                "lokalizacja_miejscowosc",
+              ]
+                .map((key) => item.address[key])
+                .filter(Boolean)
+            : null,
+          location: item.parameters.find(({ label }: { label: string }) =>
+            ["Lokalizacja"].includes(label)
+          )?.value,
+          road: item.parameters.find(({ label }: { label: string }) =>
+            ["Droga dojazdowa"].includes(label)
+          )?.value,
+          building: item.parameters.find(({ label }: { label: string }) =>
+            ["Typ budynku"].includes(label)
+          )?.value,
+        })
+      ),
   }));
 });
 
@@ -76,6 +78,7 @@ function Data({ version = "v1" }) {
       location: [""].concat(
         results
           .map(({ location }: any) => location)
+          .filter(Boolean)
           .filter(
             (value: any, index: number, array: any[]) =>
               array.indexOf(value) === index

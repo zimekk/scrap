@@ -131,6 +131,7 @@ export const scrapPropertyList = (
       id: z.string(),
       items: z.array(
         z.object({
+          id: z.number(),
           name: z.string(),
           href: z.string(),
         })
@@ -142,11 +143,102 @@ export const scrapPropertyList = (
       items: $root
         .querySelectorAll("article.teaserUnified")
         .map(($item: any) => ({
+          id: Number($item.getAttribute("id").split("-").pop()),
           name: $item.getAttribute("id"),
           href: $item.getAttribute("data-href"),
         })),
       nextPage: $root.querySelector("link[rel=next]")?.getAttribute("href"),
     });
+};
+
+export const scrapPropertyList1 = (
+  item: Partial<{ id: string }>,
+  html: string
+) => {
+  const $root = parse(html);
+  const json = $root.querySelector("script#__NEXT_DATA__")?.text;
+
+  return z
+    .object({
+      id: z.string(),
+      items: z.array(
+        z.object({
+          id: z.number(),
+          name: z.string(),
+          href: z.string(),
+        })
+      ),
+      nextPage: z.string().optional(),
+    })
+    .parse(
+      z
+        .object({
+          props: z.object({
+            pageProps: z.object({
+              canonicalURL: z.string(),
+              data: z.object({
+                searchAds: z.object({
+                  items: z.array(
+                    z.object({
+                      areaInSquareMeters: z.number(),
+                      estate: z.enum(["TERRAIN"]),
+                      id: z.number(),
+                      images: z.array(
+                        z.object({
+                          large: z.string(),
+                        })
+                      ),
+                      locationLabel: z.object({
+                        value: z.string(),
+                      }),
+                      shortDescription: z.string(),
+                      slug: z.string(),
+                      terrainAreaInSquareMeters: z.number().nullable(),
+                      title: z.string(),
+                      totalPrice: z.object({
+                        currency: z.enum(["PLN"]),
+                        value: z.number(),
+                      }),
+                      transaction: z.enum(["SELL"]),
+                    })
+                  ),
+                  pagination: z.object({
+                    page: z.number(),
+                    totalPages: z.number(),
+                  }),
+                }),
+              }),
+            }),
+          }),
+        })
+        .transform(
+          ({
+            props: {
+              pageProps: {
+                canonicalURL,
+                data: {
+                  searchAds: {
+                    items,
+                    pagination: { page, totalPages },
+                  },
+                },
+              },
+            },
+          }) => ({
+            ...item,
+            items: items.map(({ id, slug, title }) => ({
+              id,
+              name: title,
+              href: slug,
+            })),
+            nextPage:
+              page < totalPages
+                ? `${canonicalURL}?page=${page + 1}`
+                : undefined,
+          })
+        )
+        .parse(json ? JSON.parse(json) : {})
+    );
 };
 
 export const scrapPropertyItem = (
@@ -233,4 +325,110 @@ export const scrapPropertyItem = (
         .filter(Boolean)
         .map((m) => JSON.parse(m[1]))[0],
     });
+};
+
+export const scrapPropertyItem1 = (
+  item: Partial<{ id: string }>,
+  html: string
+) => {
+  const $root = parse(html);
+  const json = $root.querySelector("script#__NEXT_DATA__")?.text;
+
+  return z
+    .object({
+      id: z.string(),
+      canonical: z.string(),
+      images: z.array(z.string()),
+      title: z.string(),
+      // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
+      price: z.number(),
+      description: z.array(z.string()),
+      parameters: z.array(
+        z.object({
+          label: z.string(),
+          value: z.string().transform((value) => value.replace(/\s+/g, " ")),
+        })
+      ),
+      address: z
+        .object({
+          lokalizacja_gmina: z.string(),
+          lokalizacja_region: z.string(),
+          lokalizacja_powiat: z.string(),
+          lokalizacja_miejscowosc: z.string(),
+          lokalizacja_kraj: z.string(),
+        })
+        .passthrough(),
+    })
+    .parse(
+      z
+        .object({
+          props: z.object({
+            pageProps: z.object({
+              ad: z.object({
+                description: z.string(),
+                id: z.number(),
+                images: z.array(
+                  z.object({
+                    large: z.string(),
+                  })
+                ),
+                location: z.object({
+                  geoLevels: z.array(
+                    z.object({
+                      label: z.string(),
+                    })
+                  ),
+                }),
+                target: z.object({
+                  Country: z.string(),
+                  Price: z.number(),
+                  Province: z.string(),
+                  Subregion: z.string(),
+                }),
+                title: z.string(),
+                url: z.string(),
+              }),
+              // adTrackingData: z.object({
+              //   ad_price: z.number(),
+              // })
+            }),
+          }),
+        })
+        .transform(
+          ({
+            props: {
+              pageProps: {
+                ad: {
+                  description,
+                  id,
+                  images,
+                  target: { Country, Price, Province, Subregion },
+                  title,
+                  url,
+                },
+                // adTrackingData: {
+                //   ad_price
+                // }
+              },
+            },
+          }) => ({
+            ...item,
+            address: {
+              lokalizacja_gmina: "Komorów",
+              lokalizacja_region: Province,
+              lokalizacja_powiat: Subregion,
+              lokalizacja_miejscowosc: "Komorów",
+              lokalizacja_kraj: Country,
+            },
+            canonical: url,
+            description: [description],
+            id: String(id),
+            images: images.map(({ large }) => large),
+            parameters: [],
+            price: Price,
+            title,
+          })
+        )
+        .parse(json ? JSON.parse(json) : {})
+    );
 };
