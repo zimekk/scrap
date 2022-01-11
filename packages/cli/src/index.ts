@@ -1182,15 +1182,28 @@ export default function () {
     });
 
   from([
-    // "gratka:nieruchomosci/dzialki-grunty/warszawa",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/powsin",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/ursynow",
-    // "gratka:nieruchomosci/nieruchomosci/warszawa/wilanow",
+    "gratka:nieruchomosci/warszawa/powsin",
+    "gratka:nieruchomosci/warszawa/sadyba",
+    "gratka:nieruchomosci/warszawa/ursynow",
+    "gratka:nieruchomosci/warszawa/wilanow",
     "gratka:nieruchomosci/komorow-34074",
-    // "gratka:nieruchomosci/ozarow-mazowiecki",
-    // "gratka:nieruchomosci/podkowa-lesna",
-    // "gratka:nieruchomosci/stare-babice",
+    "gratka:nieruchomosci/ozarow-mazowiecki",
+    "gratka:nieruchomosci/podkowa-lesna",
+    "gratka:nieruchomosci/stare-babice",
+    "otodom:dom/komorow_5600",
+    "otodom:dom/stare-babice",
+    "otodom:dom/warszawa/powsin",
+    "otodom:dom/warszawa/powsinek",
+    "otodom:dom/warszawa/sadyba",
+    "otodom:dom/warszawa/ursynow",
+    "otodom:dom/warszawa/wilanow",
     "otodom:dzialka/komorow_5600",
+    "otodom:dzialka/stare-babice",
+    "otodom:dzialka/warszawa/powsin",
+    "otodom:dzialka/warszawa/powsinek",
+    "otodom:dzialka/warszawa/sadyba",
+    "otodom:dzialka/warszawa/ursynow",
+    "otodom:dzialka/warszawa/wilanow",
   ]).subscribe(($type) => {
     console.log({ $type });
     properties$.next({ $type });
@@ -1275,6 +1288,15 @@ export default function () {
     "get-product:553107-tablety-11-apple-2020-ipad-pro-11-1-tb-wi-fi-space-gray",
     "get-product:648721-tablety-11-apple-ipad-pro-11-m1-128-gb-wi-fi-space-gray",
     "get-product:648729-tablety-11-apple-ipad-pro-11-m1-1-tb-wi-fi-space-gray",
+    "get-product:116312-toner-do-drukarki-samsung-clt-y406s-yellow-1000str",
+    "get-product:116313-toner-do-drukarki-samsung-clt-k406s-black-1500str",
+    "get-product:116315-toner-do-drukarki-samsung-clt-c406s-cyan-1000str",
+    "get-product:127128-beben-do-drukarki-samsung-clt-r406-black-16000-zadan-beben",
+    "get-product:507439-toner-do-drukarki-hp-106a-black-1000str",
+    "get-product:596369-joystick-thrustmaster-tca-quadrant-airbus-edition",
+    "get-product:652301-sluchawki-przewodowe-thrustmaster-gaming-tracing-scuderia-ferrari-dts",
+    "get-product:696872-joystick-thrustmaster-tca-yoke-pack-boeing-edition",
+    "get-product:696874-joystick-thrustmaster-tca-quadrant-boeing-edition",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });

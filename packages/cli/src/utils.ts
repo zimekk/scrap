@@ -181,7 +181,7 @@ export const scrapPropertyList1 = (
                   items: z.array(
                     z.object({
                       areaInSquareMeters: z.number(),
-                      estate: z.enum(["TERRAIN"]),
+                      estate: z.enum(["HOUSE", "TERRAIN"]),
                       id: z.number(),
                       images: z.array(
                         z.object({
@@ -195,10 +195,12 @@ export const scrapPropertyList1 = (
                       slug: z.string(),
                       terrainAreaInSquareMeters: z.number().nullable(),
                       title: z.string(),
-                      totalPrice: z.object({
-                        currency: z.enum(["PLN"]),
-                        value: z.number(),
-                      }),
+                      totalPrice: z
+                        .object({
+                          currency: z.enum(["EUR", "PLN"]),
+                          value: z.number(),
+                        })
+                        .nullable(),
                       transaction: z.enum(["SELL"]),
                     })
                   ),
