@@ -774,6 +774,62 @@ Wyposażenie zewnętrzne
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6Ijlvd2FjZGQ4NmUzMDMtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.1FaV7HbzoS-rkUeCuXPBv6r2L75VJP60Toep-RUdRgQ/image;s=1280x1024;q=80",
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6ImRzczhyamhlMGV6MS1BUEwiLCJ3IjpbeyJmbiI6ImVudmZxcWUxYXk0azEtQVBMIiwicyI6IjE0IiwicCI6IjEwLC0xMCIsImEiOiIwIn1dfQ.praVScMdYTXY_fCE8wXI14B9-dE4hZdo6KhOm2twwLM/image;s=1280x1024;q=80",
           ],
+          information: [
+            {
+              label: "area",
+              unit: "m²",
+              values: ["500"],
+            },
+            {
+              label: "terrain_type",
+              unit: "",
+              values: ["type::building"],
+            },
+            {
+              label: "location",
+              unit: "",
+              values: [],
+            },
+            {
+              label: "dimensions",
+              unit: "m",
+              values: ["33x17"],
+            },
+            {
+              label: "remote_services",
+              unit: "",
+              values: [],
+            },
+            {
+              label: "advertiser_type",
+              unit: "",
+              values: ["advertiser_type::agency"],
+            },
+            {
+              label: "fence",
+              unit: "",
+              values: ["fence::y"],
+            },
+            {
+              label: "media_types",
+              unit: "",
+              values: [
+                "media_types::electricity",
+                "media_types::gas",
+                "media_types::sewage",
+              ],
+            },
+            {
+              label: "access_types",
+              unit: "",
+              values: ["access_types::hard_surfaced"],
+            },
+            {
+              label: "vicinity_types",
+              unit: "",
+              values: [],
+            },
+          ],
           location: ["Komorów", "pruszkowski", "mazowieckie"],
           title: "Usługowo-Mieszkaniowa, 1033 m², Komorów",
           price: 790000,

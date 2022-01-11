@@ -343,6 +343,26 @@ export const scrapPropertyItem = (
     });
 };
 
+const AdditionalInfo = z.object({
+  label: z.string(),
+  unit: z.string(),
+  values: z.array(z.string()),
+});
+
+const Characteristic = z.object({
+  currency: z.string(),
+  key: z.string(),
+  label: z.string(),
+  localizedValue: z.string(),
+  suffix: z.string(),
+  value: z.string(),
+});
+
+const FeatureGroup = z.object({
+  label: z.string(),
+  values: z.array(z.string()),
+});
+
 export const scrapPropertyItem1 = (
   item: Partial<{ id: string }>,
   html: string
@@ -364,6 +384,7 @@ export const scrapPropertyItem1 = (
         .passthrough(),
       canonical: z.string(),
       images: z.array(z.string()),
+      information: z.array(AdditionalInfo),
       location: z.array(z.string()),
       title: z.string(),
       // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
@@ -382,7 +403,10 @@ export const scrapPropertyItem1 = (
           props: z.object({
             pageProps: z.object({
               ad: z.object({
+                additionalInformation: z.array(AdditionalInfo),
+                characteristics: z.array(Characteristic),
                 description: z.string(),
+                featuresByCategory: z.array(FeatureGroup),
                 id: z.number(),
                 images: z.array(
                   z.object({
@@ -404,6 +428,7 @@ export const scrapPropertyItem1 = (
                   Subregion: z.string(),
                 }),
                 title: z.string(),
+                topInformation: z.array(AdditionalInfo),
                 url: z.string(),
               }),
               // adTrackingData: z.object({
@@ -417,12 +442,16 @@ export const scrapPropertyItem1 = (
             props: {
               pageProps: {
                 ad: {
+                  additionalInformation,
+                  characteristics,
                   description,
+                  featuresByCategory,
                   id,
                   images,
                   location: { geoLevels },
                   target: { Country, Price, Province, Subregion },
                   title,
+                  topInformation,
                   url,
                 },
                 // adTrackingData: {
@@ -452,6 +481,7 @@ export const scrapPropertyItem1 = (
                 .childNodes.map((p) => p.text)
                 .filter(Boolean),
               images: images.map(({ large }) => large),
+              information: topInformation.concat(additionalInformation),
               location: geoLevels
                 .filter(({ type }) => type !== "")
                 .map(({ label }) => label)
