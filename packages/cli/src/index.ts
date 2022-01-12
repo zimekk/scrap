@@ -1295,6 +1295,7 @@ export default function () {
     "get-product:507439-toner-do-drukarki-hp-106a-black-1000str",
     "get-product:596369-joystick-thrustmaster-tca-quadrant-airbus-edition",
     "get-product:652301-sluchawki-przewodowe-thrustmaster-gaming-tracing-scuderia-ferrari-dts",
+    "get-product:681593-sluchawki-do-konsoli-microsoft-xsx-stereo-headset-przewodowe",
     "get-product:696872-joystick-thrustmaster-tca-yoke-pack-boeing-edition",
     "get-product:696874-joystick-thrustmaster-tca-quadrant-boeing-edition",
   ]).subscribe(($type) => {

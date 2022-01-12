@@ -13,6 +13,7 @@ const SORT_BY = {
   _price: 1,
   _stars: -1,
   _created: -1,
+  _updated: -1,
 };
 
 const PRICE_LIST = [
@@ -83,17 +84,8 @@ function Data({ version = "v1" }) {
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
           _history: {},
+          _updated: item._created,
           ...item,
-          // _history: Object.entries(item._history || {}).reduce(
-          //   (history, [time, item], i, list) =>
-          //     Object.assign(
-          //       history,
-          //       i > 0 && JSON.stringify(item) === JSON.stringify(list[i - 1][1])
-          //         ? {}
-          //         : { [time]: item }
-          //     ),
-          //   {}
-          // ),
         }))
         .filter(
           (item: any) =>
