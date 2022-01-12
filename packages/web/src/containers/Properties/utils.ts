@@ -22,6 +22,19 @@ export const prepareItem = (item: object) =>
         })
       ),
     })
+    .transform(({ parameters, ...item }) => ({
+      parameters: parameters.concat(
+        item.information
+          ? item.information
+              .filter(({ values }) => values.length > 0)
+              .map(({ label, values, unit }) => ({
+                label,
+                value: values.join(", ").concat(unit),
+              }))
+          : []
+      ),
+      ...item,
+    }))
     .transform((item) => ({
       ...item,
       _information: item.information
@@ -79,7 +92,8 @@ export const prepareItem = (item: object) =>
                   ({
                     "access_types::asphalt": "asfaltowa",
                     "access_types::hard_surfaced": "utwardzana",
-                  }[value])
+                    "access_types::soft_surfaced": "nieutwardzona",
+                  }[value] || console.log({ value }))
               )[0]
             : item._parameters["Droga dojazdowa"],
           building: item._information?.building_type?.length
@@ -87,9 +101,13 @@ export const prepareItem = (item: object) =>
                 (value: string) =>
                   ({
                     "building_type::detached": "wolnostojący",
-                  }[value])
+                    "building_type::ribbon": "szeregowy",
+                    "building_type::semi_detached": "bliźniak",
+                    "building_type::residence": "pałac/dworek/willa",
+                  }[value] || console.log({ value }))
               )[0]
             : item._parameters["Typ budynku"],
+          parameters: item.parameters,
         })
     )
     .parse(item);

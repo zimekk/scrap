@@ -15,6 +15,7 @@ const SORT_BY = {
   _area: 1,
   _terrain_area: 1,
   _created: -1,
+  _updated: -1,
 };
 
 const PRICE_LIST = [
@@ -96,7 +97,7 @@ function Data({ version = "v1" }) {
 
   const [queries, setQueries] = useState(() => filters);
 
-  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[0]);
+  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[5]);
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
