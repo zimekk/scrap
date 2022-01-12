@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import { prepareItem } from "./utils";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -12,6 +13,7 @@ const SORT_BY = {
   price: 1,
   title: 1,
   _area: 1,
+  _terrain_area: 1,
   _created: -1,
 };
 
@@ -19,7 +21,9 @@ const PRICE_LIST = [
   0, 100000, 200000, 300000, 400000, 500000, 1000000, 1500000, 2000000,
 ];
 
-const AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
+const AREA_LIST = [0, 100, 200, 300, 400, 500, 600];
+
+const TERRAIN_AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
@@ -27,36 +31,7 @@ const asset = createAsset(async (version) => {
   return await res.json().then(({ results }) => ({
     results: results
       // .filter((item: { canonical: string }) => item.canonical.match(/otodom/))
-      .map((item: { parameters: any; address: any; location: any[] }) =>
-        Object.assign(item, {
-          _area: Number(
-            item.parameters
-              .find(({ label }: { label: string }) =>
-                ["Powierzchnia działki w m2"].includes(label)
-              )
-              ?.value.replace(/^([\d\s]+) m2$/g, "$1")
-              .replace(/\s/, "") || 0
-          ),
-          _address: item.address
-            ? [
-                "lokalizacja_kraj",
-                "lokalizacja_region",
-                "lokalizacja_powiat",
-                "lokalizacja_gmina",
-                "lokalizacja_miejscowosc",
-              ]
-                .map((key) => item.address[key])
-                .filter(Boolean)
-            : null,
-          location: item.location.join(", "),
-          road: item.parameters.find(({ label }: { label: string }) =>
-            ["Droga dojazdowa"].includes(label)
-          )?.value,
-          building: item.parameters.find(({ label }: { label: string }) =>
-            ["Typ budynku"].includes(label)
-          )?.value,
-        })
-      ),
+      .map((item: object) => ({ ...item, ...prepareItem(item) })),
   }));
 });
 
@@ -75,7 +50,7 @@ function Data({ version = "v1" }) {
       category: [""],
       location: [""].concat(
         results
-          .map(({ location }: any) => location)
+          .map(({ _location }: any) => _location)
           .filter(Boolean)
           .filter(
             (value: any, index: number, array: any[]) =>
@@ -115,6 +90,8 @@ function Data({ version = "v1" }) {
     priceTo: PRICE_LIST[PRICE_LIST.length - 2],
     areaFrom: AREA_LIST[0],
     areaTo: AREA_LIST[AREA_LIST.length - 1],
+    terrainAreaFrom: TERRAIN_AREA_LIST[0],
+    terrainAreaTo: TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -157,15 +134,17 @@ function Data({ version = "v1" }) {
           (item: {
             id: string;
             categories: string[];
-            location: string;
             road: string;
             building: string;
-            _search: string;
-            _price: number;
             _area: number;
+            _terrain_area: number;
+            _location: string;
+            _price: number;
+            _search: string;
           }) =>
             (!queries.category || item.categories.includes(queries.category)) &&
-            (!queries.location || [item.location].includes(queries.location)) &&
+            (!queries.location ||
+              [item._location].includes(queries.location)) &&
             (!queries.road || [item.road].includes(queries.road)) &&
             (!queries.building || [item.building].includes(queries.building)) &&
             (item._search.match(queries.search) ||
@@ -173,6 +152,9 @@ function Data({ version = "v1" }) {
             (queries.areaTo === AREA_LIST[0] ||
               (queries.areaFrom <= item._area &&
                 item._area <= queries.areaTo)) &&
+            (queries.terrainAreaTo === TERRAIN_AREA_LIST[0] ||
+              (queries.terrainAreaFrom <= item._terrain_area &&
+                item._terrain_area <= queries.terrainAreaTo)) &&
             (queries.priceTo === PRICE_LIST[0] ||
               (queries.priceFrom <= item._price &&
                 item._price <= queries.priceTo))
@@ -355,6 +337,68 @@ function Data({ version = "v1" }) {
             <span>{`${new Intl.NumberFormat().format(
               filters.areaFrom
             )} - ${new Intl.NumberFormat().format(filters.areaTo)} m2`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Terrain Area From</span>
+            <input
+              type="range"
+              list="terrain-area-list"
+              min={TERRAIN_AREA_LIST[0]}
+              max={TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1]}
+              value={filters.terrainAreaFrom}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ terrainAreaTo, ...criteria }) => {
+                    const terrainAreaFrom = Number(target.value);
+                    return {
+                      ...criteria,
+                      terrainAreaFrom,
+                      terrainAreaTo:
+                        terrainAreaTo < terrainAreaFrom
+                          ? terrainAreaFrom
+                          : terrainAreaTo,
+                    };
+                  }),
+                []
+              )}
+            />
+            <datalist id="terrain-area-list">
+              {TERRAIN_AREA_LIST.map((value) => (
+                <option key={value} value={value}></option>
+              ))}
+            </datalist>
+          </label>
+          <label>
+            <span>Terrain Area To</span>
+            <input
+              type="range"
+              list="terrain-area-list"
+              min={TERRAIN_AREA_LIST[0]}
+              max={TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1]}
+              value={filters.terrainAreaTo}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters(({ terrainAreaFrom, ...criteria }) => {
+                    const terrainAreaTo = Number(target.value);
+                    return {
+                      ...criteria,
+                      terrainAreaFrom:
+                        terrainAreaTo > terrainAreaFrom
+                          ? terrainAreaFrom
+                          : terrainAreaTo,
+                      terrainAreaTo,
+                    };
+                  }),
+                []
+              )}
+            />
+            <span>{`${new Intl.NumberFormat().format(
+              filters.terrainAreaFrom
+            )} - ${new Intl.NumberFormat().format(
+              filters.terrainAreaTo
+            )} m2`}</span>
           </label>
         </div>
         <div>
