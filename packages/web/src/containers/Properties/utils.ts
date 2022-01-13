@@ -52,29 +52,36 @@ export const prepareItem = (item: object) =>
       ),
     }))
     .transform(
-      (item: {
+      ({
+        address,
+        location,
+        parameters,
+        _information,
+        _parameters,
+      }: {
         address: any;
         location: any[];
+        parameters: any;
         _information: any;
         _parameters: any;
       }) =>
         // Boolean(console.log(item)) ||
         ({
           _area: Number(
-            item._information?.area?.length
-              ? item._information.area[0]
-              : item._parameters["Powierzchnia w m2"]
+            _information?.area?.length
+              ? _information.area[0]
+              : _parameters["Powierzchnia w m2"]
                   ?.replace(/^([\d\s]+) m2$/g, "$1")
                   .replace(/\s/, "") || 0
           ),
           _terrain_area: Number(
-            item._information?.terrain_area?.length
-              ? item._information.terrain_area[0]
-              : item._parameters["Powierzchnia działki w m2"]
+            _information?.terrain_area?.length
+              ? _information.terrain_area[0]
+              : _parameters["Powierzchnia działki w m2"]
                   ?.replace(/^([\d\s]+) m2$/g, "$1")
                   .replace(/\s/, "") || 0
           ),
-          _address: item.address
+          _address: address
             ? [
                 "lokalizacja_kraj",
                 "lokalizacja_region",
@@ -82,12 +89,12 @@ export const prepareItem = (item: object) =>
                 "lokalizacja_gmina",
                 "lokalizacja_miejscowosc",
               ]
-                .map((key) => item.address[key])
+                .map((key) => address[key])
                 .filter(Boolean)
             : null,
-          _location: item.location.join(", "),
-          road: item._information?.access_types?.length
-            ? item._information.access_types?.map(
+          _location: location.join(", "),
+          road: _information?.access_types?.length
+            ? _information.access_types?.map(
                 (value: string) =>
                   ({
                     "access_types::asphalt": "asfaltowa",
@@ -95,9 +102,9 @@ export const prepareItem = (item: object) =>
                     "access_types::soft_surfaced": "nieutwardzona",
                   }[value] || console.log({ value }))
               )[0]
-            : item._parameters["Droga dojazdowa"],
-          building: item._information?.building_type?.length
-            ? item._information.building_type?.map(
+            : _parameters["Droga dojazdowa"],
+          building: _information?.building_type?.length
+            ? _information.building_type?.map(
                 (value: string) =>
                   ({
                     "building_type::detached": "wolnostojący",
@@ -106,8 +113,8 @@ export const prepareItem = (item: object) =>
                     "building_type::residence": "pałac/dworek/willa",
                   }[value] || console.log({ value }))
               )[0]
-            : item._parameters["Typ budynku"],
-          parameters: item.parameters,
+            : _parameters["Typ budynku"],
+          parameters,
         })
     )
     .parse(item);

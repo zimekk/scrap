@@ -178,7 +178,95 @@ describe("Properties", () => {
             "Stare Babice",
           ],
           _location: "Stare Babice, warszawski zachodni, mazowieckie",
-          building: undefined,
+          building: "szeregowy",
+          parameters: [
+            {
+              label: "area",
+              value: "135m²",
+            },
+            {
+              label: "heating_types",
+              value: "heating_types::heat_pump",
+            },
+            {
+              label: "terrain_area",
+              value: "336m²",
+            },
+            {
+              label: "construction_status",
+              value: "construction_status::to_completion",
+            },
+            {
+              label: "building_type",
+              value: "building_type::ribbon",
+            },
+            {
+              label: "build_year",
+              value: "2022",
+            },
+            {
+              label: "rooms_num",
+              value: "4",
+            },
+            {
+              label: "car",
+              value: "extras_types-179::garage",
+            },
+            {
+              label: "market",
+              value: "market::primary",
+            },
+            {
+              label: "advertiser_type",
+              value: "advertiser_type::agency",
+            },
+            {
+              label: "windows_type",
+              value: "windows_type::wooden",
+            },
+            {
+              label: "floors_num",
+              value: "floors_num::two_floors",
+            },
+            {
+              label: "roof_type",
+              value: "roof_type::diagonal",
+            },
+            {
+              label: "roofing",
+              value: "roofing::sheet",
+            },
+            {
+              label: "garret_type",
+              value: "garret_type::usable",
+            },
+            {
+              label: "media_types",
+              value:
+                "media_types::cable_television, media_types::electricity, media_types::gas, media_types::internet, media_types::phone, media_types::sewage, media_types::water, media_types::water_purification",
+            },
+            {
+              label: "security_types",
+              value:
+                "security_types::anti_burglary_door, security_types::closed_area, security_types::entryphone, security_types::monitoring",
+            },
+            {
+              label: "fence_types",
+              value: "fence_types::metal",
+            },
+            {
+              label: "access_types",
+              value: "access_types::asphalt",
+            },
+            {
+              label: "location",
+              value: "location::suburban",
+            },
+            {
+              label: "extras_types",
+              value: "extras_types::attic",
+            },
+          ],
           road: "asfaltowa",
         },
       },
@@ -240,6 +328,36 @@ describe("Properties", () => {
           ],
           _location: "Warszawa, Warszawa, mazowieckie",
           building: undefined,
+          parameters: [
+            {
+              label: "Lokalizacja",
+              value: "Warszawa, Sadyba, mazowieckie",
+            },
+            {
+              label: "Powierzchnia działki w m2",
+              value: "4 593 m2",
+            },
+            {
+              label: "Droga dojazdowa",
+              value: "utwardzana",
+            },
+            {
+              label: "Ogrodzenie działki",
+              value: "brak",
+            },
+            {
+              label: "Numer referencyjny",
+              value: "gratka-581311",
+            },
+            {
+              label: "Zaktualizowane",
+              value: "5 dni temu",
+            },
+            {
+              label: "Dodane",
+              value: "ponad miesiąc temu",
+            },
+          ],
           road: "utwardzana",
         },
       },
