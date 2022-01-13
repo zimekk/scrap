@@ -383,6 +383,7 @@ export const scrapPropertyItem1 = (
         })
         .passthrough(),
       canonical: z.string(),
+      characteristics: z.array(Characteristic),
       images: z.array(z.string()),
       information: z.array(AdditionalInfo),
       location: z.array(z.string()),
@@ -422,10 +423,59 @@ export const scrapPropertyItem1 = (
                   ),
                 }),
                 target: z.object({
+                  Access_types: z
+                    .array(
+                      z.enum([
+                        "asphalt",
+                        "dirt",
+                        "hard_surfaced",
+                        "soft_surfaced",
+                      ])
+                    )
+                    .optional(),
+                  City: z.string().optional(),
                   Country: z.string(),
+                  Dimensions: z.string().optional(),
+                  // Location: z.enum(["city","country","suburban"]).optional(),
+                  Media_types: z
+                    .array(
+                      z.enum([
+                        "cable_television",
+                        "cesspool",
+                        "electricity",
+                        "gas",
+                        "internet",
+                        "phone",
+                        "power",
+                        "rafinery",
+                        "sewage",
+                        "telephone",
+                        "water",
+                        "water_purification",
+                      ])
+                    )
+                    .optional(),
                   Price: z.number(),
+                  ProperType: z.enum(["dzialka", "dom"]),
                   Province: z.string(),
                   Subregion: z.string(),
+                  Type: z
+                    .array(
+                      z.enum([
+                        "agricultural",
+                        "agricultural_building",
+                        "building",
+                        "commercial",
+                        "habitat",
+                        "other",
+                        "recreational",
+                        "woodland",
+                      ])
+                    )
+                    .optional(),
+                  Vicinity_types: z
+                    .array(z.enum(["forest", "lake"]))
+                    .optional(),
                 }),
                 title: z.string(),
                 topInformation: z.array(AdditionalInfo),
@@ -461,6 +511,7 @@ export const scrapPropertyItem1 = (
             },
           }) =>
             // Boolean(console.log(parse(description).childNodes.map(p => p.text).filter(Boolean)))||
+            // Boolean(console.log(characteristics))||
             ({
               ...item,
               address: ((location: any) => ({
@@ -477,6 +528,7 @@ export const scrapPropertyItem1 = (
                 )
               ),
               canonical: url,
+              characteristics,
               description: parse(description)
                 .childNodes.map((p) => p.text)
                 .filter(Boolean),

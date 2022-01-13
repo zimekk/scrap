@@ -209,162 +209,162 @@ Wyposażenie zewnętrzne
           id: "gratka",
           items: [
             {
-              id: 22807857,
+              id: "gratka-22807857",
               name: "item-22807857",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22807857",
             },
             {
-              id: 23424923,
+              id: "gratka-23424923",
               name: "item-23424923",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna/ob/23424923",
             },
             {
-              id: 22587393,
+              id: "gratka-22587393",
               name: "item-22587393",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22587393",
             },
             {
-              id: 23265061,
+              id: "gratka-23265061",
               name: "item-23265061",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23265061",
             },
             {
-              id: 24200813,
-              name: "item-24200813",
-              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24200813",
+              id: "gratka-24462089",
+              name: "item-24462089",
+              href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna-ul-wrobla/ob/24462089",
             },
             {
-              id: 23265461,
-              name: "item-23265461",
-              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23265461",
+              id: "gratka-24460949",
+              name: "item-24460949",
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24460949",
             },
             {
-              id: 23265457,
-              name: "item-23265457",
-              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23265457",
+              id: "gratka-24441447",
+              name: "item-24441447",
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24441447",
             },
             {
-              id: 24355267,
+              id: "gratka-24355267",
               name: "item-24355267",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24355267",
             },
             {
-              id: 24261309,
+              id: "gratka-24261309",
               name: "item-24261309",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24261309",
             },
             {
-              id: 24248251,
+              id: "gratka-24248251",
               name: "item-24248251",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24248251",
             },
             {
-              id: 24201749,
+              id: "gratka-24201749",
               name: "item-24201749",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24201749",
             },
             {
-              id: 24193747,
-              name: "item-24193747",
-              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna-ul-podlesna/ob/24193747",
+              id: "gratka-24200813",
+              name: "item-24200813",
+              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24200813",
             },
             {
-              id: 24172377,
+              id: "gratka-24172377",
               name: "item-24172377",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna/ob/24172377",
             },
             {
-              id: 24166589,
+              id: "gratka-24166589",
               name: "item-24166589",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24166589",
             },
             {
-              id: 24337957,
+              id: "gratka-24337957",
               name: "item-24337957",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna-ul-parkowa/ob/24337957",
             },
             {
-              id: 24128121,
+              id: "gratka-24128121",
               name: "item-24128121",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24128121",
             },
             {
-              id: 24101549,
+              id: "gratka-24101549",
               name: "item-24101549",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24101549",
             },
             {
-              id: 24055919,
+              id: "gratka-24459449",
+              name: "item-24459449",
+              href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/24459449",
+            },
+            {
+              id: "gratka-24055919",
               name: "item-24055919",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24055919",
             },
             {
-              id: 24023529,
+              id: "gratka-24023529",
               name: "item-24023529",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24023529",
             },
             {
-              id: 23957557,
+              id: "gratka-23957557",
               name: "item-23957557",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23957557",
             },
             {
-              id: 23844965,
+              id: "gratka-23844965",
               name: "item-23844965",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/23844965",
             },
             {
-              id: 23840223,
+              id: "gratka-23840223",
               name: "item-23840223",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna/ob/23840223",
             },
             {
-              id: 23840209,
+              id: "gratka-23840209",
               name: "item-23840209",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna/ob/23840209",
             },
             {
-              id: 23829359,
+              id: "gratka-23829359",
               name: "item-23829359",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/23829359",
             },
             {
-              id: 23775467,
+              id: "gratka-23775467",
               name: "item-23775467",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/23775467",
             },
             {
-              id: 23707903,
-              name: "item-23707903",
-              href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23707903",
-            },
-            {
-              id: 23654093,
+              id: "gratka-23654093",
               name: "item-23654093",
               href: "https://gratka.pl/nieruchomosci/dzialka-budowlana-podkowa-lesna-ul-parkowa/ob/23654093",
             },
             {
-              id: 23618089,
+              id: "gratka-23618089",
               name: "item-23618089",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23618089",
             },
             {
-              id: 23611077,
+              id: "gratka-23611077",
               name: "item-23611077",
               href: "https://gratka.pl/nieruchomosci/nowy-dom-podkowa-lesna/ob/23611077",
             },
             {
-              id: 23531917,
+              id: "gratka-23531917",
               name: "item-23531917",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23531917",
             },
             {
-              id: 23444117,
+              id: "gratka-23444117",
               name: "item-23444117",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/23444117",
             },
             {
-              id: 24289663,
+              id: "gratka-24289663",
               name: "item-24289663",
               href: "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/24289663",
             },
@@ -377,7 +377,7 @@ Wyposażenie zewnętrzne
       expect(scrapPropertyList(item, html)).toEqual(result)
     ));
 
-  xit("scrapPropertyList", () =>
+  xit("scrapPropertyList1", () =>
     [
       {
         item: { id: "otodom" },
@@ -386,191 +386,191 @@ Wyposażenie zewnętrzne
           id: "otodom",
           items: [
             {
-              id: 55875684,
+              id: "otodom-62643173",
+              name: "budowlana w Komorowie - blisko Wkd",
+              href: "budowlana-w-komorowie-blisko-wkd-ID4eQlL",
+            },
+            {
+              id: "otodom-55875684",
               name: "Usługowo-Mieszkaniowa, 1033 m², Komorów",
               href: "uslugowo-mieszkaniowa-1033-m-komorow-ID3MrOI",
             },
             {
-              id: 62046081,
+              id: "otodom-62046081",
               name: "Działka 1 406 m² Komorów",
               href: "dzialka-1-406-m-komorow-ID4cl1f",
             },
             {
-              id: 62625026,
+              id: "otodom-62625026",
               name: "Piękna działka budowlana Komorów",
               href: "piekna-dzialka-budowlana-komorow-ID4eLD4",
             },
             {
-              id: 62265265,
+              id: "otodom-62265265",
               name: "Działka z linią brzegową i z pozwoleniem na budowę",
               href: "dzialka-z-linia-brzegowa-i-z-pozwoleniem-na-budowe-ID4dg2t",
             },
             {
-              id: 62621923,
+              id: "otodom-62621923",
               name: "Atrakcyjna działka budowlana, niezadrzewiona!",
               href: "atrakcyjna-dzialka-budowlana-niezadrzewiona-ID4eKP1",
             },
             {
-              id: 62339614,
+              id: "otodom-62339614",
               name: "Działka Budowlana Komorów",
               href: "dzialka-budowlana-komorow-ID4dznE",
             },
             {
-              id: 61546914,
+              id: "otodom-61546914",
               name: "Atrakcyjna działka w Komorowie.",
               href: "atrakcyjna-dzialka-w-komorowie-ID4afaa",
             },
             {
-              id: 62586946,
+              id: "otodom-62586946",
               name: "Rod-Komorów/zadrzewiona/domek/kołoWędkarskie",
               href: "rod-komorow-zadrzewiona-domek-kolowedkarskie-ID4eBIS",
             },
             {
-              id: 62523350,
+              id: "otodom-62523350",
               name: "Piękna działka pod 2 bliźniaki w Komorowie",
               href: "piekna-dzialka-pod-2-blizniaki-w-komorowie-ID4elb8",
             },
             {
-              id: 62514201,
+              id: "otodom-62514201",
               name: "Działka w Komorowie z zabudową mieszkalną",
               href: "dzialka-w-komorowie-z-zabudowa-mieszkalna-ID4eiNz",
             },
             {
-              id: 62481487,
+              id: "otodom-62481487",
               name: "Rod-Komorów/20letnRododendron/domek/kołoWędkarskie",
               href: "rod-komorow-20letnrododendron-domek-kolowedkarskie-ID4eahW",
             },
             {
-              id: 62433079,
-              name: "Działka, 1 500 m², Komorów",
-              href: "dzialka-1-500-m-komorow-ID4dXH9",
-            },
-            {
-              id: 62433081,
+              id: "otodom-62433081",
               name: "Działka, 1 000 m², Komorów",
               href: "dzialka-1-000-m-komorow-ID4dXHb",
             },
             {
-              id: 62265589,
+              id: "otodom-62265589",
               name: "Budowlana 3500 m2 Zalew Komorowski",
               href: "budowlana-3500-m2-zalew-komorowski-ID4dg7H",
             },
             {
-              id: 62429653,
+              id: "otodom-62429653",
               name: "Działka, 3 500 m², Komorów",
               href: "dzialka-3-500-m-komorow-ID4dVNT",
             },
             {
-              id: 62427907,
+              id: "otodom-62427907",
               name: "Duża działka w Komorowie",
               href: "duza-dzialka-w-komorowie-ID4dVlJ",
             },
             {
-              id: 62411469,
+              id: "otodom-62411469",
               name: "Wszystkie media, 1.5km do Wkd",
               href: "wszystkie-media-1-5km-do-wkd-ID4dS4B",
             },
             {
-              id: 62358866,
+              id: "otodom-62358866",
               name: "Komorów-Dla Szukających Ciszy I Pięknego Otoczenia",
               href: "komorow-dla-szukajacych-ciszy-i-pieknego-otoczenia-ID4dEoa",
             },
             {
-              id: 62337786,
+              id: "otodom-62337786",
               name: "Komorów - piękna działka pod rezydencję.",
               href: "komorow-piekna-dzialka-pod-rezydencje-ID4dyUa",
             },
             {
-              id: 62332831,
-              name: "Atrakcyjna działka w Komorowie.",
-              href: "atrakcyjna-dzialka-w-komorowie-ID4dxCf",
-            },
-            {
-              id: 59033976,
+              id: "otodom-59033976",
               name: "Działka Komorów 1951mkw, ogrodzona, przy parku.",
               href: "dzialka-komorow-1951mkw-ogrodzona-przy-parku-ID3ZHqU",
             },
             {
-              id: 61271218,
+              id: "otodom-61271218",
               name: "Działka Komorów,zabudowa rezydencjonalna.",
               href: "dzialka-komorow-zabudowa-rezydencjonalna-ID495rs",
             },
             {
-              id: 62017140,
+              id: "otodom-62017140",
               name: "Piękna Działka W Komorowie",
               href: "piekna-dzialka-w-komorowie-ID4cdus",
             },
             {
-              id: 61965316,
+              id: "otodom-61965316",
               name: "Komorów, piękna działka budowlana",
               href: "komorow-piekna-dzialka-budowlana-ID4c00A",
             },
             {
-              id: 31887473,
+              id: "otodom-31887473",
               name: "Atrakcyjna działka Komorów Wieś",
               href: "atrakcyjna-dzialka-komorow-wies-ID29No5",
             },
             {
-              id: 61812872,
+              id: "otodom-61812872",
               name: "Piękna działka budowlana 2.001 m2 w Komorowie.",
               href: "piekna-dzialka-budowlana-2-001-m2-w-komorowie-ID4bmlO",
             },
             {
-              id: 61798340,
+              id: "otodom-61798340",
               name: "Najpiękniejsza działka w Komorowie 2001m2",
               href: "najpiekniejsza-dzialka-w-komorowie-2001m2-ID4bizq",
             },
             {
-              id: 61791651,
+              id: "otodom-61791651",
               name: "Działka pod zabudowę jednorodzinną Rezydencjonalną",
               href: "dzialka-pod-zabudowe-jednorodzinna-rezydencjonalna-ID4bgPx",
             },
             {
-              id: 61791650,
-              name: "Działka pod zabudowę jednorodzinną Rezydencjonalną",
-              href: "dzialka-pod-zabudowe-jednorodzinna-rezydencjonalna-ID4bgPv",
-            },
-            {
-              id: 61652949,
+              id: "otodom-61652949",
               name: "Działka, 2 420 m², Komorów",
               href: "dzialka-2-420-m-komorow-ID4aGKp",
             },
             {
-              id: 61616414,
+              id: "otodom-61616414",
               name: "Komorów działka 2511m2",
               href: "komorow-dzialka-2511m2-ID4axf8",
             },
             {
-              id: 61544582,
+              id: "otodom-61544582",
               name: "Działka, 937 m², Komorów",
               href: "dzialka-937-m-komorow-ID4aeyy",
             },
             {
-              id: 61544576,
+              id: "otodom-61544576",
               name: "Działka, 2 001 m², Komorów",
               href: "dzialka-2-001-m-komorow-ID4aeys",
             },
             {
-              id: 61254976,
+              id: "otodom-61254976",
               name: "Działka, 912 m², Komorów",
               href: "dzialka-912-m-komorow-ID491du",
             },
             {
-              id: 60920602,
+              id: "otodom-60920602",
               name: "Ostatnia taka działka w Komorowie 2500m2",
               href: "ostatnia-taka-dzialka-w-komorowie-2500m2-ID47Cem",
             },
             {
-              id: 60920506,
+              id: "otodom-60920506",
               name: "Działka w cichej i spokojnej okolicy",
               href: "dzialka-w-cichej-i-spokojnej-okolicy-ID47CcO",
+            },
+            {
+              id: "otodom-60764920",
+              name: "Budowlane 2 X 516 m2, Komorów, pruszkowski",
+              href: "budowlane-2-x-516-m2-komorow-pruszkowski-ID46XJm",
+            },
+            {
+              id: "otodom-60338706",
+              name: "Ładna działka w Komorowie",
+              href: "ladna-dzialka-w-komorowie-ID45aQV",
             },
           ],
           nextPage: "/pl/oferty/sprzedaz/dzialka/komorow_5600?page=2",
         },
       },
     ].forEach(({ item, html, result }) =>
-      // Boolean(console.log(scrapPropertyList(item, html)))||
+      // Boolean(console.log(scrapPropertyList1(item, html)))||
       expect(scrapPropertyList1(item, html)).toEqual(result)
     ));
 
@@ -703,6 +703,19 @@ Wyposażenie zewnętrzne
           "lokalizacja_szerokosc-geograficzna-y": 52.1199928,
         },
       },
+      {
+        html: loadProductHtml("gratka-item-19928301"),
+        result: {
+          "lokalizacja_dlugosc-geograficzna-x": 20.81310511,
+          lokalizacja_gmina: "Michałowice",
+          lokalizacja_kraj: "Polska",
+          lokalizacja_miejscowosc: "Komorów",
+          lokalizacja_powiat: "pruszkowski",
+          lokalizacja_region: "mazowieckie",
+          "lokalizacja_szerokosc-geograficzna-y": 52.14746053,
+          lokalizacja_ulica: "Marii Dąbrowskiej",
+        },
+      },
     ].forEach(({ html, result }) =>
       expect(scrapPropertyItem({ id: "" }, html).address).toEqual(result)
     ));
@@ -763,6 +776,56 @@ Wyposażenie zewnętrzne
           },
           canonical:
             "https://www.otodom.pl/pl/oferta/uslugowo-mieszkaniowa-1033-m-komorow-ID3MrOI.html",
+          characteristics: [
+            {
+              currency: "PLN",
+              key: "price",
+              label: "Cena",
+              localizedValue: "790 000 zł",
+              suffix: "",
+              value: "790000",
+            },
+            {
+              currency: "",
+              key: "m",
+              label: "Powierzchnia",
+              localizedValue: "500 m²",
+              suffix: "",
+              value: "500",
+            },
+            {
+              currency: "",
+              key: "price_per_m",
+              label: "cena za metr",
+              localizedValue: "1 580 zł/m²",
+              suffix: "",
+              value: "1580",
+            },
+            {
+              currency: "",
+              key: "type",
+              label: "Typ działki",
+              localizedValue: "budowlana",
+              suffix: "",
+              value: "building",
+            },
+            {
+              currency: "",
+              key: "dimensions",
+              label: "Wymiary",
+              localizedValue: "33x17 ",
+              suffix: "",
+              value: "33x17",
+            },
+            {
+              currency: "",
+              key: "fence",
+              label: "Ogrodzenie",
+              localizedValue: "tak",
+              suffix: "",
+              value: "y",
+            },
+          ],
           images: [
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6InBqdHIzeWJxYThyYjEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.WkRwfzj0i8HdobgCSIbyP-jm501mArfMKqkQXMmZEBo/image;s=1280x1024;q=80",
             "https://ireland.apollo.olxcdn.com/v1/files/eyJmbiI6IjlycHV6ZTZuYzB6aDEtQVBMIiwidyI6W3siZm4iOiJlbnZmcXFlMWF5NGsxLUFQTCIsInMiOiIxNCIsInAiOiIxMCwtMTAiLCJhIjoiMCJ9XX0.FGMAjjkipgvc5HNEXH-3pqKN8OxgcPEAu5DTpK7hUR0/image;s=1280x1024;q=80",
