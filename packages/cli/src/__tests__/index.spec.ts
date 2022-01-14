@@ -896,6 +896,12 @@ Wyposażenie zewnętrzne
           location: ["Komorów", "pruszkowski", "mazowieckie"],
           title: "Usługowo-Mieszkaniowa, 1033 m², Komorów",
           price: 790000,
+          coordinates: {
+            latitude: 52.14625,
+            longitude: 20.8165,
+            radius: 100,
+            zoomLevel: 11,
+          },
           description: [
             "Na sprzedaż piękna działka budowlana, o powierzchni 500 m² położona blisko kolejki WKD w Komorowie. Działka ma przeznaczenie usługowo-mieszkaniowe. Dostępny procent zabudowy wynosi 30%.",
             "Jest to ostatnia działka położona w tak znakomitej lokalizacji. Znajduje się bowiem ok. 1 min. pieszo do stacji WKD Komorów, a co za tym idzie do całej infrastruktury. W pobliżu są sklepy, usługi, cukiernie, restauracje, przychodnia, apteka, przedszkola prywatne, kompleks szkół. W okolicy jest dostępny także Zalew Komorów na rzece Utracie, który jest rajem dla wędkarzy i ptaków.",
@@ -909,5 +915,35 @@ Wyposażenie zewnętrzne
     ].forEach(({ item, html, result }) =>
       // Boolean(console.log(scrapPropertyItem1(item, html)))||
       expect(scrapPropertyItem1(item, html)).toEqual(result)
+    ));
+
+  xit("scrapPropertyItem1.address", () =>
+    [
+      {
+        item: { id: "otodom-55875684" },
+        html: loadProductHtml("otodom-55875684"),
+        result: {
+          lokalizacja_gmina: "Komorów",
+          lokalizacja_region: "mazowieckie",
+          lokalizacja_powiat: "pruszkowski",
+          lokalizacja_miejscowosc: "Komorów",
+          lokalizacja_kraj: "Polska",
+        },
+      },
+      {
+        item: { id: "otodom-47739554" },
+        html: loadProductHtml("otodom-47739554"),
+        result: {
+          lokalizacja_gmina: "Warszawa",
+          lokalizacja_region: "mazowieckie",
+          lokalizacja_powiat: "Warszawa",
+          lokalizacja_miejscowosc: "Warszawa",
+          lokalizacja_kraj: "Polska",
+          lokalizacja_ulica: "Kolegiacka",
+        },
+      },
+    ].forEach(({ item, html, result }) =>
+      // Boolean(console.log(scrapPropertyItem1(item, html)))||
+      expect(scrapPropertyItem1(item, html).address).toEqual(result)
     ));
 });

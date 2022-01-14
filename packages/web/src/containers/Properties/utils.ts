@@ -88,6 +88,7 @@ export const prepareItem = (item: object) =>
                 "lokalizacja_powiat",
                 "lokalizacja_gmina",
                 "lokalizacja_miejscowosc",
+                "lokalizacja_ulica",
               ]
                 .map((key) => address[key])
                 .filter(Boolean)

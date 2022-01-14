@@ -325,6 +325,7 @@ describe("Properties", () => {
             "Warszawa",
             "Warszawa",
             "Warszawa",
+            "Bernardyńska",
           ],
           _location: "Warszawa, Warszawa, mazowieckie",
           building: undefined,

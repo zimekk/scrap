@@ -259,6 +259,7 @@ export const scrapPropertyItem = (
           lokalizacja_powiat: z.string(),
           lokalizacja_miejscowosc: z.string(),
           lokalizacja_kraj: z.string(),
+          lokalizacja_ulica: z.string().optional(),
         })
         .passthrough(),
       canonical: z.string(),
@@ -363,6 +364,13 @@ const FeatureGroup = z.object({
   values: z.array(z.string()),
 });
 
+const AdvertCoordinates = z.object({
+  latitude: z.number(),
+  longitude: z.number(),
+  radius: z.number(),
+  zoomLevel: z.number(),
+});
+
 export const scrapPropertyItem1 = (
   item: Partial<{ id: string }>,
   html: string
@@ -380,10 +388,12 @@ export const scrapPropertyItem1 = (
           lokalizacja_powiat: z.string(),
           lokalizacja_miejscowosc: z.string(),
           lokalizacja_kraj: z.string(),
+          lokalizacja_ulica: z.string().optional(),
         })
         .passthrough(),
       canonical: z.string(),
       characteristics: z.array(Characteristic),
+      coordinates: AdvertCoordinates,
       images: z.array(z.string()),
       information: z.array(AdditionalInfo),
       location: z.array(z.string()),
@@ -405,6 +415,13 @@ export const scrapPropertyItem1 = (
             pageProps: z.object({
               ad: z.object({
                 additionalInformation: z.array(AdditionalInfo),
+                breadcrumbs: z.array(
+                  z.object({
+                    label: z.string(),
+                    locative: z.string(),
+                    url: z.string(),
+                  })
+                ),
                 characteristics: z.array(Characteristic),
                 description: z.string(),
                 featuresByCategory: z.array(FeatureGroup),
@@ -415,6 +432,12 @@ export const scrapPropertyItem1 = (
                   })
                 ),
                 location: z.object({
+                  coordinates: AdvertCoordinates,
+                  address: z.array(
+                    z.object({
+                      value: z.string(),
+                    })
+                  ),
                   geoLevels: z.array(
                     z.object({
                       label: z.string(),
@@ -493,12 +516,13 @@ export const scrapPropertyItem1 = (
               pageProps: {
                 ad: {
                   additionalInformation,
+                  breadcrumbs,
                   characteristics,
                   description,
                   featuresByCategory,
                   id,
                   images,
-                  location: { geoLevels },
+                  location: { coordinates, geoLevels },
                   target: { Country, Price, Province, Subregion },
                   title,
                   topInformation,
@@ -514,21 +538,31 @@ export const scrapPropertyItem1 = (
             // Boolean(console.log(characteristics))||
             ({
               ...item,
-              address: ((location: any) => ({
-                lokalizacja_gmina: location.city,
-                lokalizacja_region: location.region,
-                lokalizacja_powiat: location["sub-region"],
-                lokalizacja_miejscowosc: location.city,
-                lokalizacja_kraj: Country,
-              }))(
+              address: ((location: any, breadcrumb: any) =>
+                Object.assign(
+                  {
+                    lokalizacja_gmina: location.city,
+                    lokalizacja_region: location.region,
+                    lokalizacja_powiat: location["sub-region"],
+                    lokalizacja_miejscowosc: location.city,
+                    lokalizacja_kraj: Country,
+                  },
+                  breadcrumb
+                    ? {
+                        lokalizacja_ulica: breadcrumb.locative,
+                      }
+                    : {}
+                ))(
                 geoLevels.reduce(
                   (result, { label, type }) =>
                     Object.assign(result, { [type]: label }),
                   {}
-                )
+                ),
+                breadcrumbs.find(({ url }) => Boolean(url.match(/streetId/)))
               ),
               canonical: url,
               characteristics,
+              coordinates,
               description: parse(description)
                 .childNodes.map((p) => p.text)
                 .filter(Boolean),
