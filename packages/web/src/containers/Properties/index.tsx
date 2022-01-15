@@ -38,7 +38,6 @@ const asset = createAsset(async (version) => {
 
 const unify = (item: { title: string; price: number; parameters: any[] }) => ({
   ...item,
-  categories: [],
   _search: item.title.toLowerCase(),
   _price: item.price,
 });
@@ -48,7 +47,16 @@ function Data({ version = "v1" }) {
 
   const options = useMemo(
     () => ({
-      category: [""],
+      category: [""].concat(
+        results
+          .map(({ category }: any) => category)
+          .filter(Boolean)
+          .filter(
+            (value: any, index: number, array: any[]) =>
+              array.indexOf(value) === index
+          )
+          .sort((a: string, b: string) => a.localeCompare(b))
+      ),
       location: [""].concat(
         results
           .map(({ _location }: any) => _location)
@@ -134,7 +142,7 @@ function Data({ version = "v1" }) {
         .filter(
           (item: {
             id: string;
-            categories: string[];
+            category: string;
             road: string;
             building: string;
             _area: number;
@@ -143,7 +151,7 @@ function Data({ version = "v1" }) {
             _price: number;
             _search: string;
           }) =>
-            (!queries.category || item.categories.includes(queries.category)) &&
+            (!queries.category || [item.category].includes(queries.category)) &&
             (!queries.location ||
               [item._location].includes(queries.location)) &&
             (!queries.road || [item.road].includes(queries.road)) &&
