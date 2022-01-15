@@ -2,14 +2,6 @@
 
 [zimekk.github.io/scrap](https://zimekk.github.io/scrap)
 
-## settings
-
-```sh
-ssh-keygen -t rsa -b 4096 -C "" -f /tmp/ACTIONS_DEPLOY_KEY -N ""
-pbcopy < /tmp/ACTIONS_DEPLOY_KEY.pub # Deploy keys - Add deploy key
-pbcopy < /tmp/ACTIONS_DEPLOY_KEY # Secrets - New repository secret
-```
-
 ## install
 
 ```sh
