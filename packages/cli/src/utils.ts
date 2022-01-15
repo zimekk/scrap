@@ -243,6 +243,21 @@ export const scrapPropertyList1 = (
     );
 };
 
+const Category = z.enum([
+  "domy",
+  "dzialki-grunty/budowlana",
+  "dzialki-grunty/gospodarstwo",
+  "dzialki-grunty/inwestycyjna",
+  "dzialki-grunty/lesna",
+  "dzialki-grunty/pozostale",
+  "dzialki-grunty/przemyslowa",
+  "dzialki-grunty/rekreacyjna",
+  "dzialki-grunty/rolna",
+  "dzialki-grunty/rolno-budowlana",
+  "dzialki-grunty/siedliskowa",
+  "dzialki-grunty/uslugowa",
+]);
+
 export const scrapPropertyItem = (
   item: Partial<{ id: string }>,
   html: string
@@ -263,6 +278,7 @@ export const scrapPropertyItem = (
         })
         .passthrough(),
       canonical: z.string(),
+      category: Category,
       images: z.array(z.string()),
       location: z.array(z.string()),
       title: z.string(),
@@ -287,6 +303,10 @@ export const scrapPropertyItem = (
       canonical: $root
         .querySelector("link[rel=canonical]")
         ?.getAttribute("href"),
+      category: $root
+        .querySelector(".sticker__backLink")
+        ?.getAttribute("href")
+        ?.split("/nieruchomosci/")[1],
       images:
         $root
           .querySelectorAll("script")
@@ -344,10 +364,19 @@ export const scrapPropertyItem = (
     });
 };
 
+const LocalizedString = z.object({
+  value: z.string(),
+});
+
 const AdditionalInfo = z.object({
   label: z.string(),
   unit: z.string(),
   values: z.array(z.string()),
+});
+
+const AdvertCategory = z.object({
+  id: z.number(),
+  name: z.array(LocalizedString),
 });
 
 const Characteristic = z.object({
@@ -392,6 +421,7 @@ export const scrapPropertyItem1 = (
         })
         .passthrough(),
       canonical: z.string(),
+      category: Category,
       characteristics: z.array(Characteristic),
       coordinates: AdvertCoordinates,
       images: z.array(z.string()),
@@ -422,6 +452,7 @@ export const scrapPropertyItem1 = (
                     url: z.string(),
                   })
                 ),
+                category: AdvertCategory,
                 characteristics: z.array(Characteristic),
                 description: z.string(),
                 featuresByCategory: z.array(FeatureGroup),
@@ -433,11 +464,7 @@ export const scrapPropertyItem1 = (
                 ),
                 location: z.object({
                   coordinates: AdvertCoordinates,
-                  address: z.array(
-                    z.object({
-                      value: z.string(),
-                    })
-                  ),
+                  address: z.array(LocalizedString),
                   geoLevels: z.array(
                     z.object({
                       label: z.string(),
@@ -453,6 +480,16 @@ export const scrapPropertyItem1 = (
                         "dirt",
                         "hard_surfaced",
                         "soft_surfaced",
+                      ])
+                    )
+                    .optional(),
+                  Building_type: z
+                    .array(
+                      z.enum([
+                        "detached",
+                        "ribbon",
+                        "semi_detached",
+                        "residence",
                       ])
                     )
                     .optional(),
@@ -517,13 +554,21 @@ export const scrapPropertyItem1 = (
                 ad: {
                   additionalInformation,
                   breadcrumbs,
+                  category,
                   characteristics,
                   description,
                   featuresByCategory,
                   id,
                   images,
                   location: { coordinates, geoLevels },
-                  target: { Country, Price, Province, Subregion },
+                  target: {
+                    Country,
+                    Price,
+                    ProperType,
+                    Province,
+                    Subregion,
+                    Type,
+                  },
                   title,
                   topInformation,
                   url,
@@ -561,6 +606,20 @@ export const scrapPropertyItem1 = (
                 breadcrumbs.find(({ url }) => Boolean(url.match(/streetId/)))
               ),
               canonical: url,
+              category: {
+                ["dzialka"]: () =>
+                  ({
+                    ["building"]: "dzialki-grunty/budowlana",
+                    ["agricultural"]: "dzialki-grunty/rolna",
+                    ["agricultural_building"]: "dzialki-grunty/rolno-budowlana",
+                    ["commercial"]: "dzialki-grunty/inwestycyjna",
+                    ["habitat"]: "dzialki-grunty/siedliskowa",
+                    ["other"]: "dzialki-grunty/pozostale",
+                    ["recreational"]: "dzialki-grunty/rekreacyjna",
+                    ["woodland"]: "dzialki-grunty/lesna",
+                  }[Type?.pop() || "building"]),
+                ["dom"]: () => "domy",
+              }[ProperType](),
               characteristics,
               coordinates,
               description: parse(description)

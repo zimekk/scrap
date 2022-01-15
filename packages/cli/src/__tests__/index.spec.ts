@@ -592,6 +592,7 @@ Wyposażenie zewnętrzne
           },
           canonical:
             "https://gratka.pl/nieruchomosci/dom-podkowa-lesna/ob/22587393",
+          category: "domy",
           images: [
             "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848463_dom-podkowa-lesna_xlarge.jpg",
             "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/a6/31/22587393_686848465_dom-podkowa-lesna_xlarge.jpg",
@@ -776,6 +777,7 @@ Wyposażenie zewnętrzne
           },
           canonical:
             "https://www.otodom.pl/pl/oferta/uslugowo-mieszkaniowa-1033-m-komorow-ID3MrOI.html",
+          category: "dzialki-grunty/budowlana",
           characteristics: [
             {
               currency: "PLN",
