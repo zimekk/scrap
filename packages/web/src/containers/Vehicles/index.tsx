@@ -50,6 +50,10 @@ const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
 
+const formatNumber = (value) => new Intl.NumberFormat().format(value);
+
+const formatAmount = (value) => `${formatNumber(value)} pln`;
+
 const useCriterion = createPersistedState("criterion-vehicles");
 const useFavorites = createPersistedState("favorites-vehicles");
 
@@ -400,16 +404,6 @@ function Data({ version = "v1" }) {
                 setFavorites={setFavorites}
                 setSearch={setSearch}
               />
-              {Object.entries(item._history || {})
-                .reverse()
-                .map(([_time, _item], key, list) => (
-                  <Details
-                    key={_time}
-                    _time={_time}
-                    item={{ id, ..._item }}
-                    prev={key ? list[key - 1][1] : item}
-                  />
-                ))}
             </li>
           ))}
       </ol>
@@ -667,19 +661,23 @@ function CriteriaLabel({
         <span>Radius</span> <span>{`max ${radius} km`}</span>
       </div>
       <div>
-        <span>Year</span> <span>{`${yearFrom}-${yearTo}`}</span>
+        <span>Year</span> <span>{`${yearFrom} - ${yearTo}`}</span>
       </div>
       <div>
-        <span>Mileage</span> <span>{`${mileageFrom}-${mileageTo} km`}</span>
+        <span>Mileage</span>{" "}
+        <span>{`${formatNumber(mileageFrom)} - ${formatNumber(
+          mileageTo
+        )} km`}</span>
       </div>
       <div>
-        <span>Price</span> <span>{`${priceFrom}-${priceTo} pln`}</span>
+        <span>Price</span>{" "}
+        <span>{`${formatNumber(priceFrom)} - ${formatAmount(priceTo)}`}</span>
       </div>
       <div>
-        <span>Power</span> <span>{`${powerFrom}-${powerTo} hp`}</span>
+        <span>Power</span> <span>{`${powerFrom} - ${powerTo} hp`}</span>
       </div>
       <div>
-        <span>Created</span> <span>{`${createdFrom}-${createdTo}`}</span>
+        <span>Created</span> <span>{`${createdFrom} - ${createdTo}`}</span>
       </div>
       {Object.entries(entries)
         .filter(([, value]: any) => value !== "")
@@ -958,7 +956,7 @@ function Criteria({
             value={yearTo}
             onChange={onChangeYearTo}
           />
-          <span>{`${yearFrom}-${yearTo}`}</span>
+          <span>{`${yearFrom} - ${yearTo}`}</span>
         </label>
       </div>
       <div>
@@ -992,7 +990,7 @@ function Criteria({
             value={mileageTo}
             onChange={onChangeMileageTo}
           />
-          <span>{`${mileageFrom}-${mileageTo} km`}</span>
+          <span>{`${mileageFrom} - ${mileageTo} km`}</span>
         </label>
       </div>
       <div>
@@ -1013,7 +1011,7 @@ function Criteria({
                 value={value}
                 label={
                   [0, 100000, 200000, 300000, 400000, 500000].includes(value)
-                    ? `${value} pln`
+                    ? formatAmount(value)
                     : undefined
                 }
               ></option>
@@ -1030,7 +1028,7 @@ function Criteria({
             value={priceTo}
             onChange={onChangePriceTo}
           />
-          <span>{`${priceFrom}-${priceTo} pln`}</span>
+          <span>{`${formatNumber(priceFrom)} - ${formatAmount(priceTo)}`}</span>
         </label>
       </div>
       <div>
@@ -1064,7 +1062,7 @@ function Criteria({
             value={powerTo}
             onChange={onChangePowerTo}
           />
-          <span>{`${powerFrom}-${powerTo} hp`}</span>
+          <span>{`${powerFrom} - ${powerTo} hp`}</span>
         </label>
       </div>
       <div>
@@ -1170,106 +1168,134 @@ function Details({
     seriesCode,
     bodyType,
     modelCode,
-    fuel,
-    color,
-    transmission,
-    capacity,
-    consumptionFuel,
-    // emissionStandard,
-    // emissionMeasurementStandard,
-    emission,
-    powerHP,
     productionYear,
-    registration,
-    age,
-    mileage,
     transactionalPrice,
     newPrice,
-    warranty,
-    created,
-    imagesLastChanged,
   } = item;
 
   const changed = (prop) => item && prev && item[prop] !== prev[prop];
 
   return (
     <ul className={styles.Details}>
+      {!prev && (
+        <li>
+          <Color color={item.color} />
+          <IdLink setSearch={setSearch}>{id}</IdLink>
+          <Link href={href}>{title}</Link>
+          {onClickCompare && (
+            <Button onClick={onClickCompare} value={item._id}>
+              Compare
+            </Button>
+          )}
+          {setFavorites && (
+            <Toggle
+              checked={favorites.includes(id)}
+              onChange={(e) =>
+                setFavorites((favorites) =>
+                  e.target.checked
+                    ? favorites.concat(id)
+                    : favorites.filter((favorite) => favorite !== id)
+                )
+              }
+            >
+              Favorite
+            </Toggle>
+          )}
+        </li>
+      )}
+      {!prev && (
+        <li>
+          <IdLink setSearch={setSearch}>
+            {typeof seriesCode === "object" ? seriesCode.label : seriesCode}
+          </IdLink>{" "}
+          {brand.label} {series.label} {bodyType.label} {item.fuel.label}{" "}
+          {item.transmission.label}
+        </li>
+      )}
+      {!prev && (
+        <li>
+          <IdLink setSearch={setSearch}>
+            {typeof modelCode === "object" ? modelCode.label : modelCode}
+          </IdLink>{" "}
+          {item.capacity && <span>capacity: {item.capacity}</span>}{" "}
+          {item.powerHP && <span>powerHP: {item.powerHP}</span>}{" "}
+          {item.consumptionFuel && (
+            <span>consumptionFuel: {item.consumptionFuel}</span>
+          )}{" "}
+          {item.emission && <span>emission: {item.emission}</span>}
+        </li>
+      )}
       <li>
-        <Color color={color} />
-        <IdLink setSearch={setSearch}>{id}</IdLink>
-        <Link href={href}>{title}</Link>
-        {onClickCompare && (
-          <Button onClick={onClickCompare} value={item._id}>
-            Compare
-          </Button>
-        )}
-        {setFavorites && (
-          <Toggle
-            checked={favorites.includes(id)}
-            onChange={(e) =>
-              setFavorites((favorites) =>
-                e.target.checked
-                  ? favorites.concat(id)
-                  : favorites.filter((favorite) => favorite !== id)
-              )
-            }
-          >
-            Favorite
-          </Toggle>
-        )}
-      </li>
-      <li>
-        <IdLink setSearch={setSearch}>
-          {typeof seriesCode === "object" ? seriesCode.label : seriesCode}
-        </IdLink>{" "}
-        {brand.label} {series.label} {bodyType.label} {fuel.label}{" "}
-        {transmission.label}
-      </li>
-      <li>
-        <IdLink setSearch={setSearch}>
-          {typeof modelCode === "object" ? modelCode.label : modelCode}
-        </IdLink>{" "}
-        {capacity && <span>capacity: {capacity}</span>}{" "}
-        {powerHP && <span>powerHP: {powerHP}</span>}{" "}
-        {consumptionFuel && <span>consumptionFuel: {consumptionFuel}</span>}{" "}
-        {emission && <span>emission: {emission}</span>}
-      </li>
-      <li>
-        <span>productionYear: {productionYear}</span>{" "}
-        {Boolean(newPrice) && <span>newPrice: {newPrice}</span>}{" "}
-        {Boolean(item.optionsPrice) && (
-          <span>optionsPrice: {item.optionsPrice}</span>
-        )}{" "}
-        {Boolean(item.accessoriesPrice) && (
-          <span>accessoriesPrice: {item.accessoriesPrice}</span>
-        )}
-      </li>
-      <li>
-        {registration && (
+        <span
+          className={cx(
+            styles.Compare,
+            changed("productionYear") && styles.changed
+          )}
+        >
+          productionYear: {productionYear}
+        </span>{" "}
+        {Boolean(newPrice) && (
           <span
             className={cx(
               styles.Compare,
-              changed("registration") && styles.changed
+              changed("newPrice") && styles.changed
             )}
           >
-            registration: {registration.split("T")[0]}
+            newPrice: {formatAmount(newPrice)}
           </span>
         )}{" "}
-        {age && (
+        {Boolean(item.optionsPrice) && (
           <span
-            className={cx(styles.Compare, changed("age") && styles.changed)}
+            className={cx(
+              styles.Compare,
+              changed("optionsPrice") && styles.changed
+            )}
           >
-            age: {age}
+            optionsPrice: {formatAmount(item.optionsPrice)}
           </span>
         )}{" "}
-        {mileage && (
+        {Boolean(item.accessoriesPrice) && (
           <span
-            className={cx(styles.Compare, changed("mileage") && styles.changed)}
+            className={cx(
+              styles.Compare,
+              changed("accessoriesPrice") && styles.changed
+            )}
           >
-            mileage: {mileage}
+            accessoriesPrice: {formatAmount(item.accessoriesPrice)}
           </span>
         )}
       </li>
+      {Boolean(item.registration || item.age || item.mileage) && (
+        <li>
+          {item.registration && (
+            <span
+              className={cx(
+                styles.Compare,
+                changed("registration") && styles.changed
+              )}
+            >
+              registration: {item.registration.split("T")[0]}
+            </span>
+          )}{" "}
+          {Boolean(item.age) && (
+            <span
+              className={cx(styles.Compare, changed("age") && styles.changed)}
+            >
+              age: {item.age}
+            </span>
+          )}{" "}
+          {Boolean(item.mileage) && (
+            <span
+              className={cx(
+                styles.Compare,
+                changed("mileage") && styles.changed
+              )}
+            >
+              mileage: {formatNumber(item.mileage)} km
+            </span>
+          )}
+        </li>
+      )}
       <li>
         <span
           className={cx(
@@ -1277,30 +1303,63 @@ function Details({
             changed("transactionalPrice") && styles.changed
           )}
         >
-          transactionalPrice: {transactionalPrice}
+          transactionalPrice: {formatAmount(transactionalPrice)}
           {Boolean(newPrice) && (
             <span> ({Math.round((100 * transactionalPrice) / newPrice)}%)</span>
           )}
         </span>{" "}
-        <span
-          className={cx(
-            styles.Compare,
-            changed("vatReclaimable") && styles.changed
-          )}
-        >
-          vatReclaimable: {item.vatReclaimable}
-        </span>{" "}
-        <span
-          className={cx(styles.Compare, changed("warranty") && styles.changed)}
-        >
-          warranty: {warranty}
-        </span>
+        {Boolean(item.transactionalPriceUpdated) && (
+          <span
+            className={cx(
+              styles.Compare,
+              changed("transactionalPriceUpdated") && styles.changed
+            )}
+            title={item.transactionalPriceUpdated.split("+")[0]}
+          >
+            transactionalPriceUpdated:{" "}
+            {item.transactionalPriceUpdated.split("T")[0]}
+          </span>
+        )}{" "}
+        {Boolean(item.vatReclaimable) && (
+          <span
+            className={cx(
+              styles.Compare,
+              changed("vatReclaimable") && styles.changed
+            )}
+          >
+            vatReclaimable
+          </span>
+        )}{" "}
+        {Boolean(item.warranty) && (
+          <span
+            className={cx(
+              styles.Compare,
+              changed("warranty") && styles.changed
+            )}
+          >
+            warranty: {item.warranty}
+          </span>
+        )}
       </li>
-      {(_time || imagesLastChanged) && (
+      {(_time || item.imagesLastChanged) && (
         <li>
-          [{_time ? format(Number(_time), "yyyy-MM-dd HH:mm") : "-"}] {created}{" "}
-          {imagesLastChanged && (
-            <span>imagesLastChanged: {imagesLastChanged}</span>
+          [{_time ? format(Number(_time), "yyyy-MM-dd HH:mm") : "-"}]{" "}
+          <span
+            className={cx(styles.Compare, changed("created") && styles.changed)}
+            title={item.created.split("+")[0]}
+          >
+            created: {item.created.split("T")[0]}
+          </span>{" "}
+          {item.imagesLastChanged && (
+            <span
+              className={cx(
+                styles.Compare,
+                changed("imagesLastChanged") && styles.changed
+              )}
+              title={item.imagesLastChanged.split("+")[0]}
+            >
+              imagesLastChanged: {item.imagesLastChanged.split("T")[0]}
+            </span>
           )}
         </li>
       )}
@@ -1316,24 +1375,59 @@ function Details({
               _updated: {format(Number(item._updated), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
-          {item._removed && (
+          {Boolean(item._removed) && (
             <span className={cx(styles.Compare)}>
               _removed: {format(Number(item._removed), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
         </li>
       )}
-      {item.leasable && (
+      {!prev && item.leasable && (
         <li>
           <Leasing item={item} />
         </li>
       )}
-      {item.options && (
+      {!prev && item.options && (
         <li>
           <Options options={item.options} />
         </li>
       )}
+      {!prev && item._history && (
+        <li>
+          <History item={item} />
+        </li>
+      )}
     </ul>
+  );
+}
+
+function History({ item }) {
+  const [expand, setExpand] = useState(false);
+
+  const { id } = item;
+
+  return (
+    <div>
+      <div>
+        <Link
+          onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
+        >
+          {expand ? "Hide history" : "Show history"}
+        </Link>{" "}
+        ({Object.keys(item._history).length})
+      </div>
+      {expand &&
+        Object.entries(item._history || {})
+          .reverse()
+          .map(([_time, _item], key, list) => (
+            <Details
+              key={_time}
+              _time={_time}
+              item={{ id, ..._item }}
+              prev={key ? list[key - 1][1] : item}
+            />
+          ))}
+    </div>
   );
 }
 

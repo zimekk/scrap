@@ -94,12 +94,20 @@ const api = Router()
             .then((vehicleBasic: any) => vehicleBasic.slice(0, 5000))
             .then((list) =>
               list.map(
-                ({ _id, _created, _updated, _removed = 0, ...source }: any) =>
+                ({
+                  _id,
+                  _created,
+                  _updated,
+                  _history,
+                  _removed = 0,
+                  ...source
+                }: any) =>
                   // Boolean(console.log(source))||
                   ({
                     _id,
                     _created,
                     _updated,
+                    _history,
                     _removed,
                     // source,
                     options: source.options,
@@ -478,6 +486,7 @@ const api = Router()
             ),
         ])
           .then((results) => [].concat(...results))
+          // .then((results) => [].concat(results[0]))
           .then((list) =>
             list.sort((a: any, b: any) => (a._id > b._id ? 1 : -1))
           )
