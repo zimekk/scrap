@@ -1,6 +1,8 @@
 import express, { Router } from "express";
+import fetch from "isomorphic-fetch";
 // import cors from "cors";
 import path from "path";
+import { constants, promises } from "fs";
 import { headingDistanceTo } from "geolocation-utils";
 // import { diffString } from "json-diff";
 import { items } from "@dev/api";
@@ -84,6 +86,27 @@ const api = Router()
         )
       )
       .then((results) => res.json({ results }))
+  )
+  .use("/api/vehicles/:id/images/:image", (req, res) =>
+    Promise.resolve(req.params).then(({ id, image: i }) =>
+      Promise.resolve({
+        size: "322/255b28ffdad35cd984ff32f30da17158",
+      })
+        .then(({ size }) => ({
+          href: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`,
+          path: path.resolve(__dirname, `../temp/vehicles/${id}-${i}.jpeg`),
+        }))
+        .then(({ href, path }) =>
+          promises
+            .access(path, constants.R_OK)
+            .catch(() =>
+              fetch(href)
+                .then((res) => res.arrayBuffer())
+                .then((body) => promises.writeFile(path, Buffer.from(body)))
+            )
+            .then(() => res.sendFile(path, { maxAge: "1d" }))
+        )
+    )
   )
   .use("/api/vehicles/data.json", (_req, res) =>
     false
@@ -184,7 +207,9 @@ const api = Router()
                           _list,
                           size = "322/255b28ffdad35cd984ff32f30da17158"
                         ) =>
-                          `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
+                          i < 3
+                            ? `api/vehicles/${id}/images/${i}`
+                            : `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`
                       ),
                     }))(source),
                     ...(source.isNew
