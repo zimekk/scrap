@@ -12,6 +12,7 @@ import {
 } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { headingDistanceTo } from "geolocation-utils";
+import { z } from "zod";
 import { items } from "@dev/api";
 import {
   gameItems,
@@ -33,6 +34,7 @@ import {
   scrapPropertyItem1,
 } from "./utils";
 import { browser, request } from "./request";
+import { VehicleItem, VehicleList } from "./services";
 
 require("dotenv").config();
 
@@ -880,6 +882,79 @@ export default function (type?: string) {
       console.log({ item });
     });
 
+  const request$ = new Subject<{ type: string; args?: object }>();
+  request$
+    .pipe(
+      mergeMap(
+        ({ type, args }) =>
+          from(
+            z
+              .enum(["najlepszeoferty.bmw.pl"])
+              .parseAsync(type.split(":")[0])
+              .then(
+                (type) =>
+                  ({
+                    ["najlepszeoferty.bmw.pl"]: VehicleList,
+                  }[type])
+              )
+              .then((Service) => new Service())
+              .then((service) => service.request(type, args))
+          ).pipe(
+            tap(({ type, next }) =>
+              Boolean(console.log({ next })) || next
+                ? request$.next({ type, args: next })
+                : request$.complete()
+            )
+          ),
+        1
+      ),
+      mergeMap(
+        ({ type, list }) =>
+          from(list).pipe(
+            tap((item) => console.log([type, item.id, item.title])),
+            mergeMap(
+              (item) =>
+                from(
+                  z
+                    .enum(["najlepszeoferty.bmw.pl"])
+                    .parseAsync(type.split(":")[0])
+                    .then(
+                      (type) =>
+                        ({
+                          ["najlepszeoferty.bmw.pl"]: VehicleItem,
+                        }[type])
+                    )
+                    .then((Service) => new Service())
+                    .then((service) => service.process(item, summary))
+                ),
+              1
+            )
+          ),
+        1
+      )
+    )
+    .subscribe({
+      // next: (item) => {
+      //   console.log({item});
+      // },
+      complete: () => {
+        console.log(summary);
+      },
+    });
+
+  from(
+    type
+      ? [type]
+      : [
+          "najlepszeoferty.bmw.pl:bmw-new",
+          "najlepszeoferty.bmw.pl:bmw-used",
+          "najlepszeoferty.bmw.pl:mini-new",
+        ]
+  ).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
+  });
+
   from([
     // "gratka:nieruchomosci/domy/warszawa",
     "gratka:nieruchomosci/domy/komorow-34074",
@@ -1038,7 +1113,7 @@ export default function (type?: string) {
     "najlepszeoferty.bmw.pl:mini-new",
   ]).subscribe(($type) => {
     console.log({ $type });
-    vehicles$.next({ $type });
+    // vehicles$.next({ $type });
   });
 
   from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
