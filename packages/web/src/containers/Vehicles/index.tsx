@@ -265,48 +265,49 @@ function Data({ version = "v1" }) {
             item,
           };
         })
-        .filter(
-          ({ item }) =>
-            (item.title.toLowerCase().match(criteria.filter) ||
-              ((labels) =>
-                labels.includes(
-                  typeof item.seriesCode === "object"
-                    ? item.seriesCode.label
-                    : item.seriesCode
-                ) ||
-                labels.includes(
-                  typeof item.modelCode === "object"
-                    ? item.modelCode.label
-                    : item.modelCode
-                ) ||
-                labels.includes(String(item.id)))(
-                (criteria.filter as string).split(",").map((s) => s.trim())
+        .filter(({ item }) =>
+          ((labels) =>
+            labels.includes(String(item.id)) ||
+            ((item.title.toLowerCase().match(criteria.filter) ||
+              labels.includes(
+                typeof item.seriesCode === "object"
+                  ? item.seriesCode.label
+                  : item.seriesCode
+              ) ||
+              labels.includes(
+                typeof item.modelCode === "object"
+                  ? item.modelCode.label
+                  : item.modelCode
               )) &&
-            ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
-            (criteria.removed == "" ||
-              criteria.removed === ((item._removed || 0) > 0 ? "1" : "0")) &&
-            criteria.priceFrom <= item.transactionalPrice &&
-            item.transactionalPrice <= criteria.priceTo &&
-            (item.mileage === undefined ||
-              (criteria.mileageFrom <= item.mileage &&
-                item.mileage <= criteria.mileageTo)) &&
-            criteria.powerFrom <= item.powerHP &&
-            item.powerHP <= criteria.powerTo &&
-            criteria.yearFrom <= item.productionYear &&
-            item.productionYear <= criteria.yearTo &&
-            new Date(`${criteria.createdFrom} 00:00:00`).getTime() <=
-              item._created &&
-            item._created <=
-              new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
-            Object.entries(criteria.entries).findIndex(
-              ([prop, value]) =>
-                ![
-                  String(
-                    typeof item[prop] === "object" ? item[prop].id : item[prop]
-                  ),
-                  "",
-                ].includes(value)
-            ) === -1
+              ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
+              (criteria.removed == "" ||
+                criteria.removed === ((item._removed || 0) > 0 ? "1" : "0")) &&
+              criteria.priceFrom <= item.transactionalPrice &&
+              item.transactionalPrice <= criteria.priceTo &&
+              (item.mileage === undefined ||
+                (criteria.mileageFrom <= item.mileage &&
+                  item.mileage <= criteria.mileageTo)) &&
+              criteria.powerFrom <= item.powerHP &&
+              item.powerHP <= criteria.powerTo &&
+              criteria.yearFrom <= item.productionYear &&
+              item.productionYear <= criteria.yearTo &&
+              new Date(`${criteria.createdFrom} 00:00:00`).getTime() <=
+                item._created &&
+              item._created <=
+                new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
+              Object.entries(criteria.entries).findIndex(
+                ([prop, value]) =>
+                  ![
+                    String(
+                      typeof item[prop] === "object"
+                        ? item[prop].id
+                        : item[prop]
+                    ),
+                    "",
+                  ].includes(value)
+              ) === -1))(
+            (criteria.filter as string).split(",").map((s) => s.trim())
+          )
         ),
     [results, criteria]
   );
