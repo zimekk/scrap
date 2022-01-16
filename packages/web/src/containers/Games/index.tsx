@@ -15,6 +15,7 @@ const SORT_BY = {
   _price: 1,
   _rating: -1,
   _created: -1,
+  _updated: -1,
 };
 
 const PRICE_LIST = [0, 100, 200, 300, 400, 500, 1000];
@@ -52,7 +53,11 @@ const unify = ({
   MarketProperties: [{ OriginalReleaseDate, UsageData }],
   ProductId,
   Properties: { Categories },
+  _created,
+  _updated,
 }: any) => ({
+  _created,
+  _updated,
   _filter: ProductTitle.toLowerCase(),
   _price: Price.MSRP,
   _rating: UsageData[UsageData.length - 1].AverageRating,
@@ -109,7 +114,7 @@ function Data({ version = "v1" }) {
 
   const [filter] = useDebounce(filters.search);
 
-  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[0]);
+  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[7]);
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
@@ -330,6 +335,8 @@ function Summary({
   ProductId,
   ProductTitle,
   PublisherName,
+  _created,
+  _updated,
 }: {
   Categories: [string];
   DeveloperName: string;
@@ -338,6 +345,8 @@ function Summary({
   ProductId: string;
   ProductTitle: string;
   PublisherName: string;
+  _created: number;
+  _updated: number;
 }) {
   return (
     <div className={styles.Summary}>
@@ -361,6 +370,10 @@ function Summary({
           {Categories.join(", ")}
         </h5>
       )}
+      <div>
+        created: {format(_created, "yyyy-MM-dd HH:mm")} updated:{" "}
+        {format(_updated, "yyyy-MM-dd HH:mm")}
+      </div>
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
   );
