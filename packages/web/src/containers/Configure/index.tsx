@@ -412,6 +412,7 @@ Mild Hybrid - permanentny system Start/Stop
             value={text}
             rows={10}
             onChange={useCallback(({ target }) => setText(target.value), [])}
+            onFocus={(e) => e.target.select()}
           />
         </div>
         <div>
