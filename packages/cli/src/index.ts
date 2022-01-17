@@ -68,7 +68,7 @@ const timeout =
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
-export const remove = () => {
+export const remove = (status = false) => {
   const check$ = new Subject<{
     id: number;
     isNew: boolean;
@@ -126,7 +126,7 @@ export const remove = () => {
     // list
     //   .filter(({ id }: any) => id === undefined)
     //   .map((item: any) => vehicleItems.remove(item)) ||
-    list
+    const filtered = list
       .sort((a: any, b: any) => a._created - b._created)
       .filter(
         ({
@@ -141,7 +141,15 @@ export const remove = () => {
           // isNew: boolean;
         }) => (options === undefined || _checked < _past) && _removed === 0
         // _removed > 0 && isNew
-      )
+      );
+
+    console.log({ records: list.length, tocheck: filtered.length });
+
+    if (status) {
+      return;
+    }
+
+    filtered
       .slice(0, 1000)
       .map(({ _removed, ...item }: any, i: number, list: any[]) => {
         // console.log(`${i + 1}/${list.length}`);
@@ -149,6 +157,10 @@ export const remove = () => {
       });
     check$.complete();
   });
+};
+
+export const status = () => {
+  remove(true);
 };
 
 export const verify = () => {
@@ -205,7 +217,7 @@ export default function (type?: string) {
 
   const summary = <Record<string, number[]>>{
     created: [],
-    skipped: [],
+    checked: [],
     updated: [],
   };
 
@@ -535,7 +547,7 @@ export default function (type?: string) {
                 summary.updated.push(item.id);
               } else {
                 vehicleItems.update({ ...exists, _checked: _time });
-                summary.skipped.push(item.id);
+                summary.checked.push(item.id);
               }
             } else {
               vehicleItems.insert(createItem(item));
@@ -1099,7 +1111,7 @@ export default function (type?: string) {
 
   from(["get-stations"]).subscribe(($type) => {
     console.log({ $type });
-    stations$.next({ $type });
+    // stations$.next({ $type });
   });
 
   from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {

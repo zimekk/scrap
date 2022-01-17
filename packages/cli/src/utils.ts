@@ -534,7 +534,7 @@ export const scrapPropertyItem1 = (
                     )
                     .optional(),
                   Vicinity_types: z
-                    .array(z.enum(["forest", "lake"]))
+                    .array(z.enum(["forest", "lake", "open_terrain"]))
                     .optional(),
                 }),
                 title: z.string(),

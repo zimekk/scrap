@@ -13,6 +13,7 @@
   "bin": {
     "import": "bin/import.js",
     "remove": "bin/remove.js",
+    "status": "bin/status.js",
     "verify": "bin/verify.js"
   },
   "jest": {

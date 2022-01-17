@@ -345,7 +345,7 @@ export class VehicleItem {
                 summary.updated.push(item.id);
                 return vehicleItems.update(updateItem(exists, item));
               } else {
-                summary.skipped.push(item.id);
+                summary.checked.push(item.id);
                 return vehicleItems.update({ ...exists, _checked: _time });
               }
             } else {
