@@ -14,6 +14,14 @@ import Map, { useBounds } from "./Map";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+const GROUP_BY = {
+  "": "",
+  brand: "Brand",
+  modelCode: "Model Code",
+  seriesCode: "Series Code",
+  productionYear: "Production Year",
+  _removed: "Sold",
+};
 const SORT_BY = {
   registration: -1,
   transactionalPrice: 1,
@@ -145,8 +153,9 @@ const createCriteria =
     Object.assign(
       {
         filter: search,
+        groupBy: Object.keys(GROUP_BY)[0],
         sortBy: Object.keys(SORT_BY)[13],
-        type: "",
+        type: Object.keys(TYPES)[0],
         radius: RADIUS_LIST[RADIUS_LIST.length - 1],
 
         priceFrom: PRICE_LIST[0],
@@ -348,6 +357,23 @@ function Data({ version = "v1" }) {
     [list, criteria.sortBy]
   );
 
+  const grouped = useMemo(
+    () =>
+      sorted.reduce(
+        (grouped: Record<string, object[]>, item: any) =>
+          ((group) =>
+            Object.assign(grouped, {
+              [group]: (grouped[group] || []).concat(item),
+            }))(
+            typeof item.item[criteria.groupBy] === "object"
+              ? item.item[criteria.groupBy].label
+              : item.item[criteria.groupBy] || ""
+          ),
+        {}
+      ),
+    [sorted, criteria.groupBy]
+  );
+
   const [favorites, setFavorites] = useFavorites([]);
 
   const [criterion, setCriterion] = useCriterion(() => ({
@@ -371,7 +397,7 @@ function Data({ version = "v1" }) {
         <Link
           onClick={(e) => (
             e.preventDefault(),
-            setExpand(({ map, ...expand }) => ({ ...expand, map: !map }))
+            setExpand((expand) => ({ ...expand, map: !expand.map }))
           )}
         >
           {expand.map ? "Hide map" : "Show map"}
@@ -389,7 +415,7 @@ function Data({ version = "v1" }) {
         <Link
           onClick={(e) => (
             e.preventDefault(),
-            setExpand(({ chart, ...expand }) => ({ ...expand, chart: !chart }))
+            setExpand((expand) => ({ ...expand, chart: !expand.chart }))
           )}
         >
           {expand.chart ? "Hide chart" : "Show chart"}
@@ -417,23 +443,28 @@ function Data({ version = "v1" }) {
         setSearch={setSearch}
       />
       <Summary list={list} results={results} />
-      <ol>
-        {sorted
-          .slice(0, 100)
-          .map(({ item }) => item)
-          .map(({ id, images, ...item }, key: number) => (
-            <li key={key} className={styles.Row}>
-              <Gallery className={styles.Gallery} images={images} />
-              <Details
-                item={{ id, ...item }}
-                onClickCompare={onClickCompare}
-                favorites={favorites}
-                setFavorites={setFavorites}
-                setSearch={setSearch}
-              />
-            </li>
-          ))}
-      </ol>
+      {Object.entries(grouped).map(([group, sorted]) => (
+        <section key={group}>
+          {group && <h3>{group}</h3>}
+          <ol>
+            {sorted
+              .slice(0, 100)
+              .map(({ item }) => item)
+              .map(({ id, images, ...item }, key: number) => (
+                <li key={key} className={styles.Row}>
+                  <Gallery className={styles.Gallery} images={images} />
+                  <Details
+                    item={{ id, ...item }}
+                    onClickCompare={onClickCompare}
+                    favorites={favorites}
+                    setFavorites={setFavorites}
+                    setSearch={setSearch}
+                  />
+                </li>
+              ))}
+          </ol>
+        </section>
+      ))}
     </div>
   );
 }
@@ -610,11 +641,6 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
     [criterion]
   );
 
-  const onChangeSelectedFilter = useCallback(
-    ({ target }) =>
-      setCriterion((criterion) => ({ ...criterion, selected: target.value })),
-    [criterion]
-  );
   const sameCriteria = useMemo(
     () =>
       criterion.selected !== "" &&
@@ -627,7 +653,17 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
     <div>
       <label>
         <span>Saved Filters</span>
-        <select value={criterion.selected} onChange={onChangeSelectedFilter}>
+        <select
+          value={criterion.selected}
+          onChange={useCallback(
+            ({ target }) =>
+              setCriterion((criterion) => ({
+                ...criterion,
+                selected: target.value,
+              })),
+            [criterion]
+          )}
+        >
           <option value="">--</option>
           {criterion.list.map(({ label }, value) => (
             <option key={value} value={String(value)}>
@@ -655,6 +691,7 @@ function CriteriaLabel({
   filter,
   options,
   entries,
+  groupBy,
   type,
   yearFrom,
   yearTo,
@@ -684,6 +721,11 @@ function CriteriaLabel({
       <div>
         <span>Sort</span> <span>{sortBy}</span>
       </div>
+      {groupBy && (
+        <div>
+          <span>GroupBy</span> <span>{groupBy}</span>
+        </div>
+      )}
       <div>
         <span>Radius</span> <span>{`max ${radius} km`}</span>
       </div>
@@ -721,6 +763,7 @@ function Criteria({
   search,
   options,
   entries,
+  groupBy,
   type,
   yearFrom,
   yearTo,
@@ -752,18 +795,6 @@ function Criteria({
           [target.name]: target.value,
         },
       })),
-    []
-  );
-
-  const onChangeSortBy = useCallback(
-    ({ target }) =>
-      setCriteria((criteria) => ({ ...criteria, sortBy: target.value })),
-    []
-  );
-
-  const onChangeType = useCallback(
-    ({ target }) =>
-      setCriteria((criteria) => ({ ...criteria, type: target.value })),
     []
   );
 
@@ -906,7 +937,17 @@ function Criteria({
       <div>
         <label>
           <span>Type</span>
-          <select value={type} onChange={onChangeType}>
+          <select
+            value={type}
+            onChange={useCallback(
+              ({ target }) =>
+                setCriteria((criteria) => ({
+                  ...criteria,
+                  type: target.value,
+                })),
+              []
+            )}
+          >
             {Object.entries(TYPES).map(([value, label]) => (
               <option key={value} value={value}>
                 {label}
@@ -920,7 +961,17 @@ function Criteria({
         </label>
         <label>
           <span>Sort</span>
-          <select value={sortBy} onChange={onChangeSortBy}>
+          <select
+            value={sortBy}
+            onChange={useCallback(
+              ({ target }) =>
+                setCriteria((criteria) => ({
+                  ...criteria,
+                  sortBy: target.value,
+                })),
+              []
+            )}
+          >
             {Object.entries(SORT_BY).map(([value]) => (
               <option key={value} value={value}>
                 {value}
@@ -928,6 +979,28 @@ function Criteria({
             ))}
           </select>
         </label>
+        <label>
+          <span>GroupBy</span>
+          <select
+            value={groupBy}
+            onChange={useCallback(
+              ({ target }) =>
+                setCriteria((criteria) => ({
+                  ...criteria,
+                  groupBy: target.value,
+                })),
+              []
+            )}
+          >
+            {Object.entries(GROUP_BY).map(([value, label]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      <div>
         <label>
           <span>Radius</span>
           <input
@@ -1207,8 +1280,8 @@ function Details({
       {!prev && (
         <li>
           <Color color={item.color} />
-          <IdLink setSearch={setSearch}>{id}</IdLink>
-          <Link href={href}>{title}</Link>
+          <IdLink setSearch={setSearch}>{id}</IdLink>{" "}
+          <Link href={href}>{title}</Link>{" "}
           {onClickCompare && (
             <Button onClick={onClickCompare} value={item._id}>
               Compare
