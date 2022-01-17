@@ -145,7 +145,7 @@ const createCriteria =
     Object.assign(
       {
         filter: search,
-        sortBy: "transactionalPrice",
+        sortBy: Object.keys(SORT_BY)[13],
         type: "",
         radius: RADIUS_LIST[RADIUS_LIST.length - 1],
 
@@ -363,15 +363,41 @@ function Data({ version = "v1" }) {
     }
   }, [setCriteria, setSearch, criterion.selected]);
 
+  const [expand, setExpand] = useState(() => ({ map: false, chart: false }));
+
   return (
     <div>
-      <Map
-        bounds={bounds}
-        center={center}
-        setCenter={setCenter}
-        list={nearby}
-      />
-      <Chart list={list} onSelect={(id: number) => setSearch(String(id))} />
+      <div>
+        <Link
+          onClick={(e) => (
+            e.preventDefault(),
+            setExpand(({ map, ...expand }) => ({ ...expand, map: !map }))
+          )}
+        >
+          {expand.map ? "Hide map" : "Show map"}
+        </Link>{" "}
+        {expand.map && (
+          <Map
+            bounds={bounds}
+            center={center}
+            setCenter={setCenter}
+            list={nearby}
+          />
+        )}
+      </div>
+      <div>
+        <Link
+          onClick={(e) => (
+            e.preventDefault(),
+            setExpand(({ chart, ...expand }) => ({ ...expand, chart: !chart }))
+          )}
+        >
+          {expand.chart ? "Hide chart" : "Show chart"}
+        </Link>{" "}
+        {expand.chart && (
+          <Chart list={list} onSelect={(id: number) => setSearch(String(id))} />
+        )}
+      </div>
       <Criteria
         {...criteria}
         options={options}
