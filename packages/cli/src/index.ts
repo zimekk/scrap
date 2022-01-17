@@ -1104,6 +1104,13 @@ export default function (type?: string) {
     "get-product:681593-sluchawki-do-konsoli-microsoft-xsx-stereo-headset-przewodowe",
     "get-product:696872-joystick-thrustmaster-tca-yoke-pack-boeing-edition",
     "get-product:696874-joystick-thrustmaster-tca-quadrant-boeing-edition",
+    "get-product:547367-monitor-led-32-i-wiekszy-dell-u4320q-czarny",
+    "get-product:645085-monitor-led-32-i-wiekszy-dell-u3821dw-czarno-srebrny",
+    "get-product:648255-monitor-led-32-i-wiekszy-dell-u4021qw",
+    "get-product:648872-all-in-one-apple-imac-24-m1-8gb-256-macos-retina-45k-silver",
+    "get-product:648883-all-in-one-apple-imac-24-m1-8gb-256-macos-retina-45k-silver",
+    "get-product:656048-all-in-one-apple-imac-24-m1-16gb-256-macos-retina-45k-silver",
+    "get-product:656052-all-in-one-apple-imac-24-m1-16gb-512-macos-retina-45k-silver",
   ]).subscribe(($type) => {
     console.log({ $type });
     products$.next({ $type });
