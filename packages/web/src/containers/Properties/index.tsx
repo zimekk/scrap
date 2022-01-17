@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import usePlace from "../Scrap/usePlace";
 import { prepareItem } from "./utils";
 import styles from "./styles.module.scss";
 
@@ -478,6 +481,7 @@ function Data({ version = "v1" }) {
               price: number;
               description: string[];
               parameters: [{ label: string; value: string }];
+              coordinates: { latitude: number; longitude: number };
               _address: string[];
               _created: number;
             }) => (
@@ -493,14 +497,26 @@ function Data({ version = "v1" }) {
   );
 }
 
+function Location({ canonical, coordinates: { latitude, longitude } }) {
+  const link = usePlace([`${latitude},${longitude}|${canonical}`]);
+
+  return (
+    <Link href={link}>
+      <FontAwesomeIcon icon={faMapMarkerAlt} />
+    </Link>
+  );
+}
+
 function Summary({
   canonical,
+  coordinates,
   price,
   title,
   _address,
   _created,
 }: {
   canonical: string;
+  coordinates: { latitude: number; longitude: number };
   price: number;
   title: string;
   _address: string[];
@@ -511,7 +527,10 @@ function Summary({
       <div>{format(_created, "yyyy-MM-dd HH:mm")}</div>
       <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
       <h3>
-        <Link href={canonical}>{title}</Link>
+        <Link href={canonical}>{title}</Link>{" "}
+        {coordinates && (
+          <Location canonical={canonical} coordinates={coordinates} />
+        )}
       </h3>
       {_address && <h6>{_address.join(" / ")}</h6>}
     </div>

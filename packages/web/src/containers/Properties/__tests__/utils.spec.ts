@@ -179,6 +179,7 @@ describe("Properties", () => {
           ],
           _location: "Stare Babice, warszawski zachodni, mazowieckie",
           building: "szeregowy",
+          coordinates: null,
           parameters: [
             {
               label: "area",
@@ -329,6 +330,10 @@ describe("Properties", () => {
           ],
           _location: "Warszawa, Warszawa, mazowieckie",
           building: undefined,
+          coordinates: {
+            latitude: 52.19546,
+            longitude: 21.0624,
+          },
           parameters: [
             {
               label: "Lokalizacja",

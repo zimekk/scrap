@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const prepareItem = (item: object) =>
+export const prepareItem = (item: any) =>
   z
     .object({
       address: z.record(z.string(), z.union([z.string(), z.number()])),
@@ -116,6 +116,13 @@ export const prepareItem = (item: object) =>
               )[0]
             : _parameters["Typ budynku"],
           parameters,
+          coordinates:
+            item.coordinates || address["lokalizacja_szerokosc-geograficzna-y"]
+              ? {
+                  latitude: address["lokalizacja_szerokosc-geograficzna-y"],
+                  longitude: address["lokalizacja_dlugosc-geograficzna-x"],
+                }
+              : null,
         })
     )
     .parse(item);
