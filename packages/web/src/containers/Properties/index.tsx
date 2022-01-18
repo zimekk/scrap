@@ -9,6 +9,7 @@ import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import usePlace from "../Scrap/usePlace";
 import { prepareItem } from "./utils";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -22,17 +23,24 @@ const SORT_BY = {
 };
 
 const PRICE_LIST = [
-  0, 100000, 200000, 300000, 400000, 500000, 1000000, 1500000, 2000000,
+  0, 100000, 200000, 300000, 400000, 500000, 1000000, 1500000, 2000000, 2500000,
+  3000000, 4000000, 5000000,
 ];
 
-const AREA_LIST = [0, 100, 200, 300, 400, 500, 600];
+const AREA_LIST = [
+  0, 50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900,
+];
 
-const TERRAIN_AREA_LIST = [0, 500, 1000, 1500, 2000, 2500, 5000];
+const TERRAIN_AREA_LIST = [
+  0, 250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 5000,
+];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/properties/data.json?${version}`);
-  return await res.json().then(({ results }) => ({
+  return await res.json().then(({ hide, like, results }) => ({
+    hide,
+    like,
     results: results
       // .filter((item: { canonical: string }) => item.canonical.match(/otodom/))
       .map((item: object) => ({ ...item, ...prepareItem(item) })),
@@ -46,7 +54,7 @@ const unify = (item: { title: string; price: number; parameters: any[] }) => ({
 });
 
 function Data({ version = "v1" }) {
-  const { results } = asset.read(version); // As many cache keys as you need
+  const { results, hide: initialHide, like: initialLike } = asset.read(version); // As many cache keys as you need
 
   const options = useMemo(
     () => ({
@@ -99,7 +107,7 @@ function Data({ version = "v1" }) {
     building: options.building[0],
     search: "",
     priceFrom: PRICE_LIST[0],
-    priceTo: PRICE_LIST[PRICE_LIST.length - 2],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 4],
     areaFrom: AREA_LIST[0],
     areaTo: AREA_LIST[AREA_LIST.length - 1],
     terrainAreaFrom: TERRAIN_AREA_LIST[0],
@@ -136,7 +144,7 @@ function Data({ version = "v1" }) {
     search$.next(filters);
   }, [filters]);
 
-  console.log({ options, filters, results });
+  console.log({ initialLike, options, filters, results });
 
   const list = useMemo(
     () =>
@@ -182,6 +190,9 @@ function Data({ version = "v1" }) {
       ),
     [list, sortBy]
   );
+
+  const [hide, setHide] = useState<string[]>(initialHide);
+  const [like, setLike] = useState<string[]>(initialLike);
 
   return (
     <div>
@@ -485,10 +496,25 @@ function Data({ version = "v1" }) {
               _address: string[];
               _created: number;
             }) => (
-              <li key={item.id} className={styles.Row}>
-                <Gallery className={styles.Gallery} images={item.images} />
-                <Summary {...item} />
-                <Details {...item} />
+              <li
+                key={item.id}
+                className={cx(
+                  styles.Row,
+                  like.includes(item.id) && styles.Like,
+                  hide.includes(item.id) && styles.Hide
+                )}
+              >
+                {!hide.includes(item.id) && (
+                  <Gallery className={styles.Gallery} images={item.images} />
+                )}
+                <Summary
+                  {...item}
+                  hide={hide}
+                  setHide={setHide}
+                  like={like}
+                  setLike={setLike}
+                />
+                {!hide.includes(item.id) && <Details {...item} />}
               </li>
             )
           )}
@@ -507,31 +533,82 @@ function Location({ canonical, coordinates: { latitude, longitude } }) {
   );
 }
 
+function Toggle({ children, ...props }) {
+  return (
+    <label>
+      <input type="checkbox" {...props} />
+      <span>{children}</span>
+    </label>
+  );
+}
+
 function Summary({
+  id,
   canonical,
   coordinates,
   price,
   title,
+  hide,
+  setHide,
+  like,
+  setLike,
   _address,
   _created,
 }: {
+  id: string;
   canonical: string;
   coordinates: { latitude: number; longitude: number };
   price: number;
   title: string;
+  hide: string[];
+  setHide: Function;
+  like: string[];
+  setLike: Function;
   _address: string[];
   _created: number;
 }) {
   return (
     <div className={styles.Summary}>
-      <div>{format(_created, "yyyy-MM-dd HH:mm")}</div>
-      <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
-      <h3>
-        <Link href={canonical}>{title}</Link>{" "}
-        {coordinates && (
-          <Location canonical={canonical} coordinates={coordinates} />
-        )}
-      </h3>
+      <div>
+        <div className={styles.Sidebar}>
+          <Toggle
+            checked={like.includes(id)}
+            onChange={(e) => (
+              fetch(`api/properties/like.json?id=${id}`),
+              setLike((like: string[]) =>
+                e.target.checked
+                  ? like.concat(id)
+                  : like.filter((like: string) => like !== id)
+              )
+            )}
+          >
+            Like
+          </Toggle>
+          <Toggle
+            checked={hide.includes(id)}
+            onChange={(e) => (
+              fetch(`api/properties/hide.json?id=${id}`),
+              setHide((hide: string[]) =>
+                e.target.checked
+                  ? hide.concat(id)
+                  : hide.filter((hide: string) => hide !== id)
+              )
+            )}
+          >
+            Hide
+          </Toggle>
+        </div>
+        <div>{format(_created, "yyyy-MM-dd HH:mm")}</div>
+      </div>
+      <div style={{ clear: "right" }}>
+        <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
+        <h3>
+          <Link href={canonical}>{title}</Link>{" "}
+          {coordinates && (
+            <Location canonical={canonical} coordinates={coordinates} />
+          )}
+        </h3>
+      </div>
       {_address && <h6>{_address.join(" / ")}</h6>}
     </div>
   );

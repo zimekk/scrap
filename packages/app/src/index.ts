@@ -4,11 +4,13 @@ import fetch from "isomorphic-fetch";
 import path from "path";
 import { constants, promises } from "fs";
 import { headingDistanceTo } from "geolocation-utils";
+import { z } from "zod";
 // import { diffString } from "json-diff";
 import { items } from "@dev/api";
 import {
   gameItems,
   productItems,
+  profilesItems,
   propertyItems,
   stationItems,
   vehicleItems,
@@ -69,7 +71,76 @@ const api = Router()
     productItems.find({}).then((results) => res.json({ results }))
   )
   .use("/api/properties/data.json", (_req, res) =>
-    propertyItems.find({}).then((results) => res.json({ results }))
+    Promise.all([
+      profilesItems.findOne({ id: "property" }).then(
+        (profiles) =>
+          (profiles ? profiles : { hide: [], like: [] }) as {
+            hide: string[];
+            like: string[];
+          }
+      ),
+      propertyItems.find({}),
+    ]).then(([{ hide, like }, results]) => res.json({ hide, like, results }))
+  )
+  .use("/api/properties/hide.json", (req, res) =>
+    z
+      .object({
+        id: z.string(),
+      })
+      .parseAsync(req.query)
+      .then(({ id }) =>
+        profilesItems
+          .findOne({ id: "property" })
+          .then(
+            (profiles) =>
+              (profiles ? profiles : { hide: [], like: [] }) as {
+                hide: string[];
+                like: string[];
+              }
+          )
+          .then(({ hide, ...profiles }) => ({
+            ...profiles,
+            hide: hide.includes(id)
+              ? hide.filter((_id) => _id !== id)
+              : hide.concat(id),
+          }))
+          .then((profiles: { id?: string; hide: string[]; like: string[] }) =>
+            profiles.id
+              ? profilesItems.update(profiles)
+              : profilesItems.insert({ id: "property", ...profiles })
+          )
+          .then(() => res.send({}))
+      )
+  )
+  .use("/api/properties/like.json", (req, res) =>
+    z
+      .object({
+        id: z.string(),
+      })
+      .parseAsync(req.query)
+      .then(({ id }) =>
+        profilesItems
+          .findOne({ id: "property" })
+          .then(
+            (profiles) =>
+              (profiles ? profiles : { hide: [], like: [] }) as {
+                hide: string[];
+                like: string[];
+              }
+          )
+          .then(({ like, ...profiles }) => ({
+            ...profiles,
+            like: like.includes(id)
+              ? like.filter((_id) => _id !== id)
+              : like.concat(id),
+          }))
+          .then((profiles: { id?: string; hide: string[]; like: string[] }) =>
+            profiles.id
+              ? profilesItems.update(profiles)
+              : profilesItems.insert({ id: "property", ...profiles })
+          )
+          .then(() => res.send({}))
+      )
   )
   .use("/api/stations/data.json", (_req, res) =>
     stationItems
