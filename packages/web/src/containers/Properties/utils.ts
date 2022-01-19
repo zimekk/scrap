@@ -117,12 +117,13 @@ export const prepareItem = (item: any) =>
             : _parameters["Typ budynku"],
           parameters,
           coordinates:
-            item.coordinates || address["lokalizacja_szerokosc-geograficzna-y"]
+            item.coordinates ||
+            (address["lokalizacja_szerokosc-geograficzna-y"]
               ? {
                   latitude: address["lokalizacja_szerokosc-geograficzna-y"],
                   longitude: address["lokalizacja_dlugosc-geograficzna-x"],
                 }
-              : null,
+              : null),
         })
     )
     .parse(item);
