@@ -34,7 +34,7 @@ import {
   scrapPropertyItem1,
 } from "./utils";
 import { browser, request } from "./request";
-import { VehicleItem, VehicleList } from "./services";
+import { GameService, VehicleItem, VehicleList } from "./services";
 
 require("dotenv").config();
 
@@ -278,60 +278,6 @@ export default function (type?: string) {
             productItems.insert({ ...item, _created: _time });
           }
         });
-    });
-
-  const games$ = new Subject<{
-    $type: string;
-  }>();
-
-  games$
-    .pipe(
-      mergeMap(
-        ({ $type }) =>
-          from(request({ $type }))
-            .pipe
-            // tap(console.log)
-            (),
-        1
-      ),
-      mergeMap(({ Products }) =>
-        Products.map((Product: any) => ({ id: Product.ProductId, ...Product }))
-      )
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      gameItems.findOne({ id: item.id }).then((last: any) => {
-        if (last) {
-          const {
-            _id,
-            _created = _past,
-            _updated = _created,
-            _history = {},
-            ...rest
-          } = last;
-          const diff = diffString(rest, item);
-          if (diff) {
-            console.log(`[${last.id}]`);
-            console.log(diff);
-
-            const update = {
-              _id,
-              ...item,
-              _created,
-              _updated: _time,
-              _history: Object.assign({
-                ..._history,
-                [_updated]: rest,
-              }),
-            };
-            console.log(update);
-
-            gameItems.update(update);
-          }
-        } else {
-          gameItems.insert({ ...item, _created: _time });
-        }
-      });
     });
 
   interface LatLng {
@@ -901,12 +847,13 @@ export default function (type?: string) {
         ({ type, args }) =>
           from(
             z
-              .enum(["najlepszeoferty.bmw.pl"])
+              .enum(["najlepszeoferty.bmw.pl", "xbox"])
               .parseAsync(type.split(":")[0])
               .then(
                 (type) =>
                   ({
                     ["najlepszeoferty.bmw.pl"]: VehicleList,
+                    ["xbox"]: GameService,
                   }[type])
               )
               .then((Service) => new Service())
@@ -928,12 +875,13 @@ export default function (type?: string) {
               (item) =>
                 from(
                   z
-                    .enum(["najlepszeoferty.bmw.pl"])
+                    .enum(["najlepszeoferty.bmw.pl", "xbox"])
                     .parseAsync(type.split(":")[0])
                     .then(
                       (type) =>
                         ({
                           ["najlepszeoferty.bmw.pl"]: VehicleItem,
+                          ["xbox"]: GameService,
                         }[type])
                     )
                     .then((Service) => new Service())
@@ -975,18 +923,18 @@ export default function (type?: string) {
     "gratka:nieruchomosci/domy/stare-babice",
     "gratka:nieruchomosci/domy/warszawa/powsin",
     "gratka:nieruchomosci/domy/warszawa/powsinek",
+    "gratka:nieruchomosci/domy/warszawa/radosc",
     "gratka:nieruchomosci/domy/warszawa/sadyba",
     "gratka:nieruchomosci/domy/warszawa/ursynow",
     "gratka:nieruchomosci/domy/warszawa/wilanow",
-    // "gratka:nieruchomosci/dzialki-grunty/warszawa",
-    "gratka:nieruchomosci/dzialki-grunty/warszawa/sadyba",
-    "gratka:nieruchomosci/dzialki-grunty/warszawa/ursynów",
-    "gratka:nieruchomosci/dzialki-grunty/warszawa/wilanow",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/komorow-34074",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/ozarow-mazowiecki",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/podkowa-lesna",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/stare-babice",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/powsin",
+    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/radosc",
+    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/sadyba",
+    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/ursynów",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wilanow",
     // "gratka:nieruchomosci/komorow-34074",
     // "gratka:nieruchomosci/ozarow-mazowiecki",
@@ -1000,6 +948,7 @@ export default function (type?: string) {
     "otodom:dom/stare-babice",
     "otodom:dom/warszawa/powsin",
     "otodom:dom/warszawa/powsinek",
+    "otodom:dom/warszawa/radosc",
     "otodom:dom/warszawa/sadyba",
     "otodom:dom/warszawa/ursynow",
     "otodom:dom/warszawa/wilanow",
@@ -1007,6 +956,7 @@ export default function (type?: string) {
     "otodom:dzialka/stare-babice",
     "otodom:dzialka/warszawa/powsin",
     "otodom:dzialka/warszawa/powsinek",
+    "otodom:dzialka/warszawa/radosc",
     "otodom:dzialka/warszawa/sadyba",
     "otodom:dzialka/warszawa/ursynow",
     "otodom:dzialka/warszawa/wilanow",
@@ -1015,16 +965,20 @@ export default function (type?: string) {
     properties$.next({ $type });
   });
 
-  from([
-    "xbox:9NKX70BBCDRN,9Z1W36CRQ9DF,B4X7PC56X1VV,9MTLKM2DJMZ2,C08JXNK0VG5L",
-    "xbox:9N9J38LPVSM3,9P6SRW1HVW9K,BVH2R2SBWL51,9PNJXVCVWD4K,9MZ0SR207MG8",
-    "xbox:9P4SH7HLMLFS,9N1CS194W1Q6,9P1HX37NMJLT,BRZZLBF5T245,9P513P4MWC71",
-    "xbox:C2MBDNDS3H5W,BWVBNCMF22ZK,9N6J02VPG635,BS5RXLL3WQ2J,C2HQVXVVLMKG",
-    "xbox:BVJLKDG2TX8H,C4VKLMG1HLZW,9N04KQK2LBZL,9NMBJQ0265ZK,BSMZH25V6V46",
-    "xbox:9N9QFGPBH418,9NS86BQ33SPX",
-  ]).subscribe(($type) => {
-    console.log({ $type });
-    games$.next({ $type });
+  from(
+    type
+      ? []
+      : [
+          "xbox:9NKX70BBCDRN,9Z1W36CRQ9DF,B4X7PC56X1VV,9MTLKM2DJMZ2,C08JXNK0VG5L",
+          "xbox:9N9J38LPVSM3,9P6SRW1HVW9K,BVH2R2SBWL51,9PNJXVCVWD4K,9MZ0SR207MG8",
+          "xbox:9P4SH7HLMLFS,9N1CS194W1Q6,9P1HX37NMJLT,BRZZLBF5T245,9P513P4MWC71",
+          "xbox:C2MBDNDS3H5W,BWVBNCMF22ZK,9N6J02VPG635,BS5RXLL3WQ2J,C2HQVXVVLMKG",
+          "xbox:BVJLKDG2TX8H,C4VKLMG1HLZW,9N04KQK2LBZL,9NMBJQ0265ZK,BSMZH25V6V46",
+          "xbox:9N9QFGPBH418,9NS86BQ33SPX",
+        ]
+  ).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 
   from([

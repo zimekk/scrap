@@ -160,15 +160,19 @@ const config = {
         ),
     };
   },
-  xbox: ({ $time = Date.now(), $type = "9NKX70BBCDRN" }) => {
+  xbox: ({
+    $time = Date.now(),
+    $type = "9NKX70BBCDRN",
+    $mscv = "DGU1mcuYo0WMMp+F.1",
+  }) => {
     const mk = timestamp($time);
+    const url = `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${$type}&market=PL&languages=pl-pl&MS-CV=${$mscv}`;
+
+    console.log(url);
 
     return {
       id: ["displaycatalog", mk, $type].join("-"),
-      request: () =>
-        fetch(
-          `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${$type}&market=PL&languages=pl-pl`
-        ),
+      request: () => fetch(url),
     };
   },
   "get-product-alto": ({ time = Date.now(), type = "0" }) => {
