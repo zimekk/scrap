@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect, useRef, useState } from "react";
 import { createAsset } from "use-asset";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "../Link";
 import { Spinner } from "../Spinner";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -24,7 +25,12 @@ const image = createAsset(
 );
 
 function Img({ src, ...props }: { src: string }) {
-  return <img src={image.read(src)} {...props} referrerPolicy="no-referrer" />;
+  const img = image.read(src);
+  return (
+    <Link href={img}>
+      <img src={img} {...props} referrerPolicy="no-referrer" />
+    </Link>
+  );
 }
 
 function Loader() {
