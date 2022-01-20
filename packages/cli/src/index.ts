@@ -926,6 +926,7 @@ export default function (type?: string) {
     "gratka:nieruchomosci/domy/warszawa/radosc",
     "gratka:nieruchomosci/domy/warszawa/sadyba",
     "gratka:nieruchomosci/domy/warszawa/ursynow",
+    "gratka:nieruchomosci/domy/warszawa/wawer",
     "gratka:nieruchomosci/domy/warszawa/wilanow",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/komorow-34074",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/ozarow-mazowiecki",
@@ -935,6 +936,7 @@ export default function (type?: string) {
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/radosc",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/sadyba",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/ursynów",
+    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wawer",
     "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wilanow",
     // "gratka:nieruchomosci/komorow-34074",
     // "gratka:nieruchomosci/ozarow-mazowiecki",
@@ -951,6 +953,7 @@ export default function (type?: string) {
     "otodom:dom/warszawa/radosc",
     "otodom:dom/warszawa/sadyba",
     "otodom:dom/warszawa/ursynow",
+    "otodom:dom/warszawa/wawer",
     "otodom:dom/warszawa/wilanow",
     "otodom:dzialka/komorow_5600",
     "otodom:dzialka/stare-babice",
@@ -959,6 +962,7 @@ export default function (type?: string) {
     "otodom:dzialka/warszawa/radosc",
     "otodom:dzialka/warszawa/sadyba",
     "otodom:dzialka/warszawa/ursynow",
+    "otodom:dzialka/warszawa/wawer",
     "otodom:dzialka/warszawa/wilanow",
   ]).subscribe(($type) => {
     console.log({ $type });

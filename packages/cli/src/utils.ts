@@ -487,9 +487,10 @@ export const scrapPropertyItem1 = (
                     .array(
                       z.enum([
                         "detached",
+                        "residence",
                         "ribbon",
                         "semi_detached",
-                        "residence",
+                        "tenement",
                       ])
                     )
                     .optional(),
