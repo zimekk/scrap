@@ -1,5 +1,3 @@
-import fetch from "isomorphic-fetch";
-import cheerio from "cheerio";
 import { Subject, from, of } from "rxjs";
 import {
   delay,
@@ -11,14 +9,12 @@ import {
   tap,
 } from "rxjs/operators";
 import { diffString } from "json-diff";
-import { headingDistanceTo } from "geolocation-utils";
 import { z } from "zod";
 import { items } from "@dev/api";
 import {
   gameItems,
   productItems,
   propertyItems,
-  stationItems,
   vehicleItems,
   vehicle2Items,
   vehicle3Items,
@@ -26,7 +22,6 @@ import {
 } from "@dev/api/stations";
 import {
   saveProductHtml,
-  scrapOptions,
   scrapProduct,
   scrapPropertyList,
   scrapPropertyList1,
@@ -34,14 +29,15 @@ import {
   scrapPropertyItem1,
 } from "./utils";
 import { browser, request } from "./request";
-import { GameService, VehicleItem, VehicleList } from "./services";
+import { GameService, StationService, VehicleService } from "./services";
 
 require("dotenv").config();
 
 const {
   NEARBY_LAT = "52.1530829",
   NEARBY_LNG = "21.1104411",
-  NEARBY_RADIUS = "25014.985524846034",
+  NEARBY_RADIUS = "10000",
+  // NEARBY_RADIUS = "25014.985524846034",
   // KLIK_URL,
   GRATKA_URL,
   OTODOM_URL,
@@ -63,12 +59,8 @@ const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
 
-const timeout =
-  (timeout = Math.random() * 3000) =>
-  (data: any) =>
-    new Promise((resolve) => setTimeout(() => resolve(data), timeout));
-
 export const remove = (status = false) => {
+  let counter = 0;
   const check$ = new Subject<{
     id: number;
     isNew: boolean;
@@ -84,29 +76,10 @@ export const remove = (status = false) => {
       mergeMap(
         (item) =>
           of(item).pipe(
-            map(({ id, isNew }) =>
-              isNew
-                ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
-                : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
-            ),
-            mergeMap((href) =>
-              fetch(href)
-                .then((response: any) =>
-                  Boolean(console.log(href, response.status)) ||
-                  response.status === 404
-                    ? { ...item, _removed: _time }
-                    : response.text().then((html: string) => ({
-                        ...scrapOptions(item, html),
-                        _checked: _time,
-                      }))
-                )
-                .then((item) =>
-                  vehicleItems
-                    .update(item)
-                    .then(timeout())
-                    .then(() => item)
-                )
-            ),
+            mergeMap((item) => {
+              const service = new VehicleService();
+              return service.inspect(item, summary);
+            }),
             delay(100)
           ),
         1
@@ -114,8 +87,7 @@ export const remove = (status = false) => {
     )
     .subscribe({
       next: (item: { id: number; _removed?: number }) => {
-        console.log({ item });
-        summary[item._removed ? "removed" : "checked"].push(item.id);
+        console.log({ i: counter--, item });
       },
       complete: () => {
         console.log(summary);
@@ -149,12 +121,12 @@ export const remove = (status = false) => {
       return;
     }
 
-    filtered
-      .slice(0, 1000)
-      .map(({ _removed, ...item }: any, i: number, list: any[]) => {
-        // console.log(`${i + 1}/${list.length}`);
-        check$.next(item);
-      });
+    counter = filtered.length;
+
+    filtered.slice(0, 1000).map((item: any, i: number, list: any[]) => {
+      // console.log(`${i + 1}/${list.length}`);
+      check$.next(item);
+    });
     check$.complete();
   });
 };
@@ -278,141 +250,6 @@ export default function (type?: string) {
             productItems.insert({ ...item, _created: _time });
           }
         });
-    });
-
-  interface LatLng {
-    lat: number;
-    lng: number;
-  }
-
-  const stations$ = new Subject<{
-    $type: string;
-    $center?: LatLng;
-    $radius?: number;
-  }>();
-
-  stations$
-    .pipe(
-      mergeMap(
-        ({
-          $type,
-          $center = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) },
-          $radius = Number(NEARBY_RADIUS),
-        }) =>
-          from(
-            request({ $type }).then((list) =>
-              list.filter(
-                ({ x: lat, y: lng }: any) =>
-                  headingDistanceTo($center, { lat, lng }).distance < $radius
-              )
-            )
-          ),
-        1
-      ),
-      mergeMap((list) => list),
-      mergeMap(
-        (item: any) =>
-          from(
-            request({ $type: "get-station", $station_id: item.station_id })
-          ).pipe(
-            map(({ html }: any) => {
-              const $ = cheerio.load(html);
-              return {
-                ...item,
-                address: $("div.right-side > a:first-child").text(),
-                petrol_list: $("ul.petrol-list > li")
-                  .map((_i, $el) => {
-                    return {
-                      type: $($el.children[0]).text(),
-                      price: $($el.children[1]).text(),
-                    };
-                  })
-                  .get(),
-              };
-            }),
-            map(
-              ({
-                station_id,
-                x,
-                y,
-                address,
-                network_id,
-                network_name,
-                petrol_list,
-              }) => ({
-                id: station_id,
-                station_id,
-                x,
-                y,
-                address,
-                network_id,
-                network_name,
-                petrol_list,
-                petrol: petrol_list.reduce(
-                  (petrol: any, { type, price }: any) =>
-                    Object.assign(petrol, { [type]: price }),
-                  {}
-                ),
-              })
-            )
-          ),
-        1
-      )
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      stationItems
-        .findOne({ id: item.id })
-        //   .then((exists: any) => exists || stationItems.insert(item));
-        .then(
-          ({
-            _id,
-            _created = _past,
-            _updated = _created,
-            _history = {},
-            ...last
-          }: any) => {
-            if (last) {
-              const diff = diffString(last.petrol, item.petrol);
-              if (diff) {
-                console.log(`[${last.id}]`);
-                console.log(diff);
-
-                if (!last.petrol) {
-                  Object.assign(last, {
-                    petrol: last.petrol_list.reduce(
-                      (petrol: any, { type, price }: any) =>
-                        Object.assign(petrol, { [type]: price }),
-                      {}
-                    ),
-                  });
-                }
-
-                const update = {
-                  _id,
-                  ...item,
-                  _created,
-                  _updated: _time,
-                  _history: Object.assign(
-                    {
-                      ..._history,
-                    },
-                    Object.keys(last.petrol).length
-                      ? {
-                          [_updated]: last.petrol,
-                        }
-                      : {}
-                  ),
-                };
-                console.log(update);
-
-                stationItems.update(update);
-              }
-            } else {
-              stationItems.insert({ ...item, _created: _time });
-            }
-          }
-        );
     });
 
   // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
@@ -847,12 +684,13 @@ export default function (type?: string) {
         ({ type, args }) =>
           from(
             z
-              .enum(["najlepszeoferty.bmw.pl", "xbox"])
+              .enum(["get-stations", "najlepszeoferty.bmw.pl", "xbox"])
               .parseAsync(type.split(":")[0])
               .then(
                 (type) =>
                   ({
-                    ["najlepszeoferty.bmw.pl"]: VehicleList,
+                    ["get-stations"]: StationService,
+                    ["najlepszeoferty.bmw.pl"]: VehicleService,
                     ["xbox"]: GameService,
                   }[type])
               )
@@ -875,12 +713,13 @@ export default function (type?: string) {
               (item) =>
                 from(
                   z
-                    .enum(["najlepszeoferty.bmw.pl", "xbox"])
+                    .enum(["get-stations", "najlepszeoferty.bmw.pl", "xbox"])
                     .parseAsync(type.split(":")[0])
                     .then(
                       (type) =>
                         ({
-                          ["najlepszeoferty.bmw.pl"]: VehicleItem,
+                          ["get-stations"]: StationService,
+                          ["najlepszeoferty.bmw.pl"]: VehicleService,
                           ["xbox"]: GameService,
                         }[type])
                     )
@@ -1074,9 +913,11 @@ export default function (type?: string) {
     products$.next({ $type });
   });
 
-  from(["get-stations"]).subscribe(($type) => {
-    console.log({ $type });
-    // stations$.next({ $type });
+  from(
+    type ? [] : [`get-stations:${NEARBY_LAT}:${NEARBY_LNG}:${NEARBY_RADIUS}`]
+  ).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 
   from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
