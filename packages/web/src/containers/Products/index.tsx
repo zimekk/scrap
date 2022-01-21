@@ -38,7 +38,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [sortBy, setSortBy] = useState("transactionalPrice");
+  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY).pop());
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
@@ -167,7 +167,7 @@ function Data({ version = "v1" }) {
               <Link href={url}>{item.title}</Link>
             </h3>
             <h4>{item.brand}</h4>
-            <div>{item.label.join(" | ")}</div>
+            {item.label && <div>{item.label.join(" | ")}</div>}
             <Details item={item} />
             <History
               history={Object.entries(item._history).reverse()}
