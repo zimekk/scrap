@@ -1,35 +1,20 @@
 import { Subject, from, of } from "rxjs";
-import {
-  delay,
-  distinct,
-  filter,
-  map,
-  mergeMap,
-  take,
-  tap,
-} from "rxjs/operators";
+import { delay, distinct, map, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
 import { items } from "@dev/api";
 import {
   gameItems,
-  propertyItems,
   vehicleItems,
   vehicle2Items,
   vehicle3Items,
   vehicle4Items,
 } from "@dev/api/stations";
-import {
-  saveProductHtml,
-  scrapPropertyList,
-  scrapPropertyList1,
-  scrapPropertyItem,
-  scrapPropertyItem1,
-} from "./utils";
-import { browser, request } from "./request";
+import { request } from "./request";
 import {
   GameService,
   ProductService,
+  PropertyService,
   StationService,
   VehicleService,
 } from "./services";
@@ -42,8 +27,8 @@ const {
   NEARBY_RADIUS = "10000",
   // NEARBY_RADIUS = "25014.985524846034",
   // KLIK_URL,
-  GRATKA_URL,
-  OTODOM_URL,
+  // GRATKA_URL,
+  // OTODOM_URL,
   // STATIONS_URL,
   // STORE_URL,
   // STORE_ALTO_URL,
@@ -52,8 +37,8 @@ const {
   NEARBY_LNG: string;
   NEARBY_RADIUS: string;
   // KLIK_URL: string;
-  GRATKA_URL: string;
-  OTODOM_URL: string;
+  // GRATKA_URL: string;
+  // OTODOM_URL: string;
   // STATIONS_URL: string;
   // STORE_URL: string;
   // STORE_ALTO_URL: string;
@@ -521,106 +506,6 @@ export default function (type?: string) {
       });
     });
 
-  const property$ = new Subject<{
-    $type: string;
-    id: string;
-    name: string;
-    href: string;
-  }>();
-
-  property$
-    .pipe(
-      mergeMap(
-        ({ $type, id, name, href }) =>
-          from(browser({ $type, name, href })).pipe(
-            map((html) => {
-              if ($type === "otodom-item") {
-                // saveProductHtml(`otodom-${id}`, html);
-                return html && scrapPropertyItem1({ id }, html);
-              }
-              // saveProductHtml(`gratka-${id}`, html);
-              return html && scrapPropertyItem({ id }, html);
-            })
-          ),
-        1
-      ),
-      filter(Boolean)
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      propertyItems.findOne({ id: item.id }).then((last: any) => {
-        if (last) {
-          // propertyItems.update({ ...last, ...item, _updated: _time });
-        } else {
-          propertyItems.insert({ ...item, _created: _time });
-        }
-      });
-    });
-
-  const properties$ = new Subject<{
-    $type: string;
-    page?: number;
-  }>();
-
-  properties$
-    .pipe(
-      mergeMap(
-        ({ $type, page = 1 }) =>
-          from(browser({ $type, page })).pipe(
-            map((html) => {
-              const name = $type.split(":")[1];
-              const id = name.replace(/\//g, "-");
-              console.log({ $type });
-              if ($type.split(":")[0] === "otodom") {
-                saveProductHtml(`otodom-${id}-${page}`, html);
-                return html ? scrapPropertyList1({ id }, html) : null;
-              }
-              saveProductHtml(`gratka-${id}-${page}`, html);
-              return html ? scrapPropertyList({ id }, html) : null;
-            }),
-            filter(Boolean),
-            tap(({ nextPage }) => {
-              console.log({ nextPage });
-              if (nextPage) {
-                // console.log({$type})
-                const page =
-                  $type.split(":")[0] === "otodom"
-                    ? Number(
-                        new URL(nextPage, GRATKA_URL).searchParams.get("page")
-                      )
-                    : Number(
-                        new URL(nextPage, OTODOM_URL).searchParams.get("page")
-                      );
-                console.log({ page });
-                properties$.next({ $type, page });
-              }
-            }),
-            mergeMap(({ items }) => items),
-            tap(({ id, name, href }) => {
-              // const id = name.split("-")[1];
-              // console.log({id, name, href})
-              if ($type.split(":")[0] === "otodom") {
-                propertyItems.findOne({ id }).then((item: any) => {
-                  if (!item) {
-                    property$.next({ $type: "otodom-item", id, name, href });
-                  }
-                });
-              } else {
-                propertyItems.findOne({ id }).then((item: any) => {
-                  if (!item) {
-                    property$.next({ $type: "gratka-item", id, name, href });
-                  }
-                });
-              }
-            })
-          ),
-        1
-      )
-    )
-    .subscribe((item: any) => {
-      console.log({ item });
-    });
-
   const request$ = new Subject<{ type: string; args?: object }>();
   request$
     .pipe(
@@ -631,7 +516,9 @@ export default function (type?: string) {
               .enum([
                 "get-product",
                 "get-stations",
+                "gratka",
                 "najlepszeoferty.bmw.pl",
+                "otodom",
                 "xbox",
               ])
               .parseAsync(type.split(":")[0])
@@ -640,7 +527,9 @@ export default function (type?: string) {
                   ({
                     ["get-product"]: ProductService,
                     ["get-stations"]: StationService,
+                    ["gratka"]: PropertyService,
                     ["najlepszeoferty.bmw.pl"]: VehicleService,
+                    ["otodom"]: PropertyService,
                     ["xbox"]: GameService,
                   }[type])
               )
@@ -666,7 +555,9 @@ export default function (type?: string) {
                     .enum([
                       "get-product",
                       "get-stations",
+                      "gratka",
                       "najlepszeoferty.bmw.pl",
+                      "otodom",
                       "xbox",
                     ])
                     .parseAsync(type.split(":")[0])
@@ -675,7 +566,9 @@ export default function (type?: string) {
                         ({
                           ["get-product"]: ProductService,
                           ["get-stations"]: StationService,
+                          ["gratka"]: PropertyService,
                           ["najlepszeoferty.bmw.pl"]: VehicleService,
+                          ["otodom"]: PropertyService,
                           ["xbox"]: GameService,
                         }[type])
                     )
@@ -710,58 +603,62 @@ export default function (type?: string) {
     request$.next({ type });
   });
 
-  from([
-    // "gratka:nieruchomosci/domy/warszawa",
-    "gratka:nieruchomosci/domy/komorow-34074",
-    "gratka:nieruchomosci/domy/ozarow-mazowiecki",
-    "gratka:nieruchomosci/domy/podkowa-lesna",
-    "gratka:nieruchomosci/domy/stare-babice",
-    "gratka:nieruchomosci/domy/warszawa/powsin",
-    "gratka:nieruchomosci/domy/warszawa/powsinek",
-    "gratka:nieruchomosci/domy/warszawa/radosc",
-    "gratka:nieruchomosci/domy/warszawa/sadyba",
-    "gratka:nieruchomosci/domy/warszawa/ursynow",
-    "gratka:nieruchomosci/domy/warszawa/wawer",
-    "gratka:nieruchomosci/domy/warszawa/wilanow",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/komorow-34074",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/ozarow-mazowiecki",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/podkowa-lesna",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/stare-babice",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/powsin",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/radosc",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/sadyba",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/ursynów",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wawer",
-    "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wilanow",
-    // "gratka:nieruchomosci/komorow-34074",
-    // "gratka:nieruchomosci/ozarow-mazowiecki",
-    // "gratka:nieruchomosci/podkowa-lesna",
-    // "gratka:nieruchomosci/stare-babice",
-    // "gratka:nieruchomosci/warszawa/powsin",
-    // "gratka:nieruchomosci/warszawa/sadyba",
-    // "gratka:nieruchomosci/warszawa/ursynow",
-    // "gratka:nieruchomosci/warszawa/wilanow",
-    "otodom:dom/komorow_5600",
-    "otodom:dom/stare-babice",
-    "otodom:dom/warszawa/powsin",
-    "otodom:dom/warszawa/powsinek",
-    "otodom:dom/warszawa/radosc",
-    "otodom:dom/warszawa/sadyba",
-    "otodom:dom/warszawa/ursynow",
-    "otodom:dom/warszawa/wawer",
-    "otodom:dom/warszawa/wilanow",
-    "otodom:dzialka/komorow_5600",
-    "otodom:dzialka/stare-babice",
-    "otodom:dzialka/warszawa/powsin",
-    "otodom:dzialka/warszawa/powsinek",
-    "otodom:dzialka/warszawa/radosc",
-    "otodom:dzialka/warszawa/sadyba",
-    "otodom:dzialka/warszawa/ursynow",
-    "otodom:dzialka/warszawa/wawer",
-    "otodom:dzialka/warszawa/wilanow",
-  ]).subscribe(($type) => {
-    console.log({ $type });
-    properties$.next({ $type });
+  from(
+    type
+      ? []
+      : [
+          // "gratka:nieruchomosci/domy/warszawa",
+          "gratka:nieruchomosci/domy/komorow-34074",
+          "gratka:nieruchomosci/domy/ozarow-mazowiecki",
+          "gratka:nieruchomosci/domy/podkowa-lesna",
+          "gratka:nieruchomosci/domy/stare-babice",
+          "gratka:nieruchomosci/domy/warszawa/powsin",
+          "gratka:nieruchomosci/domy/warszawa/powsinek",
+          "gratka:nieruchomosci/domy/warszawa/radosc",
+          "gratka:nieruchomosci/domy/warszawa/sadyba",
+          "gratka:nieruchomosci/domy/warszawa/ursynow",
+          "gratka:nieruchomosci/domy/warszawa/wawer",
+          "gratka:nieruchomosci/domy/warszawa/wilanow",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/komorow-34074",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/ozarow-mazowiecki",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/podkowa-lesna",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/stare-babice",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/powsin",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/radosc",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/sadyba",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/ursynów",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wawer",
+          "gratka:nieruchomosci/dzialki-grunty/budowlana/warszawa/wilanow",
+          // "gratka:nieruchomosci/komorow-34074",
+          // "gratka:nieruchomosci/ozarow-mazowiecki",
+          // "gratka:nieruchomosci/podkowa-lesna",
+          // "gratka:nieruchomosci/stare-babice",
+          // "gratka:nieruchomosci/warszawa/powsin",
+          // "gratka:nieruchomosci/warszawa/sadyba",
+          // "gratka:nieruchomosci/warszawa/ursynow",
+          // "gratka:nieruchomosci/warszawa/wilanow",
+          "otodom:dom/komorow_5600",
+          "otodom:dom/stare-babice",
+          "otodom:dom/warszawa/powsin",
+          "otodom:dom/warszawa/powsinek",
+          "otodom:dom/warszawa/radosc",
+          "otodom:dom/warszawa/sadyba",
+          "otodom:dom/warszawa/ursynow",
+          "otodom:dom/warszawa/wawer",
+          "otodom:dom/warszawa/wilanow",
+          "otodom:dzialka/komorow_5600",
+          "otodom:dzialka/stare-babice",
+          "otodom:dzialka/warszawa/powsin",
+          "otodom:dzialka/warszawa/powsinek",
+          "otodom:dzialka/warszawa/radosc",
+          "otodom:dzialka/warszawa/sadyba",
+          "otodom:dzialka/warszawa/ursynow",
+          "otodom:dzialka/warszawa/wawer",
+          "otodom:dzialka/warszawa/wilanow",
+        ]
+  ).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 
   from(
