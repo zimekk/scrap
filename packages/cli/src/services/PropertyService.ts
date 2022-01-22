@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { propertyItems } from "@dev/api/stations";
-import { browser } from "../request";
+import { browser, request } from "../request";
 import {
   scrapPropertyList,
   scrapPropertyList1,
   scrapPropertyItem,
   scrapPropertyItem1,
+  scrapPropertyKlikItem,
 } from "../utils";
 
 const { GRATKA_URL, OTODOM_URL } = process.env as {
@@ -155,5 +156,73 @@ export class PropertyService {
           );
         })
       );
+  }
+}
+
+export class PropertyKlikService {
+  async request(
+    type: string,
+    args = {}
+  ): Promise<{
+    type: string;
+    list: any[];
+    next: any;
+  }> {
+    return z
+      .object({
+        $type: z.string().default(type),
+        page: z.number().default(1),
+      })
+      .parseAsync(args)
+      .then(({ $type, page }) => {
+        const items = 20;
+        console.log({ $type, page });
+        return request({ $type, items, page })
+          .then((data) =>
+            z
+              .object({
+                results: z.array(z.object({}).passthrough()),
+                total_found: z.string().transform(Number),
+              })
+              .parse(data)
+          )
+          .then(({ results, total_found }) => ({
+            type,
+            list: results,
+            next:
+              Math.ceil(total_found / items) > page
+                ? {
+                    type,
+                    page: page + 1,
+                  }
+                : null,
+          }));
+      });
+  }
+
+  async process(item: any, summary: any): Promise<any> {
+    // console.log({item})
+    // console.log(item.location_path)
+    // console.log(item.location_user)
+    return Promise.resolve(scrapPropertyKlikItem(item)).then((item) => {
+      // console.log({item})
+      // console.log(item.address)
+      propertyItems.findOne({ id: item.id }).then((last: any) => {
+        if (last) {
+          summary.checked.push(item.id);
+          // propertyItems.update({ ...last, ...item, _updated: _time });
+          return propertyItems.update({
+            ...last,
+            _checked: _time,
+          });
+        } else {
+          summary.created.push(item.id);
+          return propertyItems.insert({
+            ...item,
+            _created: _time,
+          });
+        }
+      });
+    });
   }
 }

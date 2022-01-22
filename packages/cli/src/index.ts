@@ -1,8 +1,7 @@
 import { Subject, from, of } from "rxjs";
-import { delay, distinct, map, mergeMap, take, tap } from "rxjs/operators";
+import { delay, map, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { items } from "@dev/api";
 import {
   gameItems,
   vehicleItems,
@@ -15,6 +14,7 @@ import {
   GameService,
   ProductService,
   PropertyService,
+  PropertyKlikService,
   StationService,
   VehicleService,
 } from "./services";
@@ -180,38 +180,6 @@ export default function (type?: string) {
     checked: [],
     updated: [],
   };
-
-  // https://dev.to/jacobgoh101/simple--customizable-web-scraper-using-rxjs-and-node-1on7
-  const pages$ = new Subject<{
-    $type: string;
-    items?: number;
-    page?: number;
-  }>();
-
-  pages$
-    .pipe(
-      distinct(),
-      mergeMap(
-        ({ $type, items = 20, page = 1 }) =>
-          from(request({ $type, items, page })).pipe(
-            tap(({ total_found }) => {
-              const next =
-                Math.ceil(Number(total_found) / items) > page ? page + 1 : null;
-              if (next) {
-                pages$.next({ $type, page: next });
-              }
-            })
-          ),
-        1
-      ),
-      mergeMap(({ results }) => results)
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      items
-        .findOne({ id: item.id })
-        .then((exists: any) => exists || items.insert(item));
-    });
 
   const vehicles$ = new Subject<{
     $type: string;
@@ -517,6 +485,7 @@ export default function (type?: string) {
                 "get-product",
                 "get-stations",
                 "gratka",
+                "klik",
                 "najlepszeoferty.bmw.pl",
                 "otodom",
                 "xbox",
@@ -528,6 +497,7 @@ export default function (type?: string) {
                     ["get-product"]: ProductService,
                     ["get-stations"]: StationService,
                     ["gratka"]: PropertyService,
+                    ["klik"]: PropertyKlikService,
                     ["najlepszeoferty.bmw.pl"]: VehicleService,
                     ["otodom"]: PropertyService,
                     ["xbox"]: GameService,
@@ -556,6 +526,7 @@ export default function (type?: string) {
                       "get-product",
                       "get-stations",
                       "gratka",
+                      "klik",
                       "najlepszeoferty.bmw.pl",
                       "otodom",
                       "xbox",
@@ -567,6 +538,7 @@ export default function (type?: string) {
                           ["get-product"]: ProductService,
                           ["get-stations"]: StationService,
                           ["gratka"]: PropertyService,
+                          ["klik"]: PropertyKlikService,
                           ["najlepszeoferty.bmw.pl"]: VehicleService,
                           ["otodom"]: PropertyService,
                           ["xbox"]: GameService,
@@ -637,6 +609,9 @@ export default function (type?: string) {
           // "gratka:nieruchomosci/warszawa/sadyba",
           // "gratka:nieruchomosci/warszawa/ursynow",
           // "gratka:nieruchomosci/warszawa/wilanow",
+          "klik:1:4",
+          "klik:1:2",
+          // "klik:2:1",
           "otodom:dom/komorow_5600",
           "otodom:dom/stare-babice",
           "otodom:dom/warszawa/powsin",
@@ -775,11 +750,6 @@ export default function (type?: string) {
   ).subscribe((type) => {
     console.log({ type });
     request$.next({ type });
-  });
-
-  from(["klik:1:4", "klik:1:2", "klik:2:1"]).subscribe(($type) => {
-    console.log({ $type });
-    pages$.next({ $type });
   });
 
   from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
