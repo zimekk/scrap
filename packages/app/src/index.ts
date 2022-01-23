@@ -34,6 +34,10 @@ const {
 const CENTER = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) };
 const RADIUS = Number(NEARBY_RADIUS);
 
+// const ERA = 24 * 3600 * 1000;
+// const _time = Date.now();
+// const _past = _time - ERA;
+
 const web =
   process.env.NODE_ENV === "development"
     ? (({ entry, ...config }) => {
@@ -59,6 +63,8 @@ const web =
           )
         )
       );
+
+const Options = z.object({ id: z.number(), label: z.string() });
 
 const api = Router()
   .use("/api/data.json", (_req, res) =>
@@ -186,7 +192,163 @@ const api = Router()
           vehicleItems
             .find({})
             .then((vehicleBasic: any) => vehicleBasic.slice(0, 5000))
-            .then((list) =>
+            .then(
+              (list) =>
+                z
+                  .array(
+                    z
+                      .object({
+                        _id: z.string(),
+                        _created: z.number().default(0),
+                        _updated: z.number().default(0),
+                        _history: z
+                          .record(z.string(), z.object({}).passthrough())
+                          .optional(),
+                        _removed: z.number().default(0),
+                        id: z.number(),
+                        type: z.enum(["CAR"]),
+                        isNew: z.boolean(),
+                        modelCode: z.string().optional(),
+                        title: z.string(),
+                        brand: Options,
+                        series: Options.optional(),
+                        bodyType: Options,
+                        seriesCode: z.string().optional(),
+                        productionYear: z.number(),
+                        mileage: z.number().optional(),
+                        fuel: Options,
+                        consumptionFuel: z.number().optional(),
+                        emission: z.number().optional(),
+                        emissionStandard: Options.optional(),
+                        powerKW: z.number(),
+                        powerHP: z.number(),
+                        capacity: z.number().optional(),
+                        transmission: Options,
+                        color: z.object({
+                          code: z.string(),
+                          id: z.number(),
+                          label: z.string(),
+                        }),
+                        images: z.number(),
+                        imagesLastChanged: z.string(),
+                        exterior360: z.boolean(),
+                        interior360: z.boolean(),
+                        warranty: z.number(),
+                        usedBrand: z.boolean(),
+                        reservable: z.boolean(),
+                        vatReclaimable: z.boolean(),
+                        leasable: z.boolean(),
+                        leaseProduct: z
+                          .object({
+                            type: z.enum(["lease"]),
+                            label: z.string(),
+                            // downPaymentLimits: z.object({
+                            //   min: z.number(),
+                            //   max: z.number(),
+                            //   step: z.number(),
+                            //   default: z.number(),
+                            // }),
+                            // termLimits: z.object({
+                            //   min: z.number(),
+                            //   max: z.number(),
+                            //   step: z.number(),
+                            //   default: z.number(),
+                            // }),
+                            totalAgeLimit: z.number(),
+                            // residualValueFactorLimits: z.array(z.array(z.null())),
+                            // residualValueStep: z.number(),
+                            // residualValueDefault: z.string(),
+                            // interestRates: z.array(z.array(z.null())),
+                          })
+                          .passthrough()
+                          .optional(),
+                        comfortLeaseProduct: z
+                          .object({
+                            type: z.enum(["comfort_lease"]),
+                            label: z.string(),
+                            calculationMode: z.string(),
+                            // downPaymentLimits: z.object({
+                            //   min: z.number(),
+                            //   max: z.number(),
+                            //   step: z.number(),
+                            //   default: z.number(),
+                            // }),
+                            // termLimits: z.object({
+                            //   min: z.number(),
+                            //   max: z.number(),
+                            //   step: z.number(),
+                            //   default: z.number(),
+                            // }),
+                            totalAgeLimit: z.number(),
+                            // annualMileageLimits: z.object({
+                            //   min: z.number(),
+                            //   max: z.number(),
+                            //   step: z.number(),
+                            //   default: z.number(),
+                            // }),
+                            // interestRates: z.array(z.array(z.null())),
+                            // tarRvMod: z.object({
+                            //   id: z.number(),
+                            //   tmdate: z.string(),
+                            //   accessoryLimit: z.number(),
+                            //   rvValue: z.number(),
+                            //   brvValue: z.number(),
+                            //   rvValueUsed: z.number(),
+                            //   brvValueUsed: z.number(),
+                            //   carSegmentId: z.string(),
+                            // }),
+                            // tarRvDev: z.object({
+                            //   term: z.number(),
+                            //   totalMileage: z.number(),
+                            //   rvDev: z.number(),
+                            //   rvDevUsed: z.number(),
+                            // }),
+                          })
+                          .passthrough()
+                          .optional(),
+                        newPrice: z.number().optional(),
+                        optionsPrice: z.number().optional(),
+                        accessoriesPrice: z.number().optional(),
+                        transactionalPrice: z.number(),
+                        dealer: z.object({
+                          id: z.number(),
+                          buno: z.string(),
+                          owner: z.string(),
+                          ownerName: z.string(),
+                          name: z.string(),
+                          legalName: z.string(),
+                          street: z.string(),
+                          zip: z.string(),
+                          city: z.string(),
+                          lat: z.number(),
+                          lng: z.number(),
+                        }),
+                        created: z.string(),
+                        age: z.number().optional(),
+                        isYUC: z.boolean().optional(),
+                        reserved: z.boolean(),
+                      })
+                      .passthrough()
+                      .transform((item) => ({
+                        ...item,
+                        href: item.isNew
+                          ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${item.id}/`
+                          : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${item.id}/`,
+                        images: [...Array(item.images)].map(
+                          (
+                            _,
+                            i,
+                            _list,
+                            size = "322/255b28ffdad35cd984ff32f30da17158"
+                          ) =>
+                            i < 3
+                              ? `api/vehicles/${item.id}/images/${i}`
+                              : `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${item.id}-${i}`
+                        ),
+                      }))
+                  )
+                  .parse(list)
+              /*
               list.map(
                 ({
                   _id,
@@ -291,6 +453,7 @@ const api = Router()
                         }))(source)),
                   })
               )
+              */
             ),
           vehicle2Items
             .find({})
@@ -581,7 +744,7 @@ const api = Router()
               )
             ),
         ])
-          .then((results) => [].concat(...results))
+          .then((results: any) => [].concat(...results))
           // .then((results) => [].concat(results[0]))
           .then((list) =>
             list.sort((a: any, b: any) => (a._id > b._id ? 1 : -1))
