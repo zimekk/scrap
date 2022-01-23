@@ -1,7 +1,13 @@
 // import fetch from "isomorphic-fetch";
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { vehicleItems, vehicle5Items } from "@dev/api/stations";
+import {
+  vehicleItems,
+  vehicle2Items,
+  vehicle3Items,
+  vehicle4Items,
+  vehicle5Items,
+} from "@dev/api/stations";
 import { request } from "../request";
 import { scrapOptions } from "../utils";
 
@@ -387,7 +393,272 @@ export class VehicleService {
   }
 }
 
-export class VehicleService5 {
+export class Vehicle2Service {
+  async request(
+    type: string,
+    args = {}
+  ): Promise<{
+    type: string;
+    list: any[];
+    next: any;
+  }> {
+    return z
+      .object({
+        $type: z.string().default(type),
+        $from: z.number().default(0),
+        $size: z.number().default(100),
+      })
+      .parseAsync(args)
+      .then(({ $type, $from, $size }) =>
+        request({ $type, $from, $size })
+          .then((data) =>
+            z
+              .object({
+                totalCount: z.number(),
+                vehicleBasic: z.array(
+                  z
+                    .object({
+                      id: z.string(),
+                    })
+                    .passthrough()
+                ),
+                // "header",
+                // "entryUrl",
+                // "maxScore",
+                // "maxPossibleScore",
+                // "scoringPercentage",
+                // "displayPercentage",
+                // "groups",
+                // "filterOptions",
+                // "items",
+                // "debug"
+              })
+              // .strict()
+              .parse(data)
+          )
+          .then(({ totalCount, vehicleBasic }) => ({
+            type,
+            list: vehicleBasic,
+            next:
+              $from + $size < totalCount
+                ? {
+                    $from: $from + $size,
+                    $size,
+                  }
+                : null,
+          }))
+      );
+  }
+
+  async process(item = {}, summary: any): Promise<any> {
+    return z
+      .object({
+        id: z.string(),
+      })
+      .passthrough()
+      .parseAsync(item)
+      .then((item: any) =>
+        vehicle2Items.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            const diff = diffItem(last, item);
+            if (diff) {
+              console.log(`[${last.id}]`);
+              console.log(diff);
+              summary.updated.push(item.id);
+              return vehicle2Items.update(updateItem(last, item));
+            } else {
+              summary.checked.push(item.id);
+              return vehicle2Items.update({ ...last, _checked: _time });
+            }
+          } else {
+            summary.created.push(item.id);
+            return vehicle2Items.insert(createItem(item));
+          }
+        })
+      );
+  }
+}
+
+export class Vehicle3Service {
+  async request(
+    type: string,
+    args = {}
+  ): Promise<{
+    type: string;
+    list: any[];
+    next: any;
+  }> {
+    return z
+      .object({
+        $type: z.string().default(type),
+        currentPage: z.number().default(0),
+        pageSize: z.number().default(48),
+      })
+      .parseAsync(args)
+      .then(({ $type, currentPage, pageSize }) =>
+        request({ $type, currentPage, pageSize })
+          .then((data) =>
+            z
+              .object({
+                pagination: z.object({
+                  currentPage: z.number(),
+                  pageSize: z.number(),
+                  totalPages: z.number(),
+                }),
+                products: z.array(
+                  z
+                    .object({
+                      commissionNumber: z.string(),
+                    })
+                    .passthrough()
+                    .transform((item) => ({
+                      ...item,
+                      id: item.commissionNumber,
+                    }))
+                ),
+              })
+              .strict()
+              .parse(data)
+          )
+          .then(
+            ({
+              pagination: { currentPage, pageSize, totalPages },
+              products,
+            }) => ({
+              type,
+              list: products,
+              next:
+                currentPage + 1 < totalPages
+                  ? {
+                      $type,
+                      currentPage: currentPage + 1,
+                      pageSize,
+                    }
+                  : null,
+            })
+          )
+      );
+  }
+
+  async process(item = {}, summary: any): Promise<any> {
+    return z
+      .object({
+        id: z.string(),
+      })
+      .passthrough()
+      .parseAsync(item)
+      .then((item: any) =>
+        vehicle3Items.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            const diff = diffItem(last, item);
+            if (diff) {
+              console.log(`[${last.id}]`);
+              console.log(diff);
+              summary.updated.push(item.id);
+              return vehicle3Items.update(updateItem(last, item));
+            } else {
+              summary.checked.push(item.id);
+              return vehicle3Items.update({ ...last, _checked: _time });
+            }
+          } else {
+            summary.created.push(item.id);
+            return vehicle3Items.insert(createItem(item));
+          }
+        })
+      );
+  }
+}
+
+export class Vehicle4Service {
+  async request(
+    type: string,
+    args = {}
+  ): Promise<{
+    type: string;
+    list: any[];
+    next: any;
+  }> {
+    return z
+      .object({
+        $type: z.string().default(type),
+        page: z.number().optional(),
+      })
+      .parseAsync(args)
+      .then(({ $type, page }) =>
+        request({ $type, page })
+          .then((data) =>
+            z
+              .object({
+                pages: z.object({
+                  activePage: z.number(),
+                  totalPages: z.number(),
+                }),
+                results: z.array(
+                  z
+                    .object({
+                      description: z
+                        .object({
+                          listingId: z.string(),
+                        })
+                        .passthrough(),
+                    })
+                    .passthrough()
+                    .transform((item) => ({
+                      ...item,
+                      id: item.description.listingId,
+                    }))
+                ),
+                // count: z.any(),
+                // filterOptions: z.any(),
+                // sortOptions: z.any(),
+              })
+              // .strict()
+              .parse(data)
+          )
+          .then(({ pages: { activePage, totalPages }, results }) => ({
+            type,
+            list: results,
+            next:
+              activePage < totalPages
+                ? {
+                    $type,
+                    page: activePage + 1,
+                  }
+                : null,
+          }))
+      );
+  }
+
+  async process(item = {}, summary: any): Promise<any> {
+    return z
+      .object({
+        id: z.string(),
+      })
+      .passthrough()
+      .parseAsync(item)
+      .then((item: any) =>
+        vehicle4Items.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            const diff = diffItem(last, item);
+            if (diff) {
+              console.log(`[${last.id}]`);
+              console.log(diff);
+              summary.updated.push(item.id);
+              return vehicle4Items.update(updateItem(last, item));
+            } else {
+              summary.checked.push(item.id);
+              return vehicle4Items.update({ ...last, _checked: _time });
+            }
+          } else {
+            summary.created.push(item.id);
+            return vehicle4Items.insert(createItem(item));
+          }
+        })
+      );
+  }
+}
+
+export class Vehicle5Service {
   async request(
     type: string,
     args = {}

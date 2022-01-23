@@ -1,15 +1,8 @@
 import { Subject, from, of } from "rxjs";
-import { delay, map, mergeMap, take, tap } from "rxjs/operators";
+import { delay, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
-import {
-  gameItems,
-  vehicleItems,
-  vehicle2Items,
-  vehicle3Items,
-  vehicle4Items,
-} from "@dev/api/stations";
-import { request } from "./request";
+import { gameItems, vehicleItems } from "@dev/api/stations";
 import {
   GameService,
   ProductService,
@@ -17,7 +10,10 @@ import {
   PropertyKlikService,
   StationService,
   VehicleService,
-  VehicleService5,
+  Vehicle2Service,
+  Vehicle3Service,
+  Vehicle4Service,
+  Vehicle5Service,
 } from "./services";
 
 require("dotenv").config();
@@ -182,299 +178,6 @@ export default function (type?: string) {
     updated: [],
   };
 
-  const vehicles$ = new Subject<{
-    $type: string;
-    $skip?: number;
-    $limit?: number;
-  }>();
-
-  vehicles$
-    .pipe(
-      mergeMap(
-        ({ $type, $skip = 0, $limit = 100 }) =>
-          from(request({ $type, $skip, $limit })).pipe(
-            map(({ $list, $count }) => ({
-              $type,
-              $skip,
-              $limit,
-              $list,
-              $count,
-            })),
-            tap(({ $type, $skip, $limit, $count: { $total } }) => {
-              const $next = $skip + $limit;
-              // console.log({ $type, $skip, $limit, $next, $total });
-              if ($next < $total) {
-                vehicles$.next({ $type, $skip: $next, $limit });
-              }
-            })
-          ),
-        1
-      ),
-      mergeMap(({ $list }) => $list)
-    )
-    .subscribe({
-      next: (item: any) => {
-        // console.log({ item });
-        vehicleItems
-          .findOne({ id: item.id })
-          // .then((exists: any) => exists || vehicleItems.insert(item));
-          .then((exists: any) => {
-            if (exists) {
-              const diff = diffItem(exists, item);
-              if (diff) {
-                console.log(`[${exists.id}]`);
-                console.log(diff);
-                vehicleItems.update(updateItem(exists, item));
-                summary.updated.push(item.id);
-              } else {
-                vehicleItems.update({ ...exists, _checked: _time });
-                summary.checked.push(item.id);
-              }
-            } else {
-              vehicleItems.insert(createItem(item));
-              summary.created.push(item.id);
-            }
-          });
-      },
-      complete: () => {
-        console.log(summary);
-      },
-    });
-
-  const createItem = (item: {}) => ({ ...item, _created: _time });
-  const diffItem = (
-    {
-      lastChange,
-      comfortLeaseProduct,
-      vehicleDataVersion,
-      _id,
-      _created,
-      _updated,
-      _checked,
-      _removed,
-      _history,
-      options,
-      ..._item
-    }: {
-      lastChange?: any;
-      comfortLeaseProduct?: any;
-      vehicleDataVersion?: any;
-      _id: string;
-      _created: number;
-      _updated: number;
-      _checked: number;
-      _removed: number;
-      _history: {};
-      options: string[];
-    },
-    {
-      lastChange: _lastChange,
-      comfortLeaseProduct: _comfortLeaseProduct,
-      vehicleDataVersion: _vehicleDataVersion,
-      ...item
-    }: { lastChange?: any; comfortLeaseProduct?: any; vehicleDataVersion?: any }
-  ) => diffString(_item, item);
-  const updateItem = (
-    {
-      _id,
-      _created = _past,
-      _updated = _created,
-      _history = {},
-      ..._item
-    }: { _id: string; _created: number; _updated: number; _history: {} },
-    item: {}
-  ) => ({
-    ...item,
-    _id,
-    _created,
-    _updated: _time,
-    _history: {
-      ..._history,
-      [_updated]: _item,
-    },
-  });
-
-  const vehicles2$ = new Subject<{
-    $type: string;
-    $from?: number;
-    $size?: number;
-  }>();
-
-  vehicles2$
-    .pipe(
-      mergeMap(
-        ({ $type, $from = 0, $size = 100 }) =>
-          from(request({ $type, $from, $size })).pipe(
-            map(({ vehicleBasic, totalCount }) => ({
-              $type,
-              $from,
-              $size,
-              vehicleBasic,
-              totalCount,
-            })),
-            tap(({ $type, $from, $size, totalCount }) => {
-              const $next = $from + $size;
-              // console.log({ $type, $from, $size, $next, totalCount });
-              if ($next < totalCount) {
-                vehicles2$.next({ $type, $from: $next, $size });
-              }
-            })
-          ),
-        1
-      ),
-      mergeMap(({ vehicleBasic }) => vehicleBasic)
-    )
-    .subscribe((item: any) => {
-      // console.log({item})
-      vehicle2Items
-        .findOne({ id: item.id })
-        // .then((exists: any) => exists || vehicle2Items.insert(item));
-        .then((exists: any) => {
-          if (exists) {
-            const diff = diffItem(exists, item);
-            if (diff) {
-              console.log(`[${exists.id}]`);
-              console.log(diff);
-              vehicle2Items.update(updateItem(exists, item));
-            }
-          } else {
-            vehicle2Items.insert(createItem(item));
-          }
-        });
-    });
-
-  const vehicles3$ = new Subject<{
-    $type: string;
-    currentPage?: number;
-    pageSize?: number;
-  }>();
-
-  vehicles3$
-    .pipe(
-      mergeMap(
-        ({ $type, currentPage = 0, pageSize = 48 }: any) =>
-          from(request({ $type, currentPage, pageSize })).pipe(
-            tap(({ pagination }) => {
-              const { currentPage, pageSize, totalPages } = pagination;
-              if (currentPage + 1 < totalPages) {
-                vehicles3$.next({
-                  $type,
-                  currentPage: currentPage + 1,
-                  pageSize,
-                });
-              }
-            })
-          ),
-        1
-      ),
-      mergeMap(({ products }) =>
-        products.map((item: any) => ({ id: item.commissionNumber, ...item }))
-      )
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      vehicle3Items
-        .findOne({ id: item.id })
-        // .then((exists: any) => exists || vehicle3Items.insert(item));
-        .then((last: any) => {
-          if (last) {
-            const {
-              _id,
-              _created = _past,
-              _updated = _created,
-              _history = {},
-              ...rest
-            } = last;
-            const diff = diffString(rest, item);
-            if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
-
-              const update = {
-                _id,
-                ...item,
-                _created,
-                _updated: _time,
-                _history: Object.assign({
-                  ..._history,
-                  [_updated]: rest,
-                }),
-              };
-              console.log(update);
-
-              vehicle3Items.update(update);
-            }
-          } else {
-            vehicle3Items.insert({ ...item, _created: _time });
-          }
-        });
-    });
-
-  const vehicles4$ = new Subject<{
-    $type: string;
-    page?: number;
-  }>();
-
-  vehicles4$
-    .pipe(
-      mergeMap(
-        ({ $type, page }: any) =>
-          from(request({ $type, page })).pipe(
-            tap(({ pages }) => {
-              const { activePage, totalPages } = pages;
-              if (activePage < totalPages) {
-                vehicles4$.next({
-                  $type,
-                  page: activePage + 1,
-                });
-              }
-            })
-          ),
-        1
-      ),
-      mergeMap(({ results }) =>
-        results.map((item: any) => ({
-          id: item.description.listingId,
-          ...item,
-        }))
-      )
-    )
-    .subscribe((item: any) => {
-      // console.log({ item });
-      vehicle4Items.findOne({ id: item.id }).then((last: any) => {
-        if (last) {
-          const {
-            _id,
-            _created = _past,
-            _updated = _created,
-            _history = {},
-            ...rest
-          } = last;
-          const diff = diffString(rest, item);
-          if (diff) {
-            console.log(`[${last.id}]`);
-            console.log(diff);
-
-            const update = {
-              _id,
-              ...item,
-              _created,
-              _updated: _time,
-              _history: Object.assign({
-                ..._history,
-                [_updated]: rest,
-              }),
-            };
-            console.log(update);
-
-            vehicle4Items.update(update);
-          }
-        } else {
-          vehicle4Items.insert({ ...item, _created: _time });
-        }
-      });
-    });
-
   const request$ = new Subject<{ type: string; args?: object }>();
   request$
     .pipe(
@@ -484,11 +187,15 @@ export default function (type?: string) {
             z
               .enum([
                 "get-product",
+                "get-product-alto",
                 "get-stations",
                 "gratka",
                 "klik",
+                "mercedes-benz",
                 "najlepszeoferty.bmw.pl",
                 "otodom",
+                "porsche",
+                "scs.audi.de",
                 "vw",
                 "xbox",
               ])
@@ -497,12 +204,16 @@ export default function (type?: string) {
                 (type) =>
                   ({
                     ["get-product"]: ProductService,
+                    ["get-product-alto"]: ProductService,
                     ["get-stations"]: StationService,
                     ["gratka"]: PropertyService,
                     ["klik"]: PropertyKlikService,
+                    ["mercedes-benz"]: Vehicle3Service,
                     ["najlepszeoferty.bmw.pl"]: VehicleService,
                     ["otodom"]: PropertyService,
-                    ["vw"]: VehicleService5,
+                    ["porsche"]: Vehicle4Service,
+                    ["scs.audi.de"]: Vehicle2Service,
+                    ["vw"]: Vehicle5Service,
                     ["xbox"]: GameService,
                   }[type])
               )
@@ -527,11 +238,15 @@ export default function (type?: string) {
                   z
                     .enum([
                       "get-product",
+                      "get-product-alto",
                       "get-stations",
                       "gratka",
                       "klik",
+                      "mercedes-benz",
                       "najlepszeoferty.bmw.pl",
                       "otodom",
+                      "porsche",
+                      "scs.audi.de",
                       "vw",
                       "xbox",
                     ])
@@ -540,12 +255,16 @@ export default function (type?: string) {
                       (type) =>
                         ({
                           ["get-product"]: ProductService,
+                          ["get-product-alto"]: ProductService,
                           ["get-stations"]: StationService,
                           ["gratka"]: PropertyService,
                           ["klik"]: PropertyKlikService,
+                          ["mercedes-benz"]: Vehicle3Service,
                           ["najlepszeoferty.bmw.pl"]: VehicleService,
                           ["otodom"]: PropertyService,
-                          ["vw"]: VehicleService5,
+                          ["porsche"]: Vehicle4Service,
+                          ["scs.audi.de"]: Vehicle2Service,
+                          ["vw"]: Vehicle5Service,
                           ["xbox"]: GameService,
                         }[type])
                     )
@@ -566,11 +285,6 @@ export default function (type?: string) {
         console.log(summary);
       },
     });
-
-  from(type ? [type] : ["vw:od-reki"]).subscribe((type) => {
-    console.log({ type });
-    request$.next({ type });
-  });
 
   from(
     type
@@ -762,18 +476,23 @@ export default function (type?: string) {
     request$.next({ type });
   });
 
-  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe(($type) => {
-    console.log({ $type });
-    vehicles2$.next({ $type });
+  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 
-  from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe(($type) => {
-    console.log({ $type });
-    // vehicles3$.next({ $type });
+  // from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe((type) => {
+  //   console.log({ type });
+  //   request$.next({ type });
+  // });
+
+  from(["porsche:search"]).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 
-  from(["porsche:search"]).subscribe(($type) => {
-    console.log({ $type });
-    vehicles4$.next({ $type });
+  from(type ? [type] : ["vw:od-reki"]).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
   });
 }
