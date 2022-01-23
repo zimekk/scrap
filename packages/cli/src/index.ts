@@ -17,6 +17,7 @@ import {
   PropertyKlikService,
   StationService,
   VehicleService,
+  VehicleService5,
 } from "./services";
 
 require("dotenv").config();
@@ -488,6 +489,7 @@ export default function (type?: string) {
                 "klik",
                 "najlepszeoferty.bmw.pl",
                 "otodom",
+                "vw",
                 "xbox",
               ])
               .parseAsync(type.split(":")[0])
@@ -500,6 +502,7 @@ export default function (type?: string) {
                     ["klik"]: PropertyKlikService,
                     ["najlepszeoferty.bmw.pl"]: VehicleService,
                     ["otodom"]: PropertyService,
+                    ["vw"]: VehicleService5,
                     ["xbox"]: GameService,
                   }[type])
               )
@@ -529,6 +532,7 @@ export default function (type?: string) {
                       "klik",
                       "najlepszeoferty.bmw.pl",
                       "otodom",
+                      "vw",
                       "xbox",
                     ])
                     .parseAsync(type.split(":")[0])
@@ -541,6 +545,7 @@ export default function (type?: string) {
                           ["klik"]: PropertyKlikService,
                           ["najlepszeoferty.bmw.pl"]: VehicleService,
                           ["otodom"]: PropertyService,
+                          ["vw"]: VehicleService5,
                           ["xbox"]: GameService,
                         }[type])
                     )
@@ -561,6 +566,11 @@ export default function (type?: string) {
         console.log(summary);
       },
     });
+
+  from(type ? [type] : ["vw:od-reki"]).subscribe((type) => {
+    console.log({ type });
+    request$.next({ type });
+  });
 
   from(
     type

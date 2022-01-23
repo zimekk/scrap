@@ -1,7 +1,7 @@
 // import fetch from "isomorphic-fetch";
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { vehicleItems } from "@dev/api/stations";
+import { vehicleItems, vehicle5Items } from "@dev/api/stations";
 import { request } from "../request";
 import { scrapOptions } from "../utils";
 
@@ -384,5 +384,182 @@ export class VehicleService {
           .then(timeout())
           .then(() => item);
       });
+  }
+}
+
+export class VehicleService5 {
+  async request(
+    type: string,
+    args = {}
+  ): Promise<{
+    type: string;
+    list: any[];
+    next: any;
+  }> {
+    return z
+      .object({
+        $type: z.string().default(type),
+        page: z.number().default(1),
+        per_page: z.number().default(100),
+      })
+      .parseAsync(args)
+      .then(({ $type, page, per_page }) =>
+        request({ $type, page, per_page })
+          .then((data) =>
+            z
+              .object({
+                count_all: z.number(),
+                records: z.array(
+                  z
+                    .object({
+                      id: z.number().transform((id) => `vw-${id}`),
+                      kt_number: z.number(),
+                      price: z.number(),
+                      final_price: z.number(),
+                      savings: z.number().nullable(),
+                      archived: z.boolean(),
+                      discounts: z.object({
+                        discount_quota: z.number().nullable(),
+                        discount_percent: z.null(),
+                        advantage_quota: z.null(),
+                      }),
+                      suggested_installments: z.object({
+                        vbc: z.object({
+                          data: z.object({
+                            price_net: z.number(),
+                            installment: z.number(),
+                            repurchase_quota: z.number(),
+                          }),
+                          km_limit: z.number(),
+                          own_payment: z.string(),
+                          funding_period: z.number(),
+                        }),
+                        credit_easy_drive: z.object({
+                          data: z.object({
+                            price_net: z.number(),
+                            installment: z.number(),
+                            credit_amount: z.number(),
+                            bank_commission: z.number(),
+                            credit_insurance: z.number(),
+                            repurchase_quota: z.number(),
+                            cost_of_financing: z.number(),
+                            vehicle_insurance: z.number(),
+                          }),
+                          km_limit: z.number(),
+                          own_payment: z.string(),
+                          funding_period: z.number(),
+                        }),
+                        leasing_easy_drive: z.object({
+                          data: z.object({
+                            price_net: z.number(),
+                            installment: z.number(),
+                            repurchase_quota: z.number(),
+                          }),
+                          km_limit: z.number(),
+                          own_payment: z.string(),
+                          funding_period: z.number(),
+                        }),
+                      }),
+                      duplicates_count: z.number(),
+                      tyres: z.array(z.unknown()),
+                      car_model: z.object({
+                        id: z.number(),
+                        production_year: z.number(),
+                        model_year: z.number(),
+                        doors: z.number(),
+                        seats: z.number(),
+                        drivetrain: z.string(),
+                        name: z.string(),
+                        body: z.string(),
+                        version: z.string(),
+                        campaign_ids: z.array(z.unknown()),
+                        bonus: z.null(),
+                        engine: z.object({
+                          id: z.number(),
+                          name: z.string(),
+                          capacity: z.string(),
+                          fuel: z.string(),
+                          hp_km: z.number(),
+                          hp_kw: z.number(),
+                        }),
+                        transmission: z.object({
+                          id: z.number(),
+                          name: z.string(),
+                          kind: z.string(),
+                        }),
+                      }),
+                      color: z.object({
+                        code: z.string(),
+                        display_name: z.string(),
+                        kind: z.string(),
+                        color_shade: z.object({
+                          name: z.string(),
+                          icon_color: z.null(),
+                        }),
+                      }),
+                      upholstery: z.object({
+                        code: z.string(),
+                        display_name: z.string(),
+                      }),
+                      dealer: z.object({
+                        name: z.string(),
+                        city: z.string(),
+                        street: z.string(),
+                        postal_code: z.string(),
+                        region: z.string(),
+                        phone: z.string(),
+                        lat: z.string().transform(Number),
+                        lng: z.string().transform(Number),
+                        url: z.string().nullable(),
+                        external_id: z.string(),
+                      }),
+                      render_gallery: z.null(),
+                    })
+                    .passthrough()
+                ),
+              })
+              .strict()
+              .parse(data)
+          )
+          .then(({ count_all, records }) => ({
+            type,
+            list: records,
+            next:
+              page * per_page < count_all
+                ? {
+                    page: page + 1,
+                    per_page,
+                  }
+                : null,
+          }))
+      );
+  }
+
+  async process(item = {}, summary: any): Promise<any> {
+    return z
+      .object({
+        id: z.string(),
+      })
+      .passthrough()
+      .parseAsync(item)
+      .then((item) =>
+        vehicle5Items.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            //   const diff = diffItem(last, item);
+            //   if (diff) {
+            //     console.log(`[${last.id}]`);
+            //     console.log(diff);
+            //     summary.updated.push(item.id);
+            //     return vehicle5Items.update(updateItem(last, item));
+            //   } else {
+            summary.checked.push(item.id);
+            return vehicle5Items.update({ ...last, _checked: _time });
+            // }
+          } else {
+            summary.created.push(item.id);
+            return vehicle5Items.insert(createItem(item));
+          }
+        })
+      );
   }
 }

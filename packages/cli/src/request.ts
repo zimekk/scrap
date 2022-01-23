@@ -160,6 +160,22 @@ const config = {
         ),
     };
   },
+  vw: ({ $time = Date.now(), page = 1, per_page = 100 }) => {
+    const mk = timestamp($time);
+
+    return {
+      id: ["vw", mk, per_page, page].join("-"),
+      request: () =>
+        fetch(
+          `https://admin.od-reki.volkswagen.pl/api/cars?page=${page}&per_page=${per_page}`,
+          {
+            headers: {
+              "x-app-id": "VW_DCP_C",
+            },
+          }
+        ),
+    };
+  },
   xbox: ({
     $time = Date.now(),
     $type = "9NKX70BBCDRN",
