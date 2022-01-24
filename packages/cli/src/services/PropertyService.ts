@@ -176,7 +176,7 @@ export class PropertyKlikService {
       .parseAsync(args)
       .then(({ $type, page }) => {
         const items = 20;
-        console.log({ $type, page });
+        // console.log({ $type, page });
         return request({ $type, items, page })
           .then((data) =>
             z
@@ -202,15 +202,11 @@ export class PropertyKlikService {
 
   async process(item: any, summary: any): Promise<any> {
     // console.log({item})
-    // console.log(item.location_path)
-    // console.log(item.location_user)
     return Promise.resolve(scrapPropertyKlikItem(item)).then((item) => {
       // console.log({item})
-      // console.log(item.address)
       propertyItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
           summary.checked.push(item.id);
-          // propertyItems.update({ ...last, ...item, _updated: _time });
           return propertyItems.update({
             ...last,
             _checked: _time,

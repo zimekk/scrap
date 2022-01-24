@@ -388,14 +388,19 @@ const Characteristic = z.object({
   value: z.string(),
 });
 
+const Coordinates = z.object({
+  latitude: z.number(),
+  longitude: z.number(),
+});
+
 const FeatureGroup = z.object({
   label: z.string(),
   values: z.array(z.string()),
 });
 
-const AdvertCoordinates = z.object({
-  latitude: z.number(),
-  longitude: z.number(),
+const AdvertCoordinates = Coordinates.extend({
+  // latitude: z.number(),
+  // longitude: z.number(),
   radius: z.number(),
   zoomLevel: z.number(),
 });
@@ -705,6 +710,7 @@ export const scrapPropertyKlikItem = (item: any) =>
         .passthrough(),
       canonical: z.string(),
       category: Category,
+      coordinates: Coordinates,
       images: z.array(z.string()),
       location: z.array(z.string()),
       title: z.string(),
@@ -717,7 +723,10 @@ export const scrapPropertyKlikItem = (item: any) =>
           value: z.string().transform((value) => value.replace(/\s+/g, " ")),
         })
       ),
+      created: z.string(),
+      changed: z.string(),
     })
+    .strict()
     .parse(
       z
         .object({
@@ -755,7 +764,7 @@ export const scrapPropertyKlikItem = (item: any) =>
           location_user: z.string(),
           // location_owner_type_name: z.string(),
           // have_image: z.number(),
-          // our_title: z.string(),
+          our_title: z.string(),
           // our_desc: z.string(),
           // our_list: z.string(),
           our_url: z.string(),
@@ -765,11 +774,12 @@ export const scrapPropertyKlikItem = (item: any) =>
           // kind: z.enum([4]),
           // offerowner_name: z.string(),
           images: z.array(z.string()),
-          // created: z.string(),
-          // changed: z.string(),
+          created: z.string(),
+          changed: z.string(),
           // distance: z.number(),
           // distanceT: z.string(),
         })
+        // .passthrough()
         .transform(
           ({
             id,
@@ -779,11 +789,14 @@ export const scrapPropertyKlikItem = (item: any) =>
             longitude,
             location_path,
             location_user,
+            our_title,
             our_url,
             price_pln,
             title,
             type,
             kind,
+            created,
+            changed,
           }) => ({
             id: `klik-${id}`,
 
@@ -804,10 +817,12 @@ export const scrapPropertyKlikItem = (item: any) =>
             },
             description: [description_short],
             images,
-            location: location_user.split(","),
+            location: location_user.split(",").map((s) => s.trim()),
             parameters: [],
             price: price_pln,
-            title,
+            title: title || our_title,
+            created,
+            changed,
           })
         )
         .parse(item)
