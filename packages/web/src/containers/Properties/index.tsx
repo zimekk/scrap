@@ -106,6 +106,8 @@ function Data({ version = "v1" }) {
     road: options.road[0],
     building: options.building[0],
     search: "",
+    showHide: true,
+    onlyLike: false,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 4],
     areaFrom: AREA_LIST[0],
@@ -144,7 +146,10 @@ function Data({ version = "v1" }) {
     search$.next(filters);
   }, [filters]);
 
-  console.log({ initialLike, options, filters, results });
+  console.log({ options, filters, results });
+
+  const [hide, setHide] = useState<string[]>(initialHide);
+  const [like, setLike] = useState<string[]>(initialLike);
 
   const list = useMemo(
     () =>
@@ -167,6 +172,8 @@ function Data({ version = "v1" }) {
               [item._location].includes(queries.location)) &&
             (!queries.road || [item.road].includes(queries.road)) &&
             (!queries.building || [item.building].includes(queries.building)) &&
+            (!queries.onlyLike || like.includes(item.id)) &&
+            (queries.showHide || !hide.includes(item.id)) &&
             (item._search.match(queries.search) ||
               queries.search === String(item.id)) &&
             (queries.areaTo === AREA_LIST[0] ||
@@ -190,9 +197,6 @@ function Data({ version = "v1" }) {
       ),
     [list, sortBy]
   );
-
-  const [hide, setHide] = useState<string[]>(initialHide);
-  const [like, setLike] = useState<string[]>(initialLike);
 
   return (
     <div>
@@ -227,6 +231,36 @@ function Data({ version = "v1" }) {
                 setFilters((filters) => ({
                   ...filters,
                   search: target.value,
+                })),
+              []
+            )}
+          />
+        </label>
+        <label>
+          <span>Show hidden</span>
+          <input
+            type="checkbox"
+            checked={filters.showHide}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  showHide: target.checked,
+                })),
+              []
+            )}
+          />
+        </label>
+        <label>
+          <span>Only likes</span>
+          <input
+            type="checkbox"
+            checked={filters.onlyLike}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  onlyLike: target.checked,
                 })),
               []
             )}

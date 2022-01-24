@@ -99,6 +99,7 @@ export const prepareItem = (item: any) =>
                 (value: string) =>
                   ({
                     "access_types::asphalt": "asfaltowa",
+                    "access_types::dirt": "polna",
                     "access_types::hard_surfaced": "utwardzana",
                     "access_types::soft_surfaced": "nieutwardzona",
                   }[value] || console.log({ value }))
@@ -112,6 +113,7 @@ export const prepareItem = (item: any) =>
                     "building_type::ribbon": "szeregowy",
                     "building_type::semi_detached": "bliźniak",
                     "building_type::residence": "pałac/dworek/willa",
+                    "building_type::tenement": "kamienica",
                   }[value] || console.log({ value }))
               )[0]
             : _parameters["Typ budynku"],
