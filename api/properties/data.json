@@ -1,15 +1,115 @@
 {
+  "hide": [],
+  "like": ["gratka-23449505"],
   "results": [
     {
-      "id": "23265773",
+      "id": "gratka-23449505",
+      "address": {
+        "lokalizacja_gmina": "Warszawa",
+        "lokalizacja_region": "mazowieckie",
+        "lokalizacja_powiat": "Warszawa",
+        "lokalizacja_miejscowosc": "Warszawa",
+        "lokalizacja_kraj": "Polska",
+        "lokalizacja_ulica": "Bernardyńska",
+        "lokalizacja_szerokosc-geograficzna-y": 52.19546,
+        "lokalizacja_dzielnica": "Sadyba",
+        "lokalizacja_dlugosc-geograficzna-x": 21.0624
+      },
+      "canonical": "https://gratka.pl/nieruchomosci/dzialka-budowlana-warszawa-sadyba-ul-bernardynska/ob/23449505",
+      "images": [
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/64/39/23449505_696095415_dzialka-budowlana-warszawa-sadyba-ul-bernardynska_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/64/39/23449505_696095425_dzialka-budowlana-warszawa-sadyba-ul-bernardynska_xlarge.jpg"
+      ],
+      "location": ["Warszawa", "Warszawa", "mazowieckie"],
+      "title": "Działka budowlana Warszawa Sadyba, ul. Bernardyńska",
+      "price": 9186000,
+      "description": [
+        "Działka położona. W bezpośrednim sąsiedztwie pełna oferta usługowa zawierająca sklepy, usługi, ofertę sportowo rekreacyjną.",
+        "Działka przeznaczona pod zabudowę mieszkaniową jednorodzinną w formie domów wolnostojących, bliźniaczych i szeregowych. Preferowana ekskluzywna zabudowa wg MPZP do wysokości 12 m / 3 kondygnacje",
+        "- media: woda, prąd, gaz, kanalizacja.",
+        "- możliwość zabudowy 40% działki - 60% część biologicznie czynna.",
+        "Doskonały teren pod względem lokalizacji i potencjału inwestycyjnego dla wymagającego Dewelopera.",
+        "Niniejsze ogłoszenie jest wyłącznie informacją i nie stanowi oferty w rozumieniu art. 66 § 1 Kodeksu Cywilnego.",
+        "Autorskie prawa majątkowe do fotografii nieruchomości przysługują wyłącznie firmie : Eurovilla Wilanów Sp .z o.o., Eurovilla Miasteczko Wilanów Sp .z o.o.,  Eurovilla Mokotów Sp .z o.o.,  Eurovilla Śródmieście Sp .z o.o.",
+        "Kopiowanie, przetwarzanie, rozpowszechnianie fotografii bez zgody Spółek Eurovilla jest zabronione i będzie traktowane jako naruszenie ustawy z dnia 4 lutego 1994 r. o prawie autorskim i prawach pokrewnych."
+      ],
+      "parameters": [
+        {
+          "label": "Lokalizacja",
+          "value": "Warszawa, Sadyba, mazowieckie"
+        },
+        {
+          "label": "Powierzchnia działki w m2",
+          "value": "4 593 m2"
+        },
+        {
+          "label": "Droga dojazdowa",
+          "value": "utwardzana"
+        },
+        {
+          "label": "Ogrodzenie działki",
+          "value": "brak"
+        },
+        {
+          "label": "Numer referencyjny",
+          "value": "gratka-581311"
+        },
+        {
+          "label": "Zaktualizowane",
+          "value": "5 dni temu"
+        },
+        {
+          "label": "Dodane",
+          "value": "ponad miesiąc temu"
+        }
+      ],
+      "_created": 1641926269878,
+      "_id": "0P1GTmq0x9GhUDe2",
+      "_checked": 1643052477743,
+      "_area": 0,
+      "_terrain_area": 4593,
+      "_address": [
+        "Polska",
+        "mazowieckie",
+        "Warszawa",
+        "Warszawa",
+        "Warszawa",
+        "Bernardyńska"
+      ],
+      "_location": "Warszawa, Warszawa, mazowieckie",
+      "road": "utwardzana",
+      "coordinates": {
+        "latitude": 52.19546,
+        "longitude": 21.0624
+      }
+    },
+    {
+      "id": "gratka-23265773",
+      "address": {
+        "lokalizacja_gmina": "Warszawa",
+        "lokalizacja_region": "mazowieckie",
+        "lokalizacja_powiat": "Warszawa",
+        "lokalizacja_miejscowosc": "Warszawa",
+        "lokalizacja_kraj": "Polska",
+        "lokalizacja_szerokosc-geograficzna-y": 52.1294,
+        "lokalizacja_dzielnica": "Powsin",
+        "lokalizacja_dlugosc-geograficzna-x": 21.1122
+      },
       "canonical": "https://gratka.pl/nieruchomosci/dzialka-budowlana-warszawa-powsin/ob/23265773",
       "images": [
-        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891117_dzialka-budowlana-warszawa-powsin_xlarge.jpg"
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891117_dzialka-budowlana-warszawa-powsin_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891123_dzialka-budowlana-warszawa-powsin_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891133_dzialka-budowlana-warszawa-powsin_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891143_dzialka-budowlana-warszawa-powsin_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891153_dzialka-budowlana-warszawa-powsin_xlarge.jpg",
+        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/da/54/23265773_693891167_dzialka-budowlana-warszawa-powsin_xlarge.jpg"
       ],
+      "location": ["Warszawa", "Warszawa", "mazowieckie"],
       "title": "Działka budowlana Warszawa Powsin",
       "price": 1680000,
       "description": [
-        "Działka zlokalizowana w nieodległym sąsiedztwie znanego i lubianego Osiedla PATIO w Powsinie oraz nowego połączenia Wilanowa z Ursynowem - ul. Korbońskiego ."
+        "Działka zlokalizowana w nieodległym sąsiedztwie znanego i lubianego Osiedla PATIO w Powsinie oraz nowego połączenia Wilanowa z Ursynowem - ul. Korbońskiego .",
+        "Zapraszam na prezentację"
       ],
       "parameters": [
         {
@@ -37,148 +137,17 @@
           "value": "ponad miesiąc temu"
         }
       ],
-      "_created": 1641331044882,
-      "_id": "2CfMBmsl5g76ZCLW"
-    },
-    {
-      "id": "23030301",
-      "canonical": "https://gratka.pl/nieruchomosci/dzialka-budowlana-warszawa-bialoleka/ob/23030301",
-      "images": [
-        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/86/51/23030301_704577521_dzialka-budowlana-warszawa-bialoleka_xlarge.jpg"
-      ],
-      "title": "Działka budowlana Warszawa Białołęka",
-      "price": 1012000,
-      "description": [
-        "Cena do negocjacji !",
-        "Polecam",
-        "Podstawowe",
-        "Powierzchnia :",
-        "Cena :",
-        "VAT :",
-        "Podstawowe"
-      ],
-      "parameters": [
-        {
-          "label": "Lokalizacja",
-          "value": "Warszawa, Białołęka, mazowieckie"
-        },
-        {
-          "label": "Powierzchnia działki w m2",
-          "value": "2 200 m2"
-        },
-        {
-          "label": "Ogrodzenie działki",
-          "value": "brak"
-        },
-        {
-          "label": "Numer referencyjny",
-          "value": "gratka-6295/GS/MAX"
-        },
-        {
-          "label": "Zaktualizowane",
-          "value": "dziś"
-        },
-        {
-          "label": "Dodane",
-          "value": "ponad miesiąc temu"
-        }
-      ],
-      "_created": 1641331044882,
-      "_id": "4LknHWpVMbfUKYUA"
-    },
-    {
-      "id": "22486173",
-      "canonical": "https://gratka.pl/nieruchomosci/dzialka-budowlana-warszawa-choszczowka/ob/22486173",
-      "images": [
-        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/03/12/22486173_685439259_dzialka-inna-warszawa-choszczowka_xlarge.jpg"
-      ],
-      "title": "Działka budowlana Warszawa Choszczówka",
-      "price": 1350000,
-      "description": [
-        "NIERUCHOMOŚĆ  GRUNTOWA  O  POWIERZCHNI  1443M2  POŁOŻONA  W  MALOWNICZEJ, ZIELONEJ  I  CICHEJ  OKOLICY.",
-        "DLA  OSÓB  CENIĄCYCH  SOBIE  SPOKÓJ  A  JEDNOCZEŚNIE  POTRZBUJĄCYCH  SZYBKIEGO,  WYGODNEGO  DOJAZDU  DO  CENTRUM  MIASTA.",
-        "W  SĄSIEDZTWIE  NOWYCH  ZADBANYCH  DOMÓW  I  REZYDENCJI.",
-        "DOSTĘP  DO  DZIAŁKI  MOŻLIWY  Z DWÓCH  STRON,  OD  ULICY  ŁĄKOWEJ  I   ULICY  GRUDOWSKIEJ.",
-        "NA  OBSZARZE BRAK MPZP,  WYDANIE  DECYZJI  O WARUNKACH  ZABUDOWY DO TRZECH  MIESIĘCY."
-      ],
-      "parameters": [
-        {
-          "label": "Lokalizacja",
-          "value": "Warszawa, Choszczówka, mazowieckie"
-        },
-        {
-          "label": "Powierzchnia działki w m2",
-          "value": "1 443 m2"
-        },
-        {
-          "label": "Droga dojazdowa",
-          "value": "utwardzana"
-        },
-        {
-          "label": "Ogrodzenie działki",
-          "value": "brak"
-        },
-        {
-          "label": "Numer referencyjny",
-          "value": "gratka-89/8765/OGS"
-        },
-        {
-          "label": "Zaktualizowane",
-          "value": "dziś"
-        },
-        {
-          "label": "Dodane",
-          "value": "ponad miesiąc temu"
-        }
-      ],
-      "_created": 1641331044882,
-      "_id": "4kmofSvmZaMgKxMt"
-    },
-    {
-      "id": "23449505",
-      "canonical": "https://gratka.pl/nieruchomosci/dzialka-budowlana-warszawa-sadyba-ul-bernardynska/ob/23449505",
-      "images": [
-        "https://d-gr.cdngr.pl/kadry/k/r/gr-ogl/64/39/23449505_696095415_dzialka-budowlana-warszawa-sadyba-ul-bernardynska_xlarge.jpg"
-      ],
-      "title": "Działka budowlana Warszawa Sadyba, ul. Bernardyńska",
-      "price": 9186000,
-      "description": [
-        "Kompleks sąsiadujących ze sobą działek budowlanych przeznaczony pod zabudowę mieszkaniową jednorodzinną w formie domów wolnostojących, bliźniaczych i szeregowych. Preferowana ekskluzywna zabudowa wg PZP do wysokości 12 m / 3 kondygnacje",
-        "Media: woda, prąd, gaz, kanalizacja.",
-        "Możliwość zabudowy 40% działki - 60% część biologicznie czynna."
-      ],
-      "parameters": [
-        {
-          "label": "Lokalizacja",
-          "value": "Warszawa, Sadyba, mazowieckie"
-        },
-        {
-          "label": "Powierzchnia działki w m2",
-          "value": "4 593 m2"
-        },
-        {
-          "label": "Droga dojazdowa",
-          "value": "utwardzana"
-        },
-        {
-          "label": "Ogrodzenie działki",
-          "value": "brak"
-        },
-        {
-          "label": "Numer referencyjny",
-          "value": "gratka-581311"
-        },
-        {
-          "label": "Zaktualizowane",
-          "value": "dziś"
-        },
-        {
-          "label": "Dodane",
-          "value": "ponad miesiąc temu"
-        }
-      ],
-      "_created": 1641331044882,
-      "_id": "6IeyrFxGeUlnXpnq"
+      "_created": 1642014762923,
+      "_id": "h35RiHuypu0mdJuh",
+      "_checked": 1643052477743,
+      "_area": 0,
+      "_terrain_area": 1984,
+      "_address": ["Polska", "mazowieckie", "Warszawa", "Warszawa", "Warszawa"],
+      "_location": "Warszawa, Warszawa, mazowieckie",
+      "coordinates": {
+        "latitude": 52.1294,
+        "longitude": 21.1122
+      }
     }
   ]
 }
