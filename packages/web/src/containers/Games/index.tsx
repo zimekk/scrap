@@ -372,7 +372,7 @@ function Summary({
       )}
       <div>
         created: {format(_created, "yyyy-MM-dd HH:mm")} updated:{" "}
-        {format(_updated, "yyyy-MM-dd HH:mm")}
+        {_updated ? format(_updated, "yyyy-MM-dd HH:mm") : "-"}
       </div>
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
