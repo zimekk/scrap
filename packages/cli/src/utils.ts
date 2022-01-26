@@ -845,11 +845,11 @@ export const diffPropertyItem = (last: any, item: any) =>
     PropertyDiff.parse(item)
   );
 
-export const updatePropertyItem = (last: any, item: any) =>
+export const updatePropertyItem = (last: any, item: any, updated = _time) =>
   (({ _updated, _history, ...last }, item) => ({
     ...last,
     ...item,
-    _updated: _time,
+    _updated: updated,
     _history: {
       ..._history,
       [_updated]: last,
