@@ -2,11 +2,13 @@ import { z } from "zod";
 import { propertyItems } from "@dev/api/stations";
 import { browser, request } from "../request";
 import {
+  diffPropertyItem,
   scrapPropertyList,
   scrapPropertyList1,
   scrapPropertyItem,
   scrapPropertyItem1,
   scrapPropertyKlikItem,
+  updatePropertyItem,
 } from "../utils";
 
 const { GRATKA_URL, OTODOM_URL } = process.env as {
@@ -137,12 +139,21 @@ export class PropertyService {
                   .then((item) => {
                     propertyItems.findOne({ id: item.id }).then((last: any) => {
                       if (last) {
-                        summary.checked.push(item.id);
-                        // propertyItems.update({ ...last, ...item, _updated: _time });
-                        return propertyItems.update({
-                          ...last,
-                          _checked: _time,
-                        });
+                        const diff = diffPropertyItem(last, item);
+                        if (diff) {
+                          console.log(`[${last.id}]`);
+                          console.log(diff);
+                          summary.updated.push(item.id);
+                          return propertyItems.update(
+                            updatePropertyItem(last, item)
+                          );
+                        } else {
+                          summary.checked.push(item.id);
+                          return propertyItems.update({
+                            ...last,
+                            _checked: _time,
+                          });
+                        }
                       } else {
                         summary.created.push(item.id);
                         return propertyItems.insert({
@@ -206,11 +217,19 @@ export class PropertyKlikService {
       // console.log({item})
       propertyItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
-          summary.checked.push(item.id);
-          return propertyItems.update({
-            ...last,
-            _checked: _time,
-          });
+          const diff = diffPropertyItem(last, item);
+          if (diff) {
+            console.log(`[${last.id}]`);
+            console.log(diff);
+            summary.updated.push(item.id);
+            return propertyItems.update(updatePropertyItem(last, item));
+          } else {
+            summary.checked.push(item.id);
+            return propertyItems.update({
+              ...last,
+              _checked: _time,
+            });
+          }
         } else {
           summary.created.push(item.id);
           return propertyItems.insert({

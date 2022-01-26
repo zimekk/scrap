@@ -1,5 +1,8 @@
+import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
 import { z } from "zod";
+
+const _time = Date.now();
 
 const pathToRoot = ($el: any) => {
   const $path = [];
@@ -827,3 +830,39 @@ export const scrapPropertyKlikItem = (item: any) =>
         )
         .parse(item)
     );
+
+const PropertyDiff = z.object({
+  canonical: z.string(),
+  images: z.array(z.string()),
+  title: z.string(),
+  price: z.number(),
+  description: z.array(z.string()),
+});
+
+export const diffPropertyItem = (last: any, item: any) =>
+  ((last, item) => diffString(last, item))(
+    PropertyDiff.parse(last),
+    PropertyDiff.parse(item)
+  );
+
+export const updatePropertyItem = (last: any, item: any) =>
+  (({ _updated, _history, ...last }, item) => ({
+    ...last,
+    ...item,
+    _updated: _time,
+    _history: {
+      ..._history,
+      [_updated]: last,
+    },
+  }))(
+    z
+      .object({
+        _id: z.string(),
+        _created: z.number(),
+        _updated: z.number().default(last._created),
+        _history: z.object({}).passthrough().default({}),
+      })
+      .passthrough()
+      .parse(last),
+    PropertyDiff.parse(item)
+  );
