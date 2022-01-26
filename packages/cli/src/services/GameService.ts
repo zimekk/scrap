@@ -70,6 +70,7 @@ export class GameService {
             const {
               _id,
               _created = _past,
+              _checked = _time,
               _updated = _created,
               _history = {},
               ...rest
@@ -83,6 +84,7 @@ export class GameService {
                 _id,
                 ...item,
                 _created,
+                _checked,
                 _updated: _time,
                 _history: Object.assign({
                   ..._history,

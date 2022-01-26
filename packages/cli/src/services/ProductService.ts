@@ -40,6 +40,7 @@ export class ProductService {
             const {
               _id,
               _created = _past,
+              _checked = _time,
               _updated = _created,
               _history = {},
               ...rest
@@ -53,6 +54,7 @@ export class ProductService {
                 _id,
                 ...item,
                 _created,
+                _checked,
                 _updated: _time,
                 _history: Object.assign({
                   ..._history,
