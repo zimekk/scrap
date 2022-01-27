@@ -123,7 +123,7 @@ export const scrapProduct = (item: Partial<{ id: string }>, html: string) => {
   };
 };
 
-export const scrapPropertyList = (
+export const scrapPropertyGratkaList = (
   item: Partial<{ id: string }>,
   html: string
 ) => {
@@ -154,7 +154,7 @@ export const scrapPropertyList = (
     });
 };
 
-export const scrapPropertyList1 = (
+export const scrapPropertyOtodomList = (
   item: Partial<{ id: string }>,
   html: string
 ) => {
@@ -261,7 +261,7 @@ const Category = z.enum([
   "dzialki-grunty/uslugowa",
 ]);
 
-export const scrapPropertyItem = (
+export const scrapPropertyGratkaItem = (
   item: Partial<{ id: string }>,
   html: string
 ) => {
@@ -408,7 +408,7 @@ const AdvertCoordinates = Coordinates.extend({
   zoomLevel: z.number(),
 });
 
-export const scrapPropertyItem1 = (
+export const scrapPropertyOtodomItem = (
   item: Partial<{ id: string }>,
   html: string
 ) => {
