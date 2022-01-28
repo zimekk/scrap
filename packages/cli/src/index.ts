@@ -1,4 +1,5 @@
 import { Subject, from, of } from "rxjs";
+import chunk from "chunk";
 import { delay, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
@@ -170,6 +171,21 @@ export const verify = () => {
   );
 };
 
+enum Types {
+  PRODUCT = "get-product",
+  ALTO = "get-product-alto",
+  STATION = "get-stations",
+  GRATKA = "gratka",
+  KLIK = "klik",
+  BENZ = "mercedes-benz",
+  BMW = "najlepszeoferty.bmw.pl",
+  OTODOM = "otodom",
+  PORSCHE = "porsche",
+  AUDI = "scs.audi.de",
+  VW = "vw",
+  XBOX = "xbox",
+}
+
 export default function (type?: string) {
   console.log({ type });
 
@@ -186,36 +202,23 @@ export default function (type?: string) {
         ({ type, args }) =>
           from(
             z
-              .enum([
-                "get-product",
-                "get-product-alto",
-                "get-stations",
-                "gratka",
-                "klik",
-                "mercedes-benz",
-                "najlepszeoferty.bmw.pl",
-                "otodom",
-                "porsche",
-                "scs.audi.de",
-                "vw",
-                "xbox",
-              ])
+              .nativeEnum(Types)
               .parseAsync(type.split(":")[0])
               .then(
                 (type) =>
                   ({
-                    ["get-product"]: ProductService,
-                    ["get-product-alto"]: ProductService,
-                    ["get-stations"]: StationService,
-                    ["gratka"]: PropertyGratkaService,
-                    ["klik"]: PropertyKlikService,
-                    ["mercedes-benz"]: Vehicle3Service,
-                    ["najlepszeoferty.bmw.pl"]: VehicleService,
-                    ["otodom"]: PropertyOtodomService,
-                    ["porsche"]: Vehicle4Service,
-                    ["scs.audi.de"]: Vehicle2Service,
-                    ["vw"]: Vehicle5Service,
-                    ["xbox"]: GameService,
+                    [Types.PRODUCT]: ProductService,
+                    [Types.ALTO]: ProductService,
+                    [Types.STATION]: StationService,
+                    [Types.GRATKA]: PropertyGratkaService,
+                    [Types.KLIK]: PropertyKlikService,
+                    [Types.BENZ]: Vehicle3Service,
+                    [Types.BMW]: VehicleService,
+                    [Types.OTODOM]: PropertyOtodomService,
+                    [Types.PORSCHE]: Vehicle4Service,
+                    [Types.AUDI]: Vehicle2Service,
+                    [Types.VW]: Vehicle5Service,
+                    [Types.XBOX]: GameService,
                   }[type])
               )
               .then((Service) => new Service())
@@ -237,36 +240,23 @@ export default function (type?: string) {
               (item) =>
                 from(
                   z
-                    .enum([
-                      "get-product",
-                      "get-product-alto",
-                      "get-stations",
-                      "gratka",
-                      "klik",
-                      "mercedes-benz",
-                      "najlepszeoferty.bmw.pl",
-                      "otodom",
-                      "porsche",
-                      "scs.audi.de",
-                      "vw",
-                      "xbox",
-                    ])
+                    .nativeEnum(Types)
                     .parseAsync(type.split(":")[0])
                     .then(
                       (type) =>
                         ({
-                          ["get-product"]: ProductService,
-                          ["get-product-alto"]: ProductService,
-                          ["get-stations"]: StationService,
-                          ["gratka"]: PropertyGratkaService,
-                          ["klik"]: PropertyKlikService,
-                          ["mercedes-benz"]: Vehicle3Service,
-                          ["najlepszeoferty.bmw.pl"]: VehicleService,
-                          ["otodom"]: PropertyOtodomService,
-                          ["porsche"]: Vehicle4Service,
-                          ["scs.audi.de"]: Vehicle2Service,
-                          ["vw"]: Vehicle5Service,
-                          ["xbox"]: GameService,
+                          [Types.PRODUCT]: ProductService,
+                          [Types.ALTO]: ProductService,
+                          [Types.STATION]: StationService,
+                          [Types.GRATKA]: PropertyGratkaService,
+                          [Types.KLIK]: PropertyKlikService,
+                          [Types.BENZ]: Vehicle3Service,
+                          [Types.BMW]: VehicleService,
+                          [Types.OTODOM]: PropertyOtodomService,
+                          [Types.PORSCHE]: Vehicle4Service,
+                          [Types.AUDI]: Vehicle2Service,
+                          [Types.VW]: Vehicle5Service,
+                          [Types.XBOX]: GameService,
                         }[type])
                     )
                     .then((Service) => new Service())
@@ -290,11 +280,9 @@ export default function (type?: string) {
   from(
     type
       ? [type]
-      : [
-          "najlepszeoferty.bmw.pl:bmw-new",
-          "najlepszeoferty.bmw.pl:bmw-used",
-          "najlepszeoferty.bmw.pl:mini-new",
-        ]
+      : ["bmw-new", "bmw-used", "mini-new"].map(
+          (name) => `${Types.BMW}:${name}`
+        )
   ).subscribe((type) => {
     console.log({ type });
     request$.next({ type });
@@ -364,14 +352,39 @@ export default function (type?: string) {
   from(
     type
       ? []
-      : [
-          "xbox:9NKX70BBCDRN,9Z1W36CRQ9DF,B4X7PC56X1VV,9MTLKM2DJMZ2,C08JXNK0VG5L",
-          "xbox:9N9J38LPVSM3,9P6SRW1HVW9K,BVH2R2SBWL51,9PNJXVCVWD4K,9MZ0SR207MG8",
-          "xbox:9P4SH7HLMLFS,9N1CS194W1Q6,9P1HX37NMJLT,BRZZLBF5T245,9P513P4MWC71",
-          "xbox:C2MBDNDS3H5W,BWVBNCMF22ZK,9N6J02VPG635,BS5RXLL3WQ2J,C2HQVXVVLMKG",
-          "xbox:BVJLKDG2TX8H,C4VKLMG1HLZW,9N04KQK2LBZL,9NMBJQ0265ZK,BSMZH25V6V46",
-          "xbox:9N9QFGPBH418,9NS86BQ33SPX,9NXPBSMHPLTV",
-        ]
+      : chunk(
+          [
+            "9NKX70BBCDRN",
+            "9Z1W36CRQ9DF",
+            "B4X7PC56X1VV",
+            "9MTLKM2DJMZ2",
+            "C08JXNK0VG5L",
+            "9N9J38LPVSM3",
+            "9P6SRW1HVW9K",
+            "BVH2R2SBWL51",
+            "9PNJXVCVWD4K",
+            "9MZ0SR207MG8",
+            "9P4SH7HLMLFS",
+            "9N1CS194W1Q6",
+            "9P1HX37NMJLT",
+            "BRZZLBF5T245",
+            "9P513P4MWC71",
+            "C2MBDNDS3H5W",
+            "BWVBNCMF22ZK",
+            "9N6J02VPG635",
+            "BS5RXLL3WQ2J",
+            "C2HQVXVVLMKG",
+            "BVJLKDG2TX8H",
+            "C4VKLMG1HLZW",
+            "9N04KQK2LBZL",
+            "9NMBJQ0265ZK",
+            "BSMZH25V6V46",
+            "9N9QFGPBH418",
+            "9NS86BQ33SPX",
+            "9NXPBSMHPLTV",
+          ],
+          5
+        ).map((names) => `${Types.XBOX}:${names.join(",")}`)
   ).subscribe((type) => {
     console.log({ type });
     request$.next({ type });
@@ -471,28 +484,36 @@ export default function (type?: string) {
   });
 
   from(
-    type ? [] : [`get-stations:${NEARBY_LAT}:${NEARBY_LNG}:${NEARBY_RADIUS}`]
+    type
+      ? []
+      : [`${Types.STATION}:${NEARBY_LAT}:${NEARBY_LNG}:${NEARBY_RADIUS}`]
   ).subscribe((type) => {
     console.log({ type });
     request$.next({ type });
   });
 
-  from(["scs.audi.de:pluc", "scs.audi.de:pl"]).subscribe((type) => {
-    console.log({ type });
-    request$.next({ type });
-  });
+  from(["pluc", "pl"].map((name) => `${Types.AUDI}:${name}`)).subscribe(
+    (type) => {
+      console.log({ type });
+      request$.next({ type });
+    }
+  );
 
   // from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe((type) => {
   //   console.log({ type });
   //   request$.next({ type });
   // });
 
-  from(["porsche:search"]).subscribe((type) => {
-    console.log({ type });
-    request$.next({ type });
-  });
+  from(["search"].map((name) => `${Types.PORSCHE}:${name}`)).subscribe(
+    (type) => {
+      console.log({ type });
+      request$.next({ type });
+    }
+  );
 
-  from(type ? [type] : ["vw:od-reki"]).subscribe((type) => {
+  from(
+    type ? [type] : ["od-reki"].map((name) => `${Types.VW}:${name}`)
+  ).subscribe((type) => {
     console.log({ type });
     request$.next({ type });
   });
