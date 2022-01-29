@@ -15,18 +15,26 @@
       "node": true
     },
     "extends": [
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended"
     ],
-    "root": true,
-    "rules": {
-      "no-unused-vars": "warn"
-    },
     "parser": "@typescript-eslint/parser",
     "plugins": [
       "@typescript-eslint",
       "jest",
       "prettier"
     ],
+    "root": true,
+    "rules": {
+      "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/ban-types": "warn",
+      "@typescript-eslint/no-empty-function": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-var-requires": "warn",
+      "no-constant-condition": "warn",
+      "no-extra-boolean-cast": "warn",
+      "no-var": "warn"
+    },
     "settings": {
       "jest": {
         "version": 27
