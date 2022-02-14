@@ -194,7 +194,7 @@ export const scrapPropertyOtodomList = (
                       locationLabel: z.object({
                         value: z.string(),
                       }),
-                      shortDescription: z.string(),
+                      shortDescription: z.string().optional(),
                       slug: z.string(),
                       terrainAreaInSquareMeters: z.number().nullable(),
                       title: z.string(),
