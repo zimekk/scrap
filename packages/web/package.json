@@ -42,7 +42,7 @@
     "use-persisted-state": "^0.3.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.2",
+    "@babel/core": "^7.17.5",
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
@@ -70,11 +70,11 @@
     "html-webpack-plugin": "^5.5.0",
     "react-hot-loader": "^4.13.0",
     "sass": "^1.49.7",
-    "sass-loader": "^12.5.0",
+    "sass-loader": "^12.6.0",
     "serve": "^13.0.2",
     "stream-browserify": "^3.0.0",
     "style-loader": "^3.3.1",
-    "webpack": "^5.68.0",
+    "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   }
