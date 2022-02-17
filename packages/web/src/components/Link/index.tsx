@@ -7,6 +7,8 @@ export function Link({
   children: React.ReactChild;
   href?: string;
   onClick?: MouseEventHandler;
+  rel?: string;
+  target?: string;
 }) {
   const hash = href[0] === "#";
 

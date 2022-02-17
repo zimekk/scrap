@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
-import usePlace from "../Scrap/usePlace";
+// import usePlace from "../Scrap/usePlace";
 import { prepareItem } from "./utils";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -558,10 +558,12 @@ function Data({ version = "v1" }) {
 }
 
 function Location({ canonical, coordinates: { latitude, longitude } }) {
-  const link = usePlace([`${latitude},${longitude}|${canonical}`]);
+  // const link = usePlace([`${latitude},${longitude}|${canonical}`]);
+  // https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
+  const link = `//www.google.pl/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl`;
 
   return (
-    <Link href={link}>
+    <Link href={link} rel="" target="map">
       <FontAwesomeIcon icon={faMapMarkerAlt} />
     </Link>
   );
