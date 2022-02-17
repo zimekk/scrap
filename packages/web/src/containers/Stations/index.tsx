@@ -6,6 +6,8 @@ import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import styles from "./styles.module.scss";
 
+import type { StationItem } from "@dev/cli/src/services/StationService/types";
+
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 const PRICE_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const SORT_BY = {
@@ -33,9 +35,9 @@ const TYPES = {
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/stations/data.json?${version}`);
   return await res.json().then(({ results }) => ({
-    results: results.map((item: any) => ({
+    results: results.map((item: StationItem) => ({
       ...item.petrol_list.reduce(
-        (list: any, { type, price }: any) =>
+        (list, { type, price }) =>
           Object.assign(list, { [`_petrol_${type}`]: Number(price) || 0 }),
         {}
       ),

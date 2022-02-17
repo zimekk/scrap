@@ -18,6 +18,7 @@ import {
   vehicle3Items,
   vehicle4Items,
 } from "@dev/api/stations";
+import type { StationItem } from "@dev/cli/src/services/StationService/types";
 
 require("dotenv").config();
 
@@ -154,9 +155,9 @@ const api = Router()
       // .then((results: any) =>
       //   results.filter((item: any) => Object.keys(item._history || {}).length)
       // )
-      .then((results: any) =>
-        results.filter(
-          (item: any) =>
+      .then((results) =>
+        (results as StationItem[]).filter(
+          (item) =>
             // Object.keys(item._history || {}).length &&
             headingDistanceTo(CENTER, { lat: item.x, lng: item.y }).distance <
             RADIUS
