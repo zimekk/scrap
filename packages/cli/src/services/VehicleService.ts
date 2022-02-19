@@ -7,7 +7,7 @@ import {
   vehicle3Items,
   vehicle4Items,
   vehicle5Items,
-} from "@dev/api/stations";
+} from "@dev/api/vehicles";
 import { request } from "../request";
 import { scrapOptions } from "../utils";
 
@@ -888,16 +888,18 @@ export class Vehicle5Service {
                         advantage_quota: z.null(),
                       }),
                       suggested_installments: z.object({
-                        vbc: z.object({
-                          data: z.object({
-                            price_net: z.number(),
-                            installment: z.number(),
-                            repurchase_quota: z.number(),
-                          }),
-                          km_limit: z.number(),
-                          own_payment: z.string(),
-                          funding_period: z.number(),
-                        }),
+                        vbc: z
+                          .object({
+                            data: z.object({
+                              price_net: z.number(),
+                              installment: z.number(),
+                              repurchase_quota: z.number(),
+                            }),
+                            km_limit: z.number(),
+                            own_payment: z.string(),
+                            funding_period: z.number(),
+                          })
+                          .optional(),
                         credit_easy_drive: z.object({
                           data: z.object({
                             price_net: z.number(),

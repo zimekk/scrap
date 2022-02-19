@@ -12,12 +12,14 @@ import {
   productItems,
   profilesItems,
   propertyItems,
-  stationItems,
+} from "@dev/api";
+import { stationItems } from "@dev/api/stations";
+import {
   vehicleItems,
   vehicle2Items,
   vehicle3Items,
   vehicle4Items,
-} from "@dev/api/stations";
+} from "@dev/api/vehicles";
 import type { StationItem } from "@dev/cli/src/services/StationService/types";
 
 require("dotenv").config();

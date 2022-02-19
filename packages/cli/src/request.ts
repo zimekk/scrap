@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import { requests, requestsHtml } from "@dev/api";
+import { requests, requestsHtml } from "@dev/api/requests";
 import {
   openChromeBrowser,
   openPage,
@@ -30,13 +30,16 @@ const {
   STORE_ALTO_URL: string;
 };
 
+const ERA = 24 * 3600 * 1000;
+const _time = Date.now();
+const _past = _time - ERA;
+
 const timeout =
   (timeout = Math.random() * 3000) =>
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
-const timestamp = (mktime: number, period = 1000 * 3600 * 24) =>
-  mktime - (mktime % period);
+const timestamp = (mktime: number, period = ERA) => mktime - (mktime % period);
 
 let requestLimit = 1000;
 
@@ -259,6 +262,32 @@ const config = {
   },
 };
 
+export const cleanup = async (_created = _past) => {
+  await requests.count().then((count: number) =>
+    requests
+      .remove(
+        {
+          _created: { $lt: _created },
+        },
+        { multi: true }
+      )
+      .then((removed: number) => console.log({ requests: { count, removed } }))
+  );
+
+  await requestsHtml.count().then((count: number) =>
+    requests
+      .remove(
+        {
+          _created: { $lt: _created },
+        },
+        { multi: true }
+      )
+      .then((removed: number) =>
+        console.log({ requestsHtml: { count, removed } })
+      )
+  );
+};
+
 export const request = ({ $type, ...rest }: any) => {
   const [site, type, kind] = $type.split(":");
   console.log({ $type, site, type, kind });
@@ -282,7 +311,11 @@ export const request = ({ $type, ...rest }: any) => {
             })
             .then((json: any) =>
               // Boolean(console.log({ id, json })) ||
-              requests.insert({ id, json: JSON.stringify(json) })
+              requests.insert({
+                id,
+                json: JSON.stringify(json),
+                _created: _time,
+              })
             )
             .then(timeout())
     )
@@ -340,7 +373,7 @@ export const browser = ({ $type, ...rest }: any) => {
             })
             .then((html: any) =>
               // Boolean(console.log({ id, html })) ||
-              requestsHtml.insert({ id, html })
+              requestsHtml.insert({ id, html, _created: _time })
             )
             .then(timeout())
     )

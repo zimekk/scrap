@@ -3,7 +3,8 @@ import chunk from "chunk";
 import { delay, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { gameItems, vehicleItems } from "@dev/api/stations";
+// import { gameItems } from "@dev/api";
+// import { vehicleItems } from "@dev/api/vehicles";
 import {
   GameService,
   ProductService,
@@ -46,7 +47,7 @@ const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
 
-export const remove = (status = false) => {
+export const remove = async (status = false) => {
   let counter = 0;
   const check$ = new Subject<{
     id: number;
@@ -56,6 +57,8 @@ export const remove = (status = false) => {
     checked: [],
     removed: [],
   };
+
+  await require("./request").cleanup();
 
   check$
     .pipe(
@@ -81,41 +84,43 @@ export const remove = (status = false) => {
       },
     });
 
-  vehicleItems.find({}).then((list: any) => {
-    // list
-    //   .filter(({ id }: any) => id === undefined)
-    //   .map((item: any) => vehicleItems.remove(item)) ||
-    const filtered = list
-      .sort((a: any, b: any) => a._created - b._created)
-      .filter(
-        ({
-          options,
-          _checked = 0,
-          _removed = 0,
-        }: // isNew,
-        {
-          options: any;
-          _checked: number;
-          _removed: number;
-          // isNew: boolean;
-        }) => (options === undefined || _checked < _past) && _removed === 0
-        // _removed > 0 && isNew
-      );
+  require("@dev/api/vehicles")
+    .vehicleItems.find({})
+    .then((list: any) => {
+      // list
+      //   .filter(({ id }: any) => id === undefined)
+      //   .map((item: any) => vehicleItems.remove(item)) ||
+      const filtered = list
+        .sort((a: any, b: any) => a._created - b._created)
+        .filter(
+          ({
+            options,
+            _checked = 0,
+            _removed = 0,
+          }: // isNew,
+          {
+            options: any;
+            _checked: number;
+            _removed: number;
+            // isNew: boolean;
+          }) => (options === undefined || _checked < _past) && _removed === 0
+          // _removed > 0 && isNew
+        );
 
-    console.log({ records: list.length, tocheck: filtered.length });
+      console.log({ records: list.length, tocheck: filtered.length });
 
-    if (status) {
-      return;
-    }
+      if (status) {
+        return;
+      }
 
-    counter = filtered.length;
+      counter = filtered.length;
 
-    filtered.slice(0, 1000).map((item: any, i: number, list: any[]) => {
-      // console.log(`${i + 1}/${list.length}`);
-      check$.next(item);
+      filtered.slice(0, 1000).map((item: any, i: number, list: any[]) => {
+        // console.log(`${i + 1}/${list.length}`);
+        check$.next(item);
+      });
+      check$.complete();
     });
-    check$.complete();
-  });
 };
 
 export const status = () => {
@@ -148,27 +153,29 @@ export const verify = () => {
     PublisherName,
   });
 
-  gameItems.find({}).then((list: any) =>
-    list.map((item: any) => {
-      const {
-        LocalizedProperties: [{ ProductTitle }],
-        _history = {},
-      } = item;
+  require("@dev/api")
+    .gameItems.find({})
+    .then((list: any) =>
+      list.map((item: any) => {
+        const {
+          LocalizedProperties: [{ ProductTitle }],
+          _history = {},
+        } = item;
 
-      // console.log({ ProductTitle });
+        // console.log({ ProductTitle });
 
-      [item]
-        .concat(Object.values(_history))
-        .map(unify)
-        .filter(
-          (item, i, list) =>
-            i === 0 || JSON.stringify(item) !== JSON.stringify(list[i - 1])
-        )
-        .map((item, i, list) => i && diffString(item, list[i - 1]))
-        .filter(Boolean)
-        .map((diff) => console.log(diff));
-    })
-  );
+        [item]
+          .concat(Object.values(_history))
+          .map(unify)
+          .filter(
+            (item, i, list) =>
+              i === 0 || JSON.stringify(item) !== JSON.stringify(list[i - 1])
+          )
+          .map((item, i, list) => i && diffString(item, list[i - 1]))
+          .filter(Boolean)
+          .map((diff) => console.log(diff));
+      })
+    );
 };
 
 enum Types {
@@ -399,10 +406,15 @@ export default function (type?: string) {
           "get-product:681284-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-czarny",
           "get-product:460088-rysik-do-tabletu-apple-pencil-2-do-ipad-pro",
           "get-product:392666-rysik-do-tabletu-apple-pencil-tips",
+          "get-product:487902-pasek-bransoletka-apple-bransoleta-mediolanska-do-apple-watch-srebrny",
           "get-product:464941-smartwatch-apple-watch-3-38-space-gray-aluminium-blacksport-gps",
           "get-product:516123-smartwatch-apple-watch-3-42-space-gray-black-sport-gps",
+          "get-product:547094-smartwatch-lte-apple-watch-5-44-space-grey-steel-black-loop-lte",
+          "get-product:593143-smartwatch-lte-apple-watch-6-40-silver-steel-silver-loop-lte",
           "get-product:682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps",
           "get-product:682191-smartwatch-lte-apple-watch-se-40-gold-aluminium-starlight-sport-lte",
+          "get-product:686491-smartwatch-lte-apple-watch-7-41-silver-steel-silver-loop-lte",
+          "get-product:686476-smartwatch-lte-apple-watch-7-45-silver-steel-silver-loop-lte",
           "get-product:681152-smartfon-telefon-apple-iphone-13-128gb-midnight",
           "get-product:592143-smartfon-telefon-apple-iphone-12-64gb-black-5g",
           "get-product:681136-smartfon-telefon-apple-iphone-13-mini-128gb-midnight",

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { propertyItems } from "@dev/api/stations";
+import { propertyItems } from "@dev/api";
 import { browser, request } from "../request";
 import {
   diffPropertyItem,

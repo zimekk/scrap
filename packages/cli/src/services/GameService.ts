@@ -1,6 +1,6 @@
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { gameItems } from "@dev/api/stations";
+import { gameItems } from "@dev/api";
 import { request } from "../request";
 
 const ERA = 24 * 3600 * 1000;

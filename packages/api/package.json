@@ -9,6 +9,7 @@
   "files": [
     "data/",
     "lib/",
+    "requests/",
     "stations/"
   ],
   "jest": {
