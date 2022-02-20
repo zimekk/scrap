@@ -7,6 +7,8 @@ import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+import type { ProductItem } from "@dev/cli/src/services/ProductService/types";
+
 const SORT_BY = {
   title: 1,
   brand: 1,
@@ -28,7 +30,7 @@ const asset = createAsset(async (version) => {
 });
 
 function Data({ version = "v1" }) {
-  const { results } = asset.read(version); // As many cache keys as you need
+  const { results } = asset.read(version) as { results: ProductItem[] };
 
   const [search, setSearch] = useState("");
   const [filter] = useDebounce(search);
@@ -73,7 +75,7 @@ function Data({ version = "v1" }) {
   const list = useMemo(
     () =>
       results
-        .map((item: any) => ({
+        .map((item) => ({
           _image: item.image.filter((src: string) => src.match(/small/)),
           _title: item.title.toLowerCase(),
           _price: Number(
@@ -84,7 +86,6 @@ function Data({ version = "v1" }) {
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
           _history: {},
-          _updated: item._created,
           ...item,
         }))
         .filter(
@@ -160,11 +161,11 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map(({ url, _image, ...item }) => (
+        {sorted.slice(0, 100).map(({ _image, ...item }) => (
           <li key={item.id} className={styles.Row}>
             <Gallery className={styles.Gallery} images={_image} />
             <h3>
-              <Link href={url}>{item.title}</Link>
+              <Link href={item.url}>{item.title}</Link>
             </h3>
             <h4>{item.brand}</h4>
             {item.label && <div>{item.label.join(" | ")}</div>}
@@ -195,7 +196,7 @@ function History({ history, item }: { history: any[]; item: unknown }) {
             key={key}
             item={prev}
             prev={key > 0 ? list[key - 1][1] : item}
-            time={time}
+            time={Number(time)}
           />
         )
       )}
@@ -213,17 +214,15 @@ function Details({
   prev,
   time = item._updated || item._created,
 }: {
-  item: any;
+  item: ProductItem;
   prev?: any;
-  time?: string;
+  time?: number;
 }) {
   return (
     <div className={cx(styles.Details, prev && styles.separator)}>
       <div className={styles.Sidebar}>
         {time && (
-          <div className={styles.Date}>
-            {format(Number(time), "yyyy-MM-dd HH:mm")}
-          </div>
+          <div className={styles.Date}>{format(time, "yyyy-MM-dd HH:mm")}</div>
         )}
         <h5>{item.price.join(" ")}</h5>
         <div

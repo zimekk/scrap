@@ -1,12 +1,50 @@
 import { diffString } from "json-diff";
 import { z } from "zod";
 import { productItems } from "@dev/api";
-import { browser } from "../request";
-import { scrapProduct } from "../utils";
+import { browser } from "../../request";
+import { fromHtml } from "./utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
+
+const diffItem = (
+  {
+    _id,
+    _created,
+    _checked,
+    _updated,
+    _history,
+    ...last
+  }: {
+    _id: string;
+    _created: number;
+    _checked: number;
+    _updated: number;
+    _history: {};
+  },
+  item: {}
+) => diffString(last, item);
+
+const updateItem = (
+  {
+    _id,
+    _created = _past,
+    _updated = _created,
+    _history = {},
+    ...last
+  }: { _id: string; _created: number; _updated: number; _history: {} },
+  item: {}
+) => ({
+  ...item,
+  _id,
+  _created,
+  _updated: _time,
+  _history: {
+    ..._history,
+    [_updated]: last,
+  },
+});
 
 export class ProductService {
   async request(type: string): Promise<{
@@ -21,7 +59,7 @@ export class ProductService {
       .then((id) =>
         browser({ $type: type }).then((html) => ({
           type,
-          list: html ? [scrapProduct({ id }, html)] : [],
+          list: html ? [{ id, ...fromHtml(html) }] : [],
           next: null,
         }))
       );
@@ -37,34 +75,12 @@ export class ProductService {
       .then((item) =>
         productItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
-            const {
-              _id,
-              _created = _past,
-              _checked = _time,
-              _updated = _created,
-              _history = {},
-              ...rest
-            } = last;
-            const diff = diffString(rest, item);
+            const diff = diffItem(last, item);
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-
-              const update = {
-                _id,
-                ...item,
-                _created,
-                _checked,
-                _updated: _time,
-                _history: Object.assign({
-                  ..._history,
-                  [_updated]: rest,
-                }),
-              };
-              console.log(update);
-
               summary.updated.push(item.id);
-              return productItems.update(update);
+              return productItems.update(updateItem(last, item));
             } else {
               summary.checked.push(item.id);
               return productItems.update({ ...last, _checked: _time });

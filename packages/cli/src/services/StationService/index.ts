@@ -13,7 +13,7 @@ import {
 
 const _time = Date.now();
 
-export const updateItem = (last: any, item: any, updated = _time) =>
+const updateItem = (last: any, item: any, updated = _time) =>
   (({ _updated, _history, ...last }, item) => {
     if (!last.petrol) {
       Object.assign(last, {
@@ -57,7 +57,7 @@ export const updateItem = (last: any, item: any, updated = _time) =>
     z.object({}).passthrough().parse(item)
   );
 
-export const fromHtml = (html: string) =>
+const fromHtml = (html: string) =>
   (($) => ({
     address: $("div.right-side > a:first-child").text(),
     petrol_list: $("ul.petrol-list > li")
