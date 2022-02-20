@@ -7,6 +7,8 @@ import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
 
+import type { Item } from "@dev/cli/src/services/GameService/types";
+
 const SORT_BY = {
   LastModifiedDate: -1,
   OriginalReleaseDate: -1,
@@ -55,7 +57,7 @@ const unify = ({
   Properties: { Categories },
   _created,
   _updated,
-}: any) => ({
+}: Item) => ({
   _created,
   _updated,
   _filter: ProductTitle.toLowerCase(),
