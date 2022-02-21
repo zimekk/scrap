@@ -2,6 +2,7 @@ import { diffString } from "json-diff";
 import { z } from "zod";
 import { productItems } from "@dev/api";
 import { browser } from "../../request";
+import { DiffSchema } from "./types";
 import { fromHtml } from "./utils";
 
 const ERA = 24 * 3600 * 1000;
@@ -24,7 +25,7 @@ const diffItem = (
     _history: {};
   },
   item: {}
-) => diffString(last, item);
+) => diffString(DiffSchema.parse(last), DiffSchema.parse(item));
 
 const updateItem = (
   {

@@ -1,5 +1,5 @@
 import { parse } from "node-html-parser";
-import { ProductItemSchema } from "./types";
+import { ItemSchema } from "./types";
 
 const pathToRoot = ($el: any) => {
   const $path = [];
@@ -76,7 +76,7 @@ export const fromHtml = (html: string) => {
 
   const url = $root.querySelector("link[rel=canonical]")?.getAttribute("href");
 
-  return ProductItemSchema.parse({
+  return ItemSchema.parse({
     url,
     title,
     image,
