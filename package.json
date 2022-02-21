@@ -58,6 +58,7 @@
     "clean": "rm -rf packages/*/public packages/*/lib",
     "lint": "eslint . --ext .json,.js,.jsx,.ts,.tsx",
     "test": "yarn workspaces run jest",
+    "test:e2e": "cypress run",
     "reset": "rm -rf node_modules packages/*/node_modules",
     "serve": "yarn workspace @dev/app serve",
     "start": "yarn workspace @dev/app start",
@@ -70,6 +71,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
@@ -79,6 +81,7 @@
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.12.0",
     "@typescript-eslint/parser": "^5.12.0",
+    "cypress": "^9.5.0",
     "eslint": "^8.9.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-jest": "^26.1.1",
