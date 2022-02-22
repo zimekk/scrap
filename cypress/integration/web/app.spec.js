@@ -6,7 +6,7 @@ describe("app", () => {
     // so we must tell it to visit our website with the `cy.visit()` command.
     // Since we want to visit the same URL at the start of all our tests,
     // we include it in our beforeEach function so that it runs before each test
-    cy.visit("http://localhost:8080/");
+    cy.visit("");
   });
 
   it("default section", () => {
@@ -36,6 +36,18 @@ describe("app", () => {
 
   it("vehicles section", () => {
     cy.get("h1").contains("vehicles").click();
-    cy.get("h2").should("have.text", "Vehicles");
+    cy.get("h2", { timeout: 60000 })
+      .should("have.text", "Vehicles")
+      .should("be.visible");
+
+    cy.get("a").contains("Show map").click().should("have.text", "Hide map");
+    cy.get("a")
+      .contains("Show chart")
+      .click()
+      .should("have.text", "Hide chart");
+    cy.get("a")
+      .contains("Show summary")
+      .click()
+      .should("have.text", "Hide summary");
   });
 });
