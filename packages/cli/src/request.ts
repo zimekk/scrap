@@ -18,6 +18,7 @@ const {
   STATIONS_URL,
   STORE_URL,
   STORE_ALTO_URL,
+  STORE_CYFROWE_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
@@ -28,6 +29,7 @@ const {
   STATIONS_URL: string;
   STORE_URL: string;
   STORE_ALTO_URL: string;
+  STORE_CYFROWE_URL: string;
 };
 
 const ERA = 24 * 3600 * 1000;
@@ -208,6 +210,14 @@ const config = {
     return {
       id: ["get-product", mk, type].join("-"),
       url: `${STORE_URL}p/${type}.html`,
+    };
+  },
+  "get-product-cyfrowe": ({ time = Date.now(), type = "0" }) => {
+    const mk = timestamp(time);
+
+    return {
+      id: ["get-product-cyfrowe", mk, type].join("-"),
+      url: `${STORE_CYFROWE_URL}${type}.html`,
     };
   },
   gratka: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {

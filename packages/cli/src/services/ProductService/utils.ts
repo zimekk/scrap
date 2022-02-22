@@ -89,3 +89,69 @@ export const fromHtml = (html: string) => {
     links,
   });
 };
+
+export const fromHtml2 = (html: string) => {
+  const $root = parse(html);
+  const url = $root.querySelector("link[rel=canonical]")?.getAttribute("href");
+  const title = $root
+    .querySelector('h1[itemprop="name"]')
+    ?.text.replace(/^\s+|\s+$/g, "");
+  const brand = $root
+    .querySelector('meta[itemprop="manufacturer"]')
+    ?.getAttribute("content");
+  const id = $root
+    .querySelector('meta[itemprop="gtin"]')
+    ?.getAttribute("content");
+
+  const image = $root
+    .querySelectorAll(".js-screen-photo img")
+    .map(($img: any) => $img.getAttribute("src"));
+
+  const links = $root
+    .querySelectorAll(".product-card-availability div")
+    .map(($div: any) => $div.text)
+    .map((s) => s.trim());
+
+  const price = $root
+    .querySelector("div.product-basic-content div.price")
+    ?.text.replace(/\s+/g, " ")
+    .trim()
+    .split("zł")
+    .filter((s) => s !== "")
+    .map((s) => [s.trim(), "zł"].join(" "));
+  // .replace(/[\s\r\n]+/, ' ').split('zł')
+  // .split('\n').map(s => s.trim())
+  // .join('')
+  const stars = $root
+    .querySelector("span.rating-description")
+    ?.text.split("\n")[1]
+    .trim();
+
+  const parameters = $root
+    .querySelectorAll(".parameter-row")
+    .map(($div: any) => ({
+      id: $div.querySelector("span[id]")?.getAttribute("id"),
+      name: $div.querySelector(".parameter-name")?.text.trim(),
+      desc: $div.querySelector(".parameter-description")?.text.trim(),
+    }));
+  // console.log({parameters})
+
+  const label = parameters
+    .filter(({ id }) => ["parameter-ean", "parameter-kod"].includes(id))
+    .map(({ name, desc }) => `${name}: ${desc}`);
+  // console.log({url,title,brand,image,stars, price, links, label})
+
+  return ItemSchema.parse({
+    id,
+    url,
+    title,
+    image,
+    stars,
+    brand,
+    label,
+    price,
+    proms: [],
+    codes: [],
+    links,
+  });
+};

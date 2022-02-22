@@ -14,6 +14,7 @@ export const DiffSchema = z.object({
 });
 
 export const ItemSchema = z.object({
+  id: z.string().optional(),
   url: z.string(),
   title: z.string(),
   image: z.string().array(),

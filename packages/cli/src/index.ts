@@ -180,6 +180,7 @@ export const verify = () => {
 
 enum Types {
   PRODUCT = "get-product",
+  CYFROWE = "get-product-cyfrowe",
   ALTO = "get-product-alto",
   STATION = "get-stations",
   GRATKA = "gratka",
@@ -215,6 +216,7 @@ export default function (type?: string) {
                 (type) =>
                   ({
                     [Types.PRODUCT]: ProductService,
+                    [Types.CYFROWE]: ProductService,
                     [Types.ALTO]: ProductService,
                     [Types.STATION]: StationService,
                     [Types.GRATKA]: PropertyGratkaService,
@@ -253,6 +255,7 @@ export default function (type?: string) {
                       (type) =>
                         ({
                           [Types.PRODUCT]: ProductService,
+                          [Types.CYFROWE]: ProductService,
                           [Types.ALTO]: ProductService,
                           [Types.STATION]: StationService,
                           [Types.GRATKA]: PropertyGratkaService,
@@ -401,6 +404,23 @@ export default function (type?: string) {
     type
       ? []
       : [
+          "get-product-cyfrowe:aparat-cyfrowy-canon-eos-m50-ii-czarny-i-ob-15-45-f35-63-p",
+          "get-product-cyfrowe:aparat-cyfrowy-canon-eos-m6-mark-iisprawdz-promocje-p",
+          "get-product-cyfrowe:aparaty/obiektyw-canon-ef-m-18-150-mm-f-35-63-is-stm-czarny",
+          "get-product-cyfrowe:obiektyw-canon-32-mm-f-14-stm-p",
+          "get-product-cyfrowe:aparaty/obiektyw-canon-ef-m-55-200mm-f-45-63-is-stm",
+          "get-product-cyfrowe:aparaty/obiektyw-canon-22-mm-f-20-ef-m-stm",
+          "get-product-cyfrowe:obiektyw-sigma-c-16-mm-f-14-dc-dn-eos-m-p",
+          "get-product-cyfrowe:rode-statyw-do-mikrofonu-psa1-p",
+          "get-product-cyfrowe:rode-przeciwwietrzna-deadcat-ws11-do-ntg-p",
+          "get-product-cyfrowe:kabel-rode-kabel-sc15-usb-c-na-ios-p",
+          "get-product-cyfrowe:dji-om-4-se-osmo-mobile-4-se-p",
+          "get-product-cyfrowe:dji-ronin-sc-stabilizator-gimbal-p",
+          "get-product-cyfrowe:dji-stabilizator-ronin-sc-2-p",
+          "get-product-cyfrowe:dron-dji-mini-2-polska-dystrybucja-p",
+          "get-product-cyfrowe:dron-dji-mini-2-fly-more-combo-polska-dystrybucja-p",
+          "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
+          "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
           "get-product:681280-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-angielska-lawenda",
           "get-product:681284-etui-na-tablet-apple-etui-smart-folio-ipada-mini-6gen-czarny",

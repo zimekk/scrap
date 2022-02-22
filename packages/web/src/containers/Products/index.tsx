@@ -76,7 +76,7 @@ function Data({ version = "v1" }) {
     () =>
       results
         .map((item) => ({
-          _image: item.image.filter((src: string) => src.match(/small/)),
+          _image: item.image.filter((src: string) => src.match(/small|cyfro/)),
           _title: item.title.toLowerCase(),
           _price: Number(
             item.price

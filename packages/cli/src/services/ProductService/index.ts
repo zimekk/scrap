@@ -3,7 +3,8 @@ import { z } from "zod";
 import { productItems } from "@dev/api";
 import { browser } from "../../request";
 import { DiffSchema } from "./types";
-import { fromHtml } from "./utils";
+import { fromHtml, fromHtml2 } from "./utils";
+import { saveProductHtml } from "../../utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -54,15 +55,30 @@ export class ProductService {
     next: any;
   }> {
     return z
-      .tuple([z.string(), z.string().transform((name) => name.split("-")[0])])
-      .transform(([_, id]) => id)
-      .parseAsync(type.split(":"))
-      .then((id) =>
-        browser({ $type: type }).then((html) => ({
-          type,
-          list: html ? [{ id, ...fromHtml(html) }] : [],
-          next: null,
-        }))
+      .tuple([z.string(), z.string()])
+      .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
+      .parseAsync(Boolean(console.log(type)) || type.split(":"))
+      .then(({ id, name, kind }) =>
+        browser({ $type: type }).then(
+          (html) =>
+            // saveProductHtml(name.replace("/", "-"), html)
+            false || {
+              type,
+              list: html
+                ? [
+                    {
+                      id,
+                      ...(
+                        {
+                          "get-product-cyfrowe": fromHtml2,
+                        }[kind] || fromHtml
+                      )(html),
+                    },
+                  ]
+                : [],
+              next: null,
+            }
+        )
       );
   }
 
