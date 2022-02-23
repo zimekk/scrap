@@ -13,7 +13,7 @@ export const middleware = Router()
   .use("/api/properties/hide.json", controllers.hideProperty)
   .use("/api/properties/like.json", controllers.likeProperty)
   .use("/api/stations/data.json", controllers.getStationsData)
-  .use("/api/vehicles/:id/images/:image", controllers.getImage)
+  .use("/api/vehicles/:id/images/:image", controllers.getVehicleImage)
   .use("/api/vehicles/data.json", controllers.getVehiclesData)
   .use("/api/vehicles2/data.json", controllers.getVehiclesData);
 
