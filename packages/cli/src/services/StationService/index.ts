@@ -1,4 +1,3 @@
-import cheerio from "cheerio";
 import { z } from "zod";
 import { headingDistanceTo } from "geolocation-utils";
 import { diffString } from "json-diff";
@@ -10,6 +9,7 @@ import {
   StationListSchema,
   StationTypeSchema,
 } from "./types";
+import { fromHtml } from "./utils";
 
 const _time = Date.now();
 
@@ -56,19 +56,6 @@ const updateItem = (last: any, item: any, updated = _time) =>
       .parse(last),
     z.object({}).passthrough().parse(item)
   );
-
-const fromHtml = (html: string) =>
-  (($) => ({
-    address: $("div.right-side > a:first-child").text(),
-    petrol_list: $("ul.petrol-list > li")
-      .map((_i, $el) => {
-        return {
-          type: $($el.children[0]).text(),
-          price: $($el.children[1]).text(),
-        };
-      })
-      .get(),
-  }))(cheerio.load(html));
 
 export class StationService {
   async request(type: string): Promise<{
