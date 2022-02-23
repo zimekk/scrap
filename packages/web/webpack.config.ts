@@ -98,7 +98,8 @@ export default (env: {
       patterns: [
         {
           context: path.resolve(__dirname, "src/assets"),
-          from: "api/**/*.json",
+          from: env.WEBPACK_SERVE ? "none" : "api/**/*.json",
+          noErrorOnMissing: true,
         },
       ],
     }),

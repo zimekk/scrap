@@ -145,7 +145,10 @@ const api = Router()
       })
         .then(({ size }) => ({
           href: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${id}-${i}`,
-          path: path.resolve(__dirname, `../temp/vehicles/${id}-${i}.jpeg`),
+          path: path.resolve(
+            process.env.TEMP as string,
+            `vehicles/${id}-${i}.jpeg`
+          ),
         }))
         .then(({ href, path }) =>
           promises

@@ -1,5 +1,5 @@
 import path from "path";
-import { Configuration } from "webpack";
+import { Configuration, EnvironmentPlugin } from "webpack";
 import "webpack-dev-server";
 import { RequestHandler } from "webpack-dev-server";
 import * as config from "@dev/bundle";
@@ -18,7 +18,6 @@ export default (env: {
     devServer: {
       // https://github.com/webpack/webpack-dev-middleware#serversiderender
       devMiddleware: { serverSideRender: true },
-      // port: 8000,
       // https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares
       setupMiddlewares: (middlewares) =>
         middlewares.concat(((req, res, next) => {
@@ -55,6 +54,9 @@ export default (env: {
         additionalModuleDirs: ["../../node_modules"],
       }),
     ],
+    node: {
+      // __dirname:false,
+    },
     optimization: {
       minimize: false,
     },
@@ -65,6 +67,11 @@ export default (env: {
       },
       path: path.resolve(__dirname, "lib"),
     },
+    plugins: [
+      new EnvironmentPlugin({
+        TEMP: path.resolve(__dirname, `temp`),
+      }),
+    ],
     ...config,
   },
   {
