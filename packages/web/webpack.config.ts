@@ -42,27 +42,6 @@ export default (env: {
         test: /\.(mp3|ogg|png|avi)$/,
         use: ["file-loader"],
       },
-      // {
-      //   test: /\.tsx?$/,
-      //   loader: "babel-loader",
-      //   exclude: /node_modules/,
-      //   options: {
-      //     presets: [
-      //       "@babel/preset-env",
-      //       "@babel/preset-react",
-      //       "@babel/preset-typescript",
-      //     ],
-      //     plugins: ["react-hot-loader/babel", "@babel/transform-runtime"],
-      //   },
-      // },
-      // {
-      //   test: /\.js$/,
-      //   loader: "babel-loader",
-      //   include: /node_modules\/.+\/esm\//,
-      //   options: {
-      //     presets: ["@babel/preset-env"],
-      //   },
-      // },
     ],
   },
   resolve: {
@@ -74,7 +53,6 @@ export default (env: {
     },
     // https://webpack.js.org/configuration/resolve/#resolvefallback
     fallback: {
-      // assert: require.resolve('assert'),
       buffer: require.resolve("buffer"),
       stream: require.resolve("stream-browserify"),
     },
@@ -84,12 +62,10 @@ export default (env: {
     path: path.resolve(__dirname, "public"),
   },
   plugins: [
-    // new webpack.HotModuleReplacementPlugin(),
     new EnvironmentPlugin({
       HREF_TEMPLATE: "#scrap/${id}",
       NEARBY_LAT: "52.1530829",
       NEARBY_LNG: "21.1104411",
-      // NODE_ENV: "development",
     }),
     new ProvidePlugin({
       Buffer: ["buffer", "Buffer"],

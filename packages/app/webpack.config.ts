@@ -55,7 +55,7 @@ export default (env: {
       }),
     ],
     node: {
-      // __dirname:false,
+      // __dirname: false,
     },
     optimization: {
       minimize: false,
