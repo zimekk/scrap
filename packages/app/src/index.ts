@@ -1,5 +1,6 @@
-import express, { Router } from "express";
+import express, { Express, Router } from "express";
 import fetch from "isomorphic-fetch";
+import http from "http";
 // import cors from "cors";
 import path from "path";
 import { constants, promises } from "fs";
@@ -36,36 +37,6 @@ const {
 
 const CENTER = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) };
 const RADIUS = Number(NEARBY_RADIUS);
-
-// const ERA = 24 * 3600 * 1000;
-// const _time = Date.now();
-// const _past = _time - ERA;
-
-const web =
-  process.env.NODE_ENV === "development"
-    ? (({ entry, ...config }) => {
-        const compiler = require("webpack")({
-          mode: "development",
-          entry: ["webpack-hot-middleware/client"].concat(entry),
-          ...config,
-        });
-
-        return Router()
-          .use(
-            require("webpack-dev-middleware")(compiler, {
-              publicPath: config.output?.publicPath,
-            })
-          )
-          .use(require(`webpack-hot-middleware`)(compiler, {}));
-      })(require("@dev/web/webpack.config").default)
-    : Router().use(
-        express.static(
-          path.resolve(
-            path.dirname(require.resolve("@dev/web/package")),
-            "public"
-          )
-        )
-      );
 
 const Options = z.object({ id: z.number(), label: z.string() });
 
@@ -764,13 +735,26 @@ const api = Router()
     vehicle2Items.find({}).then((vehicleBasic) => res.json({ vehicleBasic }))
   );
 
-const PORT = 8080;
+export const middleware = Router().use(api);
 
-export default express()
-  .use(require("morgan")("combined"))
-  // .use(cors({ origin: '*'}))
-  .use(api)
-  .use(web)
-  .listen(PORT, () =>
-    console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`)
+export function serve() {
+  const { PORT: port = 8080, PUBLIC = "public" } = process.env;
+  const middlewares = [
+    require("morgan")("combined"),
+    middleware,
+    express.static(require("path").resolve(process.cwd(), PUBLIC)),
+  ];
+  const server = http.createServer(
+    middlewares.reduce(
+      (app, middleware) => app.use(middleware),
+      express()
+    ) as Express
   );
+  server.listen({ port }, () => {
+    console.info(`⚡️[server]: Server is running at http://localhost:${port}`);
+  });
+}
+
+if (process.mainModule?.filename === __filename) {
+  serve();
+}

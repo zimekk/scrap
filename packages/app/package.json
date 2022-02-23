@@ -14,12 +14,13 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "build": "NODE_ENV=production tsc",
+    "build": "webpack --mode production",
     "serve": "node lib",
-    "start": "NODE_ENV=development nodemon lib.ts"
+    "start": "webpack serve --mode development"
   },
   "dependencies": {
     "@dev/api": "1.0.0",
+    "@dev/bundle": "1.0.0",
     "@dev/cli": "1.0.0",
     "@dev/web": "1.0.0",
     "cors": "^2.8.5",
@@ -33,9 +34,11 @@
     "@types/nedb": "^1.8.12",
     "@types/node": "^17.0.19",
     "nodemon": "^2.0.15",
+    "require-from-string": "^2.0.2",
     "typescript": "^4.5.5",
     "webpack": "^5.69.1",
-    "webpack-dev-middleware": "^5.3.1",
-    "webpack-hot-middleware": "^2.25.1"
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }

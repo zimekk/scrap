@@ -1,22 +1,24 @@
+import path from "path";
+import env from "dotenv";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import * as path from "path";
-import webpack from "webpack";
-import env from "dotenv";
+import { Configuration, EnvironmentPlugin, ProvidePlugin } from "webpack";
+import * as config from "@dev/bundle";
 
 env.config({ path: path.resolve(__dirname, "../../.env") });
 
-const dev = process.env.NODE_ENV === "development";
-
-const config = {
+export default (env: {
+  WEBPACK_BUILD: boolean;
+  WEBPACK_SERVE: boolean;
+}): Configuration => ({
   target: "web",
-  devServer: {
-    port: 8080,
-  },
-  devtool: dev && "inline-source-map",
-  entry: ["react-hot-loader/patch"].concat(require.resolve("./src")),
+  devtool: env.WEBPACK_SERVE ? "inline-source-map" : "source-map",
+  entry: ["react-hot-loader/patch", "regenerator-runtime/runtime"].concat(
+    require.resolve("./src")
+  ),
   module: {
     rules: [
+      ...config.module.rules,
       {
         test: /\.scss$/,
         use: [
@@ -40,30 +42,31 @@ const config = {
         test: /\.(mp3|ogg|png|avi)$/,
         use: ["file-loader"],
       },
-      {
-        test: /\.tsx?$/,
-        loader: "babel-loader",
-        exclude: /node_modules/,
-        options: {
-          presets: [
-            "@babel/preset-env",
-            "@babel/preset-react",
-            "@babel/preset-typescript",
-          ],
-          plugins: ["react-hot-loader/babel", "@babel/transform-runtime"],
-        },
-      },
-      {
-        test: /\.js$/,
-        loader: "babel-loader",
-        include: /node_modules\/.+\/esm\//,
-        options: {
-          presets: ["@babel/preset-env"],
-        },
-      },
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: "babel-loader",
+      //   exclude: /node_modules/,
+      //   options: {
+      //     presets: [
+      //       "@babel/preset-env",
+      //       "@babel/preset-react",
+      //       "@babel/preset-typescript",
+      //     ],
+      //     plugins: ["react-hot-loader/babel", "@babel/transform-runtime"],
+      //   },
+      // },
+      // {
+      //   test: /\.js$/,
+      //   loader: "babel-loader",
+      //   include: /node_modules\/.+\/esm\//,
+      //   options: {
+      //     presets: ["@babel/preset-env"],
+      //   },
+      // },
     ],
   },
   resolve: {
+    ...config.resolve,
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       events: "events",
@@ -77,18 +80,18 @@ const config = {
     },
   },
   output: {
-    path: path.resolve(__dirname, "public"),
     clean: true,
+    path: path.resolve(__dirname, "public"),
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.EnvironmentPlugin({
+    // new webpack.HotModuleReplacementPlugin(),
+    new EnvironmentPlugin({
       HREF_TEMPLATE: "#scrap/${id}",
       NEARBY_LAT: "52.1530829",
       NEARBY_LNG: "21.1104411",
-      NODE_ENV: "development",
+      // NODE_ENV: "development",
     }),
-    new webpack.ProvidePlugin({
+    new ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
     }),
     new CopyWebpackPlugin({
@@ -103,6 +106,4 @@ const config = {
       favicon: require.resolve("./src/assets/favicon.ico"),
     }),
   ],
-};
-
-export default config;
+});
