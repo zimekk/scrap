@@ -900,31 +900,35 @@ export class Vehicle5Service {
                             funding_period: z.number(),
                           })
                           .optional(),
-                        credit_easy_drive: z.object({
-                          data: z.object({
-                            price_net: z.number(),
-                            installment: z.number(),
-                            credit_amount: z.number(),
-                            bank_commission: z.number(),
-                            credit_insurance: z.number(),
-                            repurchase_quota: z.number(),
-                            cost_of_financing: z.number(),
-                            vehicle_insurance: z.number(),
-                          }),
-                          km_limit: z.number(),
-                          own_payment: z.string(),
-                          funding_period: z.number(),
-                        }),
-                        leasing_easy_drive: z.object({
-                          data: z.object({
-                            price_net: z.number(),
-                            installment: z.number(),
-                            repurchase_quota: z.number(),
-                          }),
-                          km_limit: z.number(),
-                          own_payment: z.string(),
-                          funding_period: z.number(),
-                        }),
+                        credit_easy_drive: z
+                          .object({
+                            data: z.object({
+                              price_net: z.number(),
+                              installment: z.number(),
+                              credit_amount: z.number(),
+                              bank_commission: z.number(),
+                              credit_insurance: z.number(),
+                              repurchase_quota: z.number(),
+                              cost_of_financing: z.number(),
+                              vehicle_insurance: z.number(),
+                            }),
+                            km_limit: z.number(),
+                            own_payment: z.string(),
+                            funding_period: z.number(),
+                          })
+                          .optional(),
+                        leasing_easy_drive: z
+                          .object({
+                            data: z.object({
+                              price_net: z.number(),
+                              installment: z.number(),
+                              repurchase_quota: z.number(),
+                            }),
+                            km_limit: z.number(),
+                            own_payment: z.string(),
+                            funding_period: z.number(),
+                          })
+                          .optional(),
                       }),
                       duplicates_count: z.number(),
                       tyres: z.array(z.unknown()),
@@ -979,7 +983,21 @@ export class Vehicle5Service {
                         url: z.string().nullable(),
                         external_id: z.string(),
                       }),
-                      render_gallery: z.null(),
+                      render_gallery: z
+                        .record(
+                          z.object({
+                            original: z.string(),
+                            xlarge: z.string(),
+                            large: z.string(),
+                            medium: z.string(),
+                            small: z.string(),
+                            tiny: z.string(),
+                            adform_small: z.string(),
+                            adform_medium: z.string(),
+                            facebook_xlarge: z.string(),
+                          })
+                        )
+                        .nullable(),
                     })
                     .passthrough()
                 ),
