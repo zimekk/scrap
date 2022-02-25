@@ -8,8 +8,9 @@ import {
   vehicle4Items,
   vehicle5Items,
 } from "@dev/api/vehicles";
-import { request } from "../request";
-import { scrapOptions } from "../utils";
+import Service from "../Service";
+import { request } from "../../request";
+import { scrapOptions } from "../../utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -73,7 +74,7 @@ const updateItem = (
   },
 });
 
-export class VehicleService {
+export class VehicleService extends Service {
   async request(
     type: string,
     args = {}
@@ -118,7 +119,7 @@ export class VehicleService {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return (
       z
         .object({
@@ -344,14 +345,14 @@ export class VehicleService {
               if (diff) {
                 console.log(`[${exists.id}]`);
                 console.log(diff);
-                summary.updated.push(item.id);
+                this.summary.updated.push(item.id);
                 return vehicleItems.update(updateItem(exists, item));
               } else {
-                summary.checked.push(item.id);
+                this.summary.checked.push(item.id);
                 return vehicleItems.update({ ...exists, _checked: _time });
               }
             } else {
-              summary.created.push(item.id);
+              this.summary.created.push(item.id);
               return vehicleItems.insert(createItem(item));
             }
           })
@@ -393,7 +394,7 @@ export class VehicleService {
   }
 }
 
-export class Vehicle2Service {
+export class Vehicle2Service extends Service {
   async request(
     type: string,
     args = {}
@@ -450,7 +451,7 @@ export class Vehicle2Service {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     // console.log(item)
     return z
       .object({
@@ -655,16 +656,15 @@ export class Vehicle2Service {
           if (last) {
             const diff = diffItem(last, item);
             if (diff) {
-              console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return vehicle2Items.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return vehicle2Items.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return vehicle2Items.insert(createItem(item));
           }
         })
@@ -672,7 +672,7 @@ export class Vehicle2Service {
   }
 }
 
-export class Vehicle3Service {
+export class Vehicle3Service extends Service {
   async request(
     type: string,
     args = {}
@@ -733,7 +733,7 @@ export class Vehicle3Service {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -747,14 +747,14 @@ export class Vehicle3Service {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return vehicle3Items.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return vehicle3Items.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return vehicle3Items.insert(createItem(item));
           }
         })
@@ -762,7 +762,7 @@ export class Vehicle3Service {
   }
 }
 
-export class Vehicle4Service {
+export class Vehicle4Service extends Service {
   async request(
     type: string,
     args = {}
@@ -822,7 +822,7 @@ export class Vehicle4Service {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -836,14 +836,14 @@ export class Vehicle4Service {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return vehicle4Items.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return vehicle4Items.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return vehicle4Items.insert(createItem(item));
           }
         })
@@ -851,7 +851,7 @@ export class Vehicle4Service {
   }
 }
 
-export class Vehicle5Service {
+export class Vehicle5Service extends Service {
   async request(
     type: string,
     args = {}
@@ -1019,7 +1019,7 @@ export class Vehicle5Service {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -1036,11 +1036,11 @@ export class Vehicle5Service {
             //     summary.updated.push(item.id);
             //     return vehicle5Items.update(updateItem(last, item));
             //   } else {
-            summary.checked.push(item.id);
+            this.summary.checked.push(item.id);
             return vehicle5Items.update({ ...last, _checked: _time });
             // }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return vehicle5Items.insert(createItem(item));
           }
         })

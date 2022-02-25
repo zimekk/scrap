@@ -53,7 +53,7 @@ export const remove = async (status = false) => {
     id: number;
     isNew: boolean;
   }>();
-  const summary = <Record<"checked" | "removed", number[]>>{
+  const summary = {
     checked: [],
     removed: [],
   };
@@ -67,7 +67,7 @@ export const remove = async (status = false) => {
         (item) =>
           of(item).pipe(
             mergeMap((item) => {
-              const service = new VehicleService();
+              const service = new VehicleService({ summary });
               return service.inspect(item, summary);
             }),
             delay(100)
@@ -197,7 +197,7 @@ enum Types {
 export default function (type?: string) {
   console.log({ type });
 
-  const summary = <Record<string, number[]>>{
+  const summary = {
     created: [],
     checked: [],
     updated: [],
@@ -230,7 +230,7 @@ export default function (type?: string) {
                     [Types.XBOX]: GameService,
                   }[type])
               )
-              .then((Service) => new Service())
+              .then((Service) => new Service({ summary }))
               .then((service) => service.request(type, args))
           ).pipe(
             tap(({ type, next }) =>
@@ -269,8 +269,8 @@ export default function (type?: string) {
                           [Types.XBOX]: GameService,
                         }[type])
                     )
-                    .then((Service) => new Service())
-                    .then((service) => service.process(item, summary))
+                    .then((Service) => new Service({ summary }))
+                    .then((service) => service.process(item))
                 ),
               1
             )

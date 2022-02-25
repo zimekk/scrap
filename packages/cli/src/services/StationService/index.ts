@@ -3,6 +3,7 @@ import { headingDistanceTo } from "geolocation-utils";
 import { diffString } from "json-diff";
 import { stationItems } from "@dev/api/stations";
 import { request } from "../../request";
+import Service from "../Service";
 import {
   ItemSchema,
   StationItemSchema,
@@ -57,7 +58,7 @@ const updateItem = (last: any, item: any, updated = _time) =>
     z.object({}).passthrough().parse(item)
   );
 
-export class StationService {
+export class StationService extends Service {
   async request(type: string): Promise<{
     type: string;
     list: any[];
@@ -78,7 +79,7 @@ export class StationService {
     );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return ItemSchema.parseAsync(item)
       .then(({ station_id }) => station_id)
       .then(($station_id) =>
@@ -96,14 +97,14 @@ export class StationService {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return stationItems.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return stationItems.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return stationItems.insert({ ...item, _created: _time });
           }
         })

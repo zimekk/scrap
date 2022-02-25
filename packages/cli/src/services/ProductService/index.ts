@@ -2,9 +2,10 @@ import { diffString } from "json-diff";
 import { z } from "zod";
 import { productItems } from "@dev/api";
 import { browser } from "../../request";
+import Service from "../Service";
 import { DiffSchema } from "./types";
 import { fromHtml, fromHtml2 } from "./utils";
-import { saveProductHtml } from "../../utils";
+// import { saveProductHtml } from "../../utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -48,7 +49,7 @@ const updateItem = (
   },
 });
 
-export class ProductService {
+export class ProductService extends Service {
   async request(type: string): Promise<{
     type: string;
     list: any[];
@@ -82,7 +83,7 @@ export class ProductService {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -96,14 +97,14 @@ export class ProductService {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return productItems.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return productItems.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return productItems.insert({ ...item, _created: _time });
           }
         })

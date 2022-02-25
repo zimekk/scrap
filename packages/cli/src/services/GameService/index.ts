@@ -1,6 +1,7 @@
 import { diffString } from "json-diff";
 import { z } from "zod";
 import { gameItems } from "@dev/api";
+import Service from "../Service";
 import { request } from "../../request";
 import { DiffSchema, ItemSchema } from "./types";
 
@@ -46,7 +47,7 @@ const updateItem = (
   },
 });
 
-export class GameService {
+export class GameService extends Service {
   async request(
     type: string,
     args = {}
@@ -76,7 +77,7 @@ export class GameService {
       );
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return ItemSchema.passthrough()
       .transform((Product) => ({ id: Product.ProductId, ...Product }))
       .parseAsync(item)
@@ -87,14 +88,14 @@ export class GameService {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return gameItems.update(updateItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return gameItems.update({ ...last, _checked: _time });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return gameItems.insert({ ...item, _created: _time });
           }
         })

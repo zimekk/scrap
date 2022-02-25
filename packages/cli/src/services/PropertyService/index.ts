@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { propertyItems } from "@dev/api";
-import { browser, request } from "../request";
+import Service from "../Service";
+import { browser, request } from "../../request";
 import {
   diffPropertyItem,
   scrapPropertyGratkaList,
@@ -9,7 +10,7 @@ import {
   scrapPropertyOtodomList,
   scrapPropertyOtodomItem,
   updatePropertyItem,
-} from "../utils";
+} from "../../utils";
 
 const { GRATKA_URL, OTODOM_URL } = process.env as {
   GRATKA_URL: string;
@@ -20,8 +21,8 @@ const { GRATKA_URL, OTODOM_URL } = process.env as {
 const _time = Date.now();
 // const _past = _time - ERA;
 
-class PropertyService {
-  async commit(item = {}, summary: any): Promise<any> {
+class PropertyService extends Service {
+  async commit(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -36,17 +37,17 @@ class PropertyService {
             if (diff) {
               console.log(`[${last.id}]`);
               console.log(diff);
-              summary.updated.push(item.id);
+              this.summary.updated.push(item.id);
               return propertyItems.update(updatePropertyItem(last, item));
             } else {
-              summary.checked.push(item.id);
+              this.summary.checked.push(item.id);
               return propertyItems.update({
                 ...last,
                 _checked: _time,
               });
             }
           } else {
-            summary.created.push(item.id);
+            this.summary.created.push(item.id);
             return propertyItems.insert({
               ...item,
               _created: _time,
@@ -109,7 +110,7 @@ export class PropertyGratkaService extends PropertyService {
       });
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -121,7 +122,7 @@ export class PropertyGratkaService extends PropertyService {
       .then(({ id, type, name, href }) =>
         propertyItems.findOne({ id }).then((last: any) => {
           if (last) {
-            summary.checked.push(last.id);
+            this.summary.checked.push(last.id);
             // propertyItems.update({ ...last, ...item, _updated: _time });
             return propertyItems.update({ ...last, _checked: _time });
           }
@@ -130,7 +131,7 @@ export class PropertyGratkaService extends PropertyService {
             html
               ? Promise.resolve(
                   Promise.resolve(scrapPropertyGratkaItem({ id }, html))
-                ).then((item) => this.commit(item, summary))
+                ).then((item) => this.commit(item))
               : null
           );
         })
@@ -192,7 +193,7 @@ export class PropertyOtodomService extends PropertyService {
       });
   }
 
-  async process(item = {}, summary: any): Promise<any> {
+  async process(item = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -204,7 +205,7 @@ export class PropertyOtodomService extends PropertyService {
       .then(({ id, type, name, href }) =>
         propertyItems.findOne({ id }).then((last: any) => {
           if (last) {
-            summary.checked.push(last.id);
+            this.summary.checked.push(last.id);
             // propertyItems.update({ ...last, ...item, _updated: _time });
             return propertyItems.update({ ...last, _checked: _time });
           }
@@ -212,7 +213,7 @@ export class PropertyOtodomService extends PropertyService {
           return browser({ $type: type, name, href }).then((html) =>
             html
               ? Promise.resolve(scrapPropertyOtodomItem({ id }, html)).then(
-                  (item) => this.commit(item, summary)
+                  (item) => this.commit(item)
                 )
               : null
           );
@@ -262,10 +263,10 @@ export class PropertyKlikService extends PropertyService {
       });
   }
 
-  async process(item: any, summary: any): Promise<any> {
+  async process(item: any): Promise<any> {
     // console.log({item})
     return Promise.resolve(scrapPropertyKlikItem(item)).then((item) =>
-      this.commit(item, summary)
+      this.commit(item)
     );
   }
 }
