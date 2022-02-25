@@ -70,7 +70,7 @@ export const scrapPropertyOtodomList = (
 ) => {
   const $root = parse(html);
   const json = $root.querySelector("script#__NEXT_DATA__")?.text;
-
+  // console.log((json ? JSON.parse(json) : {})?.props.pageProps.data.searchAds.items.map((item:any) => item.totalPrice))
   return z
     .object({
       id: z.string(),
@@ -110,7 +110,7 @@ export const scrapPropertyOtodomList = (
                       title: z.string(),
                       totalPrice: z
                         .object({
-                          currency: z.enum(["EUR", "PLN"]),
+                          currency: z.enum(["EUR", "PLN", "USD"]),
                           value: z.number(),
                         })
                         .nullable(),

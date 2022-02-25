@@ -123,7 +123,7 @@ describe("ProductService", () => {
             "Na zamówienie",
             "Produkt aktualnie niedostępny. Nie znamy daty dostawy.",
             "Zapytaj kiedy będzie / Powiadom",
-            "Koszt dostawy:  GRATIS",
+            "Koszt dostawy: GRATIS",
           ],
           label: ["EAN: 4549292176438", "Kod w sklepie: ACFCANEOSM50II1545-B"],
           proms: [],
@@ -145,7 +145,7 @@ describe("ProductService", () => {
           links: [
             "Na zamówienie",
             "Zapytaj kiedy będzie / Powiadom",
-            "Koszt dostawy:  GRATIS",
+            "Koszt dostawy: GRATIS",
           ],
           label: [
             "EAN: 4549292009873",
@@ -165,10 +165,33 @@ describe("ProductService", () => {
           image: ["//u.cyfrowe.pl/600x0/a/3/3_701492896_1301637766.jpg"],
           stars: "9/10 (2 opinie)",
           price: ["1 790 zł"],
-          links: ["Wysyłamy w 24h", "Koszt dostawy:  GRATIS"],
+          links: ["Wysyłamy w 24h", "Koszt dostawy: GRATIS"],
           label: ["EAN: 085126402716", "Kod w sklepie: OBISIGC16F14DC-EOSM"],
           proms: [],
           codes: [],
+        },
+      },
+      {
+        html: loadProductHtml("aparat-cyfrowy-panasonic-lumix-dc-s5-body-p"),
+        result: {
+          id: "5025232940073",
+          url: "https://www.cyfrowe.pl/aparat-cyfrowy-panasonic-lumix-dc-s5-body-p.html",
+          title: "Aparat cyfrowy Panasonic Lumix DC-S5 body",
+          brand: "Panasonic",
+          image: ["//u.cyfrowe.pl/600x0/1/7/panasonics55_1404567492.jpg"],
+          stars: "0/10 (0 opinii)",
+          price: ["8 999 zł"],
+          links: [
+            "Na zamówienie",
+            "Zapytaj kiedy będzie / Powiadom",
+            "Koszt dostawy: GRATIS",
+          ],
+          label: ["EAN: 5025232940073", "Kod w sklepie: ACFPANDCS5"],
+          proms: [
+            "LUMIX S 50 mm f/1.8 gratis!",
+            "Kup za 8099 zł (900 zł taniej) wpisując w koszyku kod: LumixPromo900",
+          ],
+          codes: ["LumixPromo900"],
         },
       },
     ].forEach(({ html, result }) => expect(fromHtml2(html)).toEqual(result)));

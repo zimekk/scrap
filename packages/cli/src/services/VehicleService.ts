@@ -600,7 +600,7 @@ export class Vehicle2Service {
           .optional(),
         nationWideSelling: z.boolean(),
         deleted: z.boolean(),
-        envkvData: z.object({}).strict(),
+        envkvData: z.object({}).strict().optional(),
         prString: z.string(),
         dealer: z
           .object({

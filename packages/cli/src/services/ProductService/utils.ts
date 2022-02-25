@@ -109,8 +109,7 @@ export const fromHtml2 = (html: string) => {
 
   const links = $root
     .querySelectorAll(".product-card-availability div")
-    .map(($div: any) => $div.text)
-    .map((s) => s.trim());
+    .map(($div: any) => $div.text.replace(/\s+/g, " ").trim());
 
   const price = $root
     .querySelector("div.product-basic-content div.price")
@@ -139,7 +138,25 @@ export const fromHtml2 = (html: string) => {
   const label = parameters
     .filter(({ id }) => ["parameter-ean", "parameter-kod"].includes(id))
     .map(({ name, desc }) => `${name}: ${desc}`);
-  // console.log({url,title,brand,image,stars, price, links, label})
+
+  // console.log({ url, title, brand, image, stars, price, links, label });
+
+  const promotionsList = $root
+    .querySelectorAll(".product-promotions-list a")
+    .map(($a: any) => $a?.text.trim());
+
+  const promotionsInfo = $root
+    .querySelectorAll(".product-promotions-info ul > li")
+    .map(($li: any) => $li?.text.trim());
+
+  const proms = promotionsList.concat(promotionsInfo);
+
+  const codes = promotionsInfo
+    .map((text) => text.match(/kod: (\S+)$/))
+    .filter(Boolean)
+    .map(([_, code]) => code);
+
+  // console.log({ proms, codes });
 
   return ItemSchema.parse({
     id,
@@ -150,8 +167,8 @@ export const fromHtml2 = (html: string) => {
     brand,
     label,
     price,
-    proms: [],
-    codes: [],
+    proms,
+    codes,
     links,
   });
 };

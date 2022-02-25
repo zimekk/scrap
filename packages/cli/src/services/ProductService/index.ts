@@ -61,7 +61,7 @@ export class ProductService {
       .then(({ id, name, kind }) =>
         browser({ $type: type }).then(
           (html) =>
-            // saveProductHtml(name.replace("/", "-"), html)
+            // @ts-ignore saveProductHtml(name.replace("/", "-"), html) ||
             false || {
               type,
               list: html
