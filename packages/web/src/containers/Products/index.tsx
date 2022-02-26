@@ -20,6 +20,7 @@ const SORT_BY = {
 
 const PRICE_LIST = [
   0, 100, 200, 500, 1000, 1500, 2000, 3000, 4000, 5000, 10000, 15000, 20000,
+  25000,
 ];
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -76,10 +77,12 @@ function Data({ version = "v1" }) {
     () =>
       results
         .map((item) => ({
-          _image: item.image.filter((src: string) => src.match(/small|cyfro/)),
+          _image: item.image.filter(
+            (src: string) => !src.match(/product-mini/)
+          ),
           _title: item.title.toLowerCase(),
           _price: Number(
-            item.price
+            (item.price.length > 0 ? item.price : ["0"])
               .reverse()[0]
               .replace(/[^0-9,]/g, "")
               .replace(",", ".")
