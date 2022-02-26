@@ -76,10 +76,12 @@ function Data({ version = "v1" }) {
     () =>
       results
         .map((item) => ({
-          _image: item.image.filter((src: string) => src.match(/small|cyfro/)),
+          _image: item.image.filter(
+            (src: string) => !src.match(/product-mini/)
+          ),
           _title: item.title.toLowerCase(),
           _price: Number(
-            item.price
+            (item.price.length > 0 ? item.price : ["0"])
               .reverse()[0]
               .replace(/[^0-9,]/g, "")
               .replace(",", ".")
