@@ -4,8 +4,8 @@ import { productItems } from "@dev/api";
 import { browser } from "../../request";
 import Service from "../Service";
 import { DiffSchema } from "./types";
-import { fromHtml, fromHtml2 } from "./utils";
-// import { saveProductHtml } from "../../utils";
+import { fromHtml, fromHtml2, fromHtml3 } from "./utils";
+import { saveProductHtml } from "../../utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -62,7 +62,7 @@ export class ProductService extends Service {
       .then(({ id, name, kind }) =>
         browser({ $type: type }).then(
           (html) =>
-            // @ts-ignore saveProductHtml(name.replace("/", "-"), html) ||
+            // @ts-ignore saveProductHtml(name, html) ||
             false || {
               type,
               list: html
@@ -72,6 +72,7 @@ export class ProductService extends Service {
                       ...(
                         {
                           "get-product-cyfrowe": fromHtml2,
+                          "get-product-tophifi": fromHtml3,
                         }[kind] || fromHtml
                       )(html),
                     },

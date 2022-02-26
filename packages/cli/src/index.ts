@@ -181,6 +181,7 @@ export const verify = () => {
 enum Types {
   PRODUCT = "get-product",
   CYFROWE = "get-product-cyfrowe",
+  TOPHIFI = "get-product-tophifi",
   ALTO = "get-product-alto",
   STATION = "get-stations",
   GRATKA = "gratka",
@@ -217,6 +218,7 @@ export default function (type?: string) {
                   ({
                     [Types.PRODUCT]: ProductService,
                     [Types.CYFROWE]: ProductService,
+                    [Types.TOPHIFI]: ProductService,
                     [Types.ALTO]: ProductService,
                     [Types.STATION]: StationService,
                     [Types.GRATKA]: PropertyGratkaService,
@@ -256,6 +258,7 @@ export default function (type?: string) {
                         ({
                           [Types.PRODUCT]: ProductService,
                           [Types.CYFROWE]: ProductService,
+                          [Types.TOPHIFI]: ProductService,
                           [Types.ALTO]: ProductService,
                           [Types.STATION]: StationService,
                           [Types.GRATKA]: PropertyGratkaService,
@@ -404,6 +407,24 @@ export default function (type?: string) {
     type
       ? []
       : [
+          "get-product-tophifi:multiroom/musiccast/yamaha-musiccast-wxc-50",
+          "get-product-tophifi:multiroom/musiccast/yamaha-r-n303d",
+          "get-product-tophifi:multiroom/musiccast/yamaha-musiccast-r-n402d",
+          "get-product-tophifi:multiroom/musiccast/yamaha-r-n602-czarny",
+          "get-product-tophifi:glosniki/glosniki-instalacyjne/ccm-362",
+          "get-product-tophifi:glosniki/glosniki-instalacyjne/ccm664sr",
+          "get-product-tophifi:sluchawki/sluchawki-z-redukcja-szumow/bowers-wilkins-px5-space-grey",
+          "get-product-tophifi:sluchawki/sluchawki-z-redukcja-szumow/bowers-wilkins-px7-carbon-edition",
+          "get-product-tophifi:sluchawki/sluchawki-z-redukcja-szumow/bowers-wilkins-px7-space-grey",
+          "get-product-tophifi:glosniki/glosniki-podstawkowe/bowers-wilkins-606-s2-anniversary-edition",
+          "get-product-tophifi:glosniki/glosniki-podstawkowe/bowers-wilkins-607-s2-anniversary-edition",
+          "get-product-tophifi:glosniki/glosniki-podlogowe/bowers-wilkins-702-s2-rosenut",
+          "get-product-tophifi:glosniki/glosniki-podlogowe/bowers-wilkins-703-s2-rosenut",
+          "get-product-tophifi:glosniki/glosniki-podlogowe/bowers-wilkins-704-s2-czarny-polysk",
+          "get-product-tophifi:glosniki/glosniki-podstawkowe/bowers-wilkins-705-s2-rosenut",
+          "get-product-tophifi:glosniki/glosniki-podstawkowe/bowers-wilkins-706-s2-czarny-polysk",
+          "get-product-tophifi:glosniki/glosniki-podstawkowe/bowers-wilkins-707-s2-czarny-polysk",
+          "get-product-tophifi:glosniki/subwoofery/bowers-wilkins-seria-600-asw608",
           "get-product-cyfrowe:aparat-cyfrowy-canon-eos-m50-ii-czarny-i-ob-15-45-f35-63-p",
           "get-product-cyfrowe:aparat-cyfrowy-canon-eos-m6-mark-iisprawdz-promocje-p",
           "get-product-cyfrowe:aparaty/obiektyw-canon-ef-m-18-150-mm-f-35-63-is-stm-czarny",

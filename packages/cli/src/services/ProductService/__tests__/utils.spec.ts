@@ -1,5 +1,5 @@
 import { loadProductHtml } from "../../../utils";
-import { fromHtml, fromHtml2 } from "../utils";
+import { fromHtml, fromHtml2, fromHtml3 } from "../utils";
 
 describe("ProductService", () => {
   xit("fromHtml", () =>
@@ -195,4 +195,83 @@ describe("ProductService", () => {
         },
       },
     ].forEach(({ html, result }) => expect(fromHtml2(html)).toEqual(result)));
+
+  xit("fromHtml3", () =>
+    [
+      {
+        html: loadProductHtml(
+          "glosniki/glosniki-podstawkowe/bowers-wilkins-706-s2-czarny-polysk"
+        ),
+        result: {
+          id: "fp-38881",
+          url: "https://www.tophifi.pl/glosniki/glosniki-podstawkowe/bowers-wilkins-706-s2-czarny-polysk.html",
+          title: "706 S2 czarny połysk",
+          brand: "Bowers & Wilkins",
+          image: [
+            "https://www.tophifi.pl/media/catalog/product/cache/c76cfc952dbe1a24abf7200506210ae9/b/o/bowers-wilkins-706-s2-bl_2.png",
+          ],
+          stars: "Ocena: 5 z 5 (5 opinii)",
+          price: ["3 799 zł"],
+          links: [
+            "Wysyłka: w ciągu 24h",
+            "Produkt chwilowo niedostępny",
+            "Odbiór w salonie: już za godzinę",
+            "Darmowa dostawa",
+            "Rata 20 x 0% tylko 190 zł",
+          ],
+          label: ["od: Bowers & Wilkins", "sku: FP 38881", "kod: 714346329410"],
+          proms: [],
+          codes: [],
+        },
+      },
+      {
+        html: loadProductHtml(
+          "sluchawki/sluchawki-z-redukcja-szumow/bowers-wilkins-px5-space-grey"
+        ),
+        result: {
+          id: "fp-41173",
+          url: "https://www.tophifi.pl/sluchawki/sluchawki-z-redukcja-szumow/bowers-wilkins-px5-space-grey.html",
+          title: "PX5 space grey",
+          brand: "Bowers & Wilkins",
+          image: [
+            "https://www.tophifi.pl/media/catalog/product/cache/c76cfc952dbe1a24abf7200506210ae9/b/o/bowers-wilkins-px5-space-grey-angle-redukcja-slu-nau-roku.png",
+          ],
+          stars: "Ocena: 5 z 5 (3 opinie)",
+          price: ["1 111 zł"],
+          links: [
+            "Wysyłka: w ciągu 24h",
+            "Produkt chwilowo niedostępny",
+            "Odbiór w salonie: już za godzinę",
+            "Darmowa dostawa",
+            "Rata 20 x 0% tylko 56 zł",
+          ],
+          label: ["od: Bowers & Wilkins", "sku: FP 41173", "kod: 714346332366"],
+          proms: [],
+          codes: [],
+        },
+      },
+      {
+        html: loadProductHtml("glosniki/glosniki-instalacyjne/ccm-362"),
+        result: {
+          id: "1632",
+          url: "https://www.tophifi.pl/glosniki/glosniki-instalacyjne/ccm-362.html",
+          title: "CCM362",
+          brand: "Bowers & Wilkins",
+          image: [
+            "https://www.tophifi.pl/media/catalog/product/cache/c76cfc952dbe1a24abf7200506210ae9/8/b/8b1dd4ec.png",
+          ],
+          stars: "Ocena: 5 z 5 (7 opinii)",
+          price: [],
+          links: [
+            "Produkt chwilowo niedostępny",
+            "Odbiór w salonie: Prosimy o kontakt",
+            "Darmowa dostawa",
+            "Rata 20 x 0%",
+          ],
+          label: ["od: Bowers & Wilkins", "sku: 1632"],
+          proms: [],
+          codes: [],
+        },
+      },
+    ].forEach(({ html, result }) => expect(fromHtml3(html)).toEqual(result)));
 });

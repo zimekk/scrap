@@ -19,6 +19,7 @@ const {
   STORE_URL,
   STORE_ALTO_URL,
   STORE_CYFROWE_URL,
+  STORE_TOPHIFI_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
@@ -30,6 +31,7 @@ const {
   STORE_URL: string;
   STORE_ALTO_URL: string;
   STORE_CYFROWE_URL: string;
+  STORE_TOPHIFI_URL: string;
 };
 
 const ERA = 24 * 3600 * 1000;
@@ -218,6 +220,14 @@ const config = {
     return {
       id: ["get-product-cyfrowe", mk, type].join("-"),
       url: `${STORE_CYFROWE_URL}${type}.html`,
+    };
+  },
+  "get-product-tophifi": ({ time = Date.now(), type = "0" }) => {
+    const mk = timestamp(time);
+
+    return {
+      id: ["get-product-tophifi", mk, type].join("-"),
+      url: `${STORE_TOPHIFI_URL}${type}.html`,
     };
   },
   gratka: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {

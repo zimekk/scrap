@@ -5,7 +5,10 @@ import { z } from "zod";
 const _time = Date.now();
 
 const productHtmlPath = (name: string) =>
-  require("path").resolve(__dirname, `../temp/${name}.html`);
+  require("path").resolve(
+    __dirname,
+    `../temp/${name.replace(/\//g, "-")}.html`
+  );
 
 export const loadProductHtml = (name: string) =>
   require("fs").readFileSync(productHtmlPath(name));
