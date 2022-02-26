@@ -1,6 +1,6 @@
 import { Subject, from, of } from "rxjs";
 import chunk from "chunk";
-import { delay, mergeMap, take, tap } from "rxjs/operators";
+import { delay, filter, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
 // import { gameItems } from "@dev/api";
@@ -207,6 +207,11 @@ export default function (type?: string) {
   const request$ = new Subject<{ type: string; args?: object }>();
   request$
     .pipe(
+      filter(
+        ({ type }) =>
+          // Boolean(type.match(/tophifi/)) &&
+          Boolean(console.log({ type })) || true
+      ),
       mergeMap(
         ({ type, args }) =>
           from(
@@ -297,7 +302,6 @@ export default function (type?: string) {
           (name) => `${Types.BMW}:${name}`
         )
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 
@@ -358,7 +362,6 @@ export default function (type?: string) {
           "otodom:dzialka/warszawa/wilanow",
         ]
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 
@@ -399,7 +402,6 @@ export default function (type?: string) {
           5
         ).map((names) => `${Types.XBOX}:${names.join(",")}`)
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 
@@ -561,7 +563,6 @@ export default function (type?: string) {
           "get-product:656052-all-in-one-apple-imac-24-m1-16gb-512-macos-retina-45k-silver",
         ]
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 
@@ -570,25 +571,21 @@ export default function (type?: string) {
       ? []
       : [`${Types.STATION}:${NEARBY_LAT}:${NEARBY_LNG}:${NEARBY_RADIUS}`]
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 
   from(["pluc", "pl"].map((name) => `${Types.AUDI}:${name}`)).subscribe(
     (type) => {
-      console.log({ type });
       request$.next({ type });
     }
   );
 
   // from(["mercedes-benz:mpvehicles-pl-vehicle"]).subscribe((type) => {
-  //   console.log({ type });
   //   request$.next({ type });
   // });
 
   from(["search"].map((name) => `${Types.PORSCHE}:${name}`)).subscribe(
     (type) => {
-      console.log({ type });
       request$.next({ type });
     }
   );
@@ -596,7 +593,6 @@ export default function (type?: string) {
   from(
     type ? [type] : ["od-reki"].map((name) => `${Types.VW}:${name}`)
   ).subscribe((type) => {
-    console.log({ type });
     request$.next({ type });
   });
 }

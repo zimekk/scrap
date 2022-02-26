@@ -226,9 +226,44 @@ export const fromHtml3 = (html: string) => {
         }),
         sku: z.string(),
         gtin13: z.string().optional(),
+        review: z
+          .array(
+            z
+              .object({
+                reviewRating: z
+                  .object({ ratingValue: z.string().transform(Number) })
+                  .optional(),
+                author: z.object({
+                  name: z.string().transform((s) => s.trim()),
+                }),
+                datePublished: z.string(),
+                reviewBody: z.string().transform((s) => s.trim()),
+              })
+              .transform(
+                ({
+                  reviewRating: { ratingValue: rating } = {},
+                  author: { name: author },
+                  datePublished: date,
+                  reviewBody: body,
+                }) => ({
+                  rating,
+                  author,
+                  date,
+                  body,
+                })
+              )
+          )
+          .optional(),
       })
       .transform(
-        ({ name: title, brand: { name: brand }, image, sku, gtin13 }) => ({
+        ({
+          name: title,
+          brand: { name: brand },
+          image,
+          sku,
+          gtin13,
+          review: reviews,
+        }) => ({
           id: sku.toLowerCase().replace(/\s+/g, "-"),
           url,
           title,
@@ -244,6 +279,7 @@ export const fromHtml3 = (html: string) => {
           proms: [],
           codes: [],
           links,
+          reviews,
         })
       )
       .parse(json)

@@ -7,7 +7,10 @@ import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
-import type { ProductItem } from "@dev/cli/src/services/ProductService/types";
+import type {
+  ProductItem,
+  ReviewItem,
+} from "@dev/cli/src/services/ProductService/types";
 
 const SORT_BY = {
   title: 1,
@@ -41,7 +44,9 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY).pop());
+  const [sortBy, setSortBy] = useState(
+    () => Object.keys(SORT_BY).pop() as keyof typeof SORT_BY
+  );
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
@@ -177,6 +182,7 @@ function Data({ version = "v1" }) {
               history={Object.entries(item._history).reverse()}
               item={item}
             />
+            {item.reviews && <Reviews reviews={item.reviews} />}
           </li>
         ))}
       </ol>
@@ -205,7 +211,7 @@ function History({ history, item }: { history: any[]; item: unknown }) {
       )}
       {more === false && (
         <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
-          more...
+          Show more...
         </Link>
       )}
     </div>
@@ -259,6 +265,38 @@ function Details({
           <li key={key}>{link}</li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function Reviews({ reviews }: { reviews: ReviewItem[] }) {
+  const [expand, setExpand] = useState(false);
+
+  return (
+    <div>
+      <div>
+        {/* {`Found ${list.length} vehicles out of a total of ${results.length}`}{" "} */}
+        <Link
+          onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
+        >
+          {expand ? "Hide reviews" : "Show reviews"}
+        </Link>
+      </div>
+      {/* {expand && <pre>{JSON.stringify(reviews, null, 2)}</pre>} */}
+      {expand && (
+        <ul>
+          {reviews.map(({ author, body, date, rating = "-" }, key) => (
+            <li key={key}>
+              <div>
+                <b>
+                  {date}, {author} ({rating})
+                </b>
+              </div>
+              <div>{body}</div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
