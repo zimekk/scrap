@@ -110,13 +110,16 @@ function Data({ version = "v1" }) {
   const [filters, setFilters] = useState(() => ({
     category: "",
     search: "",
+    onlyPromoted: false,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
   }));
 
   const [filter] = useDebounce(filters.search);
 
-  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[7]);
+  const [sortBy, setSortBy] = useState(
+    () => Object.keys(SORT_BY)[7] as keyof typeof SORT_BY
+  );
 
   const onChangeSortBy = useCallback(
     ({ target }) => setSortBy(target.value),
@@ -170,9 +173,17 @@ function Data({ version = "v1" }) {
               (item.Categories || []).includes(filters.category)) &&
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
             filters.priceFrom <= item._price &&
-            item._price <= filters.priceTo
+            item._price <= filters.priceTo &&
+            (!filters.onlyPromoted || item.Price.ListPrice < item.Price.MSRP)
         ),
-    [results, filter, filters.category, filters.priceFrom, filters.priceTo]
+    [
+      results,
+      filter,
+      filters.category,
+      filters.priceFrom,
+      filters.priceTo,
+      filters.onlyPromoted,
+    ]
   );
 
   const sorted = useMemo(
@@ -266,6 +277,21 @@ function Data({ version = "v1" }) {
             />
             <span>{`${filters.priceFrom}-${filters.priceTo} pln`}</span>
           </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.onlyPromoted}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    onlyPromoted: target.checked,
+                  })),
+                []
+              )}
+            />
+            <span>Only Promoted</span>
+          </label>
         </div>
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
@@ -347,8 +373,8 @@ function Summary({
   ProductId: string;
   ProductTitle: string;
   PublisherName: string;
-  _created: number;
-  _updated: number;
+  _created?: number;
+  _updated?: number;
 }) {
   return (
     <div className={styles.Summary}>
@@ -373,8 +399,8 @@ function Summary({
         </h5>
       )}
       <div>
-        created: {format(_created, "yyyy-MM-dd HH:mm")} updated:{" "}
-        {_updated ? format(_updated, "yyyy-MM-dd HH:mm") : "-"}
+        created: {_created ? format(_created, "yyyy-MM-dd HH:mm") : "-"}{" "}
+        updated: {_updated ? format(_updated, "yyyy-MM-dd HH:mm") : "-"}
       </div>
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
