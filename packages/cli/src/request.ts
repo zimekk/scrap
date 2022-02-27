@@ -16,10 +16,6 @@ const {
   GRATKA_URL,
   OTODOM_URL,
   STATIONS_URL,
-  STORE_URL,
-  STORE_ALTO_URL,
-  STORE_CYFROWE_URL,
-  STORE_TOPHIFI_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
@@ -28,10 +24,6 @@ const {
   GRATKA_URL: string;
   OTODOM_URL: string;
   STATIONS_URL: string;
-  STORE_URL: string;
-  STORE_ALTO_URL: string;
-  STORE_CYFROWE_URL: string;
-  STORE_TOPHIFI_URL: string;
 };
 
 const ERA = 24 * 3600 * 1000;
@@ -183,38 +175,6 @@ const config = {
         ),
     };
   },
-  "get-product-alto": ({ time = Date.now(), type = "0" }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["get-product-alto", mk, type].join("-"),
-      url: `${STORE_ALTO_URL}p/${type}.html`,
-    };
-  },
-  "get-product": ({ time = Date.now(), type = "0" }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["get-product", mk, type].join("-"),
-      url: `${STORE_URL}p/${type}.html`,
-    };
-  },
-  "get-product-cyfrowe": ({ time = Date.now(), type = "0" }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["get-product-cyfrowe", mk, type].join("-"),
-      url: `${STORE_CYFROWE_URL}${type}.html`,
-    };
-  },
-  "get-product-tophifi": ({ time = Date.now(), type = "0" }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["get-product-tophifi", mk, type].join("-"),
-      url: `${STORE_TOPHIFI_URL}${type}.html`,
-    };
-  },
   gratka: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {
     const mk = timestamp(time);
 
@@ -332,12 +292,19 @@ export const request = (args: any) => {
     .then(({ json }: any) => JSON.parse(json));
 };
 
-export const browser = ({ $type, ...rest }: any) => {
-  const [site, type, kind] = $type.split(":");
-  console.log({ $type, site, type, kind });
-  // @ts-ignore
-  const { id, url } = config[site]({ type, kind, ...rest });
-  console.log({ id, url });
+export const browser = (
+  args: any,
+  summary?: { request: Record<string, number> }
+) => {
+  const { id, url } = args.url
+    ? args
+    : (({ $type, ...rest }) => {
+        const [site, type, kind] = $type.split(":");
+        console.log({ $type, site, type, kind });
+        // @ts-ignore
+        return config[site]({ $type: type, $kind: kind, ...rest });
+      })(args);
+
   return requestsHtml
     .findOne({ id })
     .then((data: any) =>
@@ -369,6 +336,13 @@ export const browser = ({ $type, ...rest }: any) => {
                 url,
                 page
               );
+
+              if (summary) {
+                const { host } = new URL(url);
+                Object.assign(summary.request, {
+                  [host]: ((counter = 0) => counter + 1)(summary.request[host]),
+                });
+              }
 
               console.log({ url, response });
 
