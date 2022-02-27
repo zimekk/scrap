@@ -211,7 +211,6 @@ export default function (type?: string) {
       filter(
         ({ type }) =>
           // Boolean(type.match(/tophifi/)) &&
-          // Boolean(type.match(/xbox|mini-new/)) &&
           Boolean(console.log({ type })) || true
       ),
       mergeMap(

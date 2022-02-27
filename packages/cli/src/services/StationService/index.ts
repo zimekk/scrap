@@ -12,6 +12,10 @@ import {
 } from "./types";
 import { fromHtml } from "./utils";
 
+const { STATIONS_URL } = process.env as {
+  STATIONS_URL: string;
+};
+
 const _time = Date.now();
 
 const updateItem = (last: any, item: any, updated = _time) =>
@@ -59,14 +63,30 @@ const updateItem = (last: any, item: any, updated = _time) =>
   );
 
 export class StationService extends Service {
+  async fetcher(type: string, station_id = 0, zoom = 6) {
+    return request(
+      {
+        "stations-get-stations": {
+          id: [type, this.mk, zoom].join("-"),
+          request: () => this.fetch(`${STATIONS_URL}${type}?zoom=${zoom}`),
+        },
+        "stations-get-station": {
+          id: [type, this.mk, station_id].join("-"),
+          request: () =>
+            this.fetch(`${STATIONS_URL}${type}?station_id=${station_id}`),
+        },
+      }[type]
+    );
+  }
+
   async request(type: string): Promise<{
     type: string;
     list: any[];
     next: any;
   }> {
     return StationTypeSchema.parseAsync(type.split(":")).then(
-      ({ $type, $center, $radius }) =>
-        request({ $type }).then((data) =>
+      ({ $center, $radius }) =>
+        this.fetcher("stations-get-stations").then((data) =>
           StationListSchema.transform((list) => ({
             type,
             list: list.filter(
@@ -81,9 +101,8 @@ export class StationService extends Service {
 
   async process(item = {}): Promise<any> {
     return ItemSchema.parseAsync(item)
-      .then(({ station_id }) => station_id)
-      .then(($station_id) =>
-        request({ $type: "get-station", $station_id }).then(({ html }) =>
+      .then(({ station_id }) =>
+        this.fetcher("stations-get-station", station_id).then(({ html }) =>
           StationItemSchema.parse({
             ...item,
             ...fromHtml(html),

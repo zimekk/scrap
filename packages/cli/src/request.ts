@@ -11,19 +11,15 @@ require("dotenv").config();
 const {
   NEARBY_LAT = "52.1530829",
   NEARBY_LNG = "21.1104411",
-  // NEARBY_RADIUS = "25014.985524846034",
   KLIK_URL,
   GRATKA_URL,
   OTODOM_URL,
-  STATIONS_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
-  // NEARBY_RADIUS: string;
   KLIK_URL: string;
   GRATKA_URL: string;
   OTODOM_URL: string;
-  STATIONS_URL: string;
 };
 
 const ERA = 24 * 3600 * 1000;
@@ -115,24 +111,6 @@ const config = {
             }),
           }
         ),
-    };
-  },
-  "get-stations": ({ $time = Date.now(), $zoom = 6 }) => {
-    const mk = timestamp($time);
-
-    return {
-      id: ["get-stations", mk, $zoom].join("-"),
-      request: () =>
-        fetch(`${STATIONS_URL}stations-get-stations?zoom=${$zoom}`),
-    };
-  },
-  "get-station": ({ $time = Date.now(), $station_id = 0 }) => {
-    const mk = timestamp($time);
-
-    return {
-      id: ["get-station", mk, $station_id].join("-"),
-      request: () =>
-        fetch(`${STATIONS_URL}stations-get-station?station_id=${$station_id}`),
     };
   },
   "mercedes-benz": ({ $time = Date.now(), currentPage = 0, pageSize = 12 }) => {
