@@ -183,21 +183,6 @@ const config = {
         ),
     };
   },
-  xbox: ({
-    $time = Date.now(),
-    $type = "9NKX70BBCDRN",
-    $mscv = "DGU1mcuYo0WMMp+F.1",
-  }) => {
-    const mk = timestamp($time);
-    const url = `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${$type}&market=PL&languages=pl-pl&MS-CV=${$mscv}`;
-
-    console.log(url);
-
-    return {
-      id: ["displaycatalog", mk, $type].join("-"),
-      request: () => fetch(url),
-    };
-  },
   "get-product-alto": ({ time = Date.now(), type = "0" }) => {
     const mk = timestamp(time);
 
@@ -308,11 +293,16 @@ export const cleanup = async (_created = _past) => {
   );
 };
 
-export const request = ({ $type, ...rest }: any) => {
-  const [site, type, kind] = $type.split(":");
-  console.log({ $type, site, type, kind });
-  // @ts-ignore
-  const { id, request } = config[site]({ $type: type, $kind: kind, ...rest });
+export const request = (args: any) => {
+  const { id, request } = args.request
+    ? args
+    : (({ $type, ...rest }) => {
+        const [site, type, kind] = $type.split(":");
+        console.log({ $type, site, type, kind });
+        // @ts-ignore
+        return config[site]({ $type: type, $kind: kind, ...rest });
+      })(args);
+
   return requests
     .findOne({ id })
     .then((data: any) =>

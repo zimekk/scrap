@@ -48,6 +48,19 @@ const updateItem = (
 });
 
 export class GameService extends Service {
+  async fetcher({ $type }: { $type: string }) {
+    const [_site, type] = $type.split(":");
+    const mscv = "DGU1mcuYo0WMMp+F.1";
+
+    return request({
+      id: ["displaycatalog", this.mk, $type].join("-"),
+      request: () =>
+        this.fetch(
+          `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${type}&market=PL&languages=pl-pl&MS-CV=${mscv}`
+        ),
+    });
+  }
+
   async request(
     type: string,
     args = {}
@@ -62,7 +75,7 @@ export class GameService extends Service {
       })
       .parseAsync(args)
       .then(({ $type }) =>
-        request({ $type }).then((data) =>
+        this.fetcher({ $type }).then((data) =>
           z
             .object({
               Products: z.array(ItemSchema.passthrough()),

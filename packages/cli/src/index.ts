@@ -202,6 +202,7 @@ export default function (type?: string) {
     created: [],
     checked: [],
     updated: [],
+    request: {},
   };
 
   const request$ = new Subject<{ type: string; args?: object }>();
@@ -210,6 +211,7 @@ export default function (type?: string) {
       filter(
         ({ type }) =>
           // Boolean(type.match(/tophifi/)) &&
+          // Boolean(type.match(/xbox|mini-new/)) &&
           Boolean(console.log({ type })) || true
       ),
       mergeMap(
@@ -241,9 +243,7 @@ export default function (type?: string) {
               .then((service) => service.request(type, args))
           ).pipe(
             tap(({ type, next }) =>
-              Boolean(console.log({ next })) || next
-                ? request$.next({ type, args: next })
-                : request$.complete()
+              next ? request$.next({ type, args: next }) : request$.complete()
             )
           ),
         1
@@ -251,7 +251,7 @@ export default function (type?: string) {
       mergeMap(
         ({ type, list }) =>
           from(list).pipe(
-            tap((item) => console.log([type, item.id, item.title])),
+            // tap((item) => console.log([type, item.id, item.title])),
             mergeMap(
               (item) =>
                 from(
