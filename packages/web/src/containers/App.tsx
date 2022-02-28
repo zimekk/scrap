@@ -12,6 +12,7 @@ const PAGES = {
   scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
   properties: lazy(() => import("./Properties")),
+  quotes: lazy(() => import("./Quotes")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
   reader: lazy(() => import("./Reader")),

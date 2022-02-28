@@ -6,6 +6,7 @@ import { stationItems } from "@dev/api/stations";
 import type { StationItem } from "@dev/cli/src/services/StationService/types";
 
 export * from "./properties";
+export * from "./quotes";
 export * from "./vehicles";
 
 const {
