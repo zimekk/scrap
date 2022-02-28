@@ -280,7 +280,7 @@ export const browser = (
         const [site, type, kind] = $type.split(":");
         console.log({ $type, site, type, kind });
         // @ts-ignore
-        return config[site]({ $type: type, $kind: kind, ...rest });
+        return config[site]({ type, kind, ...rest });
       })(args);
 
   return requestsHtml

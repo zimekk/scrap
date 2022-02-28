@@ -97,7 +97,7 @@ export const scrapPropertyOtodomList = (
                   items: z.array(
                     z.object({
                       areaInSquareMeters: z.number(),
-                      estate: z.enum(["HOUSE", "TERRAIN"]),
+                      estate: z.enum(["FLAT", "HOUSE", "TERRAIN"]),
                       id: z.number(),
                       images: z.array(
                         z.object({
@@ -155,7 +155,11 @@ export const scrapPropertyOtodomList = (
                 : undefined,
           })
         )
-        .parse(json ? JSON.parse(json) : {})
+        .parse(
+          ((data) =>
+            // Boolean(console.log(data)) ||
+            data)(json ? JSON.parse(json) : {})
+        )
     );
 };
 
@@ -172,6 +176,7 @@ const Category = z.enum([
   "dzialki-grunty/rolno-budowlana",
   "dzialki-grunty/siedliskowa",
   "dzialki-grunty/uslugowa",
+  "mieszkania",
 ]);
 
 export const scrapPropertyGratkaItem = (
@@ -207,77 +212,85 @@ export const scrapPropertyGratkaItem = (
         })
       ),
     })
-    .parse({
-      ...item,
-      address: $root
-        .querySelectorAll("script")
-        ?.map(($node: any) =>
-          $node.text.match(/const addressObject = (\{.+\});/)
-        )
-        .filter(Boolean)
-        .map((m) => JSON.parse(m[1]))[0],
-      canonical: $root
-        .querySelector("link[rel=canonical]")
-        ?.getAttribute("href"),
-      category: $root
-        .querySelector(".sticker__backLink")
-        ?.getAttribute("href")
-        ?.split("/nieruchomosci/")[1],
-      images:
-        $root
-          .querySelectorAll("script")
-          ?.map(($node: any) => $node.text.match(/dataJson: (\[{.+}\]),/))
-          .filter(Boolean)
-          .map((m) => JSON.parse(m[1]))
-          .map(([{ data }]) =>
-            z
-              .array(
-                z.object({
-                  url: z.string(),
-                  thumb: z.string(),
-                })
-              )
-              .parse(data)
-              .map(({ url }) => url)
-          )[0] || [],
-      location: (({
-        lokalizacja_miejscowosc,
-        lokalizacja_powiat,
-        lokalizacja_region,
-      }) => [lokalizacja_miejscowosc, lokalizacja_powiat, lokalizacja_region])(
-        $root
+    .parse(
+      ((data) =>
+        // Boolean(console.log(data)) ||
+        data)({
+        ...item,
+        address: $root
           .querySelectorAll("script")
           ?.map(($node: any) =>
             $node.text.match(/const addressObject = (\{.+\});/)
           )
           .filter(Boolean)
-          .map((m) => JSON.parse(m[1]))[0]
-      ),
-      title: $root.querySelector("h1.sticker__title")?.text.trim(),
-      price: $root
-        .querySelector("span.priceInfo__value")
-        ?.firstChild.text.trim(),
-      description:
-        $root
-          .querySelector("div.description__rolled")
-          ?.childNodes.reduce((result: string[], $node: any) => {
-            if ($node.nodeType === 3) {
-              result[result.length - 1] += $node.text.trim();
-            } else if ($node.nodeType === 1 && $node.rawTagName === "br") {
-              result.push("");
-            }
-            return result;
-          }, [])
-          .filter((s) => s.length > 0) || [],
-      parameters: $root
-        .querySelectorAll(".parameters__value")
-        .map(($div: any) => ({
-          label: $div.parentNode.childNodes
-            .find(($div: any) => $div.nodeType === 1)
-            .text.trim(),
-          value: $div.text.trim(),
-        })),
-    });
+          .map((m) => JSON.parse(m[1]))[0],
+        canonical: $root
+          .querySelector("link[rel=canonical]")
+          ?.getAttribute("href"),
+        category: $root
+          .querySelector(".sticker__backLink")
+          ?.getAttribute("href")
+          ?.split("/nieruchomosci/")[1],
+        images:
+          $root
+            .querySelectorAll("script")
+            ?.map(($node: any) => $node.text.match(/dataJson: (\[{.+}\]),/))
+            .filter(Boolean)
+            .map((m) => JSON.parse(m[1]))
+            .map(([{ data }]) =>
+              z
+                .array(
+                  z.object({
+                    url: z.string(),
+                    thumb: z.string(),
+                  })
+                )
+                .parse(data)
+                .map(({ url }) => url)
+            )[0] || [],
+        location: (({
+          lokalizacja_miejscowosc,
+          lokalizacja_powiat,
+          lokalizacja_region,
+        }) => [
+          lokalizacja_miejscowosc,
+          lokalizacja_powiat,
+          lokalizacja_region,
+        ])(
+          $root
+            .querySelectorAll("script")
+            ?.map(($node: any) =>
+              $node.text.match(/const addressObject = (\{.+\});/)
+            )
+            .filter(Boolean)
+            .map((m) => JSON.parse(m[1]))[0]
+        ),
+        title: $root.querySelector("h1.sticker__title")?.text.trim(),
+        price: $root
+          .querySelector("span.priceInfo__value")
+          ?.firstChild.text.trim(),
+        description:
+          $root
+            .querySelector("div.description__rolled")
+            ?.childNodes.reduce((result: string[], $node: any) => {
+              if ($node.nodeType === 3) {
+                result[result.length - 1] += $node.text.trim();
+              } else if ($node.nodeType === 1 && $node.rawTagName === "br") {
+                result.push("");
+              }
+              return result;
+            }, [])
+            .filter((s) => s.length > 0) || [],
+        parameters: $root
+          .querySelectorAll(".parameters__value")
+          .map(($div: any) => ({
+            label: $div.parentNode.childNodes
+              .find(($div: any) => $div.nodeType === 1)
+              .text.trim(),
+            value: $div.text.trim(),
+          })),
+      })
+    );
 };
 
 const LocalizedString = z.object({
@@ -407,6 +420,7 @@ export const scrapPropertyOtodomItem = (
                   Building_type: z
                     .array(
                       z.enum([
+                        "block",
                         "detached",
                         "residence",
                         "ribbon",
@@ -418,6 +432,20 @@ export const scrapPropertyOtodomItem = (
                   City: z.string().optional(),
                   Country: z.string(),
                   Dimensions: z.string().optional(),
+                  Extras_types: z
+                    .array(
+                      z.enum([
+                        "air_conditioning",
+                        "attic",
+                        "balcony",
+                        "basement",
+                        "garage",
+                        "pool",
+                        "two_storey",
+                      ])
+                    )
+                    .optional(),
+                  Floor_no: z.string().optional(),
                   // Location: z.enum(["city","country","suburban"]).optional(),
                   Media_types: z
                     .array(
@@ -541,6 +569,7 @@ export const scrapPropertyOtodomItem = (
                     ["woodland"]: "dzialki-grunty/lesna",
                   }[Type?.pop() || "building"]),
                 ["dom"]: () => "domy",
+                ["mieszkanie"]: () => "mieszkania",
               }[ProperType](),
               characteristics,
               coordinates,
@@ -558,7 +587,11 @@ export const scrapPropertyOtodomItem = (
               title,
             })
         )
-        .parse(json ? JSON.parse(json) : {})
+        .parse(
+          ((data) =>
+            // Boolean(console.log(data.props.pageProps.ad)) ||
+            data)(json ? JSON.parse(json) : {})
+        )
     );
 };
 
