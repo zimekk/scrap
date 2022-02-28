@@ -81,7 +81,7 @@ function Data({ version = "v1" }) {
   const list = useMemo(
     () =>
       results
-        .map((item) => ({
+        .map(({ _created, _updated = _created, ...item }) => ({
           _image: item.image.filter(
             (src: string) => !src.match(/product-mini/)
           ),
@@ -93,6 +93,8 @@ function Data({ version = "v1" }) {
               .replace(",", ".")
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
+          _created,
+          _updated,
           _history: {},
           ...item,
         }))
@@ -107,7 +109,13 @@ function Data({ version = "v1" }) {
 
   const sorted = useMemo(
     () =>
-      list.sort((a, b) => SORT_BY[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)),
+      list.sort((a, b) =>
+        a[sortBy] === b[sortBy]
+          ? a._created > b._created
+            ? 1
+            : -1
+          : SORT_BY[sortBy] * (a[sortBy] > b[sortBy] ? 1 : -1)
+      ),
     [list, sortBy]
   );
 
