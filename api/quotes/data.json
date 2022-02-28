@@ -6,7 +6,7 @@
     "end_value": 177.17,
     "id": 75,
     "limit": 20,
-    "name": "PKO Akcji Rynku Amerykańskiego",
+    "name": "Akcji",
     "next": "/_ajax/rest/v2/tfi/value/?lang=pl&division=daily&date__gte=2021-02-02&format=json&date__lte=2022-02-02&ajax=1&limit=20&offset=20&investment_id=75&unit=A",
     "offset": 0,
     "only_full": false,
