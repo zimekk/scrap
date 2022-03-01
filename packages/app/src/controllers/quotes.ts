@@ -1,15 +1,9 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-// import { items } from "@dev/api";
-// import { profilesItems, propertyItems } from "@dev/api";
-
-// export const getQuotesData: RequestHandler = (_req, res) =>
-//   items.find({}).then((results) => res.json({ results }));
+import { quotesItems } from "@dev/api/quotes";
 
 export const getQuotesData: RequestHandler = (_req, res) =>
-  fetch(
-    "https://www.pkotfi.pl/_ajax/rest/v2/tfi/fund/75/values/?format=json&ajax=1&lang=pl&date__gte=2021-02-02&date__lte=2022-02-02&division=daily&unit=A"
-  )
+  fetch("https://www.pkotfi.pl/_ajax/rest/v2/tfi/fund/75/values/?format=json")
     .then((res) => res.json())
     .then((body) =>
       z
@@ -32,20 +26,26 @@ export const getQuotesData: RequestHandler = (_req, res) =>
             synthetic_value_to: z.string(),
             total_count: z.number(),
           }),
-          objects: z.array(
-            z.object({
-              date: z.string(),
-              roi: z.number(),
-              unit: z.string(),
-              value: z.number(),
-            })
-          ),
+          // objects: z.array(
+          //   z.object({
+          //     date: z.string(),
+          //     roi: z.number(),
+          //     unit: z.string(),
+          //     value: z.number(),
+          //   })
+          // ),
         })
         .parse(body)
     )
-    .then(({ meta, objects }) =>
-      res.json({
-        meta,
-        objects,
-      })
+    .then(({ meta }) =>
+      quotesItems
+        .find({
+          investment_id: meta.id,
+        })
+        .then((objects) =>
+          res.json({
+            meta,
+            objects,
+          })
+        )
     );

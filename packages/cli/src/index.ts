@@ -3,14 +3,13 @@ import chunk from "chunk";
 import { delay, filter, mergeMap, take, tap } from "rxjs/operators";
 import { diffString } from "json-diff";
 import { z } from "zod";
-// import { gameItems } from "@dev/api";
-// import { vehicleItems } from "@dev/api/vehicles";
 import {
   GameService,
   ProductService,
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
+  QuotesService,
   StationService,
   VehicleService,
   Vehicle2Service,
@@ -25,23 +24,10 @@ const {
   NEARBY_LAT = "52.1530829",
   NEARBY_LNG = "21.1104411",
   NEARBY_RADIUS = "10000",
-  // NEARBY_RADIUS = "25014.985524846034",
-  // KLIK_URL,
-  // GRATKA_URL,
-  // OTODOM_URL,
-  // STATIONS_URL,
-  // STORE_URL,
-  // STORE_ALTO_URL,
 } = process.env as {
   NEARBY_LAT: string;
   NEARBY_LNG: string;
   NEARBY_RADIUS: string;
-  // KLIK_URL: string;
-  // GRATKA_URL: string;
-  // OTODOM_URL: string;
-  // STATIONS_URL: string;
-  // STORE_URL: string;
-  // STORE_ALTO_URL: string;
 };
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -182,6 +168,7 @@ enum Types {
   PRODUCT = "get-product",
   CYFROWE = "get-product-cyfrowe",
   TOPHIFI = "get-product-tophifi",
+  TFI = "investments",
   ALTO = "get-product-alto",
   STATION = "get-stations",
   GRATKA = "gratka",
@@ -211,6 +198,7 @@ export default function (type?: string) {
       filter(
         ({ type }) =>
           // Boolean(type.match(/tophifi/)) &&
+          // Boolean(type.match(/investments/)) &&
           Boolean(console.log({ type })) || true
       ),
       mergeMap(
@@ -225,6 +213,7 @@ export default function (type?: string) {
                     [Types.PRODUCT]: ProductService,
                     [Types.CYFROWE]: ProductService,
                     [Types.TOPHIFI]: ProductService,
+                    [Types.TFI]: QuotesService,
                     [Types.ALTO]: ProductService,
                     [Types.STATION]: StationService,
                     [Types.GRATKA]: PropertyGratkaService,
@@ -263,6 +252,7 @@ export default function (type?: string) {
                           [Types.PRODUCT]: ProductService,
                           [Types.CYFROWE]: ProductService,
                           [Types.TOPHIFI]: ProductService,
+                          [Types.TFI]: QuotesService,
                           [Types.ALTO]: ProductService,
                           [Types.STATION]: StationService,
                           [Types.GRATKA]: PropertyGratkaService,
@@ -300,6 +290,14 @@ export default function (type?: string) {
       : ["bmw-new", "bmw-used", "mini-new"].map(
           (name) => `${Types.BMW}:${name}`
         )
+  ).subscribe((type) => {
+    request$.next({ type });
+  });
+
+  from(
+    type
+      ? []
+      : [73, 74, 75].map((investment_id) => `${Types.TFI}:${investment_id}`)
   ).subscribe((type) => {
     request$.next({ type });
   });
