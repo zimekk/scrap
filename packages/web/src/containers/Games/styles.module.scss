@@ -28,9 +28,6 @@
     margin-block-end: 0.5em;
   }
 }
-.Sale {
-  color: lightgray;
-}
 .Details {
   border-top: 1px solid lightgray;
   margin-top: 0.5em;
@@ -39,6 +36,18 @@
   .Feature {
     &.changed {
       color: blueviolet;
+    }
+  }
+  .Price {
+    &.Sale {
+      color: darkgray;
+      text-decoration: line-through;
+    }
+  }
+  .ListPrice {
+    color: darkorchid;
+    &.Sale {
+      color: darkgreen;
     }
   }
   h5 {

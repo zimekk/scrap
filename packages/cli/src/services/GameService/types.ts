@@ -1,12 +1,26 @@
 import { z } from "zod";
 
+const CurrencyCode = z.enum(["PLN"]);
+
+const TaxType = z.enum(["VatIncluded"]);
+
+const Price = z.object({
+  CurrencyCode,
+  IsPIRequired: z.boolean(),
+  ListPrice: z.number(),
+  MSRP: z.number(),
+  TaxType,
+  WholesaleCurrencyCode: CurrencyCode,
+  WholesalePrice: z.number(),
+});
+
 export const DiffSchema = z.object({
   DisplaySkuAvailabilities: z.array(
     z.object({
       Availabilities: z.array(
         z.object({
           Conditions: z.any(),
-          OrderManagementData: z.object({ Price: z.any() }),
+          OrderManagementData: z.object({ Price }),
         })
       ),
     })
@@ -20,7 +34,7 @@ export const ItemSchema = z.object({
       Availabilities: z.array(
         z.object({
           Conditions: z.any(),
-          OrderManagementData: z.object({ Price: z.any() }),
+          OrderManagementData: z.object({ Price }),
         })
       ),
     })

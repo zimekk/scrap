@@ -5,6 +5,7 @@ import slug from "slug";
 import useDebounce from "../useDebounce";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 import type { Item } from "@dev/cli/src/services/GameService/types";
@@ -61,7 +62,7 @@ const unify = ({
   _created,
   _updated,
   _filter: ProductTitle.toLowerCase(),
-  _price: Price.MSRP,
+  _price: Price.ListPrice,
   _rating: UsageData[UsageData.length - 1].AverageRating,
   Categories,
   Conditions,
@@ -436,15 +437,23 @@ function Details({
   return (
     <div className={styles.Details}>
       <h5>
-        {Price.ListPrice < Price.MSRP ? (
-          <span className={styles.Sale}>
-            <s>{[Price.MSRP, Price.CurrencyCode].join(" ")}</s>
-          </span>
-        ) : (
-          <span>{[Price.MSRP, Price.CurrencyCode].join(" ")}</span>
-        )}
+        <span
+          className={cx(
+            styles.Price,
+            Price.ListPrice < Price.MSRP && styles.Sale
+          )}
+        >
+          {[Price.MSRP, Price.CurrencyCode].join(" ")}
+        </span>
         {" / "}
-        <span>{[Price.ListPrice, Price.CurrencyCode].join(" ")}</span>
+        <span
+          className={cx(
+            styles.ListPrice,
+            Price.ListPrice < Price.MSRP && styles.Sale
+          )}
+        >
+          {[Price.ListPrice, Price.CurrencyCode].join(" ")}
+        </span>
         {" / "}
         <span>
           {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(" ")}
