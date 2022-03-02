@@ -5,6 +5,8 @@ import { createAsset } from "use-asset";
 import Chart from "./Chart";
 import styles from "./styles.module.scss";
 
+import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/quotes/data.json?${version}`);
@@ -12,26 +14,22 @@ const asset = createAsset(async (version) => {
 });
 
 function Data({ version = "v1" }) {
-  const { meta, objects: results } = asset.read(version); // As many cache keys as you need
+  const { metas, objects: results } = asset.read(version) as {
+    metas: Meta[];
+    objects: Item[];
+  };
 
   const options = useMemo(
     () => ({
-      category: [""].concat(
-        results
-          .map(({ symbol }: any) => symbol)
-          .filter(Boolean)
-          .filter(
-            (value: any, index: number, array: any[]) =>
-              array.indexOf(value) === index
-          )
-          .sort((a: string, b: string) => a.localeCompare(b))
-      ),
+      investment: metas
+        .map(({ id, name }) => ({ id, name }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
     }),
     [results]
   );
 
   const [filters, setFilters] = useState(() => ({
-    category: options.category[0],
+    investment: options.investment[0].id,
     search: "",
   }));
 
@@ -60,27 +58,33 @@ function Data({ version = "v1" }) {
 
   console.log({ options, filters, results });
 
-  const list = useMemo(() => results, [results, queries]);
+  const list = useMemo(
+    () =>
+      results.filter(
+        ({ investment_id }) => investment_id === queries.investment
+      ),
+    [results, queries]
+  );
 
   return (
     <div>
       <fieldset>
         <label>
-          <span>Category</span>
+          <span>Investment</span>
           <select
-            value={filters.category}
+            value={filters.investment}
             onChange={useCallback(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
-                  category: target.value,
+                  investment: Number(target.value),
                 })),
               []
             )}
           >
-            {options.category.map((value) => (
-              <option key={value} value={value}>
-                {value}
+            {options.investment.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
               </option>
             ))}
           </select>
@@ -102,7 +106,7 @@ function Data({ version = "v1" }) {
         </label>
       </fieldset>
       <Chart list={list} />
-      <pre>{JSON.stringify(meta, null, 2)}</pre>
+      <pre>{JSON.stringify(metas, null, 2)}</pre>
       <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre>
     </div>
   );
