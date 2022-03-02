@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-const CurrencyCode = z.enum(["PLN"]);
+const CurrencyCode = z.enum(["", "PLN", "USD"]);
 
-const TaxType = z.enum(["VatIncluded"]);
+const TaxType = z.enum(["", "VatIncluded"]);
 
 const Price = z.object({
   CurrencyCode,
@@ -11,7 +11,7 @@ const Price = z.object({
   MSRP: z.number(),
   TaxType,
   WholesaleCurrencyCode: CurrencyCode,
-  WholesalePrice: z.number(),
+  WholesalePrice: z.number().optional(),
 });
 
 export const DiffSchema = z.object({
