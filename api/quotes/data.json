@@ -1,22 +1,46 @@
 {
-  "meta": {
-    "currency": "PLN",
-    "division": "daily",
-    "end_date": "2022-02-02",
-    "end_value": 177.17,
-    "id": 75,
-    "limit": 20,
-    "name": "Akcji",
-    "next": "/_ajax/rest/v2/tfi/value/?lang=pl&division=daily&date__gte=2021-02-02&format=json&date__lte=2022-02-02&ajax=1&limit=20&offset=20&investment_id=75&unit=A",
-    "offset": 0,
-    "only_full": false,
-    "previous": null,
-    "roi": 18.83,
-    "start_date": "2021-02-02",
-    "start_value": 149.1,
-    "synthetic_value_to": "2015-09-24",
-    "total_count": 253
-  },
+  "metas": [
+    {
+      "currency": "PLN",
+      "division": "2weeks",
+      "end_date": "2022-02-28",
+      "end_value": 121.57,
+      "id": 74,
+      "limit": 20,
+      "name": "Akcji Rynku Europejskiego",
+      "only_full": false,
+      "roi": 21.58,
+      "start_date": "2015-05-19",
+      "start_value": 99.99,
+      "synthetic_value_to": null
+    },
+    {
+      "currency": "PLN",
+      "division": "2weeks",
+      "end_date": "2022-02-28",
+      "end_value": 137.14,
+      "id": 73,
+      "name": "Akcji Dywidendowych Globalny",
+      "only_full": false,
+      "roi": 37.14,
+      "start_date": "2015-05-19",
+      "start_value": 100,
+      "synthetic_value_to": null
+    },
+    {
+      "currency": "PLN",
+      "division": "monthly",
+      "end_date": "2022-02-28",
+      "end_value": 169.75,
+      "id": 75,
+      "name": "Akcji Rynku Amerykańskiego",
+      "only_full": false,
+      "roi": 106.99,
+      "start_date": "2006-11-15",
+      "start_value": 82.01,
+      "synthetic_value_to": "2015-09-24"
+    }
+  ],
   "objects": [
     { "date": "2021-02-02", "roi": 0, "unit": "A", "value": 149.1 },
     { "date": "2021-02-03", "roi": -0.02, "unit": "A", "value": 149.07 },
