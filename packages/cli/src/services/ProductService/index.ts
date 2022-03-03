@@ -67,7 +67,7 @@ export class ProductService extends Service {
           "get-product": `${STORE_URL}p/${type}.html`,
           "get-product-cyfrowe": `${STORE_CYFROWE_URL}${type}.html`,
           "get-product-tophifi": `${STORE_TOPHIFI_URL}${type}.html`,
-        }[site],
+        }[site] as string,
       },
       this.summary
     );

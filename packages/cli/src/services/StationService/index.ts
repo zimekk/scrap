@@ -74,7 +74,7 @@ export class StationService extends Service {
           id: [type, this.mk, station_id].join("-"),
           url: `${STATIONS_URL}${type}?station_id=${station_id}`,
         },
-      }[type],
+      }[type] as { id: string; url: string },
       this.summary
     );
   }

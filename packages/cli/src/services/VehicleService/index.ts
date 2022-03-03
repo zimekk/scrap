@@ -91,7 +91,37 @@ export class VehicleService extends Service {
       })
       .parseAsync(args)
       .then(({ $type, $skip, $limit }) =>
-        request({ $type, $skip, $limit }).then((data) =>
+        (({
+          $type = "bmw-new",
+          // $type = 'mini-new',
+          $match = {
+            transactionalPrice: {
+              $min: 0,
+              $max: 1790000,
+            },
+            // brand: 1, // BMW
+            // brand: 65, // MINI
+            // series :5
+          },
+          $skip = 0,
+          $limit = 250,
+        }: any) =>
+          request({
+            //  $type, $skip, $limit
+            id: ["najlepszeoferty", this.mk, $type, $limit, $skip].join("-"),
+            //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
+            url: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
+            params: {
+              method: "POST",
+              body: JSON.stringify({
+                $match,
+                $skip,
+                $limit,
+              }),
+            },
+          }))({
+          $type: $type.split(":")[1],
+        }).then((data) =>
           z
             .object({
               $list: z.array(
@@ -411,7 +441,19 @@ export class Vehicle2Service extends Service {
       })
       .parseAsync(args)
       .then(({ $type, $from, $size }) =>
-        request({ $type, $from, $size })
+        (({
+          // $time = Date.now(),
+          $type = "pluc",
+          // $type = "pl",
+          $from = 0,
+          $size = 100,
+          $sort = "prices.retail%3Aasc",
+        }: any) =>
+          request({
+            //  $type, $from, $size
+            id: ["scs", this.mk, $type, $size, $from].join("-"),
+            url: `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`,
+          }))({ $type: $type.split(":")[1] })
           .then((data) =>
             z
               .object({
@@ -689,7 +731,10 @@ export class Vehicle3Service extends Service {
       })
       .parseAsync(args)
       .then(({ $type, currentPage, pageSize }) =>
-        request({ $type, currentPage, pageSize })
+        request({
+          id: ["mercedes-benz", this.mk, pageSize, currentPage].join("-"),
+          url: `https://shop.mercedes-benz.com/cars-backend/dcp-api/v2/mpvehicles-pl/products/search?lang=pl&query=%3Aprice-asc%3AallCategories%3Ampvehicles-pl-vehicles&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`,
+        })
           .then((data) =>
             z
               .object({
@@ -774,11 +819,16 @@ export class Vehicle4Service extends Service {
     return z
       .object({
         $type: z.string().default(type),
-        page: z.number().optional(),
+        page: z.number().default(1),
       })
       .parseAsync(args)
       .then(({ $type, page }) =>
-        request({ $type, page })
+        request({
+          id: ["porsche", this.mk, page].join("-"),
+          url: `https://finder.porsche.com/api/pl/pl-PL/search?${
+            page > 1 ? `page=${page}&` : ``
+          }orderBy=recommended_desc&distanceUnit=kilometer`,
+        })
           .then((data) =>
             z
               .object({
@@ -868,7 +918,15 @@ export class Vehicle5Service extends Service {
       })
       .parseAsync(args)
       .then(({ $type, page, per_page }) =>
-        request({ $type, page, per_page })
+        request({
+          id: ["vw", this.mk, per_page, page].join("-"),
+          url: `https://admin.od-reki.volkswagen.pl/api/cars?page=${page}&per_page=${per_page}`,
+          params: {
+            headers: {
+              "x-app-id": "VW_DCP_C",
+            },
+          },
+        })
           .then((data) =>
             z
               .object({
