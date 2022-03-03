@@ -68,14 +68,14 @@ export class StationService extends Service {
       {
         "stations-get-stations": {
           id: [type, this.mk, zoom].join("-"),
-          request: () => this.fetch(`${STATIONS_URL}${type}?zoom=${zoom}`),
+          url: `${STATIONS_URL}${type}?zoom=${zoom}`,
         },
         "stations-get-station": {
           id: [type, this.mk, station_id].join("-"),
-          request: () =>
-            this.fetch(`${STATIONS_URL}${type}?station_id=${station_id}`),
+          url: `${STATIONS_URL}${type}?station_id=${station_id}`,
         },
-      }[type]
+      }[type],
+      this.summary
     );
   }
 

@@ -52,13 +52,13 @@ export class GameService extends Service {
     const [_site, type] = $type.split(":");
     const mscv = "DGU1mcuYo0WMMp+F.1";
 
-    return request({
-      id: ["displaycatalog", this.mk, $type].join("-"),
-      request: () =>
-        this.fetch(
-          `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${type}&market=PL&languages=pl-pl&MS-CV=${mscv}`
-        ),
-    });
+    return request(
+      {
+        id: ["displaycatalog", this.mk, $type].join("-"),
+        url: `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${type}&market=PL&languages=pl-pl&MS-CV=${mscv}`,
+      },
+      this.summary
+    );
   }
 
   async request(

@@ -38,13 +38,13 @@ const updateItem = (
 
 export class QuotesService extends Service {
   async fetcher(type: string, investment_id = 0, format = "json") {
-    return request({
-      id: [type, this.mk, investment_id].join("-"),
-      request: () =>
-        this.fetch(
-          `${TFI_URL}_ajax/rest/v2/tfi/fund/${investment_id}/values/?format=${format}`
-        ),
-    });
+    return request(
+      {
+        id: [type, this.mk, investment_id].join("-"),
+        url: `${TFI_URL}_ajax/rest/v2/tfi/fund/${investment_id}/values/?format=${format}`,
+      },
+      this.summary
+    );
   }
 
   async request(type: string): Promise<{

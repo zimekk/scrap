@@ -12,8 +12,17 @@ import {
   updatePropertyItem,
 } from "../../utils";
 
-const { GRATKA_URL, OTODOM_URL } = process.env as {
+const {
+  NEARBY_LAT = "52.1530829",
+  NEARBY_LNG = "21.1104411",
+  GRATKA_URL,
+  KLIK_URL,
+  OTODOM_URL,
+} = process.env as {
+  NEARBY_LAT: string;
+  NEARBY_LNG: string;
   GRATKA_URL: string;
+  KLIK_URL: string;
   OTODOM_URL: string;
 };
 
@@ -79,7 +88,13 @@ export class PropertyGratkaService extends PropertyService {
         const [kind, name] = $type.split(":");
         const id = name.replace(/\//g, "-");
 
-        return browser({ $type, page })
+        return browser(
+          {
+            id: ["gratka", this.mk, id, page].join("-"),
+            url: `${GRATKA_URL}${name}${page > 1 ? `?page=${page}` : ``}`,
+          },
+          this.summary
+        )
           .then((html) =>
             html
               ? Promise.resolve(
@@ -127,7 +142,13 @@ export class PropertyGratkaService extends PropertyService {
             return propertyItems.update({ ...last, _checked: _time });
           }
 
-          return browser({ $type: type, name, href }).then((html) =>
+          return browser(
+            {
+              id: ["gratka-item", this.mk, name].join("-"),
+              url: href,
+            },
+            this.summary
+          ).then((html) =>
             html
               ? Promise.resolve(
                   Promise.resolve(scrapPropertyGratkaItem({ id }, html))
@@ -160,7 +181,15 @@ export class PropertyOtodomService extends PropertyService {
         const [kind, name] = $type.split(":");
         const id = name.replace(/\//g, "-");
 
-        return browser({ $type, page })
+        return browser(
+          {
+            id: ["otodom", this.mk, id, page].join("-"),
+            url: `${OTODOM_URL}oferty/sprzedaz/${name}${
+              page > 1 ? `?page=${page}` : ``
+            }`,
+          },
+          this.summary
+        )
           .then((html) =>
             html
               ? Promise.resolve(scrapPropertyOtodomList({ id }, html)).then(
@@ -210,7 +239,13 @@ export class PropertyOtodomService extends PropertyService {
             return propertyItems.update({ ...last, _checked: _time });
           }
 
-          return browser({ $type: type, name, href }).then((html) =>
+          return browser(
+            {
+              id: ["otodom-item", this.mk, name].join("-"),
+              url: `${OTODOM_URL}oferta/${href}`,
+            },
+            this.summary
+          ).then((html) =>
             html
               ? Promise.resolve(scrapPropertyOtodomItem({ id }, html)).then(
                   (item) => this.commit(item)
@@ -223,6 +258,33 @@ export class PropertyOtodomService extends PropertyService {
 }
 
 export class PropertyKlikService extends PropertyService {
+  async fetcher({
+    $type = "",
+    lat = Number(NEARBY_LAT),
+    lng = Number(NEARBY_LNG),
+    circle = 25014.985524846034,
+    items = 20,
+    page = 1,
+  }) {
+    const [_site, type, kind] = $type.split(":");
+    return (({
+      $type: type = 1,
+      $kind: kind = 4,
+      // kind = 4, type = 1, // dzialki/do-sprzedania
+      // kind = 2, type = 1, // domy/do-sprzedania
+      // kind = 1, type = 2, // mieszkania/do-wynajecia
+    }) =>
+      request(
+        {
+          id: ["klik", this.mk, lat, lng, circle, kind, type, items, page].join(
+            "-"
+          ),
+          url: `${KLIK_URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`,
+        },
+        this.summary
+      ))({ $type: type, $kind: kind });
+  }
+
   async request(
     type: string,
     args = {}
@@ -240,7 +302,7 @@ export class PropertyKlikService extends PropertyService {
       .then(({ $type, page }) => {
         const items = 20;
         // console.log({ $type, page });
-        return request({ $type, items, page })
+        return this.fetcher({ $type, items, page })
           .then((data) =>
             z
               .object({

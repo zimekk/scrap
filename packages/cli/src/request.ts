@@ -8,20 +8,6 @@ import {
 
 require("dotenv").config();
 
-const {
-  NEARBY_LAT = "52.1530829",
-  NEARBY_LNG = "21.1104411",
-  KLIK_URL,
-  GRATKA_URL,
-  OTODOM_URL,
-} = process.env as {
-  NEARBY_LAT: string;
-  NEARBY_LNG: string;
-  KLIK_URL: string;
-  GRATKA_URL: string;
-  OTODOM_URL: string;
-};
-
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
@@ -36,29 +22,6 @@ const timestamp = (mktime: number, period = ERA) => mktime - (mktime % period);
 let requestLimit = 1000;
 
 const config = {
-  klik: ({
-    time = Date.now(),
-    lat = Number(NEARBY_LAT),
-    lng = Number(NEARBY_LNG),
-    circle = 25014.985524846034,
-    $type: type = 1,
-    $kind: kind = 4,
-    // kind = 4, type = 1, // dzialki/do-sprzedania
-    // kind = 2, type = 1, // domy/do-sprzedania
-    // kind = 1, type = 2, // mieszkania/do-wynajecia
-    items = 20,
-    page = 1,
-  }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["klik", mk, lat, lng, circle, kind, type, items, page].join("-"),
-      request: () =>
-        fetch(
-          `${KLIK_URL}?dump=list&type=${type}&kind=${kind}&id=0&lat=${lat}&lng=${lng}&circle=${circle}&page=${page}&items=${items}&sort=default&cat=4,8`
-        ),
-    };
-  },
   "scs.audi.de": ({
     $time = Date.now(),
     // $type = 'pluc',
@@ -71,10 +34,7 @@ const config = {
 
     return {
       id: ["scs", mk, $type, $size, $from].join("-"),
-      request: () =>
-        fetch(
-          `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`
-        ),
+      url: `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`,
     };
   },
   "najlepszeoferty.bmw.pl": ({
@@ -99,18 +59,15 @@ const config = {
     return {
       id: ["najlepszeoferty", mk, $type, $limit, $skip].join("-"),
       //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
-      request: () =>
-        fetch(
-          `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
-          {
-            method: "POST",
-            body: JSON.stringify({
-              $match,
-              $skip,
-              $limit,
-            }),
-          }
-        ),
+      url: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
+      params: {
+        method: "POST",
+        body: JSON.stringify({
+          $match,
+          $skip,
+          $limit,
+        }),
+      },
     };
   },
   "mercedes-benz": ({ $time = Date.now(), currentPage = 0, pageSize = 12 }) => {
@@ -118,10 +75,7 @@ const config = {
 
     return {
       id: ["mercedes-benz", mk, pageSize, currentPage].join("-"),
-      request: () =>
-        fetch(
-          `https://shop.mercedes-benz.com/cars-backend/dcp-api/v2/mpvehicles-pl/products/search?lang=pl&query=%3Aprice-asc%3AallCategories%3Ampvehicles-pl-vehicles&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`
-        ),
+      url: `https://shop.mercedes-benz.com/cars-backend/dcp-api/v2/mpvehicles-pl/products/search?lang=pl&query=%3Aprice-asc%3AallCategories%3Ampvehicles-pl-vehicles&currentPage=${currentPage}&pageSize=${pageSize}&fields=FULL`,
     };
   },
   porsche: ({ $time = Date.now(), page = 1 }) => {
@@ -129,12 +83,9 @@ const config = {
 
     return {
       id: ["porsche", mk, page].join("-"),
-      request: () =>
-        fetch(
-          `https://finder.porsche.com/api/pl/pl-PL/search?${
-            page > 1 ? `page=${page}&` : ``
-          }orderBy=recommended_desc&distanceUnit=kilometer`
-        ),
+      url: `https://finder.porsche.com/api/pl/pl-PL/search?${
+        page > 1 ? `page=${page}&` : ``
+      }orderBy=recommended_desc&distanceUnit=kilometer`,
     };
   },
   vw: ({ $time = Date.now(), page = 1, per_page = 100 }) => {
@@ -142,65 +93,12 @@ const config = {
 
     return {
       id: ["vw", mk, per_page, page].join("-"),
-      request: () =>
-        fetch(
-          `https://admin.od-reki.volkswagen.pl/api/cars?page=${page}&per_page=${per_page}`,
-          {
-            headers: {
-              "x-app-id": "VW_DCP_C",
-            },
-          }
-        ),
-    };
-  },
-  gratka: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["gratka", mk, type.replace(/\//g, "-"), page].join("-"),
-      url: `${GRATKA_URL}${type}${page > 1 ? `?page=${page}` : ``}`,
-    };
-  },
-  "gratka-item": ({
-    time = Date.now(),
-    name,
-    href,
-  }: {
-    time: number;
-    name: string;
-    href: string;
-  }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["gratka-item", mk, name].join("-"),
-      url: href,
-    };
-  },
-  otodom: ({ time = Date.now(), type = "nieruchomosci", page = 1 }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["otodom", mk, type.replace(/\//g, "-"), page].join("-"),
-      url: `${OTODOM_URL}oferty/sprzedaz/${type}${
-        page > 1 ? `?page=${page}` : ``
-      }`,
-    };
-  },
-  "otodom-item": ({
-    time = Date.now(),
-    name,
-    href,
-  }: {
-    time: number;
-    name: string;
-    href: string;
-  }) => {
-    const mk = timestamp(time);
-
-    return {
-      id: ["otodom-item", mk, name].join("-"),
-      url: `${OTODOM_URL}oferta/${href}`,
+      url: `https://admin.od-reki.volkswagen.pl/api/cars?page=${page}&per_page=${per_page}`,
+      params: {
+        headers: {
+          "x-app-id": "VW_DCP_C",
+        },
+      },
     };
   },
 };
@@ -231,8 +129,22 @@ export const cleanup = async (_created = _past) => {
   );
 };
 
-export const request = (args: any) => {
-  const { id, request } = args.request
+const collect = (
+  url: string,
+  data: string,
+  summary: { request: Record<string, number> }
+) => {
+  const { host } = new URL(url);
+  Object.assign(summary.request, {
+    [host]: ((counter = 0) => counter + 1)(summary.request[host]),
+  });
+};
+
+export const request = (
+  args: any,
+  summary?: { request: Record<string, number> }
+) => {
+  const { id, url, params } = args.url
     ? args
     : (({ $type, ...rest }) => {
         const [site, type, kind] = $type.split(":");
@@ -246,7 +158,7 @@ export const request = (args: any) => {
     .then((data: any) =>
       data
         ? Promise.resolve(data)
-        : request()
+        : fetch(url, params)
             .then((response: any) => {
               console.log(["request"], id, requestLimit--);
               if (requestLimit < 0) {
@@ -257,14 +169,17 @@ export const request = (args: any) => {
               }
               return response.json();
             })
-            .then((json: any) =>
+            .then((json: any) => {
+              if (summary) {
+                collect(url, json, summary);
+              }
               // Boolean(console.log({ id, json })) ||
-              requests.insert({
+              return requests.insert({
                 id,
                 json: JSON.stringify(json),
                 _created: _time,
-              })
-            )
+              });
+            })
             .then(timeout())
     )
     .then(({ json }: any) => JSON.parse(json));
@@ -316,10 +231,7 @@ export const browser = (
               );
 
               if (summary) {
-                const { host } = new URL(url);
-                Object.assign(summary.request, {
-                  [host]: ((counter = 0) => counter + 1)(summary.request[host]),
-                });
+                collect(url, text, summary);
               }
 
               console.log({ url, response });
