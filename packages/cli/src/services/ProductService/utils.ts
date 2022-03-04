@@ -1,6 +1,6 @@
 import { parse } from "node-html-parser";
 import { z } from "zod";
-import { ItemSchema } from "./types";
+import { ItemSchema, ItemJsonSchema, ItemJson3Schema } from "./types";
 
 const pathToRoot = ($el: any) => {
   const $path = [];
@@ -77,18 +77,28 @@ export const fromHtml = (html: string) => {
 
   const url = $root.querySelector("link[rel=canonical]")?.getAttribute("href");
 
-  return ItemSchema.parse({
-    url,
-    title,
-    image,
-    stars,
-    brand,
-    label,
-    price,
-    proms,
-    codes,
-    links,
-  });
+  const json = JSON.parse(
+    $root.querySelector('script[type="application/ld+json"]')?.rawText.trim() ||
+      ""
+  );
+
+  // console.log(json)
+
+  return ItemSchema.parse(
+    ItemJsonSchema.transform(({ review: reviews }) => ({
+      url,
+      title,
+      image,
+      stars,
+      brand,
+      label,
+      price,
+      proms,
+      codes,
+      links,
+      reviews,
+    })).parse(json)
+  );
 };
 
 export const fromHtml2 = (html: string) => {
@@ -217,71 +227,32 @@ export const fromHtml3 = (html: string) => {
   // console.log({ id, url, title, brand, image, stars, price, links, label });
 
   return ItemSchema.parse(
-    z
-      .object({
-        name: z.string(),
-        image: z.string(),
-        brand: z.object({
-          name: z.string(),
-        }),
-        sku: z.string(),
-        gtin13: z.string().optional(),
-        review: z
-          .array(
-            z
-              .object({
-                reviewRating: z
-                  .object({ ratingValue: z.string().transform(Number) })
-                  .optional(),
-                author: z.object({
-                  name: z.string().transform((s) => s.trim()),
-                }),
-                datePublished: z.string(),
-                reviewBody: z.string().transform((s) => s.trim()),
-              })
-              .transform(
-                ({
-                  reviewRating: { ratingValue: rating } = {},
-                  author: { name: author },
-                  datePublished: date,
-                  reviewBody: body,
-                }) => ({
-                  rating,
-                  author,
-                  date,
-                  body,
-                })
-              )
-          )
-          .optional(),
+    ItemJson3Schema.transform(
+      ({
+        name: title,
+        brand: { name: brand },
+        image,
+        sku,
+        gtin13,
+        review: reviews,
+      }) => ({
+        id: sku.toLowerCase().replace(/\s+/g, "-"),
+        url,
+        title,
+        image: [image],
+        stars,
+        brand,
+        label: [
+          `od: ${brand}`,
+          `sku: ${sku}`,
+          gtin13 && `kod: ${gtin13}`,
+        ].filter(Boolean),
+        price,
+        proms: [],
+        codes: [],
+        links,
+        reviews,
       })
-      .transform(
-        ({
-          name: title,
-          brand: { name: brand },
-          image,
-          sku,
-          gtin13,
-          review: reviews,
-        }) => ({
-          id: sku.toLowerCase().replace(/\s+/g, "-"),
-          url,
-          title,
-          image: [image],
-          stars,
-          brand,
-          label: [
-            `od: ${brand}`,
-            `sku: ${sku}`,
-            gtin13 && `kod: ${gtin13}`,
-          ].filter(Boolean),
-          price,
-          proms: [],
-          codes: [],
-          links,
-          reviews,
-        })
-      )
-      .parse(json)
+    ).parse(json)
   );
 };

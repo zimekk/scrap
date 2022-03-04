@@ -21,6 +21,86 @@ export const DiffSchema = z.object({
   reviews: z.array(ReviewSchema).optional(),
 });
 
+const JsonReviewSchema = z
+  .object({
+    reviewRating: z.object({ ratingValue: z.number() }).optional(),
+    author: z.object({
+      name: z.string().transform((s) => s.trim()),
+    }),
+    datePublished: z.string().transform((s) => s.split("T")[0]),
+    description: z.string().transform((s) => s.trim()),
+  })
+  .transform(
+    ({
+      reviewRating: { ratingValue: rating } = {},
+      author: { name: author },
+      datePublished: date,
+      description: body,
+    }) => ({
+      rating,
+      author,
+      date,
+      body,
+    })
+  );
+
+export const ItemJsonSchema = z.object({
+  name: z.string(),
+  productID: z.string(),
+  sku: z.string(),
+  mpn: z.string(),
+  image: z.union([z.string(), z.string().array()]),
+  offers: z.object({
+    priceCurrency: z.enum(["PLN"]),
+    price: z.number(),
+  }),
+  brand: z.object({
+    name: z.string(),
+  }),
+  review: z
+    .union([
+      JsonReviewSchema.transform((review) => [review]),
+      JsonReviewSchema.array(),
+    ])
+    .optional(),
+});
+
+export const ItemJson3Schema = z.object({
+  name: z.string(),
+  image: z.string(),
+  brand: z.object({
+    name: z.string(),
+  }),
+  sku: z.string(),
+  gtin13: z.string().optional(),
+  review: z
+    .object({
+      reviewRating: z
+        .object({ ratingValue: z.string().transform(Number) })
+        .optional(),
+      author: z.object({
+        name: z.string().transform((s) => s.trim()),
+      }),
+      datePublished: z.string(),
+      reviewBody: z.string().transform((s) => s.trim()),
+    })
+    .transform(
+      ({
+        reviewRating: { ratingValue: rating } = {},
+        author: { name: author },
+        datePublished: date,
+        reviewBody: body,
+      }) => ({
+        rating,
+        author,
+        date,
+        body,
+      })
+    )
+    .array()
+    .optional(),
+});
+
 export const ItemSchema = z.object({
   id: z.string().optional(),
   url: z.string(),
