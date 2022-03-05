@@ -45,20 +45,23 @@ export const cleanup = async (_created = _past) => {
   );
 };
 
-const collect = (
-  url: string,
-  data: string,
-  summary: { request: Record<string, number> }
-) => {
+type Summary = {
+  request: Record<string, { number?: number; length?: number }>;
+};
+
+const collect = (url: string, data: string, summary: Summary) => {
   const { host } = new URL(url);
   Object.assign(summary.request, {
-    [host]: ((counter = 0) => counter + 1)(summary.request[host]),
+    [host]: (({ number = 0, length = 0 } = {}) => ({
+      number: number + 1,
+      length: length + data.length,
+    }))(summary.request[host]),
   });
 };
 
 export const request = (
   { id, url, params }: { id: string; url: string; params?: object },
-  summary?: { request: Record<string, number> }
+  summary: Summary
 ) =>
   requests
     .findOne({ id })
@@ -101,7 +104,7 @@ export const request = (
 
 export const browser = (
   { id, url }: { id: string; url: string },
-  summary?: { request: Record<string, number> }
+  summary: Summary
 ) =>
   requestsHtml
     .findOne({ id })
