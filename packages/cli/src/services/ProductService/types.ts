@@ -1,11 +1,15 @@
 import { z } from "zod";
 
-const ReviewSchema = z.object({
-  rating: z.number().optional(),
-  author: z.string(),
-  date: z.string(),
-  body: z.string(),
-});
+const ReviewSchema = z
+  .object({
+    rating: z.number().optional(),
+    author: z.string(),
+    date: z.string(),
+    body: z.string(),
+  })
+  .transform(({ rating, ...review }) =>
+    Object.assign(rating !== undefined ? { rating } : {}, review)
+  );
 
 export const DiffSchema = z.object({
   url: z.string(),
