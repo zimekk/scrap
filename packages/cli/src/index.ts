@@ -297,7 +297,10 @@ export default function (type?: string) {
   from(
     type
       ? []
-      : [73, 74, 75].map((investment_id) => `${Types.TFI}:${investment_id}`)
+      : [
+          1, 2, 4, 5, 6, 8, 10, 30, 33, 34, 35, 36, 37, 43, 44, 73, 74, 75, 77,
+          79, 80, 82, 84, 91, 103, 104, 105, 106, 107, 112, 113, 114, 117, 119,
+        ].map((investment_id) => `${Types.TFI}:${investment_id}`)
   ).subscribe((type) => {
     request$.next({ type });
   });
