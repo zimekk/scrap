@@ -61,7 +61,7 @@ export class QuotesService extends Service {
                 .findOne({ id: item.id })
                 .then((last: any) => {
                   const id = `investments-${item.id}`;
-                  console.log({ id, item });
+                  // console.log({ id, item });
                   if (last) {
                     const diff = diffItem(last, item);
                     if (diff) {

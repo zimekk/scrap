@@ -54,7 +54,7 @@ const collect = (url: string, data: string, summary: Summary) => {
   Object.assign(summary.request, {
     [host]: (({ number = 0, length = 0 } = {}) => ({
       number: number + 1,
-      length: length + data.length,
+      length: length + (data.length || 0),
     }))(summary.request[host]),
   });
 };
