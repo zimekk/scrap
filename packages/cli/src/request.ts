@@ -87,16 +87,18 @@ export const request = (
               });
               return response.json();
             })
-            .then((json: any) => {
-              if (summary) {
-                collect(url, json, summary);
-              }
-              // Boolean(console.log({ id, json })) ||
-              return requests.insert({
+            .then((json: any) =>
+              requests.insert({
                 id,
                 json: JSON.stringify(json),
                 _created: _time,
-              });
+              })
+            )
+            .then((item: any) => {
+              if (summary) {
+                collect(url, item.json, summary);
+              }
+              return item;
             })
             .then(timeout())
     )
