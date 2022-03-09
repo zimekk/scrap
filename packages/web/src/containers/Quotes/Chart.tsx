@@ -6,11 +6,11 @@ import cx from "classnames";
 import styles from "./Chart.module.scss";
 
 const { width, height, left, right, top, bottom } = {
-  width: 320,
+  width: 640,
   height: 200,
-  left: 10,
-  right: 10,
-  top: 20,
+  left: 5,
+  right: 5,
+  top: 5,
   bottom: 20,
 };
 
@@ -48,8 +48,9 @@ export default function Chart({ list }: { list: any[] }) {
     const xx = dataset.map(([x = 0]) => x);
     const yy = dataset.map(([, y = 0]) => y);
 
-    const xDomain = [Math.min(...xx), Math.max(...xx)];
-    const yDomain = [Math.min(...yy), Math.max(...yy)];
+    // const xDomain = [Math.min(...xx), Math.max(...xx)];
+    const xDomain = [new Date("2020-01-01"), Math.max(...xx)];
+    const yDomain = [0, Math.max(...yy)];
 
     const xScale = scaleLinear()
       .domain(xDomain)

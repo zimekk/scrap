@@ -3,6 +3,7 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import Chart from "./Chart";
+import Chart2 from "./Chart2";
 import styles from "./styles.module.scss";
 
 import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
@@ -60,10 +61,14 @@ function Data({ version = "v1" }) {
 
   const list = useMemo(
     () =>
-      results.filter(
-        ({ investment_id }) => investment_id === queries.investment
+      results.reduce(
+        (list: any, item) =>
+          Object.assign(list, {
+            [item.investment_id]: (list[item.investment_id] || []).concat(item),
+          }),
+        {}
       ),
-    [results, queries]
+    [results]
   );
 
   return (
@@ -105,9 +110,16 @@ function Data({ version = "v1" }) {
           />
         </label>
       </fieldset>
-      <Chart list={list} />
+      <Chart2 list={list[queries.investment]} />
+      {/* <Chart2 list={list} /> */}
+      {options.investment.map(({ id, name }) => (
+        <div key={id}>
+          <h3>{name}</h3>
+          {/* <Chart list={list[id]} /> */}
+        </div>
+      ))}
       <pre>{JSON.stringify(metas, null, 2)}</pre>
-      <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre>
+      <pre>{JSON.stringify(list[queries.investment].slice(0, 5), null, 2)}</pre>
     </div>
   );
 }
