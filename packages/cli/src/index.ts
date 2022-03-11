@@ -20,6 +20,9 @@ import {
 
 require("dotenv").config();
 
+// const REGEX = new RegExp(/investments/)
+const REGEX = new RegExp(/./);
+
 const {
   NEARBY_LAT = "52.1530829",
   NEARBY_LNG = "21.1104411",
@@ -197,9 +200,7 @@ export default function (type?: string) {
     .pipe(
       filter(
         ({ type }) =>
-          // Boolean(type.match(/tophifi/)) &&
-          // Boolean(type.match(/investments/)) &&
-          Boolean(console.log({ type })) || true
+          Boolean(type.match(REGEX)) && (Boolean(console.log({ type })) || true)
       ),
       mergeMap(
         ({ type, args }) =>
