@@ -103,7 +103,7 @@ export class StationService extends Service {
     return ItemSchema.parseAsync(item)
       .then(({ station_id }) =>
         this.fetcher("stations-get-station", station_id).then(({ html }) =>
-          StationItemSchema.parse({
+          StationItemSchema.parseAsync({
             ...item,
             ...fromHtml(html),
           })
@@ -127,6 +127,7 @@ export class StationService extends Service {
             return stationItems.insert({ ...item, _created: _time });
           }
         })
-      );
+      )
+      .catch((e) => console.log(e, item));
   }
 }
