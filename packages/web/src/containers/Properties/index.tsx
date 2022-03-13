@@ -1,8 +1,21 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEvent,
+  ChangeEventHandler,
+  ReactChild,
+  ReactChildren,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCrosshairs,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
@@ -520,7 +533,7 @@ function Data({ version = "v1" }) {
           </label>
         </div>
       </fieldset>
-      <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
+      <div>{`Found ${list.length} properties out of a total of ${results.length}`}</div>
       <ol>
         {sorted
           .slice(0, 100)
@@ -574,19 +587,45 @@ function Data({ version = "v1" }) {
   );
 }
 
-function Location({ canonical, coordinates: { latitude, longitude } }) {
+// https://developers.google.com/maps/documentation/urls/get-started#search-examples
+function Location({ coordinates: { latitude, longitude } }: any) {
   // const link = usePlace([`${latitude},${longitude}|${canonical}`]);
   // https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
   const link = `//www.google.pl/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl`;
 
   return (
-    <Link href={link} rel="" target="map">
+    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
       <FontAwesomeIcon icon={faMapMarkerAlt} />
     </Link>
   );
 }
 
-function Toggle({ children, ...props }) {
+// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
+function Directions({ coordinates: { latitude, longitude } }: any) {
+  const origin = `${latitude},${longitude}`;
+  const destination = "52.2268,20.9921";
+  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
+  const link = `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+    origin
+  )}&destination=${encodeURIComponent(
+    destination
+  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+
+  return (
+    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
+      <FontAwesomeIcon icon={faCrosshairs} />
+    </Link>
+  );
+}
+
+function Toggle({
+  children,
+  ...props
+}: {
+  children: ReactChild;
+  checked: boolean;
+  onChange: ChangeEventHandler;
+}) {
   return (
     <label>
       <input type="checkbox" {...props} />
@@ -630,7 +669,7 @@ function Summary({
         <div className={styles.Sidebar}>
           <Toggle
             checked={like.includes(id)}
-            onChange={(e) => (
+            onChange={(e: ChangeEvent<HTMLInputElement>) => (
               fetch(`api/properties/like.json?id=${id}`),
               setLike((like: string[]) =>
                 e.target.checked
@@ -643,7 +682,7 @@ function Summary({
           </Toggle>
           <Toggle
             checked={hide.includes(id)}
-            onChange={(e) => (
+            onChange={(e: ChangeEvent<HTMLInputElement>) => (
               fetch(`api/properties/hide.json?id=${id}`),
               setHide((hide: string[]) =>
                 e.target.checked
@@ -665,9 +704,8 @@ function Summary({
         <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
         <h3>
           <Link href={canonical}>{title}</Link>{" "}
-          {coordinates && (
-            <Location canonical={canonical} coordinates={coordinates} />
-          )}
+          {coordinates && <Location coordinates={coordinates} />}
+          {coordinates && <Directions coordinates={coordinates} />}
         </h3>
       </div>
       {_address && <h6>{_address.join(" / ")}</h6>}

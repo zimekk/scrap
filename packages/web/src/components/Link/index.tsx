@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from "react";
+import React, { CSSProperties, MouseEventHandler } from "react";
 
 export function Link({
   href = "#",
@@ -8,6 +8,7 @@ export function Link({
   href?: string;
   onClick?: MouseEventHandler;
   rel?: string;
+  style?: CSSProperties;
   target?: string;
 }) {
   const hash = href[0] === "#";
