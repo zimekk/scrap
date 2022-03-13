@@ -36,13 +36,15 @@ const asset = createAsset(async (version) => {
 function Data({ version = "v1" }) {
   const { results } = asset.read(version) as { results: ProductItem[] };
 
-  const [search, setSearch] = useState("");
-  const [filter] = useDebounce(search);
+  const [filters, setFilters] = useState(() => ({
+    category: "",
+    search: "",
+    onlyPromoted: false,
+    priceFrom: PRICE_LIST[0],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+  }));
 
-  const onChangeSearch = useCallback(
-    ({ target }) => setSearch(target.value),
-    []
-  );
+  const [filter] = useDebounce(filters.search);
 
   const [sortBy, setSortBy] = useState(
     () => Object.keys(SORT_BY).pop() as keyof typeof SORT_BY
@@ -53,30 +55,33 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [priceFrom, setPriceFrom] = useState(PRICE_LIST[0]);
-  const [priceTo, setPriceTo] = useState(PRICE_LIST[PRICE_LIST.length - 1]);
-
   const onChangePriceFrom = useCallback(
     ({ target }) =>
-      setPriceTo((to) => {
-        const from = Number(target.value);
-        setPriceFrom(from);
-        return to < from ? from : to;
+      setFilters(({ priceTo, ...criteria }) => {
+        const priceFrom = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom,
+          priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+        };
       }),
     []
   );
 
   const onChangePriceTo = useCallback(
     ({ target }) =>
-      setPriceFrom((from) => {
-        const to = Number(target.value);
-        setPriceTo(to);
-        return to > from ? from : to;
+      setFilters(({ priceFrom, ...criteria }) => {
+        const priceTo = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+          priceTo,
+        };
       }),
     []
   );
 
-  console.log({ results });
+  console.log({ filters, results });
 
   const list = useMemo(
     () =>
@@ -98,13 +103,15 @@ function Data({ version = "v1" }) {
           _history: {},
           ...item,
         }))
+        // .filter((item: any) => (item.price.length > 1))
         .filter(
           (item: any) =>
             (item._title.match(filter) || filter.trim() === String(item.id)) &&
-            priceFrom <= item._price &&
-            item._price <= priceTo
+            filters.priceFrom <= item._price &&
+            item._price <= filters.priceTo &&
+            (!filters.onlyPromoted || item.price.length > 1)
         ),
-    [results, filter, priceFrom, priceTo]
+    [results, filter, filters.priceFrom, filters.priceTo, filters.onlyPromoted]
   );
 
   const sorted = useMemo(
@@ -124,7 +131,18 @@ function Data({ version = "v1" }) {
       <fieldset>
         <label>
           <span>Search</span>
-          <input type="search" value={search} onChange={onChangeSearch} />
+          <input
+            type="search"
+            value={filters.search}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  search: target.value,
+                })),
+              []
+            )}
+          />
         </label>
         <label>
           <span>Sort</span>
@@ -144,7 +162,7 @@ function Data({ version = "v1" }) {
               list="price-list"
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceFrom}
+              value={filters.priceFrom}
               onChange={onChangePriceFrom}
             />
             <datalist id="price-list">
@@ -168,10 +186,25 @@ function Data({ version = "v1" }) {
               list="price-list"
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceTo}
+              value={filters.priceTo}
               onChange={onChangePriceTo}
             />
-            <span>{`${priceFrom}-${priceTo} pln`}</span>
+            <span>{`${filters.priceFrom}-${filters.priceTo} zł`}</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.onlyPromoted}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    onlyPromoted: target.checked,
+                  })),
+                []
+              )}
+            />
+            <span>Only Promoted</span>
           </label>
         </div>
       </fieldset>
@@ -179,6 +212,7 @@ function Data({ version = "v1" }) {
       <ol>
         {sorted.slice(0, 100).map(({ _image, ...item }) => (
           <li key={item.id} className={styles.Row}>
+            {/* <pre>{JSON.stringify(item.price, null, 2)}</pre> */}
             <Gallery className={styles.Gallery} images={_image} />
             <h3>
               <Link href={item.url}>{item.title}</Link>
