@@ -22,7 +22,12 @@ export const DiffSchema = z.object({
   proms: z.string().array(),
   codes: z.string().array(),
   links: z.string().array(),
-  reviews: z.array(ReviewSchema).optional(),
+  reviews: z
+    .array(ReviewSchema)
+    .transform((reviews) =>
+      reviews.sort((a, b) => a.date.localeCompare(b.date))
+    )
+    .optional(),
 });
 
 const JsonReviewSchema = z
@@ -117,7 +122,12 @@ export const ItemSchema = z.object({
   proms: z.string().array(),
   codes: z.string().array(),
   links: z.string().array(),
-  reviews: z.array(ReviewSchema).optional(),
+  reviews: z
+    .array(ReviewSchema)
+    .transform((reviews) =>
+      reviews.sort((a, b) => a.date.localeCompare(b.date))
+    )
+    .optional(),
 });
 
 export type ProductItem = {

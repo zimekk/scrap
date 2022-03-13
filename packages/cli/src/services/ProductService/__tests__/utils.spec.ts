@@ -72,15 +72,15 @@ describe("ProductService", () => {
           url: "https://www.al.to/p/576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37.html",
           reviews: [
             {
-              author: "Nie powiem",
-              body: "Auto bardzo eleganckie ładne i ekskluzywne. Miałem niezła frajdę, budowanie go zajęło ok30 godz. Te pieniądze naprawdę nie idą na marne same szczegóły i te wszystkie detale są niesamowite oraz pudełko niesamowicie zaprojektowane i oczywiście samochód. Polecam też zainwestować w bugatti chiron.",
-              date: "2021-03-01",
-              rating: 6,
-            },
-            {
               author: "Hajdan",
               body: "Super Wykonanie, instrukcja bardzo zrozumiała, Dobra cena.",
               date: "2020-11-17",
+              rating: 6,
+            },
+            {
+              author: "Nie powiem",
+              body: "Auto bardzo eleganckie ładne i ekskluzywne. Miałem niezła frajdę, budowanie go zajęło ok30 godz. Te pieniądze naprawdę nie idą na marne same szczegóły i te wszystkie detale są niesamowite oraz pudełko niesamowicie zaprojektowane i oczywiście samochód. Polecam też zainwestować w bugatti chiron.",
+              date: "2021-03-01",
               rating: 6,
             },
             {
