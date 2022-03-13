@@ -43,14 +43,21 @@ const asset = createAsset(async (version) => {
     like,
     results: results
       // .filter((item: { canonical: string }) => item.canonical.match(/otodom/))
+      // .filter((item: any) => Object.keys(item._history || {}).length > 1)
       .map((item: object) => ({ ...item, ...prepareItem(item) })),
   }));
 });
 
-const unify = (item: { title: string; price: number; parameters: any[] }) => ({
+const unify = (item: {
+  title: string;
+  price: number;
+  parameters: any[];
+  _updated?: number;
+}) => ({
   ...item,
   _search: item.title.toLowerCase(),
   _price: item.price,
+  _updated: item._updated || 0,
 });
 
 function Data({ version = "v1" }) {
@@ -529,6 +536,7 @@ function Data({ version = "v1" }) {
               coordinates: { latitude: number; longitude: number };
               _address: string[];
               _created: number;
+              _history: Record<number, { price: number }>;
             }) => (
               <li
                 key={item.id}
@@ -549,6 +557,15 @@ function Data({ version = "v1" }) {
                   setLike={setLike}
                 />
                 {!hide.includes(item.id) && <Details {...item} />}
+                {Object.entries(item._history || {})
+                  .reverse()
+                  .map(([_updated, item]) => (
+                    <History
+                      key={_updated}
+                      _updated={Number(_updated)}
+                      {...item}
+                    />
+                  ))}
               </li>
             )
           )}
@@ -590,6 +607,8 @@ function Summary({
   setLike,
   _address,
   _created,
+  _updated,
+  _checked,
 }: {
   id: string;
   canonical: string;
@@ -602,6 +621,8 @@ function Summary({
   setLike: Function;
   _address: string[];
   _created: number;
+  _updated?: number;
+  _checked?: number;
 }) {
   return (
     <div className={styles.Summary}>
@@ -634,7 +655,11 @@ function Summary({
             Hide
           </Toggle>
         </div>
-        <div>{format(_created, "yyyy-MM-dd HH:mm")}</div>
+        <div>
+          {format(_created, "yyyy-MM-dd HH:mm")}
+          {_updated && ` updated: ${format(_updated, "yyyy-MM-dd HH:mm")}`}
+          {_checked && ` checked: ${format(_checked, "yyyy-MM-dd HH:mm")}`}
+        </div>
       </div>
       <div style={{ clear: "right" }}>
         <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
@@ -669,6 +694,19 @@ function Details({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function History({ price, _updated }: { price: number; _updated: number }) {
+  return (
+    <div className={styles.History}>
+      <div>
+        <div className={styles.Sidebar}>
+          <h5>{`${new Intl.NumberFormat().format(price)} PLN`}</h5>
+        </div>
+        <div>{format(_updated, "yyyy-MM-dd HH:mm")}</div>
+      </div>
     </div>
   );
 }

@@ -44,3 +44,16 @@
     margin: 0;
   }
 }
+.History {
+  clear: both;
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 0.5em;
+  .Sidebar {
+    float: right;
+  }
+  h5 {
+    float: right;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
