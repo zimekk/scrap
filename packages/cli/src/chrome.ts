@@ -1,6 +1,7 @@
 // https://github.com/calebj0seph/stock-checker/blob/master/src/chrome.js
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import { resolve } from "path";
 
 puppeteer.use(StealthPlugin());
 
@@ -46,10 +47,23 @@ export async function navigateAndGetPageSource(url: string, page: any) {
   const response = await page.goto(url, {
     waitUntil: "networkidle2",
   });
+
   return {
     text: await response.text(),
     ok: response.ok(),
     status: response.status(),
     statusText: response.statusText(),
   };
+}
+
+export async function getPageScreenshot(id: string, page: any) {
+  const path = resolve(__dirname, `../temp/${id}.png`);
+
+  await page.waitForTimeout(1000);
+  await page.screenshot({
+    path,
+    fullPage: true,
+  });
+
+  return path;
 }

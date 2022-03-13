@@ -1,9 +1,11 @@
 import fetch from "isomorphic-fetch";
+import slug from "slug";
 import { requests, requestsHtml } from "@dev/api/requests";
 import {
   openChromeBrowser,
   openPage,
   navigateAndGetPageSource,
+  getPageScreenshot,
 } from "./chrome";
 
 require("dotenv").config();
@@ -139,6 +141,11 @@ export const browser = (
                 url,
                 page
               );
+
+              if (0) {
+                const screenshot = await getPageScreenshot(slug(id), page);
+                console.log({ id, screenshot });
+              }
 
               if (summary) {
                 collect(url, text, summary);
