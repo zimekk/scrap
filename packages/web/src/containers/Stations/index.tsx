@@ -3,7 +3,9 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import Chart from "./Chart";
 import Map, { useBounds } from "./Map";
+import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 import type { StationItem } from "@dev/cli/src/services/StationService/types";
@@ -31,6 +33,21 @@ const TYPES = {
   "lpg+": "lpg+",
 };
 
+enum Compare {
+  LT = "LT",
+  GT = "GT",
+  EQ = "EQ",
+}
+
+const compare = (history: any, k: number, p: number) => {
+  if (history[k][1][p] && history[k + 1] && history[k + 1][1][p]) {
+    const a = Number(history[k][1][p]);
+    const b = Number(history[k + 1][1][p]);
+    return a === b ? Compare.EQ : a > b ? Compare.GT : Compare.LT;
+  }
+  return null;
+};
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/stations/data.json?${version}`);
@@ -48,6 +65,7 @@ const asset = createAsset(async (version) => {
 
 function Data({ version = "v1" }) {
   const { results } = asset.read(version); // As many cache keys as you need
+  const [toggle, setToggle] = useState<number[]>([]);
 
   const [search, setSearch] = useState("");
   const [filter] = useDebounce(search);
@@ -142,6 +160,14 @@ function Data({ version = "v1" }) {
             ...item,
             _distance: center.distanceTo(position),
           },
+          history: [[item._updated, item.petrol]]
+            .concat(Object.entries(item._history).reverse())
+            .map(([updated, petrol]) => [
+              updated,
+              Object.keys(TYPES)
+                .filter(Boolean)
+                .map((type) => petrol[type]),
+            ]),
           ...rest,
         }))
         .filter(({ item }: any) => item._distance < radius * 1000),
@@ -272,24 +298,68 @@ function Data({ version = "v1" }) {
               <th key={key}>{key ? key : <div>name</div>}</th>
             ))}
             <th>updated</th>
+            <th></th>
           </tr>
-          {sorted.map(({ i, name, item }: any, key: string) => (
-            <tr key={key}>
-              <td>{i}</td>
-              {Object.keys(TYPES).map((key) => (
-                <td key={key}>
-                  {key ? (
-                    item.petrol[key] ?? "-"
-                  ) : (
-                    <div className={styles.Station}>
-                      {name} <address>{item.address}</address>
-                    </div>
+          {sorted.map(({ i, name, item, history }: any, key: string) =>
+            history
+              .slice(0, toggle.includes(i) ? Infinity : 1)
+              .map(([updated, petrol], k) => (
+                <tr key={`${key}-${k}`}>
+                  <td>{k === 0 && i}</td>
+                  {k === 0 && (
+                    <td
+                      rowSpan={toggle.includes(i) ? history.length : undefined}
+                    >
+                      <div className={styles.Station}>
+                        {name} <address>{item.address}</address>
+                      </div>
+                    </td>
                   )}
-                </td>
-              ))}
-              <td>{format(item._updated, "yyyy-MM-dd")}</td>
-            </tr>
-          ))}
+                  {petrol.map((price, p) => (
+                    <td key={p}>
+                      <div
+                        className={cx(
+                          styles.Price,
+                          ((type) =>
+                            type &&
+                            {
+                              [Compare.GT]: styles.gt,
+                              [Compare.LT]: styles.lt,
+                              [Compare.EQ]: styles.eq,
+                            }[type])(compare(history, k, p))
+                        )}
+                      >
+                        {price ?? "-"}
+                      </div>
+                    </td>
+                  ))}
+                  <td>{format(Number(updated), "yyyy-MM-dd")}</td>
+                  <td>
+                    {history.length > 0 &&
+                      k === 0 &&
+                      (toggle.includes(i) ? (
+                        <Link
+                          onClick={(e) => (
+                            e.preventDefault(),
+                            setToggle((toggle) => toggle.filter((k) => i !== k))
+                          )}
+                        >
+                          hide
+                        </Link>
+                      ) : (
+                        <Link
+                          onClick={(e) => (
+                            e.preventDefault(),
+                            setToggle((toggle) => toggle.concat(i))
+                          )}
+                        >
+                          show
+                        </Link>
+                      ))}
+                  </td>
+                </tr>
+              ))
+          )}
         </tbody>
       </table>
     </div>
