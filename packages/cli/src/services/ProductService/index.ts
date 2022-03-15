@@ -83,27 +83,25 @@ export class ProductService extends Service {
       .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
       .parseAsync(Boolean(console.log(type)) || type.split(":"))
       .then(({ id, name, kind }) =>
-        this.fetcher(type.split(":")).then(
-          (html) =>
-            // @ts-ignore saveProductHtml(name, html) ||
-            false || {
-              type,
-              list: html
-                ? [
-                    {
-                      id,
-                      ...(
-                        {
-                          "get-product-cyfrowe": fromHtml2,
-                          "get-product-tophifi": fromHtml3,
-                        }[kind] || fromHtml
-                      )(html),
-                    },
-                  ]
-                : [],
-              next: null,
-            }
-        )
+        this.fetcher(type.split(":"))
+          .then((html) =>
+            // saveProductHtml(name, html) ||
+            ({
+              id,
+              ...(
+                {
+                  "get-product-cyfrowe": fromHtml2,
+                  "get-product-tophifi": fromHtml3,
+                }[kind] || fromHtml
+              )(html),
+            })
+          )
+          .catch((e) => console.error(e))
+          .then((item) => ({
+            type,
+            list: item ? [item] : [],
+            next: null,
+          }))
       );
   }
 

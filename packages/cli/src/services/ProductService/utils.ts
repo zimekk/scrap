@@ -82,23 +82,26 @@ export const fromHtml = (html: string) => {
       ""
   );
 
-  // console.log(json)
-
-  return ItemSchema.parse(
-    ItemJsonSchema.transform(({ review: reviews }) => ({
-      url,
-      title,
-      image,
-      stars,
-      brand,
-      label,
-      price,
-      proms,
-      codes,
-      links,
-      reviews,
-    })).parse(json)
-  );
+  try {
+    return ItemSchema.parse(
+      ItemJsonSchema.transform(({ review: reviews }) => ({
+        url,
+        title,
+        image,
+        stars,
+        brand,
+        label,
+        price,
+        proms,
+        codes,
+        links,
+        reviews,
+      })).parse(json)
+    );
+  } catch (e) {
+    console.log(json);
+    throw e;
+  }
 };
 
 export const fromHtml2 = (html: string) => {
@@ -169,7 +172,7 @@ export const fromHtml2 = (html: string) => {
 
   // console.log({ proms, codes });
 
-  return ItemSchema.parse({
+  const json = {
     id,
     url,
     title,
@@ -181,7 +184,13 @@ export const fromHtml2 = (html: string) => {
     proms,
     codes,
     links,
-  });
+  };
+  try {
+    return ItemSchema.parse(json);
+  } catch (e) {
+    console.log(json);
+    throw e;
+  }
 };
 
 export const fromHtml3 = (html: string) => {
@@ -226,33 +235,38 @@ export const fromHtml3 = (html: string) => {
   // console.log({ url, stars, price, links });
   // console.log({ id, url, title, brand, image, stars, price, links, label });
 
-  return ItemSchema.parse(
-    ItemJson3Schema.transform(
-      ({
-        name: title,
-        brand: { name: brand },
-        image,
-        sku,
-        gtin13,
-        review: reviews,
-      }) => ({
-        id: sku.toLowerCase().replace(/\s+/g, "-"),
-        url,
-        title,
-        image: [image],
-        stars,
-        brand,
-        label: [
-          `od: ${brand}`,
-          `sku: ${sku}`,
-          gtin13 && `kod: ${gtin13}`,
-        ].filter(Boolean),
-        price,
-        proms: [],
-        codes: [],
-        links,
-        reviews,
-      })
-    ).parse(json)
-  );
+  try {
+    return ItemSchema.parse(
+      ItemJson3Schema.transform(
+        ({
+          name: title,
+          brand: { name: brand },
+          image,
+          sku,
+          gtin13,
+          review: reviews,
+        }) => ({
+          id: sku.toLowerCase().replace(/\s+/g, "-"),
+          url,
+          title,
+          image: [image],
+          stars,
+          brand,
+          label: [
+            `od: ${brand}`,
+            `sku: ${sku}`,
+            gtin13 && `kod: ${gtin13}`,
+          ].filter(Boolean),
+          price,
+          proms: [],
+          codes: [],
+          links,
+          reviews,
+        })
+      ).parse(json)
+    );
+  } catch (e) {
+    console.log(json);
+    throw e;
+  }
 };
