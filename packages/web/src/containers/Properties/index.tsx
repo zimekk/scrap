@@ -2,8 +2,6 @@ import React, {
   ChangeEvent,
   ChangeEventHandler,
   ReactChild,
-  ReactChildren,
-  ReactElement,
   useCallback,
   useEffect,
   useMemo,
@@ -20,7 +18,6 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
-// import usePlace from "../Scrap/usePlace";
 import { prepareItem } from "./utils";
 import cx from "classnames";
 import styles from "./styles.module.scss";

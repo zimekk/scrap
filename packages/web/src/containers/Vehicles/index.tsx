@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  ReactChild,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { format } from "date-fns";
@@ -58,12 +64,20 @@ const YEAR_LIST = [...Array(15)]
   .map((_, i) => new Date().getFullYear() - i)
   .reverse();
 
-const formatNumber = (value) => new Intl.NumberFormat().format(value);
+const formatNumber = (value: number) => new Intl.NumberFormat().format(value);
 
-const formatAmount = (value) => `${formatNumber(value)} pln`;
+const formatAmount = (value: number) => `${formatNumber(value)} pln`;
 
 const useCriterion = createPersistedState("criterion-vehicles");
 const useFavorites = createPersistedState("favorites-vehicles");
+
+const priceHistory = ({ _history = {}, ...item }) =>
+  [item.transactionalPrice]
+    .concat(Object.values(_history).map((item) => item.transactionalPrice))
+    .filter(
+      (value: any, index: number, array: any[]) =>
+        array.indexOf(value) === index
+    );
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
@@ -128,7 +142,7 @@ function Button({ ...props }) {
   return <button {...props} />;
 }
 
-function Toggle({ children, ...props }) {
+function Toggle({ children, ...props }: { children: ReactChild }) {
   return (
     <label>
       <input type="checkbox" {...props} />
@@ -137,7 +151,7 @@ function Toggle({ children, ...props }) {
   );
 }
 
-function Color({ color }) {
+function Color({ color }: { color: { code: string; label: string } }) {
   return (
     <a
       className={styles.Color}
@@ -148,7 +162,7 @@ function Color({ color }) {
 }
 
 const createCriteria =
-  ({ search, options }) =>
+  ({ search, options }: { search: string; options: object }) =>
   (defaults = {}) =>
     Object.assign(
       {
@@ -182,6 +196,7 @@ const createCriteria =
         ),
 
         removed: "0",
+        changedPrice: false,
       },
       defaults
     );
@@ -215,7 +230,7 @@ function Data({ version = "v1" }) {
   const onClickCompare = useCallback(
     ({ target }) => {
       const _id = target.value;
-      const getPoint = (item) => [
+      const getPoint = (item: any) => [
         // item.capacity,
         item.powerHP,
         // item.consumptionFuel,
@@ -233,7 +248,7 @@ function Data({ version = "v1" }) {
 
       console.table(
         tree
-          .knn(getPoint(results.find((item) => item._id === _id)), 10)
+          .knn(getPoint(results.find((item: any) => item._id === _id)), 10)
           .slice(0, 10)
           .map((index) => results[index])
           .map((item) => [
@@ -304,6 +319,7 @@ function Data({ version = "v1" }) {
                 item._created &&
               item._created <=
                 new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
+              (!criteria.changedPrice || priceHistory(item).length > 1) &&
               Object.entries(criteria.entries).findIndex(
                 ([prop, value]) =>
                   ![
@@ -338,7 +354,8 @@ function Data({ version = "v1" }) {
   const nearby = useMemo(
     () =>
       list.filter(
-        ({ position }) => center.distanceTo(position) < criteria.radius * 1000
+        ({ position }: { position: { lat: number; lng: number } }) =>
+          center.distanceTo(position) < criteria.radius * 1000
       ),
     [list, center, criteria.radius]
   );
@@ -347,7 +364,7 @@ function Data({ version = "v1" }) {
     () =>
       list.sort(
         (a, b) =>
-          SORT_BY[criteria.sortBy] *
+          SORT_BY[criteria.sortBy as keyof typeof SORT_BY] *
           (a.item[criteria.sortBy] === b.item[criteria.sortBy]
             ? 0
             : (a.item[criteria.sortBy] || 0) > (b.item[criteria.sortBy] || 0)
@@ -780,6 +797,7 @@ function Criteria({
   setSearch,
   sortBy,
   removed,
+  changedPrice,
 }) {
   const onChangeSearch = useCallback(
     ({ target }) => setSearch(target.value),
@@ -1217,6 +1235,19 @@ function Criteria({
             ))}
           </select>
         </label>
+        <Toggle
+          checked={changedPrice}
+          onChange={() =>
+            setCriteria(
+              ({ changedPrice, ...criteria }: { changedPrice: boolean }) => ({
+                ...criteria,
+                changedPrice: !changedPrice,
+              })
+            )
+          }
+        >
+          Changed Price
+        </Toggle>
       </div>
     </fieldset>
   );
