@@ -20,7 +20,7 @@
     "@dev/cli": "1.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.0",
     "@fortawesome/free-solid-svg-icons": "^6.1.0",
-    "@fortawesome/react-fontawesome": "^0.1.17",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "big.js": "^6.1.1",
     "buffer": "^6.0.3",
     "classnames": "^2.3.1",
