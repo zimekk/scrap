@@ -1,6 +1,6 @@
 import { diffString } from "json-diff";
 import { z } from "zod";
-import { gameItems } from "@dev/api";
+import { gameItems } from "@dev/api/games";
 import Service from "../Service";
 import { request } from "../../request";
 import { DiffSchema, ItemSchema } from "./types";

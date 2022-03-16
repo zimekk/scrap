@@ -8,7 +8,9 @@
   "main": "lib",
   "files": [
     "data/",
+    "games/",
     "lib/",
+    "products/",
     "requests/",
     "stations/"
   ],
