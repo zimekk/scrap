@@ -8,6 +8,7 @@ import {
   vehicle4Items,
   vehicle5Items,
 } from "@dev/api/vehicles";
+import { request } from "../../request";
 import Service from "../Service";
 import {
   VehicleData,
@@ -21,8 +22,7 @@ import {
   Vehicle5Data,
   Vehicle5Item,
 } from "./types";
-import { request } from "../../request";
-import { scrapOptions } from "../../utils";
+import { scrapOptions } from "./utils";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();

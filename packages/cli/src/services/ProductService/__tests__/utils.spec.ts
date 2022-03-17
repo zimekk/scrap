@@ -1,4 +1,4 @@
-import { loadProductHtml } from "../../../utils";
+import { loadProductHtml } from "../../utils";
 import { fromHtml, fromHtml2, fromHtml3 } from "../utils";
 
 describe("ProductService", () => {

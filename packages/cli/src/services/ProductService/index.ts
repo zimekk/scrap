@@ -5,7 +5,7 @@ import { browser } from "../../request";
 import Service from "../Service";
 import { DiffSchema } from "./types";
 import { fromHtml, fromHtml2, fromHtml3 } from "./utils";
-import { saveProductHtml } from "../../utils";
+import { saveProductHtml } from "../utils";
 
 const { STORE_URL, STORE_ALTO_URL, STORE_CYFROWE_URL, STORE_TOPHIFI_URL } =
   process.env as {

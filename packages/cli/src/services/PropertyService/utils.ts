@@ -4,38 +4,6 @@ import { z } from "zod";
 
 const _time = Date.now();
 
-const productHtmlPath = (name: string) =>
-  require("path").resolve(
-    __dirname,
-    `../temp/${name.replace(/\//g, "-")}.html`
-  );
-
-export const loadProductHtml = (name: string) =>
-  require("fs").readFileSync(productHtmlPath(name));
-
-export const saveProductHtml = (name: string, html: string) =>
-  require("fs").writeFileSync(productHtmlPath(name), html);
-
-export const scrapOptions = (item: object, html: string) => {
-  const $root = parse(html);
-
-  return {
-    ...item,
-    options: ([] as string[])
-      .concat(
-        $root.querySelectorAll("table.table-lg-columns tr").map(($el) =>
-          $el
-            .querySelectorAll("*")
-            .map(($el) => $el.text.replace(/\s+/g, " ").trim())
-            .join("\t")
-        )
-      )
-      .concat(
-        $root.querySelectorAll("ul.list-group li").map(($el) => $el.text.trim())
-      ),
-  };
-};
-
 export const scrapPropertyGratkaList = (
   item: Partial<{ id: string }>,
   html: string
@@ -74,93 +42,99 @@ export const scrapPropertyOtodomList = (
   const $root = parse(html);
   const json = $root.querySelector("script#__NEXT_DATA__")?.text;
   // console.log((json ? JSON.parse(json) : {})?.props.pageProps.data.searchAds.items.map((item:any) => item.totalPrice))
-  return z
-    .object({
-      id: z.string(),
-      items: z.array(
-        z.object({
-          id: z.string(),
-          name: z.string(),
-          href: z.string(),
-        })
-      ),
-      nextPage: z.string().optional(),
-    })
-    .parse(
-      z
-        .object({
-          props: z.object({
-            pageProps: z.object({
-              canonicalURL: z.string(),
-              data: z.object({
-                searchAds: z.object({
-                  items: z.array(
-                    z.object({
-                      areaInSquareMeters: z.number(),
-                      estate: z.enum(["FLAT", "HOUSE", "TERRAIN"]),
-                      id: z.number(),
-                      images: z.array(
-                        z.object({
-                          large: z.string(),
-                        })
-                      ),
-                      locationLabel: z.object({
-                        value: z.string(),
-                      }),
-                      shortDescription: z.string().optional(),
-                      slug: z.string(),
-                      terrainAreaInSquareMeters: z.number().nullable(),
-                      title: z.string(),
-                      totalPrice: z
-                        .object({
-                          currency: z.enum(["EUR", "PLN", "USD"]),
-                          value: z.number(),
-                        })
-                        .nullable(),
-                      transaction: z.enum(["SELL"]),
-                    })
-                  ),
-                  pagination: z.object({
-                    page: z.number(),
-                    totalPages: z.number(),
+  try {
+    return z
+      .object({
+        id: z.string(),
+        items: z.array(
+          z.object({
+            id: z.string(),
+            name: z.string(),
+            href: z.string(),
+          })
+        ),
+        nextPage: z.string().optional(),
+      })
+      .parse(
+        z
+          .object({
+            props: z.object({
+              pageProps: z.object({
+                canonicalURL: z.string(),
+                data: z.object({
+                  searchAds: z.object({
+                    items: z.array(
+                      z.object({
+                        areaInSquareMeters: z.number(),
+                        estate: z.enum(["FLAT", "HOUSE", "TERRAIN"]),
+                        id: z.number(),
+                        images: z.array(
+                          z.object({
+                            large: z.string(),
+                          })
+                        ),
+                        locationLabel: z.object({
+                          value: z.string(),
+                        }),
+                        shortDescription: z.string().optional(),
+                        slug: z.string(),
+                        terrainAreaInSquareMeters: z.number().nullable(),
+                        title: z.string(),
+                        totalPrice: z
+                          .object({
+                            currency: z.enum(["EUR", "PLN", "USD"]),
+                            value: z.number(),
+                          })
+                          .nullable(),
+                        transaction: z.enum(["SELL"]),
+                      })
+                    ),
+                    pagination: z.object({
+                      page: z.number(),
+                      totalPages: z.number(),
+                    }),
                   }),
                 }),
               }),
             }),
-          }),
-        })
-        .transform(
-          ({
-            props: {
-              pageProps: {
-                canonicalURL,
-                data: {
-                  searchAds: {
-                    items,
-                    pagination: { page, totalPages },
+          })
+          .transform(
+            ({
+              props: {
+                pageProps: {
+                  canonicalURL,
+                  data: {
+                    searchAds: {
+                      items,
+                      pagination: { page, totalPages },
+                    },
                   },
                 },
               },
-            },
-          }) => ({
-            ...item,
-            items: items.map(({ id, slug, title }) => ({
-              id: `otodom-${id}`,
-              name: title,
-              href: slug,
-            })),
-            nextPage:
-              page < totalPages
-                ? `${canonicalURL}?page=${page + 1}`
-                : undefined,
-          })
-        )
-        .parse(
-          ((data) =>
-            // Boolean(console.log(data)) ||
-            data)(json ? JSON.parse(json) : {})
-        )
-    );
+            }) => ({
+              ...item,
+              items: items.map(({ id, slug, title }) => ({
+                id: `otodom-${id}`,
+                name: title,
+                href: slug,
+              })),
+              nextPage:
+                page < totalPages
+                  ? `${canonicalURL}?page=${page + 1}`
+                  : undefined,
+            })
+          )
+          .parse(
+            ((data) =>
+              // Boolean(console.log(data)) ||
+              data)(json ? JSON.parse(json) : {})
+          )
+      );
+  } catch (e) {
+    console.log(json ? JSON.parse(json) : {});
+    console.error(e);
+    return { items: [], nextPage: null };
+  }
 };
 
 const Category = z.enum([
@@ -341,258 +315,265 @@ export const scrapPropertyOtodomItem = (
   const $root = parse(html);
   const json = $root.querySelector("script#__NEXT_DATA__")?.text;
 
-  return z
-    .object({
-      id: z.string(),
-      address: z
-        .object({
-          lokalizacja_gmina: z.string(),
-          lokalizacja_region: z.string(),
-          lokalizacja_powiat: z.string(),
-          lokalizacja_miejscowosc: z.string(),
-          lokalizacja_kraj: z.string(),
-          lokalizacja_ulica: z.string().optional(),
-        })
-        .passthrough(),
-      canonical: z.string(),
-      category: Category,
-      characteristics: z.array(Characteristic),
-      coordinates: AdvertCoordinates,
-      images: z.array(z.string()),
-      information: z.array(AdditionalInfo),
-      location: z.array(z.string()),
-      title: z.string(),
-      // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
-      price: z.number(),
-      description: z.array(z.string()),
-      parameters: z.array(
-        z.object({
-          label: z.string(),
-          value: z.string().transform((value) => value.replace(/\s+/g, " ")),
-        })
-      ),
-    })
-    .parse(
-      z
-        .object({
-          props: z.object({
-            pageProps: z.object({
-              ad: z.object({
-                additionalInformation: z.array(AdditionalInfo),
-                breadcrumbs: z.array(
-                  z.object({
-                    label: z.string(),
-                    locative: z.string(),
-                    url: z.string(),
-                  })
-                ),
-                category: AdvertCategory,
-                characteristics: z.array(Characteristic),
-                description: z.string(),
-                featuresByCategory: z.array(FeatureGroup),
-                id: z.number(),
-                images: z.array(
-                  z.object({
-                    large: z.string(),
-                  })
-                ),
-                location: z.object({
-                  coordinates: AdvertCoordinates,
-                  address: z.array(LocalizedString),
-                  geoLevels: z.array(
+  try {
+    return z
+      .object({
+        id: z.string(),
+        address: z
+          .object({
+            lokalizacja_gmina: z.string(),
+            lokalizacja_region: z.string(),
+            lokalizacja_powiat: z.string(),
+            lokalizacja_miejscowosc: z.string(),
+            lokalizacja_kraj: z.string(),
+            lokalizacja_ulica: z.string().optional(),
+          })
+          .passthrough(),
+        canonical: z.string(),
+        category: Category,
+        characteristics: z.array(Characteristic),
+        coordinates: AdvertCoordinates,
+        images: z.array(z.string()),
+        information: z.array(AdditionalInfo),
+        location: z.array(z.string()),
+        title: z.string(),
+        // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
+        price: z.number(),
+        description: z.array(z.string()),
+        parameters: z.array(
+          z.object({
+            label: z.string(),
+            value: z.string().transform((value) => value.replace(/\s+/g, " ")),
+          })
+        ),
+      })
+      .parse(
+        z
+          .object({
+            props: z.object({
+              pageProps: z.object({
+                ad: z.object({
+                  additionalInformation: z.array(AdditionalInfo),
+                  breadcrumbs: z.array(
                     z.object({
                       label: z.string(),
-                      type: z.string(),
+                      locative: z.string(),
+                      url: z.string(),
                     })
                   ),
+                  category: AdvertCategory,
+                  characteristics: z.array(Characteristic),
+                  description: z.string(),
+                  featuresByCategory: z.array(FeatureGroup),
+                  id: z.number(),
+                  images: z.array(
+                    z.object({
+                      large: z.string(),
+                    })
+                  ),
+                  location: z.object({
+                    coordinates: AdvertCoordinates,
+                    address: z.array(LocalizedString),
+                    geoLevels: z.array(
+                      z.object({
+                        label: z.string(),
+                        type: z.string(),
+                      })
+                    ),
+                  }),
+                  target: z.object({
+                    Access_types: z
+                      .array(
+                        z.enum([
+                          "asphalt",
+                          "dirt",
+                          "hard_surfaced",
+                          "soft_surfaced",
+                        ])
+                      )
+                      .optional(),
+                    Building_type: z
+                      .array(
+                        z.enum([
+                          "block",
+                          "detached",
+                          "residence",
+                          "ribbon",
+                          "semi_detached",
+                          "tenement",
+                        ])
+                      )
+                      .optional(),
+                    City: z.string().optional(),
+                    Country: z.string(),
+                    Dimensions: z.string().optional(),
+                    Extras_types: z
+                      .array(
+                        z.enum([
+                          "air_conditioning",
+                          "attic",
+                          "balcony",
+                          "basement",
+                          "garage",
+                          "pool",
+                          "two_storey",
+                        ])
+                      )
+                      .optional(),
+                    Floor_no: z.string().optional(),
+                    // Location: z.enum(["city","country","suburban"]).optional(),
+                    Media_types: z
+                      .array(
+                        z.enum([
+                          "cable_television",
+                          "cesspool",
+                          "electricity",
+                          "gas",
+                          "internet",
+                          "phone",
+                          "power",
+                          "rafinery",
+                          "sewage",
+                          "telephone",
+                          "water",
+                          "water_purification",
+                        ])
+                      )
+                      .optional(),
+                    Price: z.number(),
+                    ProperType: z.enum(["dzialka", "dom"]),
+                    Province: z.string(),
+                    Subregion: z.string(),
+                    Type: z
+                      .array(
+                        z.enum([
+                          "agricultural",
+                          "agricultural_building",
+                          "building",
+                          "commercial",
+                          "habitat",
+                          "other",
+                          "recreational",
+                          "woodland",
+                        ])
+                      )
+                      .optional(),
+                    Vicinity_types: z
+                      .array(z.enum(["forest", "lake", "open_terrain"]))
+                      .optional(),
+                  }),
+                  title: z.string(),
+                  topInformation: z.array(AdditionalInfo),
+                  url: z.string(),
                 }),
-                target: z.object({
-                  Access_types: z
-                    .array(
-                      z.enum([
-                        "asphalt",
-                        "dirt",
-                        "hard_surfaced",
-                        "soft_surfaced",
-                      ])
-                    )
-                    .optional(),
-                  Building_type: z
-                    .array(
-                      z.enum([
-                        "block",
-                        "detached",
-                        "residence",
-                        "ribbon",
-                        "semi_detached",
-                        "tenement",
-                      ])
-                    )
-                    .optional(),
-                  City: z.string().optional(),
-                  Country: z.string(),
-                  Dimensions: z.string().optional(),
-                  Extras_types: z
-                    .array(
-                      z.enum([
-                        "air_conditioning",
-                        "attic",
-                        "balcony",
-                        "basement",
-                        "garage",
-                        "pool",
-                        "two_storey",
-                      ])
-                    )
-                    .optional(),
-                  Floor_no: z.string().optional(),
-                  // Location: z.enum(["city","country","suburban"]).optional(),
-                  Media_types: z
-                    .array(
-                      z.enum([
-                        "cable_television",
-                        "cesspool",
-                        "electricity",
-                        "gas",
-                        "internet",
-                        "phone",
-                        "power",
-                        "rafinery",
-                        "sewage",
-                        "telephone",
-                        "water",
-                        "water_purification",
-                      ])
-                    )
-                    .optional(),
-                  Price: z.number(),
-                  ProperType: z.enum(["dzialka", "dom"]),
-                  Province: z.string(),
-                  Subregion: z.string(),
-                  Type: z
-                    .array(
-                      z.enum([
-                        "agricultural",
-                        "agricultural_building",
-                        "building",
-                        "commercial",
-                        "habitat",
-                        "other",
-                        "recreational",
-                        "woodland",
-                      ])
-                    )
-                    .optional(),
-                  Vicinity_types: z
-                    .array(z.enum(["forest", "lake", "open_terrain"]))
-                    .optional(),
-                }),
-                title: z.string(),
-                topInformation: z.array(AdditionalInfo),
-                url: z.string(),
+                // adTrackingData: z.object({
+                //   ad_price: z.number(),
+                // })
               }),
-              // adTrackingData: z.object({
-              //   ad_price: z.number(),
-              // })
             }),
-          }),
-        })
-        .transform(
-          ({
-            props: {
-              pageProps: {
-                ad: {
-                  additionalInformation,
-                  breadcrumbs,
-                  category,
-                  characteristics,
-                  description,
-                  featuresByCategory,
-                  id,
-                  images,
-                  location: { coordinates, geoLevels },
-                  target: {
-                    Country,
-                    Price,
-                    ProperType,
-                    Province,
-                    Subregion,
-                    Type,
-                  },
-                  title,
-                  topInformation,
-                  url,
-                },
-                // adTrackingData: {
-                //   ad_price
-                // }
-              },
-            },
-          }) =>
-            // Boolean(console.log(parse(description).childNodes.map(p => p.text).filter(Boolean)))||
-            // Boolean(console.log(characteristics))||
+          })
+          .transform(
             ({
-              ...item,
-              address: ((location: any, breadcrumb: any) =>
-                Object.assign(
-                  {
-                    lokalizacja_gmina: location.city,
-                    lokalizacja_region: location.region,
-                    lokalizacja_powiat: location["sub-region"],
-                    lokalizacja_miejscowosc: location.city,
-                    lokalizacja_kraj: Country,
+              props: {
+                pageProps: {
+                  ad: {
+                    additionalInformation,
+                    breadcrumbs,
+                    category,
+                    characteristics,
+                    description,
+                    featuresByCategory,
+                    id,
+                    images,
+                    location: { coordinates, geoLevels },
+                    target: {
+                      Country,
+                      Price,
+                      ProperType,
+                      Province,
+                      Subregion,
+                      Type,
+                    },
+                    title,
+                    topInformation,
+                    url,
                   },
-                  breadcrumb
-                    ? {
-                        lokalizacja_ulica: breadcrumb.locative,
-                      }
-                    : {}
-                ))(
-                geoLevels.reduce(
-                  (result, { label, type }) =>
-                    Object.assign(result, { [type]: label }),
-                  {}
+                  // adTrackingData: {
+                  //   ad_price
+                  // }
+                },
+              },
+            }) =>
+              // Boolean(console.log(parse(description).childNodes.map(p => p.text).filter(Boolean)))||
+              // Boolean(console.log(characteristics))||
+              ({
+                ...item,
+                address: ((location: any, breadcrumb: any) =>
+                  Object.assign(
+                    {
+                      lokalizacja_gmina: location.city,
+                      lokalizacja_region: location.region,
+                      lokalizacja_powiat: location["sub-region"],
+                      lokalizacja_miejscowosc: location.city,
+                      lokalizacja_kraj: Country,
+                    },
+                    breadcrumb
+                      ? {
+                          lokalizacja_ulica: breadcrumb.locative,
+                        }
+                      : {}
+                  ))(
+                  geoLevels.reduce(
+                    (result, { label, type }) =>
+                      Object.assign(result, { [type]: label }),
+                    {}
+                  ),
+                  breadcrumbs.find(({ url }) => Boolean(url.match(/streetId/)))
                 ),
-                breadcrumbs.find(({ url }) => Boolean(url.match(/streetId/)))
-              ),
-              canonical: url,
-              category: {
-                ["dzialka"]: () =>
-                  ({
-                    ["building"]: "dzialki-grunty/budowlana",
-                    ["agricultural"]: "dzialki-grunty/rolna",
-                    ["agricultural_building"]: "dzialki-grunty/rolno-budowlana",
-                    ["commercial"]: "dzialki-grunty/inwestycyjna",
-                    ["habitat"]: "dzialki-grunty/siedliskowa",
-                    ["other"]: "dzialki-grunty/pozostale",
-                    ["recreational"]: "dzialki-grunty/rekreacyjna",
-                    ["woodland"]: "dzialki-grunty/lesna",
-                  }[Type?.pop() || "building"]),
-                ["dom"]: () => "domy",
-                ["mieszkanie"]: () => "mieszkania",
-              }[ProperType](),
-              characteristics,
-              coordinates,
-              description: parse(description)
-                .childNodes.map((p) => p.text)
-                .filter(Boolean),
-              images: images.map(({ large }) => large),
-              information: topInformation.concat(additionalInformation),
-              location: geoLevels
-                .filter(({ type }) => type !== "")
-                .map(({ label }) => label)
-                .reverse(),
-              parameters: [],
-              price: Price,
-              title,
-            })
-        )
-        .parse(
-          ((data) =>
-            // Boolean(console.log(data.props.pageProps.ad)) ||
-            data)(json ? JSON.parse(json) : {})
-        )
-    );
+                canonical: url,
+                category: {
+                  ["dzialka"]: () =>
+                    ({
+                      ["building"]: "dzialki-grunty/budowlana",
+                      ["agricultural"]: "dzialki-grunty/rolna",
+                      ["agricultural_building"]:
+                        "dzialki-grunty/rolno-budowlana",
+                      ["commercial"]: "dzialki-grunty/inwestycyjna",
+                      ["habitat"]: "dzialki-grunty/siedliskowa",
+                      ["other"]: "dzialki-grunty/pozostale",
+                      ["recreational"]: "dzialki-grunty/rekreacyjna",
+                      ["woodland"]: "dzialki-grunty/lesna",
+                    }[Type?.pop() || "building"]),
+                  ["dom"]: () => "domy",
+                  ["mieszkanie"]: () => "mieszkania",
+                }[ProperType](),
+                characteristics,
+                coordinates,
+                description: parse(description)
+                  .childNodes.map((p) => p.text)
+                  .filter(Boolean),
+                images: images.map(({ large }) => large),
+                information: topInformation.concat(additionalInformation),
+                location: geoLevels
+                  .filter(({ type }) => type !== "")
+                  .map(({ label }) => label)
+                  .reverse(),
+                parameters: [],
+                price: Price,
+                title,
+              })
+          )
+          .parse(
+            ((data) =>
+              // Boolean(console.log(data.props.pageProps.ad)) ||
+              data)(json ? JSON.parse(json) : {})
+          )
+      );
+  } catch (e) {
+    console.log(json ? JSON.parse(json) : {});
+    console.error(e);
+    return null;
+  }
 };
 
 export const addressKlik = (

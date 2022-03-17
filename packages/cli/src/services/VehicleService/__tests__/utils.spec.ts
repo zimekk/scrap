@@ -1,6 +1,6 @@
 import { scrapOptions } from "../utils";
 
-describe("cli", () => {
+describe("VehicleService", () => {
   it("scrapOptions", () =>
     [
       {

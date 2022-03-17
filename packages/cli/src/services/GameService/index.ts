@@ -1,8 +1,8 @@
 import { diffString } from "json-diff";
 import { z } from "zod";
 import { gameItems } from "@dev/api/games";
-import Service from "../Service";
 import { request } from "../../request";
+import Service from "../Service";
 import { DiffSchema, ItemSchema } from "./types";
 
 const ERA = 24 * 3600 * 1000;

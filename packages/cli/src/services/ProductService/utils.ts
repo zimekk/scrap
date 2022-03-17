@@ -1,5 +1,4 @@
 import { parse } from "node-html-parser";
-import { z } from "zod";
 import { ItemSchema, ItemJsonSchema, ItemJson3Schema } from "./types";
 
 const pathToRoot = ($el: any) => {

@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { propertyItems } from "@dev/api";
-import Service from "../Service";
 import { browser, request } from "../../request";
+import Service from "../Service";
 import {
   diffPropertyItem,
   scrapPropertyGratkaList,
@@ -10,7 +10,7 @@ import {
   scrapPropertyOtodomList,
   scrapPropertyOtodomItem,
   updatePropertyItem,
-} from "../../utils";
+} from "./utils";
 
 const {
   NEARBY_LAT = "52.1530829",
@@ -192,8 +192,8 @@ export class PropertyOtodomService extends PropertyService {
         )
           .then((html) =>
             html
-              ? Promise.resolve(scrapPropertyOtodomList({ id }, html)).then(
-                  ({ items, nextPage }) => ({
+              ? Promise.resolve(scrapPropertyOtodomList({ id }, html))
+                  .then(({ items, nextPage }) => ({
                     list: items.map((item) => ({
                       type: "otodom-item",
                       ...item,
@@ -207,8 +207,11 @@ export class PropertyOtodomService extends PropertyService {
                           ),
                         }
                       : null,
+                  }))
+                  .catch((e) => {
+                    console.info(["error"]);
+                    return { list: [], next: null };
                   })
-                )
               : { list: [], next: null }
           )
           .then(({ list, next }) => {
@@ -248,7 +251,7 @@ export class PropertyOtodomService extends PropertyService {
           ).then((html) =>
             html
               ? Promise.resolve(scrapPropertyOtodomItem({ id }, html)).then(
-                  (item) => this.commit(item)
+                  (item) => item && this.commit(item)
                 )
               : null
           );

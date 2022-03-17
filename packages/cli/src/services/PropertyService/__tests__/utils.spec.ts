@@ -1,7 +1,7 @@
+import { loadProductHtml } from "../../utils";
 import {
   addressKlik,
   diffPropertyItem,
-  loadProductHtml,
   scrapPropertyGratkaList,
   scrapPropertyGratkaItem,
   scrapPropertyOtodomList,
@@ -771,7 +771,9 @@ describe("utils", () => {
         },
       },
     ].forEach(({ html, result }) =>
-      expect(scrapPropertyGratkaItem({ id: "" }, html).address).toEqual(result)
+      expect((scrapPropertyGratkaItem({ id: "" }, html) || {}).address).toEqual(
+        result
+      )
     ));
 
   xit("scrapPropertyGratkaItem.images", () =>
@@ -1001,6 +1003,8 @@ describe("utils", () => {
       },
     ].forEach(({ item, html, result }) =>
       // Boolean(console.log(scrapPropertyItem1(item, html)))||
-      expect(scrapPropertyOtodomItem(item, html).address).toEqual(result)
+      expect((scrapPropertyOtodomItem(item, html) || {}).address).toEqual(
+        result
+      )
     ));
 });
