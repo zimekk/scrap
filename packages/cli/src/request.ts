@@ -73,12 +73,6 @@ export const request = (
         : fetch(url, params)
             .then((response: any) => {
               console.log(["request"], id, requestLimit--);
-              if (requestLimit < 0) {
-                throw new Error("Request limit has been exceeded");
-              }
-              if (response.status >= 400) {
-                throw new Error("Bad response from server");
-              }
               console.log({
                 url,
                 response: {
@@ -87,6 +81,12 @@ export const request = (
                   statusText: response.statusText,
                 },
               });
+              if (requestLimit < 0) {
+                throw new Error("Request limit has been exceeded");
+              }
+              if (response.status >= 400) {
+                throw new Error("Bad response from server");
+              }
               return response.json();
             })
             .then((json: any) =>
