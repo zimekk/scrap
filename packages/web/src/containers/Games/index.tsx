@@ -453,6 +453,11 @@ function Details({
           )}
         >
           {[Price.ListPrice, Price.CurrencyCode].join(" ")}
+          {Price.ListPrice < Price.MSRP && (
+            <span className={styles.Reduction}>{`-${Math.round(
+              100 * (1 - Price.ListPrice / Price.MSRP)
+            )}%`}</span>
+          )}
         </span>
         {" / "}
         <span>
