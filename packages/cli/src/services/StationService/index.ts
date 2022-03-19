@@ -45,7 +45,6 @@ const updateItem = (last: any, item: any, updated = _time) =>
           : {}
       ),
     };
-    console.log(update);
     return update;
   })(
     z
@@ -114,8 +113,7 @@ export class StationService extends Service {
           if (last) {
             const diff = diffString(last.petrol, item.petrol);
             if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return stationItems.update(updateItem(last, item));
             } else {

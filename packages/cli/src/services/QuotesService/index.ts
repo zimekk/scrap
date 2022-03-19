@@ -61,12 +61,10 @@ export class QuotesService extends Service {
                 .findOne({ id: item.id })
                 .then((last: any) => {
                   const id = `investments-${item.id}`;
-                  // console.log({ id, item });
                   if (last) {
                     const diff = diffItem(last, item);
                     if (diff) {
-                      console.log(`[${last.id}]`);
-                      console.log(diff);
+                      console.log(`[${last.id}]`, diff);
                       this.summary.updated.push(id);
                       return quotesMetas.update(updateItem(last, item));
                     } else {

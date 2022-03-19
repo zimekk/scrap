@@ -72,7 +72,7 @@ export const request = (
         ? Promise.resolve(data)
         : fetch(url, params)
             .then((response: any) => {
-              console.log(["request"], id, requestLimit--);
+              // console.log(["request"], id, requestLimit--);
               console.log({
                 url,
                 response: {

@@ -230,7 +230,10 @@ export default function (type?: string) {
                   }[type])
               )
               .then((Service) => new Service({ summary }))
-              .then((service) => service.request(type, args))
+              .then((service) => {
+                console.log(type);
+                return service.request(type, args);
+              })
           ).pipe(
             tap(({ type, next }) =>
               next ? request$.next({ type, args: next }) : request$.complete()

@@ -99,8 +99,7 @@ export class GameService extends Service {
           if (last) {
             const diff = diffItem(last, item);
             if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return gameItems.update(updateItem(last, item));
             } else {

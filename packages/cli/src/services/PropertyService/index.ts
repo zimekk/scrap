@@ -26,9 +26,7 @@ const {
   OTODOM_URL: string;
 };
 
-// const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
-// const _past = _time - ERA;
 
 class PropertyService extends Service {
   async commit(item = {}): Promise<any> {
@@ -44,8 +42,7 @@ class PropertyService extends Service {
           if (last) {
             const diff = diffPropertyItem(last, item);
             if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return propertyItems.update(updatePropertyItem(last, item));
             } else {
@@ -115,7 +112,6 @@ export class PropertyGratkaService extends PropertyService {
               : { list: [], next: null }
           )
           .then(({ list, next }) => {
-            // console.log({list, next})
             return {
               type,
               list,
@@ -176,8 +172,6 @@ export class PropertyOtodomService extends PropertyService {
       })
       .parseAsync(args)
       .then(({ $type, page }) => {
-        // console.log({ $type, page });
-
         const [kind, name] = $type.split(":");
         const id = name.replace(/\//g, "-");
 
@@ -215,7 +209,6 @@ export class PropertyOtodomService extends PropertyService {
               : { list: [], next: null }
           )
           .then(({ list, next }) => {
-            // console.log({list, next})
             return {
               type,
               list,
@@ -304,7 +297,6 @@ export class PropertyKlikService extends PropertyService {
       .parseAsync(args)
       .then(({ $type, page }) => {
         const items = 20;
-        // console.log({ $type, page });
         return this.fetcher({ $type, items, page })
           .then((data) =>
             z
@@ -329,7 +321,6 @@ export class PropertyKlikService extends PropertyService {
   }
 
   async process(item: any): Promise<any> {
-    // console.log({item})
     return Promise.resolve(scrapPropertyKlikItem(item)).then((item) =>
       this.commit(item)
     );

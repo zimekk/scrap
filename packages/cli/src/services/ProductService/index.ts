@@ -81,7 +81,7 @@ export class ProductService extends Service {
     return z
       .tuple([z.string(), z.string()])
       .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
-      .parseAsync(Boolean(console.log(type)) || type.split(":"))
+      .parseAsync(type.split(":"))
       .then(({ id, name, kind }) =>
         this.fetcher(type.split(":"))
           .then((html) =>
@@ -117,8 +117,7 @@ export class ProductService extends Service {
           if (last) {
             const diff = diffItem(last, item);
             if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return productItems.update(updateItem(last, item));
             } else {

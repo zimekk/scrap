@@ -1,4 +1,3 @@
-// import fetch from "isomorphic-fetch";
 import { diffString } from "json-diff";
 import { z } from "zod";
 import {
@@ -120,9 +119,7 @@ export class VehicleService extends Service {
         }: any) =>
           request(
             {
-              //  $type, $skip, $limit
               id: ["najlepszeoferty", this.mk, $type, $limit, $skip].join("-"),
-              //  https://najlepszeoferty.mini.com.pl/nowe//api/v1/ems/mini-new-pl_PL/search
               url: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
               params: {
                 method: "POST",
@@ -156,8 +153,7 @@ export class VehicleService extends Service {
           if (exists) {
             const diff = diffItem(exists, item);
             if (diff) {
-              console.log(`[${exists.id}]`);
-              console.log(diff);
+              console.log(`[${exists.id}]`, diff);
               this.summary.updated.push(item.id);
               return vehicleItems.update(updateItem(exists, item));
             } else {
@@ -225,16 +221,13 @@ export class Vehicle2Service extends Service {
       .parseAsync(args)
       .then(({ $type, $from, $size }) =>
         (({
-          // $time = Date.now(),
           $type = "pluc",
-          // $type = "pl",
           $from = 0,
           $size = 100,
           $sort = "prices.retail%3Aasc",
         }: any) =>
           request(
             {
-              //  $type, $from, $size
               id: ["scs", this.mk, $type, $size, $from].join("-"),
               url: `https://scs.audi.de/api/v2/search/filter/${$type}/pl?svd=svd-2021-11-15t01_48_13_593-23&sort=${$sort}&from=${$from}&size=${$size}`,
             },
@@ -256,14 +249,13 @@ export class Vehicle2Service extends Service {
   }
 
   async process(item = {}): Promise<any> {
-    // console.log(item)
     return Vehicle2Item.parseAsync(item)
       .then((item) =>
         vehicle2Items.findOne({ id: item.id }).then((last: any) => {
           if (last) {
             const diff = diffItem(last, item);
             if (diff) {
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return vehicle2Items.update(updateItem(last, item));
             } else {
@@ -332,8 +324,7 @@ export class Vehicle3Service extends Service {
           if (last) {
             const diff = diffItem(last, item);
             if (diff) {
-              console.log(`[${last.id}]`);
-              console.log(diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
               return vehicle3Items.update(updateItem(last, item));
             } else {
@@ -396,8 +387,7 @@ export class Vehicle4Service extends Service {
         if (last) {
           const diff = diffItem(last, item);
           if (diff) {
-            console.log(`[${last.id}]`);
-            console.log(diff);
+            console.log(`[${last.id}]`, diff);
             this.summary.updated.push(item.id);
             return vehicle4Items.update(updateItem(last, item));
           } else {
@@ -464,8 +454,7 @@ export class Vehicle5Service extends Service {
           if (last) {
             //   const diff = diffItem(last, item);
             //   if (diff) {
-            //     console.log(`[${last.id}]`);
-            //     console.log(diff);
+            //     console.log(`[${last.id}]`, diff);
             //     summary.updated.push(item.id);
             //     return vehicle5Items.update(updateItem(last, item));
             //   } else {
