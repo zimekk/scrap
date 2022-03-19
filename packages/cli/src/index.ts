@@ -403,6 +403,14 @@ export default function (type?: string) {
             "9N9QFGPBH418",
             "9NS86BQ33SPX",
             "9NXPBSMHPLTV",
+            "9N8VG0B7TDZ0",
+            "9PH3RR8MVFJL",
+            "9NM0CRXJ389D",
+            "BNNMLWZRNQF6",
+            "9P778MQ2JPKC",
+            "9NH5HN11FG4M",
+            "C348248BJZCQ",
+            "9PGPQK0XTHRZ",
           ],
           5
         ).map((names) => `${Types.XBOX}:${names.join(",")}`)
