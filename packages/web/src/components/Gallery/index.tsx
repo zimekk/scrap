@@ -1,7 +1,13 @@
-import React, { Suspense, useEffect, useRef, useState } from "react";
+import React, {
+  ReactChild,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { createAsset } from "use-asset";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "../Link";
 import { Spinner } from "../Spinner";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -24,10 +30,18 @@ const image = createAsset(
     })
 );
 
+function Link({ children, ...props }: { children: ReactChild }) {
+  return (
+    <button className={styles.Link} {...props}>
+      {children}
+    </button>
+  );
+}
+
 function Img({ src, ...props }: { src: string }) {
   const img = image.read(src);
   return (
-    <Link href={img}>
+    <Link>
       <img src={img} {...props} referrerPolicy="no-referrer" />
     </Link>
   );
@@ -41,7 +55,7 @@ function Loader() {
   );
 }
 
-function ImgWrapper({ ...props }: { src: string }) {
+function ImgWrapper({ ...props }: { src: string; alt?: string }) {
   return (
     <div className={styles.ImgWrapper}>
       <Suspense fallback={<Loader />}>
@@ -51,10 +65,48 @@ function ImgWrapper({ ...props }: { src: string }) {
   );
 }
 
-export function Gallery({ className, images }: any) {
+export function Gallery({
+  className,
+  images,
+}: {
+  className: string;
+  images: string[];
+}) {
   const [inView, setInView] = useState(false);
   const [isMore, setIsMore] = useState(false);
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const [state, setState] = useState<{
+    scale: number;
+    translateX?: number;
+    translateY?: number;
+  }>({
+    scale: 0,
+  });
+
+  const toggleZoom = useCallback(
+    (e) => (
+      e.stopPropagation(),
+      setState((state) => {
+        if (ref.current) {
+          const { x, y, width, height } = ref.current.getBoundingClientRect();
+          const { innerWidth, innerHeight } = window;
+          const scale = (innerWidth / width) * 1.0;
+
+          return state.scale
+            ? {
+                scale: 0,
+              }
+            : {
+                scale,
+                translateX: ((innerWidth - width) / 2 - x) / scale,
+                translateY: ((innerHeight - height) / 2 - y) / scale,
+              };
+        }
+        return state;
+      })
+    ),
+    [ref]
+  );
 
   useEffect(() => {
     const handleObserve = ([{ isIntersecting }]) => {
@@ -87,7 +139,22 @@ export function Gallery({ className, images }: any) {
   }, [ref]);
 
   return images.length ? (
-    <div ref={ref} className={cx(className, styles.Gallery)}>
+    <div
+      ref={ref}
+      className={cx(className, styles.Gallery)}
+      style={
+        state.scale
+          ? {
+              cursor: "zoom-out",
+              transform: `scale(${state.scale}) translate(${state.translateX}px, ${state.translateY}px)`,
+              zIndex: 1,
+            }
+          : {
+              cursor: "zoom-in",
+            }
+      }
+      onClick={toggleZoom}
+    >
       {inView &&
         images
           .slice(0, isMore ? images.length : 3)
