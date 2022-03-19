@@ -18,9 +18,12 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import Map, { useBounds } from "./Map";
 import { prepareItem } from "./utils";
 import cx from "classnames";
 import styles from "./styles.module.scss";
+
+const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
 
 const SORT_BY = {
   id: 1,
@@ -59,12 +62,22 @@ const asset = createAsset(async (version) => {
 });
 
 const unify = (item: {
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  } | null;
   title: string;
   price: number;
   parameters: any[];
   _updated?: number;
 }) => ({
   ...item,
+  position: item.coordinates
+    ? {
+        lat: item.coordinates.latitude,
+        lng: item.coordinates.longitude,
+      }
+    : null,
   _search: item.title.toLowerCase(),
   _price: item.price,
   _updated: item._updated || 0,
@@ -131,6 +144,7 @@ function Data({ version = "v1" }) {
     areaTo: AREA_LIST[AREA_LIST.length - 1],
     terrainAreaFrom: TERRAIN_AREA_LIST[0],
     terrainAreaTo: TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1],
+    radius: RADIUS_LIST[RADIUS_LIST.length - 1],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -215,8 +229,63 @@ function Data({ version = "v1" }) {
     [list, sortBy]
   );
 
+  const points = useMemo(
+    () => list.filter(({ position }) => Boolean(position)),
+    [list]
+  );
+
+  const bounds = useBounds(
+    // points.length
+    false
+      ? points
+      : [
+          {
+            position: {
+              lat: process.env.NEARBY_LAT,
+              lng: process.env.NEARBY_LNG,
+            },
+          },
+        ]
+  );
+  const [center, setCenter] = useState(() => bounds.getCenter());
+
+  const nearby = useMemo(
+    () =>
+      points.filter(
+        ({ position }: { position: { lat: number; lng: number } }) =>
+          center.distanceTo(position) < queries.radius * 1000
+      ),
+    [points, center, queries.radius]
+  );
+
+  const [expand, setExpand] = useState(() => ({ map: false }));
+  console.log({ points, center, queries, nearby });
   return (
     <div>
+      <div>
+        <Link
+          onClick={(e) => (
+            e.preventDefault(),
+            setExpand((expand) => ({ ...expand, map: !expand.map }))
+          )}
+        >
+          {expand.map ? "Hide map" : "Show map"}
+        </Link>{" "}
+        {expand.map && (
+          <Map
+            bounds={bounds}
+            center={center}
+            setCenter={setCenter}
+            list={nearby}
+            onSelect={(search) =>
+              setFilters((filters) => ({
+                ...filters,
+                search,
+              }))
+            }
+          />
+        )}
+      </div>
       <fieldset>
         <label>
           <span>Category</span>

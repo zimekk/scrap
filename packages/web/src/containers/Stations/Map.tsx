@@ -32,7 +32,7 @@ function Table({ data }) {
   );
 }
 
-export function useBounds(list) {
+export function useBounds(list: { position: L.LatLng }[]) {
   return useMemo(
     () =>
       L.featureGroup(

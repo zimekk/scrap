@@ -109,14 +109,16 @@ export function Gallery({
   );
 
   useEffect(() => {
-    const handleObserve = ([{ isIntersecting }]) => {
+    const handleObserve: IntersectionObserverCallback = ([
+      { isIntersecting },
+    ]) => {
       if (isIntersecting) {
         setInView(true);
       }
     };
     const handleScroll = ({
       target: { scrollLeft, scrollWidth, offsetWidth },
-    }) => {
+    }: any) => {
       if (scrollLeft === scrollWidth - offsetWidth) {
         setIsMore(true);
       }
