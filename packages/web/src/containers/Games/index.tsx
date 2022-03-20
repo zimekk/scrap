@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import Truncate from "react-truncate";
 import nl2br from "react-nl2br";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
@@ -391,6 +392,8 @@ function Summary({
   _created?: number;
   _updated?: number;
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <div className={styles.Summary}>
       {OriginalReleaseDate && (
@@ -420,7 +423,21 @@ function Summary({
         </h5>
       )}
       {ProductDescription && (
-        <p className={styles.Desc}>{nl2br(ProductDescription)}</p>
+        <p>
+          <Truncate
+            ellipsis={
+              <a
+                href="#"
+                onClick={(e) => (e.preventDefault(), setExpanded(true))}
+              >
+                ...
+              </a>
+            }
+            lines={!expanded && 3}
+          >
+            {nl2br(ProductDescription)}
+          </Truncate>
+        </p>
       )}
       <div>
         created: {_created ? format(_created, "yyyy-MM-dd HH:mm") : "-"}{" "}
