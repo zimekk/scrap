@@ -27,6 +27,10 @@
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;
   }
+  .Desc {
+    max-height: 3.5em;
+    overflow-y: hidden;
+  }
 }
 .Details {
   border-top: 1px solid lightgray;

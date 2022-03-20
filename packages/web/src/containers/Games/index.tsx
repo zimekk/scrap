@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react";
+import nl2br from "react-nl2br";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import slug from "slug";
@@ -325,6 +326,7 @@ function Data({ version = "v1" }) {
               <Gallery className={styles.Gallery} images={Images} />
               <Summary {...rest} />
               <History history={_history} />
+              {/* <pre>{JSON.stringify(rest, null, 2)}</pre> */}
             </li>
           )
         )}
@@ -358,9 +360,13 @@ function History({ history }: { history: any[] }) {
 
 function Summary({
   Categories,
+  Conditions: {
+    ClientConditions: { AllowedPlatforms },
+  },
   DeveloperName,
   OriginalReleaseDate,
   // LastModifiedDate,
+  ProductDescription,
   ProductId,
   ProductTitle,
   PublisherName,
@@ -368,9 +374,17 @@ function Summary({
   _updated,
 }: {
   Categories: [string];
+  Conditions: {
+    ClientConditions: {
+      AllowedPlatforms: {
+        PlatformName: string;
+      }[];
+    };
+  };
   DeveloperName: string;
   OriginalReleaseDate: Date;
   // LastModifiedDate: Date;
+  ProductDescription: string;
   ProductId: string;
   ProductTitle: string;
   PublisherName: string;
@@ -398,6 +412,15 @@ function Summary({
           <span>Categories: </span>
           {Categories.join(", ")}
         </h5>
+      )}
+      {AllowedPlatforms && (
+        <h5>
+          <span>Platforms: </span>
+          {AllowedPlatforms.map(({ PlatformName }) => PlatformName).join(", ")}
+        </h5>
+      )}
+      {ProductDescription && (
+        <p className={styles.Desc}>{nl2br(ProductDescription)}</p>
       )}
       <div>
         created: {_created ? format(_created, "yyyy-MM-dd HH:mm") : "-"}{" "}
