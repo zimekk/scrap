@@ -3,18 +3,22 @@
 }
 .Row {
   clear: both;
-  padding: 0.5em 0;
+  padding: 0.5em 0 0.5em 220px;
   border: 2px solid transparent;
   margin: 0.5em;
+  min-height: 196px;
   &.Like {
     border-color: blueviolet;
   }
   &.Hide {
     opacity: 0.5;
+    min-height: 0;
   }
 }
 .Gallery {
-  float: left;
+  position: absolute;
+  margin-top: -2px;
+  margin-left: -214px;
   width: 200px;
   height: 200px;
 }

@@ -14,6 +14,7 @@ import {
   faCrosshairs,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import Truncate from "react-truncate";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
@@ -277,7 +278,7 @@ function Data({ version = "v1" }) {
             center={center}
             setCenter={setCenter}
             list={nearby}
-            onSelect={(search) =>
+            onSelect={(search: string) =>
               setFilters((filters) => ({
                 ...filters,
                 search,
@@ -712,8 +713,8 @@ function Summary({
   setLike,
   _address,
   _created,
-  _updated,
-  _checked,
+  _updated = 0,
+  _checked = 0,
 }: {
   id: string;
   canonical: string;
@@ -726,8 +727,8 @@ function Summary({
   setLike: Function;
   _address: string[];
   _created: number;
-  _updated?: number;
-  _checked?: number;
+  _updated: number;
+  _checked: number;
 }) {
   return (
     <div className={styles.Summary}>
@@ -762,8 +763,8 @@ function Summary({
         </div>
         <div>
           {format(_created, "yyyy-MM-dd HH:mm")}
-          {_updated && ` updated: ${format(_updated, "yyyy-MM-dd HH:mm")}`}
-          {_checked && ` checked: ${format(_checked, "yyyy-MM-dd HH:mm")}`}
+          {_updated > 0 && ` updated: ${format(_updated, "yyyy-MM-dd HH:mm")}`}
+          {_checked > 0 && ` checked: ${format(_checked, "yyyy-MM-dd HH:mm")}`}
         </div>
       </div>
       <div style={{ clear: "right" }}>
@@ -786,11 +787,22 @@ function Details({
   description: string[];
   parameters: [{ label: string; value: string }];
 }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <div className={styles.Details}>
-      {description.map((paragraph, key) => (
-        <p key={key}>{paragraph}</p>
-      ))}
+      <Truncate
+        ellipsis={
+          <a href="#" onClick={(e) => (e.preventDefault(), setExpanded(true))}>
+            ...
+          </a>
+        }
+        lines={!expanded && 3}
+      >
+        {description.map((paragraph, key) => (
+          <p key={key}>{paragraph}</p>
+        ))}
+      </Truncate>
       <ul>
         {parameters.map(({ label, value }, key) => (
           <li key={key}>

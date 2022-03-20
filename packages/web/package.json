@@ -57,6 +57,7 @@
     "@types/pako": "^1.0.3",
     "@types/react": "^17.0.41",
     "@types/react-dom": "^17.0.14",
+    "@types/react-truncate": "^2.3.4",
     "@types/slug": "^5.0.3",
     "@types/use-persisted-state": "^0.3.1",
     "@types/webpack": "^5.28.0",
