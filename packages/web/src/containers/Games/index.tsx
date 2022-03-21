@@ -113,7 +113,7 @@ function Data({ version = "v1" }) {
   const [filters, setFilters] = useState(() => ({
     category: "",
     search: "",
-    onlyPromoted: false,
+    onlyReduced: false,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
   }));
@@ -177,7 +177,7 @@ function Data({ version = "v1" }) {
             (item._filter.match(filter) || filter.trim() === String(item.id)) &&
             filters.priceFrom <= item._price &&
             item._price <= filters.priceTo &&
-            (!filters.onlyPromoted || item.Price.ListPrice < item.Price.MSRP)
+            (!filters.onlyReduced || item.Price.ListPrice < item.Price.MSRP)
         ),
     [
       results,
@@ -185,7 +185,7 @@ function Data({ version = "v1" }) {
       filters.category,
       filters.priceFrom,
       filters.priceTo,
-      filters.onlyPromoted,
+      filters.onlyReduced,
     ]
   );
 
@@ -283,17 +283,17 @@ function Data({ version = "v1" }) {
           <label>
             <input
               type="checkbox"
-              checked={filters.onlyPromoted}
+              checked={filters.onlyReduced}
               onChange={useCallback(
                 ({ target }) =>
                   setFilters((filters) => ({
                     ...filters,
-                    onlyPromoted: target.checked,
+                    onlyReduced: target.checked,
                   })),
                 []
               )}
             />
-            <span>Only Promoted</span>
+            <span>Only Reduced</span>
           </label>
         </div>
       </fieldset>

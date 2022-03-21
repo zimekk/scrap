@@ -324,7 +324,16 @@ function Data({ version = "v1" }) {
           />
         </label>
         <label>
-          <span>Show hidden</span>
+          <span>Sort</span>
+          <select value={sortBy} onChange={onChangeSortBy}>
+            {Object.entries(SORT_BY).map(([value]) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
           <input
             type="checkbox"
             checked={filters.showHide}
@@ -337,9 +346,9 @@ function Data({ version = "v1" }) {
               []
             )}
           />
+          <span>Show hidden</span>
         </label>
         <label>
-          <span>Only likes</span>
           <input
             type="checkbox"
             checked={filters.onlyLike}
@@ -352,16 +361,7 @@ function Data({ version = "v1" }) {
               []
             )}
           />
-        </label>
-        <label>
-          <span>Sort</span>
-          <select value={sortBy} onChange={onChangeSortBy}>
-            {Object.entries(SORT_BY).map(([value]) => (
-              <option key={value} value={value}>
-                {value}
-              </option>
-            ))}
-          </select>
+          <span>Only likes</span>
         </label>
         <div>
           <label>

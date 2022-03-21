@@ -40,6 +40,7 @@ function Data({ version = "v1" }) {
     category: "",
     search: "",
     onlyPromoted: false,
+    onlyReduced: false,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
   }));
@@ -109,9 +110,17 @@ function Data({ version = "v1" }) {
             (item._title.match(filter) || filter.trim() === String(item.id)) &&
             filters.priceFrom <= item._price &&
             item._price <= filters.priceTo &&
-            (!filters.onlyPromoted || item.price.length > 1)
+            (!filters.onlyPromoted || item.proms.length > 0) &&
+            (!filters.onlyReduced || item.price.length > 1)
         ),
-    [results, filter, filters.priceFrom, filters.priceTo, filters.onlyPromoted]
+    [
+      results,
+      filter,
+      filters.priceFrom,
+      filters.priceTo,
+      filters.onlyPromoted,
+      filters.onlyReduced,
+    ]
   );
 
   const sorted = useMemo(
@@ -205,6 +214,21 @@ function Data({ version = "v1" }) {
               )}
             />
             <span>Only Promoted</span>
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filters.onlyReduced}
+              onChange={useCallback(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    onlyReduced: target.checked,
+                  })),
+                []
+              )}
+            />
+            <span>Only Reduced</span>
           </label>
         </div>
       </fieldset>
