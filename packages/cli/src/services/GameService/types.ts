@@ -69,5 +69,6 @@ export const ItemSchema = z.object({
 export type Item = {
   id: string;
   _created: number;
+  _checked: number;
   _updated: number;
 } & z.infer<typeof ItemSchema>;

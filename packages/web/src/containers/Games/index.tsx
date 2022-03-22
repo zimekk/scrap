@@ -59,9 +59,11 @@ const unify = ({
   ProductId,
   Properties: { Categories },
   _created,
+  _checked,
   _updated,
 }: Item) => ({
   _created,
+  _checked,
   _updated,
   _filter: ProductTitle.toLowerCase(),
   _price: Price.ListPrice,
@@ -371,8 +373,9 @@ function Summary({
   ProductId,
   ProductTitle,
   PublisherName,
-  _created,
-  _updated,
+  _created = 0,
+  _checked = 0,
+  _updated = 0,
 }: {
   Categories: [string];
   Conditions: {
@@ -389,13 +392,19 @@ function Summary({
   ProductId: string;
   ProductTitle: string;
   PublisherName: string;
-  _created?: number;
-  _updated?: number;
+  _created: number;
+  _checked: number;
+  _updated: number;
 }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
     <div className={styles.Summary}>
+      <div>
+        {format(_created, "yyyy-MM-dd HH:mm")}
+        {_updated > 0 && ` updated: ${format(_updated, "yyyy-MM-dd HH:mm")}`}
+        {_checked > 0 && ` checked: ${format(_checked, "yyyy-MM-dd HH:mm")}`}
+      </div>
       {OriginalReleaseDate && (
         <h6>
           <span>OriginalReleaseDate: </span>
@@ -439,10 +448,6 @@ function Summary({
           </Truncate>
         </p>
       )}
-      <div>
-        created: {_created ? format(_created, "yyyy-MM-dd HH:mm") : "-"}{" "}
-        updated: {_updated ? format(_updated, "yyyy-MM-dd HH:mm") : "-"}
-      </div>
       {/* <div>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</div> */}
     </div>
   );
