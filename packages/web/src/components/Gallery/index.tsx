@@ -3,9 +3,12 @@ import React, {
   Suspense,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
+import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../Spinner";
@@ -30,21 +33,9 @@ const image = createAsset(
     })
 );
 
-function Link({ children, ...props }: { children: ReactChild }) {
-  return (
-    <button className={styles.Link} {...props}>
-      {children}
-    </button>
-  );
-}
-
 function Img({ src, ...props }: { src: string }) {
   const img = image.read(src);
-  return (
-    <Link>
-      <img src={img} {...props} referrerPolicy="no-referrer" />
-    </Link>
-  );
+  return <img src={img} {...props} referrerPolicy="no-referrer" />;
 }
 
 function Loader() {
@@ -83,6 +74,19 @@ export function Gallery({
     scale: 0,
   });
 
+  const scroll$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = scroll$
+      .pipe(debounceTime(400))
+      .subscribe(({ scrollLeft, scrollWidth, offsetWidth }) => {
+        if (scrollLeft >= scrollWidth - offsetWidth) {
+          setIsMore(true);
+        }
+      });
+    return () => subscription.unsubscribe();
+  }, [scroll$]);
+
   const toggleZoom = useCallback(
     (e) => (
       e.stopPropagation(),
@@ -116,13 +120,8 @@ export function Gallery({
         setInView(true);
       }
     };
-    const handleScroll = ({
-      target: { scrollLeft, scrollWidth, offsetWidth },
-    }: any) => {
-      if (scrollLeft === scrollWidth - offsetWidth) {
-        setIsMore(true);
-      }
-    };
+    const handleScroll = ({ target }: any) => scroll$.next(target);
+
     if (ref.current instanceof HTMLElement) {
       const observer = new IntersectionObserver(handleObserve, {
         root: null,
