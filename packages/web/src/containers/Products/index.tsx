@@ -36,7 +36,24 @@ const asset = createAsset(async (version) => {
 function Data({ version = "v1" }) {
   const { results } = asset.read(version) as { results: ProductItem[] };
 
+  const options = useMemo(
+    () => ({
+      brand: [""].concat(
+        results
+          .map(({ brand }: any) => brand)
+          .filter(Boolean)
+          .filter(
+            (value: any, index: number, array: any[]) =>
+              array.indexOf(value) === index
+          )
+          .sort((a: string, b: string) => a.localeCompare(b))
+      ),
+    }),
+    [results]
+  );
+
   const [filters, setFilters] = useState(() => ({
+    brand: options.brand[0],
     category: "",
     search: "",
     onlyPromoted: false,
@@ -110,12 +127,14 @@ function Data({ version = "v1" }) {
             (item._title.match(filter) || filter.trim() === String(item.id)) &&
             filters.priceFrom <= item._price &&
             item._price <= filters.priceTo &&
+            (!filters.brand || [item.brand].includes(filters.brand)) &&
             (!filters.onlyPromoted || item.proms.length > 0) &&
             (!filters.onlyReduced || item.price.length > 1)
         ),
     [
       results,
       filter,
+      filters.brand,
       filters.priceFrom,
       filters.priceTo,
       filters.onlyPromoted,
@@ -152,6 +171,26 @@ function Data({ version = "v1" }) {
               []
             )}
           />
+        </label>
+        <label>
+          <span>Brand</span>
+          <select
+            value={filters.brand}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  brand: target.value,
+                })),
+              []
+            )}
+          >
+            {options.brand.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           <span>Sort</span>
