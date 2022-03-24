@@ -252,11 +252,17 @@ function Data({ version = "v1" }) {
 
   const nearby = useMemo(
     () =>
-      points.filter(
-        ({ position }: { position: { lat: number; lng: number } }) =>
-          center.distanceTo(position) < queries.radius * 1000
-      ),
-    [points, center, queries.radius]
+      points
+        .filter(
+          ({ position }: { position: { lat: number; lng: number } }) =>
+            center.distanceTo(position) < queries.radius * 1000
+        )
+        .map((item: { id: string }) => ({
+          ...item,
+          _like: like.includes(item.id),
+          _hide: hide.includes(item.id),
+        })),
+    [points, center, queries.radius, like, hide]
   );
 
   const [expand, setExpand] = useState(() => ({ map: false }));

@@ -85,11 +85,15 @@ export default function Map({ bounds, center, setCenter, list, onSelect }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ id, position, ...item }) => (
+        {list.map(({ id, position, _like, _hide, ...item }) => (
           <CircleMarker
             key={id}
             center={position}
-            pathOptions={{ color: "purple" }}
+            className={cx(
+              styles.Circle,
+              _like && styles.Like,
+              _hide && styles.Hide
+            )}
           >
             <Popup minWidth={90}>
               <Summary
