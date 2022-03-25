@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
-import Chart from "./Chart";
-import Chart2 from "./Chart2";
+import Chart from "./ZoomableLineChart";
 import styles from "./styles.module.scss";
 
 import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
@@ -110,7 +109,21 @@ function Data({ version = "v1" }) {
           />
         </label>
       </fieldset>
-      <Chart2 list={list[queries.investment]} />
+      <Chart
+        list={list[queries.investment]}
+        // data={[
+        //   {name:'a',value:1},
+        //   {name:'b',value:3},
+        //   {name:'c',value:2}
+        // ]}
+        //  data={Object.entries(list)
+        // .reduce((data, [name, list]) => list.reduce((data, item) => Object.assign(data, {
+        // }) data), {})
+        // .map(([name, list]) => ({name, list: list.map(item => ({
+        //   ...item,
+        //   date: new Date(item.price_timestamp).getTime()
+        // }))}))}
+      />
       {/* <Chart2 list={list} /> */}
       {options.investment.map(({ id, name }) => (
         <div key={id}>
