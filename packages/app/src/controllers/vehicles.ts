@@ -188,23 +188,43 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                       reserved: z.boolean(),
                     })
                     .passthrough()
-                    .transform((item) => ({
-                      ...item,
-                      href: item.isNew
-                        ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${item.id}/`
-                        : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${item.id}/`,
-                      images: [...Array(item.images)].map(
-                        (
-                          _,
-                          i,
-                          _list,
-                          size = "322/255b28ffdad35cd984ff32f30da17158"
-                        ) =>
+                    .transform(
+                      (
+                        item,
+                        base = item.isNew
+                          ? [
+                              "https://najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy",
+                              "https://najlepszeoferty.bmw.pl/nowe/api/v1/ems/bmw-new-pl_PL/vehicle",
+                            ]
+                          : [
+                              "https://najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy",
+                              "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle",
+                            ],
+                        size = [
+                          "1920/2011206437498402f4e346eb5574dcb0",
+                          "322/255b28ffdad35cd984ff32f30da17158",
+                        ]
+                      ) => ({
+                        ...item,
+                        href: `${base[0]}/${item.id}`,
+                        images: [...Array(item.images)].map((_, i, _list) =>
                           i < 3
                             ? `api/vehicles/${item.id}/images/${i}`
-                            : `//najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/${size}/${item.id}-${i}`
-                      ),
-                    }))
+                            : `${base[1]}/${size[size.length - 1]}/${
+                                item.id
+                              }-${i}`
+                        ),
+                        srcSet: [...Array(item.images)].map((_, i, _list) =>
+                          size
+                            .map((size) => size.split("/"))
+                            .map(
+                              ([size, hash]) =>
+                                `${base[1]}/${size}/${hash}/${item.id}-${i} ${size}w`
+                            )
+                            .join(", ")
+                        ),
+                      })
+                    )
                 )
                 .parse(list)
             /*

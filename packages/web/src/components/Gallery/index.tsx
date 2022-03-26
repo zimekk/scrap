@@ -8,7 +8,7 @@ import React, {
   useState,
 } from "react";
 import { Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import { debounceTime } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "../Spinner";
@@ -33,7 +33,7 @@ const image = createAsset(
     })
 );
 
-function Img({ src, ...props }: { src: string }) {
+function Img({ src, ...props }: { src: string; srcSet?: string }) {
   const img = image.read(src);
   return <img src={img} {...props} referrerPolicy="no-referrer" />;
 }
@@ -46,7 +46,13 @@ function Loader() {
   );
 }
 
-function ImgWrapper({ ...props }: { src: string; alt?: string }) {
+function ImgWrapper({
+  ...props
+}: {
+  src: string;
+  srcSet?: string;
+  alt?: string;
+}) {
   return (
     <div className={styles.ImgWrapper}>
       <Suspense fallback={<Loader />}>
@@ -59,9 +65,11 @@ function ImgWrapper({ ...props }: { src: string; alt?: string }) {
 export function Gallery({
   className,
   images,
+  srcSet = [],
 }: {
   className: string;
   images: string[];
+  srcSet: string[];
 }) {
   const [inView, setInView] = useState(false);
   const [isMore, setIsMore] = useState(false);
@@ -160,7 +168,12 @@ export function Gallery({
         images
           .slice(0, isMore ? images.length : 3)
           .map((image, index) => (
-            <ImgWrapper key={index} src={image} alt={`Image #${index + 1}`} />
+            <ImgWrapper
+              key={index}
+              src={image}
+              srcSet={state.scale ? srcSet[index] : undefined}
+              alt={`Image #${index + 1}`}
+            />
           ))}
     </div>
   ) : null;

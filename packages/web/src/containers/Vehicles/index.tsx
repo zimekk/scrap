@@ -467,18 +467,32 @@ function Data({ version = "v1" }) {
             {sorted
               .slice(0, 100)
               .map(({ item }) => item)
-              .map(({ id, images, ...item }, key: number) => (
-                <li key={key} className={styles.Row}>
-                  <Gallery className={styles.Gallery} images={images} />
-                  <Details
-                    item={{ id, ...item }}
-                    onClickCompare={onClickCompare}
-                    favorites={favorites}
-                    setFavorites={setFavorites}
-                    setSearch={setSearch}
-                  />
-                </li>
-              ))}
+              .map(
+                (
+                  {
+                    id,
+                    images,
+                    srcSet,
+                    ...item
+                  }: { id: string; images: string[]; srcSet: string[] },
+                  key: number
+                ) => (
+                  <li key={key} className={styles.Row}>
+                    <Gallery
+                      className={styles.Gallery}
+                      images={images}
+                      srcSet={srcSet}
+                    />
+                    <Details
+                      item={{ id, ...item }}
+                      onClickCompare={onClickCompare}
+                      favorites={favorites}
+                      setFavorites={setFavorites}
+                      setSearch={setSearch}
+                    />
+                  </li>
+                )
+              )}
           </ol>
         </section>
       ))}
