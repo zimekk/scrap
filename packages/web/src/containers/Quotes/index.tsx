@@ -7,6 +7,8 @@ import styles from "./styles.module.scss";
 
 import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
 
+const ERA = 24 * 3600 * 1000;
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/quotes/data.json?${version}`);
@@ -58,16 +60,27 @@ function Data({ version = "v1" }) {
 
   console.log({ options, filters, results });
 
+  const from = useMemo(() => {
+    const list = results
+      .map(({ date }) => new Date(date).getTime())
+      .sort((a, b) => b - a);
+    return list[0] - ERA * 2000;
+  }, [results]);
+
   const list = useMemo(
     () =>
-      results.reduce(
-        (list: any, item) =>
-          Object.assign(list, {
-            [item.investment_id]: (list[item.investment_id] || []).concat(item),
-          }),
-        {}
-      ),
-    [results]
+      results
+        .filter(({ investment_id }) =>
+          [filters.investment].includes(investment_id)
+        )
+        .map(({ investment_id, value, date }) => ({
+          investment_id,
+          value,
+          date: new Date(date),
+        }))
+        .filter((item) => item.date.getTime() > from)
+        .sort((a, b) => a.date - b.date),
+    [results, filters]
   );
 
   return (
@@ -110,7 +123,7 @@ function Data({ version = "v1" }) {
         </label>
       </fieldset>
       <Chart
-        list={list[queries.investment]}
+        list={list}
         // data={[
         //   {name:'a',value:1},
         //   {name:'b',value:3},
@@ -132,7 +145,8 @@ function Data({ version = "v1" }) {
         </div>
       ))}
       <pre>{JSON.stringify(metas, null, 2)}</pre>
-      <pre>{JSON.stringify(list[queries.investment].slice(0, 5), null, 2)}</pre>
+      <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre>
+      {/* <pre>{JSON.stringify(list[queries.investment].slice(0, 5), null, 2)}</pre> */}
     </div>
   );
 }

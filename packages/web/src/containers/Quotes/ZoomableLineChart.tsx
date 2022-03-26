@@ -4,8 +4,10 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 // import * as d3 from "d3";
 import {
   extent,
+  group,
   select,
   scaleLinear,
+  scaleOrdinal,
   scaleTime,
   line,
   max,
@@ -39,10 +41,11 @@ import styles from "./Chart.module.scss";
 export default function Chart({
   list,
 }: {
-  list: { date: Date; value: number }[];
+  list: { investment_id: number; date: Date; value: number }[];
 }) {
   const id = useMemo(() => "myZoomableLineChart", []);
   const svgRef = useRef(null);
+  const tooltipRef = useRef(null);
   const wrapperRef = useRef(null);
   const dimensions = useResizeObserver(wrapperRef);
   const [currentZoomState, setCurrentZoomState] = useState();
@@ -247,16 +250,16 @@ export default function Chart({
   // }, [list]);
 
   // const data = useMemo(() => list.map(({value}) => value), [list]);
-  const data = useMemo(
-    () =>
-      list
-        .map(({ date, value }) => ({
-          date: new Date(date),
-          value,
-        }))
-        .sort((a, b) => a.date - b.date),
-    [list]
-  );
+  // const data = useMemo(
+  //   () =>
+  //     list
+  //       .map(({ date, value }) => ({
+  //         date: new Date(date),
+  //         value,
+  //       }))
+  //       .sort((a, b) => a.date - b.date),
+  //   [list]
+  // );
 
   useEffect(() => {
     if (!wrapperRef.current) {
@@ -267,11 +270,19 @@ export default function Chart({
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
 
+    const tooltip = select(tooltipRef.current);
+    // .append('div')
+    // .attr('class', 'tooltip')
+    // .style('opacity', 0);
+
+    const data = group(list, (item) => item.investment_id);
+
+    console.log({ data });
+
     // scales + line generator
     // const xScale = scaleLinear()
     const xScale = scaleTime()
-      // .domain([0, data.length - 1])
-      .domain(extent(data, (d) => d.date))
+      .domain(extent(list, (d) => d.date))
       .range([10, width - 10]);
 
     if (currentZoomState) {
@@ -280,40 +291,90 @@ export default function Chart({
     }
 
     const yScale = scaleLinear()
-      // .domain([0, max(data)])
-      .domain([0, max(data, (d) => d.value)])
+      .domain([0, max(list, (d) => d.value)])
       // .domain(extent(data, (d) => d.value))
       .range([height - 10, 10]);
 
     const lineGenerator = line()
-      // .x((d, index) => xScale(index))
       .x((d) => xScale(d.date))
-      // .y((d) => yScale(d))
       .y((d) => yScale(d.value))
       .curve(curveCardinal);
+
+    const color = scaleOrdinal()
+      .domain(data.keys())
+      .range([
+        "#e41a1c",
+        "#377eb8",
+        "#4daf4a",
+        "#984ea3",
+        "#ff7f00",
+        "#ffff33",
+        "#a65628",
+        "#f781bf",
+        "#999999",
+      ]);
 
     // render the line
     svgContent
       .selectAll(".myLine")
-      .data([data])
+      .data(data)
       .join("path")
       .attr("class", "myLine")
-      .attr("stroke", "black")
+      .attr("stroke", (d) => color(d[0]))
       .attr("fill", "none")
-      .attr("d", lineGenerator);
+      .attr("d", (d) => lineGenerator(d[1]));
 
     svgContent
       .selectAll(".myDot")
-      .data(data)
+      .data(list)
       .join("circle")
       .attr("class", "myDot")
       .attr("stroke", "black")
-      .attr("r", 4)
-      .attr("fill", "orange")
-      // .attr("cx", (value, index) => xScale(index))
+      .attr("r", 3)
+      .attr("fill", (d) => color(d.investment_id))
       .attr("cx", (d) => xScale(d.date))
-      .attr("cy", (d) => yScale(d.value));
-    // .attr("cy", yScale);
+      .attr("cy", (d) => yScale(d.value))
+      .on("mouseover", (e, { date, investment_id, value }) => {
+        // focus.style('display', null);
+
+        const x = xScale(date);
+        const y = yScale(value);
+
+        console.log(["mouseover"], { date, investment_id, value, x, y });
+
+        tooltip
+          .html(JSON.stringify({ date, investment_id, value }, null, 2))
+          .transition()
+          .duration(300)
+          .style("opacity", 0.9)
+          .style("transform", `translate(${x + 30}px,${y - 30}px)`);
+      })
+      .on("mouseout", () => {
+        tooltip.transition().duration(300).style("opacity", 0);
+      })
+      .on("mousemove", mousemove);
+
+    function mousemove(event) {
+      //  console.log(['mousemove'])
+      // const bisect = bisector(d => d.label).left;
+      // const xPos = mouse(this)[0];
+      // const x0 = bisect(data, xScale.invert(xPos));
+      // const d0 = data[x0];
+      // focus.attr(
+      //     'transform',
+      //     `translate(${xScale(d0.label)},${yScale(d0.value)})`,
+      // );
+      // tooltip
+      //     .transition()
+      //     .duration(300)
+      //     .style('opacity', 0.9);
+      // tooltip
+      //     .html(d0.tooltipContent || d0.label)
+      //     .style(
+      //         'transform',
+      //         `translate(${xScale(d0.label) + 30}px,${yScale(d0.value) - 30}px)`,
+      //   );
+    }
 
     // axes
     const xAxis = axisBottom(xScale);
@@ -338,10 +399,17 @@ export default function Chart({
       });
 
     svg.call(zoomBehavior);
-  }, [currentZoomState, data, dimensions]);
+  }, [currentZoomState, list, dimensions]);
 
   return (
     <div className={cx(styles.Chart)} ref={wrapperRef}>
+      <div
+        ref={tooltipRef}
+        className={styles.Tooltip}
+        // style={{ top: selected.top, left: selected.left }}
+      >
+        {/* {selected.label} */}
+      </div>
       <svg ref={svgRef}>
         <defs>
           <clipPath id={id}>
