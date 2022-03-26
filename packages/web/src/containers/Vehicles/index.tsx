@@ -195,6 +195,8 @@ const createCriteria =
           {}
         ),
 
+        options: "",
+
         removed: "0",
         changedPrice: false,
       },
@@ -273,69 +275,74 @@ function Data({ version = "v1" }) {
 
   console.log({ options, criteria, results });
 
-  const list = useMemo(
-    () =>
-      results
-        .map((item, i) => {
-          const {
-            id,
-            dealer: { name, lat, lng },
-          } = item;
-          return {
-            i,
-            id,
-            position: { lat, lng },
-            name,
-            item,
-          };
-        })
-        .filter(({ item }) =>
-          ((labels) =>
-            labels.includes(String(item.id)) ||
-            ((item.title.toLowerCase().match(criteria.filter) ||
-              labels.includes(
-                typeof item.seriesCode === "object"
-                  ? item.seriesCode.label
-                  : item.seriesCode
-              ) ||
-              labels.includes(
-                typeof item.modelCode === "object"
-                  ? item.modelCode.label
-                  : item.modelCode
+  const list = useMemo(() => {
+    const criteriaOptions = criteria.options
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+    console.log({ criteriaOptions });
+    return results
+      .map((item, i) => {
+        const {
+          id,
+          dealer: { name, lat, lng },
+        } = item;
+        return {
+          i,
+          id,
+          position: { lat, lng },
+          name,
+          item,
+        };
+      })
+      .filter(({ item }) =>
+        ((labels) =>
+          labels.includes(String(item.id)) ||
+          ((item.title.toLowerCase().match(criteria.filter) ||
+            labels.includes(
+              typeof item.seriesCode === "object"
+                ? item.seriesCode.label
+                : item.seriesCode
+            ) ||
+            labels.includes(
+              typeof item.modelCode === "object"
+                ? item.modelCode.label
+                : item.modelCode
+            )) &&
+            ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
+            (criteria.removed == "" ||
+              criteria.removed === ((item._removed || 0) > 0 ? "1" : "0")) &&
+            criteria.priceFrom <= item.transactionalPrice &&
+            item.transactionalPrice <= criteria.priceTo &&
+            (item.mileage === undefined ||
+              (criteria.mileageFrom <= item.mileage &&
+                item.mileage <= criteria.mileageTo)) &&
+            criteria.powerFrom <= item.powerHP &&
+            item.powerHP <= criteria.powerTo &&
+            criteria.yearFrom <= item.productionYear &&
+            item.productionYear <= criteria.yearTo &&
+            new Date(`${criteria.createdFrom} 00:00:00`).getTime() <=
+              item._created &&
+            item._created <=
+              new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
+            (!criteria.changedPrice || priceHistory(item).length > 1) &&
+            (!criteriaOptions.length ||
+              criteriaOptions.every((option) =>
+                (item.options || []).includes(option)
               )) &&
-              ["", item.isNew ? "N" : "U"].includes(criteria.type) &&
-              (criteria.removed == "" ||
-                criteria.removed === ((item._removed || 0) > 0 ? "1" : "0")) &&
-              criteria.priceFrom <= item.transactionalPrice &&
-              item.transactionalPrice <= criteria.priceTo &&
-              (item.mileage === undefined ||
-                (criteria.mileageFrom <= item.mileage &&
-                  item.mileage <= criteria.mileageTo)) &&
-              criteria.powerFrom <= item.powerHP &&
-              item.powerHP <= criteria.powerTo &&
-              criteria.yearFrom <= item.productionYear &&
-              item.productionYear <= criteria.yearTo &&
-              new Date(`${criteria.createdFrom} 00:00:00`).getTime() <=
-                item._created &&
-              item._created <=
-                new Date(`${criteria.createdTo} 23:59:59`).getTime() &&
-              (!criteria.changedPrice || priceHistory(item).length > 1) &&
-              Object.entries(criteria.entries).findIndex(
-                ([prop, value]) =>
-                  ![
-                    String(
-                      typeof item[prop] === "object"
-                        ? item[prop].id
-                        : item[prop]
-                    ),
-                    "",
-                  ].includes(value)
-              ) === -1))(
-            (criteria.filter as string).split(",").map((s) => s.trim())
-          )
-        ),
-    [results, criteria]
-  );
+            Object.entries(criteria.entries).findIndex(
+              ([prop, value]) =>
+                ![
+                  String(
+                    typeof item[prop] === "object" ? item[prop].id : item[prop]
+                  ),
+                  "",
+                ].includes(value)
+            ) === -1))(
+          (criteria.filter as string).split(",").map((s) => s.trim())
+        )
+      );
+  }, [results, criteria]);
 
   const bounds = useBounds(
     list.length
@@ -812,6 +819,7 @@ function Criteria({
   sortBy,
   removed,
   changedPrice,
+  ...criteria
 }) {
   const onChangeSearch = useCallback(
     ({ target }) => setSearch(target.value),
@@ -965,7 +973,7 @@ function Criteria({
   );
 
   return (
-    <fieldset>
+    <fieldset className={styles.Filters}>
       <div>
         <label>
           <span>Type</span>
@@ -1262,6 +1270,18 @@ function Criteria({
         >
           Changed Price
         </Toggle>
+      </div>
+      <div className={styles.Textarea}>
+        <textarea
+          value={criteria.options}
+          onChange={({ target }) =>
+            setCriteria(({ ...criteria }) => ({
+              ...criteria,
+              options: target.value,
+            }))
+          }
+          rows={4}
+        />
       </div>
     </fieldset>
   );

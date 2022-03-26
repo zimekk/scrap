@@ -26,6 +26,12 @@
     }
   }
 }
+.Filters {
+  .Textarea {
+    display: flex;
+    flex-direction: column;
+  }
+}
 .Options {
   .Textarea {
     display: flex;
