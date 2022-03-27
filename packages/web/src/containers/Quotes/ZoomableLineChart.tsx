@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 // import { axisBottom, axisLeft, select, scaleLinear, timeFormat } from "d3";
 // import * as d3 from "d3";
 import {
+  ZoomTransform,
   extent,
   group,
   select,
@@ -17,25 +18,11 @@ import {
   zoom,
 } from "d3";
 
-// import { Subject, of } from "rxjs";
-// import { delay, switchMap } from "rxjs/operators";
+import { Subject, of } from "rxjs";
+import { delay, switchMap } from "rxjs/operators";
 import useResizeObserver from "./useResizeObserver";
 import cx from "classnames";
 import styles from "./Chart.module.scss";
-
-// const { width, height, left, right, top, bottom } = {
-//   width: 640,
-//   height: 200,
-//   left: 5,
-//   right: 5,
-//   top: 5,
-//   bottom: 20,
-// };
-
-// { list: Record<string,{
-//   date: string;
-//   value: number;
-// }> }
 
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/16-zoomable-line-chart
 export default function Chart({
@@ -44,55 +31,50 @@ export default function Chart({
   list: { investment_id: number; date: Date; value: number }[];
 }) {
   const id = useMemo(() => "myZoomableLineChart", []);
-  const svgRef = useRef(null);
-  const tooltipRef = useRef(null);
-  const wrapperRef = useRef(null);
+  const svgRef = useRef<SVGSVGElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const dimensions = useResizeObserver(wrapperRef);
-  const [currentZoomState, setCurrentZoomState] = useState();
+  const [currentZoomState, setCurrentZoomState] = useState<ZoomTransform>();
+  const [selected, setSelected] = useState<object | null>(null);
 
-  // const selected$ = useMemo(
-  //   () => new Subject<{ left: number; top: number; label: string }>(),
-  //   []
-  // );
-  // useEffect(() => {
-  //   const subscription = selected$
-  //     .pipe(
-  //       switchMap((selected) => of(selected).pipe(delay(selected ? 0 : 800)))
-  //     )
-  //     .subscribe((selected) => setSelected(selected));
+  const tooltip$ = useMemo(
+    () => new Subject<{ x: number; y: number; data: object } | null>(),
+    []
+  );
 
-  //   return () => subscription.unsubscribe();
-  // }, [selected$]);
+  useEffect(() => {
+    const tooltip = select(tooltipRef.current)
+      .style("opacity", 0)
+      .style("pointer-events", "none");
 
-  // const { width, height, margin } = {
-  //   width: 600,
-  //   height: 300,
-  //   margin: { top: 30, right: 30, bottom: 30, left: 60 },
-  // };
+    const subscription = tooltip$
+      .pipe(
+        switchMap((selected) => of(selected).pipe(delay(selected ? 0 : 400)))
+      )
+      .subscribe((selected) => {
+        // console.log({selected})
+        if (selected) {
+          const { x, y, data } = selected;
+          const transform = `translate(${x + 30}px,${y - 30}px)`;
 
-  // useEffect(() => {
-  //   const el = d3.select(svgRef.current);
-  //   el.selectAll("*").remove();
+          if (tooltip.style("opacity") === "0") {
+            tooltip.style("transform", transform);
+          }
 
-  //   const data = list.map(({ date, value }) => ({
-  //     date: new Date(date),
-  //     value,
-  //   }));
+          tooltip
+            .transition()
+            .duration(300)
+            .style("opacity", 0.9)
+            .style("transform", transform);
 
-  //   console.log({ data });
-
-  //   const xScale = d3
-  //     .scaleTime()
-  //     .domain(d3.extent(data, (d) => d.date))
-  //     .range([0, width]);
-  //   const yScale = d3
-  //     .scaleLinear()
-  //     .domain([
-  //       0,
-  //       // d3.min(data, (d) => d.value),
-  //       d3.max(data, (d) => d.value),
-  //     ])
-  //     .range([height, 0]);
+          setSelected(data);
+        } else {
+          tooltip.transition().duration(300).style("opacity", 0);
+        }
+      });
+    return () => subscription.unsubscribe();
+  }, [tooltip$]);
 
   //   const svg = el
   //     .append("g")
@@ -131,57 +113,6 @@ export default function Chart({
   //     .attr("fill", "currentColor")
   //     .attr("text-anchor", "middle")
   //     .attr("dy", "1em");
-
-  //   const xAxis = d3
-  //     .axisBottom(xScale)
-  //     .ticks(5)
-  //     .tickSize(-height + margin.bottom);
-  //   const xAxisGroup = svg
-  //     .append("g")
-  //     .attr("transform", `translate(0, ${height - margin.bottom})`)
-  //     .call(xAxis);
-  //   xAxisGroup.select(".domain").remove();
-  //   xAxisGroup.selectAll("line").attr("stroke", "rgba(0, 0, 0, 0.2)");
-  //   xAxisGroup
-  //     .selectAll("text")
-  //     .attr("opacity", 0.5)
-  //     .attr("color", "blue")
-  //     .attr("font-size", "0.75rem");
-
-  //   const yAxis = d3
-  //     .axisLeft(yScale)
-  //     .ticks(5)
-  //     .tickSize(-width)
-  //     .tickFormat((val) => `${val}%`);
-  //   const yAxisGroup = svg.append("g").call(yAxis);
-  //   yAxisGroup.select(".domain").remove();
-  //   yAxisGroup.selectAll("line").attr("stroke", "rgba(0, 0, 0, 0.2)");
-  //   yAxisGroup
-  //     .selectAll("text")
-  //     .attr("opacity", 0.5)
-  //     .attr("color", "blue")
-  //     .attr("font-size", "0.75rem");
-
-  //   const line = d3
-  //     .line()
-  //     .x((d) => xScale(d.date))
-  //     .y((d) => yScale(d.value));
-
-  //   svg
-  //     .selectAll(".line")
-  //     .data(data)
-  //     .enter()
-  //     .append("circle")
-  //     .attr("cx", (d) => xScale(d.date))
-  //     .attr("cy", (d) => yScale(d.value))
-  //     .attr("r", 2)
-  //     .attr("fill", (d) => "currentColor");
-
-  //     // .append("path")
-  //   // .attr("fill", "#ccc")
-  //   // .attr("stroke", (d) => '#ddd')
-  //   // .attr("stroke-width", 3)
-  //   // .attr("d", (d) => line(d));
 
   //   // const dataset = list.map((item) => [
   //   //   new Date(item.date),
@@ -239,48 +170,19 @@ export default function Chart({
   //   //         )
   //   //   );
 
-  //   // const xAxis = axisBottom(xScale)
-  //   //   .ticks(5)
-  //   //   .tickSizeOuter(0)
-  //   //   .tickFormat(timeFormat("%Y-%m-%d, %H:%M:%S"));
-  //   // select(xAxisRef.current).call(xAxis).style("font-size", "8px");
-
-  //   // const yAxis = axisLeft(yScale).ticks(5).tickSizeOuter(0);
-  //   // select(yAxisRef.current).call(yAxis).style("font-size", "8px");
-  // }, [list]);
-
-  // const data = useMemo(() => list.map(({value}) => value), [list]);
-  // const data = useMemo(
-  //   () =>
-  //     list
-  //       .map(({ date, value }) => ({
-  //         date: new Date(date),
-  //         value,
-  //       }))
-  //       .sort((a, b) => a.date - b.date),
-  //   [list]
-  // );
-
   useEffect(() => {
-    if (!wrapperRef.current) {
+    if (!wrapperRef.current || !svgRef.current) {
       return;
     }
-    const svg = select(svgRef.current);
+    const svg = select<Element, unknown>(svgRef.current);
     const svgContent = svg.select(".content");
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
 
-    const tooltip = select(tooltipRef.current);
-    // .append('div')
-    // .attr('class', 'tooltip')
-    // .style('opacity', 0);
-
     const data = group(list, (item) => item.investment_id);
-
     console.log({ data });
 
     // scales + line generator
-    // const xScale = scaleLinear()
     const xScale = scaleTime()
       .domain(extent(list, (d) => d.date))
       .range([10, width - 10]);
@@ -292,7 +194,6 @@ export default function Chart({
 
     const yScale = scaleLinear()
       .domain([0, max(list, (d) => d.value)])
-      // .domain(extent(data, (d) => d.value))
       .range([height - 10, 10]);
 
     const lineGenerator = line()
@@ -334,57 +235,24 @@ export default function Chart({
       .attr("fill", (d) => color(d.investment_id))
       .attr("cx", (d) => xScale(d.date))
       .attr("cy", (d) => yScale(d.value))
-      .on("mouseover", (e, { date, investment_id, value }) => {
-        // focus.style('display', null);
-
-        const x = xScale(date);
-        const y = yScale(value);
-
-        console.log(["mouseover"], { date, investment_id, value, x, y });
-
-        tooltip
-          .html(JSON.stringify({ date, investment_id, value }, null, 2))
-          .transition()
-          .duration(300)
-          .style("opacity", 0.9)
-          .style("transform", `translate(${x + 30}px,${y - 30}px)`);
+      .on("mouseenter", (_, data) => {
+        const x = xScale(data.date);
+        const y = yScale(data.value);
+        tooltip$.next({ x, y, data });
       })
-      .on("mouseout", () => {
-        tooltip.transition().duration(300).style("opacity", 0);
-      })
-      .on("mousemove", mousemove);
-
-    function mousemove(event) {
-      //  console.log(['mousemove'])
-      // const bisect = bisector(d => d.label).left;
-      // const xPos = mouse(this)[0];
-      // const x0 = bisect(data, xScale.invert(xPos));
-      // const d0 = data[x0];
-      // focus.attr(
-      //     'transform',
-      //     `translate(${xScale(d0.label)},${yScale(d0.value)})`,
-      // );
-      // tooltip
-      //     .transition()
-      //     .duration(300)
-      //     .style('opacity', 0.9);
-      // tooltip
-      //     .html(d0.tooltipContent || d0.label)
-      //     .style(
-      //         'transform',
-      //         `translate(${xScale(d0.label) + 30}px,${yScale(d0.value) - 30}px)`,
-      //   );
-    }
+      .on("mouseleave", () => {
+        tooltip$.next(null);
+      });
 
     // axes
     const xAxis = axisBottom(xScale);
     svg
-      .select(".x-axis")
+      .select<SVGGElement>(".x-axis")
       .attr("transform", `translate(0, ${height})`)
       .call(xAxis);
 
     const yAxis = axisLeft(yScale);
-    svg.select(".y-axis").call(yAxis);
+    svg.select<SVGGElement>(".y-axis").call(yAxis);
 
     // zoom
     const zoomBehavior = zoom()
@@ -394,6 +262,7 @@ export default function Chart({
         [width, height],
       ])
       .on("zoom", (event) => {
+        console.log({ event });
         const zoomState = event.transform;
         setCurrentZoomState(zoomState);
       });
@@ -403,12 +272,8 @@ export default function Chart({
 
   return (
     <div className={cx(styles.Chart)} ref={wrapperRef}>
-      <div
-        ref={tooltipRef}
-        className={styles.Tooltip}
-        // style={{ top: selected.top, left: selected.left }}
-      >
-        {/* {selected.label} */}
+      <div ref={tooltipRef} className={styles.Tooltip}>
+        {selected && <pre>{JSON.stringify(selected, null, 2)}</pre>}
       </div>
       <svg ref={svgRef}>
         <defs>
@@ -420,14 +285,6 @@ export default function Chart({
         <g className="x-axis" />
         <g className="y-axis" />
       </svg>
-      {/* {selected && (
-        <div
-          className={styles.Tooltip}
-          style={{ top: selected.top, left: selected.left }}
-        >
-          {selected.label}
-        </div>
-      )} */}
     </div>
   );
 }

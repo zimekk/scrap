@@ -60,27 +60,33 @@ function Data({ version = "v1" }) {
 
   console.log({ options, filters, results });
 
-  const from = useMemo(() => {
-    const list = results
-      .map(({ date }) => new Date(date).getTime())
-      .sort((a, b) => b - a);
-    return list[0] - ERA * 2000;
-  }, [results]);
-
-  const list = useMemo(
+  const unified = useMemo(
     () =>
       results
-        .filter(({ investment_id }) =>
-          [filters.investment].includes(investment_id)
-        )
         .map(({ investment_id, value, date }) => ({
           investment_id,
           value,
           date: new Date(date),
         }))
-        .filter((item) => item.date.getTime() > from)
-        .sort((a, b) => a.date - b.date),
-    [results, filters]
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        ),
+    [results]
+  );
+
+  const from = useMemo(
+    () => unified[unified.length - 1].date.getTime() - ERA * 2000,
+    [unified]
+  );
+
+  const list = useMemo(
+    () =>
+      unified
+        .filter(({ investment_id }) =>
+          [filters.investment].includes(investment_id)
+        )
+        .filter(({ date }) => date.getTime() > from),
+    [unified, filters]
   );
 
   return (
@@ -122,22 +128,7 @@ function Data({ version = "v1" }) {
           />
         </label>
       </fieldset>
-      <Chart
-        list={list}
-        // data={[
-        //   {name:'a',value:1},
-        //   {name:'b',value:3},
-        //   {name:'c',value:2}
-        // ]}
-        //  data={Object.entries(list)
-        // .reduce((data, [name, list]) => list.reduce((data, item) => Object.assign(data, {
-        // }) data), {})
-        // .map(([name, list]) => ({name, list: list.map(item => ({
-        //   ...item,
-        //   date: new Date(item.price_timestamp).getTime()
-        // }))}))}
-      />
-      {/* <Chart2 list={list} /> */}
+      <Chart list={list} />
       {options.investment.map(({ id, name }) => (
         <div key={id}>
           <h3>{name}</h3>
@@ -146,7 +137,6 @@ function Data({ version = "v1" }) {
       ))}
       <pre>{JSON.stringify(metas, null, 2)}</pre>
       <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre>
-      {/* <pre>{JSON.stringify(list[queries.investment].slice(0, 5), null, 2)}</pre> */}
     </div>
   );
 }
