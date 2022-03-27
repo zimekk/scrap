@@ -244,15 +244,44 @@ export default function Chart({
         tooltip$.next(null);
       });
 
+    // https://github.com/d3/d3-axis/blob/v3.0.0/README.md#axis_tickSizeInner
+    // https://observablehq.com/@d3/styled-axes?collection=@d3/d3-axis
+    const margin = {
+      top: 10,
+      bottom: 10,
+      left: 10,
+      right: 10,
+    };
+
     // axes
-    const xAxis = axisBottom(xScale);
+    const xAxis = axisBottom(xScale).tickSizeInner(
+      margin.top + margin.bottom - height
+    );
     svg
       .select<SVGGElement>(".x-axis")
       .attr("transform", `translate(0, ${height})`)
-      .call(xAxis);
+      .call(xAxis)
+      .call((g) =>
+        g
+          .selectAll(".tick line")
+          .attr("transform", `translate(0,${-margin.bottom})`)
+          .attr("stroke-opacity", 0.5)
+          .attr("stroke-dasharray", "2,2")
+      );
 
-    const yAxis = axisLeft(yScale);
-    svg.select<SVGGElement>(".y-axis").call(yAxis);
+    const yAxis = axisLeft(yScale).tickSizeInner(
+      margin.left + margin.right - width
+    );
+    svg
+      .select<SVGGElement>(".y-axis")
+      .call(yAxis)
+      .call((g) =>
+        g
+          .selectAll(".tick line")
+          .attr("transform", `translate(${margin.left},0)`)
+          .attr("stroke-opacity", 0.5)
+          .attr("stroke-dasharray", "2,2")
+      );
 
     // zoom
     const zoomBehavior = zoom()
