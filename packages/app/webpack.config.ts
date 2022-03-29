@@ -2,7 +2,7 @@ import path from "path";
 import { Configuration, EnvironmentPlugin } from "webpack";
 import "webpack-dev-server";
 import { RequestHandler } from "webpack-dev-server";
-import * as config from "@dev/bundle";
+import config from "@dev/bundle";
 import client from "@dev/web/webpack.config";
 
 const ENTRY = "index";

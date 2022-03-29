@@ -18,3 +18,8 @@ export const module = {
 export const resolve = {
   extensions: [".tsx", ".ts", ".js"],
 };
+
+export default {
+  module,
+  resolve,
+};

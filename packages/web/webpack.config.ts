@@ -2,7 +2,13 @@ import path from "path";
 import env from "dotenv";
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { Configuration, EnvironmentPlugin, ProvidePlugin } from "webpack";
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import {
+  Configuration,
+  EnvironmentPlugin,
+  ProvidePlugin,
+  WebpackPluginInstance,
+} from "webpack";
 import * as config from "@dev/bundle";
 
 env.config({ path: path.resolve(__dirname, "../../.env") });
@@ -13,12 +19,20 @@ export default (env: {
 }): Configuration => ({
   target: "web",
   devtool: env.WEBPACK_SERVE ? "inline-source-map" : "source-map",
-  entry: ["react-hot-loader/patch", "regenerator-runtime/runtime"].concat(
-    require.resolve("./src")
-  ),
+  entry: ["regenerator-runtime/runtime"].concat(require.resolve("./src")),
   module: {
     rules: [
-      ...config.module.rules,
+      ...config.module.rules.map((config) =>
+        config.loader === "babel-loader"
+          ? {
+              ...config,
+              options: {
+                ...config.options,
+                plugins: env.WEBPACK_SERVE ? ["react-refresh/babel"] : [],
+              },
+            }
+          : config
+      ),
       {
         test: /\.scss$/,
         use: [
@@ -49,7 +63,6 @@ export default (env: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
       events: "events",
-      "react-dom": "@hot-loader/react-dom",
     },
     // https://webpack.js.org/configuration/resolve/#resolvefallback
     fallback: {
@@ -79,8 +92,9 @@ export default (env: {
         },
       ],
     }),
+    ...(env.WEBPACK_SERVE ? [new ReactRefreshPlugin()] : []),
     new HtmlWebpackPlugin({
       favicon: require.resolve("./src/assets/favicon.ico"),
     }),
-  ],
+  ] as WebpackPluginInstance[],
 });
