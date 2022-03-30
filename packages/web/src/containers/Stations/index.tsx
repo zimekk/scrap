@@ -52,12 +52,13 @@ const compare = (history: any, k: number, p: number) => {
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/stations/data.json?${version}`);
   return await res.json().then(({ results }) => ({
-    results: results.map((item: StationItem) => ({
+    results: results.map(({ _history = {}, ...item }: StationItem) => ({
       ...item.petrol_list.reduce(
         (list, { type, price }) =>
           Object.assign(list, { [`_petrol_${type}`]: Number(price) || 0 }),
         {}
       ),
+      _history,
       ...item,
     })),
   }));
@@ -160,14 +161,16 @@ function Data({ version = "v1" }) {
             ...item,
             _distance: center.distanceTo(position),
           },
-          history: [[item._updated, item.petrol]]
-            .concat(Object.entries(item._history).reverse())
-            .map(([updated, petrol]) => [
-              updated,
-              Object.keys(TYPES)
-                .filter(Boolean)
-                .map((type) => petrol[type]),
-            ]),
+          history: item.petrol
+            ? [[item._updated, item.petrol]]
+                .concat(Object.entries(item._history).reverse())
+                .map(([updated, petrol]) => [
+                  updated,
+                  Object.keys(TYPES)
+                    .filter(Boolean)
+                    .map((type) => petrol[type]),
+                ])
+            : [],
           ...rest,
         }))
         .filter(({ item }: any) => item._distance < radius * 1000),

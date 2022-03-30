@@ -60,4 +60,9 @@ export const StationTypeSchema = z
     $radius,
   }));
 
-export type StationItem = z.infer<typeof StationItemSchema>;
+export type StationItem = {
+  _id: string;
+  _created: number;
+  _updated: number;
+  _history: Record<string, string>;
+} & z.infer<typeof StationItemSchema>;

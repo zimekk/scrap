@@ -15,6 +15,7 @@ const {
 
 const CENTER = { lat: Number(NEARBY_LAT), lng: Number(NEARBY_LNG) };
 const RADIUS = Number(NEARBY_RADIUS);
+const NEARBY = [CENTER, { lat: 53.1298, lng: 23.1457 }];
 
 export const getStationsData: RequestHandler = (_req, res) =>
   stationItems
@@ -25,9 +26,11 @@ export const getStationsData: RequestHandler = (_req, res) =>
     .then((results) =>
       (results as StationItem[]).filter(
         (item) =>
-          // Object.keys(item._history || {}).length &&
-          headingDistanceTo(CENTER, { lat: item.x, lng: item.y }).distance <
-          RADIUS
+          NEARBY.findIndex(
+            (center) =>
+              headingDistanceTo(center, { lat: item.x, lng: item.y }).distance <
+              RADIUS
+          ) >= 0
       )
     )
     .then((results) => res.json({ results }));
