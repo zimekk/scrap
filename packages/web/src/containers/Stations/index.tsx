@@ -76,44 +76,64 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const [radius, setRadius] = useState(5);
-
-  const onChangeRadius = useCallback(
-    ({ target }) => setRadius(Number(target.value)),
-    []
-  );
-
-  const [type, setType] = useState(() => Object.keys(TYPES)[1]);
-
-  const onChangeType = useCallback(({ target }) => setType(target.value), []);
-
-  const [priceFrom, setPriceFrom] = useState(PRICE_LIST[0]);
-  const [priceTo, setPriceTo] = useState(PRICE_LIST[PRICE_LIST.length - 1]);
-
-  const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[0]);
+  const [criteria, setCriteria] = useState(() => ({
+    // search: "",
+    type: Object.keys(TYPES)[1],
+    radius: 5,
+    priceFrom: PRICE_LIST[0],
+    priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+    dateFrom: format(Date.now() - 1000 * 3600 * 24 * 30, "yyyy-MM-dd"),
+    dateTo: format(Date.now(), "yyyy-MM-dd"),
+    sortBy: Object.keys(SORT_BY)[0] as keyof typeof SORT_BY,
+  }));
 
   const onChangePriceFrom = useCallback(
     ({ target }) =>
-      setPriceTo((to) => {
-        const from = Number(target.value);
-        setPriceFrom(from);
-        return to < from ? from : to;
+      setCriteria(({ priceTo, ...criteria }) => {
+        const priceFrom = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom,
+          priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+        };
       }),
     []
   );
-
   const onChangePriceTo = useCallback(
     ({ target }) =>
-      setPriceFrom((from) => {
-        const to = Number(target.value);
-        setPriceTo(to);
-        return to > from ? from : to;
+      setCriteria(({ priceFrom, ...criteria }) => {
+        const priceTo = Number(target.value);
+        return {
+          ...criteria,
+          priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+          priceTo,
+        };
       }),
     []
   );
 
-  const onChangeSortBy = useCallback(
-    ({ target }) => setSortBy(target.value),
+  const onChangeCreatedFrom = useCallback(
+    ({ target }) =>
+      setCriteria(({ dateTo, ...criteria }) => {
+        const dateFrom = target.value;
+        return {
+          ...criteria,
+          dateFrom,
+          dateTo: dateTo < dateFrom ? dateFrom : dateTo,
+        };
+      }),
+    []
+  );
+  const onChangeCreatedTo = useCallback(
+    ({ target }) =>
+      setCriteria(({ dateFrom, ...criteria }) => {
+        const dateTo = target.value;
+        return {
+          ...criteria,
+          dateFrom: dateTo > dateFrom ? dateFrom : dateTo,
+          dateTo,
+        };
+      }),
     []
   );
 
@@ -133,19 +153,32 @@ function Data({ version = "v1" }) {
           };
         })
         .filter(
-          ({ name, item: { petrol_list, address = "" } }: any) =>
+          ({
+            name,
+            item: { petrol_list, address = "", _created, _updated = _created },
+          }: any) =>
             (name.toLowerCase().match(filter) ||
               address.toLowerCase().match(filter)) &&
-            (type
+            (criteria.type
               ? ((item) =>
                   Boolean(item) &&
-                  priceFrom <= item.price &&
-                  item.price <= priceTo)(
-                  petrol_list.find((item: any) => item.type === type)
+                  criteria.priceFrom <= item.price &&
+                  item.price <= criteria.priceTo)(
+                  petrol_list.find((item: any) => item.type === criteria.type)
                 )
-              : true)
+              : true) &&
+            new Date(`${criteria.dateFrom} 00:00:00`).getTime() <= _updated &&
+            _updated <= new Date(`${criteria.dateTo} 23:59:59`).getTime()
         ),
-    [results, filter, type, priceFrom, priceTo]
+    [
+      results,
+      filter,
+      criteria.type,
+      criteria.priceFrom,
+      criteria.priceTo,
+      criteria.dateFrom,
+      criteria.dateTo,
+    ]
   );
 
   const middle = useBounds([{ position: { lat: 52.1793, lng: 21.0498 } }]);
@@ -173,22 +206,22 @@ function Data({ version = "v1" }) {
             : [],
           ...rest,
         }))
-        .filter(({ item }: any) => item._distance < radius * 1000),
-    [list, center, radius]
+        .filter(({ item }: any) => item._distance < criteria.radius * 1000),
+    [list, center, criteria.radius]
   );
 
   const sorted = useMemo(
     () =>
       nearby.sort(
         (a, b) =>
-          SORT_BY[sortBy] *
-          (a.item[sortBy] === b.item[sortBy]
+          SORT_BY[criteria.sortBy] *
+          (a.item[criteria.sortBy] === b.item[criteria.sortBy]
             ? 0
-            : (a.item[sortBy] || 0) > (b.item[sortBy] || 0)
+            : (a.item[criteria.sortBy] || 0) > (b.item[criteria.sortBy] || 0)
             ? 1
             : -1)
       ),
-    [nearby, sortBy]
+    [nearby, criteria.sortBy]
   );
 
   const bounds = useBounds(nearby);
@@ -215,8 +248,15 @@ function Data({ version = "v1" }) {
               list="range-list"
               min={RADIUS_LIST[0]}
               max={RADIUS_LIST[RADIUS_LIST.length - 1]}
-              value={radius}
-              onChange={onChangeRadius}
+              value={criteria.radius}
+              onChange={useCallback(
+                ({ target }) =>
+                  setCriteria((criteria) => ({
+                    ...criteria,
+                    radius: Number(target.value),
+                  })),
+                []
+              )}
             />
             <datalist id="range-list">
               {RADIUS_LIST.map((value) => (
@@ -229,13 +269,23 @@ function Data({ version = "v1" }) {
                 ></option>
               ))}
             </datalist>
-            <span>{`max ${radius} km`}</span>
+            <span>{`max ${criteria.radius} km`}</span>
           </label>
         </div>
         <div>
           <label>
             <span>Type</span>
-            <select value={type} onChange={onChangeType}>
+            <select
+              value={criteria.type}
+              onChange={useCallback(
+                ({ target }) =>
+                  setCriteria((criteria) => ({
+                    ...criteria,
+                    type: target.value,
+                  })),
+                []
+              )}
+            >
               {Object.entries(TYPES).map(([value, label]) => (
                 <option key={value} value={value}>
                   {label}
@@ -245,7 +295,17 @@ function Data({ version = "v1" }) {
           </label>
           <label>
             <span>Sort</span>
-            <select value={sortBy} onChange={onChangeSortBy}>
+            <select
+              value={criteria.sortBy}
+              onChange={useCallback(
+                ({ target }) =>
+                  setCriteria((criteria) => ({
+                    ...criteria,
+                    sortBy: target.value,
+                  })),
+                []
+              )}
+            >
               {Object.entries(SORT_BY).map(([value]) => (
                 <option key={value} value={value}>
                   {value}
@@ -262,7 +322,7 @@ function Data({ version = "v1" }) {
               list="price-list"
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceFrom}
+              value={criteria.priceFrom}
               onChange={onChangePriceFrom}
             />
             <datalist id="price-list">
@@ -286,10 +346,28 @@ function Data({ version = "v1" }) {
               list="price-list"
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
-              value={priceTo}
+              value={criteria.priceTo}
               onChange={onChangePriceTo}
             />
-            <span>{`${priceFrom}-${priceTo} pln/l`}</span>
+            <span>{`${criteria.priceFrom}-${criteria.priceTo} pln/l`}</span>
+          </label>
+        </div>
+        <div>
+          <label>
+            <span>Date From</span>
+            <input
+              type="date"
+              value={criteria.dateFrom}
+              onChange={onChangeCreatedFrom}
+            />
+          </label>
+          <label>
+            <span>Date To</span>
+            <input
+              type="date"
+              value={criteria.dateTo}
+              onChange={onChangeCreatedTo}
+            />
           </label>
         </div>
       </fieldset>
