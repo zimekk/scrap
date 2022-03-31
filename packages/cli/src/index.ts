@@ -24,15 +24,6 @@ require("dotenv").config();
 // const REGEX = new RegExp(/^((?!investment).)*$/);
 const REGEX = new RegExp(/^(.)*$/);
 
-const {
-  NEARBY_LAT = "52.1530829",
-  NEARBY_LNG = "21.1104411",
-  NEARBY_RADIUS = "10000",
-} = process.env as {
-  NEARBY_LAT: string;
-  NEARBY_LNG: string;
-  NEARBY_RADIUS: string;
-};
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
@@ -643,7 +634,11 @@ export default function (type?: string) {
   from(
     type
       ? []
-      : [`${Types.STATION}:${NEARBY_LAT}:${NEARBY_LNG}:${NEARBY_RADIUS}`]
+      : [
+          `${Types.STATION}:${52.17}:${21.06}:${10000}`,
+          `${Types.STATION}:${52.46}:${21.29}:${10000}`,
+          `${Types.STATION}:${53.12}:${23.09}:${10000}`,
+        ]
   ).subscribe((type) => {
     request$.next({ type });
   });

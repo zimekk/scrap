@@ -50,10 +50,10 @@ const updateItem = (last: any, item: any, updated = _time) =>
     z
       .object({
         _id: z.string(),
-        _created: z.number(),
-        _updated: z.number().default(last._created),
+        _created: z.number().default(updated),
+        _updated: z.number().default(last._created || updated),
         _history: z.object({}).passthrough().default({}),
-        petrol: z.object({}).passthrough(),
+        petrol: z.object({}).passthrough().default({}),
         petrol_list: z.array(z.any()),
       })
       .passthrough()
