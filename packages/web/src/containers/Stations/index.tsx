@@ -231,7 +231,9 @@ function Data({ version = "v1" }) {
           history.map(([date, values]) => ({
             group: `${network_name} | ${address}`,
             date: new Date(Number(date)),
-            value: Number(values[0]),
+            value: Number(
+              values[Object.keys(TYPES).indexOf(criteria.type) - 1]
+            ),
           }))
         )
         .flat()
@@ -394,7 +396,29 @@ function Data({ version = "v1" }) {
           <tr>
             <th>#</th>
             {Object.keys(TYPES).map((key) => (
-              <th key={key}>{key ? key : <div>name</div>}</th>
+              <th
+                key={key}
+                className={cx(key === criteria.type && styles.selected)}
+              >
+                {key ? (
+                  <Link
+                    onClick={useCallback(
+                      (e) => (
+                        e.preventDefault(),
+                        setCriteria((criteria) => ({
+                          ...criteria,
+                          type: key,
+                        }))
+                      ),
+                      []
+                    )}
+                  >
+                    {key}
+                  </Link>
+                ) : (
+                  <div>name</div>
+                )}
+              </th>
             ))}
             <th>updated</th>
             <th></th>
@@ -415,7 +439,13 @@ function Data({ version = "v1" }) {
                     </td>
                   )}
                   {petrol.map((price, p) => (
-                    <td key={p}>
+                    <td
+                      key={p}
+                      className={cx(
+                        p === Object.keys(TYPES).indexOf(criteria.type) - 1 &&
+                          styles.selected
+                      )}
+                    >
                       <div
                         className={cx(
                           styles.Price,

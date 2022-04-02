@@ -8,6 +8,12 @@
   }
 }
 .Table {
+  border-collapse: collapse;
+
+  .selected {
+    background: #def;
+  }
+
   td {
     vertical-align: top;
     padding: 0.25em;
