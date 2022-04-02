@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
-import Chart from "./Chart";
+import Chart from "./ZoomableLineChart";
 import Map, { useBounds } from "./Map";
 import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";
@@ -195,7 +195,7 @@ function Data({ version = "v1" }) {
             _distance: center.distanceTo(position),
           },
           history: item.petrol
-            ? [[item._updated, item.petrol]]
+            ? [[String(item._updated), item.petrol]]
                 .concat(Object.entries(item._history).reverse())
                 .map(([updated, petrol]) => [
                   updated,
@@ -224,6 +224,24 @@ function Data({ version = "v1" }) {
     [nearby, criteria.sortBy]
   );
 
+  const chart = useMemo(
+    () =>
+      nearby
+        .map(({ history, item: { network_name, address } }) =>
+          history.map(([date, values]) => ({
+            group: `${network_name} | ${address}`,
+            date: new Date(Number(date)),
+            value: Number(values[0]),
+          }))
+        )
+        .flat()
+        .filter(({ value }) => Boolean(value))
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        ),
+    [nearby, criteria.type]
+  );
+
   const bounds = useBounds(nearby);
 
   return (
@@ -234,7 +252,7 @@ function Data({ version = "v1" }) {
         setCenter={setCenter}
         list={nearby}
       />
-      <Chart list={nearby} />
+      <Chart list={chart} />
       <fieldset>
         <div>
           <label>
