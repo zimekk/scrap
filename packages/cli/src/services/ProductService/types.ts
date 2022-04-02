@@ -132,6 +132,8 @@ export const ItemSchema = z.object({
 
 export type ProductItem = {
   id: string;
+  images: string[];
+  srcSet?: string[];
   _created: number;
   _updated: number;
 } & z.infer<typeof ItemSchema>;

@@ -105,9 +105,6 @@ function Data({ version = "v1" }) {
     () =>
       results
         .map(({ _created, _updated = _created, ...item }) => ({
-          _image: item.image.filter(
-            (src: string) => !src.match(/product-mini/)
-          ),
           _title: item.title.toLowerCase(),
           _price: Number(
             (item.price.length > 0 ? item.price : ["0"])
@@ -273,10 +270,14 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map(({ _image, ...item }) => (
+        {sorted.slice(0, 100).map(({ images, srcSet, ...item }) => (
           <li key={item.id} className={styles.Row}>
             {/* <pre>{JSON.stringify(item.price, null, 2)}</pre> */}
-            <Gallery className={styles.Gallery} images={_image} />
+            <Gallery
+              className={styles.Gallery}
+              images={images}
+              srcSet={srcSet}
+            />
             <h3>
               <Link href={item.url}>{item.title}</Link>
             </h3>
