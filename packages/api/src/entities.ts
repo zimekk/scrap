@@ -3,7 +3,7 @@ import nedb from "nedb";
 export class Entities {
   public db: any;
 
-  constructor(filename: string) {
+  constructor(filename: string, { autocompactionInterval = 0 } = {}) {
     this.db = new nedb({
       filename,
       autoload: true,
@@ -11,6 +11,9 @@ export class Entities {
     this.db.ensureIndex({ fieldName: "id", unique: true }, (err: any) =>
       err ? console.error(err) : null
     );
+    if (autocompactionInterval > 0) {
+      this.db.persistence.setAutocompactionInterval(autocompactionInterval);
+    }
   }
 
   find(c: any): Promise<object[]> {
