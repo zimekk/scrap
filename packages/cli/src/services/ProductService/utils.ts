@@ -112,9 +112,11 @@ export const fromHtml2 = (html: string) => {
   const brand = $root
     .querySelector('meta[itemprop="manufacturer"]')
     ?.getAttribute("content");
-  const id = $root
-    .querySelector('meta[itemprop="gtin"]')
-    ?.getAttribute("content");
+  const id =
+    $root.querySelector('meta[itemprop="gtin"]')?.getAttribute("content") ||
+    $root
+      .querySelector('div i[data-tooltip-id="#parameter-ean"]')
+      ?.parentNode.nextElementSibling.text.trim();
 
   const image = $root
     .querySelectorAll(".js-screen-photo img")
@@ -124,13 +126,14 @@ export const fromHtml2 = (html: string) => {
     .querySelectorAll(".product-card-availability div")
     .map(($div: any) => $div.text.replace(/\s+/g, " ").trim());
 
-  const price = $root
-    .querySelector("div.product-basic-content div.price")
-    ?.text.replace(/\s+/g, " ")
-    .trim()
-    .split("zł")
-    .filter((s) => s !== "")
-    .map((s) => [s.trim(), "zł"].join(" "));
+  const price =
+    $root
+      .querySelector("div.product-basic-content div.price")
+      ?.text.replace(/\s+/g, " ")
+      .trim()
+      .split("zł")
+      .filter((s) => s !== "")
+      .map((s) => [s.trim(), "zł"].join(" ")) || [];
   // .replace(/[\s\r\n]+/, ' ').split('zł')
   // .split('\n').map(s => s.trim())
   // .join('')
