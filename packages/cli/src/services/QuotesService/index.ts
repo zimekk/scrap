@@ -37,11 +37,16 @@ const updateItem = (
 });
 
 export class QuotesService extends Service {
-  async fetcher(type: string, investment_id = 0, format = "json") {
+  async fetcher(
+    type: string,
+    investment_id = 0,
+    format = "json",
+    division = "daily"
+  ) {
     return request(
       {
         id: [type, this.mk, investment_id].join("-"),
-        url: `${TFI_URL}_ajax/rest/v2/tfi/fund/${investment_id}/values/?format=${format}`,
+        url: `${TFI_URL}_ajax/rest/v2/tfi/fund/${investment_id}/values/?format=${format}&division=${division}`,
       },
       this.summary
     );
