@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
+import { format, sub } from "date-fns";
 import Chart from "./ZoomableLineChart";
 import styles from "./styles.module.scss";
 
@@ -29,6 +30,42 @@ function Data({ version = "v1" }) {
     }),
     [results]
   );
+
+  const names = useMemo(
+    () =>
+      metas.reduce(
+        (result, { id, name }) =>
+          Object.assign(result, {
+            [id]: name,
+          }),
+        {}
+      ),
+    [metas]
+  );
+
+  const values = useMemo(
+    () =>
+      results.reduce(
+        (result, { date, investment_id, value }) =>
+          Object.assign(result, {
+            [investment_id]: Object.assign(result[investment_id] || {}, {
+              [date]: value,
+            }),
+          }),
+        {}
+      ),
+    [results]
+  );
+
+  const [transactions] = useState(() => [
+    { date: "2022-02-01", investment_id: 75, value: 1000 }, // PKO Akcji Rynku Amerykańskiego
+    { date: "2022-02-28", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
+    { date: "2022-03-08", investment_id: 35, value: 1000 }, // PKO Technologii i Innowacji Globalny
+    { date: "2022-03-01", investment_id: 75, value: 1000 }, // PKO Akcji Rynku Amerykańskiego
+    { date: "2022-03-11", investment_id: 10, value: 1000 }, // PKO Akcji Nowa Europa
+    { date: "2022-03-21", investment_id: 36, value: 1000 }, // PKO Dóbr Luksusowych Globalny
+    { date: "2022-03-21", investment_id: 37, value: 1000 }, // PKO Infrastruktury i Budownictwa Globalny
+  ]);
 
   const [filters, setFilters] = useState(() => ({
     investment: options.investment[0].id,
@@ -58,7 +95,7 @@ function Data({ version = "v1" }) {
     search$.next(filters);
   }, [filters]);
 
-  console.log({ options, filters, results });
+  console.log({ metas, options, filters, results, values });
 
   const unified = useMemo(
     () =>
@@ -129,6 +166,36 @@ function Data({ version = "v1" }) {
         </label>
       </fieldset>
       <Chart list={list} />
+      <Chart
+        list={[...Array(120)]
+          .map((_, i) =>
+            sub(new Date(), {
+              days: i,
+            })
+          )
+          .reverse()
+          .map((date, i) =>
+            Object.entries(
+              transactions
+                .filter((transaction) => new Date(transaction.date) <= date)
+                .map(getInvestmentTransactionValue({ date, values }))
+                .filter(Boolean)
+                .reduce(
+                  (result, { value, investment_id }) =>
+                    Object.assign(result, {
+                      [investment_id]: (result[investment_id] || 0) + value,
+                    }),
+                  {}
+                )
+            ).map(([investment_id, value]) => ({
+              date,
+              investment_id,
+              value,
+            }))
+          )
+          .flat()}
+      />
+      <Transactions transactions={transactions} values={values} names={names} />
       {options.investment.map(({ id, name }) => (
         <div key={id}>
           <h3>{name}</h3>
@@ -137,6 +204,90 @@ function Data({ version = "v1" }) {
       ))}
       <pre>{JSON.stringify(metas, null, 2)}</pre>
       <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre>
+    </div>
+  );
+}
+
+const getInvestmentTransactionValue =
+  ({ date: valueDate, values }) =>
+  ({ date, investment_id, value }) => {
+    const unitValue = values[investment_id][date];
+    const round = 1000;
+    const units = Math.round((round * value) / unitValue) / round;
+    const unitValueDate =
+      values[investment_id][format(valueDate, "yyyy-MM-dd")];
+    return values[investment_id][format(valueDate, "yyyy-MM-dd")]
+      ? {
+          investment_id,
+          value: Math.round(100 * units * unitValueDate) / 100,
+        }
+      : null;
+  };
+
+const getInvestmentTransaction =
+  ({ names, values }) =>
+  ({ date, investment_id, value }) => {
+    const unitValue = values[investment_id][date];
+    const round = 1000;
+    const units = Math.round((round * value) / unitValue) / round;
+    return {
+      name: names[investment_id],
+      date: new Date(date),
+      investment_id,
+      value: Math.round(100 * units * unitValue) / 100,
+      valueNetto: value,
+      valueBrutto: value,
+      unitValue,
+      units,
+    };
+  };
+
+function Transactions({ transactions, values, names }) {
+  return (
+    <div className={styles.Transactions}>
+      <h3>Transactions</h3>
+      <table>
+        <tbody>
+          {transactions
+            .map(getInvestmentTransaction({ names, values }))
+            .map((item, i) => (
+              <tr key={i}>
+                <td>
+                  <div>{item.name}</div>
+                  {/* <pre>{JSON.stringify(values[investment_id], null, 2)}</pre> */}
+                  <pre>
+                    {`Data wyceny jednostki
+${format(item.date, "yyyy-MM-dd")}
+Data realizacji
+28.02.2022
+Kwota transakcji netto w PLN
+${new Intl.NumberFormat("pl-PL", {
+  minimumFractionDigits: 2,
+}).format(item.valueNetto)} PLN
+1 000,00 PLN
+Kwota transakcji brutto w PLN
+${new Intl.NumberFormat("pl-PL", {
+  minimumFractionDigits: 2,
+}).format(item.valueBrutto)} PLN
+Ilość jednostek po transakcji
+${item.units}
+4,483
+Wartość jednostki w dniu wyceny
+${new Intl.NumberFormat().format(item.unitValue)} PLN
+223,05 PLN
+Wartość
+${new Intl.NumberFormat("pl-PL", {
+  minimumFractionDigits: 2,
+}).format(item.value)} PLN
+999,93 PLN
+Opłata manipulacyjna
+0,00 PLN / 0 %`}
+                  </pre>
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
     </div>
   );
 }
