@@ -13,7 +13,8 @@
   "scripts": {
     "build": "webpack --mode production",
     "serve": "serve -l 8080 public",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@dev/bundle": "1.0.0",
