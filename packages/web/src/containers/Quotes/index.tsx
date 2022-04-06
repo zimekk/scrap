@@ -34,7 +34,7 @@ function Data({ version = "v1" }) {
   const names = useMemo(
     () =>
       metas.reduce(
-        (result, { id, name }) =>
+        (result: Record<string, string>, { id, name }) =>
           Object.assign(result, {
             [id]: name,
           }),
@@ -43,10 +43,13 @@ function Data({ version = "v1" }) {
     [metas]
   );
 
-  const values = useMemo(
+  const rates = useMemo(
     () =>
       results.reduce(
-        (result, { date, investment_id, value }) =>
+        (
+          result: Record<string, Record<string, number>>,
+          { date, investment_id, value }
+        ) =>
           Object.assign(result, {
             [investment_id]: Object.assign(result[investment_id] || {}, {
               [date]: value,
@@ -65,6 +68,7 @@ function Data({ version = "v1" }) {
     { date: "2022-03-11", investment_id: 10, value: 1000 }, // PKO Akcji Nowa Europa
     { date: "2022-03-21", investment_id: 36, value: 1000 }, // PKO Dóbr Luksusowych Globalny
     { date: "2022-03-21", investment_id: 37, value: 1000 }, // PKO Infrastruktury i Budownictwa Globalny
+    { date: "2022-04-01", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
   ]);
 
   const [filters, setFilters] = useState(() => ({
@@ -95,7 +99,7 @@ function Data({ version = "v1" }) {
     search$.next(filters);
   }, [filters]);
 
-  console.log({ metas, options, filters, results, values });
+  console.log({ metas, options, filters, results, rates });
 
   const unified = useMemo(
     () =>
@@ -165,7 +169,12 @@ function Data({ version = "v1" }) {
           />
         </label>
       </fieldset>
-      <Chart list={list} />
+      <Chart
+        list={list.map(({ investment_id, ...item }) => ({
+          ...item,
+          group: names[investment_id],
+        }))}
+      />
       <Chart
         list={[...Array(120)]
           .map((_, i) =>
@@ -178,10 +187,10 @@ function Data({ version = "v1" }) {
             Object.entries(
               transactions
                 .filter((transaction) => new Date(transaction.date) <= date)
-                .map(getInvestmentTransactionValue({ date, values }))
+                .map(getInvestmentTransactionValue({ date, rates }))
                 .filter(Boolean)
                 .reduce(
-                  (result, { value, investment_id }) =>
+                  (result: Record<string, number>, { value, investment_id }) =>
                     Object.assign(result, {
                       [investment_id]: (result[investment_id] || 0) + value,
                     }),
@@ -189,13 +198,13 @@ function Data({ version = "v1" }) {
                 )
             ).map(([investment_id, value]) => ({
               date,
-              investment_id,
+              group: names[investment_id],
               value,
             }))
           )
           .flat()}
       />
-      <Transactions transactions={transactions} values={values} names={names} />
+      <Transactions transactions={transactions} rates={rates} names={names} />
       {options.investment.map(({ id, name }) => (
         <div key={id}>
           <h3>{name}</h3>
@@ -209,14 +218,27 @@ function Data({ version = "v1" }) {
 }
 
 const getInvestmentTransactionValue =
-  ({ date: valueDate, values }) =>
-  ({ date, investment_id, value }) => {
-    const unitValue = values[investment_id][date];
+  ({
+    date: valueDate,
+    rates,
+  }: {
+    date: Date;
+    rates: Record<string, Record<string, number>>;
+  }) =>
+  ({
+    date,
+    investment_id,
+    value,
+  }: {
+    date: string;
+    investment_id: number;
+    value: number;
+  }) => {
+    const unitValue = rates[investment_id][date];
     const round = 1000;
     const units = Math.round((round * value) / unitValue) / round;
-    const unitValueDate =
-      values[investment_id][format(valueDate, "yyyy-MM-dd")];
-    return values[investment_id][format(valueDate, "yyyy-MM-dd")]
+    const unitValueDate = rates[investment_id][format(valueDate, "yyyy-MM-dd")];
+    return rates[investment_id][format(valueDate, "yyyy-MM-dd")]
       ? {
           investment_id,
           value: Math.round(100 * units * unitValueDate) / 100,
@@ -225,9 +247,23 @@ const getInvestmentTransactionValue =
   };
 
 const getInvestmentTransaction =
-  ({ names, values }) =>
-  ({ date, investment_id, value }) => {
-    const unitValue = values[investment_id][date];
+  ({
+    names,
+    rates,
+  }: {
+    names: Record<string, string>;
+    rates: Record<string, Record<string, number>>;
+  }) =>
+  ({
+    date,
+    investment_id,
+    value,
+  }: {
+    date: string;
+    investment_id: number;
+    value: number;
+  }) => {
+    const unitValue = rates[investment_id][date];
     const round = 1000;
     const units = Math.round((round * value) / unitValue) / round;
     return {
@@ -242,19 +278,27 @@ const getInvestmentTransaction =
     };
   };
 
-function Transactions({ transactions, values, names }) {
+function Transactions({
+  transactions,
+  rates,
+  names,
+}: {
+  transactions: { date: string; investment_id: number; value: number }[];
+  names: Record<string, string>;
+  rates: Record<string, Record<string, number>>;
+}) {
   return (
     <div className={styles.Transactions}>
       <h3>Transactions</h3>
       <table>
         <tbody>
           {transactions
-            .map(getInvestmentTransaction({ names, values }))
+            .map(getInvestmentTransaction({ names, rates }))
             .map((item, i) => (
               <tr key={i}>
                 <td>
                   <div>{item.name}</div>
-                  {/* <pre>{JSON.stringify(values[investment_id], null, 2)}</pre> */}
+                  {/* <pre>{JSON.stringify(rates[investment_id], null, 2)}</pre> */}
                   <pre>
                     {`Data wyceny jednostki
 ${format(item.date, "yyyy-MM-dd")}

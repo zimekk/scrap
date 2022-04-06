@@ -28,7 +28,7 @@ import styles from "./Chart.module.scss";
 export default function Chart({
   list,
 }: {
-  list: { investment_id: number; date: Date; value: number }[];
+  list: { group: string; date: Date; value: number }[];
 }) {
   const id = useMemo(() => "myZoomableLineChart", []);
   const svgRef = useRef<SVGSVGElement>(null);
@@ -179,7 +179,7 @@ export default function Chart({
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
 
-    const data = group(list, (item) => item.investment_id);
+    const data = group(list, (item) => item.group);
     console.log({ data });
 
     // scales + line generator
@@ -232,7 +232,7 @@ export default function Chart({
       .attr("class", "myDot")
       .attr("stroke", "black")
       .attr("r", 3)
-      .attr("fill", (d) => color(d.investment_id))
+      .attr("fill", (d) => color(d.group))
       .attr("cx", (d) => xScale(d.date))
       .attr("cy", (d) => yScale(d.value))
       .on("mouseenter", (_, data) => {
