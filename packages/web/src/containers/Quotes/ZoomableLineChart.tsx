@@ -55,8 +55,25 @@ export default function Chart({
       .subscribe((selected) => {
         // console.log({selected})
         if (selected) {
+          const margin = { x: 30, y: 30 };
           const { x, y, data } = selected;
-          const transform = `translate(${x + 30}px,${y - 30}px)`;
+
+          const wrapperRect = wrapperRef.current.getBoundingClientRect();
+          const tooltipRect = tooltipRef.current.getBoundingClientRect();
+
+          console.log({ wrapperRect, tooltipRect });
+
+          const transform = `translate(${
+            x +
+            (x < wrapperRect.width - tooltipRect.width - margin.x
+              ? margin.x
+              : -margin.x - tooltipRect.width)
+          }px,${
+            y +
+            (y < wrapperRect.height - tooltipRect.height - margin.y
+              ? margin.y
+              : margin.y - tooltipRect.height)
+          }px)`;
 
           if (tooltip.style("opacity") === "0") {
             tooltip.style("transform", transform);
