@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
-import Chart from "./ZoomableLineChart";
+import Chart from "../../components/ZoomableLineChart";
 import Map, { useBounds } from "./Map";
 import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";

@@ -3,7 +3,7 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format, sub } from "date-fns";
-import Chart from "./ZoomableLineChart";
+import Chart from "../../components/ZoomableLineChart";
 import styles from "./styles.module.scss";
 
 import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
