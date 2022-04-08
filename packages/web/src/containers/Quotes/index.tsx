@@ -73,6 +73,7 @@ function Data({ version = "v1" }) {
 
   const [filters, setFilters] = useState(() => ({
     investment: options.investment[0].id,
+    related: options.investment[0].id,
     search: "",
   }));
 
@@ -124,8 +125,32 @@ function Data({ version = "v1" }) {
     () =>
       unified
         .filter(({ investment_id }) =>
-          [filters.investment].includes(investment_id)
+          [filters.investment, filters.related].includes(investment_id)
         )
+        .filter(({ date }) => date.getTime() > from),
+    [unified, filters]
+  );
+
+  const relation = useMemo(
+    () =>
+      Object.entries(
+        unified.reduce(
+          (result, { date, investment_id, value }) =>
+            Object.assign(result, {
+              [format(date, "yyyy-MM-dd")]: Object.assign(
+                result[format(date, "yyyy-MM-dd")] || {},
+                {
+                  [investment_id]: value,
+                }
+              ),
+            }),
+          {}
+        )
+      )
+        .map(([date, investments]) => ({
+          date: new Date(date),
+          value: investments[filters.investment] / investments[filters.related],
+        }))
         .filter(({ date }) => date.getTime() > from),
     [unified, filters]
   );
@@ -175,6 +200,43 @@ function Data({ version = "v1" }) {
           group: names[investment_id],
         }))}
       />
+      <fieldset>
+        <label>
+          <span>Related</span>
+          <select
+            value={filters.related}
+            onChange={useCallback(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  related: Number(target.value),
+                })),
+              []
+            )}
+          >
+            {options.investment.map(({ id, name }) => (
+              <option key={id} value={id}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          onClick={useCallback(
+            (e) => (
+              e.preventDefault(),
+              setFilters(({ investment, related, ...filters }) => ({
+                ...filters,
+                investment: related,
+                related: investment,
+              }))
+            )
+          )}
+        >
+          reverse
+        </button>
+      </fieldset>
+      <Chart list={relation} />
       <Chart
         list={[...Array(120)]
           .map((_, i) =>
