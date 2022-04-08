@@ -266,6 +266,27 @@ function Data({ version = "v1" }) {
           )
           .flat()}
       />
+      <Chart
+        list={[...Array(120)]
+          .map((_, i) =>
+            sub(new Date(), {
+              days: i,
+            })
+          )
+          .reverse()
+          .map((date, i) => ({
+            date,
+            value: transactions
+              .filter((transaction) => new Date(transaction.date) <= date)
+              .map(getInvestmentTransactionValue({ date, rates }))
+              .filter(Boolean)
+              .reduce(
+                (result: Record<string, number>, { value }) => result + value,
+                0
+              ),
+          }))
+          .filter(({ value }) => Boolean(value))}
+      />
       <Transactions transactions={transactions} rates={rates} names={names} />
       {options.investment.map(({ id, name }) => (
         <div key={id}>
