@@ -7,3 +7,23 @@
   border: 2px solid transparent;
   margin: 0.5em;
 }
+.Percent {
+  color: black;
+  text-align: right;
+  width: 3em;
+  &.eq {
+    color: blue;
+  }
+  &.gt {
+    color: green;
+    &::before {
+      content: "\2196";
+    }
+  }
+  &.lt {
+    color: red;
+    &::before {
+      content: "\2198";
+    }
+  }
+}

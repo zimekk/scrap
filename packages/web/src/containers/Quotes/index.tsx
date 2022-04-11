@@ -4,6 +4,7 @@ import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format, sub } from "date-fns";
 import Chart from "../../components/ZoomableLineChart";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 import type { Meta, Item } from "@dev/cli/src/services/QuotesService/types";
@@ -443,6 +444,7 @@ function Transactions({
             <th>Data wyceny jednostki</th>
             <th>Wycena jednostki</th>
             <th>Wartość</th>
+            <th>%</th>
           </tr>
           {list.map((item, i) =>
             [
@@ -518,13 +520,20 @@ function Transactions({
                   )}
                   &nbsp;PLN
                 </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      quotes[item.investment_id].unitValue / item.unitValue - 1
+                    }
+                  />
+                </td>
               </tr>,
             ].concat(
               expanded.includes(i)
                 ? [
                     <tr key={`${i}-details`}>
                       <td></td>
-                      <td colSpan={7}>
+                      <td colSpan={8}>
                         {/* <pre>{JSON.stringify(rates[investment_id], null, 2)}</pre> */}
                         <pre>
                           {`Data wyceny jednostki
@@ -604,10 +613,29 @@ Opłata manipulacyjna
                 }).format(item.quote)}
                 &nbsp;PLN
               </td>
+              <td align="right">
+                <Percent value={item.quote / item.value - 1} />
+              </td>
             </tr>
           ))}
         </tfoot>
       </table>
+    </div>
+  );
+}
+
+function Percent({ value }: { value: number }) {
+  return (
+    <div
+      className={cx(
+        styles.Percent,
+        value === 0 ? styles.eq : value > 0 ? styles.gt : styles.lt
+      )}
+    >
+      {new Intl.NumberFormat("pl-PL", {
+        minimumFractionDigits: 2,
+      }).format(Math.round(100 * 100 * value) / 100)}
+      &nbsp;%
     </div>
   );
 }
