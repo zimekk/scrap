@@ -216,7 +216,7 @@ export const scrapPropertyGratkaItem = (
                 .array(
                   z.object({
                     url: z.string(),
-                    thumb: z.string(),
+                    thumb: z.string().optional(),
                   })
                 )
                 .parse(data)

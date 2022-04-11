@@ -1,4 +1,5 @@
 // https://github.com/calebj0seph/stock-checker/blob/master/src/chrome.js
+import type { HTTPRequest } from "puppeteer";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { resolve } from "path";
@@ -38,6 +39,16 @@ export async function openPage(browser: any) {
     "sec-fetch-site": "same-origin",
     "sec-fetch-user": "?1",
     "upgrade-insecure-requests": "1",
+  });
+  // https://bretcameron.medium.com/how-to-build-a-web-scraper-using-javascript-11d7cd9f77f2
+  await page.setRequestInterception(true);
+
+  page.on("request", (req: HTTPRequest) => {
+    if (["font", "image"].includes(req.resourceType())) {
+      req.abort();
+    } else {
+      req.continue();
+    }
   });
 
   return page;
