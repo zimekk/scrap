@@ -29,7 +29,7 @@
     "chunk": "^0.0.3",
     "geolocation-utils": "^1.2.5",
     "isomorphic-fetch": "^3.0.0",
-    "json-diff": "^0.7.3",
+    "json-diff": "^0.7.4",
     "node-html-parser": "^5.3.3",
     "puppeteer": "^13.5.2",
     "puppeteer-extra": "^3.2.3",
