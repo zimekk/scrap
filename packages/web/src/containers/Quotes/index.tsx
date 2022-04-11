@@ -686,6 +686,14 @@ function Investments({
             <th>Fundusz</th>
             <th>Data wyceny jednostki</th>
             <th>Wycena jednostki</th>
+            <th>7d</th>
+            <th>14d</th>
+            <th>1m</th>
+            <th>3m</th>
+            <th>6m</th>
+            <th>12m</th>
+            <th>24m</th>
+            <th>36m</th>
           </tr>
           {list.map((item, i) =>
             [
@@ -726,6 +734,134 @@ function Investments({
                     minimumFractionDigits: 2,
                   }).format(item.unitValue)}
                   &nbsp;PLN
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              days: 7,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              days: 14,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 1,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 3,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 6,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 12,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 24,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
+                </td>
+                <td align="right">
+                  <Percent
+                    value={
+                      item.unitValue /
+                        rates[item.id][
+                          format(
+                            sub(item.date, {
+                              months: 36,
+                            }),
+                            "yyyy-MM-dd"
+                          )
+                        ] -
+                      1
+                    }
+                  />
                 </td>
               </tr>,
             ].concat(
