@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
@@ -175,7 +182,7 @@ function Data({ version = "v1" }) {
           <span>Investment</span>
           <select
             value={filters.investment}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -196,7 +203,7 @@ function Data({ version = "v1" }) {
           <input
             type="search"
             value={filters.search}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -218,7 +225,7 @@ function Data({ version = "v1" }) {
           <span>Related</span>
           <select
             value={filters.related}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -235,7 +242,7 @@ function Data({ version = "v1" }) {
           </select>
         </label>
         <button
-          onClick={useCallback(
+          onClick={useCallback<MouseEventHandler>(
             (e) => (
               e.preventDefault(),
               setFilters(({ investment, related, ...filters }) => ({
@@ -243,7 +250,8 @@ function Data({ version = "v1" }) {
                 investment: related,
                 related: investment,
               }))
-            )
+            ),
+            []
           )}
         >
           reverse
@@ -428,10 +436,12 @@ function Transactions({
               <input
                 type="checkbox"
                 checked={selected.length === transactions.length}
-                onChange={useCallback(({ target }) =>
-                  setSelected(
-                    target.checked ? transactions.map((_, i) => i) : []
-                  )
+                onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                  ({ target }) =>
+                    setSelected(
+                      target.checked ? transactions.map((_, i) => i) : []
+                    ),
+                  []
                 )}
               />
             </th>
@@ -453,19 +463,21 @@ function Transactions({
                   <input
                     type="checkbox"
                     checked={selected.includes(i)}
-                    onChange={useCallback(({ target }) =>
-                      setSelected((selected) =>
-                        !target.checked
-                          ? selected.filter((n) => n !== i)
-                          : selected.concat(i)
-                      )
+                    onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                      ({ target }) =>
+                        setSelected((selected: number[]) =>
+                          !target.checked
+                            ? selected.filter((n) => n !== i)
+                            : selected.concat(i)
+                        ),
+                      []
                     )}
                   />
                 </td>
                 <td>
                   <a
                     href="#"
-                    onClick={useCallback(
+                    onClick={useCallback<MouseEventHandler>(
                       (e) => (
                         e.preventDefault(),
                         setExpanded((expanded) =>
@@ -473,7 +485,8 @@ function Transactions({
                             ? expanded.filter((n) => n !== i)
                             : expanded.concat(i)
                         )
-                      )
+                      ),
+                      []
                     )}
                   >
                     {item.name}
@@ -676,10 +689,12 @@ function Investments({
               <input
                 type="checkbox"
                 checked={selected.length === investments.length}
-                onChange={useCallback(({ target }) =>
-                  setSelected(
-                    target.checked ? investments.map(({ id }) => id) : []
-                  )
+                onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                  ({ target }) =>
+                    setSelected(
+                      target.checked ? investments.map(({ id }) => id) : []
+                    ),
+                  []
                 )}
               />
             </th>
@@ -702,19 +717,21 @@ function Investments({
                   <input
                     type="checkbox"
                     checked={selected.includes(item.id)}
-                    onChange={useCallback(({ target }) =>
-                      setSelected((selected) =>
-                        !target.checked
-                          ? selected.filter((id) => id !== item.id)
-                          : selected.concat(item.id)
-                      )
+                    onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                      ({ target }) =>
+                        setSelected((selected: number[]) =>
+                          !target.checked
+                            ? selected.filter((id) => id !== item.id)
+                            : selected.concat(item.id)
+                        ),
+                      []
                     )}
                   />
                 </td>
                 <td>
                   <a
                     href="#"
-                    onClick={useCallback(
+                    onClick={useCallback<MouseEventHandler>(
                       (e) => (
                         e.preventDefault(),
                         setExpanded((expanded) =>
@@ -722,7 +739,8 @@ function Investments({
                             ? expanded.filter((id) => id !== item.id)
                             : expanded.concat(item.id)
                         )
-                      )
+                      ),
+                      []
                     )}
                   >
                     {item.name}
