@@ -653,6 +653,18 @@ function Percent({ value }: { value: number }) {
   );
 }
 
+function getValueNearDate(values, date) {
+  for (let i = 0; i < 5; i++) {
+    let value = values[format(date, "yyyy-MM-dd")];
+    if (value) {
+      return value;
+    }
+    date = sub(date, {
+      days: 1,
+    });
+  }
+}
+
 function Investments({
   investments,
   rates,
@@ -757,14 +769,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              days: 7,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            days: 7,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -773,14 +783,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              days: 14,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            days: 14,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -789,14 +797,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              months: 1,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            months: 1,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -821,14 +827,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              months: 6,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            months: 6,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -837,14 +841,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              months: 12,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            months: 12,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -853,14 +855,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              months: 24,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            months: 24,
+                          })
+                        ) -
                       1
                     }
                   />
@@ -869,14 +869,12 @@ function Investments({
                   <Percent
                     value={
                       item.unitValue /
-                        rates[item.id][
-                          format(
-                            sub(item.date, {
-                              months: 36,
-                            }),
-                            "yyyy-MM-dd"
-                          )
-                        ] -
+                        getValueNearDate(
+                          rates[item.id],
+                          sub(item.date, {
+                            months: 36,
+                          })
+                        ) -
                       1
                     }
                   />
