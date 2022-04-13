@@ -19,7 +19,7 @@ const asset = createAsset(async (version) => {
   );
 });
 
-const optionsAsset = createAsset(async (version) => {
+export const optionsAsset = createAsset(async (version) => {
   return Promise.all([
     require("./assets/pricing-model-81dp.json"),
     require("./assets/localisations-81dp-options.json"),
@@ -232,7 +232,7 @@ function TreeNode({ node, options }) {
   );
 }
 
-const getDescription = (details: {
+export const getDescription = (details: {
   familyCode: string;
   phrases: { longDescription: string };
 }) =>

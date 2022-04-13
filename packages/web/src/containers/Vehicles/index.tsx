@@ -16,6 +16,7 @@ import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import { Calculator, ProductTypes } from "../../components/Calculator";
 import Chart from "./Chart";
+import Options from "./Options";
 import Map, { useBounds } from "./Map";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -1530,17 +1531,17 @@ function Details({
       )}
       {(item._created || item._updated || item._removed) && (
         <li>
-          {item._created && (
+          {item._created > 0 && (
             <span className={cx(styles.Compare)}>
               _created: {format(Number(item._created), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
-          {item._updated && (
+          {item._updated > 0 && (
             <span className={cx(styles.Compare)}>
               _updated: {format(Number(item._updated), "yyyy-MM-dd HH:mm")}{" "}
             </span>
           )}
-          {Boolean(item._removed) && (
+          {item._removed > 0 && (
             <span className={cx(styles.Compare)}>
               _removed: {format(Number(item._removed), "yyyy-MM-dd HH:mm")}{" "}
             </span>
@@ -1625,30 +1626,6 @@ function Leasing({ item }) {
       )}
       {expand && item.leaseProduct && (
         <Calculator productType={ProductTypes.LEASE} vehicle={item} />
-      )}
-    </div>
-  );
-}
-
-function Options({ options }: { options: string[] }) {
-  const [expand, setExpand] = useState(false);
-
-  return (
-    <div className={styles.Options}>
-      <Link
-        onClick={(e) => (e.preventDefault(), setExpand((expand) => !expand))}
-      >
-        {expand ? "Hide options" : "Show options"}
-      </Link>{" "}
-      {expand && (
-        <div className={styles.Textarea}>
-          <textarea
-            value={options.join("\n")}
-            rows={options.length}
-            onFocus={({ target }) => target.select()}
-            readOnly
-          />
-        </div>
       )}
     </div>
   );

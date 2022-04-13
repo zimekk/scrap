@@ -35,6 +35,16 @@
 .Options {
   .Textarea {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+
+    textarea {
+      &:first-of-type {
+        width: 4em;
+        text-align: right;
+      }
+      &:last-of-type {
+        flex-grow: 1;
+      }
+    }
   }
 }
