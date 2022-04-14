@@ -1,4 +1,12 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 // import { format } from "date-fns";
 // import { axisBottom, axisLeft, select, scaleLinear, timeFormat } from "d3";
 // import * as d3 from "d3";
@@ -24,20 +32,30 @@ import useResizeObserver from "../../hooks/useResizeObserver";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+const ZoomContext = createContext(undefined);
+
+export function SyncZoomProvider({ children }) {
+  const useZoom = useState();
+  return (
+    <ZoomContext.Provider value={useZoom}>{children}</ZoomContext.Provider>
+  );
+}
+
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/16-zoomable-line-chart
 export default function Chart({
   list,
 }: {
   list: { group: string; date: Date; value: number }[];
 }) {
-  const id = useMemo(() => "myZoomableLineChart", []);
+  const useZoom = useContext(ZoomContext);
+  const id = useId();
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const dimensions = useResizeObserver(wrapperRef);
-  const [currentZoomState, setCurrentZoomState] = useState<ZoomTransform>();
+  const [currentZoomState, setCurrentZoomState] =
+    useZoom || useState<ZoomTransform>();
   const [selected, setSelected] = useState<object | null>(null);
-
   const tooltip$ = useMemo(
     () => new Subject<{ x: number; y: number; data: object } | null>(),
     []

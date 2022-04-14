@@ -10,7 +10,7 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format, sub } from "date-fns";
-import Chart from "../../components/ZoomableLineChart";
+import Chart, { SyncZoomProvider } from "../../components/ZoomableLineChart";
 import Investments from "./Investments";
 import Transactions from "./Transactions";
 import styles from "./styles.module.scss";
@@ -208,104 +208,144 @@ function Data({ version = "v1" }) {
 
   return (
     <div>
-      <fieldset>
-        <label>
-          <span>Investment</span>
-          <select
-            value={filters.investment}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
+      <SyncZoomProvider>
+        <fieldset>
+          <label>
+            <span>Investment</span>
+            <select
+              value={filters.investment}
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    investment: Number(target.value),
+                  })),
+                []
+              )}
+            >
+              {options.investment.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </fieldset>
+        <Chart
+          list={list.map(({ investment_id, ...item }) => ({
+            ...item,
+            group: names[investment_id],
+          }))}
+        />
+        <fieldset>
+          <label>
+            <span>Related</span>
+            <select
+              value={filters.related}
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    related: Number(target.value),
+                  })),
+                []
+              )}
+            >
+              {options.investment.map(({ id, name }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            onClick={useCallback<MouseEventHandler>(
+              (e) => (
+                e.preventDefault(),
+                setFilters(({ investment, related, ...filters }) => ({
                   ...filters,
-                  investment: Number(target.value),
-                })),
+                  investment: related,
+                  related: investment,
+                }))
+              ),
               []
             )}
           >
-            {options.investment.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          <span>Search</span>
-          <input
-            type="search"
-            value={filters.search}
-            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  search: target.value,
-                })),
-              []
-            )}
-          />
-        </label>
-      </fieldset>
-      <Chart
-        list={list.map(({ investment_id, ...item }) => ({
-          ...item,
-          group: names[investment_id],
-        }))}
-      />
-      <fieldset>
-        <label>
-          <span>Related</span>
-          <select
-            value={filters.related}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  related: Number(target.value),
-                })),
-              []
-            )}
-          >
-            {options.investment.map(({ id, name }) => (
-              <option key={id} value={id}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          onClick={useCallback<MouseEventHandler>(
-            (e) => (
-              e.preventDefault(),
-              setFilters(({ investment, related, ...filters }) => ({
-                ...filters,
-                investment: related,
-                related: investment,
+            reverse
+          </button>
+        </fieldset>
+        <Chart list={relation} />
+      </SyncZoomProvider>
+      <SyncZoomProvider>
+        <fieldset>
+          <label>
+            <span>Search</span>
+            <input
+              type="search"
+              value={filters.search}
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    search: target.value,
+                  })),
+                []
+              )}
+            />
+          </label>
+        </fieldset>
+        <Investments
+          investments={options.investment}
+          rates={rates}
+          selected={investmentsSelected}
+          setSelected={setInvestmentsSelected}
+        />
+        <Chart
+          list={[...Array(DAYS)]
+            .map((_, i) =>
+              sub(new Date(), {
+                days: i,
+              })
+            )
+            .reverse()
+            .map((date, i) =>
+              Object.entries(
+                transactions
+                  .filter(
+                    (transaction, i) =>
+                      new Date(transaction.date) <= date && selected.includes(i)
+                  )
+                  .map(getInvestmentTransactionValue({ date, rates }))
+                  .filter(Boolean)
+                  .reduce(
+                    (
+                      result: Record<string, number>,
+                      { value, investment_id }
+                    ) =>
+                      Object.assign(result, {
+                        [investment_id]: (result[investment_id] || 0) + value,
+                      }),
+                    {}
+                  )
+              ).map(([investment_id, value]) => ({
+                date,
+                group: names[investment_id],
+                value,
               }))
-            ),
-            []
-          )}
-        >
-          reverse
-        </button>
-      </fieldset>
-      <Chart list={relation} />
-      <Investments
-        investments={options.investment}
-        rates={rates}
-        selected={investmentsSelected}
-        setSelected={setInvestmentsSelected}
-      />
-      <Chart
-        list={[...Array(DAYS)]
-          .map((_, i) =>
-            sub(new Date(), {
-              days: i,
-            })
-          )
-          .reverse()
-          .map((date, i) =>
-            Object.entries(
-              transactions
+            )
+            .flat()}
+        />
+        <Chart
+          list={[...Array(DAYS)]
+            .map((_, i) =>
+              sub(new Date(), {
+                days: i,
+              })
+            )
+            .reverse()
+            .map((date, i) => ({
+              date,
+              value: transactions
                 .filter(
                   (transaction, i) =>
                     new Date(transaction.date) <= date && selected.includes(i)
@@ -313,51 +353,20 @@ function Data({ version = "v1" }) {
                 .map(getInvestmentTransactionValue({ date, rates }))
                 .filter(Boolean)
                 .reduce(
-                  (result: Record<string, number>, { value, investment_id }) =>
-                    Object.assign(result, {
-                      [investment_id]: (result[investment_id] || 0) + value,
-                    }),
-                  {}
-                )
-            ).map(([investment_id, value]) => ({
-              date,
-              group: names[investment_id],
-              value,
+                  (result: Record<string, number>, { value }) => result + value,
+                  0
+                ),
             }))
-          )
-          .flat()}
-      />
-      <Chart
-        list={[...Array(DAYS)]
-          .map((_, i) =>
-            sub(new Date(), {
-              days: i,
-            })
-          )
-          .reverse()
-          .map((date, i) => ({
-            date,
-            value: transactions
-              .filter(
-                (transaction, i) =>
-                  new Date(transaction.date) <= date && selected.includes(i)
-              )
-              .map(getInvestmentTransactionValue({ date, rates }))
-              .filter(Boolean)
-              .reduce(
-                (result: Record<string, number>, { value }) => result + value,
-                0
-              ),
-          }))
-          .filter(({ value }) => Boolean(value))}
-      />
-      <Transactions
-        transactions={transactions}
-        rates={rates}
-        names={names}
-        selected={selected}
-        setSelected={setSelected}
-      />
+            .filter(({ value }) => Boolean(value))}
+        />
+        <Transactions
+          transactions={transactions}
+          rates={rates}
+          names={names}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      </SyncZoomProvider>
       {/* <pre>{JSON.stringify(metas, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre> */}
     </div>
