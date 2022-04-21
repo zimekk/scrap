@@ -1,0 +1,21 @@
+.Section {
+  color: purple;
+}
+.Row {
+  clear: both;
+}
+.Gallery {
+  float: left;
+  width: 150px;
+  height: 200px;
+}
+.Sale {
+  color: lightgray;
+}
+.Details {
+  .Feature {
+    &.changed {
+      color: blueviolet;
+    }
+  }
+}
