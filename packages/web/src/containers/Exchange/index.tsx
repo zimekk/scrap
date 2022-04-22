@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
+import Chart from "../../components/ZoomableLineChart";
 import styles from "./styles.module.scss";
 
 import type { Rate } from "@dev/cli/src/services/RatesService/types";
@@ -23,6 +24,7 @@ export default function Section({ version = "v1" }) {
   };
 
   const [code, setCode] = useState("CHF");
+  const [checked, setCheckedOptions] = useState(CODES);
 
   const values = useMemo(
     () => ({
@@ -70,11 +72,50 @@ export default function Section({ version = "v1" }) {
     [rates, values, code]
   );
 
+  const series = useMemo(
+    () =>
+      rates
+        .filter(({ code }) => checked.includes(code))
+        .map(({ sell, code, date, units }) => ({
+          date: new Date(date),
+          name: `${units} ${code}`,
+          value: Number(sell),
+          group: code,
+        }))
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        ),
+    [rates, checked]
+  );
+
   console.log({ rates, code, list });
 
   return (
     <div className={styles.Section}>
       <h2>Exchange</h2>
+      <fieldset>
+        <legend>Code</legend>
+        {CODES.map((code) => (
+          <label>
+            <input
+              type="checkbox"
+              value={code}
+              checked={checked.includes(code)}
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                ({ target }) =>
+                  setCheckedOptions((checked) =>
+                    target.checked
+                      ? checked.concat(target.value)
+                      : checked.filter((value) => value !== target.value)
+                  ),
+                []
+              )}
+            />
+            <span>{code}</span>
+          </label>
+        ))}
+      </fieldset>
+      <Chart list={series} />
       <fieldset>
         <label>
           <span>Code</span>
