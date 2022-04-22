@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import { items } from "@dev/api";
 
+export * from "./exchange";
 export * from "./games";
 export * from "./products";
 export * from "./properties";
