@@ -9,6 +9,7 @@ import {
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
+  RatesService,
   QuotesService,
   StationService,
   VehicleService,
@@ -21,6 +22,7 @@ import {
 require("dotenv").config();
 
 // const REGEX = new RegExp(/investments/)
+// const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/^((?!investment).)*$/);
 const REGEX = new RegExp(/^(.)*$/);
 
@@ -163,6 +165,7 @@ enum Types {
   PRODUCT = "get-product",
   CYFROWE = "get-product-cyfrowe",
   TOPHIFI = "get-product-tophifi",
+  RATES = "rates",
   TFI = "investments",
   ALTO = "get-product-alto",
   STATION = "get-stations",
@@ -178,7 +181,9 @@ enum Types {
 }
 
 export default function (type?: string) {
-  console.log({ type });
+  if (type) {
+    console.log({ type });
+  }
 
   const summary = {
     created: [],
@@ -206,6 +211,7 @@ export default function (type?: string) {
                     [Types.PRODUCT]: ProductService,
                     [Types.CYFROWE]: ProductService,
                     [Types.TOPHIFI]: ProductService,
+                    [Types.RATES]: RatesService,
                     [Types.TFI]: QuotesService,
                     [Types.ALTO]: ProductService,
                     [Types.STATION]: StationService,
@@ -248,6 +254,7 @@ export default function (type?: string) {
                           [Types.PRODUCT]: ProductService,
                           [Types.CYFROWE]: ProductService,
                           [Types.TOPHIFI]: ProductService,
+                          [Types.RATES]: RatesService,
                           [Types.TFI]: QuotesService,
                           [Types.ALTO]: ProductService,
                           [Types.STATION]: StationService,
@@ -287,6 +294,10 @@ export default function (type?: string) {
           (name) => `${Types.BMW}:${name}`
         )
   ).subscribe((type) => {
+    request$.next({ type });
+  });
+
+  from(type ? [] : [Types.RATES]).subscribe((type) => {
     request$.next({ type });
   });
 

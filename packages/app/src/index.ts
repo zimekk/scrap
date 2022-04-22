@@ -7,6 +7,7 @@ require("dotenv").config();
 // https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes#create_the_route-handler_callback_functions
 export const middleware = Router()
   .use("/api/data.json", controllers.getData)
+  .use("/api/exchange/data.json", controllers.getRatesData)
   .use("/api/games/data.json", controllers.getGamesData)
   .use("/api/products/data.json", controllers.getProductsData)
   .use("/api/properties/data.json", controllers.getPropertiesData)
