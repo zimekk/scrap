@@ -1,4 +1,5 @@
 import React, {
+  ReactNode,
   createContext,
   useContext,
   useEffect,
@@ -7,11 +8,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-// import { format } from "date-fns";
-// import { axisBottom, axisLeft, select, scaleLinear, timeFormat } from "d3";
-// import * as d3 from "d3";
 import {
   ZoomTransform,
+  brushX,
   extent,
   group,
   select,
@@ -19,42 +18,44 @@ import {
   scaleOrdinal,
   scaleTime,
   line,
-  max,
   curveCardinal,
   axisBottom,
   axisLeft,
   zoom,
+  zoomIdentity,
+  brushSelection,
 } from "d3";
-
 import { Subject, of } from "rxjs";
 import { delay, switchMap } from "rxjs/operators";
 import useResizeObserver from "../../hooks/useResizeObserver";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
-const ZoomContext = createContext(undefined);
+const ZoomContext = createContext<any>(undefined);
 
-export function SyncZoomProvider({ children }) {
-  const useZoom = useState();
+export function SyncZoomProvider({ children }: { children: ReactNode }) {
+  const events$ = useMemo(() => new Subject<any>(), []);
   return (
-    <ZoomContext.Provider value={useZoom}>{children}</ZoomContext.Provider>
+    <ZoomContext.Provider value={events$}>{children}</ZoomContext.Provider>
   );
 }
 
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/16-zoomable-line-chart
 export default function Chart({
   list,
+  move,
 }: {
   list: { group: string; date: Date; value: number }[];
+  move?: boolean;
 }) {
-  const useZoom = useContext(ZoomContext);
+  const stream$ = useMemo(() => new Subject<any>(), []);
+  const events$ = useContext(ZoomContext) || stream$;
   const id = useId();
   const svgRef = useRef<SVGSVGElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const dimensions = useResizeObserver(wrapperRef);
-  const [currentZoomState, setCurrentZoomState] =
-    useZoom || useState<ZoomTransform>();
+  const [currentZoomState, setCurrentZoomState] = useState<ZoomTransform>();
   const [selected, setSelected] = useState<object | null>(null);
   const tooltip$ = useMemo(
     () => new Subject<{ x: number; y: number; data: object } | null>(),
@@ -78,8 +79,6 @@ export default function Chart({
 
           const wrapperRect = wrapperRef.current.getBoundingClientRect();
           const tooltipRect = tooltipRef.current.getBoundingClientRect();
-
-          console.log({ wrapperRect, tooltipRect });
 
           const transform = `translate(${
             x +
@@ -111,99 +110,8 @@ export default function Chart({
     return () => subscription.unsubscribe();
   }, [tooltip$]);
 
-  //   const svg = el
-  //     .append("g")
-  //     .attr("transform", `translate(${margin.left},${margin.top})`)
-  //     .on("touchstart", (event) => event.preventDefault())
-  //     .on("pointermove", pointermoved);
-
-  //   const formatDate = (date) => format(date, "yyyy-MM-dd");
-
-  //   function update(date) {
-  //     // date = Xs[d3.bisectCenter(Xs, date)];
-  //     rule.attr("transform", `translate(${xScale(date)},0)`);
-  //     ruleLabel.text(formatDate(date));
-  //     // serie.attr("transform", ([, I]) => {
-  //     //   const i = I[d3.bisector(i => X[i]).center(I, date)];
-  //     //   return `translate(0,${yScale(1) - yScale(Y[i] / Y[I[0]])})`;
-  //     // });
-  //     // svg.property("value", date).dispatch("input", {bubbles: true}); // for viewof
-  //   }
-
-  //   function pointermoved(event) {
-  //     update(xScale.invert(d3.pointer(event)[0]));
-  //   }
-
-  //   const rule = svg.append("g");
-
-  //   rule
-  //     .append("line")
-  //     .attr("y1", margin.top)
-  //     .attr("y2", height - margin.bottom - 15)
-  //     .attr("stroke", "currentColor");
-
-  //   const ruleLabel = rule
-  //     .append("text")
-  //     .attr("y", height - margin.bottom - 15)
-  //     .attr("fill", "currentColor")
-  //     .attr("text-anchor", "middle")
-  //     .attr("dy", "1em");
-
-  //   // const dataset = list.map((item) => [
-  //   //   new Date(item.date),
-  //   //   item.value,
-  //   //   `${item.date}, ${item.value}`,
-  //   // ]);
-
-  //   // const xx = dataset.map(([x = 0]) => x);
-  //   // const yy = dataset.map(([, y = 0]) => y);
-
-  //   // // const xDomain = [Math.min(...xx), Math.max(...xx)];
-  //   // const xDomain = [new Date('2020-01-01'), Math.max(...xx)];
-  //   // const yDomain = [0, Math.max(...yy)];
-
-  //   // const xScale = scaleLinear()
-  //   //   .domain(xDomain)
-  //   //   .range([left, width - right]);
-
-  //   // const yScale = scaleLinear()
-  //   //   .domain(yDomain)
-  //   //   .range([height - bottom, top]);
-
-  //   // const color = scaleLinear().domain(yDomain).range(["red", "blue"]);
-
-  //   // select(containerRef.current).selectAll("circle").remove();
-  //   // select(containerRef.current)
-  //   //   .selectAll("circle")
-  //   //   .data(dataset)
-  //   //   .join(
-  //   //     (enter) =>
-  //   //       enter
-  //   //         .append("circle")
-  //   //         .attr("cx", ([x = 0]) => xScale(x))
-  //   //         .attr("cy", ([, y = 0]) => yScale(y))
-  //   //         .attr("r", 0)
-  //   //         .attr("fill", ([x = 0]) => color(x))
-  //   //         .on("mouseover", (e, [, , label]) =>
-  //   //           selected$.next({ left: e.layerX, top: e.layerY, label })
-  //   //         )
-  //   //         .on("mouseout", () => selected$.next(null))
-  //   //         .call((enter) =>
-  //   //           enter.transition().duration(200).attr("r", 2).style("opacity", 1)
-  //   //         ),
-  //   //     (update) => update.attr("fill", "lightgrey"),
-  //   //     (exit) =>
-  //   //       exit
-  //   //         .attr("fill", "tomato")
-  //   //         .call((exit) =>
-  //   //           exit
-  //   //             .transition()
-  //   //             .duration(200)
-  //   //             .attr("r", 0)
-  //   //             .style("opacity", 0)
-  //   //             .remove()
-  //   //         )
-  //   //   );
+  const data = useMemo(() => group(list, (item) => item.group), [list]);
+  // console.log({ data });
 
   useEffect(() => {
     if (!wrapperRef.current || !svgRef.current) {
@@ -213,9 +121,6 @@ export default function Chart({
     const svgContent = svg.select(".content");
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect();
-
-    const data = group(list, (item) => item.group);
-    console.log({ data });
 
     // scales + line generator
     const xScale = scaleTime()
@@ -319,6 +224,24 @@ export default function Chart({
           .attr("stroke-dasharray", "2,2")
       );
 
+    // brush
+    const brush = brushX()
+      .extent([
+        [0, 0],
+        [width, height],
+      ])
+      .on("start brush end", ({ sourceEvent, selection }) => {
+        if (selection) {
+          // console.log('brush.event', sourceEvent)
+          if (sourceEvent) {
+            events$.next({
+              type: "select",
+              selection,
+            });
+          }
+        }
+      });
+
     // zoom
     const zoomBehavior = zoom()
       .scaleExtent([1, 15])
@@ -326,20 +249,83 @@ export default function Chart({
         [0, 0],
         [width, height],
       ])
-      .on("zoom", (event) => {
-        const zoomState = event.transform;
-        setCurrentZoomState(zoomState);
+      .on("zoom", ({ sourceEvent, transform }) => {
+        // console.log('zoom.event', sourceEvent)
+        events$.next({
+          type: "zoom",
+          sourceEvent,
+          transform,
+        });
       });
 
-    svg.call(zoomBehavior);
-  }, [currentZoomState, list, dimensions]);
+    if (move) {
+      svg
+        .select<SVGGElement>(".brush")
+        .call(brush)
+        .call(brush.move, selection.map(xScale))
+        .on("dblclick", function () {
+          // https://observablehq.com/@d3/double-click-brush-clear
+          // const selection = brushSelection(this) ? null : xScale.range();
+          const selection = brushSelection(this) ? null : [0, width];
+          select(this).call(brush.move, selection);
+        });
+    } else {
+      svg.call(zoomBehavior);
+    }
+
+    const subscription = events$.subscribe((action) => {
+      if (move) {
+        if (action.type === "zoom") {
+          const { sourceEvent, transform } = action;
+          if (sourceEvent) {
+            // const selection = xScale.range().map(transform.invertX, transform)
+            const selection = [0, width].map(transform.invertX, transform);
+            svg.select<SVGGElement>(".brush").call(brush.move, selection);
+          }
+        }
+      } else {
+        if (action.type === "zoom") {
+          const { sourceEvent, transform } = action;
+          if (svgRef.current && sourceEvent) {
+            if (!svgRef.current.contains(sourceEvent.target)) {
+              svg.call(zoomBehavior.transform, transform);
+            }
+          }
+          setCurrentZoomState(transform);
+        } else if (action.type === "select") {
+          const { selection } = action;
+          if (selection[1] > selection[0]) {
+            // const indexSelection = selection.map(xScale.invert);
+            svg
+              .call(zoomBehavior)
+              .call(
+                zoomBehavior.transform,
+                zoomIdentity
+                  .scale(width / (selection[1] - selection[0]))
+                  .translate(-selection[0], 0)
+              );
+          }
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [currentZoomState, data, dimensions, move, events$]);
 
   return (
     <div className={cx(styles.Chart)} ref={wrapperRef}>
       <div ref={tooltipRef} className={styles.Tooltip}>
         {selected && <pre>{JSON.stringify(selected, null, 2)}</pre>}
       </div>
-      <svg ref={svgRef}>
+      <svg
+        ref={svgRef}
+        style={
+          move
+            ? {
+                height: 150,
+              }
+            : {}
+        }
+      >
         <defs>
           <clipPath id={id}>
             <rect x="0" y="0" width="100%" height="100%" />
@@ -348,6 +334,7 @@ export default function Chart({
         <g className="content" clipPath={`url(#${id})`}></g>
         <g className="x-axis" />
         <g className="y-axis" />
+        <g className="brush" />
       </svg>
     </div>
   );

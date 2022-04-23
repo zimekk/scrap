@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
-import Chart from "../../components/ZoomableLineChart";
+import Chart, { SyncZoomProvider } from "../../components/ZoomableLineChart";
 import styles from "./styles.module.scss";
 
 import type { Rate } from "@dev/cli/src/services/RatesService/types";
@@ -22,10 +22,8 @@ export default function Section({ version = "v1" }) {
   const { rates } = asset.read(version) as {
     rates: Rate[];
   };
-
   const [code, setCode] = useState("CHF");
   const [checked, setCheckedOptions] = useState(CODES);
-
   const values = useMemo(
     () => ({
       ["2020-11-23"]: 441.87,
@@ -96,7 +94,7 @@ export default function Section({ version = "v1" }) {
       <fieldset>
         <legend>Code</legend>
         {CODES.map((code) => (
-          <label>
+          <label key={code}>
             <input
               type="checkbox"
               value={code}
@@ -115,7 +113,10 @@ export default function Section({ version = "v1" }) {
           </label>
         ))}
       </fieldset>
-      <Chart list={series} />
+      <SyncZoomProvider>
+        <Chart list={series} />
+        <Chart list={series} move />
+      </SyncZoomProvider>
       <fieldset>
         <label>
           <span>Code</span>
