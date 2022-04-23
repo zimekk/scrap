@@ -262,7 +262,6 @@ export default function Chart({
       svg
         .select<SVGGElement>(".brush")
         .call(brush)
-        .call(brush.move, selection.map(xScale))
         .on("dblclick", function () {
           // https://observablehq.com/@d3/double-click-brush-clear
           // const selection = brushSelection(this) ? null : xScale.range();
