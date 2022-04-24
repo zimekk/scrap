@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { MouseEvent, useEffect, useMemo } from "react";
 import L from "leaflet";
 import { CircleMarker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
@@ -126,5 +126,16 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
   );
 
   // https://react-leaflet.js.org/docs/start-setup/
-  return <div className={cx(styles.Layout)}>{displayMap}</div>;
+  return (
+    <div
+      className={cx(styles.Layout)}
+      onClick={(e) =>
+        ((a) => a && a.getAttribute("href") === "#close" && e.preventDefault())(
+          (e.target as Element).closest("a")
+        )
+      }
+    >
+      {displayMap}
+    </div>
+  );
 }

@@ -205,7 +205,14 @@ export default function Map({ bounds, center, setCenter, list }: any) {
 
   // https://react-leaflet.js.org/docs/start-setup/
   return (
-    <div className={cx(styles.Layout)}>
+    <div
+      className={cx(styles.Layout)}
+      onClick={(e) =>
+        ((a) => a && a.getAttribute("href") === "#close" && e.preventDefault())(
+          (e.target as Element).closest("a")
+        )
+      }
+    >
       {map ? <DisplayPosition map={map} /> : null}
       {displayMap}
     </div>
