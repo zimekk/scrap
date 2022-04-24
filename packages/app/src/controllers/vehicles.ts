@@ -552,9 +552,9 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                   href: `https://finder.porsche.com/pl/pl-PL/details/${source.listingUrlSlug}`,
                   title: source.description?.title || source.meta?.title,
                   dealer: {
-                    id: source.description?.seller || source.meta.seller?.name,
+                    id: source.meta.seller?.name || source.description?.seller,
                     name:
-                      source.description?.seller || source.meta.seller?.name,
+                      source.meta.seller?.name || source.description?.seller,
                     lat: NEARBY_LAT,
                     lng: NEARBY_LNG,
                   },
