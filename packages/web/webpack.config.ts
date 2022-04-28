@@ -60,7 +60,6 @@ export default (env: {
   },
   resolve: {
     ...config.resolve,
-    extensions: [".tsx", ".ts", ".js"],
     alias: {
       events: "events",
     },
