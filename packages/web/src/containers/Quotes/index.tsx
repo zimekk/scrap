@@ -75,6 +75,7 @@ function Data({ version = "v1" }) {
     { date: "2022-03-21", investment_id: 37, value: 1000 }, // PKO Infrastruktury i Budownictwa Globalny
     { date: "2022-04-01", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
     { date: "2022-04-11", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
+    { date: "2022-04-26", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
   ]);
 
   const options = useMemo(
