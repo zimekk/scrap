@@ -3,7 +3,7 @@ import { z } from "zod";
 import { productItems } from "@dev/api/products";
 import { browser } from "../../request";
 import Service from "../Service";
-import { DiffSchema } from "./types";
+import { DiffSchema, ItemSchema } from "./types";
 import { fromHtml, fromHtml2, fromHtml3 } from "./utils";
 import { saveProductHtml } from "../utils";
 
@@ -106,29 +106,23 @@ export class ProductService extends Service {
   }
 
   async process(item = {}): Promise<any> {
-    return z
-      .object({
-        id: z.string(),
-      })
-      .passthrough()
-      .parseAsync(item)
-      .then((item) =>
-        productItems.findOne({ id: item.id }).then((last: any) => {
-          if (last) {
-            const diff = diffItem(last, item);
-            if (diff) {
-              console.log(`[${last.id}]`, diff);
-              this.summary.updated.push(item.id);
-              return productItems.update(updateItem(last, item));
-            } else {
-              this.summary.checked.push(item.id);
-              return productItems.update({ ...last, _checked: _time });
-            }
+    return ItemSchema.parseAsync(item).then((item) =>
+      productItems.findOne({ id: item.id }).then((last: any) => {
+        if (last) {
+          const diff = diffItem(last, item);
+          if (diff) {
+            console.log(`[${last.id}]`, diff);
+            this.summary.updated.push(item.id);
+            return productItems.update(updateItem(last, item));
           } else {
-            this.summary.created.push(item.id);
-            return productItems.insert({ ...item, _created: _time });
+            this.summary.checked.push(item.id);
+            return productItems.update({ ...last, _checked: _time });
           }
-        })
-      );
+        } else {
+          this.summary.created.push(item.id);
+          return productItems.insert({ ...item, _created: _time });
+        }
+      })
+    );
   }
 }

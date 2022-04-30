@@ -64,8 +64,8 @@ export const fromHtml = (html: string) => {
     .find(($div: any) => $div.text.match(/^(Promocje|Promocja)$/));
   const proms =
     pathToRoot($prom)
-      .find(($div) => $div.querySelector("h3"))
-      ?.querySelectorAll("h3")
+      .find(($div) => $div.querySelector("p[title]"))
+      ?.querySelectorAll("p[title]")
       .map(($div: any) => $div.text) || [];
   const codes =
     pathToRoot($prom)

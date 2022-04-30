@@ -24,6 +24,10 @@ require("dotenv").config();
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/^((?!investment).)*$/);
+// const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
+// const REGEX = new RegExp(/get-product:258829/);
+// const REGEX = new RegExp(/get-product-alto:576290/);
+// const REGEX = new RegExp(/^(get-product|get-product-alto):/);
 const REGEX = new RegExp(/^(.)*$/);
 
 const ERA = 24 * 3600 * 1000;

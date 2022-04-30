@@ -31,23 +31,24 @@ export class RatesService extends Service {
     list: any[];
     next: any;
   }> {
-    console.log({ type, args });
+    // console.log({ type, args });
 
     return ArgsSchema.parseAsync(args).then(({ date }) =>
       this.fetcher(type, date).then((data) =>
         DataSchema.parseAsync(data).then(({ date, rates, range }) =>
           Promise.resolve(
-            Boolean(console.log({ date, range })) ||
-              format(
-                sub(new Date(date), {
-                  days: 1,
-                }),
-                "yyyy-MM-dd"
-              )
+            // Boolean(console.log({ date, range })) ||
+            format(
+              sub(new Date(date), {
+                days: 1,
+              }),
+              "yyyy-MM-dd"
+            )
           )
             .then((date) =>
               ratesItems.findOne({ date }).then((last) =>
-                Boolean(console.log({ date, last })) || last
+                // Boolean(console.log({ date, last })) ||
+                last
                   ? null
                   : {
                       date,
@@ -65,9 +66,8 @@ export class RatesService extends Service {
                   ...item,
                 })),
               next:
-                Boolean(console.log({ date, next })) || date > "2022-01-01"
-                  ? next
-                  : null,
+                // Boolean(console.log({ date, next })) ||
+                date > "2022-01-01" ? next : null,
             }))
         )
       )
@@ -75,7 +75,7 @@ export class RatesService extends Service {
   }
 
   async process(item = {}): Promise<any> {
-    console.log({ item });
+    // console.log({ item });
 
     return ItemSchema.parseAsync(item).then((item) =>
       ratesItems.findOne({ id: item.id }).then((last: any) => {
