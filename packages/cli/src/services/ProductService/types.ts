@@ -27,7 +27,7 @@ export const DiffSchema = z.object({
     .transform((reviews) =>
       reviews.sort((a, b) => a.date.localeCompare(b.date))
     )
-    .optional(),
+    .default([]),
 });
 
 const JsonReviewSchema = z
