@@ -34,7 +34,7 @@ export default (env: {
           : config
       ),
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         use: [
           // Creates `style` nodes from JS strings
           "style-loader",

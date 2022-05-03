@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import L from "leaflet";
 import { CircleMarker, MapContainer, TileLayer, Popup } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import { format } from "date-fns";
 import { DraggableMarker, LocateControl } from "../../components/Map";
 import { Link } from "../../components/Link";
@@ -85,26 +86,29 @@ export default function Map({ bounds, center, setCenter, list, onSelect }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ id, position, _like, _hide, ...item }) => (
-          <CircleMarker
-            key={id}
-            center={position}
-            className={cx(
-              styles.Circle,
-              _like && styles.Like,
-              _hide && styles.Hide
-            )}
-          >
-            <Popup minWidth={90}>
-              <Summary
-                id={id}
-                onSelect={onSelect}
-                distance={center.distanceTo(position).toFixed(0) / 1000}
-                {...item}
-              />
-            </Popup>
-          </CircleMarker>
-        ))}
+        <MarkerClusterGroup chunkedLoading>
+          {list.map(({ id, position, _like, _hide, ...item }) => (
+            <CircleMarker
+              key={id}
+              center={position}
+              className={cx(
+                styles.Circle,
+                _like && styles.Like,
+                _hide && styles.Hide
+              )}
+            >
+              <Popup minWidth={90}>
+                <Summary
+                  id={id}
+                  onSelect={onSelect}
+                  distance={center.distanceTo(position).toFixed(0) / 1000}
+                  {...item}
+                />
+              </Popup>
+            </CircleMarker>
+          ))}
+        </MarkerClusterGroup>
+        {/* <MarkerCluster markers={list} /> */}
         <LocateControl />
       </MapContainer>
     ),
