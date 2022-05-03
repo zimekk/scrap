@@ -8,15 +8,27 @@
     font-weight: bold;
   }
 
-  .Circle {
-    color: purple;
-    fill: currentColor;
-    stroke: currentColor;
-    &.Like {
-      color: blueviolet;
-    }
-    &.Hide {
-      opacity: 0.5;
-    }
+  // .Circle {
+  //   color: purple;
+  //   fill: currentColor;
+  //   stroke: currentColor;
+  //   &.Like {
+  //     color: blueviolet;
+  //   }
+  //   &.Hide {
+  //     opacity: 0.5;
+  //   }
+  // }
+}
+.Summary {
+  padding: 0 0 0 210px;
+  min-height: 200px;
+
+  .Gallery {
+    position: absolute;
+    margin-top: -2px;
+    margin-left: -214px;
+    width: 200px;
+    height: 200px;
   }
 }

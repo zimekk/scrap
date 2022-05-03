@@ -69,7 +69,7 @@ export function Gallery({
 }: {
   className: string;
   images: string[];
-  srcSet: string[];
+  srcSet?: string[];
 }) {
   const [inView, setInView] = useState(false);
   const [isMore, setIsMore] = useState(false);
