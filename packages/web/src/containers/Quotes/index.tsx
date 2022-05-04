@@ -11,6 +11,7 @@ import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format, sub } from "date-fns";
 import Chart, { SyncZoomProvider } from "../../components/ZoomableLineChart";
+import DonutChart from "../../components/DonutChart";
 import Investments from "./Investments";
 import Transactions from "./Transactions";
 import styles from "./styles.module.scss";
@@ -371,6 +372,25 @@ function Data({ version = "v1" }) {
           setSelected={setSelected}
         />
       </SyncZoomProvider>
+      <DonutChart
+        list={Object.entries(
+          transactions
+            .filter((_, i) => selected.includes(i))
+            .reduce(
+              (list: Record<number, number>, item) =>
+                Object.assign(list, {
+                  [item.investment_id]:
+                    (list[item.investment_id] || 0) + item.value,
+                }),
+              {}
+            )
+        )
+          .map(([investment_id, value]) => ({
+            label: names[investment_id],
+            value,
+          }))
+          .sort((a, b) => b.value - a.value)}
+      />
       {/* <pre>{JSON.stringify(metas, null, 2)}</pre> */}
       {/* <pre>{JSON.stringify(list.slice(0, 5), null, 2)}</pre> */}
     </div>
