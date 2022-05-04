@@ -2,77 +2,280 @@
   "results": [
     {
       "id": "681208",
-      "url": "https://www.x-kom.pl/p/681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple.html",
-      "title": "Apple New iPad Mini 64GB Wi-Fi Purple",
-      "image": [
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
-      ],
-      "stars": "(2 opinie)",
+      "url": "https://www.x-kom.pl/p/681208-tablet-8-apple-ipad-mini-6gen-64gb-wi-fi-purple.html",
+      "title": "Apple iPad Mini 6gen 64GB Wi-Fi Purple",
+      "stars": "(11 opinii)",
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MK7R3FD/A", "kod x-kom: 681208"],
       "price": ["2 599,00 zł"],
-      "proms": ["kup usługę x-care "],
+      "proms": [],
       "codes": [],
-      "links": [
-        "Wydłużony czas dostawy",
-        "Darmowa dostawa",
-        "Rata tylko 80,14 zł"
+      "links": ["Dostępny", "Darmowa dostawa", "Rata tylko 80,14 zł"],
+      "reviews": [
+        {
+          "rating": 6,
+          "author": "Albert",
+          "date": "2021-10-04",
+          "body": "Świetny tablet. Najlepszy jakie kiedykolwiek miałem. Nie mam żadnych problemów. Słyszałem, że niektóre osoby skarżą się na efekt jelly scrolling. Wydaje się, że mój egzemplarz jest tego pozbawiony. Jestem bardzo zadowolony. Realizacja zamówienia również przebiegła bardzo sprawnie"
+        },
+        {
+          "rating": 6,
+          "author": "Konrad",
+          "date": "2022-04-04",
+          "body": "tablet OK ale czes oczekiwania przy przedpłacie powyżej 2 miesięcy pozostawia dużo do życzenia."
+        }
       ],
+      "_id": "LRtup4mV6puHrcwZ",
       "_created": 1638409540907,
-      "_updated": 1638994338753
+      "_updated": 1649957946188,
+      "_history": {
+        "1638409540907": {
+          "id": "681208",
+          "title": "Apple New iPad Mini 64GB Wi-Fi Purple",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
+          ],
+          "stars": "(2 opinie)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MK7R3FD/A",
+            "kod x-kom: 681208"
+          ],
+          "price": ["2 599,00 zł"],
+          "proms": ["kup usługę x-care "],
+          "codes": [],
+          "links": [
+            "Wydłużony czas dostawy",
+            "Darmowa dostawa",
+            "Rata tylko 80,14 zł"
+          ]
+        },
+        "1638554198164": {
+          "id": "681208",
+          "title": "Apple New iPad Mini 64GB Wi-Fi Purple",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
+          ],
+          "stars": "(2 opinie)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MK7R3FD/A",
+            "kod x-kom: 681208"
+          ],
+          "price": ["2 599,00 zł"],
+          "proms": [
+            "gwarancja dostawy na mikołajki",
+            "gwarancja dostawy na mikołajki",
+            "kup usługę x-care "
+          ],
+          "codes": [],
+          "links": [
+            "Wydłużony czas dostawy",
+            "Darmowa dostawa",
+            "Rata tylko 80,14 zł"
+          ]
+        }
+      },
+      "_checked": 1651676456793,
+      "images": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
+      ],
+      "srcSet": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2021/10/pr_2021_10_4_14_44_7_353_00.jpg"
+      ]
     },
     {
       "id": "460088",
       "url": "https://www.x-kom.pl/p/460088-rysik-do-tabletu-apple-pencil-2-generacji.html",
       "title": "Apple Pencil (2. generacji)",
-      "image": [
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
-      ],
-      "stars": "(7 opinii)",
+      "stars": "(22 opinie)",
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MU8F2ZM/A", "kod x-kom: 460088"],
       "price": ["659,00 zł"],
       "proms": [],
       "codes": [],
-      "links": [
-        "Dostępny",
-        "Dowiedz się więcej",
-        "Darmowy odbiór w salonie",
-        "Rata tylko 20,32 zł"
+      "links": ["Dostępny", "Darmowy odbiór w salonie", "Rata tylko 20,32 zł"],
+      "reviews": [
+        {
+          "rating": 6,
+          "author": "Dawid",
+          "date": "2019-08-16",
+          "body": "Bardzo dobry sprzęt, dzięki niemu mogę w pełni wykorzystać potencjał iPada Pro :)"
+        },
+        {
+          "rating": 6,
+          "author": "Hubert",
+          "date": "2022-04-05",
+          "body": "dobry paluch"
+        }
       ],
+      "_id": "RqKyZhfV8YxNyErf",
       "_created": 1638409540907,
-      "_updated": 1638994338753
+      "_updated": 1649243002648,
+      "_history": {
+        "1638409540907": {
+          "id": "460088",
+          "title": "Apple Pencil 2 do iPad Pro",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+          ],
+          "stars": "(7 opinii)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MU8F2ZM/A",
+            "kod x-kom: 460088"
+          ],
+          "price": ["659,00 zł"],
+          "proms": [],
+          "codes": [],
+          "links": [
+            "Czasowo niedostępny",
+            "Darmowy odbiór w salonie",
+            "Rata tylko 20,32 zł"
+          ]
+        },
+        "1638554198164": {
+          "id": "460088",
+          "title": "Apple Pencil 2 do iPad Pro",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+          ],
+          "stars": "(7 opinii)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MU8F2ZM/A",
+            "kod x-kom: 460088"
+          ],
+          "price": ["659,00 zł"],
+          "proms": [
+            "gwarancja dostawy na mikołajki",
+            "gwarancja dostawy na mikołajki"
+          ],
+          "codes": [],
+          "links": [
+            "Czasowo niedostępny",
+            "Darmowy odbiór w salonie",
+            "Rata tylko 20,32 zł"
+          ]
+        }
+      },
+      "_checked": 1651676456793,
+      "images": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+      ],
+      "srcSet": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2018/12/pr_2018_12_21_10_21_45_636_02.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2018/12/pr_2018_12_21_10_21_42_698_01.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2018/12/pr_2018_12_21_10_21_39_776_00.jpg"
+      ]
     },
     {
       "id": "682156",
       "url": "https://www.x-kom.pl/p/682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps.html",
       "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
-      "image": [
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
-        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
-      ],
-      "stars": "(0 opinii)",
+      "stars": "(26 opinii)",
       "brand": "Apple",
       "label": ["od: Apple", "kod producenta: MKQ03WB/A", "kod x-kom: 682156"],
       "price": ["1 349,00 zł"],
       "proms": [],
       "codes": [],
-      "links": [
-        "Dostępny",
-        "Dowiedz się więcej",
-        "Darmowa dostawa",
-        "Rata tylko 41,59 zł"
+      "links": ["Dostępny", "Darmowa dostawa", "Rata tylko 41,59 zł"],
+      "reviews": [
+        {
+          "rating": 6,
+          "author": "Marek",
+          "date": "2021-12-22",
+          "body": "Posiadam od 2 tygodni. Swietny zegarek. Przy moim użytkowaniu wytrzymuje dwa dni na bateri."
+        },
+        {
+          "rating": 6,
+          "author": "Zuzanna",
+          "date": "2022-04-28",
+          "body": "Polecam"
+        }
       ],
+      "_id": "SU4ofb4IO0JnjHAN",
       "_created": 1638409540907,
-      "_updated": 1638994338753
+      "_updated": 1651231283495,
+      "_history": {
+        "1638409540907": {
+          "id": "682156",
+          "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+          ],
+          "stars": "(0 opinii)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MKQ03WB/A",
+            "kod x-kom: 682156"
+          ],
+          "price": ["1 349,00 zł"],
+          "proms": [],
+          "codes": [],
+          "links": ["Dostępny", "Darmowa dostawa", "Rata tylko 41,59 zł"]
+        },
+        "1638554372150": {
+          "id": "682156",
+          "title": "Apple Watch SE 40/Gold Aluminium/Starlight Sport GPS",
+          "image": [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+          ],
+          "stars": "(0 opinii)",
+          "brand": "Apple",
+          "label": [
+            "od: Apple",
+            "kod producenta: MKQ03WB/A",
+            "kod x-kom: 682156"
+          ],
+          "price": ["1 349,00 zł"],
+          "proms": [
+            "gwarancja dostawy na mikołajki",
+            "gwarancja dostawy na mikołajki"
+          ],
+          "codes": [],
+          "links": [
+            "Dostępny",
+            "Dowiedz się więcej",
+            "Darmowa dostawa",
+            "Rata tylko 41,59 zł"
+          ]
+        }
+      },
+      "_checked": 1651676456793,
+      "images": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+      ],
+      "srcSet": [
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2021/9/pr_2021_9_22_9_40_49_485_00.jpg",
+        "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2021/9/pr_2021_9_22_9_40_51_594_01.jpg"
+      ]
     }
   ]
 }
