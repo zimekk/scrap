@@ -26,6 +26,9 @@ const getInvestmentTransaction =
     investment_id: number;
     value: number;
   }) => {
+    if (!rates[investment_id]) {
+      return null;
+    }
     const unitValue = rates[investment_id][date];
     const round = 1000;
     const units = Math.round((round * value) / unitValue) / round;
@@ -71,7 +74,13 @@ export default function Transactions({
     [rates]
   );
 
-  const list = transactions.map(getInvestmentTransaction({ names, rates }));
+  const list = useMemo(
+    () =>
+      transactions
+        .map(getInvestmentTransaction({ names, rates }))
+        .filter(Boolean),
+    [transactions, names, rates]
+  );
 
   return (
     <div className={styles.Transactions}>
