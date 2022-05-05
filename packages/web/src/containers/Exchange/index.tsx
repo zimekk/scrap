@@ -66,6 +66,9 @@ export default function Section({ version = "v1" }) {
           Object.assign(item, {
             pay: Math.round(100 * item.sell * item.value) / 100 + item.add,
           })
+        )
+        .sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
         ),
     [rates, values, code]
   );
@@ -74,10 +77,11 @@ export default function Section({ version = "v1" }) {
     () =>
       rates
         .filter(({ code }) => checked.includes(code))
-        .map(({ sell, code, date, units }) => ({
+        .map(({ buy, sell, code, date, units }) => ({
           date: new Date(date),
           name: `${units} ${code}`,
           value: Number(sell),
+          value2: Number(buy),
           group: code,
         }))
         .sort(
@@ -114,8 +118,8 @@ export default function Section({ version = "v1" }) {
         ))}
       </fieldset>
       <SyncZoomProvider>
-        <Chart list={series} />
-        <Chart list={series} move />
+        <Chart list={series} type="area" />
+        <Chart list={series} type="area" move />
       </SyncZoomProvider>
       <fieldset>
         <label>

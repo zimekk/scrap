@@ -10,6 +10,7 @@ import React, {
 } from "react";
 import {
   ZoomTransform,
+  area,
   brushX,
   extent,
   group,
@@ -44,9 +45,11 @@ export function SyncZoomProvider({ children }: { children: ReactNode }) {
 export default function Chart({
   list,
   move,
+  type = "line",
 }: {
-  list: { group: string; date: Date; value: number }[];
+  list: { group: string; date: Date; value: number; value2?: number }[];
   move?: boolean;
+  type?: "line" | "area";
 }) {
   const stream$ = useMemo(() => new Subject<any>(), []);
   const events$ = useContext(ZoomContext) || stream$;
@@ -134,13 +137,32 @@ export default function Chart({
 
     const yScale = scaleLinear()
       // .domain([0, max(list, (d) => d.value)])
-      .domain(extent(list, (d) => d.value))
+      .domain(
+        extent(
+          list
+            .map(({ value }) => value)
+            .concat(type === "area" ? list.map(({ value2 }) => value2) : [])
+        )
+      )
       .range([height - 10, 10]);
 
     const lineGenerator = line()
       .x((d) => xScale(d.date))
       .y((d) => yScale(d.value))
       .curve(curveCardinal);
+
+    // https://d3-graph-gallery.com/graph/stackedarea_basic.html
+    // https://d3-graph-gallery.com/graph/stackedarea_template.html
+    var areaGenerator = area()
+      .x(function (d) {
+        return xScale(d.date);
+      })
+      .y0(function (d) {
+        return yScale(d.value);
+      })
+      .y1(function (d) {
+        return yScale(d.value2);
+      });
 
     const color = scaleOrdinal()
       .domain(Array.from(data.keys(), String))
@@ -163,8 +185,11 @@ export default function Chart({
       .join("path")
       .attr("class", "myLine")
       .attr("stroke", (d) => color(d[0]))
-      .attr("fill", "none")
-      .attr("d", (d) => lineGenerator(d[1]));
+      .attr("fill-opacity", "0.5")
+      .attr("fill", (d) => (type === "area" ? color(d[0]) : "none"))
+      .attr("d", (d) =>
+        type === "area" ? areaGenerator(d[1]) : lineGenerator(d[1])
+      );
 
     svgContent
       .selectAll(".myDot")
