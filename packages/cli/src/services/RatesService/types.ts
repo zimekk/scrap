@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const ArgsSchema = z.object({
   date: z.string().default(""),
+  // date: z.string().default("2018-01-01"),
 });
 
 export const RateSchema = z.object({
