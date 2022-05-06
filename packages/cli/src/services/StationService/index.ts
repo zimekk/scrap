@@ -111,6 +111,9 @@ export class StationService extends Service {
       .then((item) =>
         stationItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
+            // if (item.map_img) {
+            //   return stationItems.update({ ...last, map_img: item.map_img });
+            // }
             const diff = diffString(last.petrol, item.petrol);
             if (diff) {
               console.log(`[${last.id}]`, diff);
