@@ -191,6 +191,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                     .transform(
                       (
                         item,
+                        _ctx,
                         base = item.isNew
                           ? [
                               "https://najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy",
