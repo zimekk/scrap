@@ -11,7 +11,7 @@ export const StationItemSchema = z
     station_id: z.number(),
     network_id: z.number(),
     network_name: z.string(),
-    // map_img: z.string(),
+    map_img: z.string(),
     address: z.string(),
     petrol_list: z.array(
       z.object({
@@ -21,12 +21,22 @@ export const StationItemSchema = z
     ),
   })
   .transform(
-    ({ station_id, x, y, address, network_id, network_name, petrol_list }) => ({
+    ({
+      station_id,
+      x,
+      y,
+      address,
+      map_img,
+      network_id,
+      network_name,
+      petrol_list,
+    }) => ({
       id: station_id,
       station_id,
       x,
       y,
       address,
+      map_img,
       network_id,
       network_name,
       petrol_list,
