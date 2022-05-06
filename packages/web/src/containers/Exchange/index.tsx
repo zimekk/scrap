@@ -77,8 +77,8 @@ export default function Section({ version = "v1" }) {
     () =>
       rates
         .filter(({ code }) => checked.includes(code))
-        .map(({ buy, sell, code, date, units }) => ({
-          date: new Date(date),
+        .map(({ buy, sell, code, date, time, units }) => ({
+          date: new Date(`${date} ${time}`),
           name: `${units} ${code}`,
           value: Number(sell),
           value2: Number(buy),

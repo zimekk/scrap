@@ -25,6 +25,7 @@ import {
   zoom,
   zoomIdentity,
   brushSelection,
+  timeMonth,
 } from "d3";
 import { Subject, of } from "rxjs";
 import { delay, switchMap } from "rxjs/operators";
@@ -193,7 +194,11 @@ export default function Chart({
 
     svgContent
       .selectAll(".myDot")
-      .data(list)
+      .data(
+        (([start, end]) => timeMonth.count(start, end))(xScale.domain()) > 6
+          ? []
+          : list
+      )
       .join("circle")
       .attr("class", "myDot")
       .attr("stroke", "black")
@@ -269,7 +274,7 @@ export default function Chart({
 
     // zoom
     const zoomBehavior = zoom()
-      .scaleExtent([1, 15])
+      .scaleExtent([1, 20])
       .translateExtent([
         [0, 0],
         [width, height],
