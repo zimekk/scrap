@@ -1,6 +1,6 @@
 import React, { MouseEvent, useEffect, useMemo } from "react";
 import L from "leaflet";
-import { CircleMarker, MapContainer, TileLayer, Popup } from "react-leaflet";
+import { Marker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
 import cx from "classnames";
 import styles from "./Map.module.scss";
@@ -69,10 +69,17 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
         {list.map(({ i, id, position, name, item }: any) => (
-          <CircleMarker
+          <Marker
             key={i}
-            center={position}
-            pathOptions={{ color: "purple" }}
+            position={position}
+            icon={
+              new L.Icon({
+                iconUrl: item.map_img
+                  ? `https://www.autocentrum.pl${item.map_img}`
+                  : require("leaflet/dist/images/marker-icon.png").default,
+                iconSize: [30, 40],
+              })
+            }
           >
             <Popup minWidth={90}>
               <section>
@@ -117,7 +124,7 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
                 />
               </section>
             </Popup>
-          </CircleMarker>
+          </Marker>
         ))}
         <LocateControl />
       </MapContainer>
