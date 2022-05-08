@@ -67,7 +67,7 @@ export class RatesService extends Service {
                 })),
               next:
                 // Boolean(console.log({ date, next })) ||
-                date > "2017-01-01" ? next : null,
+                date > "2005-01-01" ? next : null,
             }))
         )
       )
