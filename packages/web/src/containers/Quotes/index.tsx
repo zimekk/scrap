@@ -80,6 +80,7 @@ function Data({ version = "v1" }) {
     { date: "2022-04-01", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
     { date: "2022-04-11", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
     { date: "2022-04-26", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
+    { date: "2022-05-05", investment_id: 75, value: 1000 }, // PKO Akcji Rynku Amerykańskiego
   ]);
 
   const options = useMemo(
@@ -348,21 +349,37 @@ function Data({ version = "v1" }) {
               })
             )
             .reverse()
-            .map((date, i) => ({
-              date,
-              value: transactions
-                .filter(
-                  (transaction, i) =>
-                    new Date(transaction.date) <= date && selected.includes(i)
+            .map((date) =>
+              Object.entries(
+                transactions
+                  .filter(
+                    (transaction, i) =>
+                      new Date(transaction.date) <= date && selected.includes(i)
+                  )
+                  .map(getInvestmentTransactionValue({ date, rates }))
+                  .filter(Boolean)
+                  .reduce(
+                    (result, { value }, i) =>
+                      Object.assign(result, {
+                        [i]: value,
+                      }),
+                    {}
+                  )
+              ).map(([group, value], i, list) =>
+                ((value2) => ({
+                  date,
+                  group,
+                  value: value + value2,
+                  value2,
+                }))(
+                  list
+                    .slice(0, i)
+                    .reduce((result, [_, value]) => result + value, 0)
                 )
-                .map(getInvestmentTransactionValue({ date, rates }))
-                .filter(Boolean)
-                .reduce(
-                  (result: Record<string, number>, { value }) => result + value,
-                  0
-                ),
-            }))
-            .filter(({ value }) => Boolean(value))}
+              )
+            )
+            .flat()}
+          type="area"
         />
         <Transactions
           transactions={transactions}
