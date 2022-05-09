@@ -31,7 +31,7 @@
     "isomorphic-fetch": "^3.0.0",
     "json-diff": "^0.7.4",
     "node-html-parser": "^5.3.3",
-    "puppeteer": "^13.7.0",
+    "puppeteer": "^14.0.0",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0",
     "rxjs": "^7.5.5",
