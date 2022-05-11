@@ -14,6 +14,7 @@ import {
   brushX,
   extent,
   group,
+  pointer,
   select,
   scaleLinear,
   scaleOrdinal,
@@ -47,10 +48,12 @@ export default function Chart({
   list,
   move,
   type = "line",
+  rule = false,
 }: {
   list: { group: string; date: Date; value: number; value2?: number }[];
   move?: boolean;
   type?: "line" | "area";
+  rule?: boolean;
 }) {
   const stream$ = useMemo(() => new Subject<any>(), []);
   const events$ = useContext(ZoomContext) || stream$;
@@ -302,6 +305,41 @@ export default function Chart({
       svg.call(zoomBehavior);
     }
 
+    // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
+    if (rule) {
+      svg
+        .select<SVGGElement>(".mouse")
+        .selectAll("path") // this is the black vertical line to follow mouse
+        .attr("class", "mouse-line")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
+
+      svg
+        .select<SVGGElement>(".mouse")
+        .selectAll("rect")
+        .attr("width", width) // can't catch mouse events on a g element
+        .attr("height", height)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("mouseout", function () {
+          // on mouse out hide line, circles and text
+          console.log(["mouseout"]);
+          select(".mouse-line").style("opacity", "0");
+        })
+        .on("mouseover", function () {
+          // on mouse in show line, circles and text
+          console.log(["mouseover"]);
+          select(".mouse-line").style("opacity", "1");
+        })
+        .on("mousemove", function (event) {
+          // mouse moving over canvas
+          const [x, y] = pointer(event);
+          console.log(["mousemove"], x, y);
+          select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
+        });
+    }
+
     const subscription = events$.subscribe((action) => {
       if (move) {
         if (action.type === "zoom") {
@@ -364,6 +402,10 @@ export default function Chart({
         <g className="x-axis" />
         <g className="y-axis" />
         <g className="brush" />
+        <g className="mouse">
+          <path />
+          <rect />
+        </g>
       </svg>
     </div>
   );
