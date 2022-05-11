@@ -114,8 +114,6 @@ export class VehicleService extends Service {
             // brand: 65, // MINI
             // series :5
           },
-          $skip = 0,
-          $limit = 250,
         }: any) =>
           request(
             {
@@ -149,16 +147,19 @@ export class VehicleService extends Service {
   async process(item = {}): Promise<any> {
     return VehicleItem.parseAsync(item)
       .then((item) =>
-        vehicleItems.findOne({ id: item.id }).then((exists: any) => {
-          if (exists) {
-            const diff = diffItem(exists, item);
+        vehicleItems.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            const diff = diffItem(last, item);
             if (diff) {
-              console.log(`[${exists.id}]`, diff);
+              console.log(`[${last.id}]`, diff);
               this.summary.updated.push(item.id);
-              return vehicleItems.update(updateItem(exists, item));
-            } else {
+              return vehicleItems.update({
+                ...updateItem(last, item),
+                _checked: _time,
+              });
+            } else if (last._checked < _past) {
               this.summary.checked.push(item.id);
-              return vehicleItems.update({ ...exists, _checked: _time });
+              return vehicleItems.update({ ...last, _checked: _time });
             }
           } else {
             this.summary.created.push(item.id);
