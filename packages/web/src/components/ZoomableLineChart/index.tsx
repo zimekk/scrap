@@ -11,11 +11,13 @@ import React, {
 import {
   ZoomTransform,
   area,
+  bisector,
   brushX,
   extent,
   group,
   pointer,
   select,
+  selectAll,
   scaleLinear,
   scaleOrdinal,
   scaleTime,
@@ -118,7 +120,7 @@ export default function Chart({
   }, [tooltip$]);
 
   const data = useMemo(() => group(list, (item) => item.group), [list]);
-  // console.log({ data });
+  console.log({ data });
 
   useEffect(() => {
     if (!wrapperRef.current || !svgRef.current) {
@@ -307,6 +309,37 @@ export default function Chart({
 
     // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
     if (rule) {
+      const cities = color.domain();
+      // var cities = color.domain().map(function(name) {
+      //   return {
+      //     name: name,
+      //     values: data.map(function(d) {
+      //       return {
+      //         date: d.date,
+      //         temperature: +d[name]
+      //       };
+      //     })
+      //   };
+      // });
+
+      const mousePerLine = svg
+        .select<SVGGElement>(".mouse")
+        .selectAll(".mouse-per-line")
+        .data(cities)
+        .enter()
+        .append("g")
+        .attr("class", "mouse-per-line")
+        .style("opacity", "0");
+
+      mousePerLine
+        .append("circle")
+        .attr("r", 7)
+        .style("stroke", (d) => color(d))
+        .style("fill", "none")
+        .style("stroke-width", "1px");
+
+      mousePerLine.append("text").attr("transform", "translate(10,3)");
+
       svg
         .select<SVGGElement>(".mouse")
         .selectAll("path") // this is the black vertical line to follow mouse
@@ -326,17 +359,38 @@ export default function Chart({
           // on mouse out hide line, circles and text
           console.log(["mouseout"]);
           select(".mouse-line").style("opacity", "0");
+          selectAll(".mouse-per-line").style("opacity", "0");
         })
         .on("mouseover", function () {
           // on mouse in show line, circles and text
           console.log(["mouseover"]);
           select(".mouse-line").style("opacity", "1");
+          selectAll(".mouse-per-line").style("opacity", "1");
         })
         .on("mousemove", function (event) {
           // mouse moving over canvas
           const [x, y] = pointer(event);
           console.log(["mousemove"], x, y);
           select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
+          selectAll(".mouse-per-line").attr(
+            "transform",
+            function (d: any): string {
+              // console.log(width/mouse[0])
+              const xDate = xScale.invert(x);
+              const values = data.get(d);
+              if (!values) {
+                return "";
+              }
+              const bisect = bisector((d: { date: Date }) => d.date).right;
+              const idx = bisect(values, xDate);
+              const item = values[idx];
+              const y = yScale(item.value);
+              console.log(item.value);
+              select(this).select("text").text(`${item.value}`);
+
+              return "translate(" + x + "," + y + ")";
+            }
+          );
         });
     }
 
