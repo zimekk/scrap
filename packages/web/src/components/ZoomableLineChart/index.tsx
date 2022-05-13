@@ -11,10 +11,13 @@ import React, {
 import {
   ZoomTransform,
   area,
+  bisector,
   brushX,
   extent,
   group,
+  pointer,
   select,
+  selectAll,
   scaleLinear,
   scaleOrdinal,
   scaleTime,
@@ -44,13 +47,17 @@ export function SyncZoomProvider({ children }: { children: ReactNode }) {
 
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/16-zoomable-line-chart
 export default function Chart({
+  legend = false,
   list,
   move,
   type = "line",
+  rule = false,
 }: {
+  legend?: boolean;
   list: { group: string; date: Date; value: number; value2?: number }[];
   move?: boolean;
   type?: "line" | "area";
+  rule?: boolean;
 }) {
   const stream$ = useMemo(() => new Subject<any>(), []);
   const events$ = useContext(ZoomContext) || stream$;
@@ -302,6 +309,125 @@ export default function Chart({
       svg.call(zoomBehavior);
     }
 
+    const cities = color.domain();
+
+    if (legend) {
+      const labels = svg
+        .selectAll<SVGGElement>(".label")
+        .data(cities)
+        .enter()
+        .append("g")
+        .attr("class", "label")
+        .attr(
+          "transform",
+          (_, i) => `translate(${width * 0.03 + i * 100},${height * 0.05})`
+        )
+        .style("color", (d) => color(d));
+
+      labels
+        .append("circle")
+        .attr("class", "label")
+        .attr("fill", "currentColor")
+        .attr("r", 7);
+
+      labels
+        .append("text")
+        .attr("transform", "translate(10,3)")
+        .style("color", "black")
+        .style("font", "11px arial")
+        .text((d) => `${d}`);
+    }
+
+    // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
+    if (rule) {
+      // var cities = color.domain().map(function(name) {
+      //   return {
+      //     name: name,
+      //     values: data.map(function(d) {
+      //       return {
+      //         date: d.date,
+      //         temperature: +d[name]
+      //       };
+      //     })
+      //   };
+      // });
+
+      const mousePerLine = svg
+        .select<SVGGElement>(".mouse")
+        .selectAll(".mouse-per-line")
+        .data(cities)
+        .enter()
+        .append("g")
+        .attr("class", "mouse-per-line")
+        .style("color", (d) => color(d))
+        .style("opacity", "0");
+
+      mousePerLine
+        .append("circle")
+        .attr("r", 7)
+        .style("stroke", "currentColor")
+        .style("fill", "none")
+        .style("stroke-width", "1px");
+
+      mousePerLine
+        .append("text")
+        .attr("transform", "translate(10,3)")
+        .style("fill", "black")
+        .style("font", "11px arial");
+
+      svg
+        .select<SVGGElement>(".mouse")
+        .selectAll("path") // this is the black vertical line to follow mouse
+        .attr("class", "mouse-line")
+        .style("stroke", "black")
+        .style("stroke-width", "1px")
+        .style("opacity", "0");
+
+      svg
+        .select<SVGGElement>(".mouse")
+        .selectAll("rect")
+        .attr("width", width) // can't catch mouse events on a g element
+        .attr("height", height)
+        .attr("fill", "none")
+        .attr("pointer-events", "all")
+        .on("mouseout", function () {
+          // on mouse out hide line, circles and text
+          // console.log(["mouseout"]);
+          select(".mouse-line").style("opacity", "0");
+          selectAll(".mouse-per-line").style("opacity", "0");
+        })
+        .on("mouseover", function () {
+          // on mouse in show line, circles and text
+          // console.log(["mouseover"]);
+          select(".mouse-line").style("opacity", "1");
+          selectAll(".mouse-per-line").style("opacity", "1");
+        })
+        .on("mousemove", function (event) {
+          // mouse moving over canvas
+          const [x, y] = pointer(event);
+          // console.log(["mousemove"], x, y);
+          select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
+          selectAll(".mouse-per-line").attr(
+            "transform",
+            function (d: any): string {
+              // console.log(width/mouse[0])
+              const xDate = xScale.invert(x);
+              const values = data.get(d);
+              if (!values) {
+                return "";
+              }
+              const bisect = bisector((d: { date: Date }) => d.date).center;
+              const idx = bisect(values, xDate);
+              const item = values[idx];
+              const y = yScale(item.value);
+              select(this).select("text").text(`${item.value}`);
+
+              return "translate(" + x + "," + y + ")";
+            }
+          );
+        });
+    }
+
     const subscription = events$.subscribe((action) => {
       if (move) {
         if (action.type === "zoom") {
@@ -364,6 +490,10 @@ export default function Chart({
         <g className="x-axis" />
         <g className="y-axis" />
         <g className="brush" />
+        <g className="mouse">
+          <path />
+          <rect />
+        </g>
       </svg>
     </div>
   );

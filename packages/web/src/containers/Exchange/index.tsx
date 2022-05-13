@@ -128,7 +128,7 @@ export default function Section({ version = "v1" }) {
         ))}
       </fieldset>
       <SyncZoomProvider>
-        <Chart list={series} type="area" />
+        <Chart list={series} type="area" legend rule />
         <Chart list={series} type="area" move />
       </SyncZoomProvider>
       <fieldset>
