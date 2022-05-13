@@ -47,11 +47,13 @@ export function SyncZoomProvider({ children }: { children: ReactNode }) {
 
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/tree/16-zoomable-line-chart
 export default function Chart({
+  legend = false,
   list,
   move,
   type = "line",
   rule = false,
 }: {
+  legend?: boolean;
   list: { group: string; date: Date; value: number; value2?: number }[];
   move?: boolean;
   type?: "line" | "area";
@@ -120,7 +122,7 @@ export default function Chart({
   }, [tooltip$]);
 
   const data = useMemo(() => group(list, (item) => item.group), [list]);
-  console.log({ data });
+  // console.log({ data });
 
   useEffect(() => {
     if (!wrapperRef.current || !svgRef.current) {
@@ -307,9 +309,37 @@ export default function Chart({
       svg.call(zoomBehavior);
     }
 
+    const cities = color.domain();
+
+    if (legend) {
+      const labels = svg
+        .selectAll<SVGGElement>(".label")
+        .data(cities)
+        .enter()
+        .append("g")
+        .attr("class", "label")
+        .attr(
+          "transform",
+          (_, i) => `translate(${width * 0.03 + i * 100},${height * 0.05})`
+        )
+        .style("color", (d) => color(d));
+
+      labels
+        .append("circle")
+        .attr("class", "label")
+        .attr("fill", "currentColor")
+        .attr("r", 7);
+
+      labels
+        .append("text")
+        .attr("transform", "translate(10,3)")
+        .style("color", "black")
+        .style("font", "11px arial")
+        .text((d) => `${d}`);
+    }
+
     // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
     if (rule) {
-      const cities = color.domain();
       // var cities = color.domain().map(function(name) {
       //   return {
       //     name: name,
@@ -329,16 +359,21 @@ export default function Chart({
         .enter()
         .append("g")
         .attr("class", "mouse-per-line")
+        .style("color", (d) => color(d))
         .style("opacity", "0");
 
       mousePerLine
         .append("circle")
         .attr("r", 7)
-        .style("stroke", (d) => color(d))
+        .style("stroke", "currentColor")
         .style("fill", "none")
         .style("stroke-width", "1px");
 
-      mousePerLine.append("text").attr("transform", "translate(10,3)");
+      mousePerLine
+        .append("text")
+        .attr("transform", "translate(10,3)")
+        .style("fill", "black")
+        .style("font", "11px arial");
 
       svg
         .select<SVGGElement>(".mouse")
@@ -357,20 +392,20 @@ export default function Chart({
         .attr("pointer-events", "all")
         .on("mouseout", function () {
           // on mouse out hide line, circles and text
-          console.log(["mouseout"]);
+          // console.log(["mouseout"]);
           select(".mouse-line").style("opacity", "0");
           selectAll(".mouse-per-line").style("opacity", "0");
         })
         .on("mouseover", function () {
           // on mouse in show line, circles and text
-          console.log(["mouseover"]);
+          // console.log(["mouseover"]);
           select(".mouse-line").style("opacity", "1");
           selectAll(".mouse-per-line").style("opacity", "1");
         })
         .on("mousemove", function (event) {
           // mouse moving over canvas
           const [x, y] = pointer(event);
-          console.log(["mousemove"], x, y);
+          // console.log(["mousemove"], x, y);
           select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
           selectAll(".mouse-per-line").attr(
             "transform",
@@ -381,11 +416,10 @@ export default function Chart({
               if (!values) {
                 return "";
               }
-              const bisect = bisector((d: { date: Date }) => d.date).right;
+              const bisect = bisector((d: { date: Date }) => d.date).center;
               const idx = bisect(values, xDate);
               const item = values[idx];
               const y = yScale(item.value);
-              console.log(item.value);
               select(this).select("text").text(`${item.value}`);
 
               return "translate(" + x + "," + y + ")";
