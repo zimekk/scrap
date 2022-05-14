@@ -12,6 +12,12 @@
     rect.selection {
       stroke: none;
     }
+    .mouse-per-line {
+      text {
+        font: 11px arial;
+        color: black;
+      }
+    }
   }
 
   .Tooltip {

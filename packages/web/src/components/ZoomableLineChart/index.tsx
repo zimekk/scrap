@@ -128,6 +128,14 @@ export default function Chart({
     if (!wrapperRef.current || !svgRef.current) {
       return;
     }
+    // https://github.com/d3/d3-axis/blob/v3.0.0/README.md#axis_tickSizeInner
+    // https://observablehq.com/@d3/styled-axes?collection=@d3/d3-axis
+    const margin = {
+      top: 10,
+      bottom: 10,
+      left: 10,
+      right: 10,
+    };
     const svg = select<Element, unknown>(svgRef.current);
     const svgContent = svg.select(".content");
     const { width, height } =
@@ -136,7 +144,7 @@ export default function Chart({
     // scales + line generator
     const xScale = scaleTime()
       .domain(extent(list, (d) => d.date))
-      .range([10, width - 10]);
+      .range([margin.left, width - margin.right]);
 
     if (currentZoomState) {
       const newXScale = currentZoomState.rescaleX(xScale);
@@ -152,7 +160,7 @@ export default function Chart({
             .concat(type === "area" ? list.map(({ value2 }) => value2) : [])
         )
       )
-      .range([height - 10, 10]);
+      .range([height - margin.bottom, margin.top]);
 
     const lineGenerator = line()
       .x((d) => xScale(d.date))
@@ -221,15 +229,6 @@ export default function Chart({
       .on("mouseleave", () => {
         tooltip$.next(null);
       });
-
-    // https://github.com/d3/d3-axis/blob/v3.0.0/README.md#axis_tickSizeInner
-    // https://observablehq.com/@d3/styled-axes?collection=@d3/d3-axis
-    const margin = {
-      top: 10,
-      bottom: 10,
-      left: 10,
-      right: 10,
-    };
 
     // axes
     const xAxis = axisBottom(xScale).tickSizeInner(
@@ -313,29 +312,30 @@ export default function Chart({
 
     if (legend) {
       const labels = svg
-        .selectAll<SVGGElement>(".label")
+        .select<SVGGElement>(".legend")
+        .selectAll(".label")
         .data(cities)
-        .enter()
-        .append("g")
+        .join((enter) => {
+          const label = enter.append("g").style("color", (d) => color(d));
+
+          label.append("circle").attr("fill", "currentColor").attr("r", 7);
+
+          label
+            .append("text")
+            .attr("transform", "translate(10,3)")
+            .text((d) => `${d}`);
+
+          return label;
+        })
         .attr("class", "label")
         .attr(
           "transform",
-          (_, i) => `translate(${width * 0.03 + i * 100},${height * 0.05})`
-        )
-        .style("color", (d) => color(d));
-
-      labels
-        .append("circle")
-        .attr("class", "label")
-        .attr("fill", "currentColor")
-        .attr("r", 7);
-
-      labels
-        .append("text")
-        .attr("transform", "translate(10,3)")
-        .style("color", "black")
-        .style("font", "11px arial")
-        .text((d) => `${d}`);
+          (_, i) =>
+            `translate(${
+              margin.left +
+              ((width - margin.left - margin.right) / cities.length) * (i + 0.2)
+            },${height * 0.05})`
+        );
     }
 
     // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
@@ -351,16 +351,23 @@ export default function Chart({
       //     })
       //   };
       // });
+      const cursor = svg.select<SVGGElement>(".cursor").style("opacity", "0");
 
-      const mousePerLine = svg
-        .select<SVGGElement>(".mouse")
+      cursor
+        .selectAll(".mouse-line")
+        .data([0])
+        .join("path")
+        .attr("class", "mouse-line")
+        .style("stroke", "black")
+        .style("stroke-width", "1px");
+
+      const mousePerLine = cursor
         .selectAll(".mouse-per-line")
         .data(cities)
         .enter()
         .append("g")
         .attr("class", "mouse-per-line")
-        .style("color", (d) => color(d))
-        .style("opacity", "0");
+        .style("color", (d) => color(d));
 
       mousePerLine
         .append("circle")
@@ -376,16 +383,7 @@ export default function Chart({
         .style("font", "11px arial");
 
       svg
-        .select<SVGGElement>(".mouse")
-        .selectAll("path") // this is the black vertical line to follow mouse
-        .attr("class", "mouse-line")
-        .style("stroke", "black")
-        .style("stroke-width", "1px")
-        .style("opacity", "0");
-
-      svg
-        .select<SVGGElement>(".mouse")
-        .selectAll("rect")
+        .select<SVGRectElement>(".mouse")
         .attr("width", width) // can't catch mouse events on a g element
         .attr("height", height)
         .attr("fill", "none")
@@ -393,14 +391,12 @@ export default function Chart({
         .on("mouseout", function () {
           // on mouse out hide line, circles and text
           // console.log(["mouseout"]);
-          select(".mouse-line").style("opacity", "0");
-          selectAll(".mouse-per-line").style("opacity", "0");
+          select(".cursor").style("opacity", "0");
         })
         .on("mouseover", function () {
           // on mouse in show line, circles and text
           // console.log(["mouseover"]);
-          select(".mouse-line").style("opacity", "1");
-          selectAll(".mouse-per-line").style("opacity", "1");
+          select(".cursor").style("opacity", "1");
         })
         .on("mousemove", function (event) {
           // mouse moving over canvas
@@ -490,10 +486,9 @@ export default function Chart({
         <g className="x-axis" />
         <g className="y-axis" />
         <g className="brush" />
-        <g className="mouse">
-          <path />
-          <rect />
-        </g>
+        <g className="legend" />
+        <g className="cursor" />
+        <rect className="mouse" />
       </svg>
     </div>
   );
