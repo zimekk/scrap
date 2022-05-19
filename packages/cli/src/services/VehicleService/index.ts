@@ -27,11 +27,6 @@ const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
 
-const timeout =
-  (timeout = Math.random() * 3000) =>
-  (data: any) =>
-    new Promise((resolve) => setTimeout(() => resolve(data), timeout));
-
 const createItem = (item: {}) => ({ ...item, _created: _time });
 const diffItem = (
   {
@@ -170,7 +165,7 @@ export class VehicleService extends Service {
       .catch((e) => console.log(e, item));
   }
 
-  async inspect(item = {}, summary: any): Promise<any> {
+  async inspect(item = {}): Promise<any> {
     return z
       .object({
         id: z.number(),
@@ -194,12 +189,9 @@ export class VehicleService extends Service {
         )
       )
       .then((item) => {
-        summary[item._removed ? "removed" : "checked"].push(item.id);
+        this.summary[item._removed ? "removed" : "checked"].push(item.id);
 
-        return vehicleItems
-          .update(item)
-          .then(timeout())
-          .then(() => item);
+        return vehicleItems.update(item).then(() => item);
       });
   }
 }

@@ -6,6 +6,7 @@ const timestamp = (mktime: number, period = ERA) => mktime - (mktime % period);
 type Summary = {
   created: any[];
   checked: any[];
+  removed: any[];
   updated: any[];
   request: Record<string, { number?: number; length?: number }>;
 };

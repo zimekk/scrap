@@ -1,17 +1,22 @@
-import { Subject, of } from "rxjs";
-import { delay, mergeMap, take, tap } from "rxjs/operators";
+import { from } from "rxjs";
+import { mergeMap, take, tap } from "rxjs/operators";
 import { VehicleService } from "./services";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
 const _past = _time - ERA;
 
+type Item = {
+  id: number;
+  isNew: boolean;
+  options: any;
+  _created: number;
+  _updated: number;
+  _removed: number;
+  _checked: number;
+};
+
 export const remove = async (status = false) => {
-  let counter = 0;
-  const check$ = new Subject<{
-    id: number;
-    isNew: boolean;
-  }>();
   const summary = {
     checked: [],
     removed: [],
@@ -19,39 +24,15 @@ export const remove = async (status = false) => {
 
   // await require("./request").cleanup();
 
-  check$
-    .pipe(
-      take(1000),
-      mergeMap(
-        (item) =>
-          of(item).pipe(
-            mergeMap((item) => {
-              const service = new VehicleService({ summary });
-              return service.inspect(item, summary);
-            }),
-            delay(100)
-          ),
-        1
-      )
-    )
-    .subscribe({
-      next: (item: { id: number; _removed?: number }) => {
-        console.log({ i: counter--, item });
-      },
-      complete: () => {
-        console.log(summary);
-      },
-    });
-
   require("@dev/api/vehicles")
     .vehicleItems.find({})
-    .then((list: any) => {
+    .then((list: Item[]) => {
       const notRemoved = list
         .filter(({ _removed = 0 }: { _removed: number }) => _removed === 0)
         .sort((a: any, b: any) => a._checked - b._checked);
 
       const getOptions = notRemoved.filter(
-        ({ options }: { options: any }) => options === undefined
+        ({ options }) => options === undefined
       );
 
       const getRemoved = notRemoved.filter(
@@ -66,18 +47,34 @@ export const remove = async (status = false) => {
         getRemoved: getRemoved.length,
       });
 
+      console.log(getRemoved.map((item) => item.id));
+
       if (status) {
         return;
       }
 
       const filtered = getOptions.concat(getRemoved.slice(0, 500));
 
-      counter = filtered.length;
+      let counter = filtered.length;
 
-      filtered.map((item: any, i: number, list: any[]) => {
-        // console.log(`${i + 1}/${list.length} checked: ${item._checked ? new Date(item._checked) : '-'}`);
-        check$.next(item);
-      });
-      check$.complete();
+      from(filtered)
+        .pipe(
+          take(500),
+          mergeMap((item) => {
+            const service = new VehicleService({ summary });
+            return from(service.inspect(item));
+          }, 1),
+          tap(({ id, _created, _updated, _checked }) =>
+            console.log({ i: counter--, id, _created, _updated, _checked })
+          )
+        )
+        .subscribe({
+          next: (item) => {
+            console.log(item);
+          },
+          complete: () => {
+            console.log(summary);
+          },
+        });
     });
 };
