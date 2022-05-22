@@ -1,6 +1,6 @@
-import { Subject, from } from "rxjs";
 import chunk from "chunk";
-import { filter, mergeMap, tap } from "rxjs/operators";
+import { EMPTY, Subject, from } from "rxjs";
+import { expand, filter, map, mergeMap, tap } from "rxjs/operators";
 import { z } from "zod";
 import {
   GameService,
@@ -20,16 +20,14 @@ import {
 
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
+// const REGEX = new RegExp(/get-stations/)
+// const REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // const REGEX = new RegExp(/^((?!investment).)*$/);
 // const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
 const REGEX = new RegExp(/^(.)*$/);
-
-const ERA = 24 * 3600 * 1000;
-const _time = Date.now();
-const _past = _time - ERA;
 
 enum Types {
   PRODUCT = "get-product",
@@ -62,6 +60,37 @@ export default function (type?: string) {
     request: {},
   };
 
+  const request = ({ type, args }: { type: string; args?: object }) =>
+    z
+      .nativeEnum(Types)
+      .parseAsync(type.split(":")[0])
+      .then(
+        (type) =>
+          ({
+            [Types.PRODUCT]: ProductService,
+            [Types.CYFROWE]: ProductService,
+            [Types.TOPHIFI]: ProductService,
+            [Types.RATES]: RatesService,
+            [Types.TFI]: QuotesService,
+            [Types.ALTO]: ProductService,
+            [Types.STATION]: StationService,
+            [Types.GRATKA]: PropertyGratkaService,
+            [Types.KLIK]: PropertyKlikService,
+            [Types.BENZ]: Vehicle3Service,
+            [Types.BMW]: VehicleService,
+            [Types.OTODOM]: PropertyOtodomService,
+            [Types.PORSCHE]: Vehicle4Service,
+            [Types.AUDI]: Vehicle2Service,
+            [Types.VW]: Vehicle5Service,
+            [Types.XBOX]: GameService,
+          }[type])
+      )
+      .then((Service) => new Service({ summary }))
+      .then((service) => {
+        console.log(type);
+        return service.request(type, args);
+      });
+
   const request$ = new Subject<{ type: string; args?: object }>();
   request$
     .pipe(
@@ -71,40 +100,16 @@ export default function (type?: string) {
       ),
       mergeMap(
         ({ type, args }) =>
-          from(
-            z
-              .nativeEnum(Types)
-              .parseAsync(type.split(":")[0])
-              .then(
-                (type) =>
-                  ({
-                    [Types.PRODUCT]: ProductService,
-                    [Types.CYFROWE]: ProductService,
-                    [Types.TOPHIFI]: ProductService,
-                    [Types.RATES]: RatesService,
-                    [Types.TFI]: QuotesService,
-                    [Types.ALTO]: ProductService,
-                    [Types.STATION]: StationService,
-                    [Types.GRATKA]: PropertyGratkaService,
-                    [Types.KLIK]: PropertyKlikService,
-                    [Types.BENZ]: Vehicle3Service,
-                    [Types.BMW]: VehicleService,
-                    [Types.OTODOM]: PropertyOtodomService,
-                    [Types.PORSCHE]: Vehicle4Service,
-                    [Types.AUDI]: Vehicle2Service,
-                    [Types.VW]: Vehicle5Service,
-                    [Types.XBOX]: GameService,
-                  }[type])
-              )
-              .then((Service) => new Service({ summary }))
-              .then((service) => {
-                console.log(type);
-                return service.request(type, args);
-              })
-          ).pipe(
-            tap(({ type, next }) =>
-              next ? request$.next({ type, args: next }) : request$.complete()
-            )
+          from(request({ type, args })).pipe(
+            // tap(({ type, list, next }) =>
+            //   console.log(["tap"], { type, list, next })
+            // ),
+            expand(({ type, next }) =>
+              Boolean(console.log(["expand"], { type, next })) || next
+                ? from(request({ type, args: next }))
+                : EMPTY
+            ),
+            map(({ type, list }) => ({ type, list }))
           ),
         1
       ),
@@ -547,4 +552,6 @@ export default function (type?: string) {
   ).subscribe((type) => {
     request$.next({ type });
   });
+
+  request$.complete();
 }
