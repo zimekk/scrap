@@ -687,7 +687,7 @@ export const scrapPropertyKlikItem = (item: any) =>
           location_path: z.array(
             z.object({
               name: z.string(),
-              type: z.enum(["dzielnica", "miejsce", "miejsce2"]),
+              type: z.enum(["dzielnica", "miejsce", "miejsce2", "ulica"]),
             })
           ),
           // location_path_id: z.string(),
