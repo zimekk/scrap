@@ -16,15 +16,17 @@ export const getRatesData: RequestHandler = (_req, res) =>
       .find({})
       .then((list) =>
         Object.values(
-          (list as Rate[]).reduce(
-            (result: Record<string, Rate>, item) =>
-              ((key: string) =>
-                Object.assign(
-                  result,
-                  compare(result[key], item) ? { [key]: item } : {}
-                ))(`${item.code} ${item.date}`),
-            {}
-          )
+          (list as Rate[])
+            .filter((item) => item.date > "2008-01-01")
+            .reduce(
+              (result: Record<string, Rate>, item) =>
+                ((key: string) =>
+                  Object.assign(
+                    result,
+                    compare(result[key], item) ? { [key]: item } : {}
+                  ))(`${item.code} ${item.date}`),
+              {}
+            )
         )
       ),
   ]).then(([rates]) =>

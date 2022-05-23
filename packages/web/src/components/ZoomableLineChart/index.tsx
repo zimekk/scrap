@@ -30,6 +30,7 @@ import {
   brushSelection,
   timeMonth,
 } from "d3";
+import { format } from "date-fns";
 import { Subject, of } from "rxjs";
 import { delay, switchMap } from "rxjs/operators";
 import useResizeObserver from "../../hooks/useResizeObserver";
@@ -359,7 +360,18 @@ export default function Chart({
         .join("path")
         .attr("class", "mouse-line")
         .style("stroke", "black")
-        .style("stroke-width", "1px");
+        .style("stroke-width", "1px")
+        .style("stroke-dasharray", "1,1");
+
+      cursor
+        .selectAll(".mouse-text")
+        .data([0])
+        .join("text")
+        .attr("class", "mouse-text")
+        .attr("transform", "translate(10,3)")
+        .attr("filter", "url(#bg-text)")
+        .style("fill", "black")
+        .style("font", "11px arial");
 
       const mousePerLine = cursor
         .selectAll(".mouse-per-line")
@@ -371,7 +383,7 @@ export default function Chart({
 
       mousePerLine
         .append("circle")
-        .attr("r", 7)
+        .attr("r", 6)
         .style("stroke", "currentColor")
         .style("fill", "none")
         .style("stroke-width", "1px");
@@ -379,6 +391,7 @@ export default function Chart({
       mousePerLine
         .append("text")
         .attr("transform", "translate(10,3)")
+        .attr("filter", "url(#bg-text)")
         .style("fill", "black")
         .style("font", "11px arial");
 
@@ -405,8 +418,7 @@ export default function Chart({
           select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
           selectAll(".mouse-per-line").attr(
             "transform",
-            function (d: any): string {
-              // console.log(width/mouse[0])
+            function (d: any, i: number): string {
               const xDate = xScale.invert(x);
               const values = data.get(d);
               if (!values) {
@@ -417,8 +429,12 @@ export default function Chart({
               const item = values[idx];
               const y = yScale(item.value);
               select(this).select("text").text(`${item.value}`);
-
-              return "translate(" + x + "," + y + ")";
+              if (!i) {
+                select(".mouse-text").text(
+                  format(item.date, "dd.MM.yyyy HH:mm")
+                );
+              }
+              return "translate(" + xScale(item.date) + "," + y + ")";
             }
           );
         });
@@ -481,6 +497,13 @@ export default function Chart({
           <clipPath id={id}>
             <rect x="0" y="0" width="100%" height="100%" />
           </clipPath>
+          <filter x="0" y="0" width="1" height="1" id="bg-text">
+            <feFlood floodColor="rgba(255,255,255,0.75)" />
+            <feMerge>
+              <feMergeNode in="bg" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>{" "}
+          </filter>
         </defs>
         <g className="content" clipPath={`url(#${id})`}></g>
         <g className="x-axis" />
