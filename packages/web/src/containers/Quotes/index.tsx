@@ -1,6 +1,5 @@
 import React, {
   ChangeEventHandler,
-  MouseEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -124,8 +123,8 @@ function Data({ version = "v1" }) {
   );
 
   const [filters, setFilters] = useState(() => ({
-    investment: options.investment[0].id,
-    related: options.investment[0].id,
+    // investment: options.investment[0].id,
+    // related: options.investment[0].id,
     search: "",
   }));
 
@@ -173,49 +172,62 @@ function Data({ version = "v1" }) {
     [unified]
   );
 
+  const [selected, setSelected] = useState<number[]>(() =>
+    transactions.map((_, i) => i)
+  );
+  const [selectedDate, setSelectedDate] = useState<string>(() =>
+    format(unified[unified.length - 1].date.getTime(), "yyyy-MM-dd")
+  );
+  const [investmentsSelected, setInvestmentsSelected] = useState<number[]>(
+    () => [34, 35, 79]
+  );
+
   const list = useMemo(
     () =>
       unified
         .filter(({ investment_id }) =>
-          [filters.investment, filters.related].includes(investment_id)
+          investmentsSelected.includes(investment_id)
         )
         .filter(({ date }) => date.getTime() > from),
-    [unified, filters]
+    [unified, investmentsSelected]
   );
 
-  const relation = useMemo(
-    () =>
-      Object.entries(
-        unified.reduce(
-          (result, { date, investment_id, value }) =>
-            Object.assign(result, {
-              [format(date, "yyyy-MM-dd")]: Object.assign(
-                result[format(date, "yyyy-MM-dd")] || {},
-                {
-                  [investment_id]: value,
-                }
-              ),
-            }),
-          {}
-        )
-      )
-        .map(([date, investments]) => ({
-          date: new Date(date),
-          value: investments[filters.investment] / investments[filters.related],
-        }))
-        .filter(({ date }) => date.getTime() > from),
-    [unified, filters]
-  );
+  // const relation = useMemo(
+  //   () =>
+  //     Object.entries(
+  //       unified.reduce(
+  //         (result, { date, investment_id, value }) =>
+  //           Object.assign(result, {
+  //             [format(date, "yyyy-MM-dd")]: Object.assign(
+  //               result[format(date, "yyyy-MM-dd")] || {},
+  //               {
+  //                 [investment_id]: value,
+  //               }
+  //             ),
+  //           }),
+  //         {}
+  //       )
+  //     )
+  //       .map(([date, investments]) => ({
+  //         date: new Date(date),
+  //         value: investments[filters.investment] / investments[filters.related],
+  //       }))
+  //       .filter(({ date }) => date.getTime() > from),
+  //   [unified, filters]
+  // );
 
-  const [selected, setSelected] = useState<number[]>(() =>
-    transactions.map((_, i) => i)
-  );
-  const [investmentsSelected, setInvestmentsSelected] = useState<number[]>([]);
+  const getRelatedValue = useCallback((values, date, selectedDate) => {
+    const formattedDate = format(date, "yyyy-MM-dd");
+    if (values[formattedDate] && values[selectedDate]) {
+      return values[formattedDate] / values[selectedDate];
+    }
+    return 0;
+  }, []);
 
   return (
     <div>
       <SyncZoomProvider>
-        <fieldset>
+        {/* <fieldset>
           <label>
             <span>Investment</span>
             <select
@@ -236,15 +248,16 @@ function Data({ version = "v1" }) {
               ))}
             </select>
           </label>
-        </fieldset>
+        </fieldset> */}
         <Chart
           list={list.map(({ investment_id, ...item }) => ({
             ...item,
             group: names[investment_id],
           }))}
+          legend
         />
         <fieldset>
-          <label>
+          {/* <label>
             <span>Related</span>
             <select
               value={filters.related}
@@ -278,12 +291,37 @@ function Data({ version = "v1" }) {
             )}
           >
             reverse
-          </button>
+          </button> */}
+          <label>
+            <span>Date</span>
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                ({ target }) => setSelectedDate(target.value),
+                []
+              )}
+            />
+          </label>
         </fieldset>
-        <Chart list={relation} />
-      </SyncZoomProvider>
-      <SyncZoomProvider>
-        <fieldset>
+        <Chart
+          list={unified
+            .filter(({ investment_id }) =>
+              investmentsSelected.includes(investment_id)
+            )
+            .filter(({ date }) => date.getTime() > from)
+
+            .map(({ investment_id, ...item }) => ({
+              ...item,
+              value: getRelatedValue(
+                rates[investment_id],
+                item.date,
+                selectedDate
+              ),
+              group: names[investment_id],
+            }))}
+        />
+        {/* <fieldset>
           <label>
             <span>Search</span>
             <input
@@ -299,13 +337,15 @@ function Data({ version = "v1" }) {
               )}
             />
           </label>
-        </fieldset>
+        </fieldset> */}
         <Investments
           investments={options.investment}
           rates={rates}
           selected={investmentsSelected}
           setSelected={setInvestmentsSelected}
         />
+      </SyncZoomProvider>
+      <SyncZoomProvider>
         <Chart
           list={[...Array(DAYS)]
             .map((_, i) =>
@@ -380,6 +420,7 @@ function Data({ version = "v1" }) {
             )
             .flat()}
           type="area"
+          legend
         />
         <Transactions
           transactions={transactions}
