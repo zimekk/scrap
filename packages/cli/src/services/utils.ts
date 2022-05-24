@@ -1,7 +1,7 @@
 const productHtmlPath = (name: string) =>
   require("path").resolve(
     __dirname,
-    `../temp/${name.replace(/\//g, "-")}.html`
+    `../../temp/${name.replace(/\//g, "-")}.html`
   );
 
 export const loadProductHtml = (name: string) =>

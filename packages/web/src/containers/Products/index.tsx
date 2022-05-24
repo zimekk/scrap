@@ -109,7 +109,7 @@ function Data({ version = "v1" }) {
           _price: Number(
             (item.price.length > 0 ? item.price : ["0"])
               .reverse()[0]
-              .replace(/[^0-9,]/g, "")
+              .replace(/[^0-9,\.]/g, "")
               .replace(",", ".")
           ),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),

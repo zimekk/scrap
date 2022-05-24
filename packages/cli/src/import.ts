@@ -5,6 +5,9 @@ import { z } from "zod";
 import {
   GameService,
   ProductService,
+  ProductElectroService,
+  ProductEuroService,
+  ProductMediaService,
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
@@ -20,8 +23,10 @@ import {
 
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
+// const REGEX = new RegExp(/media/)
 // const REGEX = new RegExp(/get-stations/)
 // const REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
+// const REGEX = new RegExp(/^((?!rates).)*$/);
 // const REGEX = new RegExp(/^((?!investment).)*$/);
 // const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
 // const REGEX = new RegExp(/get-product:258829/);
@@ -33,6 +38,9 @@ enum Types {
   PRODUCT = "get-product",
   CYFROWE = "get-product-cyfrowe",
   TOPHIFI = "get-product-tophifi",
+  ELECTRO = "get-product-electro",
+  EURO = "get-product-euro",
+  MEDIA = "get-product-media",
   RATES = "rates",
   TFI = "investments",
   ALTO = "get-product-alto",
@@ -70,6 +78,9 @@ export default function (type?: string) {
             [Types.PRODUCT]: ProductService,
             [Types.CYFROWE]: ProductService,
             [Types.TOPHIFI]: ProductService,
+            [Types.ELECTRO]: ProductElectroService,
+            [Types.EURO]: ProductEuroService,
+            [Types.MEDIA]: ProductMediaService,
             [Types.RATES]: RatesService,
             [Types.TFI]: QuotesService,
             [Types.ALTO]: ProductService,
@@ -129,6 +140,9 @@ export default function (type?: string) {
                           [Types.PRODUCT]: ProductService,
                           [Types.CYFROWE]: ProductService,
                           [Types.TOPHIFI]: ProductService,
+                          [Types.ELECTRO]: ProductElectroService,
+                          [Types.EURO]: ProductEuroService,
+                          [Types.MEDIA]: ProductMediaService,
                           [Types.RATES]: RatesService,
                           [Types.TFI]: QuotesService,
                           [Types.ALTO]: ProductService,
@@ -514,6 +528,13 @@ export default function (type?: string) {
           "get-product:648883-all-in-one-apple-imac-24-m1-8gb-256-macos-retina-45k-silver",
           "get-product:656048-all-in-one-apple-imac-24-m1-16gb-256-macos-retina-45k-silver",
           "get-product:656052-all-in-one-apple-imac-24-m1-16gb-512-macos-retina-45k-silver",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/kaski-sportowe/kask-rowerowy-abus-macator-szary-szosowy-rozmiar-m",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805c-110-lancuch-czarny",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1500-110-web-lancuch-czarny",
+          "get-product-euro:zmywarki-do-zabudowy/siemens-iq300-sn63ex14ce",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-5g-black-64gb",
         ]
   ).subscribe((type) => {
     request$.next({ type });

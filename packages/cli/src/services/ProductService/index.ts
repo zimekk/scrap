@@ -1,11 +1,12 @@
-import { diffString } from "json-diff";
 import { z } from "zod";
-import { productItems } from "@dev/api/products";
 import { browser } from "../../request";
-import Service from "../Service";
-import { DiffSchema, ItemSchema } from "./types";
+import Service from "./base";
 import { fromHtml, fromHtml2, fromHtml3 } from "./utils";
-import { saveProductHtml } from "../utils";
+// import { saveProductHtml } from "../utils";
+
+export { ProductElectroService } from "./Electro";
+export { ProductEuroService } from "./Euro";
+export { ProductMediaService } from "./Media";
 
 const { STORE_URL, STORE_ALTO_URL, STORE_CYFROWE_URL, STORE_TOPHIFI_URL } =
   process.env as {
@@ -14,48 +15,6 @@ const { STORE_URL, STORE_ALTO_URL, STORE_CYFROWE_URL, STORE_TOPHIFI_URL } =
     STORE_CYFROWE_URL: string;
     STORE_TOPHIFI_URL: string;
   };
-
-const ERA = 24 * 3600 * 1000;
-const _time = Date.now();
-const _past = _time - ERA;
-
-const diffItem = (
-  {
-    _id,
-    _created,
-    _checked,
-    _updated,
-    _history,
-    ...last
-  }: {
-    _id: string;
-    _created: number;
-    _checked: number;
-    _updated: number;
-    _history: {};
-  },
-  item: {}
-) => diffString(DiffSchema.parse(last), DiffSchema.parse(item));
-
-const updateItem = (
-  {
-    _id,
-    _created = _past,
-    _updated = _created,
-    _history = {},
-    ...last
-  }: { _id: string; _created: number; _updated: number; _history: {} },
-  item: {}
-) => ({
-  ...item,
-  _id,
-  _created,
-  _updated: _time,
-  _history: {
-    ..._history,
-    [_updated]: last,
-  },
-});
 
 export class ProductService extends Service {
   async fetcher([site, type]: string[]) {
@@ -103,26 +62,5 @@ export class ProductService extends Service {
             next: null,
           }))
       );
-  }
-
-  async process(item = {}): Promise<any> {
-    return ItemSchema.parseAsync(item).then((item) =>
-      productItems.findOne({ id: item.id }).then((last: any) => {
-        if (last) {
-          const diff = diffItem(last, item);
-          if (diff) {
-            console.log(`[${last.id}]`, diff);
-            this.summary.updated.push(item.id);
-            return productItems.update(updateItem(last, item));
-          } else {
-            this.summary.checked.push(item.id);
-            return productItems.update({ ...last, _checked: _time });
-          }
-        } else {
-          this.summary.created.push(item.id);
-          return productItems.insert({ ...item, _created: _time });
-        }
-      })
-    );
   }
 }
