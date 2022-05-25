@@ -7,6 +7,7 @@ import { fromHtml, fromHtml2, fromHtml3 } from "./utils";
 export { ProductElectroService } from "./Electro";
 export { ProductEuroService } from "./Euro";
 export { ProductMediaService } from "./Media";
+export { ProductTourService } from "./Tour";
 
 const { STORE_URL, STORE_ALTO_URL, STORE_CYFROWE_URL, STORE_TOPHIFI_URL } =
   process.env as {

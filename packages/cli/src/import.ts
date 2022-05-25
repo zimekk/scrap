@@ -8,6 +8,7 @@ import {
   ProductElectroService,
   ProductEuroService,
   ProductMediaService,
+  ProductTourService,
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
@@ -41,6 +42,7 @@ enum Types {
   ELECTRO = "get-product-electro",
   EURO = "get-product-euro",
   MEDIA = "get-product-media",
+  TOUR = "get-product-tour",
   RATES = "rates",
   TFI = "investments",
   ALTO = "get-product-alto",
@@ -55,6 +57,29 @@ enum Types {
   VW = "vw",
   XBOX = "xbox",
 }
+
+const SERVICES = {
+  [Types.PRODUCT]: ProductService,
+  [Types.CYFROWE]: ProductService,
+  [Types.TOPHIFI]: ProductService,
+  [Types.ELECTRO]: ProductElectroService,
+  [Types.EURO]: ProductEuroService,
+  [Types.MEDIA]: ProductMediaService,
+  [Types.TOUR]: ProductTourService,
+  [Types.RATES]: RatesService,
+  [Types.TFI]: QuotesService,
+  [Types.ALTO]: ProductService,
+  [Types.STATION]: StationService,
+  [Types.GRATKA]: PropertyGratkaService,
+  [Types.KLIK]: PropertyKlikService,
+  [Types.BENZ]: Vehicle3Service,
+  [Types.BMW]: VehicleService,
+  [Types.OTODOM]: PropertyOtodomService,
+  [Types.PORSCHE]: Vehicle4Service,
+  [Types.AUDI]: Vehicle2Service,
+  [Types.VW]: Vehicle5Service,
+  [Types.XBOX]: GameService,
+};
 
 export default function (type?: string) {
   if (type) {
@@ -72,30 +97,7 @@ export default function (type?: string) {
     z
       .nativeEnum(Types)
       .parseAsync(type.split(":")[0])
-      .then(
-        (type) =>
-          ({
-            [Types.PRODUCT]: ProductService,
-            [Types.CYFROWE]: ProductService,
-            [Types.TOPHIFI]: ProductService,
-            [Types.ELECTRO]: ProductElectroService,
-            [Types.EURO]: ProductEuroService,
-            [Types.MEDIA]: ProductMediaService,
-            [Types.RATES]: RatesService,
-            [Types.TFI]: QuotesService,
-            [Types.ALTO]: ProductService,
-            [Types.STATION]: StationService,
-            [Types.GRATKA]: PropertyGratkaService,
-            [Types.KLIK]: PropertyKlikService,
-            [Types.BENZ]: Vehicle3Service,
-            [Types.BMW]: VehicleService,
-            [Types.OTODOM]: PropertyOtodomService,
-            [Types.PORSCHE]: Vehicle4Service,
-            [Types.AUDI]: Vehicle2Service,
-            [Types.VW]: Vehicle5Service,
-            [Types.XBOX]: GameService,
-          }[type])
-      )
+      .then((type) => SERVICES[type])
       .then((Service) => new Service({ summary }))
       .then((service) => {
         console.log(type);
@@ -116,9 +118,8 @@ export default function (type?: string) {
             //   console.log(["tap"], { type, list, next })
             // ),
             expand(({ type, next }) =>
-              Boolean(console.log(["expand"], { type, next })) || next
-                ? from(request({ type, args: next }))
-                : EMPTY
+              // Boolean(console.log(["expand"], { type, next })) ||
+              next ? from(request({ type, args: next })) : EMPTY
             ),
             map(({ type, list }) => ({ type, list }))
           ),
@@ -134,30 +135,7 @@ export default function (type?: string) {
                   z
                     .nativeEnum(Types)
                     .parseAsync(type.split(":")[0])
-                    .then(
-                      (type) =>
-                        ({
-                          [Types.PRODUCT]: ProductService,
-                          [Types.CYFROWE]: ProductService,
-                          [Types.TOPHIFI]: ProductService,
-                          [Types.ELECTRO]: ProductElectroService,
-                          [Types.EURO]: ProductEuroService,
-                          [Types.MEDIA]: ProductMediaService,
-                          [Types.RATES]: RatesService,
-                          [Types.TFI]: QuotesService,
-                          [Types.ALTO]: ProductService,
-                          [Types.STATION]: StationService,
-                          [Types.GRATKA]: PropertyGratkaService,
-                          [Types.KLIK]: PropertyKlikService,
-                          [Types.BENZ]: Vehicle3Service,
-                          [Types.BMW]: VehicleService,
-                          [Types.OTODOM]: PropertyOtodomService,
-                          [Types.PORSCHE]: Vehicle4Service,
-                          [Types.AUDI]: Vehicle2Service,
-                          [Types.VW]: Vehicle5Service,
-                          [Types.XBOX]: GameService,
-                        }[type])
-                    )
+                    .then((type) => SERVICES[type])
                     .then((Service) => new Service({ summary }))
                     .then((service) => service.process(item))
                 ),
@@ -533,8 +511,18 @@ export default function (type?: string) {
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805c-110-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1500-110-web-lancuch-czarny",
+          "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/oswietlenie-rowerowe/lampka-rowerowa-przod-sigma-buster-100-usb",
           "get-product-euro:zmywarki-do-zabudowy/siemens-iq300-sn63ex14ce",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-5g-black-64gb",
+          // "get-product-media:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
+          "get-product-tour:81268/sigma-buster-100-nugget-ii-zestaw-lampek-led-usb",
+          "get-product-tour:86799/sigma-buster-100-lampka-przednia-led-usb",
+          "get-product-tour:92431/abus-1500-web-zapiecie-do-roweru-lancuch-z-zamkiem-czarny",
+          "get-product-tour:92427/abus-steel-o-chain-4804c-zapiecie-rowerowe-lancuch-na-szyfr-czarny",
+          "get-product-tour:174572/abus-macator-kask-rowerowy-szosowy-gleam-silver",
+          "get-product-tour:174726/abus-urban-i-3.0-kask-rowerowy-miejski-damski-glacier-blue",
+          "get-product-tour:210800/kask-rowerowy-abus-viantor-szary",
+          "get-product-tour:211740/abus-youn-i-2.0-kask-jasnoczerwony",
         ]
   ).subscribe((type) => {
     request$.next({ type });
