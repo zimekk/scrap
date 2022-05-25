@@ -14,7 +14,8 @@ export const fromHtml = (html: string) => {
     $root.querySelector('meta[itemprop="gtin"]')?.getAttribute("content") ||
     $root
       .querySelector('div i[data-tooltip-id="#parameter-ean"]')
-      ?.parentNode.nextElementSibling.text.trim();
+      ?.parentNode.nextElementSibling.text.replace(/\s+/g, "")
+      .trim();
 
   const image = $root
     .querySelectorAll(".js-screen-photo img")

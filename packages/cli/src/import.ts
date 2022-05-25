@@ -345,7 +345,7 @@ export default function (type?: string) {
           "get-product-cyfrowe:plecak-manfrotto-advanced-2-active-p",
           // "get-product-cyfrowe:plecak-manfrotto-advanced-2-travel-m-p",
           "get-product-cyfrowe:plecak-manfrotto-advanced-iii-active-p",
-          "get-product-cyfrowe:aparaty/plecak-manfrotto-next-szary",
+          // "get-product-cyfrowe:aparaty/plecak-manfrotto-next-szary",
           "get-product-cyfrowe:plecak-lowepro-flipside-300-aw-iii-czarny-p",
           "get-product-cyfrowe:rhino-slider-rov-pro-traveler-p",
           "get-product-cyfrowe:rhino-slider-rhino-rov-pro-everyday-i-backpack-bundle-p",
