@@ -2,7 +2,7 @@ import { z } from "zod";
 import { parse } from "node-html-parser";
 import { ItemSchema } from "../types";
 
-export const ItemJsonSchema = z.object({
+const ItemJsonSchema = z.object({
   url: z.string(),
   name: z.string(),
   sku: z.string(),

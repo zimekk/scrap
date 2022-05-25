@@ -1,233 +1,58 @@
-import { loadProductHtml } from "../../utils";
-import { fromHtml, fromHtml2, fromHtml3 } from "../utils";
+import { loadProductHtml } from "../../../utils";
+import { fromHtml } from "../utils";
 
-describe("ProductService", () => {
+describe("ProductHifiService", () => {
   xit("fromHtml", () =>
     [
       {
-        html: loadProductHtml(
-          "186950-akcesorium-sieciowe-ubiquiti-zasilacz-poe-24v-24w-1a"
-        ),
+        html: loadProductHtml("multiroom-musiccast-yamaha-musiccast-r-n402d"),
         result: {
-          brand: "Ubiquiti",
+          brand: "Yamaha",
           codes: [],
+          id: "10654",
           image: [
-            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2017/9/pr_2017_9_27_14_37_18_439_00.jpg",
-            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2017/9/pr_2017_9_27_14_37_18_439_00.jpg",
-            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,pr_2014_5_15_17_32_20_730.jpg",
-            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,pr_2014_5_15_17_32_20_730.jpg",
+            "https://www.tophifi.pl/media/catalog/product/cache/c76cfc952dbe1a24abf7200506210ae9/m/u/musiccast-r-n402d-mc-av.png",
           ],
-          label: [
-            "od: Ubiquiti",
-            "kod producenta: POE-24-24W",
-            "kod x-kom: 186950",
-          ],
-          links: ["Dostępny", "Darmowy odbiór w salonie"],
-          price: ["59,00 zł"],
-          proms: [],
-          stars: "(0 opinii)",
-          title: "Ubiquiti Zasilacz POE 24V 24W 1A",
-          url: "https://www.x-kom.pl/p/186950-akcesorium-sieciowe-ubiquiti-zasilacz-poe-24v-24w-1a.html",
-        },
-      },
-      {
-        html: loadProductHtml(
-          "576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37"
-        ),
-        result: {
-          brand: "LEGO",
-          codes: [],
-          image: [
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_41_17_447_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_41_17_447_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_43_56_258_03.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_43_56_258_03.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_43_53_820_02.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_43_53_820_02.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_43_48_899_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_43_48_899_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_43_50_930_01.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_43_50_930_01.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_45_35_789_01.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_45_35_789_01.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_47_10_680_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_47_10_680_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_46_26_78_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_46_26_78_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_45_33_758_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_45_33_758_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-mini,,2021/6/pr_2021_6_8_10_48_11_540_00.jpg",
-            "https://cdn.al.to/i/setup/images/prod/big/product-small,,2021/6/pr_2021_6_8_10_48_11_540_00.jpg",
-          ],
-          label: ["od: LEGO", "kod producenta: 42115", "kod al.to: 576290"],
+          label: ["od: Yamaha", "sku: 10654"],
           links: [
-            "Wydłużony czas dostawy",
+            "Produkt chwilowo niedostępny",
+            "Odbiór w salonie: Prosimy o kontakt",
             "Darmowa dostawa",
-            "Rata tylko 70,00 zł",
+            "Rata 20 x 0%",
           ],
-          price: ["1 400,00 zł"],
+          price: [],
           proms: [],
-          stars: "(4 opinie)",
-          title: "LEGO Technic 42115 Lamborghini Sián FKP 37",
-          url: "https://www.al.to/p/576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37.html",
           reviews: [
             {
-              author: "Hajdan",
-              body: "Super Wykonanie, instrukcja bardzo zrozumiała, Dobra cena.",
-              date: "2020-11-17",
-              rating: 6,
+              author: "Miko",
+              body: "Amplituner spełnił moje oczekiwania godny polecenia.",
+              date: "2019-05-04",
+              rating: 5,
             },
             {
-              author: "Nie powiem",
-              body: "Auto bardzo eleganckie ładne i ekskluzywne. Miałem niezła frajdę, budowanie go zajęło ok30 godz. Te pieniądze naprawdę nie idą na marne same szczegóły i te wszystkie detale są niesamowite oraz pudełko niesamowicie zaprojektowane i oczywiście samochód. Polecam też zainwestować w bugatti chiron.",
-              date: "2021-03-01",
-              rating: 6,
+              author: "Karo",
+              body: "Potrzebowałem sprzętu do małego pokoju, który jednak będzie mógł dobrze napędzić moje Bowersy 607 które są małe, ale dość prądożerne. Mój poprzedni sprzęt nie dawał sobie z nimi rady więc potrzebowałem czegoś mocniejszego, z dodatkowymi funkcjami sieciowymi. Po pierwszym odsłuchu mogę śmiało stwierdzić że 402 się sprawdziła, gra bardzo ciepło, co jest miłe dla ucha. Dodatkowo skonfigurowałem go w musiccaście i teraz wszystkim steruje przez Mój telefon. Świetny sprzęt!",
+              date: "2019-11-12",
+              rating: 5,
             },
             {
-              author: "Jakub",
-              body: "Piękny model. Składanie tego zestawu sprawiało przyjemność. Silnik wygląda jak prawdziwy. Drzwi otwierają się jednocześnie przy przyciśnięciu guzika. Cieplutko polecam każdemu, świetna zabawa i doskonały model na półkę.",
-              date: "2021-08-01",
-              rating: 6,
+              author: "Maniuk",
+              body: "Musiccast przez którego sterujemy to urządzenie wymiata. Sam amplituner przeznaczony raczej do monitorów, ale ja używam go w połączeniu z Notami 550, i daje radę ;)",
+              date: "2019-12-31",
+              rating: 5,
             },
             {
-              author: "Arek",
-              body: "Przepiękny zestaw, przepięknie zapakowany, czuć ekskluzywność.\nMożna się bawić, można podziwiać na półce. Bardzo przyjemnie się budowało, najpierw syn, następnie ja. Pozdrawiam i polecam.",
-              date: "2021-09-28",
-              rating: 6,
+              author: "Szymon",
+              body: "Podstawowy amplituner stereo z funkcjami sieciowymi. Nadaje się do niewielkich pomieszczeń, maks 20m. Gra nieźle, zwłaszcza jeśli słuchasz dużo muzyki z sieci. Charakter dźwięku typowy dla Yamahy - dużo środka i basu, tonów wysokich mało. Oczywiście preset dźwiękowy można wyłączyć funkcją PureDirect. Polecam.",
+              date: "2020-02-28",
+              rating: 5,
             },
           ],
+          stars: "Ocena: 5 z 5 (4 opinie)",
+          title: "MusicCast R-N402D",
+          url: "https://www.tophifi.pl/multiroom/musiccast/yamaha-musiccast-r-n402d.html",
         },
       },
-    ].forEach(({ html, result }) => expect(fromHtml(html)).toEqual(result)));
-
-  xit("fromHtml.links", () =>
-    [
-      {
-        html: loadProductHtml(
-          "460088-rysik-do-tabletu-apple-pencil-2-do-ipad-pro"
-        ),
-        result: ["Dostępny", "Darmowy odbiór w salonie", "Rata tylko 20,32 zł"],
-      },
-      {
-        html: loadProductHtml(
-          "682156-smartwatch-apple-watch-se-40-gold-aluminium-starlight-sport-gps"
-        ),
-        result: [
-          "Wydłużony czas dostawy",
-          "Darmowa dostawa",
-          "Rata tylko 44,68 zł",
-        ],
-      },
-      {
-        html: loadProductHtml(
-          "592143-smartfon-telefon-apple-iphone-12-64gb-black-5g"
-        ),
-        result: ["Dostępny", "Darmowa dostawa", "Rata tylko 114,05 zł"],
-      },
-      {
-        html: loadProductHtml(
-          "1014810-urzadzenie-kosmetyczne-inface-ultrasonic-ion-cleansing-instrument-bialy"
-        ),
-        result: ["Dostępny", "Dostawa od: 8,90 zł"],
-      },
-    ].forEach(({ html, result }) =>
-      expect(fromHtml(html).links).toEqual(result)
-    ));
-
-  xit("fromHtml2", () =>
-    [
-      {
-        html: loadProductHtml(
-          "aparat-cyfrowy-canon-eos-m50-ii-czarny-i-ob-15-45-f35-63-p"
-        ),
-        result: {
-          id: "4549292176438",
-          url: "https://www.cyfrowe.pl/aparat-cyfrowy-canon-eos-m50-ii-czarny-p.html",
-          title:
-            "Aparat cyfrowy Canon EOS M50 Mark II czarny + ob. 15-45 F3.5-6.3",
-          brand: "Canon",
-          image: ["//u.cyfrowe.pl/600x0/e/6/825585617_1058422319.jpg"],
-          stars: "9/10 (1 opinia)",
-          price: ["2 999 zł", "3 330 zł"],
-          links: [
-            "Na zamówienie",
-            "Produkt aktualnie niedostępny. Nie znamy daty dostawy.",
-            "Zapytaj kiedy będzie / Powiadom",
-            "Koszt dostawy: GRATIS",
-          ],
-          label: ["EAN: 4549292176438", "Kod w sklepie: ACFCANEOSM50II1545-B"],
-          proms: [],
-          codes: [],
-        },
-      },
-      {
-        html: loadProductHtml(
-          "aparaty-obiektyw-canon-ef-m-55-200mm-f-45-63-is-stm"
-        ),
-        result: {
-          id: "4549292009873",
-          url: "https://www.cyfrowe.pl/aparaty/obiektyw-canon-ef-m-55-200mm-f-45-63-is-stm.html",
-          title: "Obiektyw Canon EF-M 55-200 mm f/4.5-6.3 IS STM",
-          brand: "Canon",
-          image: ["//u.cyfrowe.pl/600x0/c/e/efm55200-6_1966710048.jpg"],
-          stars: "9/10 (8 opinii)",
-          price: ["1 429 zł"],
-          links: [
-            "Na zamówienie",
-            "Zapytaj kiedy będzie / Powiadom",
-            "Koszt dostawy: GRATIS",
-          ],
-          label: [
-            "EAN: 4549292009873",
-            "Kod w sklepie: OBICANEFM55200F4563ISSTM",
-          ],
-          proms: [],
-          codes: [],
-        },
-      },
-      {
-        html: loadProductHtml("obiektyw-sigma-c-16-mm-f-14-dc-dn-eos-m-p"),
-        result: {
-          id: "085126402716",
-          url: "https://www.cyfrowe.pl/obiektyw-sigma-c-16-mm-f-14-dc-dn-eos-m-p.html",
-          title: "Obiektyw Sigma C 16 mm f/1.4 DC DN / EOS M",
-          brand: "Sigma",
-          image: ["//u.cyfrowe.pl/600x0/a/3/3_701492896_1301637766.jpg"],
-          stars: "9/10 (2 opinie)",
-          price: ["1 790 zł"],
-          links: ["Wysyłamy w 24h", "Koszt dostawy: GRATIS"],
-          label: ["EAN: 085126402716", "Kod w sklepie: OBISIGC16F14DC-EOSM"],
-          proms: [],
-          codes: [],
-        },
-      },
-      {
-        html: loadProductHtml("aparat-cyfrowy-panasonic-lumix-dc-s5-body-p"),
-        result: {
-          id: "5025232940073",
-          url: "https://www.cyfrowe.pl/aparat-cyfrowy-panasonic-lumix-dc-s5-body-p.html",
-          title: "Aparat cyfrowy Panasonic Lumix DC-S5 body",
-          brand: "Panasonic",
-          image: ["//u.cyfrowe.pl/600x0/1/7/panasonics55_1404567492.jpg"],
-          stars: "0/10 (0 opinii)",
-          price: ["8 999 zł"],
-          links: [
-            "Na zamówienie",
-            "Zapytaj kiedy będzie / Powiadom",
-            "Koszt dostawy: GRATIS",
-          ],
-          label: ["EAN: 5025232940073", "Kod w sklepie: ACFPANDCS5"],
-          proms: [
-            "LUMIX S 50 mm f/1.8 gratis!",
-            "Kup za 8099 zł (900 zł taniej) wpisując w koszyku kod: LumixPromo900",
-          ],
-          codes: ["LumixPromo900"],
-        },
-      },
-    ].forEach(({ html, result }) => expect(fromHtml2(html)).toEqual(result)));
-
-  xit("fromHtml3", () =>
-    [
       {
         html: loadProductHtml(
           "glosniki/glosniki-podstawkowe/bowers-wilkins-706-s2-czarny-polysk"
@@ -387,5 +212,5 @@ describe("ProductService", () => {
           ],
         },
       },
-    ].forEach(({ html, result }) => expect(fromHtml3(html)).toEqual(result)));
+    ].forEach(({ html, result }) => expect(fromHtml(html)).toEqual(result)));
 });
