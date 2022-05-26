@@ -12,6 +12,7 @@ import {
   ProductHifiService,
   ProductMediaService,
   ProductTourService,
+  PromoService,
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
@@ -28,6 +29,8 @@ import {
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/media/)
+// const REGEX = new RegExp(/promo:/)
+// const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
 // const REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // const REGEX = new RegExp(/^((?!rates).)*$/);
@@ -46,6 +49,7 @@ enum Types {
   EURO = "get-product-euro",
   MEDIA = "get-product-media",
   TOUR = "get-product-tour",
+  PROMO = "get-promo",
   RATES = "rates",
   TFI = "investments",
   ALTO = "get-product-alto",
@@ -69,6 +73,7 @@ const SERVICES = {
   [Types.EURO]: ProductEuroService,
   [Types.MEDIA]: ProductMediaService,
   [Types.TOUR]: ProductTourService,
+  [Types.PROMO]: PromoService,
   [Types.RATES]: RatesService,
   [Types.TFI]: QuotesService,
   [Types.ALTO]: ProductAltoService,
@@ -528,6 +533,10 @@ export default function (type?: string) {
           "get-product-tour:211740/abus-youn-i-2.0-kask-jasnoczerwony",
         ]
   ).subscribe((type) => {
+    request$.next({ type });
+  });
+
+  from(type ? [] : ["get-promo:promocje"]).subscribe((type) => {
     request$.next({ type });
   });
 
