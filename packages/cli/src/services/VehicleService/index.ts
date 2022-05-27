@@ -145,8 +145,9 @@ export class VehicleService extends Service {
         vehicleItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
             const diff = diffItem(last, item);
-            if (diff) {
+            if (diff || last._removed) {
               console.log(`[${last.id}]`, diff);
+              delete last._removed;
               this.summary.updated.push(item.id);
               return vehicleItems.update({
                 ...updateItem(last, item),

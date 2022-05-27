@@ -30,7 +30,7 @@ import {
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/media/)
-const REGEX = new RegExp(/mensa/);
+// const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
@@ -41,7 +41,7 @@ const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
-// const REGEX = new RegExp(/^(.)*$/);
+const REGEX = new RegExp(/^(.)*$/);
 
 enum Types {
   PRODUCT = "get-product",

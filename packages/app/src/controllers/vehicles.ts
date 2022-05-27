@@ -624,7 +624,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
           ),
       ])
         .then((results: any) => [].concat(...results))
-        // .then((results) => [].concat(results[0]))
+        // .then((results: any) => [].concat(results[0]))
         .then((list) => list.sort((a: any, b: any) => (a._id > b._id ? 1 : -1)))
         // .then((list) =>
         //   list.filter(
