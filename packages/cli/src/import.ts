@@ -11,6 +11,7 @@ import {
   ProductEuroService,
   ProductHifiService,
   ProductMediaService,
+  ProductMensaService,
   ProductTourService,
   PromoService,
   PropertyGratkaService,
@@ -29,6 +30,7 @@ import {
 // const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/media/)
+const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
@@ -39,7 +41,7 @@ import {
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
-const REGEX = new RegExp(/^(.)*$/);
+// const REGEX = new RegExp(/^(.)*$/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -48,6 +50,7 @@ enum Types {
   ELECTRO = "get-product-electro",
   EURO = "get-product-euro",
   MEDIA = "get-product-media",
+  MENSA = "get-product-mensa",
   TOUR = "get-product-tour",
   PROMO = "get-promo",
   RATES = "rates",
@@ -72,6 +75,7 @@ const SERVICES = {
   [Types.ELECTRO]: ProductElectroService,
   [Types.EURO]: ProductEuroService,
   [Types.MEDIA]: ProductMediaService,
+  [Types.MENSA]: ProductMensaService,
   [Types.TOUR]: ProductTourService,
   [Types.PROMO]: PromoService,
   [Types.RATES]: RatesService,
@@ -531,6 +535,9 @@ export default function (type?: string) {
           "get-product-tour:174726/abus-urban-i-3.0-kask-rowerowy-miejski-damski-glacier-blue",
           "get-product-tour:210800/kask-rowerowy-abus-viantor-szary",
           "get-product-tour:211740/abus-youn-i-2.0-kask-jasnoczerwony",
+          "get-product-mensa:wmf-blok-do-nozy-ciemny-18-8046-4500",
+          "get-product-mensa:wmf-blok-do-nozy-1880454500",
+          "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
         ]
   ).subscribe((type) => {
     request$.next({ type });

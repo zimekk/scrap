@@ -128,7 +128,8 @@ export const fromHtml = (html: string) => {
 
   try {
     return ItemSchema.parse(
-      ItemJsonSchema.transform(({ review: reviews }) => ({
+      ItemJsonSchema.transform(({ sku: id, review: reviews }) => ({
+        id,
         url,
         title,
         image,
