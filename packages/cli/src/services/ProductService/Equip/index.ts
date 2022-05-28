@@ -4,14 +4,14 @@ import Service from "../base";
 import { saveProductHtml } from "../../utils";
 import { fromHtml } from "./utils";
 
-const { MENSA_URL: URL } = process.env;
+const { EQUIP_URL: URL } = process.env;
 
-export class ProductMensaService extends Service {
+export class ProductEquipService extends Service {
   async fetcher([site, type]: string[]) {
     return browser(
       {
         id: [site, this.mk, type].join("-"),
-        url: `${URL}${type}`,
+        url: `${URL}${type}.html`,
       },
       this.summary
     );

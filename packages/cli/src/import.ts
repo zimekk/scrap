@@ -8,6 +8,7 @@ import {
   ProductAltoService,
   ProductCyfroweService,
   ProductElectroService,
+  ProductEquipService,
   ProductEuroService,
   ProductHifiService,
   ProductMediaService,
@@ -32,6 +33,7 @@ import {
 // const REGEX = new RegExp(/media/)
 // const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
+// const REGEX = new RegExp(/equip:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
 // const REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
@@ -48,6 +50,7 @@ enum Types {
   CYFROWE = "get-product-cyfrowe",
   TOPHIFI = "get-product-tophifi",
   ELECTRO = "get-product-electro",
+  EQUIP = "get-product-equip",
   EURO = "get-product-euro",
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
@@ -73,6 +76,7 @@ const SERVICES = {
   [Types.CYFROWE]: ProductCyfroweService,
   [Types.TOPHIFI]: ProductHifiService,
   [Types.ELECTRO]: ProductElectroService,
+  [Types.EQUIP]: ProductEquipService,
   [Types.EURO]: ProductEuroService,
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
@@ -538,6 +542,10 @@ export default function (type?: string) {
           "get-product-mensa:wmf-blok-do-nozy-ciemny-18-8046-4500",
           "get-product-mensa:wmf-blok-do-nozy-1880454500",
           "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
+          "get-product-equip:product-pol-63775-Plecak-Fjallraven-Kanken-fog-pink",
+          "get-product-equip:product-pol-37566-Plecak-fotograficzny-Thule-EnRoute-Camera-Backpack-20l-black",
+          "get-product-equip:product-pol-43799-Podrozny-kubek-termiczny-Motion-JNL-350-ml-Thermos-graphite",
+          "get-product-equip:product-pol-43800-Podrozny-kubek-termiczny-Motion-JNO-350-ml-Thermos-matte-black",
         ]
   ).subscribe((type) => {
     request$.next({ type });
