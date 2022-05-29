@@ -420,7 +420,7 @@ function Data({ version = "v1" }) {
         )}
       </div>
       <Criteria
-        {...criteria}
+        criteria={criteria}
         options={options}
         setCriteria={setCriteria}
         search={search}
@@ -481,13 +481,13 @@ function Data({ version = "v1" }) {
 function SavedFilters({ criterion, setCriterion, criteria }) {
   const onCreateFilter = useCallback(
     () =>
-      setCriterion((criterion) => ({
-        ...criterion,
-        selected: String(criterion.list.length),
-        list: criterion.list.concat([
-          { label: prompt("Filter name:"), criteria },
-        ]),
-      })),
+      ((label) =>
+        label &&
+        setCriterion((criterion) => ({
+          ...criterion,
+          selected: String(criterion.list.length),
+          list: criterion.list.concat([{ label, criteria }]),
+        })))(prompt("Filter name:")),
     [criterion, criteria]
   );
 
@@ -514,7 +514,7 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
           list: {
             [criterion.selected]: {
               label: {
-                $apply: (label) => prompt("Rename filter:", label),
+                $apply: (label) => prompt("Rename filter:", label) || label,
               },
             },
           },
@@ -525,6 +525,7 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
 
   const onRemoveFilter = useCallback(
     () =>
+      confirm("Remove criteria?") &&
       setCriterion((criterion) => ({
         ...criterion,
         selected: "",
@@ -654,28 +655,30 @@ function CriteriaLabel({
 }
 
 function Criteria({
+  criteria: {
+    entries,
+    groupBy,
+    type,
+    yearFrom,
+    yearTo,
+    createdFrom,
+    createdTo,
+    priceFrom,
+    priceTo,
+    mileageFrom,
+    mileageTo,
+    powerFrom,
+    powerTo,
+    radius,
+    sortBy,
+    removed,
+    changedPrice,
+    options,
+  },
   search,
-  options,
-  entries,
-  groupBy,
-  type,
-  yearFrom,
-  yearTo,
-  createdFrom,
-  createdTo,
-  priceFrom,
-  priceTo,
-  mileageFrom,
-  mileageTo,
-  powerFrom,
-  powerTo,
-  radius,
+  options: entriesOptions,
   setCriteria,
   setSearch,
-  sortBy,
-  removed,
-  changedPrice,
-  ...criteria
 }) {
   const onChangeSearch = useCallback(
     ({ target }) => setSearch(target.value),
@@ -1076,18 +1079,20 @@ function Criteria({
         </label>
       </div>
       {Object.entries(entries)
-        .filter(([name]) => options[name])
+        .filter(([name]) => entriesOptions[name])
         .map(([name, value], key) => (
           <div key={key}>
             <label>
               <span>{name}</span>
               <select name={name} value={value} onChange={onChangeCriteria}>
                 <option value={""}>--</option>
-                {Object.entries(options[name]).map(([value, label]: any) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
+                {Object.entries(entriesOptions[name]).map(
+                  ([value, label]: any) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  )
+                )}
               </select>
             </label>
           </div>
@@ -1129,7 +1134,7 @@ function Criteria({
       </div>
       <div className={styles.Textarea}>
         <textarea
-          value={criteria.options}
+          value={options}
           onChange={({ target }) =>
             setCriteria(({ ...criteria }) => ({
               ...criteria,
