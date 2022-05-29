@@ -1,0 +1,17 @@
+.Color {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+.Details {
+  color: gray;
+
+  .Compare {
+    color: black;
+    &.changed {
+      color: red;
+    }
+  }
+}

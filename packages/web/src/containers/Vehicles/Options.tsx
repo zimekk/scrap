@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "../../components/Link";
 import { getDescription, optionsAsset } from "../Configure";
-import styles from "./styles.module.scss";
+import styles from "./Options.module.scss";
 
 function Details({
   labels,

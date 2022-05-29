@@ -4,47 +4,14 @@
 .Row {
   clear: both;
 }
-.Color {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  border: 2px solid black;
-  border-radius: 50%;
-}
 .Gallery {
   float: left;
   width: 200px;
   height: 150px;
 }
-.Details {
-  color: gray;
-
-  .Compare {
-    color: black;
-    &.changed {
-      color: red;
-    }
-  }
-}
 .Filters {
   .Textarea {
     display: flex;
     flex-direction: column;
-  }
-}
-.Options {
-  .Textarea {
-    display: flex;
-    flex-direction: row;
-
-    textarea {
-      &:first-of-type {
-        width: 4em;
-        text-align: right;
-      }
-      &:last-of-type {
-        flex-grow: 1;
-      }
-    }
   }
 }
