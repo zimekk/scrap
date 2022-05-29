@@ -1,4 +1,64 @@
+import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
+
+const ERA = 24 * 3600 * 1000;
+export const _time = Date.now();
+export const _past = _time - ERA;
+
+export const createItem = (item: {}) => ({ ...item, _created: _time });
+
+export const diffItem = (
+  {
+    lastChange,
+    comfortLeaseProduct,
+    vehicleDataVersion,
+    _id,
+    _created,
+    _updated,
+    _checked,
+    _removed,
+    _history,
+    options,
+    ..._item
+  }: {
+    lastChange?: any;
+    comfortLeaseProduct?: any;
+    vehicleDataVersion?: any;
+    _id: string;
+    _created: number;
+    _updated: number;
+    _checked: number;
+    _removed: number;
+    _history: {};
+    options: string[];
+  },
+  {
+    lastChange: _lastChange,
+    comfortLeaseProduct: _comfortLeaseProduct,
+    vehicleDataVersion: _vehicleDataVersion,
+    ...item
+  }: { lastChange?: any; comfortLeaseProduct?: any; vehicleDataVersion?: any }
+) => diffString(_item, item);
+
+export const updateItem = (
+  {
+    _id,
+    _created = _past,
+    _updated = _created,
+    _history = {},
+    ..._item
+  }: { _id: string; _created: number; _updated: number; _history: {} },
+  item: {}
+) => ({
+  ...item,
+  _id,
+  _created,
+  _updated: _time,
+  _history: {
+    ..._history,
+    [_updated]: _item,
+  },
+});
 
 export const scrapOptions = (item: object, html: string) => {
   const $root = parse(html);

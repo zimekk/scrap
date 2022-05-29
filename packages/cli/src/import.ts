@@ -23,10 +23,10 @@ import {
   QuotesService,
   StationService,
   VehicleService,
-  Vehicle2Service,
-  Vehicle3Service,
-  Vehicle4Service,
-  Vehicle5Service,
+  VehicleAudiService,
+  VehicleBenzService,
+  VehiclePorscheService,
+  VehicleVwService,
 } from "./services";
 
 // const REGEX = new RegExp(/investments/)
@@ -91,12 +91,12 @@ const SERVICES = {
   [Types.STATION]: StationService,
   [Types.GRATKA]: PropertyGratkaService,
   [Types.KLIK]: PropertyKlikService,
-  [Types.BENZ]: Vehicle3Service,
+  [Types.BENZ]: VehicleBenzService,
   [Types.BMW]: VehicleService,
   [Types.OTODOM]: PropertyOtodomService,
-  [Types.PORSCHE]: Vehicle4Service,
-  [Types.AUDI]: Vehicle2Service,
-  [Types.VW]: Vehicle5Service,
+  [Types.PORSCHE]: VehiclePorscheService,
+  [Types.AUDI]: VehicleAudiService,
+  [Types.VW]: VehicleVwService,
   [Types.XBOX]: GameService,
 };
 
