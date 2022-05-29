@@ -171,13 +171,20 @@ export class VehicleService extends Service {
       .object({
         id: z.number(),
         isNew: z.boolean(),
+        brand: z.object({
+          label: z.string(),
+        }),
       })
       .passthrough()
       .parseAsync(item)
-      .then(({ id, isNew }) =>
-        isNew
-          ? `//najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
-          : `//najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
+      .then(({ id, isNew, brand }) =>
+        brand.label === "MINI"
+          ? isNew
+            ? `https://najlepszeoferty.mini.com.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
+            : `https://najlepszeoferty.mini.com.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
+          : isNew
+          ? `https://najlepszeoferty.bmw.pl/nowe/wyszukaj/opis-szczegolowy/${id}/`
+          : `https://najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
       )
       .then((href) =>
         fetch(href).then((response: any) =>
