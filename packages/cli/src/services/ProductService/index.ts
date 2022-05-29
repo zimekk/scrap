@@ -1,5 +1,6 @@
 export { ProductAltoService, ProductService } from "./Alto";
 export { ProductCyfroweService } from "./Cyfrowe";
+export { ProductEf3mService } from "./Ef3m";
 export { ProductElectroService } from "./Electro";
 export { ProductEquipService } from "./Equip";
 export { ProductEuroService } from "./Euro";
