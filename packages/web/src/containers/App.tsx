@@ -9,13 +9,14 @@ const PAGES = {
   exchange: lazy(() => import("./Exchange")),
   finances: lazy(() => import("./Finances")),
   games: lazy(() => import("./Games")),
-  scrap: lazy(() => import("./Scrap")),
+  // scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
   properties: lazy(() => import("./Properties")),
+  energy: lazy(() => import("./Energy")),
   quotes: lazy(() => import("./Quotes")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
-  reader: lazy(() => import("./Reader")),
+  // reader: lazy(() => import("./Reader")),
   hello: lazy(() => import("./Hello")),
 };
 

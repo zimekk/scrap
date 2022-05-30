@@ -1,0 +1,30 @@
+.Section {
+  color: purple;
+}
+.Calculations {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7em;
+  table {
+    border-collapse: collapse;
+    tr {
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+  }
+  th,
+  td {
+    padding: 0.25em;
+  }
+}
+.Row {
+  clear: both;
+  padding: 0.5em 0;
+  border: 2px solid transparent;
+  margin: 0.5em;
+}
