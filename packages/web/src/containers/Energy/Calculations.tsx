@@ -8,15 +8,6 @@ import React, {
 import { format } from "date-fns";
 import styles from "./styles.module.scss";
 
-export type Item = {
-  from: string;
-  to: string;
-  start: number;
-  value: number;
-  count: number;
-  estimated?: boolean;
-};
-
 export type Rate = {
   "Energia czynna": number;
   "Opłata handlowa": number;
@@ -31,7 +22,15 @@ export type Rate = {
   VAT: number;
 };
 
-export type Rates = Record<string, Rate>;
+export type Item = {
+  data: Rate;
+  from: string;
+  to: string;
+  start: number;
+  value: number;
+  count: number;
+  estimated?: boolean;
+};
 
 const VAT = "VAT";
 const VALUE = [
@@ -42,11 +41,11 @@ const VALUE = [
   "Opłata kogeneracyjna",
 ];
 
-const getCalculations = (item: Item, rates: Rates) =>
-  Object.entries(rates[item.from])
+const getCalculations = (item: Item) =>
+  Object.entries(item.data)
     .filter(([label]) => label !== VAT)
     .map(([label, price]) => {
-      const vat = rates[item.from][VAT];
+      const vat = item.data[VAT];
       const kwh = Math.round(item.value - item.start);
       const count = VALUE.includes(label) ? kwh : item.count;
       const value = Math.round(price * count * 100) / 100;
@@ -63,8 +62,8 @@ const getCalculations = (item: Item, rates: Rates) =>
       };
     });
 
-const getSummary = (item: Item, rates: Rates) =>
-  getCalculations(item, rates).reduce(
+const getSummary = (item: Item) =>
+  getCalculations(item).reduce(
     ({ value, vat, tax, total }, item) => ({
       value: value + item.value,
       vat,
@@ -73,7 +72,7 @@ const getSummary = (item: Item, rates: Rates) =>
     }),
     {
       value: 0,
-      vat: rates[item.from][VAT],
+      vat: item.data[VAT],
       tax: 0,
       total: 0,
     }
@@ -81,12 +80,10 @@ const getSummary = (item: Item, rates: Rates) =>
 
 export default function Calculations({
   calculations,
-  rates,
   selected,
   setSelected,
 }: {
   calculations: Item[];
-  rates: Rates;
   selected: number[];
   setSelected: Function;
 }) {
@@ -176,7 +173,7 @@ export default function Calculations({
                 <td align="right">
                   {new Intl.NumberFormat("pl-PL", {
                     minimumFractionDigits: 2,
-                  }).format(getSummary(item, rates).total)}
+                  }).format(getSummary(item).total)}
                 </td>
               </tr>,
             ].concat(
@@ -196,7 +193,7 @@ export default function Calculations({
                               <th align="right">Podatek VAT [zł]</th>
                               <th align="right">Wartość brutto [zł]</th>
                             </tr>
-                            {getCalculations(item, rates).map(
+                            {getCalculations(item).map(
                               (
                                 { label, count, price, value, vat, tax, total },
                                 i
@@ -230,7 +227,7 @@ export default function Calculations({
                             )}
                           </tbody>
                           <tfoot>
-                            {[getSummary(item, rates)].map((item, i) => (
+                            {[getSummary(item)].map((item, i) => (
                               <tr key={i}>
                                 <th align="left">Razem</th>
                                 <td colSpan={2}></td>
@@ -268,7 +265,7 @@ export default function Calculations({
               .reduce(
                 ({ value, total }, item) => ({
                   value: value + item.value - item.start,
-                  total: total + getSummary(item, rates).total,
+                  total: total + getSummary(item).total,
                 }),
                 {
                   value: 0,
