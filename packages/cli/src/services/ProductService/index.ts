@@ -8,3 +8,4 @@ export { ProductHifiService } from "./Hifi";
 export { ProductMediaService } from "./Media";
 export { ProductMensaService } from "./Mensa";
 export { ProductTourService } from "./Tour";
+export { ProductTousService } from "./Tous";

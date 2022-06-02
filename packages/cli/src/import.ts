@@ -15,6 +15,7 @@ import {
   ProductMediaService,
   ProductMensaService,
   ProductTourService,
+  ProductTousService,
   PromoService,
   PropertyGratkaService,
   PropertyKlikService,
@@ -57,6 +58,7 @@ enum Types {
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
   TOUR = "get-product-tour",
+  TOUS = "get-product-tous",
   PROMO = "get-promo",
   RATES = "rates",
   TFI = "investments",
@@ -84,6 +86,7 @@ const SERVICES = {
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
   [Types.TOUR]: ProductTourService,
+  [Types.TOUS]: ProductTousService,
   [Types.PROMO]: PromoService,
   [Types.RATES]: RatesService,
   [Types.TFI]: QuotesService,
@@ -559,6 +562,8 @@ export default function (type?: string) {
           "get-product-ef3m:Mata-do-ciecia-A3-ze-skala-/785",
           "get-product-ef3m:Mata-do-ciecia-A2-ze-skala/2189",
           "get-product-ef3m:Mata-do-ciecia-podkladka-A2-45-cm-x-60-cm/2704",
+          "get-product-tous:tous-cool-joykolczyki-z-zoltego-srebra-vermeil/p/018153570",
+          "get-product-tous:tous-luahkolczyki-z-zoltego-srebra-vermeil-i-srebra-z-motywem-misia/p/111363530",
         ]
   ).subscribe((type) => {
     request$.next({ type });
