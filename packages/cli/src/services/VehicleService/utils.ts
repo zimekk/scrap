@@ -19,7 +19,7 @@ export const diffItem = (
     _removed,
     _history,
     options,
-    ..._item
+    ...last
   }: {
     lastChange?: any;
     comfortLeaseProduct?: any;
@@ -38,7 +38,7 @@ export const diffItem = (
     vehicleDataVersion: _vehicleDataVersion,
     ...item
   }: { lastChange?: any; comfortLeaseProduct?: any; vehicleDataVersion?: any }
-) => diffString(_item, item);
+) => diffString(last, item);
 
 export const updateItem = (
   {
@@ -46,17 +46,18 @@ export const updateItem = (
     _created = _past,
     _updated = _created,
     _history = {},
-    ..._item
+    ...last
   }: { _id: string; _created: number; _updated: number; _history: {} },
   item: {}
 ) => ({
+  ...last,
   ...item,
   _id,
   _created,
   _updated: _time,
   _history: {
     ..._history,
-    [_updated]: _item,
+    [_updated]: last,
   },
 });
 
