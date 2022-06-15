@@ -13,6 +13,13 @@ const ItemJsonSchema = z.object({
   offers: z.object({
     priceCurrency: z.enum(["PLN"]),
     price: z.string(),
+    itemCondition: z.enum(["http://schema.org/NewCondition"]),
+    availability: z.enum([
+      "http://schema.org/InStock",
+      "http://schema.org/OutOfStock",
+    ]),
+    url: z.string(),
+    priceValidUntil: z.string(),
   }),
   brand: z
     .object({
@@ -40,16 +47,30 @@ export const fromHtml = (html: string) => {
         .querySelectorAll('div.row > a[rel="gallery"]')
         .map((item) => item.getAttribute("href") || ""),
       stars: "",
-      label: [],
       proms: [],
       codes: [],
-      links: [],
       ...ItemJsonSchema.transform(
-        ({ sku: id, name: title, brand, offers: { price } }) => ({
+        ({
+          sku: id,
+          gtin13,
+          name: title,
+          brand,
+          offers: { availability, itemCondition, price },
+        }) => ({
           id,
           // url,
           title,
           brand,
+          label: [`sku: ${id}`, `gtin13: ${gtin13}`],
+          links: [
+            {
+              "http://schema.org/NewCondition": "NewCondition",
+            }[itemCondition],
+            {
+              "http://schema.org/InStock": "InStock",
+              "http://schema.org/OutOfStock": "OutOfStock",
+            }[availability],
+          ],
           // image,
           price: [price],
         })
