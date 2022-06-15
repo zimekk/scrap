@@ -6,7 +6,8 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": "^14"
+    "node": "^14.0.0",
+    "yarn": "^1.22.0"
   },
   "eslintConfig": {
     "env": {
