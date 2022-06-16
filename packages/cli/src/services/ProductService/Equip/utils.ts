@@ -3,6 +3,7 @@ import { parse } from "node-html-parser";
 import { ItemSchema } from "../types";
 
 const ItemJsonSchema = z.object({
+  "@type": z.enum(["Product"]),
   name: z.string(),
   image: z.union([
     z.string().transform((image) => [image]),
@@ -13,8 +14,14 @@ const ItemJsonSchema = z.object({
   brand: z.string(),
   offers: z
     .object({
+      "@type": z.enum(["Offer"]),
+      availability: z.enum([
+        "http://schema.org/InStock",
+        "http://schema.org/OutOfStock",
+      ]),
       priceCurrency: z.enum(["PLN"]),
       price: z.string(),
+      url: z.string(),
     })
     .array()
     .transform(([item]) => item),
@@ -71,10 +78,8 @@ export const fromHtml = (html: string) => {
     return ItemSchema.parse({
       url,
       stars: "",
-      label: [],
       proms: [],
       codes: [],
-      links: [],
       ...ItemJsonSchema.transform(
         ({
           productID: id,
@@ -82,7 +87,7 @@ export const fromHtml = (html: string) => {
           description,
           brand,
           image,
-          offers: { price },
+          offers: { availability, price },
           review,
         }) => ({
           id,
@@ -90,6 +95,13 @@ export const fromHtml = (html: string) => {
           description,
           brand,
           image,
+          label: [`productID: ${id}`],
+          links: [
+            {
+              "http://schema.org/InStock": "InStock",
+              "http://schema.org/OutOfStock": "OutOfStock",
+            }[availability],
+          ],
           price: [price],
           reviews: review,
         })
