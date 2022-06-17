@@ -6,13 +6,14 @@ const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
   configure: lazy(() => import("./Configure")),
+  energy: lazy(() => import("./Energy")),
   exchange: lazy(() => import("./Exchange")),
   finances: lazy(() => import("./Finances")),
   games: lazy(() => import("./Games")),
+  holidays: lazy(() => import("./Holidays")),
   // scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
   properties: lazy(() => import("./Properties")),
-  energy: lazy(() => import("./Energy")),
   quotes: lazy(() => import("./Quotes")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),

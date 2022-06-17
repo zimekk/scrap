@@ -1,0 +1,19 @@
+.Section {
+  color: purple;
+  section {
+    clear: both;
+  }
+}
+.Row {
+  clear: both;
+}
+.Gallery {
+  float: left;
+  width: 200px;
+  height: 150px;
+}
+.Details {
+  pre {
+    clear: both;
+  }
+}
