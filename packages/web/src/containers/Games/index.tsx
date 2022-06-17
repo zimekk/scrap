@@ -1,4 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import Truncate from "react-truncate";
 import nl2br from "react-nl2br";
 import { format } from "date-fns";
@@ -126,12 +131,12 @@ function Data({ version = "v1" }) {
     () => Object.keys(SORT_BY)[7] as keyof typeof SORT_BY
   );
 
-  const onChangeSortBy = useCallback(
+  const onChangeSortBy = useCallback<ChangeEventHandler<HTMLSelectElement>>(
     ({ target }) => setSortBy(target.value),
     []
   );
 
-  const onChangePriceFrom = useCallback(
+  const onChangePriceFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setFilters(({ priceTo, ...criteria }) => {
         const priceFrom = Number(target.value);
@@ -144,7 +149,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const onChangePriceTo = useCallback(
+  const onChangePriceTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setFilters(({ priceFrom, ...criteria }) => {
         const priceTo = Number(target.value);
@@ -206,7 +211,7 @@ function Data({ version = "v1" }) {
           <span>Category</span>
           <select
             value={filters.category}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -227,7 +232,7 @@ function Data({ version = "v1" }) {
           <input
             type="search"
             value={filters.search}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -286,7 +291,7 @@ function Data({ version = "v1" }) {
             <input
               type="checkbox"
               checked={filters.onlyReduced}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -299,7 +304,7 @@ function Data({ version = "v1" }) {
           </label>
         </div>
       </fieldset>
-      <div>{`Found ${list.length} products out of a total of ${results.length}`}</div>
+      <div>{`Found ${list.length} games out of a total of ${results.length}`}</div>
       <ol>
         {sorted.slice(0, 100).map(
           ({
