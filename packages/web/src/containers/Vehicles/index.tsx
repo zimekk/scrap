@@ -446,16 +446,17 @@ function Data({ version = "v1" }) {
               .slice(0, 100)
               .map(({ item }) => item)
               .map(
-                (
-                  {
-                    id,
-                    images,
-                    srcSet,
-                    ...item
-                  }: { id: string; images: string[]; srcSet: string[] },
-                  key: number
-                ) => (
-                  <li key={key} className={styles.Row}>
+                ({
+                  id,
+                  images,
+                  srcSet,
+                  ...item
+                }: {
+                  id: string;
+                  images: string[];
+                  srcSet: string[];
+                }) => (
+                  <li key={id} className={styles.Row}>
                     <Gallery
                       className={styles.Gallery}
                       images={images}

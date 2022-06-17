@@ -1,7 +1,9 @@
-import React, { useMemo, useState } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import { Link } from "../../components/Link";
 import { getDescription, optionsAsset } from "../Configure";
 import styles from "./Options.module.scss";
+
+const Spinner = () => <span>Loading...</span>;
 
 function Details({
   labels,
@@ -59,7 +61,11 @@ export default function Options({ options }: { options: string[] }) {
       >
         {expand ? "Hide options" : "Show options"}
       </Link>{" "}
-      {expand && <Details labels={options} />}
+      {expand && (
+        <Suspense fallback={<Spinner />}>
+          <Details labels={options} />
+        </Suspense>
+      )}
     </div>
   );
 }
