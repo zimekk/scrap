@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const { GRECOS_URL: BASE_URL } = process.env;
+export const { GRECOS_URL: BASE_URL } = process.env;
 
 const toNumber = (s: string) => Number(s.replace(",", ".").replace(" ", ""));
 
@@ -109,3 +109,67 @@ export const OfferItem = z.object({
   Merlin_ParsedStartDate: z.string(), // 'Pt 8.07',
   Merlin_ParsedStartFullDate: z.string(), // 'Pt 8.07.2022'
 });
+
+export const HotelOffersQuerySchema = z.object({
+  hotelSlug: z.string().default("hotel-ledras-beach"),
+  offercode: z
+    .string()
+    .default(
+      "0f7f49fd996e3f71a0441c9b82d5cfdb382818d26e229ef89e3800f588eba154"
+    ),
+  pageFrom: z.string().default("0"),
+  airports: z.string().default("WAW"),
+  SortBy: z.string().default("6"),
+  SortAsc: z.string().default("1"),
+  Adults: z.string().optional(),
+  Children: z.string().optional(),
+  Child1: z.string().optional(),
+  Child2: z.string().optional(),
+  Child3: z.string().optional(),
+  Dates: z.string().optional(),
+});
+
+export type HotelOffersQueryType = {} & z.infer<typeof HotelOffersQuerySchema>;
+
+export const HotelOffersSchema = z.object({
+  HotelOffers: z
+    .object({
+      AdultPriceInt: z.string().transform(toNumber), // "1 836",
+      BoardStandardCode: z.string(), // "1",
+      CodeOfDeparture: z.enum(["WAW"]),
+      DepartureDate: z.string(), // "20220620",
+      DepartureTime: z.string(), // "1010",
+      Duration: z.string().transform(toNumber), // "4",
+      FlightFrom: z.enum(["Warszawa"]),
+      ReturnFlightTo: z.enum(["Warszawa"]),
+      HotelUrl: z.string().transform((src) => new URL(src, BASE_URL).href), // "/wakacje/grecja/hotel-ledras-beach?offercode=",
+      Id: z.string(), // "28d1bbe6ec7cd1d5a091ca3fdff27c78c2c9d3243057f2f7fd1bb5dbd512718b",
+      MinimumNumberOfPeople: z.string().transform(toNumber), // "3",
+      MinimumNumberOfAdults: z.string().transform(toNumber), // "3",
+      MinimumNumberOfChildren: z.string().transform(toNumber), // "0",
+      ParsedDepartureTime: z.string(), // "10:10",
+      ParsedReturnArrivalTime: z.string(), // "10:35",
+      ReturnDate: z.string(), // "20220624",
+      RoomCode: z.string(), // "DVL",
+      MaximumNumberOfPeople: z.string().transform(toNumber), // "3",
+      MaximumNumberOfAdults: z.string().transform(toNumber), // "3",
+      MaximumNumberOfChildren: z.string().transform(toNumber), // "1",
+      ParsedTripDateWithDays: z.string(), // "Pn.20.06 - Pt.24.06.2022",
+      ParsedTripDepartureDateWithDays: z.string(), // "Pn.20.06.2022",
+      ParsedTripArrivalDateWithDays: z.string(), // "Pt.24.06.2022",
+      DescriptionOfRoom: z.string(), // "Standard widok na morze",
+      BoardStandardDesc: z.enum([
+        "All inclusive",
+        "Śniadanie",
+        "Śniadanie i obiadokolacja",
+      ]),
+      FilterData: z.string(), // "&Adults=3&Children=-3&Dates=&airports=WAW&Room=&BoardStandards="
+    })
+    .passthrough()
+    .array(),
+  OffersToLoad: z.number(),
+  IsThereMoreOffers: z.boolean(),
+  PageSize: z.number(),
+});
+
+export type HotelOffersType = {} & z.infer<typeof HotelOffersSchema>;

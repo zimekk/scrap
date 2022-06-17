@@ -10,6 +10,10 @@ export const middleware = Router()
   .use("/api/exchange/data.json", controllers.getRatesData)
   .use("/api/games/data.json", controllers.getGamesData)
   .use("/api/holidays/data.json", controllers.getHolidaysData)
+  .use(
+    "/api/holidays/offers/data.json",
+    controllers.getHollidaysHotelOffersData
+  )
   .use("/api/products/data.json", controllers.getProductsData)
   .use("/api/properties/data.json", controllers.getPropertiesData)
   .use("/api/properties/hide.json", controllers.hideProperty)

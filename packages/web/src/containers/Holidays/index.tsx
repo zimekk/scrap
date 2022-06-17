@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import Offers, { formatPrice } from "./Offers";
 import styles from "./styles.module.scss";
 
 const GROUP_BY = {
@@ -36,11 +37,6 @@ const SORT_BY = {
 };
 
 const PRICE_LIST = [0, 10000, 15000, 20000, 25000, 30000, 100000];
-
-const formatPrice = (price: number) =>
-  new Intl.NumberFormat("pl-PL", {
-    minimumFractionDigits: 2,
-  }).format(price);
 
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/holidays/data.json?${version}`);
@@ -211,8 +207,8 @@ function Data({ version = "v1" }) {
         <section key={group}>
           {group && <h3>{group}</h3>}
           <ol>
-            {items.map((item, key) => (
-              <li key={key} className={styles.Row}>
+            {items.map((item) => (
+              <li key={item.id} className={styles.Row}>
                 <Gallery
                   className={styles.Gallery}
                   images={[item.Hotel_ListingImageUrl]}
@@ -500,6 +496,7 @@ function Details({ item, ...props }) {
           )}
         </li>
       </ul>
+      <Offers item={item} />
       <Link
         onClick={(e) => (
           e.preventDefault(),

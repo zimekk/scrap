@@ -1,0 +1,20 @@
+.Offers {
+  clear: both;
+  table {
+    border-collapse: collapse;
+    tr {
+      &:hover {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+  }
+  th,
+  td {
+    padding: 0.25em;
+  }
+}

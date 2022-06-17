@@ -210,10 +210,10 @@ export default function (type?: string) {
     type
       ? []
       : [
-          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
-          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
-          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
-          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
         ]
   ).subscribe((type) => {
     request$.next({ type });
