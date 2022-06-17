@@ -3,6 +3,7 @@ import { items } from "@dev/api";
 
 export * from "./exchange";
 export * from "./games";
+export * from "./holidays";
 export * from "./products";
 export * from "./properties";
 export * from "./stations";

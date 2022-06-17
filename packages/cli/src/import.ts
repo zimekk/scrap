@@ -4,6 +4,7 @@ import { expand, filter, map, mergeMap, tap } from "rxjs/operators";
 import { z } from "zod";
 import {
   GameService,
+  HolidaysGrecosService,
   ProductService,
   ProductAltoService,
   ProductCyfroweService,
@@ -45,7 +46,9 @@ import {
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
-const REGEX = new RegExp(/^(.)*$/);
+let REGEX = new RegExp(/^(.)*$/);
+
+// REGEX = new RegExp(/grecos:/)
 
 enum Types {
   PRODUCT = "get-product",
@@ -65,6 +68,7 @@ enum Types {
   ALTO = "get-product-alto",
   STATION = "get-stations",
   GRATKA = "gratka",
+  GRECOS = "grecos",
   KLIK = "klik",
   BENZ = "mercedes-benz",
   BMW = "najlepszeoferty.bmw.pl",
@@ -93,6 +97,7 @@ const SERVICES = {
   [Types.ALTO]: ProductAltoService,
   [Types.STATION]: StationService,
   [Types.GRATKA]: PropertyGratkaService,
+  [Types.GRECOS]: HolidaysGrecosService,
   [Types.KLIK]: PropertyKlikService,
   [Types.BENZ]: VehicleBenzService,
   [Types.BMW]: VehicleService,
@@ -197,6 +202,19 @@ export default function (type?: string) {
           2, 4, 5, 6, 8, 10, 30, 33, 34, 35, 36, 37, 43, 44, 73, 74, 75, 77, 79,
           80, 82, 84, 91, 103, 104, 105, 106, 107, 112, 113, 114, 117, 119,
         ].map((investment_id) => `${Types.TFI}:${investment_id}`)
+  ).subscribe((type) => {
+    request$.next({ type });
+  });
+
+  from(
+    type
+      ? []
+      : [
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
+          "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220726&From=WAW",
+        ]
   ).subscribe((type) => {
     request$.next({ type });
   });
