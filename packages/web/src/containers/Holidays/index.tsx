@@ -79,6 +79,7 @@ const asset = createAsset(async (version) => {
           [
             "Hotel_Standard_Stars_Css",
             "Hotel_Location_Name",
+            "Merlin_Duration",
             "Merlin_ParsedStartFullDate",
             "Merlin_BoardStandardDesc",
             "Children",
@@ -120,7 +121,12 @@ const createFilters =
         priceTo: PRICE_LIST[PRICE_LIST.length - 1],
 
         Children: "",
-        Hotel_Standard_Stars_Css: "",
+        Hotel_Standard_Stars_Css: [
+          "four-stars",
+          "five-stars",
+          "four-stars stars-plus",
+        ],
+        Merlin_Duration: [7],
         Merlin_BoardStandardDesc: "",
         Merlin_ParsedStartFullDate: "",
       },
@@ -141,16 +147,19 @@ function Data({ version = "v1" }) {
           filters.priceFrom <= item.Merlin_FullPriceParsed &&
           item.Merlin_FullPriceParsed <= filters.priceTo &&
           ["", item.Children].includes(filters.Children) &&
-          ["", item.Hotel_Standard_Stars_Css].includes(
-            filters.Hotel_Standard_Stars_Css
-          ) &&
+          (filters.Hotel_Standard_Stars_Css.length == 0 ||
+            filters.Hotel_Standard_Stars_Css.includes(
+              item.Hotel_Standard_Stars_Css
+            )) &&
+          (filters.Merlin_Duration.length == 0 ||
+            filters.Merlin_Duration.includes(item.Merlin_Duration)) &&
           ["", item.Merlin_BoardStandardDesc].includes(
             filters.Merlin_BoardStandardDesc
           ) &&
           ["", item.Merlin_ParsedStartFullDate].includes(
             filters.Merlin_ParsedStartFullDate
           ) &&
-          item.Hotel_Name.toLowerCase().match(filters.search)
+          item.Hotel_Name.toLowerCase().match(filters.search.toLowerCase())
       ),
     [data, filters]
   );
@@ -371,28 +380,52 @@ function Filters({ filters, setFilters, options }) {
         </label>
       </div>
       <div>
-        <label>
-          <span>Hotel_Standard_Stars_Css</span>
-          <select
-            value={filters.Hotel_Standard_Stars_Css}
-            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-              ({ target }) =>
-                setFilters((filters) => ({
-                  ...filters,
-                  Hotel_Standard_Stars_Css: target.value,
-                })),
-              []
-            )}
-          >
-            {[""]
-              .concat(Object.values(options.Hotel_Standard_Stars_Css))
-              .map((value) => (
-                <option key={value} value={value}>
-                  {value}
-                </option>
-              ))}
-          </select>
-        </label>
+        <span>Hotel_Standard_Stars_Css</span>
+        {Object.values(options.Hotel_Standard_Stars_Css).map((value) => (
+          <label key={value}>
+            <input
+              type="checkbox"
+              checked={filters.Hotel_Standard_Stars_Css.includes(value)}
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    Hotel_Standard_Stars_Css: target.checked
+                      ? filters.Hotel_Standard_Stars_Css.concat(value)
+                      : filters.Hotel_Standard_Stars_Css.filter(
+                          (check: string) => check !== value
+                        ),
+                  })),
+                []
+              )}
+            />
+            <span>{value}</span>
+          </label>
+        ))}
+      </div>
+      <div>
+        <span>Merlin_Duration</span>
+        {Object.values(options.Merlin_Duration).map((value) => (
+          <label key={value}>
+            <input
+              type="checkbox"
+              checked={filters.Merlin_Duration.includes(value)}
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+                ({ target }) =>
+                  setFilters((filters) => ({
+                    ...filters,
+                    Merlin_Duration: target.checked
+                      ? filters.Merlin_Duration.concat(value)
+                      : filters.Merlin_Duration.filter(
+                          (check: number) => check !== value
+                        ),
+                  })),
+                []
+              )}
+            />
+            <span>{value}</span>
+          </label>
+        ))}
       </div>
       <div>
         <label>
