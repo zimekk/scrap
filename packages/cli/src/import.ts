@@ -5,6 +5,7 @@ import { z } from "zod";
 import {
   GameService,
   HolidaysGrecosService,
+  HolidaysTuiService,
   ProductService,
   ProductAltoService,
   ProductCyfroweService,
@@ -39,7 +40,6 @@ import {
 // const REGEX = new RegExp(/equip:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
-// const REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // const REGEX = new RegExp(/^((?!rates).)*$/);
 // const REGEX = new RegExp(/^((?!investment).)*$/);
 // const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
@@ -49,6 +49,8 @@ import {
 let REGEX = new RegExp(/^(.)*$/);
 
 // REGEX = new RegExp(/grecos:/)
+// REGEX = new RegExp(/tui:/);
+// REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 
 enum Types {
   PRODUCT = "get-product",
@@ -65,6 +67,7 @@ enum Types {
   PROMO = "get-promo",
   RATES = "rates",
   TFI = "investments",
+  TUI = "tui",
   ALTO = "get-product-alto",
   STATION = "get-stations",
   GRATKA = "gratka",
@@ -94,6 +97,7 @@ const SERVICES = {
   [Types.PROMO]: PromoService,
   [Types.RATES]: RatesService,
   [Types.TFI]: QuotesService,
+  [Types.TUI]: HolidaysTuiService,
   [Types.ALTO]: ProductAltoService,
   [Types.STATION]: StationService,
   [Types.GRATKA]: PropertyGratkaService,
@@ -214,6 +218,8 @@ export default function (type?: string) {
           "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=3&Child1=20070711&Child2=20121021&Child3=20160103&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
           "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=10:13&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
           "grecos:LoadMoreOffers?PriceFrom=0&PriceTo=50000&Adults=2&Children=2&Child1=20100413&Child2=20121213&DurationInterval=6:9&DateOfDeparture=20220708&DateOfReturn=20220801&From=WAW",
+          "tui:offers?durationFrom=6&durationTo=8&numberOfAdults=2&childrenBirthdays=13.04.2010:13.12.2012",
+          "tui:offers?durationFrom=6&durationTo=8&numberOfAdults=2&childrenBirthdays=11.07.2007:21.10.2012:03.01.2016",
         ]
   ).subscribe((type) => {
     request$.next({ type });
@@ -588,6 +594,7 @@ export default function (type?: string) {
           "get-product-equip:product-pol-59845-Plecak-na-laptopa-Thule-Notus-aluminium-grey",
           "get-product-equip:product-pol-65332-Plecak-miejski-Thule-Lithos-20-l-black",
           "get-product-equip:product-pol-65335-Plecak-miejski-Thule-Lithos-16-l-black",
+          "get-product-equip:product-pol-62240-Walizka-srednia-z-poszerzeniem-American-Tourister-Bon-Air-DLX-midnight-navy",
           "get-product-ef3m:EXCEL-noz-K1-/122",
           "get-product-ef3m:Mata-do-ciecia-A3-ze-skala-/785",
           "get-product-ef3m:Mata-do-ciecia-A2-ze-skala/2189",

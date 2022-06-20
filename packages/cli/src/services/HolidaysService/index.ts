@@ -11,6 +11,8 @@ const _past = _time - ERA;
 
 const timestamp = (mktime: number, period = ERA) => mktime - (mktime % period);
 
+export { HolidaysTuiService } from "./Tui";
+
 export class HolidaysGrecosService extends Service {
   mk = timestamp(_time);
 
