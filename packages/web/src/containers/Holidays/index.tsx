@@ -195,7 +195,7 @@ function Data({ version = "v1" }) {
 
   const grouped = useMemo(
     () =>
-      sorted.reduce(
+      sorted.slice(0, 100).reduce(
         (grouped: Record<string, object[]>, item: any) =>
           ((group) =>
             Object.assign(grouped, {
