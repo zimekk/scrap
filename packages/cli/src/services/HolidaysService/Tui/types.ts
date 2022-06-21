@@ -83,7 +83,7 @@ export const ItemSchema = z.object({
   departureAirport: z.string(), // "Warszawa-Chopina",
   latitude: z.number().optional(), // 42.856119,
   longitude: z.number().optional(), // 27.899428,
-  imageUrl: z.string(), // "https://r.cdn.redgalaxy.com/scale/o2/TUI/hotels/VAR19077/S18/10351400.jpg?dstw=268&dsth=266&srcw=268&srch=266&srcx=1/2&srcy=1/2&srcmode=3&type=1&quality=80",
+  imageUrl: z.string().optional(), // "https://r.cdn.redgalaxy.com/scale/o2/TUI/hotels/VAR19077/S18/10351400.jpg?dstw=268&dsth=266&srcw=268&srch=266&srcx=1/2&srcy=1/2&srcmode=3&type=1&quality=80",
   boardType: z.enum([
     "All Inclusive",
     "All Inclusive Light",
@@ -131,12 +131,14 @@ export const ItemSchema = z.object({
 });
 
 export const OffersSchema = z.object({
-  pagination: z.object({
-    page: z.number(), // 1,
-    pageSize: z.number(), // 30,
-    totalResults: z.number(), // 1972,
-    sorting: z.enum(["price"]), // 'price',
-    pagesCount: z.number(), // 66
-  }),
-  offers: ItemSchema.strict().array(),
+  pagination: z
+    .object({
+      page: z.number(), // 1,
+      pageSize: z.number(), // 30,
+      totalResults: z.number(), // 1972,
+      sorting: z.enum(["price"]), // 'price',
+      pagesCount: z.number(), // 66
+    })
+    .optional(),
+  offers: ItemSchema.strict().array().optional(),
 });

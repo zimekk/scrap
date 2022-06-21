@@ -134,13 +134,13 @@ export class HolidaysTuiService extends Service {
         // Boolean(console.log({ result })) ? Promise.reject() :
         OffersSchema.parseAsync(result)
       )
-      .then(({ offers, pagination }) => {
+      .then(({ offers = [], pagination }) => {
         // console.log({ offers, pagination });
         return {
           type,
           list: offers,
           next:
-            pagination.pagesCount > pagination.page
+            pagination && pagination.pagesCount > pagination.page
               ? {
                   page: page + 1,
                 }

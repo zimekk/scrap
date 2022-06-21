@@ -162,6 +162,7 @@ export const HotelOffersSchema = z.object({
         "All inclusive",
         "Śniadanie",
         "Śniadanie i obiadokolacja",
+        "",
       ]),
       FilterData: z.string(), // "&Adults=3&Children=-3&Dates=&airports=WAW&Room=&BoardStandards="
     })
