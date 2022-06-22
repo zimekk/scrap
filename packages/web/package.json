@@ -75,7 +75,7 @@
     "html-webpack-plugin": "^5.5.0",
     "react-refresh": "^0.14.0",
     "regenerator-runtime": "^0.13.9",
-    "sass": "^1.52.3",
+    "sass": "^1.53.0",
     "sass-loader": "^13.0.0",
     "serve": "^13.0.2",
     "stream-browserify": "^3.0.0",
