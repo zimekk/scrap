@@ -51,6 +51,8 @@ let REGEX = new RegExp(/^(.)*$/);
 // REGEX = new RegExp(/grecos:/)
 // REGEX = new RegExp(/tui:/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
+// REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
+// REGEX = new RegExp(/^(get-product)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -558,8 +560,11 @@ export default function (type?: string) {
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805c-110-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1500-110-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/oswietlenie-rowerowe/lampka-rowerowa-przod-sigma-buster-100-usb",
+          "get-product-electro:agd-male/akcesoria-agd-drobne/mlynki-do-kawy/tsm6a013b",
           "get-product-euro:zmywarki-do-zabudowy/siemens-iq300-sn63ex14ce",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-5g-black-64gb",
+          "get-product-media:agd-male/ekspresy-i-kawa/mlynki-do-kawy/mlynek-do-kawy-wmf-stelio",
+          "get-product-media:agd-male/ekspresy-i-kawa/mlynki-do-kawy/tsm6a011w",
           // "get-product-media:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
           "get-product-media:foto-i-kamery/aparaty-kompaktowe/aparaty-natychmiastowe/aparat-cyfrowy-instax-mini-11-lilac-purple-10-shots-2-small-shacolla",
           "get-product-media:foto-i-kamery/drukarki-do-zdjec/drukarka-przenosna-termosublimacyjna-fujifilm-instax-mini-link-dark-denim",
