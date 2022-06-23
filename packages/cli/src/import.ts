@@ -33,7 +33,6 @@ import {
 } from "./services";
 
 // const REGEX = new RegExp(/investments/)
-// const REGEX = new RegExp(/rates/)
 // const REGEX = new RegExp(/media/)
 // const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
@@ -49,6 +48,7 @@ import {
 let REGEX = new RegExp(/^(.)*$/);
 
 // REGEX = new RegExp(/grecos:/)
+// REGEX = new RegExp(/rates/)
 // REGEX = new RegExp(/tui:/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
