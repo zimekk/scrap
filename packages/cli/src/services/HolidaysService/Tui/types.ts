@@ -40,6 +40,7 @@ const FlightSchema = z.object({
     "Air France",
     "Air Mauritius, Air France",
     "Austrian Airlines",
+    "Condor, Lufthansa",
     "Emirates / FlyDubai",
     "Enter Air",
     "KLM",

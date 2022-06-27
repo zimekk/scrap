@@ -32,15 +32,12 @@ import {
   VehicleVwService,
 } from "./services";
 
-// const REGEX = new RegExp(/investments/)
 // const REGEX = new RegExp(/media/)
 // const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
 // const REGEX = new RegExp(/equip:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
 // const REGEX = new RegExp(/get-stations/)
-// const REGEX = new RegExp(/^((?!rates).)*$/);
-// const REGEX = new RegExp(/^((?!investment).)*$/);
 // const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
@@ -49,6 +46,9 @@ let REGEX = new RegExp(/^(.)*$/);
 
 // REGEX = new RegExp(/grecos:/)
 // REGEX = new RegExp(/rates/)
+// REGEX = new RegExp(/^((?!rates).)*$/);
+// REGEX = new RegExp(/investments/)
+// REGEX = new RegExp(/^((?!investment).)*$/);
 // REGEX = new RegExp(/tui:/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
@@ -345,6 +345,10 @@ export default function (type?: string) {
           "get-product-tophifi:multiroom/musiccast/yamaha-musiccast-r-n402d",
           "get-product-tophifi:multiroom/musiccast/yamaha-r-n303d",
           "get-product-tophifi:multiroom/musiccast/yamaha-r-n602-czarny",
+          "get-product-tophifi:multiroom/musiccast/yamaha-r-n803d",
+          "get-product-tophifi:stereo/zestawy-stereo/zestaw-stereo-yamaha-r-n602-bowers-wilkins-606-s2",
+          "get-product-tophifi:stereo/zestawy-stereo/zestaw-stereo-yamaha-r-n803d-bowers-and-wilkins-603-s2-anniversary-edition",
+          "get-product-tophifi:stereo/zestawy-stereo/zestaw-stereo-yamaha-r-n803d-bowers-and-wilkins-606-s2-anniversary-edition",
           "get-product-tophifi:stereo/wzmacniacze-zintegrowane/c388",
           "get-product-tophifi:stereo/wzmacniacze-zintegrowane/c368",
           "get-product-tophifi:stereo/wzmacniacze-zintegrowane/c338",
