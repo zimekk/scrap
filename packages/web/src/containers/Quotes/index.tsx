@@ -23,7 +23,19 @@ const DAYS = 1200;
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/quotes/data.json?${version}`);
-  return await res.json();
+  return await res.json().then(({ metas, objects }) => ({
+    metas,
+    objects: objects.concat([
+      {
+        date: "2022-06-23",
+        // "roi": -29.59,
+        // "unit": "A",
+        value: 70.55,
+        // "id": "investments-10-2022-06-22",
+        investment_id: 10,
+      },
+    ]),
+  }));
 });
 
 const getInvestmentTransactionValue =
@@ -80,6 +92,10 @@ function Data({ version = "v1" }) {
     { date: "2022-04-11", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
     { date: "2022-04-26", investment_id: 34, value: 1000 }, // PKO Surowców Globalny
     { date: "2022-05-05", investment_id: 75, value: 1000 }, // PKO Akcji Rynku Amerykańskiego
+    { date: "2022-06-20", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
+    { date: "2022-06-23", investment_id: 10, value: -907.62 }, // PKO Akcji Nowa Europa
+    { date: "2022-06-23", investment_id: 10, value: -25.11 }, // PKO Akcji Nowa Europa
+    { date: "2022-06-23", investment_id: 33, value: 907.62 }, // PKO Akcji Plus
   ]);
 
   const options = useMemo(
@@ -255,6 +271,7 @@ function Data({ version = "v1" }) {
             group: names[investment_id],
           }))}
           legend
+          rule
         />
         <fieldset>
           {/* <label>
@@ -320,6 +337,7 @@ function Data({ version = "v1" }) {
               ),
               group: names[investment_id],
             }))}
+          rule
         />
         {/* <fieldset>
           <label>

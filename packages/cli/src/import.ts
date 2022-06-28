@@ -205,8 +205,10 @@ export default function (type?: string) {
     type
       ? []
       : [
-          2, 4, 5, 6, 8, 10, 30, 33, 34, 35, 36, 37, 43, 44, 73, 74, 75, 77, 79,
-          80, 82, 84, 91, 103, 104, 105, 106, 107, 112, 113, 114, 117, 119,
+          2, 4, 5, 6, 8,
+          // 10,
+          30, 33, 34, 35, 36, 37, 43, 44, 73, 74, 75, 77, 79, 80, 82, 84, 91,
+          103, 104, 105, 106, 107, 112, 113, 114, 117, 119,
         ].map((investment_id) => `${Types.TFI}:${investment_id}`)
   ).subscribe((type) => {
     request$.next({ type });
@@ -604,6 +606,7 @@ export default function (type?: string) {
           "get-product-equip:product-pol-65332-Plecak-miejski-Thule-Lithos-20-l-black",
           "get-product-equip:product-pol-65335-Plecak-miejski-Thule-Lithos-16-l-black",
           "get-product-equip:product-pol-62240-Walizka-srednia-z-poszerzeniem-American-Tourister-Bon-Air-DLX-midnight-navy",
+          "get-product-equip:product-pol-61671-Walizka-srednia-poszerzana-Samsonite-Mickey-Pixel-black",
           "get-product-ef3m:EXCEL-noz-K1-/122",
           "get-product-ef3m:Mata-do-ciecia-A3-ze-skala-/785",
           "get-product-ef3m:Mata-do-ciecia-A2-ze-skala/2189",
