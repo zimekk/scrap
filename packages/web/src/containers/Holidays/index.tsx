@@ -121,6 +121,7 @@ const createFilters =
         priceTo: PRICE_LIST[PRICE_LIST.length - 1],
 
         Children: "",
+        Hotel_Location_Name: "",
         Hotel_Standard_Stars_Css: [
           "four-stars",
           "five-stars",
@@ -153,6 +154,9 @@ function Data({ version = "v1" }) {
             )) &&
           (filters.Merlin_Duration.length == 0 ||
             filters.Merlin_Duration.includes(item.Merlin_Duration)) &&
+          ["", item.Hotel_Location_Name].includes(
+            filters.Hotel_Location_Name
+          ) &&
           ["", item.Merlin_BoardStandardDesc].includes(
             filters.Merlin_BoardStandardDesc
           ) &&
@@ -376,6 +380,30 @@ function Filters({ filters, setFilters, options }) {
                 {value}
               </option>
             ))}
+          </select>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Hotel_Location_Name</span>
+          <select
+            value={filters.Hotel_Location_Name}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  Hotel_Location_Name: target.value,
+                })),
+              []
+            )}
+          >
+            {[""]
+              .concat(Object.values(options.Hotel_Location_Name))
+              .map((value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ))}
           </select>
         </label>
       </div>
