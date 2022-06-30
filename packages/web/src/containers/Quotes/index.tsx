@@ -30,7 +30,8 @@ const asset = createAsset(async (version) => {
         date: "2022-06-23",
         // "roi": -29.59,
         // "unit": "A",
-        value: 70.55,
+        // value: 70.55,
+        value: 68.65,
         // "id": "investments-10-2022-06-22",
         investment_id: 10,
       },
@@ -94,7 +95,6 @@ function Data({ version = "v1" }) {
     { date: "2022-05-05", investment_id: 75, value: 1000 }, // PKO Akcji Rynku Amerykańskiego
     { date: "2022-06-20", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
     { date: "2022-06-23", investment_id: 10, value: -907.62 }, // PKO Akcji Nowa Europa
-    { date: "2022-06-23", investment_id: 10, value: -25.11 }, // PKO Akcji Nowa Europa
     { date: "2022-06-23", investment_id: 33, value: 907.62 }, // PKO Akcji Plus
   ]);
 
