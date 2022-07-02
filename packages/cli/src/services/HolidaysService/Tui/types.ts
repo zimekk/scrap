@@ -55,6 +55,7 @@ const FlightSchema = z.object({
     "Sun Express",
     "Swiss International Air Lines",
     "Travel Service",
+    "Turkish Airlines",
   ]), // "LOT"
 });
 
