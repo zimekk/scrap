@@ -115,17 +115,19 @@ export const Vehicle5Data = z
           }),
           render_gallery: z
             .record(
-              z.object({
-                original: z.string(),
-                xlarge: z.string(),
-                large: z.string(),
-                medium: z.string(),
-                small: z.string(),
-                tiny: z.string(),
-                adform_small: z.string(),
-                adform_medium: z.string(),
-                facebook_xlarge: z.string(),
-              })
+              z
+                .object({
+                  original: z.string(),
+                  xlarge: z.string(),
+                  large: z.string(),
+                  medium: z.string(),
+                  small: z.string(),
+                  tiny: z.string(),
+                  adform_small: z.string(),
+                  adform_medium: z.string(),
+                  facebook_xlarge: z.string(),
+                })
+                .nullable()
             )
             .nullable(),
         })

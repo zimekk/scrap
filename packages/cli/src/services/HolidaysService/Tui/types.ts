@@ -38,10 +38,12 @@ const FlightSchema = z.object({
   carrierName: z.enum([
     "Aegean Airlines",
     "Air France",
+    "Air Mauritius, Emirates / FlyDubai",
     "Air Mauritius, Air France",
     "Austrian Airlines",
     "Condor, Lufthansa",
     "Emirates / FlyDubai",
+    "Emirates / FlyDubai, Air Mauritius",
     "Enter Air",
     "KLM",
     "LOT",

@@ -142,7 +142,7 @@ export const Vehicle2Item = z
         // parameters: z.array(z.unknown()),
         vehicle: z.object({
           year: z.string(),
-          priceOriginal: z.number(),
+          priceOriginal: z.number().optional(),
           priceTotal: z.number(),
           priceModel: z.number(),
           type: z.string(),

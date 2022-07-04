@@ -12,6 +12,7 @@ export const diffItem = (
     _checked,
     _removed,
     _history,
+    viewers,
     ...last
   }: {
     _id: string;
@@ -20,8 +21,9 @@ export const diffItem = (
     _checked?: number;
     _removed?: number;
     _history?: {};
+    viewers: any;
   },
-  { ...item }
+  { viewers: _viewers, ...item }: any
 ) => diffString(last, item);
 
 export const updateItem = (
