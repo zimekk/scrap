@@ -50,6 +50,7 @@ let REGEX = new RegExp(/^(.)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
 // REGEX = new RegExp(/tui:/);
+// REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
@@ -405,6 +406,9 @@ export default function (type?: string) {
           "get-product-cyfrowe:kamery/edelkrone-pokrowiec-na-sliderplus-small",
           "get-product-cyfrowe:aparaty/-dr-e12-zasilacz-do-eos-m",
           "get-product-cyfrowe:wyposazenie-studia/tlo-materialowe-glareone-tlo-fotograficzne-150x200-cm-zielono-niebieskie",
+          "get-product-cyfrowe:atomos-connect-2-usb-4k-video-audio-p",
+          "get-product-cyfrowe:karta-pamieci-sandisk-sdxc-extreme-pro-64gb-170mb-s-v30-uhs-i-u3-p",
+          "get-product-cyfrowe:karta-pamieci-sandisk-sdxc-extreme-pro-128gb-170mb-s-v30-uhs-i-u3-p",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
@@ -560,6 +564,29 @@ export default function (type?: string) {
           "get-product:648883-all-in-one-apple-imac-24-m1-8gb-256-macos-retina-45k-silver",
           "get-product:656048-all-in-one-apple-imac-24-m1-16gb-256-macos-retina-45k-silver",
           "get-product:656052-all-in-one-apple-imac-24-m1-16gb-512-macos-retina-45k-silver",
+          "get-product:334197-przejsciowka-unitek-adapter-usb-c-usb-31-otg",
+          "get-product:646480-dysk-ssd-kingston-1tb-m2-pcie-nvme-nv1",
+          "get-product:691100-dysk-ssd-kingston-1tb-m2-pcie-gen4-nvme-kc3000",
+          "get-product:442513-dysk-ssd-samsung-1tb-m2-pcie-nvme-970-pro",
+          "get-product:477776-dysk-ssd-samsung-1tb-m2-pcie-nvme-970-evo-plus",
+          "get-product:593198-dysk-ssd-samsung-1tb-m2-pcie-gen4-nvme-980-pro",
+          "get-product:634238-dysk-ssd-samsung-1tb-m2-pcie-nvme-980",
+          "get-product:623728-dysk-ssd-samsung-1tb-25-sata-ssd-870-evo",
+          "get-product:578860-dysk-ssd-samsung-1tb-25-sata-ssd-870-qvo",
+          "get-product:578861-dysk-ssd-samsung-2tb-25-sata-ssd-870-qvo",
+          "get-product:562878-dysk-zewnetrzny-ssd-samsung-portable-ssd-t7-500gb-usb-32-gen-2-szary",
+          "get-product:562883-dysk-zewnetrzny-ssd-samsung-portable-ssd-t7-1tb-usb-32-gen-2-szary",
+          "get-product:729819-dysk-zewnetrzny-ssd-samsung-ssd-t7-shield-1tb-usb-32-gen-2-czarny",
+          "get-product:409052-dysk-zewnetrzny-hdd-toshiba-canvio-basics-2tb-usb-32-gen-1-czarny",
+          "get-product:495009-dysk-zewnetrzny-hdd-toshiba-canvio-basics-4tb-usb-32-gen-1-czarny",
+          "get-product:620500-dysk-zewnetrzny-hdd-toshiba-canvio-slim-2tb-usb-32-gen-1-czarny",
+          "get-product:651706-bezlusterkowiec-canon-eos-m50-ii-premium-live-stream-kit",
+          "get-product:651708-bezlusterkowiec-canon-eos-m50-ii-vlogger-kit",
+          "get-product:653453-klatki-do-aparatu-smallrig-klatka-do-canon-m50-m5",
+          "get-product:744951-bezlusterkowiec-canon-eos-m50-ii-ef-m-18-150mm-f-35-63-is-stm",
+          "get-product:747838-obiektywy-staloogniskowy-sigma-c-16mm-f-14-c-dn-canon-m",
+          "get-product:494795-karta-pamieci-sd-sandisk-64gb-extreme-pro-170-90-mb-s-u3-v30-odczyt-zapis",
+          "get-product:483005-karta-pamieci-sd-sandisk-128gb-sdxc-extreme-pro-odczyt-170mb-s-90mb-s",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/kaski-sportowe/kask-rowerowy-abus-macator-szary-szosowy-rozmiar-m",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",
@@ -592,6 +619,9 @@ export default function (type?: string) {
           "get-product-mensa:wmf-blok-do-nozy-ciemny-18-8046-4500",
           "get-product-mensa:wmf-blok-do-nozy-1880454500",
           "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
+          "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
+          "get-product-mensa:mensa-home-pomocnik-do-paleczek-panda-53cm-6094071",
+          "get-product-mensa:mensa-home-pomocnik-do-paleczek-kot-53cm-6094073",
           "get-product-equip:product-pol-63775-Plecak-Fjallraven-Kanken-fog-pink",
           "get-product-equip:product-pol-37566-Plecak-fotograficzny-Thule-EnRoute-Camera-Backpack-20l-black",
           "get-product-equip:product-pol-43799-Podrozny-kubek-termiczny-Motion-JNL-350-ml-Thermos-graphite",
