@@ -1,3 +1,5 @@
+[![Deployment](https://github.com/zimekk/scrap/actions/workflows/deploy.yml/badge.svg)](https://github.com/zimekk/scrap/actions/workflows/deploy.yml)
+
 # scrap
 
 [zimekk.github.io/scrap](https://zimekk.github.io/scrap)
