@@ -50,7 +50,7 @@ let REGEX = new RegExp(/^(.)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
 // REGEX = new RegExp(/tui:/);
-// REGEX = new RegExp(/^((?!tui|grecos).)*$/);
+REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
@@ -433,6 +433,8 @@ export default function (type?: string) {
           "get-product:602851-smartfon-telefon-apple-iphone-se-64gb-black",
           "get-product:569882-sluchawki-bezprzewodowe-apple-beats-studio3-szarosc-nocy",
           "get-product:569886-sluchawki-bezprzewodowe-apple-beats-studio3-czarne-matowe",
+          "get-product:490938-sluchawki-true-wireless-apple-airpods-2-generacji",
+          "get-product:690349-sluchawki-true-wireless-apple-airpods-3-generacji",
           "get-product:258829-sluchawki-przewodowe-akg-k612pro-czarne",
           "get-product:602404-sluchawki-bezprzewodowe-microsoft-surface-headphones-2-matowy-czarny",
           "get-product:567454-etui-obudowa-na-smartfona-apple-silicone-case-do-iphone-7-8-se-czarny",
@@ -485,6 +487,8 @@ export default function (type?: string) {
           "get-product:684658-gimbal-dji-om-4-se-osmo-mobile-4-se",
           "get-product:697901-dron-dji-mini-se",
           "get-product:697900-dron-dji-mini-se-fly-more-combo",
+          "get-product:691906-kamera-sportowa-dji-action-2-dual-screen-combo",
+          "get-product:691908-kamera-sportowa-dji-action-2-power-combo",
           "get-product:445840-akcesorium-do-streamingu-elgato-stream-deck",
           "get-product:445847-akcesorium-do-streamingu-elgato-stream-deck-mini",
           "get-product:466357-akcesorium-do-streamingu-elgato-cam-link-4k-hdmi-camera-connector",
@@ -502,6 +506,14 @@ export default function (type?: string) {
           "get-product:635440-pendrive-pamiec-usb-lexar-256gb-jumpdrive-s47-usb-31-250mb-s",
           "get-product:635439-pendrive-pamiec-usb-lexar-128gb-jumpdrive-s47-usb-31-250mb-s",
           "get-product:635437-pendrive-pamiec-usb-lexar-64gb-jumpdrive-s47-usb-31-250mb-s",
+          "get-product:712234-stacja-zasilania-ecoflow-stacja-zasilania-river-mini-210wh-indukcja-15w",
+          "get-product:712247-akcesorium-do-stacji-zasilania-ecoflow-panel-fotowoltaiczny-110w",
+          "get-product:729080-stacja-zasilania-ecoflow-stacja-zasilania-river-mini-210wh",
+          "get-product:221122-zasilacz-awaryjny-ups-apc-back-ups-500va-300w-3xiec-avr",
+          "get-product:592552-zasilacz-awaryjny-ups-apc-back-ups-750va-410w-4x-schuko-usb-avr",
+          "get-product:539756-zasilacz-awaryjny-ups-apc-easy-ups-500va-300w-4x-schuko-avr",
+          "get-product:701633-zasilacz-awaryjny-ups-apc-easy-ups-700va-360w-2x-schuko-avr",
+          "get-product:701708-zasilacz-awaryjny-ups-apc-be325-fr-325va-185w-4xfr-rj-45",
           "get-product-alto:1022665-klocki-lego-lego-technic-42128-ciezki-samochod-pomocy-drogowej",
           "get-product-alto:576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37",
           "get-product-alto:467576-klocki-lego-lego-technic-42096-porsche-911-rsr",
