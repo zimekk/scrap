@@ -242,7 +242,8 @@ Opłata manipulacyjna
             list
               .filter((_, i) => selected.includes(i))
               .reduce(
-                ({ value, valueNetto, quote }, item) => ({
+                ({ units, value, valueNetto, quote }, item) => ({
+                  units: units + item.units,
                   value: value + item.value,
                   valueNetto: valueNetto + item.valueNetto,
                   quote:
@@ -253,6 +254,7 @@ Opłata manipulacyjna
                       100,
                 }),
                 {
+                  units: 0,
                   value: 0,
                   valueNetto: 0,
                   quote: 0,
@@ -268,7 +270,12 @@ Opłata manipulacyjna
                 }).format(item.valueNetto)}
                 &nbsp;PLN
               </td>
-              <td colSpan={3}></td>
+              <td align="right">
+                {new Intl.NumberFormat("pl-PL", {
+                  minimumFractionDigits: 2,
+                }).format(item.units)}
+              </td>
+              <td colSpan={2}></td>
               <td align="right">
                 {new Intl.NumberFormat("pl-PL", {
                   minimumFractionDigits: 2,
