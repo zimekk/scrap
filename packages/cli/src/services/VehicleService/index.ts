@@ -12,6 +12,8 @@ import {
   updateItem,
 } from "./utils";
 
+const { BMW_URL, MINI_URL } = process.env;
+
 export { VehicleAudiService } from "./Audi";
 export { VehicleBenzService } from "./Benz";
 export { VehiclePorscheService } from "./Porsche";
@@ -50,7 +52,9 @@ export class VehicleService extends Service {
           request(
             {
               id: ["najlepszeoferty", this.mk, $type, $limit, $skip].join("-"),
-              url: `https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/${$type}-pl_PL/search`,
+              url: `${["mini-new"].includes($type) ? MINI_URL : BMW_URL}${
+                ["bmw-used"].includes($type) ? "uzywane" : "nowe"
+              }/api/v1/ems/${$type}-pl_PL/search`,
               params: {
                 method: "POST",
                 body: JSON.stringify({
@@ -78,27 +82,30 @@ export class VehicleService extends Service {
 
   async process(item = {}): Promise<any> {
     return VehicleItem.parseAsync(item)
-      .then((item) =>
-        vehicleItems.findOne({ id: item.id }).then((last: any) => {
-          if (last) {
-            const diff = diffItem(last, item);
-            if (diff || last._removed) {
-              console.log(`[${last.id}]`, diff);
-              delete last._removed;
-              this.summary.updated.push(item.id);
-              return vehicleItems.update({
-                ...updateItem(last, item),
-                _checked: _time,
-              });
-            } else if (last._checked < _past) {
-              this.summary.checked.push(item.id);
-              return vehicleItems.update({ ...last, _checked: _time });
+      .then(
+        (item) =>
+          Boolean(item.id == 49829 && console.log(item)) ||
+          vehicleItems.findOne({ id: item.id }).then((last: any) => {
+            Boolean(item.id == 49829 && console.log(last));
+            if (last) {
+              const diff = diffItem(last, item);
+              if (diff || last._removed) {
+                console.log(`[${last.id}]`, diff);
+                delete last._removed;
+                this.summary.updated.push(item.id);
+                return vehicleItems.update({
+                  ...updateItem(last, item),
+                  _checked: _time,
+                });
+              } else if (last._checked < _past) {
+                this.summary.checked.push(item.id);
+                return vehicleItems.update({ ...last, _checked: _time });
+              }
+            } else {
+              this.summary.created.push(item.id);
+              return vehicleItems.insert(createItem(item));
             }
-          } else {
-            this.summary.created.push(item.id);
-            return vehicleItems.insert(createItem(item));
-          }
-        })
+          })
       )
       .catch((e) => console.log(e, item));
   }

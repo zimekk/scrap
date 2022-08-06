@@ -50,7 +50,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
     : Promise.all([
         vehicleItems
           .find({})
-          .then((vehicleBasic: any) => vehicleBasic.slice(0, 5000))
+          .then((vehicleBasic: any) => vehicleBasic.slice(0, 15000))
           .then(
             (list) =>
               z
@@ -337,7 +337,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
           ),
         vehicle2Items
           .find({})
-          .then((list: any) => list.slice(0, 5000))
+          .then((list: any) => list.slice(0, 15000))
           .then((list) =>
             list.map(
               ({ _id, _created, _updated, ...source }: any) =>
