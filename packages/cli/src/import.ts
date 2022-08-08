@@ -344,6 +344,8 @@ export default function (type?: string) {
     type
       ? []
       : [
+          "get-product-tophifi:multiroom/audio-pro/audio-pro-a26",
+          "get-product-tophifi:multiroom/audio-pro/audio-pro-a36",
           "get-product-tophifi:multiroom/musiccast/yamaha-musiccast-wxc-50",
           "get-product-tophifi:multiroom/musiccast/yamaha-musiccast-r-n402d",
           "get-product-tophifi:multiroom/musiccast/yamaha-r-n303d",
