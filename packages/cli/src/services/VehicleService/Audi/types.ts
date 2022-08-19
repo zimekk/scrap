@@ -29,6 +29,8 @@ export const Vehicle2Item = z
     decodedCarId: z.string(),
     mbvHandbook: z.object({}),
     buyableOnline: z.boolean(),
+    tradeInNc: z.boolean(),
+    tradeInUc: z.boolean(),
     employeeVehicle: z.boolean(),
     hideRenderImages: z.boolean(),
     used: z
