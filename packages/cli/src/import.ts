@@ -54,6 +54,8 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
+// REGEX = new RegExp(/^(get-product:712247)/);
+// REGEX = new RegExp(/^(get-product-alto:1022665)/);
 
 enum Types {
   PRODUCT = "get-product",

@@ -80,30 +80,47 @@ export const fromHtml = (html: string) => {
         /^(Dodaj do koszyka|Powiadom o dostępności|Sprawdź inne produkty)$/
       )
     );
-  const price = pathToRoot($cart)
-    .find(($div) => $div.rawText.match(/zł/))
-    ?.querySelectorAll("*")
-    .find(($div: any) => $div.text.match(/zł$/))
-    ?.querySelectorAll("div")
-    .filter(
-      ($div: any) =>
-        $div.childNodes.length > 0 && $div.childNodes[0].nodeType === 3
-    )
-    .map(($div: any) => $div.text);
-  const links = pathToRoot($cart)
-    .find(($div) => $div.rawText.match(/zł/))
-    ?.querySelectorAll("button > span > span > span")
-    .filter(($div: any) => $div.text)
-    .map(($div: any) => $div.text)
-    .filter(
-      (text: string) =>
-        Boolean(false && console.log({ text })) ||
-        !text.match(
-          /Dowiedz się więcej|Kup( teraz)?, otrzymasz |Zapłać w ciągu/
+  const price = $cart
+    ? pathToRoot($cart)
+        .find(($div) => $div.rawText.match(/zł/))
+        ?.querySelectorAll("*")
+        .find(($div: any) => $div.text.match(/zł$/))
+        ?.querySelectorAll("div")
+        .filter(
+          ($div: any) =>
+            $div.childNodes.length > 0 && $div.childNodes[0].nodeType === 3
         )
-    )
-    .filter((array: any) => array.length > 0);
-
+        .map(($div: any) => $div.text)
+    : $root
+        .querySelectorAll("meta[property=product:price:amount]")
+        .map(($meta) => Number($meta.getAttribute("content")))
+        .map((value) =>
+          new Intl.NumberFormat("pl-PL", {
+            minimumFractionDigits: 2,
+          })
+            .format(value)
+            .replace(/\s/g, " ")
+        )
+        .map((price) => `${price} zł`);
+  const links = $cart
+    ? pathToRoot($cart)
+        .find(($div) => $div.rawText.match(/zł/))
+        ?.querySelectorAll("button > span > span > span")
+        .filter(($div: any) => $div.text)
+        .map(($div: any) => $div.text)
+        .filter(
+          (text: string) =>
+            Boolean(false && console.log({ text })) ||
+            !text.match(
+              /Dowiedz się więcej|Kup( teraz)?, otrzymasz |Zapłać w ciągu/
+            )
+        )
+        .filter((array: any) => array.length > 0)
+    : $root
+        .querySelectorAll("script")
+        .map(($script) => $script.text.match(/deliveryText":"([^"]+)"/))
+        .filter(Boolean)
+        .map((s) => s && s[1]);
   const $prom = $root
     .querySelectorAll("h2")
     .find(($div: any) => $div.text.match(/^(Promocje|Promocja)$/));

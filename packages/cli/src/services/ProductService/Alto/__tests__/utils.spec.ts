@@ -98,6 +98,51 @@ describe("ProductService", () => {
           ],
         },
       },
+      {
+        html: loadProductHtml(
+          "712247-akcesorium-do-stacji-zasilania-ecoflow-panel-fotowoltaiczny-110w"
+        ),
+        result: {
+          id: "712247",
+          brand: "Ecoflow",
+          codes: [],
+          image: [
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2022/2/pr_2022_2_24_12_2_49_472_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/2/pr_2022_2_24_12_2_49_472_00.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2022/2/pr_2022_2_24_11_55_34_252_05.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/2/pr_2022_2_24_11_55_34_252_05.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2022/2/pr_2022_2_24_11_55_32_424_04.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/2/pr_2022_2_24_11_55_32_424_04.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2022/2/pr_2022_2_24_11_55_28_644_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/2/pr_2022_2_24_11_55_28_644_02.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-mini,,2022/2/pr_2022_2_24_11_55_30_690_03.jpg",
+            "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/2/pr_2022_2_24_11_55_30_690_03.jpg",
+          ],
+          label: [
+            "od: Ecoflow",
+            "kod producenta: EFSOLAR110W",
+            "kod x-kom: 712247",
+          ],
+          links: ["Czasowo niedostępny"],
+          price: ["1599,00 zł"],
+          proms: [
+            "kup ten produkt",
+            "i dobierz dysk zewnętrzny Crucial X6 500GB - 60 zł taniej",
+          ],
+          stars: "(1 opinia)",
+          title: "Ecoflow Panel fotowoltaiczny 110W",
+          url: "https://www.x-kom.pl/p/712247-akcesorium-do-stacji-zasilania-ecoflow-panel-fotowoltaiczny-110w.html",
+          reviews: [
+            {
+              author: "SMH",
+              body: `Nie będę ukrywał, że im więcej W ma panel \"przenośny\" generować tym więcej musi ważyć. Przenoszenie i rozkładanie wymaga trochę wysiłku, ale warto.
+Przy bezchmurnym niebie udało się generować około 140W do Ecoflow River.`,
+              date: "2022-07-26",
+              rating: 6,
+            },
+          ],
+        },
+      },
     ].forEach(({ html, result }) => expect(fromHtml(html)).toEqual(result)));
 
   xit("fromHtml.links", () =>
