@@ -117,25 +117,27 @@ export const browser = (
         ? Promise.resolve(data)
         : Promise.resolve(url)
             .then(async (url) => {
-              const NEW_PAGE_TIMEOUT_MS = 5000;
+              // const NEW_PAGE_TIMEOUT_MS = 5000;
               // console.log({ url });
 
               const browser = await openChromeBrowser();
 
-              const timeoutPromise = new Promise((resolve) =>
-                setTimeout(resolve, NEW_PAGE_TIMEOUT_MS)
-              );
-              const [completed, page] = await Promise.race(
-                [timeoutPromise, openPage(browser)].map((promise) =>
-                  promise.then((result) => [promise, result])
-                )
-              );
-              if (completed === timeoutPromise) {
-                await browser.close();
-                throw new Error(
-                  `timeout of ${NEW_PAGE_TIMEOUT_MS} exceeded opening new page`
-                );
-              }
+              // const timeoutPromise = new Promise((resolve) =>
+              //   setTimeout(resolve, NEW_PAGE_TIMEOUT_MS)
+              // );
+              // const [completed, page] = await Promise.race(
+              //   [timeoutPromise, openPage(browser)].map((promise) =>
+              //     promise.then((result) => [promise, result])
+              //   )
+              // );
+              // if (completed === timeoutPromise) {
+              //   await browser.close();
+              //   throw new Error(
+              //     `timeout of ${NEW_PAGE_TIMEOUT_MS} exceeded opening new page`
+              //   );
+              // }
+
+              const page = await openPage(browser);
 
               const { text, ...response } = await navigateAndGetPageSource(
                 url,

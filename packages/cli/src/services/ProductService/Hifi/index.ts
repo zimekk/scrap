@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { browser } from "../../../request";
 import Service from "../base";
-import { saveProductHtml } from "../../utils";
+// import { saveProductHtml } from "../../utils";
 import { fromHtml } from "./utils";
 
 const { STORE_TOPHIFI_URL: URL } = process.env;

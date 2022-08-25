@@ -44,18 +44,19 @@ import {
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
 let REGEX = new RegExp(/^(.)*$/);
 
+REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/grecos:/)
 // REGEX = new RegExp(/rates/)
 // REGEX = new RegExp(/^((?!rates).)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
 // REGEX = new RegExp(/tui:/);
-REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
 // REGEX = new RegExp(/^(get-product:712247)/);
 // REGEX = new RegExp(/^(get-product-alto:1022665)/);
+// REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 
 enum Types {
   PRODUCT = "get-product",

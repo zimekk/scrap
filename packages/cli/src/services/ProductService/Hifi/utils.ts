@@ -2,6 +2,17 @@ import { z } from "zod";
 import { parse } from "node-html-parser";
 import { ItemSchema } from "../types";
 
+const parseText = (text: string) =>
+  text
+    .trim()
+    .replace(/\n+/g, "")
+    .replace(/function \w+\(\)\s+{[^}]+}/g, "")
+    .replace(/\u00A0/g, " ")
+    .replace(/\s+/g, " ")
+    .replace(/\\([^"])/g, "\\\\$1");
+
+export const parseJson = (text: string) => JSON.parse(parseText(text));
+
 const ItemJsonSchema = z.object({
   name: z.string(),
   image: z.string(),
@@ -69,16 +80,9 @@ export const fromHtml = (html: string) => {
     .join(" ")
     .replace(/\s+/g, " ");
 
-  const json = JSON.parse(
-    $root
-      .querySelector('script[type="application/ld+json"]')
-      ?.rawText.replace(/[\r\n\t]+/g, "")
-      .trim() || ""
+  const json = parseJson(
+    $root.querySelector('script[type="application/ld+json"]')?.rawText || ""
   );
-
-  // console.log(json)
-  // console.log({ url, stars, price, links });
-  // console.log({ id, url, title, brand, image, stars, price, links, label });
 
   try {
     return ItemSchema.parse(

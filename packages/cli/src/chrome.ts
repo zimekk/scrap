@@ -55,8 +55,11 @@ export async function openPage(browser: any) {
 }
 
 export async function navigateAndGetPageSource(url: string, page: any) {
+  // await page.setDefaultNavigationTimeout(0);
+
   const response = await page.goto(url, {
     waitUntil: "networkidle2",
+    timeout: 0,
   });
 
   return {
