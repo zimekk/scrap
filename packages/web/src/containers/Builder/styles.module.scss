@@ -1,0 +1,23 @@
+.Section {
+  color: purple;
+  padding: 1em;
+}
+.Row {
+  position: relative;
+  clear: both;
+  height: 100px;
+  padding: 1em;
+  border-top: 1px solid lightgray;
+}
+.Gallery {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 100px;
+  height: 100px;
+  border: 1px solid lightgray;
+}
+.Product {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+}

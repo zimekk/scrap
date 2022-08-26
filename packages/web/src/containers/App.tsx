@@ -5,6 +5,7 @@ import styles from "./App.module.scss";
 const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
+  builder: lazy(() => import("./Builder")),
   configure: lazy(() => import("./Configure")),
   energy: lazy(() => import("./Energy")),
   exchange: lazy(() => import("./Exchange")),
