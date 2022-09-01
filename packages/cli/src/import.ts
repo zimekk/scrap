@@ -14,6 +14,7 @@ import {
   ProductEquipService,
   ProductEuroService,
   ProductHifiService,
+  ProductKompService,
   ProductMediaService,
   ProductMensaService,
   ProductTourService,
@@ -57,6 +58,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product:712247)/);
 // REGEX = new RegExp(/^(get-product-alto:1022665)/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
+// REGEX = new RegExp(/^(get-product-komp:)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -66,6 +68,7 @@ enum Types {
   ELECTRO = "get-product-electro",
   EQUIP = "get-product-equip",
   EURO = "get-product-euro",
+  KOMP = "get-product-komp",
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
   TOUR = "get-product-tour",
@@ -96,6 +99,7 @@ const SERVICES = {
   [Types.ELECTRO]: ProductElectroService,
   [Types.EQUIP]: ProductEquipService,
   [Types.EURO]: ProductEuroService,
+  [Types.KOMP]: ProductKompService,
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
   [Types.TOUR]: ProductTourService,
@@ -691,6 +695,9 @@ export default function (type?: string) {
           "get-product:648813-odtwarzacz-multimedialny-apple-tv-4k-64gb-2021",
           "get-product:670957-dysk-do-konsoli-wd-black-1tb-d30-game-drive-ssd-for-xbox-czarny",
           "get-product:691992-dysk-do-konsoli-seagate-storage-expansion-card-512gb-do-xbox-series-xs",
+          "get-product-komp:660669/asus-rog-crosshair-viii-impact",
+          "get-product-komp:692410/asus-rog-strix-b550-i-gaming",
+          "get-product-komp:757888/lian-li-dan-cases-a4-h2o-x4-riser-pcie4-0-czarna",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/kaski-sportowe/kask-rowerowy-abus-macator-szary-szosowy-rozmiar-m",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",

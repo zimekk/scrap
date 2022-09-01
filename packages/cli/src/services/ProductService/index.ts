@@ -5,6 +5,7 @@ export { ProductElectroService } from "./Electro";
 export { ProductEquipService } from "./Equip";
 export { ProductEuroService } from "./Euro";
 export { ProductHifiService } from "./Hifi";
+export { ProductKompService } from "./Komp";
 export { ProductMediaService } from "./Media";
 export { ProductMensaService } from "./Mensa";
 export { ProductTourService } from "./Tour";
