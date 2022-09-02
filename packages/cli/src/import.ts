@@ -17,6 +17,7 @@ import {
   ProductKompService,
   ProductMediaService,
   ProductMensaService,
+  ProductMoreleService,
   ProductTourService,
   ProductTousService,
   PromoService,
@@ -59,6 +60,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-alto:1022665)/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
+// REGEX = new RegExp(/^(get-product-morele:)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -71,6 +73,7 @@ enum Types {
   KOMP = "get-product-komp",
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
+  MORELE = "get-product-morele",
   TOUR = "get-product-tour",
   TOUS = "get-product-tous",
   PROMO = "get-promo",
@@ -102,6 +105,7 @@ const SERVICES = {
   [Types.KOMP]: ProductKompService,
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
+  [Types.MORELE]: ProductMoreleService,
   [Types.TOUR]: ProductTourService,
   [Types.TOUS]: ProductTousService,
   [Types.PROMO]: PromoService,
@@ -698,6 +702,10 @@ export default function (type?: string) {
           "get-product-komp:660669/asus-rog-crosshair-viii-impact",
           "get-product-komp:692410/asus-rog-strix-b550-i-gaming",
           "get-product-komp:757888/lian-li-dan-cases-a4-h2o-x4-riser-pcie4-0-czarna",
+          "get-product-morele:wentylator-phanteks-t30-pwm-ph-f120t30-bg-9240982",
+          "get-product-morele:zasilacz-cooler-master-v750-sfx-gold-750w-mpy-7501-sfhagv-eu-8193106",
+          "get-product-morele:zasilacz-phanteks-revolt-sfx-750w-gold-ph-p750gsf-9886710",
+          "get-product-morele:rode-rode-psa1-6492046",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/kaski-sportowe/kask-rowerowy-abus-macator-szary-szosowy-rozmiar-m",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",
