@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "NODE_ENV=production tsc",
+    "test:debug": "node --inspect ../../node_modules/.bin/jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {

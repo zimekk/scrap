@@ -2,7 +2,7 @@ import { loadProductHtml } from "../../../utils";
 import { fromHtml } from "../utils";
 
 describe("ProductMoreleService", () => {
-  it("fromHtml", () =>
+  xit("fromHtml", () =>
     [
       {
         html: loadProductHtml(
