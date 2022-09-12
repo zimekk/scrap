@@ -5675,5 +5675,1656 @@
       "@type": "Thing",
       "name": "PNY"
     }
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "AMD Ryzen 7 5800X",
+    "productID": "597430",
+    "sku": "597430",
+    "mpn": "100-100000063WOF",
+    "image": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2020/10/pr_2020_10_9_13_47_7_306_00.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 1599,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "AMD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.68,
+      "reviewCount": 145,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2021-02-27T10:16:00.000Z",
+        "description": "Kupiłem na promocji X-Kom za 1899zł. Cena ciut wyższa niż za Ryzen 7 3800x w podobnym czasie od premiery. Wydajność 5800x vs Ryzen 7 3700x, którego miałem do te pory do 25% wyższa - głównie w zadaniach związanych z zastosowaniami półprofesjonalnymi (rendering etc.). W grach widoczna różnica również na korzyść Zen3, ale już nie tak spektakularna. W połączeniu z Radeonem XFX RX 6900 XT MERC319 w 1440p nie nie ma gry, która by była za ciężka. Włączenie Re-Size Bar (Smart Memory Access) daje w zależności od gry wzrost minimalnego FPS oraz średniego od 2% do nawet 10%. Jeśli chcecie przetestować czy u Was działa w/w funkcja warto sprawdzić benchmarkiem w Shadow of the Tomb Raider oraz Assasin's Creed Valhalla. Obie gry są wrażliwe na włączenie SMA. Co do temperatur - fabryczne ustawienia i max temperatura 75*C według Ryzen Master. Boost na wszystkich rdzeniach do 4550MHz. Kilka rdzeni podczas mniejszego obciążenia dobija do 4750MHz. Co warto zrobić w celu uzyskania darmowego boostu wydajności poza włączeniem SMA? Skorzystajcie z porady odnośnie włączenia PBO2 Curve Optimizer (na YT można znaleźć odpowiedni film). Co to dało w moim przypadku po ustawieniu -30? Niższe napięcie, zegary w boost 4750MHz na wszystkich rdzeniach i 4850MHz na lekkich obciążeniach małowątkowych. To wszystko przy mniejszych temperaturach (przy AVX nadal procesor dobija do 75*C, ale w czasie wiekszsic zastosowań jest szybciej i chłodniej). Niestety na ten moment obie funkcje działają oficjalnie tylko na Ryzen 5000 + płyty na chipsecie 500 + RX 6000 (choć niektórzy producenci w swoich płytach umożliwiają uruchomi nie ReSize Br również RTX 3060).\nP. S. Połączenie Ryzen 7 3700x + Asus X570-E Strix z BIOS 3405 oraz RX 6900 XT również umożliwia włączenie SMA - poprawia wyniki w podobnym stopniu ja na Ryzen 5000, zbliżając wyniki takiego tandemu do połączenia Ryzen 5000 + RX 6000 bez SMA w grach wrażliwych na tę funkcję (wspomniany SoTR i AC V).",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-02-24T14:53:43.000Z",
+        "description": "Procesor faktycznie gorący i bez dobrego AIO i przewietrznej obudowy nie ma co podchodzić. Ja poradziłem sobie z przegrzewaniem w taki sposób VCore czy w mojej płycie Gigabyte'a Dynamic Vcore ustawiłem na -0,066, do tego dobra pasta i chłodzenie Artic Cooling Liquid Freezer II 360 i temp w idle min 29 stopni C, w Aida64, CPU-Z benchmark 61 st. C, w OCCT po godzinie extreme stress 82-85 st. C, Cinebench R20, R23 68-72 st. C. w grach max 68 st. C. Wcześniej bez obniżenia napięcia vcore cudowałem ze zmianą planu zasilania windows, ust. max wydajności na 90 %, wyłączaniem precision boost etc. a wystarczyło tylko obniżyć vcore do -0,066 i po problemie. Zalety to naprawdę olbrzymia wydajność (nie to co w intelach) i że wszystko śmiga na full płynniacko. Polecam!",
+        "author": {
+          "@type": "Thing",
+          "name": "Bogumił"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-05-06T08:40:13.000Z",
+        "description": "Wyklaruję nieco w kwestiach temperatur. Najniższa po starcie, jaką widziałem, to 28 stopni. W kilka minut po uruchomieniu, w stanie bezczynności Tdie pokazuje 31-32 stopnie. W momencie uruchomienia przeglądarki Chromium temperatura chwilowo skacze na 42 stopnie, by po chwili spaść do 34. W dłuższym stresie temperatura oscyluje między 78-83 stopni.\nWyniki dla chłodzenia powietrzem Noctua NH-D14 i pasty Thermal Grizzly Kryonaut.",
+        "author": {
+          "@type": "Thing",
+          "name": "klient"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2020-12-15T12:58:01.000Z",
+        "description": "Procek bardzo fajny.\nBez krecenia w fabrycznej werji robi robote.\nTemperatury w trakcie gier na 60-70 ° \nPrzy stres tescie w OCCT udalo mi sie dobic do 80 ° po 30 minutach, to juz bardziej grafika się gotowała\nA chlodzenie to SPC FERO 3 EVO ARGB .",
+        "author": {
+          "@type": "Thing",
+          "name": "Paweł"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-02-28T10:49:24.000Z",
+        "description": "Bardzo dobry procesor. U mnie chodzi na płycie MSI X570 MEG UNIFY. Przy ustawieniach domyślnych w biosie trochę się potrafi zagrzać, ale to i tak znacznie mniej niż poprzednie procesory Intel które miałem, a jest od nich znacząco szybszy. Osiąga zegar 4.85 GHz w turbo bez problemu. W syntetyku jednym dobił do 90 stopni na ND-D15 Chromax ale generalnie to raczej powyżej 85 stopni ciężko go będzie zagrzać w normalnej pracy. Na dobrym chłodzeniu spokojnie da radę, zawsze można też go ustawić manualnie i będzie chłodniejszy prawdopodobnie.",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-05-07T13:57:59.000Z",
+        "description": "Na razie czekam na resztę części ale fajne wyglada razem z płyta na szafce wiec pog",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-04-04T08:29:20.000Z",
+        "description": "CPU niszczy obecnie kazdego intela dostepnego na rynku.\nJedyna jego wada to jest mala powierzchnia chipletu wiec trudniej go schlodzic - trzeba uzyc lepszej pasty wtedy nawet byle jakie chlodzenie da sobie rade.\nDodatkowo polecam kazdemu uzytkownikowi skorzystac z curve optimizer = jeszcze wieksza wydajnosc/wat.\nPolecam jako wielozadaniowy procesor",
+        "author": {
+          "@type": "Thing",
+          "name": "Filip"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-04-19T20:33:56.000Z",
+        "description": "No to tak. Zaczne najpierw od samego zamowienia. Procesor zakupiony rzekomo jako produkt NOWY. Produkt po rozpakowaniu nosil znamiona uzytkowania. Brak folii ochronnej na IHS, plamy/zacieki na IHS po pascie, pogiete piny. Z poczatku chcialem zwrocic nawet bez sprawdzenia i wykonalem odrazu telefon na infolinie w celu zgloszenia w/w, ale jednak postanowilem potestowac. Piny wyprostowalem na wlasna reke, na szczescie zagiecia nie byly az tak wielkie, by mialo dojsc do ulamania. Procesor jest w pelni sprawny. Poddany obciazeniom. Co do powyzszej czesci totalna zenada ze strony x-kom, ze w ogole takie cos mialo miejsce. Pan na infolinii powiedzial: ''nie jest Pan pierwszy z takim problemem, niech Pan smialo zwraca; tego nikt raczej nie sprawdza, produkty laduja w magazynie centralnym i tyle''. Przynajmniej nie bylo owijane w bawelne. Swoja droga nie czaje jak mozna pogiac piny na procku, ktory dopiero co wyszedl i strzelam, ze byl wlozony w inne mobo max 1 raz, no chyba ze zwiedzil pol swiata, byl samplem testowym czy cos.\n\nPrzejde teraz do cech samego produktu. W CTR oznaczony jako GOLD. W CB R20 multi max jakie uzyskalem to 6257, wiec calkiem sporo; avg. community to ok 6k. Z single core szalu nie ma 610pktow, wiec tutaj przecietnie i na 5GHz nie ma szans. W grach najlepiej ustawic PBO i curve negative (ja dalem 30). Temp w grach to sr.60st. pod aio navis argb 240mm z 4 wentami push/pull na ~1k rpm kazdy. Boost w grach z PBO to zawsze 4,85GHz na kilku watkach. Potestowalem CTR i stwierdzam, ze do gier szkoda czasu na kalibracje. Wystarczy PBO, krzywa negatywna i dobre chlodzenie; lepiej nie bedzie. Jesli ktos potrzebuje pelnej mocy OC na multithread to spokojnie 4,7GHz na wszystkich rdzeniach wycisnie. Z racji, ze sample calkiem niezly i nie mam zadnych uwag co do dzialania, brak awarii, to go zostawiam. Daje 5/6 gwiazdek, ale za sam produkt. Za zamowienie powinienem dac totalne zero, bo to jakas kpina. Procek za 2 kafle i dostaje jakis outlet.. Zostawiam zdjecia.",
+        "author": {
+          "@type": "Thing",
+          "name": "Miłosz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-02-22T13:35:10.000Z",
+        "description": "4.8 ghz i 1.3 v",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-03-20T00:49:56.000Z",
+        "description": "Procesor bardzo dobry, wydajny po przesiadce z r7 2700 widać przyrost mocy.\nJednak ustawienia standardowe (napięcie oscylujące w granicach 1,48v) wyklucza ten procesor z użytkowania. Po ustawieniu opcji ofset na -0.225v\nprocesor stał się chłodny i przyjazny (temp w OCCT 61C max, standardowo 53-54C) chłodzony powietrzem mugen5 rev.B na płycie asus prime x470-pro.\nboost na wszystkich rdzeniach 4,84GHz.\n\nCena procesora jest dość wygórowana w porównaniu do poprzednich wersji dlatego tylko 5*.\nza 1700zł można brać w ciemno. \n\npozdrawiam.",
+        "author": {
+          "@type": "Thing",
+          "name": "Sławomir"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-09-02T09:33:26.000Z",
+        "description": "Procesor zakupiony w promocji za 1249 zł. Sztuka trafiła się całkiem zacna - 4500 MHz przy vcore 1.15v. Pod pełnym obciążeniem chłodzony Grandisem 2 nie dobija do 80C, w grach tempratury niższe. Ogólnie przesiadka z Ryzena 3600 dała ok. 60% wzrostu w wydajności wielowątkowej, a sztuka która mi się trafiła dała się okiełznać bez wodowania. Jestem zadowolony.",
+        "author": {
+          "@type": "Thing",
+          "name": "Mariusz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-03-10T14:40:02.000Z",
+        "description": "Rewelacyjny procesor, z Noctua NH-D14 (z adapterem), Kryonaut Thermal Grizzly, 32 GB RAM 3600 MHz i w obudowie Fractal Design Define R5 (4x wentylatory 14 cm) z poprzedniego zestawu, w idle ma 34 stopnie Celsjusza (36 w BIOS-ie), podczas typowej pracy, grania i surfowania po sieci 55-56 stopni Celsjusza. Kompilacja kernela na Linuksie trwa 50 sekund. Największy uzysk pod Windows jest w grze Age Of Empires II Lords Of The West - 560 fps. W innych grach mniej spektakularnie. Shadow Of The Tomb Raider z GTX 1080 na ultra w Full HD - 139 fps. Ogólnie polecam :)",
+        "author": {
+          "@type": "Thing",
+          "name": "klient"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-06-20T15:20:19.000Z",
+        "description": "Zapewne da się znaleźć bardziej opłacalny cenowo procesor, aczkolwiek działa bez zająknięcia, więc nie mam do czego się przyczepić. Jak ktoś szuka dużej mocy, to się nie zawiedzie.",
+        "author": {
+          "@type": "Thing",
+          "name": "Kacper"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-05-16T15:45:48.000Z",
+        "description": "Świetny procesor!! Przesiadłem się ze starego i5 bez porównania.",
+        "author": {
+          "@type": "Thing",
+          "name": "Paweł"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-08-27T04:20:45.000Z",
+        "description": "Dzisiaj rano, 27.08.2021, w idle zaraz po uruchomieniu temperatura rdzeni to 27 stopnie, po odpaleniu Chromium chwilowo 35 stopni :)\n (za oknem jakieś 15 stopni)",
+        "author": {
+          "@type": "Thing",
+          "name": "klient"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "Kingston FURY 16GB (2x8GB) 3200MHz CL16 Beast Black",
+    "productID": "667295",
+    "sku": "667295",
+    "mpn": "KF432C16BBK2/16",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/7/pr_2021_7_7_14_16_12_451_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/7/pr_2021_7_7_14_16_8_686_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/7/pr_2021_7_7_14_16_10_811_01.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 329,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "Kingston FURY"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.86,
+      "reviewCount": 245,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-02T18:18:31.000Z",
+        "description": "no cóż w końcu pasjans się nie zacina :)",
+        "author": {
+          "@type": "Thing",
+          "name": "Przemyslaw"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-11-29T09:11:14.000Z",
+        "description": "bardzo dobry ram działa w raz z GOODRAM 8GB (1x8GB) 3200MHz CL16 IRDM X Black o tych samych parametrach, więc polecam, bardziej ten ram niż goodram",
+        "author": {
+          "@type": "Thing",
+          "name": "Piotr"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-12-20T10:11:17.000Z",
+        "description": "Fajna kostka, na b560 przy i3 10100f kręci się bez problemu. Polecam",
+        "author": {
+          "@type": "Thing",
+          "name": "Dominik"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-29T19:39:43.000Z",
+        "description": "Pamięci szybki i eleganckie, jeśli ktoś szuka dobrej taniej Pamięci bez Ledowych wodotrysków to właśnie ta :)",
+        "author": {
+          "@type": "Thing",
+          "name": "Szymon"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-29T09:46:25.000Z",
+        "description": "Wszystko gra jak należy pracują z MSI pro z690-a ddr4 po zaktualizowaniu biosu profil xmp uruchomiony bez problemu na 3600 lecz nie sprawdzałem czy przed by dało radę.",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-12-20T18:41:20.000Z",
+        "description": "Dobre pamięci działają pod AMD jakby co, w opisie jest napisane tylko ze wspiera intel XMP a wspiera też AMD XMP",
+        "author": {
+          "@type": "Thing",
+          "name": "hubert"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-09-23T16:36:27.000Z",
+        "description": "Jest OK. 3200 należy ustawić w BIOS.",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-02-15T16:01:05.000Z",
+        "description": "Bardzo dobra, szybka i wydajna pamięć RAM. Pracuje na płycie głównej Gigabyte Z690 UD DDR4 z procesorem Intel i5 12600. Jestem zadowolony z zakupu.",
+        "author": {
+          "@type": "Thing",
+          "name": "Piotr"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-13T15:09:54.000Z",
+        "description": "dziala bezproblemowo, 64gb to troche przesada na codzien ale czasem sie przydaje (wirtualki, kubernetes itp.)",
+        "author": {
+          "@type": "Thing",
+          "name": "Jarosław"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-02-11T17:15:08.000Z",
+        "description": "Polecam!! Pamięć śmiga super.",
+        "author": {
+          "@type": "Thing",
+          "name": "Radosław"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-02-03T09:30:39.000Z",
+        "description": "Jeżeli nie chcesz mieć kłopotów z obsługą RAM, to kup kości z tej firmy. Dopiero za 3 razem udało mi się zakupić właściwy RAM mimo iż w opisie płyty wszystkie zakupione były kompatybilne.",
+        "author": {
+          "@type": "Thing",
+          "name": "JANUSZ"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-31T23:32:59.000Z",
+        "description": "Dobre ramy jak coś polecam jak po ok.4-5 miesiącach nic złego nie wywołały a komputer śmiga tego typu benc",
+        "author": {
+          "@type": "Thing",
+          "name": "Bartek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-30T17:09:57.000Z",
+        "description": "pog",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-24T09:08:14.000Z",
+        "description": "Trafiła mi się para z uszkodzoną jedną kością. Aktualnie jestem w trakcie wymiany serwisowej - w kazdym razie działa. Według internetu mozliwe jest OC ale bez wielkich osiagów.",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 4
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-12T10:11:29.000Z",
+        "description": "Wydajne kości pamięci. Za te pieniądze rewelacja. Polecam !",
+        "author": {
+          "@type": "Thing",
+          "name": "Paweł"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "AMD Ryzen 5 5600",
+    "productID": "735703",
+    "sku": "735703",
+    "mpn": "100-100000927BOX",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/4/pr_2022_4_4_13_1_27_284_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/4/pr_2022_4_4_13_1_29_268_01.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 879,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "AMD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.98,
+      "reviewCount": 41,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2022-04-24T21:30:23.000Z",
+        "description": "Jeżeli ktoś szanuje pieniądze, to lepiej wziąć wersję bez dopisku \"X\". Różni się jedynie częstotliwościami, które sami możemy sobie podnieść w biosie",
+        "author": {
+          "@type": "Thing",
+          "name": "Sebastian"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-04-24T16:44:18.000Z",
+        "description": "Gorszy tylko o parę mhz od wersji X, a sporo tańszy.",
+        "author": {
+          "@type": "Thing",
+          "name": "Adrian"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-07-05T12:03:50.000Z",
+        "description": "Widać wzrost cen surowców - tj. oszczędności producentów. Radiator dla Ryzen 7 2700, którego zakupiłem 3 lata temu w wersji BOX był dwa razy grubszy. Się nawet zastanawiałem, czy nie zostawić tamten. Emisja ciepła przez oba procki jest zbliżona. Niemniej założyłem ten cieńszy i daję radę. Wentylatora nie słychać, gdyż i tak najbardziej szumi grafika (RX 6600 XT). Polecam! Wynik w 3DMark: Ryzen 7 2700 około 20 300, Ryzen 5 5600 około 24 200 na tym samym RX 6600 XT. Z Ryzen 7 poprzednio miałem GTX 1060 wynik był około 11 300. Czyli wzrost wydajności po przebudowie na leciwej platformie AM4 (A320) ponad dwukrotny. Warto było. Przykład: Dying Light 2 ze średnio 33 FPS na około 80 FPS przy ustawieniach na max. Czyli prawie 3 razy lepiej.",
+        "author": {
+          "@type": "Thing",
+          "name": "Tomasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-06-10T14:49:29.000Z",
+        "description": "Wszystko gra i tak jak mówią internety po co płacić za X 200 zł więcej skoro można w biosie zmajstrować te same parametry :)",
+        "author": {
+          "@type": "Thing",
+          "name": "Mariusz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-05T05:34:58.000Z",
+        "description": "Działa na ~5-cio letniej płycie B350 kupionej do pierwszej generacji Zen.\nCałkiem przyzwoity skok wydajności względem wymienionego R5 3600.\nCPU na starym 3 rurkowym chłodzeniu ma max ~65*C, mniej o 5* niż 3600.\nOgólnie wart grzechu.",
+        "author": {
+          "@type": "Thing",
+          "name": "Mateusz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-01T22:29:31.000Z",
+        "description": "Polecam",
+        "author": {
+          "@type": "Thing",
+          "name": "Daniel"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-10T17:52:52.000Z",
+        "description": "Jak na tą cenę bardzo dobry pocesor",
+        "author": {
+          "@type": "Thing",
+          "name": "Maciej"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-08T15:04:52.000Z",
+        "description": "Podczas grania procesor się nie grzeje i nie przekracza 60% zużycia",
+        "author": {
+          "@type": "Thing",
+          "name": "Oliwier"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-06-29T21:30:37.000Z",
+        "description": ":)",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-05-31T21:04:04.000Z",
+        "description": "Super procesor używam go od krótkiego czasu i sprawuje się świetnie",
+        "author": {
+          "@type": "Thing",
+          "name": "Filip"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-05-05T06:50:17.000Z",
+        "description": "Działa. 😀",
+        "author": {
+          "@type": "Thing",
+          "name": "Sławomir"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-05-04T11:48:15.000Z",
+        "description": "Działa",
+        "author": {
+          "@type": "Thing",
+          "name": "Andrzej"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-04-22T08:48:05.000Z",
+        "description": "Wszystko śmiga",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-12T17:41:25.000Z",
+        "description": "Super procek. W połączeniu z RX'em 6700 XT generuje przeogromne ilości klatek. Temperaturki ok\nPolecam =)",
+        "author": {
+          "@type": "Thing",
+          "name": "Filip"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-12T15:51:36.000Z",
+        "description": "Proporcje ceny do jakości - ideolo\n11/10",
+        "author": {
+          "@type": "Thing",
+          "name": "Daniel"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "NZXT Kraken x63 RGB White 2x140mm",
+    "productID": "691059",
+    "sku": "691059",
+    "mpn": "RL-KRX63-RW",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/11/pr_2021_11_3_8_11_34_82_03.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/11/pr_2021_11_3_8_11_28_348_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/11/pr_2021_11_3_8_11_32_176_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/11/pr_2021_11_3_8_11_30_489_01.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 945,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "NZXT"
+    }
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "ASUS GeForce RTX 2060 DUAL EVO OC 6GB GDDR6",
+    "productID": "507702",
+    "sku": "507702",
+    "mpn": "DUAL-RTX2060-O6G-EVO",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2019/7/pr_2019_7_25_14_28_20_839_04.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2019/7/pr_2019_7_25_14_28_17_723_03.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2019/7/pr_2019_7_25_14_28_14_223_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2019/7/pr_2019_7_25_14_28_10_659_01.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2019/7/pr_2019_7_25_14_28_6_496_00.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 1859,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "ASUS"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.79,
+      "reviewCount": 33,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2019-11-15T06:44:19.000Z",
+        "description": "Karta naprawdę godna polecenia. Pod obciążeniem osiąga maksymalnie 72 stopnie. Na plus na pewno chłodzenie półpasywne i wysoka kultura pracy. Z i5 9400F spisuje się wyśmienicie.",
+        "author": {
+          "@type": "Thing",
+          "name": "Wilku"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-08-05T12:19:44.000Z",
+        "description": "5/5\nWahałem się pomiędzy Asusem Dual, ROG Strix oraz MSI Gaming Z. Ostatecznie kupiłem Asusa Dual OC. Zadecydowała dobra cena Duala. Nie żałuję. Porównując recenzje w sieci i swoje obserwacje, zakupiony Dual bez problemu osiąga zegary Strixa (po OC rdzeń w zależności od obciążenia skacze 2025-2040-2055MHz)   temperatura rdzenia 65-66*C przy około 1650RPM. Lekki szum. Biorąc pod uwagę wydajność, jakość wykonania i kulturę pracy, nie ma w tej chwili lepszej karty do 1440p do 1700zł.",
+        "author": {
+          "@type": "Thing",
+          "name": "Bartosz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-11-09T21:06:28.000Z",
+        "description": "Dobra jakość wykonania. Temperatura przy maksymalnym obciążeniu to u mnie 71 - 74°C",
+        "author": {
+          "@type": "Thing",
+          "name": "Gajwer9"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2020-07-27T19:12:10.000Z",
+        "description": "Jak dla mnie bardzo dobra karta, warta swojej ceny. U mnie miała maks. 64 C. Jest również cicha. Ja osobiście ją polecam.",
+        "author": {
+          "@type": "Thing",
+          "name": "Piotrek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-08-13T14:13:56.000Z",
+        "description": "Bardzo dobry zakup - gram w full HD więc karta jest dla mnie więcej niż wystarczająca i starczy na ładnych pare lat,  jakość wykonania petarda na żywo wygląda znacznie lepiej niż na foto. W stresie nie słychać nic poza lekkim szumem powietrza. Ogólnie i w szczególe polecam",
+        "author": {
+          "@type": "Thing",
+          "name": "HHH"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-12-20T09:39:10.000Z",
+        "description": "Jestem zadowolony z karty, jak za te pieniądze wymiata.",
+        "author": {
+          "@type": "Thing",
+          "name": "Tomasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-08-27T23:09:36.000Z",
+        "description": "Polecam serdecznie ta karta robi różnice w grze 😃",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-08-21T18:33:56.000Z",
+        "description": "wymieniałem kartę graficzną w moim kompie na właśnie tą. Po jakimś czasie gry w wiedzmina zauważyłem wielkie różnice. Polecam wszystkim tą kartę",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-08-21T17:27:59.000Z",
+        "description": "Genialna karta, nawet jak za 2,5k. Polecam! Najlepsze co w niej jest to wysoka wydajność w grach, z niskimi temperaturami.",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-07-22T18:26:29.000Z",
+        "description": "Bardzo dobra karta dobre temperatury i ładny wygląd",
+        "author": {
+          "@type": "Thing",
+          "name": "Kewin"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-05-09T16:28:40.000Z",
+        "description": "super karta graficzna",
+        "author": {
+          "@type": "Thing",
+          "name": "Maacioh"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-27T08:48:43.000Z",
+        "description": "Wbrew opiniom, nie jest bardzo głośna, temperatura póki co, nie przekroczyła nawet 70st.",
+        "author": {
+          "@type": "Thing",
+          "name": "Jacek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-07-15T01:23:52.000Z",
+        "description": "Bardzo dobra karta wszystko śmiga 45-64 fps w cyberpunku na ustawieniach RayTracing ultra w połączeniu z Intel Core i7-10700KF",
+        "author": {
+          "@type": "Thing",
+          "name": "Konrad"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-12-28T11:07:50.000Z",
+        "description": "Karta spełnia swoje zadania.Temperatura pod obciążeniem 72 stopnie,głośność umiarkowana.Karta do poprzedniej zrobiła różnicę, godna polecenia.",
+        "author": {
+          "@type": "Thing",
+          "name": "Wojciech"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-13T20:44:56.000Z",
+        "description": "Karta sprawdza się świetnie. Mimo swojej ceny uważam, że ten model jest świetny. Bardzo duży radiator, dobre chłodzenie w odniesieniu do specyfikacji i budowy karty. Używana obecnie w stacji roboczej z R5 2600 i 16 GB XPG. Rendering, nagrywanie i obróbka filmów chodzi bezbłędnie. Polecam!",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "NZXT H510 Flow Black",
+    "productID": "703392",
+    "sku": "703392",
+    "mpn": "CA-H52FB-01",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/12/pr_2021_12_6_16_21_53_159_04.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/12/pr_2021_12_6_16_21_43_270_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/12/pr_2021_12_6_16_21_48_520_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/12/pr_2021_12_6_16_21_50_816_03.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/12/pr_2021_12_6_16_21_46_145_01.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 499,
+      "itemCondition": "http://schema.org/NewCondition"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "NZXT"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.8,
+      "reviewCount": 10,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-29T05:43:20.000Z",
+        "description": "Polecam. \nSpełnia moje wymogi",
+        "author": {
+          "@type": "Thing",
+          "name": "Paulina"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-26T12:40:23.000Z",
+        "description": "ładna spoko ok",
+        "author": {
+          "@type": "Thing",
+          "name": "Jeremi"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-25T19:51:01.000Z",
+        "description": "Bardzo ładna i przemyślana obudowa. Wykonana porządnie chociaż w dołączonych wentylatorach lekko terkoczą łożyska chociaż to nie problem szczególnie po przesiadce z laptopa",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-08-23T19:00:56.000Z",
+        "description": "Git",
+        "author": {
+          "@type": "Thing",
+          "name": "Olaf"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-07-26T16:10:36.000Z",
+        "description": "👌👌",
+        "author": {
+          "@type": "Thing",
+          "name": "Adam"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-07-12T18:33:10.000Z",
+        "description": "Piękna i ale lekko problemowa bo czasem są problemy by zamknąć backplate ale tak to to niema żadnych problemów",
+        "author": {
+          "@type": "Thing",
+          "name": "Kosma"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-07-11T08:04:43.000Z",
+        "description": "Super, szkoda że ma tylko dwa wiatraki ale poza tym genialna obudowa",
+        "author": {
+          "@type": "Thing",
+          "name": "Wojciech"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-07-06T14:30:38.000Z",
+        "description": "B. spoko obudowa",
+        "author": {
+          "@type": "Thing",
+          "name": "Adam"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-03-28T17:45:43.000Z",
+        "description": "cicho i chłodno",
+        "author": {
+          "@type": "Thing",
+          "name": "Jakub"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-03-25T09:05:05.000Z",
+        "description": ".",
+        "author": {
+          "@type": "Thing",
+          "name": "Karol"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "G.SKILL 16GB (2x8GB) 3200MHz CL16 Trident Z RGB",
+    "productID": "440686",
+    "sku": "440686",
+    "mpn": "F4-3200C16D-16GTZR",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2017/7/pr_2017_7_25_9_10_11_472.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2017/6/pr_2017_6_1_12_21_10_432.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 559,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "G.SKILL"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.88,
+      "reviewCount": 59,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2017-12-14T22:48:40.000Z",
+        "description": "Świetne pamięci.\r\nBezkonkurencyjna wydajność. Od razu po podłączeniu taktowanie i opóźnienie pamięci na właściwym poziomie (3600MHz CL16). Do tego ekstra wygląd zarówno radiatorów, jak i podświetlenia idącego przez całą kość.",
+        "author": {
+          "@type": "Thing",
+          "name": "Aleksander"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2018-09-27T10:31:47.000Z",
+        "description": "Są piękne i cena ich się utrzymuję.Do tego szybkie i wydajne.xmp na 3200mhz na asus z370 f-gaming.Dużo płyt je wspiera.Na podstawce am4 nie wiem jak tam jest.Ogólnie polecam!",
+        "author": {
+          "@type": "Thing",
+          "name": "Artur"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-07-14T14:01:24.000Z",
+        "description": "Kości działają idealnie, tryb XMP pracuje bez żadnych problemów, a do tego ten wygląd, wiadomo - kwestia gustu, ale w mojej opinii są to jedne z najlepiej wyglądających i najlepiej wykonanych pamięci RAM. Opcje podświetlenia również stoją na bardzo wysokim poziomie.",
+        "author": {
+          "@type": "Thing",
+          "name": "Dominik"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-01-07T16:39:35.000Z",
+        "description": "Na 9900k latają 4166MHz CL17-17-17-37. Nie jest źle, na więcej muszę lepiej schłodzić procka",
+        "author": {
+          "@type": "Thing",
+          "name": "Bartosz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2018-10-16T08:02:38.000Z",
+        "description": "Wydajnościowo takie jak każde inne, ale wygląd przepiękny, według mnie najlepiej zaprojektowane RAMy, doskonale się prezentują w przeszklonej obudowie.",
+        "author": {
+          "@type": "Thing",
+          "name": "wololo"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-01-23T22:39:56.000Z",
+        "description": "Na MSI B450 Tomahawk działają na 3200 mhz oraz wyglądają rewelacyjnie",
+        "author": {
+          "@type": "Thing",
+          "name": "Arman"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-07-25T20:06:06.000Z",
+        "description": "Chyba najładniejsze kości RAM. efekt rgb nie razi w oczy dodaje uroku aż się chce je pokazywać:) do tego 3200 z cl16 na xmp. Świetne.",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2020-09-01T17:53:33.000Z",
+        "description": "Swietne pamięci u mnie bidaje sie trafily wiec kręcą się na 4000MHz bez problemu stabilnie",
+        "author": {
+          "@type": "Thing",
+          "name": "Przemysław"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-02-22T09:48:56.000Z",
+        "description": "Ram posiada niesamowite możliwości OC i super wygląd.\nU mnie 3733 MHZ\nNB Freq 1866\nCl 14-14-14-27\nVoltage 1.46\n\nNa cl 15-15-15-36 spokojnie go pusciłem na 4000, na pewno dałoby się sporo więcej, aczkolwiek przy ryzenie zmniejszenie CL dało wiecej pkt w benchmarkach.\n\nNa occt przy obciązeniu 95% stabilnie bez żadnych błędów.\nRazem z ryzenem 5600x ustawionym na stabilne 4700 daje super performance.\n\nBardzo polecam !",
+        "author": {
+          "@type": "Thing",
+          "name": "Michał"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-04-11T15:45:33.000Z",
+        "description": "Kozak!!",
+        "author": {
+          "@type": "Thing",
+          "name": "Jacek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2019-03-06T19:24:16.000Z",
+        "description": "Bardzo fajne pamięci. Oprócz bezbłędnego działania wzbogacają wnętrze obudowy kolorowym, jednocześnie delikatnym akcentem.",
+        "author": {
+          "@type": "Thing",
+          "name": "Andrzej"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2018-10-03T12:29:43.000Z",
+        "description": "Porządne ramy. Udane podkręcenie do CL15. Super polecam",
+        "author": {
+          "@type": "Thing",
+          "name": "Łukasz"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-04-13T16:56:04.000Z",
+        "description": "Kupione za 660zł więc nie narzekam, wyżej niż 3333MHz nie poszły, ale za to z timingami 14-14-14-28.",
+        "author": {
+          "@type": "Thing",
+          "name": "Szymon Lipa"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2020-12-23T09:19:01.000Z",
+        "description": "Genialne, piękne, szybkie, działa dobrze z ryzenami. Myślę nad kolejnym zakupem aby zapełnić nimi wszystkie sloty.",
+        "author": {
+          "@type": "Thing",
+          "name": "Adrian"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2018-12-28T07:04:11.000Z",
+        "description": "Super wyglądają i działaja bez problemu na 3200mhz na MSI B540 Gaming Pro Carbon AC. Polecam!",
+        "author": {
+          "@type": "Thing",
+          "name": "Tomek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      }
+    ]
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "NZXT N7 B550 White WI-FI",
+    "productID": "1065857",
+    "sku": "1065857",
+    "mpn": "N7-B55XT-W1",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_24_58_836_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_25_2_726_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_25_1_8_01.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_25_4_304_03.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_25_5_944_04.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/8/pr_2022_8_25_10_25_7_522_05.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 1399,
+      "itemCondition": "http://schema.org/NewCondition"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "NZXT"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 6,
+      "reviewCount": 1,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": {
+      "@type": "Review",
+      "datePublished": "2022-09-11T19:40:05.000Z",
+      "description": "/",
+      "author": {
+        "@type": "Thing",
+        "name": "Bartek"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "bestRating": 6,
+        "worstRating": 1,
+        "ratingValue": 6
+      }
+    }
+  },
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": "NZXT C650 650W 80 Plus Gold",
+    "productID": "660704",
+    "sku": "660704",
+    "mpn": "NP-C650M-EU ",
+    "image": [
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/9/pr_2021_9_6_10_1_15_222_00.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/9/pr_2021_9_6_10_1_18_581_02.jpg",
+      "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/9/pr_2021_9_6_10_1_17_18_01.jpg"
+    ],
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "PLN",
+      "price": 499,
+      "itemCondition": "http://schema.org/NewCondition",
+      "availability": "http://schema.org/InStock"
+    },
+    "brand": {
+      "@type": "Thing",
+      "name": "NZXT"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": 5.8,
+      "reviewCount": 5,
+      "worstRating": 1,
+      "bestRating": 6
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "datePublished": "2022-01-04T22:37:56.000Z",
+        "description": "Bardzo dobra jakość. Bardzo cicha praca. Solidnie wykonany. Zestaw zawiera wszystko co powinien. Wielki plus za 120 miesięcy gwarancji.",
+        "author": {
+          "@type": "Thing",
+          "name": "Przemek"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-05-30T17:27:26.000Z",
+        "description": "ok",
+        "author": {
+          "@type": "Thing",
+          "name": "Szymon"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-09-08T08:09:57.000Z",
+        "description": "dobrej jakosci przewody, pelny zestaw do wiekszosci setupów",
+        "author": {
+          "@type": "Thing",
+          "name": "Piotr"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2022-02-13T00:39:04.000Z",
+        "description": "Jest spoko",
+        "author": {
+          "@type": "Thing",
+          "name": "Krzysztof"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 6
+        }
+      },
+      {
+        "@type": "Review",
+        "datePublished": "2021-12-12T12:38:34.000Z",
+        "description": "Bardzo dobry zasilacz praktycznie bezgłośny, na podzespołach seasonic, posiada 10lat gwarancji. Informacyjnie seria C nie współpracuje z nzxt cam.",
+        "author": {
+          "@type": "Thing",
+          "name": "Adam"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "bestRating": 6,
+          "worstRating": 1,
+          "ratingValue": 5
+        }
+      }
+    ]
   }
 ]
