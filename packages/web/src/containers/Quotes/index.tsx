@@ -97,6 +97,7 @@ function Data({ version = "v1" }) {
     { date: "2022-06-23", investment_id: 10, value: -907.62 }, // PKO Akcji Nowa Europa
     { date: "2022-06-23", investment_id: 33, value: 907.62 }, // PKO Akcji Plus
     { date: "2022-07-29", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
+    { date: "2022-08-29", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
   ]);
 
   const options = useMemo(
