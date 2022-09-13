@@ -529,6 +529,8 @@ export default function (type?: string) {
           "get-product:598909-stabilizator-do-aparatu-dji-rsc-2-pro-combo-ronin-sc2-pro-combo",
           "get-product:603420-dron-dji-mini-2",
           "get-product:603422-dron-dji-mini-2-fly-more-combo",
+          "get-product:634060-dron-dji-fpv-combo",
+          "get-product:634107-dron-dji-fpv",
           "get-product:645129-dron-dji-air-2s-mavic-air-2s",
           "get-product:679314-gimbal-dji-om-5-osmo-mobile-5",
           "get-product:684658-gimbal-dji-om-4-se-osmo-mobile-4-se",
