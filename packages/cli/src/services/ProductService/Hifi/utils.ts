@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { parse } from "node-html-parser";
+import { decode } from "html-entities";
 import { ItemSchema } from "../types";
 
 const parseText = (text: string) =>
@@ -14,7 +15,7 @@ const parseText = (text: string) =>
 export const parseJson = (text: string) => JSON.parse(parseText(text));
 
 const ItemJsonSchema = z.object({
-  name: z.string(),
+  name: z.string().transform((s) => decode(s)),
   image: z.string(),
   brand: z.object({
     name: z.string(),
@@ -30,7 +31,10 @@ const ItemJsonSchema = z.object({
         name: z.string().transform((s) => s.trim()),
       }),
       datePublished: z.string(),
-      reviewBody: z.string().transform((s) => s.trim()),
+      reviewBody: z
+        .string()
+        .transform((s) => s.trim())
+        .transform((s) => decode(s)),
     })
     .transform(
       ({
