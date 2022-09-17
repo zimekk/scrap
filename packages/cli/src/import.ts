@@ -62,6 +62,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
+// REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
 
 enum Types {
@@ -424,7 +425,7 @@ export default function (type?: string) {
           "get-product-cyfrowe:kamera-cyfrowa-canon-eos-c70-p",
           "get-product-cyfrowe:kamera-sportowa-gopro-hero8-black-polska-dystrybucja-p",
           // "get-product-cyfrowe:plecak-manfrotto-advanced2-befree-p",
-          "get-product-cyfrowe:plecak-manfrotto-advanced-2-active-p",
+          // "get-product-cyfrowe:plecak-manfrotto-advanced-2-active-p",
           // "get-product-cyfrowe:plecak-manfrotto-advanced-2-travel-m-p",
           "get-product-cyfrowe:plecak-manfrotto-advanced-iii-active-p",
           // "get-product-cyfrowe:aparaty/plecak-manfrotto-next-szary",
@@ -484,10 +485,13 @@ export default function (type?: string) {
           "get-product:567460-etui-obudowa-na-smartfona-apple-leather-case-do-iphone-7-8-se-nocny-blekit",
           "get-product:567459-etui-obudowa-na-smartfona-apple-leather-case-do-iphone-7-8-se-czarny",
           "get-product:530119-statyw-rode-psa1-studio-arm",
+          "get-product:456907-dysk-ssd-crucial-1tb-m2-pcie-nvme-p1",
           "get-product:563133-dysk-ssd-kingston-1tb-m2-pcie-nvme-kc2500",
+          "get-product:646469-dysk-ssd-patriot-1tb-m2-pcie-gen4-nvme-viper-vp4300",
           "get-product:672259-dysk-ssd-crucial-500gb-m2-pcie-gen4-nvme-p5-plus",
           "get-product:672263-dysk-ssd-crucial-1tb-m2-pcie-gen4-nvme-p5-plus",
-          "get-product:456907-dysk-ssd-crucial-1tb-m2-pcie-nvme-p1",
+          "get-product:691124-dysk-ssd-kingston-1tb-m2-pcie-gen4-nvme-fury-renegade",
+          "get-product:714605-dysk-ssd-corsair-1tb-m2-pcie-gen4-nvme-force-mp600-pro-lpx",
           "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
           "get-product:583534-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-essential",
           "get-product:583538-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-1s",
