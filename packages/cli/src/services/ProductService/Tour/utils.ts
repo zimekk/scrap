@@ -6,10 +6,6 @@ const ItemJsonSchema = z.object({
   name: z.string(),
   sku: z.string(),
   gtin13: z.string(),
-  image: z.union([
-    z.string().transform((image) => [image]),
-    z.string().array(),
-  ]),
   offers: z.object({
     priceCurrency: z.enum(["PLN"]),
     price: z.string(),
@@ -40,12 +36,16 @@ export const fromHtml = (html: string) => {
 
   const url = $root.querySelector("link[rel=canonical]")?.getAttribute("href");
 
+  const image = $root
+    .querySelectorAll('a[rel="gallery"]')
+    .map((item) => item.getAttribute("href") || "");
+
+  // console.log({ url, image });
+
   try {
     return ItemSchema.parse({
       url,
-      image: $root
-        .querySelectorAll('div.row > a[rel="gallery"]')
-        .map((item) => item.getAttribute("href") || ""),
+      image,
       stars: "",
       proms: [],
       codes: [],
