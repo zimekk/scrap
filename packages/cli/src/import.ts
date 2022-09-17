@@ -47,14 +47,14 @@ import {
 // const REGEX = new RegExp(/^(get-product|get-product-alto):/);
 let REGEX = new RegExp(/^(.)*$/);
 
-REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/grecos:/)
+// REGEX = new RegExp(/tui:/);
+REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/rates/)
 // REGEX = new RegExp(/^((?!rates).)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
-// REGEX = new RegExp(/tui:/);
-// REGEX = new RegExp(/(bmw-used|bmw-new|mini-new)/)
+// REGEX = new RegExp(/^(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
 // REGEX = new RegExp(/^(get-product:712247)/);
@@ -219,7 +219,9 @@ export default function (type?: string) {
     type
       ? []
       : [
-          2, 4, 5, 6, 8,
+          2, 4, 5,
+          // 6,
+          8,
           // 10,
           30, 33, 34, 35, 36, 37, 43, 44, 73, 74, 75, 77, 79, 80, 82, 84, 91,
           103, 104, 105, 106, 107, 112, 113, 114, 117, 119,
