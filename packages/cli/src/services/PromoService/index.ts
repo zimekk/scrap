@@ -1,10 +1,13 @@
 import { z } from "zod";
+import { promoItems } from "@dev/api/promo";
 import { browser } from "../../request";
 import Service from "../Service";
 import { saveProductHtml } from "../utils";
 import { ItemSchema, fromHtml } from "./utils";
 
 const { STORE_URL: URL } = process.env;
+
+const _time = Date.now();
 
 export class PromoService extends Service {
   async fetcher([site, type]: string[]) {
@@ -32,14 +35,25 @@ export class PromoService extends Service {
           .catch((e) => console.error(e))
           .then((item) => ({
             type,
-            // list: [],
-            list: item ? [item] : [],
+            list: item ? item.list : [],
             next: null,
           }))
       );
   }
 
   async process(item = {}): Promise<any> {
-    return ItemSchema.parseAsync(item).then((item) => item);
+    return ItemSchema.transform((item) => ({ id: item.href, ...item }))
+      .parseAsync(item)
+      .then((item) =>
+        promoItems.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            this.summary.checked.push(item.id);
+            return promoItems.update({ ...last, _checked: _time });
+          } else {
+            this.summary.created.push(item.id);
+            return promoItems.insert({ ...item, _created: _time });
+          }
+        })
+      );
   }
 }

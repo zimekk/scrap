@@ -2,14 +2,14 @@ import { z } from "zod";
 import { parse } from "node-html-parser";
 
 export const ItemSchema = z.object({
-  list: z
-    .object({
-      name: z.string(),
-      desc: z.string(),
-      href: z.string(),
-      code: z.string().optional(),
-    })
-    .array(),
+  name: z.string(),
+  desc: z.string(),
+  href: z.string(),
+  code: z.string().optional(),
+});
+
+export const ListSchema = z.object({
+  list: ItemSchema.array(),
 });
 
 export const fromHtml = (html: string) => {
@@ -36,7 +36,7 @@ export const fromHtml = (html: string) => {
   };
 
   try {
-    return ItemSchema.parse(json);
+    return ListSchema.parse(json);
   } catch (e) {
     console.log(json);
     throw e;
