@@ -108,7 +108,8 @@ export const request = (
 
 export const browser = (
   { id, url }: { id: string; url: string },
-  summary: Summary
+  summary: Summary,
+  json: any = null
 ) =>
   requestsHtml
     .findOne({ id })
@@ -137,7 +138,7 @@ export const browser = (
               //   );
               // }
 
-              const page = await openPage(browser);
+              const page = await openPage(browser, json);
 
               const { text, ...response } = await navigateAndGetPageSource(
                 url,
@@ -166,9 +167,14 @@ export const browser = (
             })
             .then((html: any) =>
               // Boolean(console.log({ id, html })) ||
-              requestsHtml.insert({ id, html, _created: _time })
+              requestsHtml.insert(
+                Object.assign(
+                  { id, html, _created: _time },
+                  json ? { json: JSON.stringify(json) } : {}
+                )
+              )
             )
             .then(timeout())
     )
-    .then(({ html }: any) => html)
+    .then(({ html, json }: any) => (json ? JSON.parse(json) : html))
     .catch(console.error);

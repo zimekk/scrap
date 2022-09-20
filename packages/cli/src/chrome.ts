@@ -1,5 +1,5 @@
 // https://github.com/calebj0seph/stock-checker/blob/master/src/chrome.js
-import type { HTTPRequest } from "puppeteer";
+import type { HTTPRequest, HTTPResponse } from "puppeteer";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { resolve } from "path";
@@ -26,30 +26,52 @@ export async function openChromeBrowser() {
   });
 }
 
-export async function openPage(browser: any) {
+export async function openPage(browser: any, json: any) {
   // Change the user agent and set additional headers
   const page = await browser.newPage();
   const version = (await browser.version()).match(/Chrome\/(\d+)\./)[1];
   await page.setUserAgent((await browser.userAgent()).replace("Headless", ""));
-  await page.setExtraHTTPHeaders({
-    "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", ";Not A Brand";v="99"`,
-    "sec-ch-ua-mobile": "?0",
-    "sec-fetch-dest": "document",
-    "sec-fetch-mode": "navigate",
-    "sec-fetch-site": "same-origin",
-    "sec-fetch-user": "?1",
-    "upgrade-insecure-requests": "1",
-  });
+  if (json === null) {
+    await page.setExtraHTTPHeaders({
+      "sec-ch-ua": `"Chromium";v="${version}", "Google Chrome";v="${version}", ";Not A Brand";v="99"`,
+      "sec-ch-ua-mobile": "?0",
+      "sec-fetch-dest": "document",
+      "sec-fetch-mode": "navigate",
+      "sec-fetch-site": "same-origin",
+      "sec-fetch-user": "?1",
+      "upgrade-insecure-requests": "1",
+    });
+  }
   // https://bretcameron.medium.com/how-to-build-a-web-scraper-using-javascript-11d7cd9f77f2
   await page.setRequestInterception(true);
 
-  page.on("request", (req: HTTPRequest) => {
-    if (["font", "image"].includes(req.resourceType())) {
-      req.abort();
-    } else {
-      req.continue();
-    }
-  });
+  const match = "/get/xkom/";
+
+  page
+    .on("request", (req: HTTPRequest) => {
+      if (json !== null && req.url().match(match)) {
+        console.log({
+          req: req.url(),
+          // headers: req.headers(),
+          resourceType: req.resourceType(),
+        });
+      }
+
+      if (["font", "image"].includes(req.resourceType())) {
+        req.abort();
+      } else {
+        req.continue();
+      }
+    })
+    .on("response", async (res: HTTPResponse) => {
+      if (json !== null && res.url().match(match)) {
+        console.log({
+          res: res.url(),
+          // headers: res.headers(),
+        });
+        Object.assign(json, await res.json());
+      }
+    });
 
   return page;
 }
