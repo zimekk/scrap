@@ -353,6 +353,8 @@ export default function (type?: string) {
             "9PG5Q9HGZXQ2",
             "9MTJ74MKQM46",
             "9NHXSG62QD2L",
+            "9NC7XRNRMNFH",
+            "9NRX3HRMZQ7Z",
           ],
           5
         ).map((names) => `${Types.XBOX}:${names.join(",")}`)
@@ -632,7 +634,11 @@ export default function (type?: string) {
           "get-product:116315-toner-do-drukarki-samsung-clt-c406s-cyan-1000str",
           "get-product:127128-beben-do-drukarki-samsung-clt-r406-black-16000-zadan-beben",
           "get-product:507439-toner-do-drukarki-hp-106a-black-1000str",
+          "get-product:574185-joystick-thrustmaster-tca-sidestick-airbus-edition",
+          "get-product:596367-joystick-thrustmaster-tca-officer-pack-airbus-edition",
           "get-product:596369-joystick-thrustmaster-tca-quadrant-airbus-edition",
+          "get-product:688356-joystick-thrustmaster-tca-captain-pack-airbus-edition",
+          "get-product:733898-joystick-thrustmaster-tca-quadrant-add-on-airbus-edition",
           "get-product:652301-sluchawki-przewodowe-thrustmaster-gaming-tracing-scuderia-ferrari-dts",
           "get-product:681593-sluchawki-do-konsoli-microsoft-xsx-stereo-headset-przewodowe",
           "get-product:696872-joystick-thrustmaster-tca-yoke-pack-boeing-edition",
