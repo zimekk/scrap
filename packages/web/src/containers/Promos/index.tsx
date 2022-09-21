@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import React, {
+  ChangeEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
+import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import IntlMessageFormat from "intl-messageformat";
 import { createAsset } from "use-asset";
 import type {
@@ -14,6 +22,14 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/promo/data.json?${version}`);
   return await res.json();
 });
+
+const getPercentage = ({
+  price,
+  previous_price = price,
+}: {
+  price: number;
+  previous_price: number;
+}) => (1 - price / previous_price) * 100;
 
 function Product({ item }: { item: ProductType }) {
   return (
@@ -56,7 +72,7 @@ function Product({ item }: { item: ProductType }) {
               {
                 maximumFractionDigits: 2,
               }
-            ).format((1 - item.price / item.previous_price) * 100)}%)`}</span>
+            ).format(getPercentage(item))}%)`}</span>
           ) : null}
         </div>
         {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
@@ -90,19 +106,85 @@ function Products({ products }: { products: ProductType[] }) {
   );
 }
 
-function Promos({ promos }: { promos: PromoType[] }) {
+function Promos({ promos, queries }: { promos: PromoType[]; queries: any }) {
   return (
     <div>
-      {promos.map(({ name, desc, href, data }, key) => (
-        <div key={key}>
-          <h4>
-            <Link href={href}>{name}</Link>
-          </h4>
-          <p>{desc}</p>
-          {data && <Products products={data.products} />}
-        </div>
-      ))}
+      {promos
+        .filter(
+          (item) => (queries.search === "" && queries.reduce === 0) || item.data
+        )
+        .map(({ name, desc, href, data }, key) => (
+          <div key={key}>
+            <h4>
+              <Link href={href}>{name}</Link>
+            </h4>
+            <p>{desc}</p>
+            {data && (
+              <Products
+                products={data.products.filter(
+                  (item) =>
+                    (queries.search === "" ||
+                      item.name.toLowerCase().match(queries.search)) &&
+                    (queries.reduce === 0 ||
+                      queries.reduce <= getPercentage(item))
+                )}
+              />
+            )}
+          </div>
+        ))}
     </div>
+  );
+}
+
+const REDUCE_LIST = [0, 10, 20, 30, 50, 70, 90];
+
+function Filters({ filters, setFilters }: { filters: any; setFilters: any }) {
+  return (
+    <fieldset>
+      <label>
+        <span>Search</span>
+        <input
+          type="search"
+          value={filters.search}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                search: target.value,
+              })),
+            []
+          )}
+        />
+      </label>{" "}
+      <label>
+        <span>Reduce</span>
+        <input
+          type="range"
+          list="reduce-list"
+          min={REDUCE_LIST[0]}
+          max={[...REDUCE_LIST].pop()}
+          value={filters.reduce}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                reduce: Number(target.value),
+              })),
+            []
+          )}
+        />
+        <datalist id="reduce-list">
+          {REDUCE_LIST.map((value) => (
+            <option
+              key={value}
+              value={value}
+              label={REDUCE_LIST.includes(value) ? `${value}%` : undefined}
+            ></option>
+          ))}
+        </datalist>
+        <span>{`${filters.reduce}%`}</span>
+      </label>
+    </fieldset>
   );
 }
 
@@ -110,12 +192,46 @@ export default function Section({ version = "v1" }) {
   const { promos } = asset.read(version) as {
     promos: PromoType[];
   };
-  console.log({ promos });
+
+  const [filters, setFilters] = useState(() => ({
+    reduce: REDUCE_LIST[0],
+    search: "",
+  }));
+
+  const [queries, setQueries] = useState(() => filters);
+
+  const search$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(
+        map(({ search, ...filters }) =>
+          JSON.stringify({
+            ...queries,
+            ...filters,
+            search: search.toLowerCase().trim(),
+          })
+        ),
+        distinctUntilChanged(),
+        debounceTime(400)
+      )
+      .subscribe((filters) =>
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(filters);
+  }, [filters]);
+
+  console.log({ promos, filters, queries });
 
   return (
     <div className={styles.Section}>
       <h2>Promos</h2>
-      <Promos promos={promos} />
+      <Filters filters={filters} setFilters={setFilters} />
+      <Promos promos={promos} queries={queries} />
     </div>
   );
 }
