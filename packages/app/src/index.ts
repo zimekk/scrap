@@ -15,6 +15,7 @@ export const middleware = Router()
     controllers.getHollidaysHotelOffersData
   )
   .use("/api/products/data.json", controllers.getProductsData)
+  .use("/api/promo/data.json", controllers.getPromoData)
   .use("/api/properties/data.json", controllers.getPropertiesData)
   .use("/api/properties/hide.json", controllers.hideProperty)
   .use("/api/properties/like.json", controllers.likeProperty)

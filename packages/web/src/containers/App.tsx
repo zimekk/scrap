@@ -14,6 +14,7 @@ const PAGES = {
   holidays: lazy(() => import("./Holidays")),
   // scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
+  promos: lazy(() => import("./Promos")),
   properties: lazy(() => import("./Properties")),
   quotes: lazy(() => import("./Quotes")),
   stations: lazy(() => import("./Stations")),

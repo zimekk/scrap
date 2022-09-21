@@ -5,6 +5,7 @@ export * from "./exchange";
 export * from "./games";
 export * from "./holidays";
 export * from "./products";
+export * from "./promo";
 export * from "./properties";
 export * from "./stations";
 export * from "./quotes";

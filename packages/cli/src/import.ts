@@ -54,7 +54,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^((?!rates).)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
-// REGEX = new RegExp(/^(bmw-used|bmw-new|mini-new)/)
+// REGEX = new RegExp(/:(bmw-used|bmw-new|mini-new)/)
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
 // REGEX = new RegExp(/^(get-product:712247)/);
@@ -64,6 +64,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
+// REGEX = new RegExp(/^(get-promo:)/);
 
 enum Types {
   PRODUCT = "get-product",

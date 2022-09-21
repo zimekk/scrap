@@ -138,7 +138,7 @@ function Builder({ products }: { products: IProduct[] }) {
                   [items]
                 )}
               />
-              <Product key={id} item={productById[String(id)]} />
+              <Product item={productById[String(id)]} />
             </div>
           ))}
         </div>

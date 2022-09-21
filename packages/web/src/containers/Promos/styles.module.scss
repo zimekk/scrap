@@ -1,0 +1,33 @@
+.Section {
+  color: purple;
+  padding: 1em;
+}
+.Row {
+  position: relative;
+  clear: both;
+  min-height: 66px;
+  padding: 1em 1em 1em calc(100px + 1em);
+  border-top: 1px solid lightgray;
+}
+.Gallery {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  width: 95px;
+  height: 80px;
+  border: 1px solid lightgray;
+}
+.Product {
+  margin-top: 0.5em;
+  padding-top: 0.5em;
+  .PreviousPrice {
+    text-decoration: line-through;
+    color: lightgray;
+    & + .Price {
+      margin-left: 0.5em;
+    }
+  }
+  .Rates {
+    color: gray;
+  }
+}

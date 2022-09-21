@@ -4,7 +4,8 @@ import { promoItems } from "@dev/api/promo";
 import { browser } from "../../request";
 import Service from "../Service";
 import { saveProductHtml } from "../utils";
-import { ItemSchema, JsonSchema, fromHtml } from "./utils";
+import { fromHtml } from "./utils";
+import { ItemSchema, JsonSchema } from "./types";
 
 const { STORE_URL: URL } = process.env;
 
@@ -84,41 +85,5 @@ export class PromoService extends Service {
           }
         })
       );
-  }
-}
-
-export class PromoItemService extends Service {
-  async fetcher(href: string) {
-    const json = { href };
-    return browser(
-      {
-        id: [href, this.mk].join("-"),
-        url: `https://${href}`,
-      },
-      this.summary,
-      json
-    );
-  }
-
-  async request(type: string): Promise<{
-    type: string;
-    list: any[];
-    next: any;
-  }> {
-    return z
-      .tuple([z.string(), z.string()])
-      .transform(([kind, href]) => ({ href, kind }))
-      .parseAsync(type.split(":"))
-      .then(({ href }) =>
-        this.fetcher(href).then((json) => ({
-          type,
-          list: [json],
-          next: null,
-        }))
-      );
-  }
-
-  async process(item = {}): Promise<any> {
-    console.log(JsonSchema.parse(item));
   }
 }
