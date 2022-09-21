@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IntlMessageFormat from "intl-messageformat";
 import { createAsset } from "use-asset";
 import type {
@@ -39,23 +39,54 @@ function Product({ item }: { item: ProductType }) {
           </span>
         </div>
         <div>
-          {item.previous_price && (
+          {item.previous_price ? (
             <span className={styles.PreviousPrice}>{`${new Intl.NumberFormat(
               "pl-PL",
               {
                 minimumFractionDigits: 2,
               }
             ).format(item.previous_price)} PLN`}</span>
-          )}
+          ) : null}
           <span className={styles.Price}>{`${new Intl.NumberFormat("pl-PL", {
             minimumFractionDigits: 2,
-          }).format(item.price)} PLN (${new Intl.NumberFormat("pl-PL", {
-            maximumFractionDigits: 2,
-          }).format((1 - item.previous_price / item.price) * 100)}%)`}</span>
+          }).format(item.price)} PLN`}</span>
+          {item.previous_price ? (
+            <span className={styles.Percentage}>{`(${new Intl.NumberFormat(
+              "pl-PL",
+              {
+                maximumFractionDigits: 2,
+              }
+            ).format((1 - item.price / item.previous_price) * 100)}%)`}</span>
+          ) : null}
         </div>
         {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
       </span>
     </span>
+  );
+}
+
+const PRODUCTS_LIMIT = 3;
+
+function Products({ products }: { products: ProductType[] }) {
+  const [more, setMore] = useState(() =>
+    products.length > PRODUCTS_LIMIT ? false : true
+  );
+
+  return (
+    <div>
+      {(more ? products : products.slice(0, PRODUCTS_LIMIT)).map(
+        (item, key) => (
+          <div key={key} className={styles.Row}>
+            <Product item={item} />
+          </div>
+        )
+      )}
+      {more === false && (
+        <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
+          more...
+        </Link>
+      )}
+    </div>
   );
 }
 
@@ -68,12 +99,7 @@ function Promos({ promos }: { promos: PromoType[] }) {
             <Link href={href}>{name}</Link>
           </h4>
           <p>{desc}</p>
-          {data &&
-            data.products.map((item, key) => (
-              <div key={key} className={styles.Row}>
-                <Product item={item} />
-              </div>
-            ))}
+          {data && <Products products={data.products} />}
         </div>
       ))}
     </div>

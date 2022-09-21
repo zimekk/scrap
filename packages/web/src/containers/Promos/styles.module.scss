@@ -27,6 +27,11 @@
       margin-left: 0.5em;
     }
   }
+  .Price {
+    & + .Percentage {
+      margin-left: 0.5em;
+    }
+  }
   .Rates {
     color: gray;
   }
