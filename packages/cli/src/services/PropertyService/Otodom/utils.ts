@@ -24,10 +24,10 @@ const AddressItem = z
 const Address = z.object({
   city: AddressItem,
   county: AddressItem,
-  district: AddressItem,
+  district: AddressItem.nullable(),
   municipality: AddressItem.nullable(),
   postalCode: AddressItem.nullable(),
-  street: AddressItem,
+  street: AddressItem.nullable(),
   province: AddressItem,
   subdistrict: AddressItem.nullable(),
   // __typename: "Address"
@@ -175,7 +175,7 @@ export const scrapPropertyOtodomItem = (
         address: z
           .object({
             lokalizacja_gmina: z.string(),
-            lokalizacja_region: z.string(),
+            lokalizacja_region: z.string().optional(),
             lokalizacja_powiat: z.string(),
             lokalizacja_miejscowosc: z.string(),
             lokalizacja_kraj: z.string(),
@@ -370,14 +370,16 @@ export const scrapPropertyOtodomItem = (
               // Boolean(console.log(characteristics))||
               ({
                 ...item,
-                address: {
-                  lokalizacja_gmina: address.province,
-                  lokalizacja_region: address.district,
-                  lokalizacja_powiat: address.county,
-                  lokalizacja_miejscowosc: address.city,
-                  lokalizacja_kraj: Country,
-                  lokalizacja_ulica: address.street,
-                },
+                address: Object.assign(
+                  {
+                    lokalizacja_gmina: address.province,
+                    lokalizacja_powiat: address.county,
+                    lokalizacja_miejscowosc: address.city,
+                    lokalizacja_kraj: Country,
+                  },
+                  address.district && { lokalizacja_region: address.district },
+                  address.street && { lokalizacja_ulica: address.street }
+                ),
                 canonical: url,
                 category: {
                   ["dzialka"]: () =>
