@@ -62,7 +62,12 @@ const collect = (url: string, data: string, summary: Summary) => {
 };
 
 export const request = (
-  { id, url, params }: { id: string; url: string; params?: object },
+  {
+    id,
+    url,
+    params,
+    html = false,
+  }: { id: string; url: string; params?: object; html?: boolean },
   summary: Summary
 ) =>
   requests
@@ -87,12 +92,12 @@ export const request = (
               if (response.status >= 400) {
                 throw new Error("Bad response from server");
               }
-              return response.json();
+              return html ? response.text() : JSON.stringify(response.json());
             })
             .then((json: any) =>
               requests.insert({
                 id,
-                json: JSON.stringify(json),
+                json,
                 _created: _time,
               })
             )
@@ -104,7 +109,7 @@ export const request = (
             })
             .then(timeout())
     )
-    .then(({ json }: any) => JSON.parse(json));
+    .then(({ json }: any) => (html ? json : JSON.parse(json)));
 
 export const browser = (
   { id, url }: { id: string; url: string },
