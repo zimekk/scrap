@@ -76,7 +76,7 @@ export const request = (
       data
         ? Promise.resolve(data)
         : fetch(url, params)
-            .then((response: any) => {
+            .then(async (response: any) => {
               // console.log(["request"], id, requestLimit--);
               console.log({
                 url,
@@ -92,7 +92,9 @@ export const request = (
               if (response.status >= 400) {
                 throw new Error("Bad response from server");
               }
-              return html ? response.text() : JSON.stringify(response.json());
+              return html
+                ? response.text()
+                : JSON.stringify(await response.json());
             })
             .then((json: any) =>
               requests.insert({
