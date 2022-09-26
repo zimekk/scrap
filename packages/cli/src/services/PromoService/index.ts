@@ -80,6 +80,13 @@ export class PromoService extends Service {
               )
               .then((item) => {
                 console.log(item);
+                if (last) {
+                  return promoItems.update({
+                    ...last,
+                    ...item,
+                    _updated: _time,
+                  });
+                }
                 return promoItems.insert({ ...item, _created: _time });
               });
           }

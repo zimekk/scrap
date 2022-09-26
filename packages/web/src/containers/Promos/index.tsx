@@ -9,6 +9,7 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import IntlMessageFormat from "intl-messageformat";
 import { createAsset } from "use-asset";
+import { format } from "date-fns";
 import type {
   ProductType,
   PromoType,
@@ -99,7 +100,7 @@ function Products({ products }: { products: ProductType[] }) {
       )}
       {more === false && (
         <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
-          more...
+          {`${products.length - PRODUCTS_LIMIT} więcej...`}
         </Link>
       )}
     </div>
@@ -117,6 +118,15 @@ function Promos({ promos, queries }: { promos: PromoType[]; queries: any }) {
           <div key={key}>
             <h4>
               <Link href={href}>{name}</Link>
+              {data &&
+                data.general &&
+                (({ date_start, date_stop }) =>
+                  ` (${format(
+                    new Date(date_start),
+                    "yyyy-MM-dd HH:mm"
+                  )} - ${format(new Date(date_stop), "yyyy-MM-dd HH:mm")})`)(
+                  data.general
+                )}
             </h4>
             <p>{desc}</p>
             {data && (
