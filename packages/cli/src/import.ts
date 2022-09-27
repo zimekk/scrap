@@ -7,6 +7,7 @@ import {
   GameService,
   HolidaysGrecosService,
   HolidaysTuiService,
+  HotShotService,
   ProductService,
   ProductAltoService,
   ProductCyfroweService,
@@ -65,6 +66,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
 // REGEX = new RegExp(/^(get-promo:)/);
+// REGEX = new RegExp(/^(get-hot-shot:)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -74,6 +76,7 @@ enum Types {
   ELECTRO = "get-product-electro",
   EQUIP = "get-product-equip",
   EURO = "get-product-euro",
+  HOTSHOT = "get-hot-shot",
   KOMP = "get-product-komp",
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
@@ -106,6 +109,7 @@ const SERVICES = {
   [Types.ELECTRO]: ProductElectroService,
   [Types.EQUIP]: ProductEquipService,
   [Types.EURO]: ProductEuroService,
+  [Types.HOTSHOT]: HotShotService,
   [Types.KOMP]: ProductKompService,
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
@@ -901,7 +905,9 @@ export default function (type?: string) {
     request$.next({ type });
   });
 
-  from(type ? [] : ["get-promo:promocje"]).subscribe((type) => {
+  from(
+    type ? [] : ["get-promo:promocje", "get-hot-shot:goracy-strzal"]
+  ).subscribe((type) => {
     request$.next({ type });
   });
 
