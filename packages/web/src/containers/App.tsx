@@ -12,6 +12,7 @@ const PAGES = {
   finances: lazy(() => import("./Finances")),
   games: lazy(() => import("./Games")),
   holidays: lazy(() => import("./Holidays")),
+  "hot-shots": lazy(() => import("./HotShots")),
   // scrap: lazy(() => import("./Scrap")),
   products: lazy(() => import("./Products")),
   promos: lazy(() => import("./Promos")),

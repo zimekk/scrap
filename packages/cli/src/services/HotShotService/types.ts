@@ -54,7 +54,10 @@ export const ProductSchema = z
     Price: z.number(),
     // OldPrice: null,
     // PriceInfo: [Object],
-    // Producer: [Object],
+    Producer: z.object({
+      Id: z.string(),
+      Name: z.string(),
+    }),
     // Category: [Object],
     // SecondaryCategory: [],
     MainPhoto: PhotoSchema,

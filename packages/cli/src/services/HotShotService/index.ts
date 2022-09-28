@@ -58,6 +58,11 @@ export class HotShotService extends Service {
             return hotShotItems.insert({ ...item, _created: _time });
           }
         })
-      );
+      )
+      .catch((error) => {
+        console.log(item);
+        console.error(error);
+        return null;
+      });
   }
 }
