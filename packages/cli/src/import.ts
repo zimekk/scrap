@@ -37,7 +37,6 @@ import {
 } from "./services";
 
 // const REGEX = new RegExp(/media/)
-// const REGEX = new RegExp(/mensa/);
 // const REGEX = new RegExp(/promo:/)
 // const REGEX = new RegExp(/equip:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
@@ -63,6 +62,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
+// REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
 // REGEX = new RegExp(/^(get-promo:)/);
@@ -568,6 +568,10 @@ export default function (type?: string) {
           "get-product:293301-akumulator-uniwersalny-panasonic-eneloop-pro-r6-aa-2500-mah-2-szt-blister",
           "get-product:293346-akumulator-uniwersalny-panasonic-eneloop-pro-r03-aaa-930mah-2-szt-blister",
           "get-product:704653-akumulator-uniwersalny-panasonic-eneloop-pro-r03-aaa-930mah-4-szt-sliding-pack",
+          "get-product:1068287-bateria-i-akumulatorek-panasonic-eneloop-pro-aa-2500mah-4-szt",
+          "get-product:1068291-bateria-i-akumulatorek-panasonic-eneloop-pro-aa-2500mah-4-szt-box",
+          "get-product:1068323-bateria-i-akumulatorek-panasonic-eneloop-aa-2000mah-4-szt",
+          "get-product:1068324-bateria-i-akumulatorek-panasonic-eneloop-aa-2000mah-4-szt-box",
           "get-product:431123-pendrive-pamiec-usb-sandisk-16gb-ultra-fit-usb-31-130mb-s",
           "get-product:431125-pendrive-pamiec-usb-sandisk-32gb-ultra-fit-usb-31-130mb-s",
           "get-product:635440-pendrive-pamiec-usb-lexar-256gb-jumpdrive-s47-usb-31-250mb-s",
@@ -723,6 +727,10 @@ export default function (type?: string) {
           "get-product:665238-procesor-amd-ryzen-7-amd-ryzen-7-5700g",
           "get-product:735703-procesor-amd-ryzen-5-amd-ryzen-5-5600",
           "get-product:735718-procesor-amd-ryzen-7-amd-ryzen-7-5700x",
+          "get-product:1072683-procesor-amd-ryzen-9-amd-ryzen-9-7950x",
+          "get-product:1072706-procesor-amd-ryzen-9-amd-ryzen-9-7900x",
+          "get-product:1072717-procesor-amd-ryzen-7-amd-ryzen-7-7700x",
+          "get-product:1072725-procesor-amd-ryzen-5-amd-ryzen-5-7600x",
           "get-product:533018-plyta-glowna-socket-am4-asus-rog-strix-x570-i-gaming",
           "get-product:569332-plyta-glowna-socket-am4-msi-mag-b550m-mortar-wifi",
           "get-product:569337-plyta-glowna-socket-am4-asus-rog-strix-b550-i-gaming",
@@ -730,10 +738,17 @@ export default function (type?: string) {
           "get-product:569340-plyta-glowna-socket-am4-asus-tuf-gaming-b550m-plus",
           "get-product:618348-plyta-glowna-socket-am4-gigabyte-b550m-aorus-pro-p",
           "get-product:722483-plyta-glowna-socket-am4-asus-tuf-gaming-b550m-plus-wifi-ii",
+          "get-product:1062396-plyta-glowna-socket-am5-asrock-x670e-taichi-carrara",
+          "get-product:1062399-plyta-glowna-socket-am5-asrock-x670e-taichi",
+          "get-product:1062400-plyta-glowna-socket-am5-asrock-x670e-steel-legend",
           "get-product:1065855-plyta-glowna-socket-am4-nzxt-n7-b550-black-wi-fi",
           "get-product:1065857-plyta-glowna-socket-am4-nzxt-n7-b550-white-wi-fi",
+          "get-product:1070328-plyta-glowna-socket-am5-asrock-x670e-pg-lightning",
           "get-product:1072677-plyta-glowna-socket-am5-asus-rog-crosshair-x670e-gene",
+          "get-product:1072680-plyta-glowna-socket-am5-asus-rog-crosshair-x670e-hero",
           "get-product:1072688-plyta-glowna-socket-am5-asus-rog-strix-x670e-i-gaming-wifi",
+          "get-product:1072699-plyta-glowna-socket-am5-asus-tuf-gaming-x670e-plus",
+          "get-product:1072722-plyta-glowna-socket-am5-msi-pro-x670-p-wifi",
           "get-product:507702-karta-graficzna-nvidia-asus-geforce-rtx-2060-dual-evo-oc-6gb-gddr6",
           "get-product:510676-karta-graficzna-amd-asus-radeon-rx-5700-xt-rog-strix-gaming-oc-8gb-gddr6",
           "get-product:541516-karta-graficzna-nvidia-asus-geforce-gtx-1660-super-tuf-gaming-oc-6gb-gddr6",
@@ -881,6 +896,14 @@ export default function (type?: string) {
           "get-product-mensa:wmf-blok-do-nozy-1880454500",
           "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
           "get-product-mensa:wmf-noz-20cm-do-warzyw-18-7003-9990",
+          "get-product-mensa:wmf-zestaw-3-nozy-ostrzalka-nozyczki-w-bloku-spitzenklasse-plus-18-9511-9992",
+          "get-product-mensa:wmf-zestaw-3-nozy-ostrzalka-nozyczki-w-bloku-spitzenklasse-18-9585-9992",
+          "get-product-mensa:wmf-zestaw-3-nozy-spitzenklasse-plus-18-9491-9992",
+          "get-product-mensa:wmf-zestaw-4-nozy-spitzenklasse-plus-w-bloku-ostrzalka-18-9215-9992",
+          "get-product-mensa:wmf-ekspres-do-kawy-perfection-840-automatyczny-cp850d",
+          "get-product-mensa:wmf-ekspres-do-kawy-perfection-890-automatyczny-cp8558",
+          "get-product-mensa:kuvings-wyciskarka-wolnoobrotowa-d9900-grafitowa-matowa",
+          "get-product-mensa:kuvings-wyciskarka-wolnoobrotowa-evo820-plus-biala-zestaw-sitek",
           "get-product-mensa:mensa-home-pomocnik-do-paleczek-panda-53cm-6094071",
           "get-product-mensa:mensa-home-pomocnik-do-paleczek-kot-53cm-6094073",
           "get-product-equip:product-pol-63775-Plecak-Fjallraven-Kanken-fog-pink",
