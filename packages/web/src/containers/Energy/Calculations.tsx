@@ -23,6 +23,8 @@ export type Rate = {
 };
 
 export type Item = {
+  contract: string;
+  counter: string;
   data: Rate;
   from: string;
   to: string;
@@ -110,10 +112,10 @@ export default function Calculations({
                 )}
               />
             </th>
-            <th align="left">Okres zużycia</th>
+            <th align="left">Licznik / Okres zużycia</th>
             <th align="right">Poprzednie wskazanie licznika</th>
             <th align="right">Obecne wskazanie licznika</th>
-            <th align="right">Rodzaj odczytu</th>
+            <th align="left">Rodzaj odczytu</th>
             <th align="right">Zużycie [kWh]</th>
             <th align="right">Wartość brutto [zł]</th>
           </tr>
@@ -150,8 +152,10 @@ export default function Calculations({
                       []
                     )}
                   >
-                    {format(new Date(item.from), "dd.MM.yyyy")}-
-                    {format(new Date(item.to), "dd.MM.yyyy")}
+                    {`${item.counter} / ${format(
+                      new Date(item.from),
+                      "dd.MM.yyyy"
+                    )}-${format(new Date(item.to), "dd.MM.yyyy")}`}
                   </a>
                 </td>
                 <td align="right">
@@ -164,7 +168,7 @@ export default function Calculations({
                     minimumFractionDigits: 2,
                   }).format(item.value)}
                 </td>
-                <td align="right">{item.estimated ? "S**" : "R"}</td>
+                <td align="left">{item.estimated ? "S**" : "R"}</td>
                 <td align="right">
                   {new Intl.NumberFormat("pl-PL", {
                     minimumFractionDigits: 2,
