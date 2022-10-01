@@ -7,7 +7,6 @@ import React, {
 } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
-import IntlMessageFormat from "intl-messageformat";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
 import type { ItemType } from "@dev/cli/src/services/HotShotService/types";
@@ -18,7 +17,7 @@ import styles from "./styles.module.scss";
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/hot-shots/data.json?${version}`);
-  return await res.json();
+  return await res.json().then((list) => list);
 });
 
 const getPercentage = ({
@@ -72,7 +71,7 @@ function Product({ item }: { item: ItemType }) {
   );
 }
 
-const PRODUCTS_LIMIT = 3;
+const PRODUCTS_LIMIT = 5;
 
 function Products({ products }: { products: ItemType[] }) {
   const [more, setMore] = useState(() =>
