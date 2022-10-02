@@ -9,9 +9,9 @@ describe("ProductMensaService", () => {
         result: {
           brand: "WMF",
           codes: [],
-          id: "1880454500",
+          id: "mensa-1880454500",
           image: ["https://mensahome.eu/images/items/4086/40860_top.webp"],
-          label: [],
+          label: ["Kod w sklepie: 1880454500"],
           links: [],
           price: ["299.00"],
           proms: [],

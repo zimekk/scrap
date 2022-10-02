@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { parse } from "node-html-parser";
+import slug from "slug";
 import { ItemSchema } from "../types";
 
 const ItemJsonSchema = z.object({
@@ -39,24 +40,24 @@ export const fromHtml = (html: string) => {
     return ItemSchema.parse({
       url,
       stars: "",
-      label: [],
       proms: [],
       codes: [],
       links: [],
       ...ItemJsonSchema.transform(
         ({
-          sku: id,
+          sku,
           name: title,
           description,
           brand,
           image,
           offers: { price },
         }) => ({
-          id,
+          id: slug(`mensa-${sku}`),
           title,
           description,
           brand,
           image,
+          label: [`Kod w sklepie: ${sku}`],
           price: [price],
         })
       ).parse(json),
