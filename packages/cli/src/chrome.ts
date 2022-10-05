@@ -49,14 +49,13 @@ export async function openPage(browser: any, json: any) {
 
   page
     .on("request", (req: HTTPRequest) => {
-      if (json !== null && req.url().match(match)) {
-        console.log({
-          req: req.url(),
-          // headers: req.headers(),
-          resourceType: req.resourceType(),
-        });
-      }
-
+      // if (json !== null && req.url().match(match)) {
+      //   console.log({
+      //     req: req.url(),
+      //     headers: req.headers(),
+      //     resourceType: req.resourceType(),
+      //   });
+      // }
       if (["font", "image"].includes(req.resourceType())) {
         req.abort();
       } else {
@@ -67,10 +66,9 @@ export async function openPage(browser: any, json: any) {
       if (json !== null && res.url().match(match)) {
         console.log({
           res: res.url(),
-          // headers: res.headers(),
+          headers: res.headers(),
         });
-
-        if (res.headers()["content-type"]?.match("application/json")) {
+        if (res.headers()["content-type"]?.match("/json|text/")) {
           Object.assign(json, await res.json());
         }
       }

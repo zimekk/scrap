@@ -54,6 +54,7 @@ export class PromoService extends Service {
       .then((item) =>
         promoItems.findOne({ id: item.id }).then((last: any) => {
           // if (last && !item.href.match("wyprzedaz")) {
+          // if (last && !item.href.match("promocje")) {
           if (last) {
             this.summary.checked.push(item.id);
             return promoItems.update({ ...last, _checked: _time });
@@ -72,7 +73,7 @@ export class PromoService extends Service {
                 )
               )
               .then(({ data }) =>
-                data
+                Boolean(console.log({ data })) || data
                   ? JsonSchema.parseAsync(data).then((data) =>
                       Object.assign(item, { data })
                     )
