@@ -98,7 +98,7 @@ function Products({ products }: { products: ProductType[] }) {
           </div>
         )
       )}
-      {more === false && (
+      {more === false && products.length > PRODUCTS_LIMIT && (
         <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
           {`${products.length - PRODUCTS_LIMIT} więcej...`}
         </Link>
