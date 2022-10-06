@@ -10,6 +10,7 @@ import {
   HotShotService,
   ProductService,
   ProductAltoService,
+  ProductBotlandService,
   ProductCyfroweService,
   ProductEf3mService,
   ProductElectroService,
@@ -59,6 +60,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product)/);
 // REGEX = new RegExp(/^(get-product:712247)/);
 // REGEX = new RegExp(/^(get-product-alto:1022665)/);
+// REGEX = new RegExp(/^(get-product-botland)/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
@@ -70,6 +72,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 
 enum Types {
   PRODUCT = "get-product",
+  BOTLAND = "get-product-botland",
   CYFROWE = "get-product-cyfrowe",
   TOPHIFI = "get-product-tophifi",
   EF3M = "get-product-ef3m",
@@ -103,6 +106,7 @@ enum Types {
 
 const SERVICES = {
   [Types.PRODUCT]: ProductService,
+  [Types.BOTLAND]: ProductBotlandService,
   [Types.CYFROWE]: ProductCyfroweService,
   [Types.TOPHIFI]: ProductHifiService,
   [Types.EF3M]: ProductEf3mService,
@@ -503,6 +507,9 @@ export default function (type?: string) {
           "get-product:691124-dysk-ssd-kingston-1tb-m2-pcie-gen4-nvme-fury-renegade",
           "get-product:714605-dysk-ssd-corsair-1tb-m2-pcie-gen4-nvme-force-mp600-pro-lpx",
           "get-product:555076-kamera-ip-dahua-lite-hfw2231t-27-135mm-2mp-ir60-ip67-poe-ivs",
+          "get-product:412468-switche-tp-link-5p-tl-sg1005p-5x10-100-1000mbit-4xpoe",
+          "get-product:623790-switche-tp-link-5p-tl-sg105pe-5x10-100-1000mbit-4xpoe",
+          "get-product:706266-switche-tp-link-5p-tl-sg1005lp-5x10-100-1000mbit-4xpoe",
           "get-product:583534-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-essential",
           "get-product:583538-hulajnoga-elektryczna-xiaomi-mi-electric-scooter-1s",
           "get-product:715382-aparat-natychmiastowy-polaroid-go-white",
@@ -585,6 +592,10 @@ export default function (type?: string) {
           "get-product:539756-zasilacz-awaryjny-ups-apc-easy-ups-500va-300w-4x-schuko-avr",
           "get-product:701633-zasilacz-awaryjny-ups-apc-easy-ups-700va-360w-2x-schuko-avr",
           "get-product:701708-zasilacz-awaryjny-ups-apc-be325-fr-325va-185w-4xfr-rj-45",
+          "get-product:507841-nettop-mini-pc-raspberry-pi-4-model-b-4x15ghz-2gb-ram-wifi-bluetooth",
+          "get-product:507842-nettop-mini-pc-raspberry-pi-4-model-b-4x15ghz-4gb-ram-wifi-bluetooth",
+          "get-product:623265-nettop-mini-pc-raspberry-pi-4-model-b-4x15ghz-8gb-ram-wifi-bluetooth",
+          "get-product:652982-obudowa-do-komputera-raspberry-pi-obudowa-justpi-do-rpi-4b-aluminiowa-2x-went",
           "get-product-alto:1022665-klocki-lego-lego-technic-42128-ciezki-samochod-pomocy-drogowej",
           "get-product-alto:576290-klocki-lego-lego-technic-42115-lamborghini-sian-fkp-37",
           "get-product-alto:467576-klocki-lego-lego-technic-42096-porsche-911-rsr",
@@ -937,6 +948,9 @@ export default function (type?: string) {
           "get-product-tous:tous-meshlancuszek-ze-stali-szlachetnej-i-rozowego-srebra-vermeil/p/713102510",
           "get-product-tous:tous-holdotwierana-zawieszka-z-rozowego-srebra-vermeil/p/812344600",
           "get-product-tous:tous-real-sisynaszyjnik-z-rozowego-srebra-vermeil-z-onyksem/p/812452520",
+          "get-product-botland:moduly-i-zestawy-raspberry-pi-4b/14646-raspberry-pi-4-model-b-wifi-dualband-bluetooth-2gb-ram-15ghz-765756931175",
+          "get-product-botland:moduly-i-zestawy-raspberry-pi-4b/14647-raspberry-pi-4-model-b-wifi-dualband-bluetooth-4gb-ram-15ghz-765756931182",
+          "get-product-botland:moduly-i-zestawy-raspberry-pi-4b/16579-raspberry-pi-4-model-b-wifi-dualband-bluetooth-8gb-ram-15ghz-765756931199",
         ]
   ).subscribe((type) => {
     request$.next({ type });
