@@ -1,7 +1,9 @@
 const ERA = 24 * 3600 * 1000;
-const _time = Date.now();
 
-const timestamp = (mktime: number, period = ERA) => mktime - (mktime % period);
+export const _time = Date.now();
+
+export const timestamp = (mktime: number, period = ERA) =>
+  mktime - (mktime % period);
 
 type Summary = {
   created: any[];

@@ -1,15 +1,22 @@
 import { z } from "zod";
+import { diffString } from "json-diff";
 import { hotShotItems } from "@dev/api/promo";
 import { browser } from "../../request";
-import Service from "../Service";
+import Service, { _time, timestamp } from "../Service";
 import { ItemSchema } from "./types";
 
 const { STORE_URL: URL } = process.env;
 
-const _time = Date.now();
+export const diffItem = (
+  { _id, _created, _checked, ...last }: any,
+  item: object
+) => diffString(last, item);
 
 export class HotShotService extends Service {
+  mk = timestamp(_time, 1 * 3600 * 1000); // every hour
+
   async fetcher([site, type]: string[]) {
+    console.log(new Date(this.mk));
     return browser(
       {
         id: [site, this.mk, type].join("-"),
@@ -49,8 +56,10 @@ export class HotShotService extends Service {
       .then((item) =>
         hotShotItems.findOne({ id: item.id }).then((last: any) => {
           console.log({ item });
-          console.log({ last });
           if (last) {
+            const diff = diffItem(last, item);
+            console.log({ last });
+            console.log(`[${last.id}]`, diff);
             this.summary.checked.push(item.id);
             return hotShotItems.update({ ...last, _checked: _time });
           } else {
