@@ -131,8 +131,11 @@ export class VehicleService extends Service {
           : `https://najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/${id}/`
       )
       .then((href) =>
-        fetch(href).then((response: any) =>
-          Boolean(console.log(href, response.status)) || response.status === 404
+        fetch(href, {
+          redirect: "manual",
+        }).then((response: any) =>
+          Boolean(console.log(response.url, response.status)) ||
+          [302, 404].includes(response.status)
             ? { ...item, _removed: _time }
             : response.text().then((html: string) => ({
                 ...scrapOptions(item, html),
@@ -142,8 +145,9 @@ export class VehicleService extends Service {
       )
       .then((item) => {
         this.summary[item._removed ? "removed" : "checked"].push(item.id);
-
-        return vehicleItems.update(item).then(() => item);
+        return vehicleItems
+          .update(item)
+          .then(() => Object.assign(item, { _history: {} }));
       });
   }
 }
