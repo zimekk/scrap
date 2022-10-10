@@ -7,7 +7,7 @@ import { saveProductHtml } from "../utils";
 import { fromHtml } from "./utils";
 import { ItemSchema, JsonSchema } from "./types";
 
-const { STORE_URL: URL } = process.env;
+const { STORE_URL: URL, STORE_ALTO_URL } = process.env;
 
 const _time = Date.now();
 
@@ -157,5 +157,17 @@ export class PromoService extends Service {
           }
         })
       );
+  }
+}
+
+export class PromoAltoService extends PromoService {
+  async fetcher([site, type]: string[]) {
+    return browser(
+      {
+        id: [site, this.mk, type].join("-"),
+        url: `${STORE_ALTO_URL}${type}`,
+      },
+      this.summary
+    );
   }
 }

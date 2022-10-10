@@ -24,6 +24,7 @@ import {
   ProductTourService,
   ProductTousService,
   PromoService,
+  PromoAltoService,
   PropertyGratkaService,
   PropertyKlikService,
   PropertyOtodomService,
@@ -68,6 +69,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
 // REGEX = new RegExp(/^(get-promo:)/);
+// REGEX = new RegExp(/^(get-promo-alto:)/);
 // REGEX = new RegExp(/^(get-hot-shot:)/);
 
 enum Types {
@@ -87,6 +89,7 @@ enum Types {
   TOUR = "get-product-tour",
   TOUS = "get-product-tous",
   PROMO = "get-promo",
+  PROMOALTO = "get-promo-alto",
   RATES = "rates",
   TFI = "investments",
   TUI = "tui",
@@ -121,6 +124,7 @@ const SERVICES = {
   [Types.TOUR]: ProductTourService,
   [Types.TOUS]: ProductTousService,
   [Types.PROMO]: PromoService,
+  [Types.PROMOALTO]: PromoAltoService,
   [Types.RATES]: RatesService,
   [Types.TFI]: QuotesService,
   [Types.TUI]: HolidaysTuiService,
@@ -960,6 +964,7 @@ export default function (type?: string) {
     type
       ? []
       : [
+          "get-promo-alto:promocje",
           "get-promo:promocje",
           "get-promo:black-friday",
           "get-promo:blackwhite",
