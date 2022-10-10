@@ -957,7 +957,17 @@ export default function (type?: string) {
   });
 
   from(
-    type ? [] : ["get-promo:promocje", "get-hot-shot:goracy-strzal"]
+    type
+      ? []
+      : [
+          "get-promo:promocje",
+          "get-promo:black-friday",
+          "get-promo:blackwhite",
+          "get-promo:lipton",
+          "get-promo:rootblog",
+          "get-promo:rtx-week",
+          "get-hot-shot:goracy-strzal",
+        ]
   ).subscribe((type) => {
     request$.next({ type });
   });

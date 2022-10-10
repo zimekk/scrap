@@ -54,12 +54,14 @@ export const JsonSchema = z
       url: z.string(),
     }),
     products: ProductSchema.array(),
-    seo: z.object({
-      description: z.string(),
-      keywords: z.string(),
-      robots: z.string(),
-      title: z.string(),
-    }),
+    seo: z
+      .object({
+        description: z.string(),
+        keywords: z.string(),
+        robots: z.string(),
+        title: z.string(),
+      })
+      .or(z.array(z.object({ _trap: z.string() }))),
   })
   .strip();
 

@@ -29,20 +29,84 @@ export class PromoService extends Service {
     list: any[];
     next: any;
   }> {
-    return z
-      .tuple([z.string(), z.string()])
-      .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
-      .parseAsync(type.split(":"))
-      .then(({ name }) =>
-        this.fetcher(type.split(":"))
-          .then((html) => saveProductHtml(name, html) || fromHtml(html))
-          .catch((e) => console.error(e))
-          .then((item) => ({
-            type,
-            list: item ? item.list : [],
-            next: null,
-          }))
-      );
+    return (
+      {
+        "get-promo:black-friday": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/black-friday",
+              name: "rabaty dzisiaj do 23:59",
+              desc: `na ponad 100 000 produktów`,
+              code: "bf2021",
+            },
+          ],
+          next: null,
+        },
+        "get-promo:blackwhite": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/blackwhite",
+              name: "sprawdź promocje na podzespoły",
+              desc: `dla widzów Jarka „Blackwhite'a" Arczyńskiego`,
+              code: "blackwhite",
+            },
+          ],
+          next: null,
+        },
+        "get-promo:lipton": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/lipton",
+              name: "sprawdź promocje na podzespoły",
+              desc: `dla widzów Piotra „Lipton'a" Szymańskiego`,
+              code: "lipton",
+            },
+          ],
+          next: null,
+        },
+        "get-promo:rootblog": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/rootblog",
+              name: "mega promocje na GSM i Smart Home",
+              desc: "dla widzów rootblog",
+              code: "rootblogi",
+            },
+          ],
+          next: null,
+        },
+        "get-promo:rtx-week": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/rtx-week",
+              name: "piękny obraz, zawrotna prędkość",
+              desc: "złap do -12% na karty GeForce RTX z serii 30 i wejdź do świata Ray Tracingu i DLSS",
+              code: "rtx-week",
+            },
+          ],
+          next: null,
+        },
+      }[type] ||
+      z
+        .tuple([z.string(), z.string()])
+        .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
+        .parseAsync(type.split(":"))
+        .then(({ name }) =>
+          this.fetcher(type.split(":"))
+            .then((html) => saveProductHtml(name, html) || fromHtml(html))
+            .catch((e) => console.error(e))
+            .then((item) => ({
+              type,
+              list: item ? item.list : [],
+              next: null,
+            }))
+        )
+    );
   }
 
   async process(item = {}): Promise<any> {
