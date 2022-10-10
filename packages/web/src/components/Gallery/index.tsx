@@ -1,5 +1,5 @@
 import React, {
-  ReactChild,
+  MouseEventHandler,
   Suspense,
   useCallback,
   useEffect,
@@ -95,7 +95,7 @@ export function Gallery({
     return () => subscription.unsubscribe();
   }, [scroll$]);
 
-  const toggleZoom = useCallback(
+  const toggleZoom = useCallback<MouseEventHandler>(
     (e) => (
       e.stopPropagation(),
       setState((state) => {
@@ -128,7 +128,7 @@ export function Gallery({
         setInView(true);
       }
     };
-    const handleScroll = ({ target }: any) => scroll$.next(target);
+    const handleScroll: EventListener = ({ target }) => scroll$.next(target);
 
     if (ref.current instanceof HTMLElement) {
       const observer = new IntersectionObserver(handleObserve, {
