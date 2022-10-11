@@ -8,6 +8,7 @@ import {
   HolidaysGrecosService,
   HolidaysTuiService,
   HotShotService,
+  HotShotAltoService,
   ProductService,
   ProductAltoService,
   ProductBotlandService,
@@ -71,6 +72,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-promo:)/);
 // REGEX = new RegExp(/^(get-promo-alto:)/);
 // REGEX = new RegExp(/^(get-hot-shot:)/);
+// REGEX = new RegExp(/^(get-hot-shot-alto:)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -82,6 +84,7 @@ enum Types {
   EQUIP = "get-product-equip",
   EURO = "get-product-euro",
   HOTSHOT = "get-hot-shot",
+  HOTSHOTALTO = "get-hot-shot-alto",
   KOMP = "get-product-komp",
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
@@ -117,6 +120,7 @@ const SERVICES = {
   [Types.EQUIP]: ProductEquipService,
   [Types.EURO]: ProductEuroService,
   [Types.HOTSHOT]: HotShotService,
+  [Types.HOTSHOTALTO]: HotShotAltoService,
   [Types.KOMP]: ProductKompService,
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
@@ -971,6 +975,7 @@ export default function (type?: string) {
           "get-promo:lipton",
           "get-promo:rootblog",
           "get-promo:rtx-week",
+          "get-hot-shot-alto:goracy-strzal",
           "get-hot-shot:goracy-strzal",
         ]
   ).subscribe((type) => {

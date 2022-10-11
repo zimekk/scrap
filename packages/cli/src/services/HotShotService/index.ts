@@ -5,7 +5,7 @@ import { browser } from "../../request";
 import Service, { _time, timestamp } from "../Service";
 import { ItemSchema } from "./types";
 
-const { STORE_URL: URL } = process.env;
+const { STORE_URL: URL, STORE_ALTO_URL } = process.env;
 
 export const diffItem = (
   { _id, _created, _checked, ...last }: any,
@@ -73,5 +73,19 @@ export class HotShotService extends Service {
         console.error(error);
         return null;
       });
+  }
+}
+
+export class HotShotAltoService extends HotShotService {
+  async fetcher([site, type]: string[]) {
+    console.log(new Date(this.mk));
+    return browser(
+      {
+        id: [site, this.mk, type].join("-"),
+        url: `${STORE_ALTO_URL}${type}`,
+      },
+      this.summary,
+      {}
+    );
   }
 }

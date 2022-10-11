@@ -45,7 +45,9 @@ export async function openPage(browser: any, json: any) {
   // https://bretcameron.medium.com/how-to-build-a-web-scraper-using-javascript-11d7cd9f77f2
   await page.setRequestInterception(true);
 
-  const match = new RegExp("/get/alto/|/get/xkom/|/v1/xkom/hotShots/current");
+  const match = new RegExp(
+    "/get/(xkom|alto)/|/v1/(xkom|alto)/hotShots/current"
+  );
 
   page
     .on("request", (req: HTTPRequest) => {
