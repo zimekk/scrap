@@ -82,25 +82,23 @@ function Product({ item }: { item: ProductType }) {
   );
 }
 
-const PRODUCTS_LIMIT = 3;
-
 function Products({ products }: { products: ProductType[] }) {
-  const [more, setMore] = useState(() =>
-    products.length > PRODUCTS_LIMIT ? false : true
-  );
+  const [limit, setLimit] = useState(() => 5);
 
   return (
     <div>
-      {(more ? products : products.slice(0, PRODUCTS_LIMIT)).map(
+      {useMemo(() => products.slice(0, limit), [limit, products]).map(
         (item, key) => (
           <div key={key} className={styles.Row}>
             <Product item={item} />
           </div>
         )
       )}
-      {more === false && products.length > PRODUCTS_LIMIT && (
-        <Link onClick={(e) => (e.preventDefault(), setMore(true))}>
-          {`${products.length - PRODUCTS_LIMIT} więcej...`}
+      {products.length > limit && (
+        <Link
+          onClick={(e) => (e.preventDefault(), setLimit((limit) => limit + 25))}
+        >
+          {`${products.length - limit} więcej...`}
         </Link>
       )}
     </div>
