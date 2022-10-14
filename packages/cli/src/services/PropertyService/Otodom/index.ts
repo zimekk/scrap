@@ -33,9 +33,7 @@ export class PropertyOtodomService extends PropertyService {
         return browser(
           {
             id: ["otodom", this.mk, id, page].join("-"),
-            url: `${OTODOM_URL}oferty/sprzedaz/${name}${
-              page > 1 ? `?page=${page}` : ``
-            }`,
+            url: `${OTODOM_URL}${name}${page > 1 ? `?page=${page}` : ``}`,
           },
           this.summary
         )
