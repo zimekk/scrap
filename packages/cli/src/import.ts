@@ -68,7 +68,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
-// REGEX = new RegExp(/^(otodom:dom\/komorow_5600)/);
+// REGEX = new RegExp(/^(otodom:)/);
 // REGEX = new RegExp(/^(get-promo:)/);
 // REGEX = new RegExp(/^(get-promo-alto:)/);
 // REGEX = new RegExp(/^(get-hot-shot:)/);
@@ -300,8 +300,9 @@ export default function (type?: string) {
           "klik:1:4",
           "klik:1:2",
           // "klik:2:1",
-          "otodom:wyszukiwanie/sprzedaz/dom/mazowieckie/pruszkowski/michalowice",
-          "otodom:wyszukiwanie/sprzedaz/dom/mazowieckie/warszawski-zachodni/stare-babice",
+          "otodom:sprzedaz/dom/komorow_5600",
+          "otodom:sprzedaz/dom/michalowice_62659",
+          "otodom:sprzedaz/dom/stare-babice",
           "otodom:sprzedaz/dom/warszawa/mlociny",
           "otodom:sprzedaz/dom/warszawa/powsin",
           "otodom:sprzedaz/dom/warszawa/powsinek",
@@ -310,8 +311,9 @@ export default function (type?: string) {
           "otodom:sprzedaz/dom/warszawa/ursynow",
           "otodom:sprzedaz/dom/warszawa/wawer",
           "otodom:sprzedaz/dom/warszawa/wilanow",
-          "otodom:wyszukiwanie/sprzedaz/dzialka/mazowieckie/pruszkowski/michalowice",
-          "otodom:wyszukiwanie/sprzedaz/dzialka/mazowieckie/warszawski-zachodni/stare-babice",
+          "otodom:sprzedaz/dzialka/komorow_5600",
+          "otodom:sprzedaz/dzialka/michalowice_62659",
+          "otodom:sprzedaz/dzialka/stare-babice",
           "otodom:sprzedaz/dzialka/warszawa/mlociny",
           "otodom:sprzedaz/dzialka/warszawa/powsin",
           "otodom:sprzedaz/dzialka/warszawa/powsinek",

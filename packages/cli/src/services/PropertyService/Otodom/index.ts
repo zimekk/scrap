@@ -29,11 +29,12 @@ export class PropertyOtodomService extends PropertyService {
       .then(({ $type, page }) => {
         const [kind, name] = $type.split(":");
         const id = name.replace(/\//g, "-");
+        const size = 72;
 
         return browser(
           {
-            id: ["otodom", this.mk, id, page].join("-"),
-            url: `${OTODOM_URL}${name}${page > 1 ? `?page=${page}` : ``}`,
+            id: ["otodom", this.mk, id, size, page].join("-"),
+            url: `${OTODOM_URL}oferty/${name}?limit=${size}&page=${page}`,
           },
           this.summary
         )
