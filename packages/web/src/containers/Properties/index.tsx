@@ -1,7 +1,8 @@
 import React, {
   ChangeEvent,
   ChangeEventHandler,
-  ReactChild,
+  MouseEventHandler,
+  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -85,7 +86,13 @@ const unify = (item: {
 });
 
 function Data({ version = "v1" }) {
-  const { results, hide: initialHide, like: initialLike } = asset.read(version); // As many cache keys as you need
+  const {
+    results: initialResults,
+    hide: initialHide,
+    like: initialLike,
+  } = asset.read(version); // As many cache keys as you need
+
+  const [results, setResults] = useState(() => initialResults);
 
   const options = useMemo(
     () => ({
@@ -151,11 +158,6 @@ function Data({ version = "v1" }) {
   const [queries, setQueries] = useState(() => filters);
 
   const [sortBy, setSortBy] = useState(() => Object.keys(SORT_BY)[5]);
-
-  const onChangeSortBy = useCallback(
-    ({ target }) => setSortBy(target.value),
-    []
-  );
 
   const search$ = useMemo(() => new Subject<any>(), []);
 
@@ -298,7 +300,7 @@ function Data({ version = "v1" }) {
           <span>Category</span>
           <select
             value={filters.category}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -319,7 +321,7 @@ function Data({ version = "v1" }) {
           <input
             type="search"
             value={filters.search}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -331,7 +333,13 @@ function Data({ version = "v1" }) {
         </label>
         <label>
           <span>Sort</span>
-          <select value={sortBy} onChange={onChangeSortBy}>
+          <select
+            value={sortBy}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) => setSortBy(target.value),
+              []
+            )}
+          >
             {Object.entries(SORT_BY).map(([value]) => (
               <option key={value} value={value}>
                 {value}
@@ -343,7 +351,7 @@ function Data({ version = "v1" }) {
           <input
             type="checkbox"
             checked={filters.showHide}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -358,7 +366,7 @@ function Data({ version = "v1" }) {
           <input
             type="checkbox"
             checked={filters.onlyLike}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -374,7 +382,7 @@ function Data({ version = "v1" }) {
             <span>Location</span>
             <select
               value={filters.location}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
                 ({ target: { value } }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -396,7 +404,7 @@ function Data({ version = "v1" }) {
             <span>Road</span>
             <select
               value={filters.road}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
                 ({ target: { value } }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -418,7 +426,7 @@ function Data({ version = "v1" }) {
             <span>Building</span>
             <select
               value={filters.building}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
                 ({ target: { value } }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -444,7 +452,7 @@ function Data({ version = "v1" }) {
               min={AREA_LIST[0]}
               max={AREA_LIST[AREA_LIST.length - 1]}
               value={filters.areaFrom}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ areaTo, ...criteria }) => {
                     const areaFrom = Number(target.value);
@@ -471,7 +479,7 @@ function Data({ version = "v1" }) {
               min={AREA_LIST[0]}
               max={AREA_LIST[AREA_LIST.length - 1]}
               value={filters.areaTo}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ areaFrom, ...criteria }) => {
                     const areaTo = Number(target.value);
@@ -498,7 +506,7 @@ function Data({ version = "v1" }) {
               min={TERRAIN_AREA_LIST[0]}
               max={TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1]}
               value={filters.terrainAreaFrom}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ terrainAreaTo, ...criteria }) => {
                     const terrainAreaFrom = Number(target.value);
@@ -528,7 +536,7 @@ function Data({ version = "v1" }) {
               min={TERRAIN_AREA_LIST[0]}
               max={TERRAIN_AREA_LIST[TERRAIN_AREA_LIST.length - 1]}
               value={filters.terrainAreaTo}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ terrainAreaFrom, ...criteria }) => {
                     const terrainAreaTo = Number(target.value);
@@ -560,7 +568,7 @@ function Data({ version = "v1" }) {
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
               value={filters.priceFrom}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ priceTo, ...criteria }) => {
                     const priceFrom = Number(target.value);
@@ -587,7 +595,7 @@ function Data({ version = "v1" }) {
               min={PRICE_LIST[0]}
               max={PRICE_LIST[PRICE_LIST.length - 1]}
               value={filters.priceTo}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters(({ priceFrom, ...criteria }) => {
                     const priceTo = Number(target.value);
@@ -641,6 +649,7 @@ function Data({ version = "v1" }) {
                   setHide={setHide}
                   like={like}
                   setLike={setLike}
+                  setResults={setResults}
                 />
                 {!hide.includes(item.id) && <Details {...item} />}
                 {Object.entries(item._history || {})
@@ -691,11 +700,25 @@ function Directions({ coordinates: { latitude, longitude } }: any) {
   );
 }
 
+function Button({
+  children,
+  ...props
+}: {
+  children: ReactNode;
+  onClick: MouseEventHandler;
+}) {
+  return (
+    <span>
+      <button {...props}>{children}</button>
+    </span>
+  );
+}
+
 function Toggle({
   children,
   ...props
 }: {
-  children: ReactChild;
+  children: ReactNode;
   checked: boolean;
   onChange: ChangeEventHandler;
 }) {
@@ -717,6 +740,7 @@ function Summary({
   setHide,
   like,
   setLike,
+  setResults,
   _address,
   _created,
   _updated = 0,
@@ -731,13 +755,29 @@ function Summary({
   setHide: Function;
   like: string[];
   setLike: Function;
+  setResults: Function;
   _address: string[];
   _created: number;
   _updated: number;
   _checked: number;
 }) {
+  const [removed, setRemoved] = useState(false);
+
+  const confirmAndRemove = useCallback(() => {
+    setRemoved(true);
+    requestIdleCallback(() =>
+      confirm("Confirm to delete permanently")
+        ? fetch(`api/properties/remove.json?id=${id}`).then(() =>
+            setResults((results: { id: string }[]) =>
+              results.filter((item) => item.id !== id)
+            )
+          )
+        : setRemoved(false)
+    );
+  }, [id]);
+
   return (
-    <div className={styles.Summary}>
+    <div className={cx(styles.Summary, removed && styles.Removed)}>
       <div>
         <div className={styles.Sidebar}>
           <Toggle
@@ -766,6 +806,7 @@ function Summary({
           >
             Hide
           </Toggle>
+          <Button onClick={confirmAndRemove}>Remove</Button>
         </div>
         <div>
           {format(_created, "yyyy-MM-dd HH:mm")}

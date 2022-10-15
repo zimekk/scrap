@@ -23,6 +23,9 @@
   height: 200px;
 }
 .Summary {
+  &.Removed {
+    opacity: 0.5;
+  }
   h3 {
     margin-block-start: 0.5em;
     margin-block-end: 0.5em;

@@ -18,6 +18,7 @@ export const getPropertiesData: RequestHandler = (_req, res) =>
         }
     ),
     propertyItems.find({}),
+    // .then((results) => results.splice(0, 100))
   ]).then(([{ hide, like }, results]) => res.json({ hide, like, results }));
 
 export const hideProperty: RequestHandler = (req, res) =>
@@ -77,5 +78,36 @@ export const likeProperty: RequestHandler = (req, res) =>
             ? profilesItems.update(profiles)
             : profilesItems.insert({ id: "property", ...profiles })
         )
+        .then(() => res.send({}))
+    );
+
+export const removeProperty: RequestHandler = (req, res) =>
+  z
+    .object({
+      id: z.string(),
+    })
+    .parseAsync(req.query)
+    .then(({ id }) =>
+      profilesItems
+        .findOne({ id: "property" })
+        .then(
+          (profiles) =>
+            (profiles ? profiles : { hide: [], like: [] }) as {
+              hide: string[];
+              like: string[];
+            }
+        )
+        .then((profiles) =>
+          Object.assign(profiles, {
+            hide: profiles.hide.filter((_id) => _id !== id),
+            like: profiles.like.filter((_id) => _id !== id),
+          })
+        )
+        .then((profiles: { id?: string; hide: string[]; like: string[] }) =>
+          profiles.id
+            ? profilesItems.update(profiles)
+            : profilesItems.insert({ id: "property", ...profiles })
+        )
+        .then(() => propertyItems.remove({ id }))
         .then(() => res.send({}))
     );
