@@ -112,7 +112,7 @@ export const scrapPropertyOtodomList = (
                             value: z.number(),
                           })
                           .nullable(),
-                        transaction: z.enum(["SELL"]),
+                        transaction: z.enum(["RENT", "SELL"]),
                       })
                     ),
                     pagination: z.object({
@@ -191,7 +191,7 @@ export const scrapPropertyOtodomItem = (
         location: z.array(z.string()),
         title: z.string(),
         // price: z.string().transform((value) => Number(value.replace(/\s+/g, ""))),
-        price: z.number(),
+        price: z.number().optional(),
         description: z.array(z.string()),
         parameters: z.array(
           z.object({
@@ -237,6 +237,7 @@ export const scrapPropertyOtodomItem = (
                       .optional(),
                   }),
                   target: z.object({
+                    Area: z.string().optional(),
                     Access_types: z
                       .array(
                         z.enum([
@@ -247,9 +248,11 @@ export const scrapPropertyOtodomItem = (
                         ])
                       )
                       .optional(),
+                    Build_year: z.string().optional(),
                     Building_type: z
                       .array(
                         z.enum([
+                          "apartment",
                           "block",
                           "detached",
                           "house",
@@ -261,6 +264,15 @@ export const scrapPropertyOtodomItem = (
                       )
                       .optional(),
                     City: z.string().optional(),
+                    Construction_status: z
+                      .array(
+                        z.enum([
+                          "ready_to_use",
+                          "to_completion",
+                          "to_renovation",
+                        ])
+                      )
+                      .optional(),
                     Country: z.string(),
                     Dimensions: z.string().optional(),
                     Extras_types: z
@@ -273,6 +285,7 @@ export const scrapPropertyOtodomItem = (
                           "garage",
                           "garden",
                           "lift",
+                          "non_smokers_only",
                           "pool",
                           "separate_kitchen",
                           "terrace",
@@ -281,8 +294,9 @@ export const scrapPropertyOtodomItem = (
                         ])
                       )
                       .optional(),
-                    Floor_no: z.string().optional(),
+                    Floor_no: z.string().array().optional(),
                     // Location: z.enum(["city","country","suburban"]).optional(),
+                    MarketType: z.enum(["primary", "secondary"]).optional(),
                     Media_types: z
                       .array(
                         z.enum([
@@ -302,10 +316,12 @@ export const scrapPropertyOtodomItem = (
                         ])
                       )
                       .optional(),
-                    Price: z.number(),
-                    ProperType: z.enum(["dzialka", "dom"]),
+                    OfferType: z.enum(["sprzedaz", "wynajem"]),
+                    Price: z.number().optional(),
+                    ProperType: z.enum(["dom", "dzialka", "mieszkanie"]),
                     Province: z.string(),
                     Subregion: z.string(),
+                    Terrain_area: z.string().optional(),
                     Type: z
                       .array(
                         z.enum([
@@ -321,8 +337,11 @@ export const scrapPropertyOtodomItem = (
                       )
                       .optional(),
                     Vicinity_types: z
-                      .array(z.enum(["forest", "lake", "open_terrain"]))
+                      .array(
+                        z.enum(["forest", "lake", "mountains", "open_terrain"])
+                      )
                       .optional(),
+                    hidePrice: z.enum(["0", "1"]),
                   }),
                   title: z.string(),
                   topInformation: z.array(AdditionalInfo),

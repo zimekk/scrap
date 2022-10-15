@@ -322,6 +322,8 @@ export default function (type?: string) {
           "otodom:sprzedaz/dzialka/warszawa/ursynow",
           "otodom:sprzedaz/dzialka/warszawa/wawer",
           "otodom:sprzedaz/dzialka/warszawa/wilanow",
+          "otodom:sprzedaz/mieszkanie/warszawa/kabaty",
+          "otodom:wynajem/mieszkanie/warszawa/kabaty",
         ]
   ).subscribe((type) => {
     request$.next({ type });
