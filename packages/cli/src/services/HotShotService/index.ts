@@ -32,19 +32,13 @@ export class HotShotService extends Service {
     list: any[];
     next: any;
   }> {
-    return z
-      .tuple([z.string(), z.string()])
-      .transform(([kind, name]) => ({ id: name.split("-")[0], name, kind }))
-      .parseAsync(type.split(":"))
-      .then(({ name }) =>
-        this.fetcher(type.split(":"))
-          .catch((e) => console.error(e))
-          .then((item) => ({
-            type,
-            list: [item],
-            next: null,
-          }))
-      );
+    return this.fetcher(type.split(":"))
+      .catch((e) => console.error(e))
+      .then((item) => ({
+        type,
+        list: [item],
+        next: null,
+      }));
   }
 
   async process(item = {}): Promise<any> {

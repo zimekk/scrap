@@ -98,7 +98,10 @@ export class PromoService extends Service {
         .parseAsync(type.split(":"))
         .then(({ name }) =>
           this.fetcher(type.split(":"))
-            .then((html) => saveProductHtml(name, html) || fromHtml(html))
+            .then((html) =>
+              // saveProductHtml(name, html) ||
+              fromHtml(html)
+            )
             .catch((e) => console.error(e))
             .then((item) => ({
               type,

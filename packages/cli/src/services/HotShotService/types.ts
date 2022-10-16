@@ -42,7 +42,7 @@ export const ProductSchema = z
     // CommentsCount: 0,
     // FeatureSummary: [Array],
     // FeatureSummaryStructured: [Array],
-    AvailabilityStatus: z.enum(["Available"]),
+    AvailabilityStatus: z.enum(["Available", "Unavailable"]),
     ProducerCode: z.string(),
     // FreeShipment: false,
     // InstallmentMinimum: null,
