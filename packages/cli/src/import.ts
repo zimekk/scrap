@@ -9,6 +9,7 @@ import {
   HolidaysTuiService,
   HotShotService,
   HotShotAltoService,
+  MotoService,
   ProductService,
   ProductAltoService,
   ProductBotlandService,
@@ -52,7 +53,7 @@ let REGEX = new RegExp(/^(.)*$/);
 
 // REGEX = new RegExp(/grecos:/)
 // REGEX = new RegExp(/tui:/);
-REGEX = new RegExp(/^((?!tui|grecos).)*$/);
+REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/rates/)
 // REGEX = new RegExp(/^((?!rates).)*$/);
 // REGEX = new RegExp(/investments/)
@@ -69,6 +70,7 @@ REGEX = new RegExp(/^((?!tui|grecos).)*$/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(otodom:)/);
+// REGEX = new RegExp(/^(moto:)/);
 // REGEX = new RegExp(/^(get-promo:)/);
 // REGEX = new RegExp(/^(get-promo-alto:)/);
 // REGEX = new RegExp(/^(get-hot-shot:)/);
@@ -83,6 +85,7 @@ enum Types {
   ELECTRO = "get-product-electro",
   EQUIP = "get-product-equip",
   EURO = "get-product-euro",
+  MOTO = "moto",
   HOTSHOT = "get-hot-shot",
   HOTSHOTALTO = "get-hot-shot-alto",
   KOMP = "get-product-komp",
@@ -125,6 +128,7 @@ const SERVICES = {
   [Types.MEDIA]: ProductMediaService,
   [Types.MENSA]: ProductMensaService,
   [Types.MORELE]: ProductMoreleService,
+  [Types.MOTO]: MotoService,
   [Types.TOUR]: ProductTourService,
   [Types.TOUS]: ProductTousService,
   [Types.PROMO]: PromoService,
@@ -324,6 +328,17 @@ export default function (type?: string) {
           "otodom:sprzedaz/dzialka/warszawa/wilanow",
           "otodom:sprzedaz/mieszkanie/warszawa/kabaty",
           "otodom:wynajem/mieszkanie/warszawa/kabaty",
+        ]
+  ).subscribe((type) => {
+    request$.next({ type });
+  });
+
+  from(
+    type
+      ? []
+      : [
+          "moto:osobowe/bmw/x3?search%5Bfilter_enum_generation%5D=gen-g01-2017",
+          "moto:osobowe/honda/accord/seg-combi?search%5Bfilter_enum_generation%5D=gen-viii-2008",
         ]
   ).subscribe((type) => {
     request$.next({ type });
