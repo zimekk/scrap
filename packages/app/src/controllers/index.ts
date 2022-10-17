@@ -4,6 +4,7 @@ import { items } from "@dev/api";
 export * from "./exchange";
 export * from "./games";
 export * from "./holidays";
+export * from "./moto";
 export * from "./products";
 export * from "./promo";
 export * from "./properties";

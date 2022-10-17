@@ -20,6 +20,7 @@ const PAGES = {
   quotes: lazy(() => import("./Quotes")),
   stations: lazy(() => import("./Stations")),
   vehicles: lazy(() => import("./Vehicles")),
+  moto: lazy(() => import("./Moto")),
   // reader: lazy(() => import("./Reader")),
   hello: lazy(() => import("./Hello")),
 };

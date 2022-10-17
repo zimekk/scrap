@@ -11,3 +11,8 @@ export const MotoItem = z.object({
 export const MotoDiff = MotoItem.omit({
   id: true,
 });
+
+export type ItemType = z.infer<typeof MotoItem> & {
+  _created: number;
+  _checked: number;
+};
