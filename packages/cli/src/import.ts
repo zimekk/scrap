@@ -44,7 +44,6 @@ import {
 // const REGEX = new RegExp(/promo:/)
 // const REGEX = new RegExp(/equip:/)
 // const REGEX = new RegExp(/^((?!promo:).)*$/);
-// const REGEX = new RegExp(/get-stations/)
 // const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
 // const REGEX = new RegExp(/get-product:258829/);
 // const REGEX = new RegExp(/get-product-alto:576290/);
@@ -69,6 +68,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
+// REGEX = new RegExp(/^(get-stations:)/)
 // REGEX = new RegExp(/^(otodom:)/);
 // REGEX = new RegExp(/^(moto:)/);
 // REGEX = new RegExp(/^(get-promo:)/);
@@ -630,8 +630,10 @@ export default function (type?: string) {
           "get-product:712247-akcesorium-do-stacji-zasilania-ecoflow-panel-fotowoltaiczny-110w",
           "get-product:729080-stacja-zasilania-ecoflow-stacja-zasilania-river-mini-210wh",
           "get-product:221122-zasilacz-awaryjny-ups-apc-back-ups-500va-300w-3xiec-avr",
-          "get-product:592552-zasilacz-awaryjny-ups-apc-back-ups-750va-410w-4x-schuko-usb-avr",
           "get-product:539756-zasilacz-awaryjny-ups-apc-easy-ups-500va-300w-4x-schuko-avr",
+          "get-product:546062-zasilacz-awaryjny-ups-green-cell-ups-600va-360w-2x-schuko-avr-lcd",
+          "get-product:592552-zasilacz-awaryjny-ups-apc-back-ups-750va-410w-4x-schuko-usb-avr",
+          "get-product:655268-zasilacz-awaryjny-ups-newell-ups-u650-1-650va-390w-2x-schuko-lcd",
           "get-product:701633-zasilacz-awaryjny-ups-apc-easy-ups-700va-360w-2x-schuko-avr",
           "get-product:701708-zasilacz-awaryjny-ups-apc-be325-fr-325va-185w-4xfr-rj-45",
           "get-product:507841-nettop-mini-pc-raspberry-pi-4-model-b-4x15ghz-2gb-ram-wifi-bluetooth",
@@ -690,6 +692,8 @@ export default function (type?: string) {
           "get-product:553107-tablety-11-apple-2020-ipad-pro-11-1-tb-wi-fi-space-gray",
           "get-product:648721-tablety-11-apple-ipad-pro-11-m1-128-gb-wi-fi-space-gray",
           "get-product:648729-tablety-11-apple-ipad-pro-11-m1-1-tb-wi-fi-space-gray",
+          "get-product:1083273-tablet-10-apple-ipad-109-10gen-64gb-wi-fi-silver",
+          "get-product:1083309-tablet-10-apple-ipad-109-10gen-64gb-5g-silver",
           "get-product:116312-toner-do-drukarki-samsung-clt-y406s-yellow-1000str",
           "get-product:116313-toner-do-drukarki-samsung-clt-k406s-black-1500str",
           "get-product:116315-toner-do-drukarki-samsung-clt-c406s-cyan-1000str",
