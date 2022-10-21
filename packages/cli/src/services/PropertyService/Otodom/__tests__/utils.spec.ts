@@ -5,7 +5,7 @@ describe("utils", () => {
   xit("scrapPropertyOtodomList", () =>
     [
       {
-        item: { id: "otodom" },
+        item: { id: "otodom", url: "", canonicalURL: "" },
         html: loadProductHtml("otodom-dzialka-komorow_5600-1"),
         result: {
           id: "otodom",

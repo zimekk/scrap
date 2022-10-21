@@ -68,12 +68,12 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
-// REGEX = new RegExp(/^(get-stations:)/)
+// REGEX = new RegExp(/^(get-stations)/)
 // REGEX = new RegExp(/^(otodom:)/);
 // REGEX = new RegExp(/^(moto:)/);
-// REGEX = new RegExp(/^(get-promo:)/);
+// REGEX = new RegExp(/^(get-promo)/);
 // REGEX = new RegExp(/^(get-promo-alto:)/);
-// REGEX = new RegExp(/^(get-hot-shot:)/);
+// REGEX = new RegExp(/^(get-hot-shot)/);
 // REGEX = new RegExp(/^(get-hot-shot-alto:)/);
 
 enum Types {

@@ -2,6 +2,8 @@ import { parse } from "node-html-parser";
 import { z } from "zod";
 import { Category, Coordinates } from "../utils";
 
+const PAGES_LIMIT = 5;
+
 const LocalizedString = z.object({
   value: z.string(),
 });
@@ -60,7 +62,7 @@ const AdvertCoordinates = Coordinates.extend({
 });
 
 export const scrapPropertyOtodomList = (
-  item: Partial<{ id: string }>,
+  item: { id: string; url: string; canonicalURL: string },
   html: string
 ) => {
   const $root = parse(html);
@@ -137,18 +139,30 @@ export const scrapPropertyOtodomList = (
                   },
                 },
               },
-            }) => ({
-              ...item,
-              items: items.map(({ id, slug, title }) => ({
-                id: `otodom-${id}`,
-                name: title,
-                href: slug,
-              })),
-              nextPage:
-                page < totalPages
-                  ? `${canonicalURL}?page=${page + 1}`
-                  : undefined,
-            })
+            }) =>
+              Boolean(console.log({ item, page, totalPages })) || {
+                ...item,
+                items:
+                  canonicalURL === item.canonicalURL
+                    ? items.map(({ id, slug, title }) => ({
+                        id: `otodom-${id}`,
+                        name: title,
+                        href: slug,
+                      }))
+                    : Boolean(
+                        console.error("Invalid URL", {
+                          ...item,
+                          canonicalURL,
+                          page,
+                          totalPages,
+                        })
+                      ) || [],
+                nextPage:
+                  canonicalURL === item.canonicalURL &&
+                  page < Math.min(totalPages, PAGES_LIMIT)
+                    ? `${canonicalURL}?page=${page + 1}`
+                    : undefined,
+              }
           )
           .parse(json)
       );

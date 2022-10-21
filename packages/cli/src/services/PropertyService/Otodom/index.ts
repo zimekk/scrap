@@ -30,17 +30,23 @@ export class PropertyOtodomService extends PropertyService {
         const [kind, name] = $type.split(":");
         const id = name.replace(/\//g, "-");
         const size = 72;
+        const url = `${OTODOM_URL}oferty/${name}?limit=${size}&page=${page}`;
 
         return browser(
           {
             id: ["otodom", this.mk, id, size, page].join("-"),
-            url: `${OTODOM_URL}oferty/${name}?limit=${size}&page=${page}`,
+            url,
           },
           this.summary
         )
           .then((html) =>
             html
-              ? Promise.resolve(scrapPropertyOtodomList({ id }, html))
+              ? Promise.resolve(
+                  scrapPropertyOtodomList(
+                    { id, url, canonicalURL: new URL(url).pathname },
+                    html
+                  )
+                )
                   .then(({ items, nextPage }) => ({
                     list: items.map((item) => ({
                       type: "otodom-item",
