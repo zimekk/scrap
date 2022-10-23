@@ -9,7 +9,8 @@ puppeteer.use(StealthPlugin());
 export async function openChromeBrowser() {
   const config = {
     chrome: {
-      path: "",
+      // https://stackoverflow.com/questions/47122579/run-puppeteer-on-already-installed-chrome-on-macos
+      path: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       args: [],
     },
   };
