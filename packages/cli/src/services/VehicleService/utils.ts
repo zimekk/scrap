@@ -51,6 +51,9 @@ export const updateItem = (
     _history = {},
     comfortLeaseProduct,
     emissionMeasurementStandard,
+    leaseProduct,
+    newPrice,
+    reservationFee,
     ...last
   }: {
     _id: string;
@@ -59,6 +62,9 @@ export const updateItem = (
     _history: {};
     comfortLeaseProduct: any;
     emissionMeasurementStandard: any;
+    leaseProduct: any;
+    newPrice: any;
+    reservationFee: any;
   },
   item: {}
 ) => ({
