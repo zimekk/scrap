@@ -284,6 +284,7 @@ export const scrapPropertyOtodomItem = (
                           "ready_to_use",
                           "to_completion",
                           "to_renovation",
+                          "unfinished_close",
                         ])
                       )
                       .optional(),
