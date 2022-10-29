@@ -1,6 +1,41 @@
 import { diffString } from "json-diff";
+import { vehicleItems } from "@dev/api/vehicles";
+import { reduceHistory } from "./services/VehicleService/utils";
 
-export const verify = () => {
+export const verify = async () => {
+  console.log(["verify"]);
+
+  const summary = {
+    checked: [],
+    reduced: [],
+  } as Record<string, number[]>;
+
+  await vehicleItems.find({}).then(
+    async (list: any) =>
+      Boolean(console.log(list.length)) ||
+      (await Promise.all(
+        list.slice(0, 15000).map((item: any) => {
+          summary.checked.push(item.id);
+          if (!item._history) {
+            return null;
+          }
+          const history = reduceHistory(item._history);
+          // console.log(item._id, item.id, Object.keys(item._history), Object.keys(history))
+
+          if (Object.keys(item._history).length > Object.keys(history).length) {
+            summary.reduced.push(item.id);
+            return vehicleItems.update({
+              ...item,
+              _history: history,
+            });
+          }
+        })
+      ))
+  );
+  console.log(summary);
+};
+
+export const verify2 = () => {
   const unify = ({
     DisplaySkuAvailabilities: [
       {

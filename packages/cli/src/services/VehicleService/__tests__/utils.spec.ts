@@ -1,4 +1,10 @@
-import { diffItem, scrapOptions } from "../utils";
+import { diffItem, reduceHistory, scrapOptions, updateItem } from "../utils";
+
+const stripAnsi = (s: string) =>
+  s.replace(
+    /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
+    ""
+  );
 
 describe("VehicleService", () => {
   it("scrapOptions", () =>
@@ -135,9 +141,7 @@ Wyposażenie zewnętrzne
             id: 2,
             label: "Niebieski morski",
           },
-          images: [
-            "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/322/255b28ffdad35cd984ff32f30da17158/35628-23",
-          ],
+          images: 2,
           imagesLastChanged: "2022-04-12T19:32:13+00:00",
           exterior360: false,
           interior360: false,
@@ -406,9 +410,7 @@ Wyposażenie zewnętrzne
             id: 2,
             label: "Niebieski morski",
           },
-          images: [
-            "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/322/255b28ffdad35cd984ff32f30da17158/35628-23",
-          ],
+          images: 2,
           imagesLastChanged: "2022-04-12T19:32:13+00:00",
           exterior360: false,
           interior360: false,
@@ -626,14 +628,58 @@ Wyposażenie zewnętrzne
           panoramas: 0,
           video:
             '<iframe width="200" height="113" src="https://www.youtube.com/embed/BSpuVatUubo?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
-          href: "https://najlepszeoferty.bmw.pl/uzywane/wyszukaj/opis-szczegolowy/35628",
-          srcSet: [
-            "https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/1920/2011206437498402f4e346eb5574dcb0/35628-23 1920w, https://najlepszeoferty.bmw.pl/uzywane/api/v1/ems/bmw-used-pl_PL/vehicle/322/255b28ffdad35cd984ff32f30da17158/35628-23 322w",
-          ],
         },
         result: ``,
       },
+      ((last, item) => ({
+        last,
+        item,
+        result: "",
+      }))(require("./last_59195"), require("./item_59195")),
+      ((last, item) => ({
+        last,
+        item: { ...item, images: 1 },
+        result: ` {
+-  images: 13
++  images: 1
+ }
+`,
+      }))(require("./last_55569"), require("./item_55569")),
     ].forEach(({ item, last, result }) =>
-      expect(diffItem(last, item)).toEqual(result)
+      expect(stripAnsi(diffItem(last, item))).toEqual(result)
+    ));
+
+  it("updateItem", () =>
+    [
+      ((last, item) => ({
+        last,
+        item,
+        result: {
+          ...last,
+          _history: {
+            ...last._history,
+            "1666626732299": {
+              ...item,
+              options: last.options,
+            },
+          },
+        },
+      }))(require("./last_55569"), require("./item_55569")),
+    ].forEach(({ last, item, result }) =>
+      expect(updateItem(last, item, 1666626732299)).toEqual(result)
+    ));
+
+  it("reduceHistory", () =>
+    [
+      ((last, reduced) => ({
+        last,
+        result: reduced._history,
+      }))(require("./last_55569"), require("./reduced_55569")),
+      ((last, reduced) => ({
+        last,
+        result: reduced._history,
+      }))(require("./last_33500"), require("./reduced_33500")),
+    ].forEach(({ last, result }) =>
+      expect(reduceHistory(last._history)).toEqual(result)
     ));
 });

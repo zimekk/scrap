@@ -1,0 +1,261 @@
+{
+  "id": 55569,
+  "type": "CAR",
+  "isNew": false,
+  "modelCode": "15BZ",
+  "title": "BMW X3 xDrive20d",
+  "brand": {
+    "id": 1,
+    "label": "BMW"
+  },
+  "series": {
+    "id": 20,
+    "label": "Seria X"
+  },
+  "bodyType": {
+    "id": 6,
+    "label": "SAV"
+  },
+  "seriesCode": "G01",
+  "productionYear": 2021,
+  "mileage": 20000,
+  "fuel": {
+    "id": 2,
+    "label": "Diesel"
+  },
+  "consumptionFuel": 5.9,
+  "emission": 155,
+  "emissionStandard": {
+    "id": 6,
+    "label": "EURO 6"
+  },
+  "powerKW": 140,
+  "powerHP": 190,
+  "capacity": 1995,
+  "transmission": {
+    "id": 0,
+    "label": "Automatyczna"
+  },
+  "color": {
+    "code": "#000000",
+    "id": 10,
+    "label": "Czarny Carbon M"
+  },
+  "images": 13,
+  "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+  "exterior360": false,
+  "interior360": false,
+  "warranty": 0,
+  "usedBrand": false,
+  "reservable": false,
+  "vatReclaimable": true,
+  "leasable": true,
+  "leaseProduct": {
+    "type": "lease",
+    "label": "LO U",
+    "totalAgeLimit": 120,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.45,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    "residualValueFactorLimits": [
+      {
+        "term": 24,
+        "min": 0.187,
+        "max": 0.45
+      },
+      {
+        "term": 25,
+        "min": 0.17,
+        "max": 0.45
+      },
+      {
+        "term": 26,
+        "min": 0.155,
+        "max": 0.45
+      },
+      {
+        "term": 27,
+        "min": 0.14,
+        "max": 0.45
+      },
+      {
+        "term": 28,
+        "min": 0.12,
+        "max": 0.45
+      },
+      {
+        "term": 29,
+        "min": 0.105,
+        "max": 0.44
+      },
+      {
+        "term": 30,
+        "min": 0.09,
+        "max": 0.43
+      },
+      {
+        "term": 31,
+        "min": 0.07,
+        "max": 0.42
+      },
+      {
+        "term": 32,
+        "min": 0.055,
+        "max": 0.41
+      },
+      {
+        "term": 33,
+        "min": 0.04,
+        "max": 0.41
+      },
+      {
+        "term": 34,
+        "min": 0.02,
+        "max": 0.4
+      },
+      {
+        "term": 35,
+        "min": 0.01,
+        "max": 0.4
+      },
+      {
+        "term": 36,
+        "min": 0.005,
+        "max": 0.38
+      },
+      {
+        "term": 37,
+        "min": 0.005,
+        "max": 0.36
+      },
+      {
+        "term": 42,
+        "min": 0.005,
+        "max": 0.32
+      },
+      {
+        "term": 48,
+        "min": 0.005,
+        "max": 0.3
+      },
+      {
+        "term": 54,
+        "min": 0.005,
+        "max": 0.25
+      }
+    ],
+    "residualValueStep": 0.005,
+    "residualValueDefault": "max",
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1455
+      },
+      {
+        "term": 26,
+        "value": 0.1375
+      },
+      {
+        "term": 38,
+        "value": 0.1363
+      },
+      {
+        "term": 50,
+        "value": 0.1343
+      }
+    ]
+  },
+  "comfortLeaseProduct": {
+    "type": "comfort_lease",
+    "label": "CL U",
+    "calculationMode": "brv_based",
+    "totalAgeLimit": 96,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.35,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 36
+    },
+    "annualMileageLimits": {
+      "min": 10000,
+      "max": 50000,
+      "step": 5000,
+      "default": 15000
+    },
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1446
+      },
+      {
+        "term": 26,
+        "value": 0.1411
+      },
+      {
+        "term": 38,
+        "value": 0.142
+      },
+      {
+        "term": 50,
+        "value": 0.1411
+      }
+    ],
+    "tarRvMod": {
+      "id": 91714,
+      "tmdate": "22/10/05",
+      "accessoryLimit": 0.3,
+      "rvValue": 0.489,
+      "brvValue": 0.489,
+      "rvValueUsed": 0.502,
+      "brvValueUsed": 0.489,
+      "carSegmentId": "2"
+    },
+    "tarRvDev": {
+      "term": 46,
+      "totalMileage": 17500,
+      "rvDev": -0.0336,
+      "rvDevUsed": -0.0336
+    }
+  },
+  "newPrice": 292900,
+  "optionsPrice": 73900,
+  "accessoriesPrice": 0,
+  "transactionalPrice": 265000,
+  "dealer": {
+    "id": 37,
+    "buno": "40564",
+    "owner": "019",
+    "ownerName": "Playada sp. z o.o.",
+    "name": "ZK Motors",
+    "legalName": "ZK Motors",
+    "street": "Wystawowa 2",
+    "zip": "25-672",
+    "city": "Kielce",
+    "lat": 50.90272957,
+    "lng": 20.58441177
+  },
+  "created": "2022-09-26T12:00:02+02:00",
+  "age": 10,
+  "isYUC": true,
+  "reserved": false,
+  "vin17": "WBA15BZ000N122460",
+  "registration": "2021-11-17T00:00:00+00:00",
+  "panoramas": 0,
+  "reservationStatus": "",
+  "emissionMeasurementStandard": "WLTP"
+}

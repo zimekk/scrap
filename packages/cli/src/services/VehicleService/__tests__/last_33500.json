@@ -1,0 +1,3085 @@
+{
+  "_id": "009G1wUaGEys4f8g",
+  "_created": 1646669681868,
+  "_updated": 1650973982514,
+  "_history": {
+    "1646669681868": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1048
+          },
+          {
+            "term": 26,
+            "value": 0.1014
+          },
+          {
+            "term": 38,
+            "value": 0.0987
+          },
+          {
+            "term": 50,
+            "value": 0.0957
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1058
+          },
+          {
+            "term": 26,
+            "value": 0.1014
+          },
+          {
+            "term": 38,
+            "value": 0.1023
+          },
+          {
+            "term": 50,
+            "value": 0.1014
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 251700,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1646811136710,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1646940563309": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.111
+          },
+          {
+            "term": 26,
+            "value": 0.1024
+          },
+          {
+            "term": 38,
+            "value": 0.1017
+          },
+          {
+            "term": 50,
+            "value": 0.0997
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1109
+          },
+          {
+            "term": 26,
+            "value": 0.1066
+          },
+          {
+            "term": 38,
+            "value": 0.1074
+          },
+          {
+            "term": 50,
+            "value": 0.1065
+          }
+        ],
+        "tarRvMod": {
+          "id": 80377,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 251700,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1648495676920,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1648569634059": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1135
+          },
+          {
+            "term": 26,
+            "value": 0.105
+          },
+          {
+            "term": 38,
+            "value": 0.1043
+          },
+          {
+            "term": 50,
+            "value": 0.1023
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1126
+          },
+          {
+            "term": 26,
+            "value": 0.1091
+          },
+          {
+            "term": 38,
+            "value": 0.11
+          },
+          {
+            "term": 50,
+            "value": 0.1091
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 251700,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1649090236213,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1649226368683": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.116
+          },
+          {
+            "term": 26,
+            "value": 0.1075
+          },
+          {
+            "term": 38,
+            "value": 0.1068
+          },
+          {
+            "term": 50,
+            "value": 0.1048
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1151
+          },
+          {
+            "term": 26,
+            "value": 0.1116
+          },
+          {
+            "term": 38,
+            "value": 0.1125
+          },
+          {
+            "term": 50,
+            "value": 0.1116
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 251700,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ],
+      "_checked": 1649413756005
+    },
+    "1649492006972": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1185
+          },
+          {
+            "term": 26,
+            "value": 0.11
+          },
+          {
+            "term": 38,
+            "value": 0.1093
+          },
+          {
+            "term": 50,
+            "value": 0.1073
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1176
+          },
+          {
+            "term": 26,
+            "value": 0.1141
+          },
+          {
+            "term": 38,
+            "value": 0.115
+          },
+          {
+            "term": 50,
+            "value": 0.1141
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 251700,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1649613216469,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1649694049180": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1185
+          },
+          {
+            "term": 26,
+            "value": 0.11
+          },
+          {
+            "term": 38,
+            "value": 0.1093
+          },
+          {
+            "term": 50,
+            "value": 0.1073
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1176
+          },
+          {
+            "term": 26,
+            "value": 0.1141
+          },
+          {
+            "term": 38,
+            "value": 0.115
+          },
+          {
+            "term": 50,
+            "value": 0.1141
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 239900,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "transactionalPriceUpdated": "2022-04-11T15:00:02+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1649698393540
+    },
+    "1649769156130": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1185
+          },
+          {
+            "term": 26,
+            "value": 0.11
+          },
+          {
+            "term": 38,
+            "value": 0.1093
+          },
+          {
+            "term": 50,
+            "value": 0.1073
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1176
+          },
+          {
+            "term": 26,
+            "value": 0.1141
+          },
+          {
+            "term": 38,
+            "value": 0.115
+          },
+          {
+            "term": 50,
+            "value": 0.1141
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 239900,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1649844705367,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1649957949819": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1185
+          },
+          {
+            "term": 26,
+            "value": 0.11
+          },
+          {
+            "term": 38,
+            "value": 0.1093
+          },
+          {
+            "term": 50,
+            "value": 0.1073
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1176
+          },
+          {
+            "term": 26,
+            "value": 0.1141
+          },
+          {
+            "term": 38,
+            "value": 0.115
+          },
+          {
+            "term": 50,
+            "value": 0.1141
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "vin17": "WBA5R71010FM41052",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 239900,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1650308547523,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    },
+    "1650378223337": {
+      "id": 33500,
+      "type": "CAR",
+      "isNew": true,
+      "modelCode": "5R71",
+      "title": "BMW 330i xDrive Limuzyna",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.4
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.4
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.4
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.4
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.4
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.4
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.35
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.35
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.35
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.35
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.35
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.33
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.25
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.2
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.15
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.35
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.121
+          },
+          {
+            "term": 26,
+            "value": 0.1125
+          },
+          {
+            "term": 38,
+            "value": 0.1118
+          },
+          {
+            "term": 50,
+            "value": 0.1098
+          }
+        ]
+      },
+      "comfortLeaseProduct": {
+        "type": "comfort_lease",
+        "label": "CL",
+        "calculationMode": "brv_based",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.35,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 36
+        },
+        "totalAgeLimit": 96,
+        "annualMileageLimits": {
+          "min": 10000,
+          "max": 50000,
+          "step": 5000,
+          "default": 15000
+        },
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1201
+          },
+          {
+            "term": 26,
+            "value": 0.1166
+          },
+          {
+            "term": 38,
+            "value": 0.1175
+          },
+          {
+            "term": 50,
+            "value": 0.1166
+          }
+        ],
+        "tarRvMod": {
+          "id": 80103,
+          "tmdate": "22/02/22",
+          "accessoryLimit": 0.3,
+          "rvValue": 0.439,
+          "brvValue": 0.439,
+          "rvValueUsed": 0.488,
+          "brvValueUsed": 0.439,
+          "carSegmentId": "2"
+        },
+        "tarRvDev": {
+          "term": 36,
+          "totalMileage": 15000,
+          "rvDev": 0.024,
+          "rvDevUsed": 0.024
+        }
+      },
+      "vin17": "WBA5R71010FM41052",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 3,
+        "label": "Seria 3"
+      },
+      "bodyType": {
+        "id": 4,
+        "label": "Sedan"
+      },
+      "seriesCode": "G20",
+      "productionYear": 2022,
+      "mileage": 20,
+      "fuel": {
+        "id": 1,
+        "label": "Benzyna"
+      },
+      "consumptionFuel": 6.8,
+      "emission": 156,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "emissionMeasurementStandard": "WLTP",
+      "powerKW": 190,
+      "powerHP": 259,
+      "capacity": 1998,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#0000FF",
+        "id": 2,
+        "label": "Niebieski Portimao M"
+      },
+      "images": 10,
+      "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+      "exterior360": true,
+      "interior360": true,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 251700,
+      "optionsPrice": 0,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 239900,
+      "dealer": {
+        "id": 22,
+        "buno": "32060",
+        "owner": "010",
+        "ownerName": "Grupa Sikora",
+        "name": "BMW SIKORA MIKOŁÓW",
+        "legalName": "Sikora AC Sp.zo.o.",
+        "street": "Pszczynska 103",
+        "zip": "43-190",
+        "city": "Mikolow",
+        "lat": 50.153766,
+        "lng": 18.9019152
+      },
+      "created": "2022-03-07T16:00:03+00:00",
+      "age": 0,
+      "isYUC": false,
+      "reserved": false,
+      "_checked": 1650907160505,
+      "options": [
+        "Moc\t190KW / 259KM",
+        "Pojemność silnika\t1998cm3",
+        "Rok produkcji\t2022",
+        "Rodzaj silnika\tBenzyna",
+        "Przebieg (km)\t20km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSedan",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t4",
+        "Kolor\tNiebieski Portimao M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+        "Zestaw głośnikowy HiFi",
+        "Radio cyfrowe DAB+",
+        "Usługi ConnectedDrive",
+        "Teleserwis",
+        "Połączenie alarmowe",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Connected",
+        "Model M Sport",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "Pakiet aerodynamiczny M",
+        "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+        "Sportowy układ hamulcowy M",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Sportowe fotele przednie",
+        "Kierownica sportowa M, skórzana",
+        "Klimatyzacja automatyczna",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "System załadunkowy",
+        "Podsufitka M Anthracite",
+        "Oświetlenie ambientowe",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Dodatkowe ogrzewanie",
+        "Listwy ozdobne M Aluminium Tetragon",
+        "Składane zagłówki tylne",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Reflektory laserowe",
+        "Asystent świateł drogowych",
+        "Diodowe reflektory przeciwmgielne",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard Plus",
+        "Regulator prędkości z funkcją hamowania",
+        "System alarmowy",
+        "DSC",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "System monitorowania ciśnienia opon",
+        "Zawieszenie sportowe M",
+        "Sportowa automatyczna skrzynia biegów z łopatkami",
+        "Zmienny, sportowy układ kierowniczy",
+        "Funkcja dezaktywacji poduszki powietrznej"
+      ]
+    }
+  },
+  "_removed": 1651860503463,
+  "id": 33500,
+  "type": "CAR",
+  "isNew": true,
+  "modelCode": "5R71",
+  "title": "BMW 330i xDrive Limuzyna",
+  "brand": {
+    "id": 1,
+    "label": "BMW"
+  },
+  "series": {
+    "id": 3,
+    "label": "Seria 3"
+  },
+  "bodyType": {
+    "id": 4,
+    "label": "Sedan"
+  },
+  "seriesCode": "G20",
+  "productionYear": 2022,
+  "mileage": 20,
+  "fuel": {
+    "id": 1,
+    "label": "Benzyna"
+  },
+  "consumptionFuel": 6.8,
+  "emission": 156,
+  "emissionStandard": {
+    "id": 6,
+    "label": "EURO 6"
+  },
+  "powerKW": 190,
+  "powerHP": 259,
+  "capacity": 1998,
+  "transmission": {
+    "id": 0,
+    "label": "Automatyczna"
+  },
+  "color": {
+    "code": "#0000FF",
+    "id": 2,
+    "label": "Niebieski Portimao M"
+  },
+  "images": 10,
+  "imagesLastChanged": "2022-03-07T15:49:55+00:00",
+  "exterior360": true,
+  "interior360": true,
+  "warranty": 0,
+  "usedBrand": false,
+  "reservable": false,
+  "vatReclaimable": true,
+  "leasable": true,
+  "leaseProduct": {
+    "type": "lease",
+    "label": "LO",
+    "totalAgeLimit": 120,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.45,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    "residualValueFactorLimits": [
+      {
+        "term": 24,
+        "min": 0.187,
+        "max": 0.4
+      },
+      {
+        "term": 25,
+        "min": 0.17,
+        "max": 0.4
+      },
+      {
+        "term": 26,
+        "min": 0.155,
+        "max": 0.4
+      },
+      {
+        "term": 27,
+        "min": 0.14,
+        "max": 0.4
+      },
+      {
+        "term": 28,
+        "min": 0.12,
+        "max": 0.4
+      },
+      {
+        "term": 29,
+        "min": 0.105,
+        "max": 0.4
+      },
+      {
+        "term": 30,
+        "min": 0.09,
+        "max": 0.35
+      },
+      {
+        "term": 31,
+        "min": 0.07,
+        "max": 0.35
+      },
+      {
+        "term": 32,
+        "min": 0.055,
+        "max": 0.35
+      },
+      {
+        "term": 33,
+        "min": 0.04,
+        "max": 0.35
+      },
+      {
+        "term": 34,
+        "min": 0.02,
+        "max": 0.35
+      },
+      {
+        "term": 36,
+        "min": 0.005,
+        "max": 0.33
+      },
+      {
+        "term": 37,
+        "min": 0.005,
+        "max": 0.3
+      },
+      {
+        "term": 42,
+        "min": 0.005,
+        "max": 0.25
+      },
+      {
+        "term": 48,
+        "min": 0.005,
+        "max": 0.2
+      },
+      {
+        "term": 54,
+        "min": 0.005,
+        "max": 0.15
+      },
+      {
+        "term": 35,
+        "min": 0.01,
+        "max": 0.35
+      }
+    ],
+    "residualValueStep": 0.005,
+    "residualValueDefault": "max",
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1235
+      },
+      {
+        "term": 26,
+        "value": 0.115
+      },
+      {
+        "term": 38,
+        "value": 0.1143
+      },
+      {
+        "term": 50,
+        "value": 0.1123
+      }
+    ]
+  },
+  "comfortLeaseProduct": {
+    "type": "comfort_lease",
+    "label": "CL",
+    "calculationMode": "brv_based",
+    "totalAgeLimit": 96,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.35,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 36
+    },
+    "annualMileageLimits": {
+      "min": 10000,
+      "max": 50000,
+      "step": 5000,
+      "default": 15000
+    },
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1226
+      },
+      {
+        "term": 26,
+        "value": 0.1191
+      },
+      {
+        "term": 38,
+        "value": 0.12
+      },
+      {
+        "term": 50,
+        "value": 0.1191
+      }
+    ],
+    "tarRvMod": {
+      "id": 80103,
+      "tmdate": "22/02/22",
+      "accessoryLimit": 0.3,
+      "rvValue": 0.439,
+      "brvValue": 0.439,
+      "rvValueUsed": 0.488,
+      "brvValueUsed": 0.439,
+      "carSegmentId": "2"
+    },
+    "tarRvDev": {
+      "term": 36,
+      "totalMileage": 15000,
+      "rvDev": 0.024,
+      "rvDevUsed": 0.024
+    }
+  },
+  "newPrice": 251700,
+  "optionsPrice": 0,
+  "accessoriesPrice": 0,
+  "transactionalPrice": 239900,
+  "dealer": {
+    "id": 22,
+    "buno": "32060",
+    "owner": "010",
+    "ownerName": "Grupa Sikora",
+    "name": "BMW SIKORA MIKOŁÓW",
+    "legalName": "Sikora AC Sp.zo.o.",
+    "street": "Pszczynska 103",
+    "zip": "43-190",
+    "city": "Mikolow",
+    "lat": 50.153766,
+    "lng": 18.9019152
+  },
+  "created": "2022-03-07T16:00:03+00:00",
+  "age": 0,
+  "isYUC": false,
+  "reserved": false,
+  "vin17": "WBA5R71010FM41052",
+  "emissionMeasurementStandard": "WLTP",
+  "_checked": 1651700445256,
+  "options": [
+    "Moc\t190KW / 259KM",
+    "Pojemność silnika\t1998cm3",
+    "Rok produkcji\t2022",
+    "Rodzaj silnika\tBenzyna",
+    "Przebieg (km)\t20km",
+    "Skrzynia biegów\tAutomatyczna",
+    "Typ nadwozia\tSedan",
+    "Typ napędu\tNapęd na cztery koła",
+    "Liczba drzwi\t4",
+    "Kolor\tNiebieski Portimao M Metalizowany",
+    "Liczba siedzeń\t5",
+    "Tapicerka foteli\tAlcantara Black / Sensatec materiałowo-skórzana z kontrastowym obszyciem",
+    "Zestaw głośnikowy HiFi",
+    "Radio cyfrowe DAB+",
+    "Usługi ConnectedDrive",
+    "Teleserwis",
+    "Połączenie alarmowe",
+    "Pakiet dodatkowych schowków",
+    "Pakiet Connected",
+    "Model M Sport",
+    "Obramowania M Shadowline czarne na wysoki połysk",
+    "Pakiet aerodynamiczny M",
+    "18\" aluminiowe obręcze M Double-spoke 790 Bicolor",
+    "Sportowy układ hamulcowy M",
+    "Przyciemniana szyba tylna i tylne szyby boczne",
+    "Sportowe fotele przednie",
+    "Kierownica sportowa M, skórzana",
+    "Klimatyzacja automatyczna",
+    "Lusterko wsteczne przyciemniane automatycznie",
+    "System załadunkowy",
+    "Podsufitka M Anthracite",
+    "Oświetlenie ambientowe",
+    "Szyby przednie o zwiększonej izolacji akustycznej",
+    "Dodatkowe ogrzewanie",
+    "Listwy ozdobne M Aluminium Tetragon",
+    "Składane zagłówki tylne",
+    "Elektryczna regulacja szerokości oparcia",
+    "Śruby zabezpieczające",
+    "Reflektory laserowe",
+    "Asystent świateł drogowych",
+    "Diodowe reflektory przeciwmgielne",
+    "Asystent parkowania z kamerą cofania",
+    "Active Guard Plus",
+    "Regulator prędkości z funkcją hamowania",
+    "System alarmowy",
+    "DSC",
+    "Zestaw naprawczy do opon",
+    "Aktywna ochrona pieszych",
+    "System monitorowania ciśnienia opon",
+    "Zawieszenie sportowe M",
+    "Sportowa automatyczna skrzynia biegów z łopatkami",
+    "Zmienny, sportowy układ kierowniczy",
+    "Funkcja dezaktywacji poduszki powietrznej"
+  ]
+}

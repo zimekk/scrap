@@ -1,5 +1,8 @@
+import { format } from "date-fns";
 import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
+import { z } from "zod";
+import { ExtendedItem, VehicleDiff } from "./types";
 
 const ERA = 24 * 3600 * 1000;
 export const _time = Date.now();
@@ -7,77 +10,70 @@ export const _past = _time - ERA;
 
 export const createItem = (item: {}) => ({ ...item, _created: _time });
 
-export const diffItem = (
-  {
-    lastChange,
-    panoramasLastChanged,
-    transactionalPriceUpdated,
-    vehicleDataVersion,
-    _id,
-    _created,
-    _updated,
-    _checked,
-    _removed,
-    _history,
-    options,
-    ...last
-  }: {
-    lastChange?: any;
-    panoramasLastChanged?: any;
-    transactionalPriceUpdated?: any;
-    vehicleDataVersion?: any;
-    _id: string;
-    _created: number;
-    _updated: number;
-    _checked: number;
-    _removed: number;
-    _history: {};
-    options: string[];
-  },
-  {
-    lastChange: _lastChange,
-    panoramasLastChanged: _panoramasLastChanged,
-    transactionalPriceUpdated: _transactionalPriceUpdated,
-    vehicleDataVersion: _vehicleDataVersion,
-    ...item
-  }: any
-) => diffString(last, item);
+export const diffItem = (last: any, item: any) =>
+  ((last, item) => diffString(last, item))(
+    VehicleDiff.parse(last),
+    VehicleDiff.parse(item)
+  );
 
-export const updateItem = (
-  {
-    _id,
-    _created = _past,
-    _updated = _created,
-    _history = {},
-    comfortLeaseProduct,
-    emissionMeasurementStandard,
-    leaseProduct,
-    newPrice,
-    reservationFee,
-    ...last
-  }: {
-    _id: string;
-    _created: number;
-    _updated: number;
-    _history: {};
-    comfortLeaseProduct: any;
-    emissionMeasurementStandard: any;
-    leaseProduct: any;
-    newPrice: any;
-    reservationFee: any;
-  },
-  item: {}
-) => ({
-  ...last,
-  ...item,
-  _id,
-  _created,
-  _updated: _time,
-  _history: {
-    ..._history,
-    [_updated]: last,
-  },
-});
+export const reduceHistory = (_history: any[]) =>
+  Object.entries(_history)
+    /*
+.filter(([date, last]:any, key, list) => {
+if(0 < key && key < list.length - 1) {
+  const next = list[key + 1][1]
+  const diff = diffItem(last, next);
+  if (!diff) {
+    console.log(last.images, next.images)
+    console.log(date, format(Number(date), 'yyyy-MM-dd, HH:mm:ss'), key, diffString(last, next))
+    return false
+  }
+}
+return true;
+})
+*/
+    .reduce((history: Record<string, any>, [date, item], _key) => {
+      const entries = Object.entries(history);
+      if (entries.length > 0) {
+        const [_last_date, last] = entries[entries.length - 1];
+
+        const diff = diffItem(last, item);
+        console.log(
+          `${item.id}[${date}]`,
+          _key,
+          format(Number(date), "yyyy-MM-dd, HH:mm:ss"),
+          diff ? diffString(last, item) : null
+        );
+        if (!diff) {
+          return history;
+        }
+      }
+      return Object.assign(history, { [date]: item });
+    }, {});
+
+export const updateItem = (last: unknown, item: unknown, updated = _time) =>
+  ((last, { _created, _updated = _created, _history, ...item }) => ({
+    ...item,
+    _created: _created,
+    _updated: updated,
+    _history: {
+      ..._history,
+      [_updated]: last,
+    },
+  }))(ExtendedItem.parse(last), {
+    ...z
+      .object({
+        _id: z.string(),
+        _created: z.number(),
+        _updated: z.number().optional(),
+        _checked: z.number().optional(),
+        _removed: z.number().optional(),
+        _history: z.object({}).passthrough().default({}),
+        options: z.string().array().optional(),
+      })
+      .parse(last),
+    ...ExtendedItem.parse(item),
+  });
 
 export const scrapOptions = (item: object, html: string) => {
   const $root = parse(html);

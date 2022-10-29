@@ -1,0 +1,261 @@
+{
+  "id": 59195,
+  "type": "CAR",
+  "isNew": false,
+  "modelCode": "31AM",
+  "title": "BMW 218d Gran Coupé",
+  "brand": {
+    "id": 1,
+    "label": "BMW"
+  },
+  "series": {
+    "id": 2,
+    "label": "Seria 2"
+  },
+  "bodyType": {
+    "id": 2,
+    "label": "Coupé"
+  },
+  "seriesCode": "F44",
+  "productionYear": 2021,
+  "mileage": 16452,
+  "fuel": {
+    "id": 2,
+    "label": "Diesel"
+  },
+  "consumptionFuel": 5,
+  "emission": 130,
+  "emissionStandard": {
+    "id": 6,
+    "label": "EURO 6"
+  },
+  "powerKW": 110,
+  "powerHP": 150,
+  "capacity": 1995,
+  "transmission": {
+    "id": 0,
+    "label": "Automatyczna"
+  },
+  "color": {
+    "code": "#808080",
+    "id": 6,
+    "label": "Szary mineralny"
+  },
+  "images": 40,
+  "imagesLastChanged": "2022-10-21T12:46:45+00:00",
+  "exterior360": false,
+  "interior360": false,
+  "warranty": 0,
+  "usedBrand": false,
+  "reservable": false,
+  "vatReclaimable": true,
+  "leasable": true,
+  "leaseProduct": {
+    "type": "lease",
+    "label": "LO U",
+    "totalAgeLimit": 120,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.45,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    "residualValueFactorLimits": [
+      {
+        "term": 24,
+        "min": 0.187,
+        "max": 0.45
+      },
+      {
+        "term": 25,
+        "min": 0.17,
+        "max": 0.45
+      },
+      {
+        "term": 26,
+        "min": 0.155,
+        "max": 0.45
+      },
+      {
+        "term": 27,
+        "min": 0.14,
+        "max": 0.45
+      },
+      {
+        "term": 28,
+        "min": 0.12,
+        "max": 0.45
+      },
+      {
+        "term": 29,
+        "min": 0.105,
+        "max": 0.44
+      },
+      {
+        "term": 30,
+        "min": 0.09,
+        "max": 0.43
+      },
+      {
+        "term": 31,
+        "min": 0.07,
+        "max": 0.42
+      },
+      {
+        "term": 32,
+        "min": 0.055,
+        "max": 0.41
+      },
+      {
+        "term": 33,
+        "min": 0.04,
+        "max": 0.41
+      },
+      {
+        "term": 34,
+        "min": 0.02,
+        "max": 0.4
+      },
+      {
+        "term": 35,
+        "min": 0.01,
+        "max": 0.4
+      },
+      {
+        "term": 36,
+        "min": 0.005,
+        "max": 0.38
+      },
+      {
+        "term": 37,
+        "min": 0.005,
+        "max": 0.36
+      },
+      {
+        "term": 42,
+        "min": 0.005,
+        "max": 0.32
+      },
+      {
+        "term": 48,
+        "min": 0.005,
+        "max": 0.3
+      },
+      {
+        "term": 54,
+        "min": 0.005,
+        "max": 0.25
+      }
+    ],
+    "residualValueStep": 0.005,
+    "residualValueDefault": "max",
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1455
+      },
+      {
+        "term": 26,
+        "value": 0.1375
+      },
+      {
+        "term": 38,
+        "value": 0.1363
+      },
+      {
+        "term": 50,
+        "value": 0.1343
+      }
+    ]
+  },
+  "comfortLeaseProduct": {
+    "type": "comfort_lease",
+    "label": "CL U",
+    "calculationMode": "brv_based",
+    "totalAgeLimit": 96,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.35,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 36
+    },
+    "annualMileageLimits": {
+      "min": 10000,
+      "max": 50000,
+      "step": 5000,
+      "default": 15000
+    },
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1446
+      },
+      {
+        "term": 26,
+        "value": 0.1411
+      },
+      {
+        "term": 38,
+        "value": 0.142
+      },
+      {
+        "term": 50,
+        "value": 0.1411
+      }
+    ],
+    "tarRvMod": {
+      "id": 92228,
+      "tmdate": "22/10/05",
+      "accessoryLimit": 0.35,
+      "rvValue": 0.491,
+      "brvValue": 0.471,
+      "rvValueUsed": 0.502,
+      "brvValueUsed": 0.471,
+      "carSegmentId": "1"
+    },
+    "tarRvDev": {
+      "term": 53,
+      "totalMileage": 15000,
+      "rvDev": -0.0715,
+      "rvDevUsed": -0.0715
+    }
+  },
+  "newPrice": 197100,
+  "optionsPrice": 46800,
+  "accessoriesPrice": 0,
+  "transactionalPrice": 173900,
+  "dealer": {
+    "id": 26,
+    "buno": "33609",
+    "owner": "014",
+    "ownerName": "Wojciech Olszowiec",
+    "name": "Olszowiec",
+    "legalName": "Dealer Olszowiec Sp. z o.o. Sp. k",
+    "street": "Ostrowska 330",
+    "zip": "61-312",
+    "city": "Poznan",
+    "lat": 52.3690734,
+    "lng": 16.9932787
+  },
+  "created": "2022-10-21T15:00:02+02:00",
+  "age": 17,
+  "isYUC": true,
+  "reserved": false,
+  "vin17": "WBA31AM0107J26124",
+  "registration": "2021-04-12T00:00:00+00:00",
+  "panoramas": 0,
+  "reservationStatus": "",
+  "emissionMeasurementStandard": "WLTP"
+}

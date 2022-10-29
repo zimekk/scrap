@@ -1,0 +1,6046 @@
+{
+  "_id": "2SAPW06Su1kcb1pA",
+  "_created": 1664284394360,
+  "_updated": 1666626732299,
+  "_history": {
+    "1664284394360": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.143
+          },
+          {
+            "term": 26,
+            "value": 0.135
+          },
+          {
+            "term": 38,
+            "value": 0.1338
+          },
+          {
+            "term": 50,
+            "value": 0.1318
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1664739840131
+    },
+    "1664890660711": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1664890660711
+    },
+    "1664973350715": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665066389714
+    },
+    "1665150494575": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665150494575
+    },
+    "1665218850017": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665314146577
+    },
+    "1665394473934": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665481894124
+    },
+    "1665570112627": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665570112627
+    },
+    "1665671443837": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665671443837
+    },
+    "1665767102539": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665767102539
+    },
+    "1665853081959": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1665853081959
+    },
+    "1665910219696": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666102482724
+    },
+    "1666196545444": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": true,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666196545444
+    },
+    "1666277723343": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666277723343
+    },
+    "1666291432780": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666291432780
+    },
+    "1666291688610": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666291688610
+    },
+    "1666291787989": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666291787989
+    },
+    "1666364384849": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666364384849
+    },
+    "1666555998921": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666555998921
+    },
+    "1666556189106": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666556189106
+    },
+    "1666556291463": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "leaseProduct": {
+        "type": "lease",
+        "label": "LO U",
+        "downPaymentLimits": {
+          "min": 0,
+          "max": 0.45,
+          "step": 1000,
+          "default": 0.25
+        },
+        "termLimits": {
+          "min": 24,
+          "max": 60,
+          "step": 1,
+          "default": 24
+        },
+        "totalAgeLimit": 120,
+        "residualValueFactorLimits": [
+          {
+            "term": 24,
+            "min": 0.187,
+            "max": 0.45
+          },
+          {
+            "term": 25,
+            "min": 0.17,
+            "max": 0.45
+          },
+          {
+            "term": 26,
+            "min": 0.155,
+            "max": 0.45
+          },
+          {
+            "term": 27,
+            "min": 0.14,
+            "max": 0.45
+          },
+          {
+            "term": 28,
+            "min": 0.12,
+            "max": 0.45
+          },
+          {
+            "term": 29,
+            "min": 0.105,
+            "max": 0.44
+          },
+          {
+            "term": 30,
+            "min": 0.09,
+            "max": 0.43
+          },
+          {
+            "term": 31,
+            "min": 0.07,
+            "max": 0.42
+          },
+          {
+            "term": 32,
+            "min": 0.055,
+            "max": 0.41
+          },
+          {
+            "term": 33,
+            "min": 0.04,
+            "max": 0.41
+          },
+          {
+            "term": 34,
+            "min": 0.02,
+            "max": 0.4
+          },
+          {
+            "term": 35,
+            "min": 0.01,
+            "max": 0.4
+          },
+          {
+            "term": 36,
+            "min": 0.005,
+            "max": 0.38
+          },
+          {
+            "term": 37,
+            "min": 0.005,
+            "max": 0.36
+          },
+          {
+            "term": 42,
+            "min": 0.005,
+            "max": 0.32
+          },
+          {
+            "term": 48,
+            "min": 0.005,
+            "max": 0.3
+          },
+          {
+            "term": 54,
+            "min": 0.005,
+            "max": 0.25
+          }
+        ],
+        "residualValueStep": 0.005,
+        "residualValueDefault": "max",
+        "interestRates": [
+          {
+            "term": 0,
+            "value": 0.1455
+          },
+          {
+            "term": 26,
+            "value": 0.1375
+          },
+          {
+            "term": 38,
+            "value": 0.1363
+          },
+          {
+            "term": 50,
+            "value": 0.1343
+          }
+        ]
+      },
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "reservationFee": 26500,
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666556291463
+    },
+    "1666556523063": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "vatReclaimable": true,
+      "leasable": true,
+      "newPrice": 292900,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666556523063
+    },
+    "1666557502431": {
+      "id": 55569,
+      "type": "CAR",
+      "isNew": false,
+      "modelCode": "15BZ",
+      "title": "BMW X3 xDrive20d",
+      "vin17": "WBA15BZ000N122460",
+      "brand": {
+        "id": 1,
+        "label": "BMW"
+      },
+      "series": {
+        "id": 20,
+        "label": "Seria X"
+      },
+      "bodyType": {
+        "id": 6,
+        "label": "SAV"
+      },
+      "seriesCode": "G01",
+      "productionYear": 2021,
+      "registration": "2021-11-17T00:00:00+00:00",
+      "mileage": 20000,
+      "fuel": {
+        "id": 2,
+        "label": "Diesel"
+      },
+      "consumptionFuel": 5.9,
+      "emission": 155,
+      "emissionStandard": {
+        "id": 6,
+        "label": "EURO 6"
+      },
+      "powerKW": 140,
+      "powerHP": 190,
+      "capacity": 1995,
+      "transmission": {
+        "id": 0,
+        "label": "Automatyczna"
+      },
+      "color": {
+        "code": "#000000",
+        "id": 10,
+        "label": "Czarny Carbon M"
+      },
+      "images": 13,
+      "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+      "panoramas": 0,
+      "exterior360": false,
+      "interior360": false,
+      "warranty": 0,
+      "usedBrand": false,
+      "reservable": false,
+      "reservationStatus": "",
+      "vatReclaimable": true,
+      "leasable": true,
+      "optionsPrice": 73900,
+      "accessoriesPrice": 0,
+      "transactionalPrice": 265000,
+      "dealer": {
+        "id": 37,
+        "buno": "40564",
+        "owner": "019",
+        "ownerName": "Playada sp. z o.o.",
+        "name": "ZK Motors",
+        "legalName": "ZK Motors",
+        "street": "Wystawowa 2",
+        "zip": "25-672",
+        "city": "Kielce",
+        "lat": 50.90272957,
+        "lng": 20.58441177
+      },
+      "created": "2022-09-26T12:00:02+02:00",
+      "age": 10,
+      "isYUC": true,
+      "reserved": false,
+      "options": [
+        "Moc\t140KW / 190KM",
+        "Pojemność silnika\t1995cm3",
+        "Rok produkcji\t2021",
+        "Rodzaj silnika\tDiesel",
+        "Przebieg (km)\t20 000km",
+        "Skrzynia biegów\tAutomatyczna",
+        "Typ nadwozia\tSAV",
+        "Typ napędu\tNapęd na cztery koła",
+        "Liczba drzwi\t5",
+        "Kolor\tCzarny Carbon M Metalizowany",
+        "Liczba siedzeń\t5",
+        "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+        "BMW Live Cockpit Professional z systemem nawigacyjnym",
+        "Wyświetlacz Head-Up",
+        "Hotspot Wi-Fi",
+        "Radio cyfrowe DAB+",
+        "Zestaw głośnikowy HiFi",
+        "Telefonia komfortowa",
+        "Teleserwis",
+        "Usługi ConnectedDrive",
+        "Inteligentne połączenie alarmowe",
+        "Cyfrowy zestaw wskaźników",
+        "Pakiet sportowy M",
+        "Pakiet Connected Professional",
+        "Pakiet Innowacji",
+        "Pakiet dodatkowych schowków",
+        "Pakiet Business Class",
+        "Pakiet aerodynamiczny M",
+        "Obramowania M Shadowline czarne na wysoki połysk",
+        "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+        "Przyciemniana szyba tylna i tylne szyby boczne",
+        "Relingi dachowe M Shadowline czarne na wysoki połysk",
+        "Sportowe fotele przednie",
+        "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+        "Klimatyzacja automatyczna",
+        "Podparcie lędzwiowe przód",
+        "Pakiet dodatkowych funkcji lusterek",
+        "Lusterko wsteczne przyciemniane automatycznie",
+        "Kierownica sportowa M, skórzana",
+        "Automatyczna skrzynia biegów z łopatkami",
+        "Dostęp komfortowy",
+        "Ogrzewanie foteli przednich",
+        "Ogrzewanie kierownicy",
+        "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+        "Podsufitka M Anthracite",
+        "Szyby przednie o zwiększonej izolacji akustycznej",
+        "Siatka oddzielająca bagażnik",
+        "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+        "Elektryczna regulacja szerokości oparcia",
+        "Śruby zabezpieczające",
+        "Dywaniki welurowe",
+        "Adaptacyjne reflektory LED",
+        "Asystent świateł drogowych",
+        "Asystent parkowania z kamerą cofania",
+        "Active Guard",
+        "System alarmowy",
+        "Systemy asystujące kierowcy",
+        "System monitorowania ciśnienia opon",
+        "Zestaw naprawczy do opon",
+        "Aktywna ochrona pieszych",
+        "Zawieszenie sportowe M",
+        "Performance Control",
+        "Funkcja dezaktywacji poduszki powietrznej",
+        "Zwiększony bak paliwa",
+        "Mild Hybrid - permanentny system Start/Stop"
+      ],
+      "_checked": 1666557502431
+    }
+  },
+  "_removed": 0,
+  "id": 55569,
+  "type": "CAR",
+  "isNew": false,
+  "modelCode": "15BZ",
+  "title": "BMW X3 xDrive20d",
+  "brand": {
+    "id": 1,
+    "label": "BMW"
+  },
+  "series": {
+    "id": 20,
+    "label": "Seria X"
+  },
+  "bodyType": {
+    "id": 6,
+    "label": "SAV"
+  },
+  "seriesCode": "G01",
+  "productionYear": 2021,
+  "mileage": 20000,
+  "fuel": {
+    "id": 2,
+    "label": "Diesel"
+  },
+  "consumptionFuel": 5.9,
+  "emission": 155,
+  "emissionStandard": {
+    "id": 6,
+    "label": "EURO 6"
+  },
+  "powerKW": 140,
+  "powerHP": 190,
+  "capacity": 1995,
+  "transmission": {
+    "id": 0,
+    "label": "Automatyczna"
+  },
+  "color": {
+    "code": "#000000",
+    "id": 10,
+    "label": "Czarny Carbon M"
+  },
+  "images": 13,
+  "imagesLastChanged": "2022-09-22T08:00:44+00:00",
+  "exterior360": false,
+  "interior360": false,
+  "warranty": 0,
+  "usedBrand": false,
+  "reservable": false,
+  "vatReclaimable": true,
+  "leasable": true,
+  "leaseProduct": {
+    "type": "lease",
+    "label": "LO U",
+    "totalAgeLimit": 120,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.45,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    "residualValueFactorLimits": [
+      {
+        "term": 24,
+        "min": 0.187,
+        "max": 0.45
+      },
+      {
+        "term": 25,
+        "min": 0.17,
+        "max": 0.45
+      },
+      {
+        "term": 26,
+        "min": 0.155,
+        "max": 0.45
+      },
+      {
+        "term": 27,
+        "min": 0.14,
+        "max": 0.45
+      },
+      {
+        "term": 28,
+        "min": 0.12,
+        "max": 0.45
+      },
+      {
+        "term": 29,
+        "min": 0.105,
+        "max": 0.44
+      },
+      {
+        "term": 30,
+        "min": 0.09,
+        "max": 0.43
+      },
+      {
+        "term": 31,
+        "min": 0.07,
+        "max": 0.42
+      },
+      {
+        "term": 32,
+        "min": 0.055,
+        "max": 0.41
+      },
+      {
+        "term": 33,
+        "min": 0.04,
+        "max": 0.41
+      },
+      {
+        "term": 34,
+        "min": 0.02,
+        "max": 0.4
+      },
+      {
+        "term": 35,
+        "min": 0.01,
+        "max": 0.4
+      },
+      {
+        "term": 36,
+        "min": 0.005,
+        "max": 0.38
+      },
+      {
+        "term": 37,
+        "min": 0.005,
+        "max": 0.36
+      },
+      {
+        "term": 42,
+        "min": 0.005,
+        "max": 0.32
+      },
+      {
+        "term": 48,
+        "min": 0.005,
+        "max": 0.3
+      },
+      {
+        "term": 54,
+        "min": 0.005,
+        "max": 0.25
+      }
+    ],
+    "residualValueStep": 0.005,
+    "residualValueDefault": "max",
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1455
+      },
+      {
+        "term": 26,
+        "value": 0.1375
+      },
+      {
+        "term": 38,
+        "value": 0.1363
+      },
+      {
+        "term": 50,
+        "value": 0.1343
+      }
+    ]
+  },
+  "comfortLeaseProduct": {
+    "type": "comfort_lease",
+    "label": "CL U",
+    "calculationMode": "brv_based",
+    "totalAgeLimit": 96,
+    "downPaymentLimits": {
+      "min": 0,
+      "max": 0.35,
+      "step": 1000,
+      "default": 0.25
+    },
+    "termLimits": {
+      "min": 24,
+      "max": 60,
+      "step": 1,
+      "default": 36
+    },
+    "annualMileageLimits": {
+      "min": 10000,
+      "max": 50000,
+      "step": 5000,
+      "default": 15000
+    },
+    "interestRates": [
+      {
+        "term": 0,
+        "value": 0.1446
+      },
+      {
+        "term": 26,
+        "value": 0.1411
+      },
+      {
+        "term": 38,
+        "value": 0.142
+      },
+      {
+        "term": 50,
+        "value": 0.1411
+      }
+    ],
+    "tarRvMod": {
+      "id": 91714,
+      "tmdate": "22/10/05",
+      "accessoryLimit": 0.3,
+      "rvValue": 0.489,
+      "brvValue": 0.489,
+      "rvValueUsed": 0.502,
+      "brvValueUsed": 0.489,
+      "carSegmentId": "2"
+    },
+    "tarRvDev": {
+      "term": 46,
+      "totalMileage": 17500,
+      "rvDev": -0.0336,
+      "rvDevUsed": -0.0336
+    }
+  },
+  "newPrice": 292900,
+  "optionsPrice": 73900,
+  "accessoriesPrice": 0,
+  "transactionalPrice": 265000,
+  "dealer": {
+    "id": 37,
+    "buno": "40564",
+    "owner": "019",
+    "ownerName": "Playada sp. z o.o.",
+    "name": "ZK Motors",
+    "legalName": "ZK Motors",
+    "street": "Wystawowa 2",
+    "zip": "25-672",
+    "city": "Kielce",
+    "lat": 50.90272957,
+    "lng": 20.58441177
+  },
+  "created": "2022-09-26T12:00:02+02:00",
+  "age": 10,
+  "isYUC": true,
+  "reserved": false,
+  "vin17": "WBA15BZ000N122460",
+  "registration": "2021-11-17T00:00:00+00:00",
+  "panoramas": 0,
+  "reservationStatus": "",
+  "options": [
+    "Moc\t140KW / 190KM",
+    "Pojemność silnika\t1995cm3",
+    "Rok produkcji\t2021",
+    "Rodzaj silnika\tDiesel",
+    "Przebieg (km)\t20 000km",
+    "Skrzynia biegów\tAutomatyczna",
+    "Typ nadwozia\tSAV",
+    "Typ napędu\tNapęd na cztery koła",
+    "Liczba drzwi\t5",
+    "Kolor\tCzarny Carbon M Metalizowany",
+    "Liczba siedzeń\t5",
+    "Tapicerka foteli\tVernasca Black skórzana z dekoracyjnym niebieskim obszyciem",
+    "BMW Live Cockpit Professional z systemem nawigacyjnym",
+    "Wyświetlacz Head-Up",
+    "Hotspot Wi-Fi",
+    "Radio cyfrowe DAB+",
+    "Zestaw głośnikowy HiFi",
+    "Telefonia komfortowa",
+    "Teleserwis",
+    "Usługi ConnectedDrive",
+    "Inteligentne połączenie alarmowe",
+    "Cyfrowy zestaw wskaźników",
+    "Pakiet sportowy M",
+    "Pakiet Connected Professional",
+    "Pakiet Innowacji",
+    "Pakiet dodatkowych schowków",
+    "Pakiet Business Class",
+    "Pakiet aerodynamiczny M",
+    "Obramowania M Shadowline czarne na wysoki połysk",
+    "19\" aluminiowe obręcze M Y-spoke 887 Bicolor",
+    "Przyciemniana szyba tylna i tylne szyby boczne",
+    "Relingi dachowe M Shadowline czarne na wysoki połysk",
+    "Sportowe fotele przednie",
+    "Elektryczna regulacja foteli przednich z pamięcią ustawień fotela kierowcy",
+    "Klimatyzacja automatyczna",
+    "Podparcie lędzwiowe przód",
+    "Pakiet dodatkowych funkcji lusterek",
+    "Lusterko wsteczne przyciemniane automatycznie",
+    "Kierownica sportowa M, skórzana",
+    "Automatyczna skrzynia biegów z łopatkami",
+    "Dostęp komfortowy",
+    "Ogrzewanie foteli przednich",
+    "Ogrzewanie kierownicy",
+    "Panel deski rozdzielczej pokryty skórą ekologiczną Sensatec",
+    "Podsufitka M Anthracite",
+    "Szyby przednie o zwiększonej izolacji akustycznej",
+    "Siatka oddzielająca bagażnik",
+    "Listwy ozdobne M Aluminium Rhombicle z listwą akcentową w perłowym chromie",
+    "Elektryczna regulacja szerokości oparcia",
+    "Śruby zabezpieczające",
+    "Dywaniki welurowe",
+    "Adaptacyjne reflektory LED",
+    "Asystent świateł drogowych",
+    "Asystent parkowania z kamerą cofania",
+    "Active Guard",
+    "System alarmowy",
+    "Systemy asystujące kierowcy",
+    "System monitorowania ciśnienia opon",
+    "Zestaw naprawczy do opon",
+    "Aktywna ochrona pieszych",
+    "Zawieszenie sportowe M",
+    "Performance Control",
+    "Funkcja dezaktywacji poduszki powietrznej",
+    "Zwiększony bak paliwa",
+    "Mild Hybrid - permanentny system Start/Stop"
+  ],
+  "_checked": 1666815266201,
+  "emissionMeasurementStandard": "WLTP"
+}
