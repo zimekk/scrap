@@ -33,7 +33,20 @@ export const ItemSchema = z.object({
     z.object({
       Availabilities: z.array(
         z.object({
-          Conditions: z.any(),
+          Conditions: z.object({
+            EndDate: z.string(),
+            ResourceSetIds: z.string().array(),
+            StartDate: z.string(),
+            ClientConditions: z.object({
+              AllowedPlatforms: z
+                .object({
+                  PlatformName: z.string(),
+                  MaxVersion: z.number(),
+                  MinVersion: z.number(),
+                })
+                .array(),
+            }),
+          }),
           OrderManagementData: z.object({ Price }),
         })
       ),
@@ -57,7 +70,17 @@ export const ItemSchema = z.object({
   MarketProperties: z.array(
     z.object({
       OriginalReleaseDate: z.string(),
-      UsageData: z.any(),
+      UsageData: z
+        .object({
+          AggregateTimeSpan: z.enum(["7Days", "30Days", "AllTime"]),
+          AverageRating: z.number(),
+          PlayCount: z.number(),
+          PurchaseCount: z.string(),
+          RatingCount: z.number(),
+          RentalCount: z.string(),
+          TrialCount: z.string(),
+        })
+        .array(),
     })
   ),
   ProductId: z.string(),

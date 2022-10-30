@@ -89,6 +89,8 @@ const unify = ({
   UsageData,
 });
 
+type ItemType = ReturnType<typeof unify>;
+
 function Data({ version = "v1" }) {
   const { results } = asset.read(version); // As many cache keys as you need
 
@@ -132,7 +134,7 @@ function Data({ version = "v1" }) {
   );
 
   const onChangeSortBy = useCallback<ChangeEventHandler<HTMLSelectElement>>(
-    ({ target }) => setSortBy(target.value),
+    ({ target }) => setSortBy(target.value as keyof typeof SORT_BY),
     []
   );
 
@@ -306,38 +308,22 @@ function Data({ version = "v1" }) {
       </fieldset>
       <div>{`Found ${list.length} games out of a total of ${results.length}`}</div>
       <ol>
-        {sorted.slice(0, 100).map(
-          ({
-            Images,
-            _history,
-            ...rest
-          }: {
-            Categories: [string];
-            DeveloperName: string;
-            Images: string[];
-            LastModifiedDate: Date;
-            OriginalReleaseDate: Date;
-            Price: any;
-            ProductId: string;
-            ProductTitle: string;
-            PublisherName: string;
-            UsageData: [
-              {
-                AggregateTimeSpan: string;
-                AverageRating: number;
-                RatingCount: number;
-              }
-            ];
-            _history: any;
-          }) => (
-            <li key={rest.ProductId} className={styles.Row}>
-              <Gallery className={styles.Gallery} images={Images} />
-              <Summary {...rest} />
-              <History history={_history} />
-              {/* <pre>{JSON.stringify(rest, null, 2)}</pre> */}
-            </li>
-          )
-        )}
+        {sorted
+          .slice(0, 100)
+          .map(
+            ({
+              Images,
+              _history,
+              ...rest
+            }: ItemType & { _history: unknown[] }) => (
+              <li key={rest.ProductId} className={styles.Row}>
+                <Gallery className={styles.Gallery} images={Images} />
+                <Summary {...rest} />
+                <History history={_history} />
+                {/* <pre>{JSON.stringify(rest, null, 2)}</pre> */}
+              </li>
+            )
+          )}
       </ol>
     </div>
   );
@@ -345,7 +331,7 @@ function Data({ version = "v1" }) {
 
 const HISTORY_LIMIT = 2;
 
-function History({ history }: { history: any[] }) {
+function History({ history }: { history: unknown[] }) {
   const [more, setMore] = useState(() =>
     history.length > HISTORY_LIMIT ? false : true
   );
@@ -381,26 +367,7 @@ function Summary({
   _created = 0,
   _checked = 0,
   _updated = 0,
-}: {
-  Categories: [string];
-  Conditions: {
-    ClientConditions: {
-      AllowedPlatforms: {
-        PlatformName: string;
-      }[];
-    };
-  };
-  DeveloperName: string;
-  OriginalReleaseDate: Date;
-  // LastModifiedDate: Date;
-  ProductDescription: string;
-  ProductId: string;
-  ProductTitle: string;
-  PublisherName: string;
-  _created: number;
-  _checked: number;
-  _updated: number;
-}) {
+}: Omit<ItemType, "Images">) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -458,32 +425,7 @@ function Summary({
   );
 }
 
-function Details({
-  Conditions,
-  LastModifiedDate,
-  Price,
-  UsageData,
-}: {
-  Conditions: {
-    StartDate: string;
-    EndDate: string;
-  };
-  LastModifiedDate: Date;
-  Price: {
-    CurrencyCode: string;
-    ListPrice: number;
-    MSRP: number;
-    WholesaleCurrencyCode: string;
-    WholesalePrice: number;
-  };
-  UsageData: [
-    {
-      AggregateTimeSpan: string;
-      AverageRating: number;
-      RatingCount: number;
-    }
-  ];
-}) {
+function Details({ Conditions, LastModifiedDate, Price, UsageData }: ItemType) {
   return (
     <div className={styles.Details}>
       <h5>
@@ -513,12 +455,17 @@ function Details({
         <span>
           {[Price.WholesalePrice, Price.WholesaleCurrencyCode].join(" ")}
         </span>{" "}
-        (
-        <span>
-          {format(new Date(Conditions.StartDate), "yyyy-MM-dd")} -{" "}
-          {format(new Date(Conditions.EndDate), "yyyy-MM-dd")}
-        </span>
-        )
+        {Conditions.StartDate && Conditions.EndDate && (
+          <span>
+            {`(${
+              Conditions.StartDate &&
+              format(new Date(Conditions.StartDate), "yyyy-MM-dd")
+            } - ${
+              Conditions.EndDate &&
+              format(new Date(Conditions.EndDate), "yyyy-MM-dd")
+            })`}
+          </span>
+        )}
       </h5>
       <div>
         <span>{format(LastModifiedDate, "yyyy-MM-dd HH:mm")}</span>

@@ -1,4 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
@@ -68,12 +73,7 @@ function Data({ version = "v1" }) {
     () => Object.keys(SORT_BY).pop() as keyof typeof SORT_BY
   );
 
-  const onChangeSortBy = useCallback(
-    ({ target }) => setSortBy(target.value),
-    []
-  );
-
-  const onChangePriceFrom = useCallback(
+  const onChangePriceFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setFilters(({ priceTo, ...criteria }) => {
         const priceFrom = Number(target.value);
@@ -86,7 +86,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const onChangePriceTo = useCallback(
+  const onChangePriceTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setFilters(({ priceFrom, ...criteria }) => {
         const priceTo = Number(target.value);
@@ -159,7 +159,7 @@ function Data({ version = "v1" }) {
           <input
             type="search"
             value={filters.search}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -173,7 +173,7 @@ function Data({ version = "v1" }) {
           <span>Brand</span>
           <select
             value={filters.brand}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setFilters((filters) => ({
                   ...filters,
@@ -191,7 +191,13 @@ function Data({ version = "v1" }) {
         </label>
         <label>
           <span>Sort</span>
-          <select value={sortBy} onChange={onChangeSortBy}>
+          <select
+            value={sortBy}
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+              ({ target }) => setSortBy(target.value as keyof typeof SORT_BY),
+              []
+            )}
+          >
             {Object.entries(SORT_BY).map(([value, label]) => (
               <option key={value} value={value}>
                 {value}
@@ -240,7 +246,7 @@ function Data({ version = "v1" }) {
             <input
               type="checkbox"
               checked={filters.onlyPromoted}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -255,7 +261,7 @@ function Data({ version = "v1" }) {
             <input
               type="checkbox"
               checked={filters.onlyReduced}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setFilters((filters) => ({
                     ...filters,
@@ -329,7 +335,7 @@ function Details({
   prev,
   time = item._updated || item._created,
 }: {
-  item: ProductItem;
+  item: Omit<ProductItem, "images">;
   prev?: any;
   time?: number;
 }) {

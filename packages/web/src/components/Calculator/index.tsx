@@ -19,14 +19,18 @@ const METADATA = Object.assign({
   },
 });
 
-type Vehicle = {
+export type Vehicle = {
   age: number;
   transactionalPrice: number;
   comfortLeaseProduct: {
+    label: string;
     type: string;
+    calculationMode?: string;
   };
   leaseProduct: {
+    label: string;
     type: string;
+    calculationMode?: string;
   };
   mileage: number;
   accessoriesPrice: number;

@@ -1,10 +1,22 @@
-import React, { ReactNode, useState } from "react";
+import React, {
+  ComponentProps,
+  Dispatch,
+  MouseEventHandler,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
 import { format } from "date-fns";
 import { Link } from "../../components/Link";
-import { Calculator, ProductTypes } from "../../components/Calculator";
+import { Calculator, ProductTypes, Vehicle } from "../../components/Calculator";
 import Options from "./Options";
 import cx from "classnames";
 import styles from "./Details.module.scss";
+
+type Item = {
+  id: number;
+  _history: any[];
+};
 
 const formatNumber = (value: number) => new Intl.NumberFormat().format(value);
 
@@ -14,7 +26,10 @@ function Button({ ...props }) {
   return <button {...props} />;
 }
 
-export function Toggle({ children, ...props }: { children: ReactNode }) {
+export function Toggle({
+  children,
+  ...props
+}: ComponentProps<"input"> & { children: ReactNode }) {
   return (
     <label>
       <input type="checkbox" {...props} />
@@ -67,8 +82,8 @@ export function Favorite({
   setSearch,
 }: {
   favorites: string[];
-  setFavorites: Function;
-  setSearch: Function;
+  setFavorites: Dispatch<SetStateAction<string[]>>;
+  setSearch: Dispatch<SetStateAction<string>>;
 }) {
   return favorites.length > 0 ? (
     <div>
@@ -99,7 +114,15 @@ export default function Details({
   favorites,
   setFavorites,
   setSearch,
-}: any) {
+}: {
+  _time?: string;
+  item: any;
+  onClickCompare?: MouseEventHandler;
+  prev?: any;
+  favorites?: string[];
+  setFavorites?: Dispatch<SetStateAction<string[]>>;
+  setSearch?: Dispatch<SetStateAction<string>>;
+}) {
   const {
     id,
     href,
@@ -114,7 +137,7 @@ export default function Details({
     newPrice,
   } = item;
 
-  const changed = (prop) => item && prev && item[prop] !== prev[prop];
+  const changed = (prop: string) => item && prev && item[prop] !== prev[prop];
 
   return (
     <ul className={styles.Details}>
@@ -342,7 +365,7 @@ export default function Details({
   );
 }
 
-function History({ item }) {
+function History({ item }: { item: Item }) {
   const [expand, setExpand] = useState(false);
 
   const { id } = item;
@@ -358,7 +381,7 @@ function History({ item }) {
         ({Object.keys(item._history).length})
       </div>
       {expand &&
-        Object.entries(item._history || {})
+        Object.entries(item._history)
           .reverse()
           .map(([_time, _item], key, list) => (
             <Details
@@ -372,7 +395,7 @@ function History({ item }) {
   );
 }
 
-function Leasing({ item }) {
+function Leasing({ item }: { item: Vehicle }) {
   const [expand, setExpand] = useState(false);
 
   return (

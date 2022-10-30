@@ -1,4 +1,13 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  Dispatch,
+  MouseEventHandler,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { format } from "date-fns";
@@ -13,6 +22,14 @@ import Details, { Favorite, Toggle } from "./Details";
 import Map, { useBounds } from "./Map";
 import Summary from "./Summary";
 import styles from "./styles.module.scss";
+
+type Criterion = {
+  selected: string;
+  list: {
+    criteria: unknown;
+    label: string;
+  }[];
+};
 
 const GROUP_BY = {
   "": "",
@@ -62,10 +79,16 @@ const formatNumber = (value: number) => new Intl.NumberFormat().format(value);
 
 const formatAmount = (value: number) => `${formatNumber(value)} pln`;
 
-const useCriterion = createPersistedState("criterion-vehicles");
-const useFavorites = createPersistedState("favorites-vehicles");
+const useCriterion = createPersistedState<Criterion>("criterion-vehicles");
+const useFavorites = createPersistedState<string[]>("favorites-vehicles");
 
-const priceHistory = ({ _history = {}, ...item }) =>
+const priceHistory = ({
+  _history = {},
+  ...item
+}: {
+  _history: Record<string, { transactionalPrice: number }>;
+  transactionalPrice: number;
+}) =>
   [item.transactionalPrice]
     .concat(Object.values(_history).map((item) => item.transactionalPrice))
     .filter(
@@ -79,7 +102,7 @@ const asset = createAsset(async (version) => {
   return await res
     .json()
     .then(({ results }) => results) // 236 MB -> 26.1 MB
-    .then((list) => ({
+    .then((list: Record<string, any>[]) => ({
       results: list,
       options: list.reduce(
         (options, item) =>
@@ -174,6 +197,8 @@ const createCriteria =
       defaults
     );
 
+type CriteriaType = ReturnType<ReturnType<typeof createCriteria>>;
+
 function Data({ version = "v1" }) {
   const { results, options } = asset.read(version); // As many cache keys as you need
 
@@ -200,9 +225,9 @@ function Data({ version = "v1" }) {
     search$.next(search);
   }, [search]);
 
-  const onClickCompare = useCallback(
+  const onClickCompare = useCallback<MouseEventHandler>(
     ({ target }) => {
-      const _id = target.value;
+      const _id = (target as HTMLButtonElement).value;
       const getPoint = (item: any) => [
         // item.capacity,
         item.powerHP,
@@ -378,7 +403,9 @@ function Data({ version = "v1" }) {
 
   useEffect(() => {
     if (criterion.selected !== "") {
-      const { criteria } = criterion.list[criterion.selected];
+      const { criteria } = criterion.list[Number(criterion.selected)] as {
+        criteria: CriteriaType;
+      };
       setCriteria(createCriteria({ search, options })(criteria));
       setSearch(criteria.filter);
     }
@@ -479,7 +506,15 @@ function Data({ version = "v1" }) {
   );
 }
 
-function SavedFilters({ criterion, setCriterion, criteria }) {
+function SavedFilters({
+  criterion,
+  setCriterion,
+  criteria,
+}: {
+  criterion: Criterion;
+  setCriterion: Dispatch<SetStateAction<Criterion>>;
+  criteria: CriteriaType;
+}) {
   const onCreateFilter = useCallback(
     () =>
       ((label) =>
@@ -515,7 +550,8 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
           list: {
             [criterion.selected]: {
               label: {
-                $apply: (label) => prompt("Rename filter:", label) || label,
+                $apply: (label: string) =>
+                  prompt("Rename filter:", label) || label,
               },
             },
           },
@@ -540,7 +576,7 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
   const sameCriteria = useMemo(
     () =>
       criterion.selected !== "" &&
-      JSON.stringify(criterion.list[criterion.selected].criteria) ===
+      JSON.stringify(criterion.list[Number(criterion.selected)].criteria) ===
         JSON.stringify(criteria),
     [criterion, criteria]
   );
@@ -551,7 +587,7 @@ function SavedFilters({ criterion, setCriterion, criteria }) {
         <span>Saved Filters</span>
         <select
           value={criterion.selected}
-          onChange={useCallback(
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
             ({ target }) =>
               setCriterion((criterion) => ({
                 ...criterion,
@@ -601,12 +637,12 @@ function CriteriaLabel({
   powerTo,
   radius,
   sortBy,
-}) {
+}: CriteriaType) {
   return (
     <fieldset>
       {type && (
         <div>
-          <span>Type</span> <span>{TYPES[type]}</span>
+          <span>Type</span> <span>{TYPES[type as keyof typeof TYPES]}</span>
         </div>
       )}
       {filter && (
@@ -676,19 +712,25 @@ function Criteria({
     changedPrice,
     options,
   },
-  search,
   options: entriesOptions,
+  search,
   setCriteria,
   setSearch,
+}: {
+  criteria: CriteriaType;
+  options: Record<string, any>;
+  search: string;
+  setCriteria: Dispatch<SetStateAction<CriteriaType>>;
+  setSearch: Dispatch<SetStateAction<string>>;
 }) {
-  const onChangeSearch = useCallback(
+  const onChangeSearch = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) => setSearch(target.value),
     []
   );
 
-  const onChangeCriteria = useCallback(
+  const onChangeCriteria = useCallback<ChangeEventHandler<HTMLSelectElement>>(
     ({ target }) =>
-      setCriteria(({ entries, ...criteria }: { entries: {} }) => ({
+      setCriteria(({ entries, ...criteria }) => ({
         ...criteria,
         entries: {
           ...entries,
@@ -698,7 +740,7 @@ function Criteria({
     []
   );
 
-  const onChangeRadius = useCallback(
+  const onChangeRadius = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria((criteria) => ({
         ...criteria,
@@ -707,7 +749,7 @@ function Criteria({
     []
   );
 
-  const onChangePriceFrom = useCallback(
+  const onChangePriceFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ priceTo, ...criteria }) => {
         const priceFrom = Number(target.value);
@@ -719,7 +761,7 @@ function Criteria({
       }),
     []
   );
-  const onChangePriceTo = useCallback(
+  const onChangePriceTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ priceFrom, ...criteria }) => {
         const priceTo = Number(target.value);
@@ -732,7 +774,7 @@ function Criteria({
     []
   );
 
-  const onChangeMileageFrom = useCallback(
+  const onChangeMileageFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ mileageTo, ...criteria }) => {
         const mileageFrom = Number(target.value);
@@ -744,7 +786,7 @@ function Criteria({
       }),
     []
   );
-  const onChangeMileageTo = useCallback(
+  const onChangeMileageTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ mileageFrom, ...criteria }) => {
         const mileageTo = Number(target.value);
@@ -757,7 +799,7 @@ function Criteria({
     []
   );
 
-  const onChangePowerFrom = useCallback(
+  const onChangePowerFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ powerTo, ...criteria }) => {
         const powerFrom = Number(target.value);
@@ -769,7 +811,7 @@ function Criteria({
       }),
     []
   );
-  const onChangePowerTo = useCallback(
+  const onChangePowerTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ powerFrom, ...criteria }) => {
         const powerTo = Number(target.value);
@@ -782,7 +824,7 @@ function Criteria({
     []
   );
 
-  const onChangeYearFrom = useCallback(
+  const onChangeYearFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ yearTo, ...criteria }) => {
         const yearFrom = Number(target.value);
@@ -794,7 +836,7 @@ function Criteria({
       }),
     []
   );
-  const onChangeYearTo = useCallback(
+  const onChangeYearTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ yearFrom, ...criteria }) => {
         const yearTo = Number(target.value);
@@ -807,7 +849,7 @@ function Criteria({
     []
   );
 
-  const onChangeCreatedFrom = useCallback(
+  const onChangeCreatedFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ createdTo, ...criteria }) => {
         const createdFrom = target.value;
@@ -819,7 +861,7 @@ function Criteria({
       }),
     []
   );
-  const onChangeCreatedTo = useCallback(
+  const onChangeCreatedTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ createdFrom, ...criteria }) => {
         const createdTo = target.value;
@@ -839,7 +881,7 @@ function Criteria({
           <span>Type</span>
           <select
             value={type}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setCriteria((criteria) => ({
                   ...criteria,
@@ -863,7 +905,7 @@ function Criteria({
           <span>Sort</span>
           <select
             value={sortBy}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setCriteria((criteria) => ({
                   ...criteria,
@@ -883,7 +925,7 @@ function Criteria({
           <span>GroupBy</span>
           <select
             value={groupBy}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setCriteria((criteria) => ({
                   ...criteria,
@@ -1081,7 +1123,7 @@ function Criteria({
       </div>
       {Object.entries(entries)
         .filter(([name]) => entriesOptions[name])
-        .map(([name, value], key) => (
+        .map(([name, value]: [string, any], key) => (
           <div key={key}>
             <label>
               <span>{name}</span>
@@ -1103,7 +1145,7 @@ function Criteria({
           <span>Sold</span>
           <select
             value={removed}
-            onChange={useCallback(
+            onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) =>
                 setCriteria((criteria) => ({
                   ...criteria,
@@ -1122,12 +1164,10 @@ function Criteria({
         <Toggle
           checked={changedPrice}
           onChange={() =>
-            setCriteria(
-              ({ changedPrice, ...criteria }: { changedPrice: boolean }) => ({
-                ...criteria,
-                changedPrice: !changedPrice,
-              })
-            )
+            setCriteria(({ changedPrice, ...criteria }) => ({
+              ...criteria,
+              changedPrice: !changedPrice,
+            }))
           }
         >
           Changed Price
