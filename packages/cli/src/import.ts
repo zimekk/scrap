@@ -40,14 +40,6 @@ import {
   VehicleVwService,
 } from "./services";
 
-// const REGEX = new RegExp(/media/)
-// const REGEX = new RegExp(/promo:/)
-// const REGEX = new RegExp(/equip:/)
-// const REGEX = new RegExp(/^((?!promo:).)*$/);
-// const REGEX = new RegExp(/^((?!get-product:|get-product-alto:).)*$/);
-// const REGEX = new RegExp(/get-product:258829/);
-// const REGEX = new RegExp(/get-product-alto:576290/);
-// const REGEX = new RegExp(/^(get-product|get-product-alto):/);
 let REGEX = new RegExp(/^(.)*$/);
 
 // REGEX = new RegExp(/grecos:/)
@@ -58,6 +50,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/investments/)
 // REGEX = new RegExp(/^((?!investment).)*$/);
 // REGEX = new RegExp(/:(bmw-used|bmw-new|mini-new)/)
+// REGEX = new RegExp(/^(get-product|get-product-alto):/);
 // REGEX = new RegExp(/^(get-product-electro|get-product-media):/);
 // REGEX = new RegExp(/^(get-product)/);
 // REGEX = new RegExp(/^(get-product:712247)/);
@@ -66,6 +59,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
+// REGEX = new RegExp(/^(get-product-media:)/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(get-stations)/)
@@ -523,6 +517,7 @@ export default function (type?: string) {
           "get-product:681136-smartfon-telefon-apple-iphone-13-mini-128gb-midnight",
           "get-product:681152-smartfon-telefon-apple-iphone-13-128gb-midnight",
           "get-product:730554-smartfon-telefon-apple-iphone-se-3gen-64gb-midnight",
+          "get-product:730597-smartfon-telefon-apple-iphone-13-mini-128gb-alpine-green",
           "get-product:1070889-smartfon-telefon-apple-iphone-14-pro-128gb-space-black",
           "get-product:1070946-smartfon-telefon-apple-iphone-14-plus-128gb-midnight",
           "get-product:1070896-smartfon-telefon-apple-iphone-14-pro-max-128gb-space-black",
@@ -942,6 +937,14 @@ export default function (type?: string) {
           "get-product-electro:agd-male/akcesoria-agd-drobne/mlynki-do-kawy/tsm6a013b",
           "get-product-euro:zmywarki-do-zabudowy/siemens-iq300-sn63ex14ce",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-5g-black-64gb",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-mini-5g-black-64gb",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-mini-5g-white-64gb",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-mini-5g-black-128gb",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-13-mini-5g-green-128gb",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-13-mini-128gb-5g-5-4-czarny-mlk03pm-a",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-13-mini-128gb-5g-5-4-rozowy-mlk23pm-a",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-13-128gb-5g-6-1-rozowy-mlph3pm-a",
+          "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-14-5g-midnight-128gb",
           "get-product-media:agd-male/ekspresy-i-kawa/mlynki-do-kawy/mlynek-do-kawy-wmf-stelio",
           "get-product-media:agd-male/ekspresy-i-kawa/mlynki-do-kawy/tsm6a011w",
           // "get-product-media:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
