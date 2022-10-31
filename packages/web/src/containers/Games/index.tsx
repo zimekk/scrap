@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import slug from "slug";
 import useDebounce from "../useDebounce";
-import { Gallery } from "../../components/Gallery";
+import { Image, Perspective } from "../../components/Image";
 import { Link } from "../../components/Link";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -317,7 +317,11 @@ function Data({ version = "v1" }) {
               ...rest
             }: ItemType & { _history: unknown[] }) => (
               <li key={rest.ProductId} className={styles.Row}>
-                <Gallery className={styles.Gallery} images={Images} />
+                {Images.length > 0 && (
+                  <Perspective className={styles.Gallery}>
+                    <Image src={Images[0]} />
+                  </Perspective>
+                )}
                 <Summary {...rest} />
                 <History history={_history} />
                 {/* <pre>{JSON.stringify(rest, null, 2)}</pre> */}

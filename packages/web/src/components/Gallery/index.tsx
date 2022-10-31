@@ -33,7 +33,7 @@ const image = createAsset(
     })
 );
 
-function Img({ src, ...props }: { src: string; srcSet?: string }) {
+export function Img({ src, ...props }: { src: string; srcSet?: string }) {
   const img = image.read(src);
   return <img src={img} {...props} referrerPolicy="no-referrer" />;
 }
