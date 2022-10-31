@@ -1,4 +1,13 @@
-import React, { ReactNode, Suspense, useEffect, useRef, useState } from "react";
+import React, {
+  ReactNode,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { BehaviorSubject, Subject } from "rxjs";
+import { map, mergeMap, throttleTime } from "rxjs/operators";
 import { Img } from "../Gallery";
 import { Spinner } from "../Spinner";
 import cx from "classnames";
@@ -19,12 +28,16 @@ export function Perspective({
   className?: string;
   children: ReactNode;
 }) {
-  const activeRef = useRef<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
+  const bounding$ = useMemo(() => new BehaviorSubject(false), []);
+  const position$ = useMemo(() => new Subject<[number, number]>(), []);
+
+  // https://css-tricks.com/animate-a-container-on-mouse-over-using-perspective-and-transform/
+  // https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html
   useEffect(() => {
-    let constrain = 20;
+    let constrain = 40;
 
     function transforms(x: number, y: number, el: HTMLElement) {
       let inner = el.getBoundingClientRect();
@@ -34,30 +47,36 @@ export function Perspective({
       return `perspective(100px) rotateX(${calcX}deg) rotateY(${calcY}deg)`;
     }
 
-    const handleMouseEnter = () => {
-      activeRef.current = true;
-      if (innerRef.current) {
-        innerRef.current.style.transform = "";
-      }
-    };
-
-    const handleMouseLeave = () => {
-      activeRef.current = false;
-      if (innerRef.current) {
-        innerRef.current.style.transform = "";
-      }
-    };
-
-    const handleMouseMove = ({ clientX, clientY }: MouseEvent) =>
-      window.requestAnimationFrame(() => {
-        if (activeRef.current && innerRef.current) {
-          innerRef.current.style.transform = transforms.apply(null, [
-            clientX,
-            clientY,
-            innerRef.current,
-          ]);
+    const subscription = position$
+      .pipe(
+        throttleTime(200, undefined, { leading: true, trailing: true }),
+        mergeMap(([clientX, clientY]) =>
+          bounding$.pipe(map((over) => [clientX, clientY, over]))
+        )
+      )
+      .subscribe(([clientX, clientY, over]) => {
+        console.log(["subscribe"], { clientX, clientY, over });
+        if (innerRef.current) {
+          innerRef.current.style.transform = over
+            ? transforms.apply(null, [
+                clientX as number,
+                clientY as number,
+                innerRef.current,
+              ])
+            : "";
         }
       });
+
+    return () => subscription.unsubscribe();
+  }, [position$]);
+
+  useEffect(() => {
+    const handleMouseEnter = () => bounding$.next(true);
+
+    const handleMouseLeave = () => bounding$.next(false);
+
+    const handleMouseMove = ({ clientX, clientY }: MouseEvent) =>
+      window.requestAnimationFrame(() => position$.next([clientX, clientY]));
 
     if (containerRef.current) {
       containerRef.current.addEventListener("mouseenter", handleMouseEnter);
@@ -78,7 +97,7 @@ export function Perspective({
         containerRef.current.removeEventListener("mousemove", handleMouseMove);
       }
     };
-  }, [activeRef, containerRef, innerRef]);
+  }, [containerRef, innerRef]);
 
   return (
     <div ref={containerRef} className={cx(styles.Perspective, className)}>
