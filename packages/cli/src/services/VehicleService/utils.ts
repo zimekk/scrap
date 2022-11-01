@@ -17,22 +17,8 @@ export const diffItem = (last: any, item: any) =>
   );
 
 export const reduceHistory = (_history: any[]) =>
-  Object.entries(_history)
-    /*
-.filter(([date, last]:any, key, list) => {
-if(0 < key && key < list.length - 1) {
-  const next = list[key + 1][1]
-  const diff = diffItem(last, next);
-  if (!diff) {
-    console.log(last.images, next.images)
-    console.log(date, format(Number(date), 'yyyy-MM-dd, HH:mm:ss'), key, diffString(last, next))
-    return false
-  }
-}
-return true;
-})
-*/
-    .reduce((history: Record<string, any>, [date, item], _key) => {
+  Object.entries(_history).reduce(
+    (history: Record<string, any>, [date, item], _key) => {
       const entries = Object.entries(history);
       if (entries.length > 0) {
         const [_last_date, last] = entries[entries.length - 1];
@@ -41,15 +27,17 @@ return true;
         console.log(
           `${item.id}[${date}]`,
           _key,
-          format(Number(date), "yyyy-MM-dd, HH:mm:ss"),
-          diff ? diffString(last, item) : null
+          format(Number(date), "yyyy-MM-dd, HH:mm:ss")
+          // diff ? diffString(last, item) : null
         );
         if (!diff) {
           return history;
         }
       }
       return Object.assign(history, { [date]: item });
-    }, {});
+    },
+    {}
+  );
 
 export const updateItem = (last: unknown, item: unknown, updated = _time) =>
   ((last, { _created, _updated = _created, _history, ...item }) => ({
