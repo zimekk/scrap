@@ -20,7 +20,11 @@ export default (env: {
       devMiddleware: { serverSideRender: true },
       // https://webpack.js.org/configuration/dev-server/#devserversetupmiddlewares
       setupMiddlewares: (middlewares) =>
-        middlewares.concat(((req, res, next) => {
+        middlewares.concat(require("./src/server").middleware()).concat(((
+          req,
+          res,
+          next
+        ) => {
           const {
             devMiddleware: { outputFileSystem, stats },
           } = res.locals.webpack;
