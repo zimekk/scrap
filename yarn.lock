@@ -2181,6 +2181,11 @@
   dependencies:
     "@types/geojson" "*"
 
+"@types/milliseconds@^0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@types/milliseconds/-/milliseconds-0.0.30.tgz#d779ac94f9ba2187b8b84997f65b8ce950b3c13c"
+  integrity sha512-MVgBCpNG6tuPctUGqaGsbMLm5E4bYy8Ki7G4RMmcMH83e15iMY9L7bJccWpXv3Zyo8y0GQlvUj+yOShWlQlTOA==
+
 "@types/mime@^1":
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
@@ -7200,6 +7205,11 @@ micromatch@^4.0.2, micromatch@^4.0.4:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.2.3"
+
+milliseconds@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/milliseconds/-/milliseconds-1.0.3.tgz#1ff437c4f734b138ef7c2cedba4d8880c7f5c2d8"
+  integrity sha512-O8fANvJPdQULWgsLW+jyyPMAw4qiiPHGQDF7lXQmOXLXbmjphetpOYBk5Tut/74Q3EZ66g7TbvXw5RRi1wnJPQ==
 
 mime-db@1.51.0, "mime-db@>= 1.43.0 < 2":
   version "1.51.0"
