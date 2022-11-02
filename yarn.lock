@@ -1015,29 +1015,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@4.6.1", "@bull-board/api@^4.6.1":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-4.6.1.tgz#7f200ee6baf8f99971d9320c743610adeff8f6f4"
-  integrity sha512-5Z2f1/Yr0TUfLkPdX5iRNe2zF7+I/y84aUlC3uLvLNeHr0GHbfRdjcFotMnx6v83b9B6fj1grLcLBi4MnHA+vA==
+"@bull-board/api@4.6.2", "@bull-board/api@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-4.6.2.tgz#c9dd1e5e6ee5113eb93e73765b50e6e7388b71f6"
+  integrity sha512-0LzUZumGgRfszNfmaNm57l48oUvUTBM01A/GzC5mkP4o5lc9ZgJh2yf+cH8aTG8TAhI1oDWQ8TXZLVJ8+JgDlA==
   dependencies:
     redis-info "^3.0.8"
 
-"@bull-board/express@^4.6.1":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-4.6.1.tgz#6de32affe1836a2a22e0625a9213aa622e322280"
-  integrity sha512-U/dGuhXghYs4aH7tbhmMuDcq/JQ0KSw+SC/ETj6gg84880csYW0k8D2Le6JMPt01ZgYT2RRygHSt2oty0xvmIQ==
+"@bull-board/express@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-4.6.2.tgz#a6d8594721625ba37e07731909a2845730768b9b"
+  integrity sha512-3vxa7wNZao+spOQP+Sk50SMVXJ59ymEA74em6JM8z87VPV6y6GP0rGrVom7AJYQo2DqrOd0GTWeL1BaLXpGHKA==
   dependencies:
-    "@bull-board/api" "4.6.1"
-    "@bull-board/ui" "4.6.1"
+    "@bull-board/api" "4.6.2"
+    "@bull-board/ui" "4.6.2"
     ejs "3.1.7"
     express "4.17.3"
 
-"@bull-board/ui@4.6.1":
-  version "4.6.1"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-4.6.1.tgz#1c4bbb277cc091dfe4169666a968bcdca14d61c0"
-  integrity sha512-rzZwByoF4bpOuDXmv/FquVij+R6beg+pdiX2GXPvNhk1DSDYZPG2rupF+vkooOOEEE+SAESxKUg4VRYUHheUZQ==
+"@bull-board/ui@4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-4.6.2.tgz#dc1172cbdc471cf4a042c8639b44376aa11e852e"
+  integrity sha512-QwapaE5N9Y1xo8VxyeybTJHHdeGi3hfaLXtYSnAFkgPUD6b4s3knYhdoAOE0/lUy7kzFTPCEezhYOTDaXOy2OQ==
   dependencies:
-    "@bull-board/api" "4.6.1"
+    "@bull-board/api" "4.6.2"
 
 "@commitlint/cli@^17.2.0":
   version "17.2.0"
@@ -2272,12 +2272,12 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
 
-"@types/puppeteer@^5.4.7":
-  version "5.4.7"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-5.4.7.tgz#b8804737c62c6e236de0c03fa74f91c174bf96b6"
-  integrity sha512-JdGWZZYL0vKapXF4oQTC5hLVNfOgdPrqeZ1BiQnGk5cB7HeE91EWUiTdVSdQPobRN8rIcdffjiOgCYJ/S8QrnQ==
+"@types/puppeteer@^7.0.4":
+  version "7.0.4"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-7.0.4.tgz#6eb4081323e9075c1f4c353f93ee2ed6eed99487"
+  integrity sha512-ja78vquZc8y+GM2al07GZqWDKQskQXygCDiu0e3uO0DMRKqE0MjrFBFmTulfPYzLB6WnL7Kl2tFPy0WXSpPomg==
   dependencies:
-    "@types/node" "*"
+    puppeteer "*"
 
 "@types/qs@*":
   version "6.9.7"
@@ -3078,10 +3078,10 @@ babel-jest@^29.2.2:
     graceful-fs "^4.2.9"
     slash "^3.0.0"
 
-babel-loader@^9.0.1:
-  version "9.0.1"
-  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-9.0.1.tgz#d473f30a6ffc2f2abca610c01775c40fc5c2a970"
-  integrity sha512-szYjslOXFlj/po5KfrVmiuBAcI6GVHFuAgC96Qd6mMPHdwl4lmAJkYtvjQ1RxxPjgdkKjd3LQgXDE4jxEutNuw==
+babel-loader@^9.1.0:
+  version "9.1.0"
+  resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-9.1.0.tgz#839e9ae88aea930864ef9ec0f356dfca96ecf238"
+  integrity sha512-Antt61KJPinUMwHwIIz9T5zfMgevnfZkEVWYDWlG888fgdvRRGD0JTuf/fFozQnfT+uq64sk1bmdHDy/mOEWnA==
   dependencies:
     find-cache-dir "^3.3.2"
     schema-utils "^4.0.0"
@@ -8256,10 +8256,10 @@ punycode@^2.1.0, punycode@^2.1.1:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-puppeteer-core@19.2.0:
-  version "19.2.0"
-  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-19.2.0.tgz#b2502a74b01725bfdd92f984faa4915166aee996"
-  integrity sha512-wdoZDzf46y1ScpPEUDAzIWDmvG272BbdqSvDMvtYNjy2UJZT/j5OS5k813o2lfT4HtOle79eByCLs24iXbat1g==
+puppeteer-core@19.2.2:
+  version "19.2.2"
+  resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-19.2.2.tgz#a9b7b25099d87d550c224c660c205b7ebdd03eb4"
+  integrity sha512-faojf+1pZ/tHXSr4x1q+9MVd9FrL3rpdbC0w7qN7MNClMoLuCvMbpR4vzcjoiJYgclt1n+SOPUOmHQViTw6frw==
   dependencies:
     cross-fetch "3.1.5"
     debug "4.3.4"
@@ -8319,17 +8319,17 @@ puppeteer-extra@^3.3.4:
     debug "^4.1.1"
     deepmerge "^4.2.2"
 
-puppeteer@^19.2.0:
-  version "19.2.0"
-  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-19.2.0.tgz#6d39c6b6da4a648928d8dc736b864de493f175f7"
-  integrity sha512-rhr5ery8htpOTikmm/wrDU707wtmJ7ccX2WLkBf0A8eYYpscck5/iz04/fHOiIRWMFfnYOvaO9wNb4jcO3Mjyg==
+puppeteer@*, puppeteer@^19.2.2:
+  version "19.2.2"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-19.2.2.tgz#e6f7bc089ac9bffea78b2f792bf3affd93e16803"
+  integrity sha512-m1T5Mog5qu5+dMBptWYTn6pXRdnFbydbVUCthqwbfd8/kOiMlzZBR9ywjX79LpvI1Sj+/z8+FKeIsjnMul8ZYA==
   dependencies:
     cosmiconfig "7.0.1"
     devtools-protocol "0.0.1056733"
     https-proxy-agent "5.0.1"
     progress "2.0.3"
     proxy-from-env "1.1.0"
-    puppeteer-core "19.2.0"
+    puppeteer-core "19.2.2"
 
 q@^1.5.1:
   version "1.5.1"
