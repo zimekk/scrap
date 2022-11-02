@@ -1,3 +1,6 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node-dev
 
-require("../bin").worker();
+require("../src/worker").worker();
+// #!/usr/bin/env node
+
+// require("../bin").worker();

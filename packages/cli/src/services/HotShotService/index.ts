@@ -1,4 +1,3 @@
-import { z } from "zod";
 import { diffString } from "json-diff";
 import { hotShotItems } from "@dev/api/promo";
 import { browser } from "../../request";

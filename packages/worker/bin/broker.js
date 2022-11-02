@@ -1,3 +1,6 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node-dev
 
-require("../bin").broker();
+require("../src/broker").broker();
+// #!/usr/bin/env node
+
+// require("../bin").broker();
