@@ -6,7 +6,12 @@ type Summary = {
   request: Record<string, { number?: number; length?: number }>;
 };
 
-const queue = new Queue("scrap")
+const queue = new Queue("scrap", {
+  limiter: {
+    max: 1, // Max number of jobs processed
+    duration: 5000, // per duration in milliseconds
+  },
+})
   .on("progress", ({ id, name, processedOn }, progress) =>
     console.log(["progress"], progress, { id, name, processedOn })
   )
@@ -61,7 +66,6 @@ export const broker = async () => {
       },
       {
         repeat: { cron: "1 10,22 * * *" },
-        // repeat: {cron: '6 10,23 * * *'}
       }
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
@@ -85,10 +89,29 @@ export const broker = async () => {
         type: "otodom:sprzedaz/dom/cala-polska",
       },
       {
-        repeat: { every: minutes(1) },
+        repeat: { every: minutes(15) },
       }
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
+
+  await queue
+    .addBulk(
+      [
+        "otodom:sprzedaz/dom/komorow_5600",
+        "otodom:sprzedaz/dom/michalowice_62659",
+        "otodom:sprzedaz/dom/stare-babice",
+      ].map((type) => ({
+        name: Names.PROPERTY_OTODOM,
+        data: { type },
+        opts: {},
+      }))
+    )
+    .then((jobs) =>
+      console.log(
+        ["add"],
+        jobs.map(({ id }) => id)
+      )
+    );
 
   await queue.close().then(() => console.log(["close"]));
 };
@@ -106,6 +129,14 @@ export const worker = async () => {
   queue.process(Names.HOTSHOT, require("./workers/hotshot").default);
   queue.process(Names.OTODOM_ITEM, require("./workers/otodom-item").default);
   queue.process(Names.OTODOM, require("./workers/otodom").default);
+  queue.process(
+    Names.PROPERTY_OTODOM_ITEM,
+    require("./workers/properties/otodom-item").default
+  );
+  queue.process(
+    Names.PROPERTY_OTODOM,
+    require("./workers/properties/otodom").default
+  );
 
   queue.process(async (job, done) => {
     console.log(["process"], job.data);
