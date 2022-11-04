@@ -36,8 +36,15 @@ export const remove = async (status = false) => {
       );
 
       const getRemoved = notRemoved.filter(
-        ({ options, _checked = 0 }: { options: any; _checked: number }) =>
-          options !== undefined && _checked < _past
+        ({
+          options,
+          _checked = 0,
+          _updated = 0,
+        }: {
+          options: any;
+          _checked: number;
+          _updated: number;
+        }) => options !== undefined && _checked < _past && _updated < _past
       );
 
       console.log({
@@ -59,7 +66,7 @@ export const remove = async (status = false) => {
 
       from(filtered)
         .pipe(
-          take(500),
+          take(100),
           mergeMap((item) => {
             const service = new VehicleService({ summary });
             return from(service.inspect(item));

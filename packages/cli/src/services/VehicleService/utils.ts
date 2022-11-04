@@ -44,6 +44,7 @@ export const updateItem = (last: unknown, item: unknown, updated = _time) =>
     ...item,
     _created: _created,
     _updated: updated,
+    _checked: updated,
     _history: {
       ..._history,
       [_updated]: last,

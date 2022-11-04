@@ -1,5 +1,7 @@
 import { diffItem, reduceHistory, scrapOptions, updateItem } from "../utils";
 
+const _time = 1666626732299;
+
 const stripAnsi = (s: string) =>
   s.replace(
     /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
@@ -656,9 +658,10 @@ Wyposażenie zewnętrzne
         item,
         result: {
           ...last,
+          _checked: _time,
           _history: {
             ...last._history,
-            "1666626732299": {
+            [_time]: {
               ...item,
               options: last.options,
             },
@@ -666,7 +669,7 @@ Wyposażenie zewnętrzne
         },
       }))(require("./last_55569"), require("./item_55569")),
     ].forEach(({ last, item, result }) =>
-      expect(updateItem(last, item, 1666626732299)).toEqual(result)
+      expect(updateItem(last, item, _time)).toEqual(result)
     ));
 
   it("reduceHistory", () =>
