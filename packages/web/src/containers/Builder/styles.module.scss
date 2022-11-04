@@ -21,3 +21,10 @@
   margin-top: 0.5em;
   padding-top: 0.5em;
 }
+.BarcodeContainer {
+  float: right;
+}
+.EanLabel,
+.EanValue {
+  font-family: "Courier New", Courier, monospace;
+}

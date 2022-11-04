@@ -1,10 +1,17 @@
 import React, {
   ChangeEvent,
   ChangeEventHandler,
+  Component,
+  ReactNode,
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from "react";
+import { Subject } from "rxjs";
+import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
+import { encode } from "@darthmaim/barcode";
+import { Barcode } from "@darthmaim/react-barcode";
 // import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
@@ -15,6 +22,75 @@ import styles from "./styles.module.scss";
 //   const res = await fetch(`api/games/data.json?${version}`);
 //   return await res.json().then(({ Products }) => ({ results: Products }));
 // });
+
+function Filters() {
+  const [filters, setFilters] = useState(() => ({
+    search: "5060301699247",
+  }));
+
+  const [queries, setQueries] = useState(() => filters);
+
+  const search$ = useMemo(() => new Subject<any>(), []);
+
+  useEffect(() => {
+    const subscription = search$
+      .pipe(
+        map(({ search, ...filters }) =>
+          JSON.stringify({
+            ...queries,
+            ...filters,
+            search: search.toLowerCase().trim(),
+          })
+        ),
+        distinctUntilChanged(),
+        debounceTime(400)
+      )
+      .subscribe((filters) =>
+        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+      );
+    return () => subscription.unsubscribe();
+  }, [search$]);
+
+  useEffect(() => {
+    search$.next(filters);
+  }, [filters]);
+
+  const barcode = useMemo(() => {
+    try {
+      encode(queries.search);
+    } catch (e) {
+      return null;
+    }
+    return queries.search;
+  }, [queries.search]);
+
+  // console.log({ filters, queries });
+
+  return (
+    <fieldset>
+      <label>
+        <span className={styles.EanLabel}>EAN</span>
+        <input
+          className={styles.EanValue}
+          value={filters.search}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                search: target.value,
+              })),
+            []
+          )}
+        />
+      </label>
+      {barcode && (
+        <div className={styles.BarcodeContainer}>
+          <Barcode value={barcode} />
+        </div>
+      )}
+    </fieldset>
+  );
+}
 
 function Select({
   name,
@@ -166,6 +242,7 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Builder</h2>
+      <Filters />
       <Builder products={products} />
     </div>
   );

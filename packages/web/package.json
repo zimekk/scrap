@@ -17,6 +17,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@darthmaim/barcode": "^1.0.2",
+    "@darthmaim/react-barcode": "^1.0.3",
     "@dev/bundle": "1.0.0",
     "@dev/cli": "1.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",

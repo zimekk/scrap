@@ -1233,6 +1233,18 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
+"@darthmaim/barcode@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@darthmaim/barcode/-/barcode-1.0.2.tgz#1461ad0fb0510cfb92b988795b7dd9bea1f96114"
+  integrity sha512-+VyXRf+2lyc96bd1pXvj4qJ0mvrLMOnX3qp9VyvuOEQvh8PVu3igEN3cmDOlW0oZun8qiDfvZJcoc/zPJpShtw==
+
+"@darthmaim/react-barcode@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@darthmaim/react-barcode/-/react-barcode-1.0.3.tgz#77f27ece9c24fc862cc1560f8c52539e4b8ab697"
+  integrity sha512-4PR77V0wpZZSgGkS+7YEikYLNwtkocvJN+43Du5Pr/wpCWp9furch2WIhGSm/sabEulidJmyF/pmw5bORkBkjQ==
+  dependencies:
+    "@darthmaim/barcode" "^1.0.2"
+
 "@discoveryjs/json-ext@^0.5.0":
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/@discoveryjs/json-ext/-/json-ext-0.5.3.tgz#90420f9f9c6d3987f176a19a7d8e764271a2f55d"
