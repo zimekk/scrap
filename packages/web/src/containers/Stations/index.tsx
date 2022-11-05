@@ -1,5 +1,12 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { format } from "date-fns";
+import { LatLng } from "leaflet";
 import { createAsset } from "use-asset";
 import Chart from "../../components/ZoomableLineChart";
 import Map, { useBounds } from "./Map";
@@ -31,7 +38,7 @@ const TYPES = {
   "on+": "on+",
   lpg: "lpg",
   "lpg+": "lpg+",
-};
+} as const;
 
 enum Compare {
   LT = "LT",
@@ -51,7 +58,7 @@ const compare = (history: any, k: number, p: number) => {
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/stations/data.json?${version}`);
-  return await res.json().then(({ results }) => ({
+  return await res.json().then(({ results }: { results: StationItem[] }) => ({
     results: results.map(({ _history = {}, ...item }: StationItem) => ({
       ...item.petrol_list.reduce(
         (list, { type, price }) =>
@@ -71,7 +78,7 @@ function Data({ version = "v1" }) {
   const [search, setSearch] = useState("");
   const [filter] = useDebounce(search);
 
-  const onChangeSearch = useCallback(
+  const onChangeSearch = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) => setSearch(target.value),
     []
   );
@@ -87,7 +94,7 @@ function Data({ version = "v1" }) {
     sortBy: Object.keys(SORT_BY)[0] as keyof typeof SORT_BY,
   }));
 
-  const onChangePriceFrom = useCallback(
+  const onChangePriceFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ priceTo, ...criteria }) => {
         const priceFrom = Number(target.value);
@@ -99,7 +106,7 @@ function Data({ version = "v1" }) {
       }),
     []
   );
-  const onChangePriceTo = useCallback(
+  const onChangePriceTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ priceFrom, ...criteria }) => {
         const priceTo = Number(target.value);
@@ -112,7 +119,7 @@ function Data({ version = "v1" }) {
     []
   );
 
-  const onChangeCreatedFrom = useCallback(
+  const onChangeCreatedFrom = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ dateTo, ...criteria }) => {
         const dateFrom = target.value;
@@ -124,7 +131,7 @@ function Data({ version = "v1" }) {
       }),
     []
   );
-  const onChangeCreatedTo = useCallback(
+  const onChangeCreatedTo = useCallback<ChangeEventHandler<HTMLInputElement>>(
     ({ target }) =>
       setCriteria(({ dateFrom, ...criteria }) => {
         const dateTo = target.value;
@@ -142,7 +149,7 @@ function Data({ version = "v1" }) {
   const list = useMemo(
     () =>
       results
-        .map((item: any, i: string) => {
+        .map((item, i) => {
           const { station_id: id, x: lat, y: lng, network_name: name } = item;
           return {
             i,
@@ -156,15 +163,15 @@ function Data({ version = "v1" }) {
           ({
             name,
             item: { petrol_list, address = "", _created, _updated = _created },
-          }: any) =>
+          }) =>
             (name.toLowerCase().match(filter) ||
               address.toLowerCase().match(filter)) &&
             (criteria.type
               ? ((item) =>
-                  Boolean(item) &&
-                  criteria.priceFrom <= item.price &&
-                  item.price <= criteria.priceTo)(
-                  petrol_list.find((item: any) => item.type === criteria.type)
+                  item !== undefined &&
+                  criteria.priceFrom <= Number(item.price) &&
+                  Number(item.price) <= criteria.priceTo)(
+                  petrol_list.find((item) => item.type === criteria.type)
                 )
               : true) &&
             new Date(`${criteria.dateFrom} 00:00:00`).getTime() <= _updated &&
@@ -181,20 +188,22 @@ function Data({ version = "v1" }) {
     ]
   );
 
-  const middle = useBounds([{ position: { lat: 52.1793, lng: 21.0498 } }]);
+  const middle = useBounds([
+    { position: { lat: 52.1793, lng: 21.0498 } as LatLng },
+  ]);
 
   const [center, setCenter] = useState(() => middle.getCenter());
 
   const nearby = useMemo(
     () =>
       list
-        .map(({ position, item, ...rest }: any) => ({
+        .map(({ position, item, ...rest }) => ({
           position,
           item: {
             ...item,
             _distance: center.distanceTo(position),
           },
-          history: item.petrol
+          history: (item.petrol
             ? [[String(item._updated), item.petrol]]
                 .concat(Object.entries(item._history).reverse())
                 .map(([updated, petrol]) => [
@@ -203,17 +212,21 @@ function Data({ version = "v1" }) {
                     .filter(Boolean)
                     .map((type) => petrol[type]),
                 ])
-            : [],
+            : []) as Array<[string, string[]]>,
           ...rest,
         }))
-        .filter(({ item }: any) => item._distance < criteria.radius * 1000),
+        .filter(
+          ({ item, history }) =>
+            Boolean(console.log({ history })) ||
+            item._distance < criteria.radius * 1000
+        ),
     [list, center, criteria.radius]
   );
 
   const sorted = useMemo(
     () =>
       nearby.sort(
-        (a, b) =>
+        (a: any, b: any) =>
           SORT_BY[criteria.sortBy] *
           (a.item[criteria.sortBy] === b.item[criteria.sortBy]
             ? 0
@@ -244,7 +257,7 @@ function Data({ version = "v1" }) {
     [nearby, criteria.type]
   );
 
-  const bounds = useBounds(nearby);
+  const bounds = useBounds(nearby as any);
 
   return (
     <div>
@@ -269,7 +282,7 @@ function Data({ version = "v1" }) {
               min={RADIUS_LIST[0]}
               max={RADIUS_LIST[RADIUS_LIST.length - 1]}
               value={criteria.radius}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                 ({ target }) =>
                   setCriteria((criteria) => ({
                     ...criteria,
@@ -297,7 +310,7 @@ function Data({ version = "v1" }) {
             <span>Type</span>
             <select
               value={criteria.type}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
                 ({ target }) =>
                   setCriteria((criteria) => ({
                     ...criteria,
@@ -317,11 +330,11 @@ function Data({ version = "v1" }) {
             <span>Sort</span>
             <select
               value={criteria.sortBy}
-              onChange={useCallback(
+              onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
                 ({ target }) =>
                   setCriteria((criteria) => ({
                     ...criteria,
-                    sortBy: target.value,
+                    sortBy: target.value as keyof typeof SORT_BY,
                   })),
                 []
               )}
@@ -402,7 +415,7 @@ function Data({ version = "v1" }) {
               >
                 {key ? (
                   <Link
-                    onClick={useCallback(
+                    onClick={useCallback<MouseEventHandler>(
                       (e) => (
                         e.preventDefault(),
                         setCriteria((criteria) => ({
@@ -423,7 +436,7 @@ function Data({ version = "v1" }) {
             <th>updated</th>
             <th></th>
           </tr>
-          {sorted.map(({ i, name, item, history }: any, key: string) =>
+          {sorted.map(({ i, name, item, history }, key) =>
             history
               .slice(0, toggle.includes(i) ? Infinity : 1)
               .map(([updated, petrol], k) => (
