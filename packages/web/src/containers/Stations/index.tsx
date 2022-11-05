@@ -11,6 +11,7 @@ import { createAsset } from "use-asset";
 import Chart from "../../components/ZoomableLineChart";
 import Map, { useBounds } from "./Map";
 import { Link } from "../../components/Link";
+import Calculator, { PRICE_LIST, useFilters } from "./Calculator";
 import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -18,7 +19,6 @@ import styles from "./styles.module.scss";
 import type { StationItem } from "@dev/cli/src/services/StationService/types";
 
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
-const PRICE_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const SORT_BY = {
   _distance: 1,
   _petrol_pb: 1,
@@ -215,11 +215,7 @@ function Data({ version = "v1" }) {
             : []) as Array<[string, string[]]>,
           ...rest,
         }))
-        .filter(
-          ({ item, history }) =>
-            Boolean(console.log({ history })) ||
-            item._distance < criteria.radius * 1000
-        ),
+        .filter(({ item, history }) => item._distance < criteria.radius * 1000),
     [list, center, criteria.radius]
   );
 
@@ -258,6 +254,8 @@ function Data({ version = "v1" }) {
   );
 
   const bounds = useBounds(nearby as any);
+
+  const [filters, setFilters] = useFilters();
 
   return (
     <div>
@@ -404,6 +402,7 @@ function Data({ version = "v1" }) {
           </label>
         </div>
       </fieldset>
+      <Calculator filters={filters} setFilters={setFilters} />
       <table className={styles.Table}>
         <tbody>
           <tr>
@@ -447,7 +446,29 @@ function Data({ version = "v1" }) {
                       rowSpan={toggle.includes(i) ? history.length : undefined}
                     >
                       <div className={styles.Station}>
-                        {name} <address>{item.address}</address>
+                        <Link
+                          onClick={(e) => (
+                            e.preventDefault(),
+                            console.log({ petrol }),
+                            setFilters((filters) => ({
+                              ...filters,
+                              distance:
+                                Math.round((10 * item._distance) / 1000) / 10,
+                              price: Number(
+                                petrol[
+                                  Object.keys(TYPES).indexOf(criteria.type) - 1
+                                ]
+                              ),
+                            }))
+                          )}
+                        >
+                          {name} [
+                          {new Intl.NumberFormat("pl-PL", {
+                            maximumFractionDigits: 1,
+                          }).format(item._distance / 1000)}{" "}
+                          km]
+                        </Link>{" "}
+                        <address>{item.address}</address>
                       </div>
                     </td>
                   )}

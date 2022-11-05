@@ -1,10 +1,10 @@
-import React, { CSSProperties, MouseEventHandler } from "react";
+import React, { CSSProperties, MouseEventHandler, ReactNode } from "react";
 
 export function Link({
   href = "#",
   ...props
 }: {
-  children: React.ReactChild;
+  children: ReactNode;
   href?: string;
   onClick?: MouseEventHandler;
   rel?: string;
