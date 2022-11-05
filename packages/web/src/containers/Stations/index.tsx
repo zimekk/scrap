@@ -8,6 +8,8 @@ import React, {
 import { format } from "date-fns";
 import { LatLng } from "leaflet";
 import { createAsset } from "use-asset";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Chart from "../../components/ZoomableLineChart";
 import Map, { useBounds } from "./Map";
 import { Link } from "../../components/Link";
@@ -70,6 +72,28 @@ const asset = createAsset(async (version) => {
     })),
   }));
 });
+
+// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
+export function Directions({
+  origin,
+  destination,
+}: {
+  origin: LatLng;
+  destination: LatLng;
+}) {
+  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
+  const link = `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+    (({ lat, lng }) => `${lat},${lng}`)(origin)
+  )}&destination=${encodeURIComponent(
+    (({ lat, lng }) => `${lat},${lng}`)(destination)
+  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+
+  return (
+    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
+      <FontAwesomeIcon icon={faCrosshairs} />
+    </Link>
+  );
+}
 
 function Data({ version = "v1" }) {
   const { results } = asset.read(version); // As many cache keys as you need
@@ -435,7 +459,7 @@ function Data({ version = "v1" }) {
             <th>updated</th>
             <th></th>
           </tr>
-          {sorted.map(({ i, name, item, history }, key) =>
+          {sorted.map(({ i, name, item, position, history }, key) =>
             history
               .slice(0, toggle.includes(i) ? Infinity : 1)
               .map(([updated, petrol], k) => (
@@ -467,7 +491,11 @@ function Data({ version = "v1" }) {
                             maximumFractionDigits: 1,
                           }).format(item._distance / 1000)}{" "}
                           km]
-                        </Link>{" "}
+                        </Link>
+                        <Directions
+                          origin={center}
+                          destination={position as LatLng}
+                        />
                         <address>{item.address}</address>
                       </div>
                     </td>
