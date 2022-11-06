@@ -1,5 +1,6 @@
 import React from "react";
 import { Calculator, ProductTypes } from "../../components/Calculator";
+import Deposits from "./Deposits";
 import styles from "./styles.module.scss";
 
 const METADATA = Object.assign({
@@ -103,6 +104,7 @@ const METADATA = Object.assign({
 export default function Section() {
   return (
     <div className={styles.Section}>
+      <Deposits />
       <h2>Finances</h2>
       <Calculator
         productType={ProductTypes.COMFORT_LEASE}
