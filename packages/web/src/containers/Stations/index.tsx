@@ -178,7 +178,7 @@ function Data({ version = "v1" }) {
           return {
             i,
             id,
-            position: { lat, lng },
+            position: { lat, lng } as LatLng,
             name,
             item,
           };
@@ -473,7 +473,6 @@ function Data({ version = "v1" }) {
                         <Link
                           onClick={(e) => (
                             e.preventDefault(),
-                            console.log({ petrol }),
                             setFilters((filters) => ({
                               ...filters,
                               distance:

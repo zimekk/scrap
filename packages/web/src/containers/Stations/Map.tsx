@@ -1,11 +1,21 @@
-import React, { MouseEvent, useEffect, useMemo } from "react";
-import L from "leaflet";
+import React, { Dispatch, SetStateAction, useEffect, useMemo } from "react";
+import L, { Icon, LatLng, LatLngBounds } from "leaflet";
 import { Marker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
 import cx from "classnames";
 import styles from "./Map.module.scss";
 
-function Table({ data }) {
+function Table({
+  data,
+}: {
+  data: {
+    header: Record<string, string>;
+    rows: {
+      date: number;
+      list: Record<string, string>;
+    }[];
+  };
+}) {
   return (
     <div>
       <table>
@@ -32,7 +42,7 @@ function Table({ data }) {
   );
 }
 
-export function useBounds(list: { position: L.LatLng }[]) {
+export function useBounds(list: { position: LatLng }[]) {
   return useMemo(
     () =>
       L.featureGroup(
@@ -42,11 +52,47 @@ export function useBounds(list: { position: L.LatLng }[]) {
   );
 }
 
-export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
+export default function Map({
+  bounds,
+  center,
+  setCenter,
+  list,
+  zoom = 12,
+}: {
+  bounds: LatLngBounds;
+  center: LatLng;
+  setCenter: Dispatch<SetStateAction<LatLng>>;
+  list: {
+    i: number;
+    id: number;
+    name: string;
+    position: LatLng;
+    item: {
+      // _distance: number;
+      // _id: string;
+      _created: number;
+      _updated: number;
+      // id: number;
+      // station_id: number;
+      // x: number;
+      // y: number;
+      address: string;
+      map_img: string;
+      // network_id: number;
+      // network_name: string;
+      petrol_list: {
+        type: string;
+        price: string;
+      }[];
+      _history: Record<string, string>;
+    };
+  }[];
+  zoom?: number;
+}) {
   // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
   useEffect(() => {
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
+    delete Icon.Default.prototype._getIconUrl;
+    Icon.Default.mergeOptions({
       iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
       iconUrl: require("leaflet/dist/images/marker-icon.png").default,
       shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
@@ -68,12 +114,12 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
         <DraggableMarker position={center} setPosition={setCenter}>
           {`${center.lat},${center.lng}`}
         </DraggableMarker>
-        {list.map(({ i, id, position, name, item }: any) => (
+        {list.map(({ i, id, position, name, item }) => (
           <Marker
             key={i}
             position={position}
             icon={
-              new L.Icon({
+              new Icon({
                 iconUrl: item.map_img
                   ? `https://www.autocentrum.pl${item.map_img}`
                   : require("leaflet/dist/images/marker-icon.png").default,
@@ -85,7 +131,7 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
               <section>
                 <header>
                   {`[${id}] ${[name].concat(item.address || []).join(" - ")} (${
-                    center.distanceTo(position).toFixed(0) / 1000
+                    Number(center.distanceTo(position).toFixed(0)) / 1000
                   } km)`}
                 </header>
                 <Table
@@ -102,7 +148,7 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
                       item._history
                     )
                   ).reduce(
-                    (table, [time, list]: any) =>
+                    (table, [time, list]) =>
                       Object.assign(table, {
                         header: Object.keys(list).reduce(
                           (header, item) =>
@@ -118,7 +164,10 @@ export default function Map({ bounds, center, setCenter, list, zoom = 12 }) {
                       }),
                     {
                       header: {},
-                      rows: [],
+                      rows: [] as {
+                        date: number;
+                        list: Record<string, string>;
+                      }[],
                     }
                   )}
                 />
