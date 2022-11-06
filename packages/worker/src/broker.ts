@@ -78,6 +78,18 @@ export const broker = async () => {
     .then(({ id, data }) => console.log(["add"], { id, data }));
 
   await queue
+    .add(
+      Names.PROMO,
+      {
+        type: "get-promo:promocje",
+      },
+      {
+        repeat: { every: minutes(15) },
+      }
+    )
+    .then(({ id, data }) => console.log(["add"], { id, data }));
+
+  await queue
     .addBulk(
       [
         "otodom:sprzedaz/dom/komorow_5600",

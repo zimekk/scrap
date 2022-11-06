@@ -31,6 +31,8 @@ export const worker = async () => {
   queue.process(Names.HOTSHOT, require("./workers/hotshot").default);
   queue.process(Names.OTODOM_ITEM, require("./workers/otodom-item").default);
   queue.process(Names.OTODOM, require("./workers/otodom").default);
+  queue.process(Names.PROMO_ITEM, require("./workers/promo-item").default);
+  queue.process(Names.PROMO, require("./workers/promo").default);
   queue.process(
     Names.PROPERTY_OTODOM_ITEM,
     require("./workers/properties/otodom-item").default
