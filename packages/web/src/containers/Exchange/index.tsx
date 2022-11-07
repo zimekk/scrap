@@ -24,7 +24,7 @@ export default function Section({ version = "v1" }) {
   };
   const [code, setCode] = useState("CHF");
   const [checked, setCheckedOptions] = useState(CODES);
-  const values = useMemo(
+  const values = useMemo<Record<string, number>>(
     () => ({
       ["2019-02-22"]: 443.03, // 1.93 CHF
       ["2019-03-22"]: 443.03,
@@ -71,6 +71,9 @@ export default function Section({ version = "v1" }) {
       ["2022-08-23"]: 453.04,
       ["2022-09-23"]: 453.04,
       ["2022-10-21"]: 453.04,
+      ["2022-11-23"]: 474.84,
+      ["2022-12-23"]: 474.84,
+      ["2021-01-23"]: 474.84,
     }),
     []
   );
