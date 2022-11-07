@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, useCallback, useState } from "react";
 import { format } from "date-fns";
 import { parseTransaction } from "./utils";
 import styles from "./styles.module.scss";
+import Calculator from "./Calculator";
 
 const summary = (
   result: Record<string, number>,
@@ -20,13 +21,13 @@ function Data() {
     [
       [
         `Tytuł przelewu
-OTW. LOKATY NR 079741947700001
+OTW. LOKATY NR 07..01 3M1.9%
 Kwota operacji
 10 000,00 PLN
 Data operacji
 21.02.2018`,
         `Tytuł przelewu
-NR 079741947700001
+NR 07..01
 Kwota operacji
 10 037,52 PLN
 Data operacji
@@ -34,23 +35,55 @@ Data operacji
       ],
       [
         `Tytuł przelewu
-OTW. LOKATY NR 079741947700004
+OTW. LOKATY NR 07..04 2M1.9%
 Kwota operacji
 10 000,00 PLN
 Data operacji
 30.04.2018`,
         `Tytuł przelewu
-NR 079741947700004
+NR 07..04
 Kwota operacji
 10 025,71 PLN
 Data operacji
 30.06.2018`,
       ],
+      [
+        `Tytuł przelewu
+OTW. LOKATY NR 07..08 6M6.9%
+Kwota operacji
+10 000,00 PLN
+Data operacji
+02.09.2022`,
+      ],
+      [
+        `Tytuł przelewu
+OTW. LOKATY NR 07..09 6M6.9%
+Kwota operacji
+10 000,00 PLN
+Data operacji
+02.09.2022`,
+      ],
+      [
+        `Tytuł przelewu
+OTWARCIE LOKATY NR 37..96 3M7.5% DO 07-02-2023
+Kwota operacji
+10 000,00 PLN
+Data operacji
+07.11.2022`,
+      ],
+      [
+        `Tytuł przelewu
+OTWARCIE LOKATY NR 32..88 3M7.5% DO 07-02-2023
+Kwota operacji
+10 000,00 PLN
+Data operacji
+07.11.2022`,
+      ],
     ].map((transactions) => transactions.map(parseTransaction))
   );
 
   const [selected, setSelected] = useState<number[]>(() =>
-    deposits.map((_, i) => i)
+    deposits.filter(([_, income]) => Boolean(income)).map((_, i) => i)
   );
   console.log(deposits);
 
@@ -105,18 +138,26 @@ Data operacji
                   minimumFractionDigits: 2,
                 }).format(payment["Kwota operacji"])} PLN`}
               </td>
-              <td>{format(new Date(income["Data operacji"]), "dd.MM.yyyy")}</td>
-              <td align="right">
-                {`${new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 2,
-                }).format(income["Kwota operacji"])} PLN`}
+              <td>
+                {income
+                  ? format(new Date(income["Data operacji"]), "dd.MM.yyyy")
+                  : "-"}
               </td>
               <td align="right">
-                {`${new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 2,
-                }).format(
-                  income["Kwota operacji"] - payment["Kwota operacji"]
-                )} PLN`}
+                {income
+                  ? `${new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 2,
+                    }).format(income["Kwota operacji"])} PLN`
+                  : "-"}
+              </td>
+              <td align="right">
+                {income
+                  ? `${new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 2,
+                    }).format(
+                      income["Kwota operacji"] - payment["Kwota operacji"]
+                    )} PLN`
+                  : "-"}
               </td>
             </tr>,
           ])}
@@ -128,7 +169,7 @@ Data operacji
               .reduce(
                 (item, [payment, income]: any) => [
                   summary(item[0], payment),
-                  summary(item[1], income),
+                  income ? summary(item[1], income) : item[1],
                 ],
                 [
                   {
@@ -172,6 +213,7 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Deposits</h2>
+      <Calculator />
       <Data />
     </div>
   );
