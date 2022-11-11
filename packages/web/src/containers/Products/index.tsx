@@ -31,6 +31,10 @@ const PRICE_LIST = [
   25000,
 ];
 
+const PRICE_CHANGE_LIST = [
+  -100, -50, -30, -20, -10, -5, 0, 5, 10, 20, 30, 50, 100,
+];
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
   // copy({results:temp1.results.filter(item=>[460088,682156,681208].includes(Number(item.id))).map(({_id,_history,...item }) => item)})
@@ -68,12 +72,22 @@ export const getMinMaxPrices = ({ price, _history = {} }: any) =>
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     minimumFractionDigits: 2,
-  }).format(price)} PLN`;
+  }).format(price)} zł`;
 
 const priceChange = (price: number, after: number) =>
   `${new Intl.NumberFormat("pl-PL", {
     maximumFractionDigits: 2,
   }).format(100 * (price / after - 1))}%`;
+
+const filterPriceChange = (
+  item: ReturnType<typeof getMinMaxPrices>,
+  change: number
+) =>
+  change === 0 ||
+  (item.priceNow > 0 &&
+    (change > 0
+      ? 100 * (item.priceNow / item.priceMin - 1) >= change
+      : 100 * (item.priceNow / item.priceMax - 1) <= change));
 
 function Compare({ item }: { item: ReturnType<typeof getMinMaxPrices> }) {
   return (
@@ -139,6 +153,7 @@ function Data({ version = "v1" }) {
     onlyReduced: false,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
+    priceChange: 0,
   }));
 
   const [filter] = useDebounce(filters.search);
@@ -173,6 +188,15 @@ function Data({ version = "v1" }) {
     []
   );
 
+  const onChangePriceChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    ({ target }) =>
+      setFilters((criteria) => ({
+        ...criteria,
+        priceChange: Number(target.value),
+      })),
+    []
+  );
+
   console.log({ filters, results });
 
   const list = useMemo(
@@ -192,8 +216,9 @@ function Data({ version = "v1" }) {
         .filter(
           (item: any) =>
             (item._title.match(filter) || filter.trim() === String(item.id)) &&
-            filters.priceFrom <= item._price &&
-            item._price <= filters.priceTo &&
+            filters.priceFrom <= item.priceNow &&
+            item.priceNow <= filters.priceTo &&
+            filterPriceChange(item, filters.priceChange) &&
             (!filters.brand || [item.brand].includes(filters.brand)) &&
             (!filters.onlyPromoted || item.proms.length > 0) &&
             (!filters.onlyReduced || item.price.length > 1)
@@ -204,6 +229,7 @@ function Data({ version = "v1" }) {
       filters.brand,
       filters.priceFrom,
       filters.priceTo,
+      filters.priceChange,
       filters.onlyPromoted,
       filters.onlyReduced,
     ]
@@ -275,6 +301,36 @@ function Data({ version = "v1" }) {
             ))}
           </select>
         </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.onlyPromoted}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  onlyPromoted: target.checked,
+                })),
+              []
+            )}
+          />
+          <span>Only Promoted</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.onlyReduced}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  onlyReduced: target.checked,
+                })),
+              []
+            )}
+          />
+          <span>Only Reduced</span>
+        </label>
         <div>
           <label>
             <span>Price From</span>
@@ -293,7 +349,7 @@ function Data({ version = "v1" }) {
                   value={value}
                   label={
                     [0, 100000, 200000, 300000, 400000, 500000].includes(value)
-                      ? `${value} pln`
+                      ? `${value} zł`
                       : undefined
                   }
                 ></option>
@@ -311,36 +367,23 @@ function Data({ version = "v1" }) {
               onChange={onChangePriceTo}
             />
             <span>{`${filters.priceFrom}-${filters.priceTo} zł`}</span>
-          </label>
+          </label>{" "}
           <label>
+            <span>Price Change</span>
             <input
-              type="checkbox"
-              checked={filters.onlyPromoted}
-              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-                ({ target }) =>
-                  setFilters((filters) => ({
-                    ...filters,
-                    onlyPromoted: target.checked,
-                  })),
-                []
-              )}
+              type="range"
+              list="price-change-list"
+              min={PRICE_CHANGE_LIST[0]}
+              max={PRICE_CHANGE_LIST[PRICE_CHANGE_LIST.length - 1]}
+              value={filters.priceChange}
+              onChange={onChangePriceChange}
             />
-            <span>Only Promoted</span>
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              checked={filters.onlyReduced}
-              onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-                ({ target }) =>
-                  setFilters((filters) => ({
-                    ...filters,
-                    onlyReduced: target.checked,
-                  })),
-                []
-              )}
-            />
-            <span>Only Reduced</span>
+            <datalist id="price-change-list">
+              {PRICE_CHANGE_LIST.map((value) => (
+                <option key={value} value={value}></option>
+              ))}
+            </datalist>
+            <span>{`${filters.priceChange}%`}</span>
           </label>
         </div>
       </fieldset>
