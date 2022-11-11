@@ -56,6 +56,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-product:712247)/);
 // REGEX = new RegExp(/^(get-product-alto:1022665)/);
 // REGEX = new RegExp(/^(get-product-botland)/);
+// REGEX = new RegExp(/^(get-product-euro)/);
 // REGEX = new RegExp(/^(get-product-tophifi:multiroom)/);
 // REGEX = new RegExp(/^(get-product-komp:)/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
@@ -69,6 +70,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-promo-alto:)/);
 // REGEX = new RegExp(/^(get-hot-shot)/);
 // REGEX = new RegExp(/^(get-hot-shot-alto:)/);
+// REGEX = new RegExp(/^(xbox:)/);
 
 enum Types {
   PRODUCT = "get-product",
@@ -461,6 +463,14 @@ export default function (type?: string) {
           "get-product-cyfrowe:dron-dji-mini-2-polska-dystrybucja-p",
           "get-product-cyfrowe:dron-dji-mini-2-fly-more-combo-polska-dystrybucja-p",
           "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-s5-body-p",
+          "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-s5-i-ob-20-60-p",
+          "get-product-cyfrowe:aparaty/aparat-cyfrowy-panasonic-lumix-dmc-gh5s-body-czarny",
+          "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-gh5m2e-body-p",
+          "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-gh6-body-p",
+          "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-gh6-i-ob-12-60-f-28-4-es12060-czarny-p",
+          "get-product-cyfrowe:aparat-cyfrowy-panasonic-lumix-dc-gh6-i-ob-12-60-f-35-56-fs12060-czarny-p",
+          "get-product-cyfrowe:aparat-cyfrowy-canon-eos-r6-body-p",
+          "get-product-cyfrowe:aparat-cyfrowy-canon-zestaw-eos-r6-i-rf-50-f-18-stm-p",
           "get-product-cyfrowe:kamera-cyfrowa-canon-eos-c70-p",
           "get-product-cyfrowe:kamera-sportowa-gopro-hero8-black-polska-dystrybucja-p",
           // "get-product-cyfrowe:plecak-manfrotto-advanced2-befree-p",
@@ -911,6 +921,7 @@ export default function (type?: string) {
           "get-product-komp:660669/asus-rog-crosshair-viii-impact",
           "get-product-komp:692410/asus-rog-strix-b550-i-gaming",
           "get-product-komp:757888/lian-li-dan-cases-a4-h2o-x4-riser-pcie4-0-czarna",
+          "get-product-morele:ladowarka-green-cell-powergan-1x-usb-a-2x-usb-c-3-25-a-1-823535-10334632",
           "get-product-morele:pamiec-g-skill-trident-z-royal-ddr4-16-gb-3600mhz-cl18-f4-3600c18d-16gtrg-5643217",
           "get-product-morele:obudowa-nzxt-h210-ca-h210b-w1-6260073",
           "get-product-morele:obudowa-nzxt-h210-ca-h210b-b1-6260074",
@@ -928,6 +939,7 @@ export default function (type?: string) {
           "get-product-morele:zasilacz-phanteks-revolt-sfx-750w-gold-ph-p750gsf-9886710",
           "get-product-morele:obudowa-nzxt-h510-flow-czarna-ca-h52fb-01-9557344",
           "get-product-morele:obudowa-nzxt-h510-flow-czarno-biala-ca-h52fw-01-9557345",
+          "get-product-electro:telefony-i-smartfony/akcesoria-do-telefonow/ladowarki-sieciowe/ladowarka-sieciowa-green-cell-chargc08-65w-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/kaski-sportowe/kask-rowerowy-abus-macator-szary-szosowy-rozmiar-m",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1200-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-steel-o-chain-5805k-110-lancuch-czarny",
@@ -935,7 +947,10 @@ export default function (type?: string) {
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/zamki-i-zapiecia/zapiecie-rowerowe-abus-1500-110-web-lancuch-czarny",
           "get-product-electro:sport-i-rekreacja/akcesoria-do-rowerow/oswietlenie-rowerowe/lampka-rowerowa-przod-sigma-buster-100-usb",
           "get-product-electro:agd-male/akcesoria-agd-drobne/mlynki-do-kawy/tsm6a013b",
+          "get-product-euro:ladowarki-sieciowe/green-cell-adowarka-usb-c-powergan-65w",
+          "get-product-euro:telefony-komorkowe/apple-iphone-14-128gb-polnoc",
           "get-product-euro:zmywarki-do-zabudowy/siemens-iq300-sn63ex14ce",
+          "get-product-media:smartfony-i-zegarki/akcesoria-do-telefonow/ladowarki-sieciowe/ladowarka-sieciowa-green-cell-chargc08-65w-czarny",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-5g-black-64gb",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-mini-5g-black-64gb",
           "get-product-media:smartfony-i-zegarki/smartfony/smartfon-apple-iphone-12-mini-5g-white-64gb",
