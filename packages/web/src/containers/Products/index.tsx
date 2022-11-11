@@ -38,6 +38,80 @@ const asset = createAsset(async (version) => {
   return await res.json();
 });
 
+export const getPrice = (price: string[]) =>
+  Number(
+    (price.length > 0 ? price : ["0"])
+      .reverse()[0]
+      .replace(/[^0-9,\.]/g, "")
+      .replace(",", ".")
+  );
+
+export const getMinMaxPrices = ({ price, _history = {} }: any) =>
+  Object.entries<any>({
+    [Date.now()]: { price },
+    ..._history,
+  }).reduce(
+    (result, [_date, { price }]) =>
+      ((price) =>
+        Object.assign(
+          result,
+          0 < price && price < result.priceMin ? { priceMin: price } : {},
+          price > result.priceMax ? { priceMax: price } : {}
+        ))(getPrice(price)),
+    ((price) => ({
+      priceNow: price,
+      priceMin: price,
+      priceMax: price,
+    }))(getPrice(price))
+  );
+
+const formatPrice = (price: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(price)} PLN`;
+
+const priceChange = (price: number, after: number) =>
+  `${new Intl.NumberFormat("pl-PL", {
+    maximumFractionDigits: 2,
+  }).format(100 * (price / after - 1))}%`;
+
+function Compare({ item }: { item: ReturnType<typeof getMinMaxPrices> }) {
+  return (
+    <div>
+      <span>
+        <b>{` cena: ${formatPrice(item.priceNow)} `}</b>
+      </span>
+      {item.priceMin < item.priceNow && (
+        <span>
+          {` / min: ${formatPrice(item.priceMin)} (${priceChange(
+            item.priceNow,
+            item.priceMin
+          )}) `}
+        </span>
+      )}
+      {item.priceNow < item.priceMax && (
+        <span>
+          {` / max: ${formatPrice(item.priceMax)} (${priceChange(
+            item.priceNow,
+            item.priceMax
+          )}) `}
+        </span>
+      )}
+      {/* <pre>
+        {JSON.stringify(
+          {
+            priceNow: item.priceNow,
+            priceMin: item.priceMin,
+            priceMax: item.priceMax,
+          },
+          null,
+          2
+        )}
+      </pre> */}
+    </div>
+  );
+}
+
 function Data({ version = "v1" }) {
   const { results } = asset.read(version) as { results: ProductItem[] };
 
@@ -106,17 +180,13 @@ function Data({ version = "v1" }) {
       results
         .map(({ _created, _updated = _created, ...item }) => ({
           _title: item.title.toLowerCase(),
-          _price: Number(
-            (item.price.length > 0 ? item.price : ["0"])
-              .reverse()[0]
-              .replace(/[^0-9,\.]/g, "")
-              .replace(",", ".")
-          ),
+          _price: getPrice(item.price),
           _stars: Number(item.stars.replace(/[^0-9]/g, "")),
           _created,
           _updated,
           _history: {},
           ...item,
+          ...getMinMaxPrices(item),
         }))
         // .filter((item: any) => (item.price.length > 1))
         .filter(
@@ -289,6 +359,7 @@ function Data({ version = "v1" }) {
             </h3>
             <h4>{item.brand}</h4>
             {item.label && <div>{item.label.join(" | ")}</div>}
+            <Compare item={item} />
             <Details item={item} />
             <History
               history={Object.entries(item._history).reverse()}
