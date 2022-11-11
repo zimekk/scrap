@@ -9,6 +9,7 @@ import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import useDebounce from "../useDebounce";
+import { getMinMaxPrices, getPrice } from "./utils";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
@@ -41,33 +42,6 @@ const asset = createAsset(async (version) => {
   const res = await fetch(`api/products/data.json?${version}`);
   return await res.json();
 });
-
-export const getPrice = (price: string[]) =>
-  Number(
-    (price.length > 0 ? price : ["0"])
-      .reverse()[0]
-      .replace(/[^0-9,\.]/g, "")
-      .replace(",", ".")
-  );
-
-export const getMinMaxPrices = ({ price, _history = {} }: any) =>
-  Object.entries<any>({
-    [Date.now()]: { price },
-    ..._history,
-  }).reduce(
-    (result, [_date, { price }]) =>
-      ((price) =>
-        Object.assign(
-          result,
-          0 < price && price < result.priceMin ? { priceMin: price } : {},
-          price > result.priceMax ? { priceMax: price } : {}
-        ))(getPrice(price)),
-    ((price) => ({
-      priceNow: price,
-      priceMin: price,
-      priceMax: price,
-    }))(getPrice(price))
-  );
 
 const formatPrice = (price: number) =>
   `${new Intl.NumberFormat("pl-PL", {
