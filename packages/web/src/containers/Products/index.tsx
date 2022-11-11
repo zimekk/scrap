@@ -8,8 +8,9 @@ import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import Barcode from "./Barcode";
 import useDebounce from "../useDebounce";
-import { getMinMaxPrices, getPrice } from "./utils";
+import { getBarcode, getMinMaxPrices, getPrice } from "./utils";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
@@ -185,6 +186,7 @@ function Data({ version = "v1" }) {
           _history: {},
           ...item,
           ...getMinMaxPrices(item),
+          barcode: getBarcode(item.label),
         }))
         // .filter((item: any) => (item.price.length > 1))
         .filter(
@@ -371,6 +373,9 @@ function Data({ version = "v1" }) {
               images={images}
               srcSet={srcSet}
             />
+            {item.barcode && (
+              <Barcode className={styles.Barcode} barcode={item.barcode} />
+            )}
             <h3>
               <Link href={item.url}>{item.title}</Link>
             </h3>

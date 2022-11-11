@@ -1,3 +1,8 @@
+const EAN_RE = /^EAN: (\d{13}$)/;
+
+export const getBarcode = (label: string[] = []) =>
+  label.find((label) => label.match(EAN_RE))?.replace(EAN_RE, "$1");
+
 export const getPrice = (price: string[]) =>
   Number(
     (price.filter((price) => !price.match(/Oszczędź/)).pop() || "0")

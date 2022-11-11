@@ -1,6 +1,24 @@
-import { getPrice } from "../utils";
+import { getBarcode, getPrice } from "../utils";
 
 describe("utils", () => {
+  it("getBarcode", () =>
+    [
+      {
+        label: ["EAN: 56035373503", "Kod w sklepie: TORLOWFLIPSIDE300AWIII"],
+        barcode: undefined,
+      },
+      {
+        label: ["EAN: 619659170325", "Kod w sklepie: RAMSANSDXC128GB95PROF"],
+        barcode: undefined,
+      },
+      {
+        label: ["EAN: 8024221693133", "Kod w sklepie: TORMANMA2-BP-T"],
+        barcode: "8024221693133",
+      },
+    ].forEach(({ label, barcode }) =>
+      expect(getBarcode(label)).toEqual(barcode)
+    ));
+
   it("getPrice", () =>
     [
       {
