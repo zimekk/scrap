@@ -488,7 +488,7 @@ export default function (type?: string) {
           "get-product-cyfrowe:aparaty/-dr-e12-zasilacz-do-eos-m",
           "get-product-cyfrowe:wyposazenie-studia/tlo-materialowe-glareone-tlo-fotograficzne-150x200-cm-zielono-niebieskie",
           "get-product-cyfrowe:atomos-connect-2-usb-4k-video-audio-p",
-          "get-product-cyfrowe:karta-pamieci-sandisk-sdxc-extreme-pro-64gb-170mb-s-v30-uhs-i-u3-p",
+          // "get-product-cyfrowe:karta-pamieci-sandisk-sdxc-extreme-pro-64gb-170mb-s-v30-uhs-i-u3-p",
           "get-product-cyfrowe:karta-pamieci-sandisk-sdxc-extreme-pro-128gb-170mb-s-v30-uhs-i-u3-p",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
           "get-product:681208-tablet-8-apple-new-ipad-mini-64gb-wi-fi-purple",
@@ -1047,6 +1047,7 @@ export default function (type?: string) {
       : [
           "get-promo-alto:promocje",
           "get-promo:promocje",
+          "get-promo:promocja-w-app",
           "get-promo:black-friday",
           "get-promo:blackwhite",
           "get-promo:lipton",

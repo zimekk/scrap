@@ -15,7 +15,7 @@ export const ProductSchema = z
     // OnlineAvailability: [Object],
     // DepartmentsAvailability: [Array],
     // ShipmentCosts: [Array],
-    ProductDescription: z.string(),
+    ProductDescription: z.string().nullable(),
     // Features: [Array],
     // SubstituteProducts: null,
     // ComplementaryProducts: [Array],
