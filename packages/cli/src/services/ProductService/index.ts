@@ -10,5 +10,6 @@ export { ProductKompService } from "./Komp";
 export { ProductMediaService } from "./Media";
 export { ProductMensaService } from "./Mensa";
 export { ProductMoreleService } from "./Morele";
+export { ProductRiffService } from "./Riff";
 export { ProductTourService } from "./Tour";
 export { ProductTousService } from "./Tous";

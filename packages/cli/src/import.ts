@@ -23,6 +23,7 @@ import {
   ProductMediaService,
   ProductMensaService,
   ProductMoreleService,
+  ProductRiffService,
   ProductTourService,
   ProductTousService,
   PromoService,
@@ -62,6 +63,7 @@ REGEX = new RegExp(/^((?!tui|grecos|investments).)*$/);
 // REGEX = new RegExp(/^(get-product-morele:)/);
 // REGEX = new RegExp(/^(get-product-media:)/);
 // REGEX = new RegExp(/^(get-product-mensa:)/);
+// REGEX = new RegExp(/^(get-product-riff:)/);
 // REGEX = new RegExp(/^(get-product-tour:)/);
 // REGEX = new RegExp(/^(get-stations)/)
 // REGEX = new RegExp(/^(otodom:)/);
@@ -88,6 +90,7 @@ enum Types {
   MEDIA = "get-product-media",
   MENSA = "get-product-mensa",
   MORELE = "get-product-morele",
+  RIFF = "get-product-riff",
   TOUR = "get-product-tour",
   TOUS = "get-product-tous",
   PROMO = "get-promo",
@@ -125,6 +128,7 @@ const SERVICES = {
   [Types.MENSA]: ProductMensaService,
   [Types.MORELE]: ProductMoreleService,
   [Types.MOTO]: MotoService,
+  [Types.RIFF]: ProductRiffService,
   [Types.TOUR]: ProductTourService,
   [Types.TOUS]: ProductTousService,
   [Types.PROMO]: PromoService,
@@ -1021,6 +1025,13 @@ export default function (type?: string) {
           "get-product-ef3m:Mata-do-ciecia-A3-ze-skala-/785",
           "get-product-ef3m:Mata-do-ciecia-A2-ze-skala/2189",
           "get-product-ef3m:Mata-do-ciecia-podkladka-A2-45-cm-x-60-cm/2704",
+          "get-product-riff:djemby/30408-meinl-hdj8-xxs-840553077902",
+          "get-product-riff:djemby/49753-meinl-nino-emdj-ps-840553044706",
+          "get-product-riff:djemby/50264-meinl-jrd-bk-djembe-840553085679",
+          "get-product-riff:doumbeki/50245-meinl-he-1018-doumbek-840553085099",
+          "get-product-riff:monitory-odsluchowe/52211-presonus-eris-e35-673454006388",
+          "get-product-riff:sluchawki-nauszne/44286-akg-k-52-9002761038774",
+          // "get-product-riff:sluchawki-nauszne/48002-marshall-major-ii-bluetooth-brown-sluchawki",
           "get-product-tous:choker-tous-skorzany-40-cm/p/011900500",
           "get-product-tous:tous-cool-joykolczyki-z-zoltego-srebra-vermeil/p/018153570",
           "get-product-tous:tous-luahkolczyki-z-zoltego-srebra-vermeil-i-srebra-z-motywem-misia/p/111363530",
