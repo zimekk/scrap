@@ -15,6 +15,7 @@
     "remove": "bin/remove.js",
     "schema": "bin/schema.js",
     "status": "bin/status.js",
+    "sync": "bin/sync.js",
     "verify": "bin/verify.js"
   },
   "jest": {

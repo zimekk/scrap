@@ -51,7 +51,7 @@ export class HotShotService extends Service {
           console.log({ item });
           if (last) {
             const diff = diffItem(last, item);
-            console.log({ last });
+            // console.log({ last });
             console.log(`[${last.id}]`, diff);
             this.summary.checked.push(item.id);
             return hotShotItems.update({ ...last, _checked: _time });
