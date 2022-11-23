@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import { z } from "zod";
-import { HotShotService } from "./services";
+import { HotShotService, PropertyOtodomService } from "./services";
 
 const { SYNC_URL } = process.env;
 
@@ -41,13 +41,15 @@ export const sync = async () => {
     )
     .then((data) =>
       Promise.all(
-        data
-          .map(({ returnvalue }) => returnvalue)
-          .filter(({ Id }) => Boolean(Id))
-          .map((item) => {
+        data.map(({ data, returnvalue }) => {
+          if (data.url.match("/goracy_strzal")) {
             const service = new HotShotService({ summary });
-            return service.process(item);
-          })
+            return service.process(returnvalue);
+          } else if (data.url.match("/pl/oferta/")) {
+            const service = new PropertyOtodomService({ summary });
+            return service.sync(returnvalue);
+          }
+        })
       )
     )
     .then(() => console.log(summary));

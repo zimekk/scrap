@@ -3,7 +3,11 @@ import { propertyItems } from "@dev/api";
 import { browser } from "../../../request";
 import PropertyService from "../PropertyService";
 import { saveProductHtml } from "../../utils";
-import { scrapPropertyOtodomList, scrapPropertyOtodomItem } from "./utils";
+import {
+  scrapPropertyOtodomList,
+  scrapPropertyOtodomItem,
+  scrapPropertyOtodomJson,
+} from "./utils";
 
 const { OTODOM_URL } = process.env as {
   OTODOM_URL: string;
@@ -28,7 +32,7 @@ export class PropertyOtodomService extends PropertyService {
       .parseAsync(args)
       .then(({ $type, page }) => {
         const [kind, name] = $type.split(":");
-        const id = name.replace(/\//g, "-");
+        const id = name.replace(/\//g, "-") as string;
         const size = 72;
         const url = `${OTODOM_URL}oferty/${name}?limit=${size}&page=${page}`;
 
@@ -76,6 +80,40 @@ export class PropertyOtodomService extends PropertyService {
             };
           });
       });
+  }
+
+  async sync(json: any): Promise<any> {
+    return z
+      .object({
+        props: z.object({
+          pageProps: z.object({
+            ad: z.object({
+              id: z.number(),
+            }),
+          }),
+        }),
+      })
+      .transform(
+        ({
+          props: {
+            pageProps: {
+              ad: { id },
+            },
+          },
+        }) => `otodom-${id}`
+      )
+      .parseAsync(json)
+      .then((id) =>
+        propertyItems.findOne({ id }).then((last: any) => {
+          if (last) {
+            this.summary.checked.push(last.id);
+            return;
+          }
+          return Promise.resolve(scrapPropertyOtodomJson({ id }, json)).then(
+            (item) => item && this.commit(item)
+          );
+        })
+      );
   }
 
   async process(item = {}): Promise<any> {
