@@ -26,7 +26,7 @@
   "dependencies": {
     "@bull-board/api": "^4.6.4",
     "@bull-board/express": "^4.6.4",
-    "bull": "^4.10.1",
+    "bull": "^4.10.2",
     "dotenv": "^16.0.3",
     "milliseconds": "^1.0.3"
   },
