@@ -925,6 +925,7 @@ export default function (type?: string) {
           "get-product:670957-dysk-do-konsoli-wd-black-1tb-d30-game-drive-ssd-for-xbox-czarny",
           "get-product:723929-odtwarzacz-multimedialny-xiaomi-tv-stick-4k",
           "get-product:691992-dysk-do-konsoli-seagate-storage-expansion-card-512gb-do-xbox-series-xs",
+          "get-product:1080501-inteligentna-lampa-twinkly-smart-lampki-choinkowe-400-led-rgbw",
           "get-product-komp:660669/asus-rog-crosshair-viii-impact",
           "get-product-komp:692410/asus-rog-strix-b550-i-gaming",
           "get-product-komp:757888/lian-li-dan-cases-a4-h2o-x4-riser-pcie4-0-czarna",

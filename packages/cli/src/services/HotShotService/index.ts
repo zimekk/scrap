@@ -48,7 +48,7 @@ export class HotShotService extends Service {
       .parseAsync(item)
       .then((item) =>
         hotShotItems.findOne({ id: item.id }).then((last: any) => {
-          console.log({ item });
+          // console.log({ item });
           if (last) {
             const diff = diffItem(last, item);
             // console.log({ last });

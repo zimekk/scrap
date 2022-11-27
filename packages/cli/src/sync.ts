@@ -1,8 +1,22 @@
 import fetch from "isomorphic-fetch";
 import { z } from "zod";
-import { HotShotService, PropertyOtodomService } from "./services";
+import {
+  HotShotService,
+  HotShotAltoService,
+  PromoService,
+  PropertyOtodomService,
+} from "./services";
 
 const { SYNC_URL } = process.env;
+
+export const Type = {
+  PROMO: "PROMO",
+  PROMO_ITEM: "PROMO_ITEM",
+  HOTSHOT: "HOTSHOT",
+  HOTSHOT_ALTO: "HOTSHOT_ALTO",
+  OTODOM: "OTODOM",
+  OTODOM_OFFER: "OTODOM_OFFER",
+} as const;
 
 const post = (path: string, data?: object) =>
   fetch(`${SYNC_URL}${path}`, {
@@ -27,30 +41,82 @@ export const sync = async () => {
     .then((response) => response.json())
     .then(
       z
-        .object({
-          data: z.object({
-            url: z.string(),
-          }),
-          returnvalue: z
+        .discriminatedUnion("type", [
+          z
             .object({
-              json: z.any(),
+              type: z.literal(Type.PROMO),
+              data: z.object({
+                url: z.string(),
+              }),
+              returnvalue: z.object({}),
             })
-            .transform(({ json }) => json),
-        })
+            .extend({})
+            .passthrough(),
+          z.object({
+            type: z.literal(Type.PROMO_ITEM),
+            data: z.object({
+              url: z.string(),
+            }),
+            returnvalue: z
+              .object({
+                json: z.any(),
+              })
+              .transform(({ json }) => {
+                const service = new PromoService({ summary });
+                return service.sync(json);
+              }),
+          }),
+          z.object({
+            type: z.literal(Type.HOTSHOT),
+            data: z.object({
+              url: z.string(),
+            }),
+            returnvalue: z
+              .object({
+                json: z.any(),
+              })
+              .transform(({ json }) => {
+                const service = new HotShotService({ summary });
+                return service.process(json);
+              }),
+          }),
+          z.object({
+            type: z.literal(Type.HOTSHOT_ALTO),
+            data: z.object({
+              url: z.string(),
+            }),
+            returnvalue: z
+              .object({
+                json: z.any(),
+              })
+              .transform(({ json }) => {
+                const service = new HotShotAltoService({ summary });
+                return service.process(json);
+              }),
+          }),
+          z.object({
+            type: z.literal(Type.OTODOM),
+            data: z.object({
+              url: z.string(),
+            }),
+            returnvalue: z.object({}),
+          }),
+          z.object({
+            type: z.literal(Type.OTODOM_OFFER),
+            data: z.object({
+              url: z.string(),
+            }),
+            returnvalue: z
+              .object({
+                json: z.any(),
+              })
+              .transform(({ json }) => {
+                const service = new PropertyOtodomService({ summary });
+                return service.sync(json);
+              }),
+          }),
+        ])
         .array().parseAsync
-    )
-    .then((data) =>
-      Promise.all(
-        data.map(({ data, returnvalue }) => {
-          if (data.url.match("/goracy_strzal")) {
-            const service = new HotShotService({ summary });
-            return service.process(returnvalue);
-          } else if (data.url.match("/pl/oferta/")) {
-            const service = new PropertyOtodomService({ summary });
-            return service.sync(returnvalue);
-          }
-        })
-      )
     )
     .then(() => console.log(summary));
 };

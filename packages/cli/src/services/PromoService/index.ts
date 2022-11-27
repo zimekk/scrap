@@ -112,6 +112,12 @@ export class PromoService extends Service {
     );
   }
 
+  async sync({ data }: any): Promise<any> {
+    return JsonSchema.transform((data) => {
+      console.log({ data });
+    }).parseAsync(data);
+  }
+
   async process(item = {}): Promise<any> {
     return ItemSchema.transform((item) => ({
       id: createId(item.href),
