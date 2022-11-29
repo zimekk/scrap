@@ -1062,6 +1062,7 @@ export default function (type?: string) {
           "get-promo:promocja-w-app",
           "get-promo:black-friday",
           "get-promo:blackwhite",
+          "get-promo:cyber-monday",
           "get-promo:lipton",
           "get-promo:rootblog",
           "get-promo:rtx-week",

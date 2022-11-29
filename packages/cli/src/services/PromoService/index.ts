@@ -55,6 +55,18 @@ export class PromoService extends Service {
           ],
           next: null,
         },
+        "get-promo:cyber-monday": {
+          type,
+          list: [
+            {
+              href: "https://promocje.x-kom.pl/cyber-monday",
+              name: "Złap produkty w Cyber Monday taniej nawet o 1100 zł",
+              desc: "Ułóż własną konstelację okazji.\nTwój kod rabatowy: poniedzialek",
+              code: "poniedzialek",
+            },
+          ],
+          next: null,
+        },
         "get-promo:lipton": {
           type,
           list: [
