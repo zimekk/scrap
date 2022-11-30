@@ -124,10 +124,26 @@ export class PromoService extends Service {
     );
   }
 
-  async sync({ data }: any): Promise<any> {
-    return JsonSchema.transform((data) => {
-      console.log({ data });
-    }).parseAsync(data);
+  async sync({ data }: any, item: any): Promise<any> {
+    return ItemSchema.transform((item) => ({
+      id: createId(item.href),
+      ...item,
+    }))
+      .parseAsync(item)
+      .then((item) =>
+        promoItems.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            this.summary.checked.push(item.id);
+            return promoItems.update({ ...last, _checked: _time });
+          } else {
+            this.summary.created.push(item.id);
+            return JsonSchema.transform((data) => {
+              console.log({ ...item, data });
+              return promoItems.insert({ ...item, data, _created: _time });
+            }).parseAsync(data);
+          }
+        })
+      );
   }
 
   async process(item = {}): Promise<any> {

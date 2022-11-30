@@ -41,81 +41,95 @@ export const sync = async () => {
     .then((response) => response.json())
     .then(
       z
-        .discriminatedUnion("type", [
+        .preprocess(
           z
             .object({
+              type: z.string(),
+              data: z.object({}).passthrough(),
+              returnvalue: z.object({}).passthrough(),
+            })
+            .transform(({ type, data, returnvalue }) => ({
+              type,
+              data: {
+                ...data,
+                ...returnvalue,
+              },
+            })).parse,
+          z.discriminatedUnion("type", [
+            z.object({
               type: z.literal(Type.PROMO),
+              data: z.object({}).passthrough(),
+            }),
+            z.object({
+              type: z.literal(Type.PROMO_ITEM),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  code: z.string().optional(),
+                  desc: z.string(),
+                  href: z.string(),
+                  name: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json, ...data }) => {
+                  const service = new PromoService({ summary });
+                  return service.sync(json, data);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.HOTSHOT),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new HotShotService({ summary });
+                  return service.process(json);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.HOTSHOT_ALTO),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new HotShotAltoService({ summary });
+                  return service.process(json);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.OTODOM),
               data: z.object({
                 url: z.string(),
               }),
-              returnvalue: z.object({}),
-            })
-            .extend({})
-            .passthrough(),
-          z.object({
-            type: z.literal(Type.PROMO_ITEM),
-            data: z.object({
-              url: z.string(),
             }),
-            returnvalue: z
-              .object({
-                json: z.any(),
-              })
-              .transform(({ json }) => {
-                const service = new PromoService({ summary });
-                return service.sync(json);
-              }),
-          }),
-          z.object({
-            type: z.literal(Type.HOTSHOT),
-            data: z.object({
-              url: z.string(),
+            z.object({
+              type: z.literal(Type.OTODOM_OFFER),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new PropertyOtodomService({ summary });
+                  return service.sync(json);
+                }),
             }),
-            returnvalue: z
-              .object({
-                json: z.any(),
-              })
-              .transform(({ json }) => {
-                const service = new HotShotService({ summary });
-                return service.process(json);
-              }),
-          }),
-          z.object({
-            type: z.literal(Type.HOTSHOT_ALTO),
-            data: z.object({
-              url: z.string(),
-            }),
-            returnvalue: z
-              .object({
-                json: z.any(),
-              })
-              .transform(({ json }) => {
-                const service = new HotShotAltoService({ summary });
-                return service.process(json);
-              }),
-          }),
-          z.object({
-            type: z.literal(Type.OTODOM),
-            data: z.object({
-              url: z.string(),
-            }),
-            returnvalue: z.object({}),
-          }),
-          z.object({
-            type: z.literal(Type.OTODOM_OFFER),
-            data: z.object({
-              url: z.string(),
-            }),
-            returnvalue: z
-              .object({
-                json: z.any(),
-              })
-              .transform(({ json }) => {
-                const service = new PropertyOtodomService({ summary });
-                return service.sync(json);
-              }),
-          }),
-        ])
+          ])
+        )
         .array().parseAsync
     )
     .then(() => console.log(summary));
