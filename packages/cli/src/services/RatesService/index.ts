@@ -2,13 +2,21 @@ import { ratesItems } from "@dev/api/rates";
 import { format, sub } from "date-fns";
 import { request } from "../../request";
 import Service from "../Service";
-import { DataSchema, ItemSchema, ArgsSchema } from "./types";
+import { type Rate, DataSchema, ItemSchema, ArgsSchema } from "./types";
 
 const { RATES_URL } = process.env as {
   RATES_URL: string;
 };
 
 const _time = Date.now();
+
+const mapRates = (rates: Record<string, Rate[]>, type = "rates") =>
+  Object.values(rates)
+    .flat()
+    .map((item) => ({
+      id: `${type}-${item.code.toLowerCase()}-${item.date}-${item.time}`,
+      ...item,
+    }));
 
 export class RatesService extends Service {
   async fetcher(type: string, date: string) {
@@ -57,20 +65,19 @@ export class RatesService extends Service {
             )
             .then((next) => ({
               type,
-              list: Object.values(rates)
-                .flat()
-                .map((item) => ({
-                  id: `${type}-${item.code.toLowerCase()}-${item.date}-${
-                    item.time
-                  }`,
-                  ...item,
-                })),
+              list: mapRates(rates),
               next:
                 // Boolean(console.log({ date, next })) ||
                 date > "2005-01-01" ? next : null,
             }))
         )
       )
+    );
+  }
+
+  async sync(data = {}): Promise<any> {
+    return DataSchema.parseAsync(data).then(({ rates }) =>
+      Promise.all(mapRates(rates).map((item) => this.process(item)))
     );
   }
 

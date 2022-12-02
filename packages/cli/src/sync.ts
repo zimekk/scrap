@@ -5,6 +5,7 @@ import {
   HotShotAltoService,
   PromoService,
   PropertyOtodomService,
+  RatesService,
 } from "./services";
 
 const { SYNC_URL } = process.env;
@@ -16,6 +17,7 @@ export const Type = {
   HOTSHOT_ALTO: "HOTSHOT_ALTO",
   OTODOM: "OTODOM",
   OTODOM_OFFER: "OTODOM_OFFER",
+  RATES: "RATES",
 } as const;
 
 const post = (path: string, data?: object) =>
@@ -125,6 +127,20 @@ export const sync = async () => {
                 })
                 .transform(({ json }) => {
                   const service = new PropertyOtodomService({ summary });
+                  return service.sync(json);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.RATES),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new RatesService({ summary });
                   return service.sync(json);
                 }),
             }),

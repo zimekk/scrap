@@ -109,6 +109,7 @@ export class PropertyOtodomService extends PropertyService {
             this.summary.checked.push(last.id);
             return;
           }
+          console.log(["create"], { id, json });
           return Promise.resolve(scrapPropertyOtodomJson({ id }, json)).then(
             (item) => item && this.commit(item)
           );
