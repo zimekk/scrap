@@ -52,6 +52,41 @@ export class QuotesService extends Service {
     );
   }
 
+  async processMeta(data = {}, type = "investments") {
+    return DataSchema.parseAsync(data).then(({ meta, objects }) => {
+      const investment_id = meta.id;
+
+      return Promise.resolve(meta).then((item) =>
+        quotesMetas
+          .findOne({ id: item.id })
+          .then((last: any) => {
+            const id = `${type}-${item.id}`;
+            if (last) {
+              const diff = diffItem(last, item);
+              if (diff) {
+                console.log(`[${last.id}]`, diff);
+                this.summary.updated.push(id);
+                return quotesMetas.update(updateItem(last, item));
+              } else {
+                this.summary.checked.push(id);
+                return quotesMetas.update({ ...last, _checked: _time });
+              }
+            } else {
+              this.summary.created.push(id);
+              return quotesMetas.insert({ ...item, _created: _time });
+            }
+          })
+          .then(() =>
+            objects.map(({ ...item }) => ({
+              id: `${type}-${investment_id}-${item.date}`,
+              investment_id,
+              ...item,
+            }))
+          )
+      );
+    });
+  }
+
   async request(type: string): Promise<{
     type: string;
     list: any[];
@@ -60,39 +95,18 @@ export class QuotesService extends Service {
     return TypeSchema.parseAsync(type.split(":")).then(
       ({ type, investment_id }) =>
         this.fetcher(type, investment_id).then((data) =>
-          DataSchema.parseAsync(data).then(({ meta, objects }) =>
-            Promise.resolve(meta).then((item) =>
-              quotesMetas
-                .findOne({ id: item.id })
-                .then((last: any) => {
-                  const id = `investments-${item.id}`;
-                  if (last) {
-                    const diff = diffItem(last, item);
-                    if (diff) {
-                      console.log(`[${last.id}]`, diff);
-                      this.summary.updated.push(id);
-                      return quotesMetas.update(updateItem(last, item));
-                    } else {
-                      this.summary.checked.push(id);
-                      return quotesMetas.update({ ...last, _checked: _time });
-                    }
-                  } else {
-                    this.summary.created.push(id);
-                    return quotesMetas.insert({ ...item, _created: _time });
-                  }
-                })
-                .then(() => ({
-                  type,
-                  list: objects.map(({ ...item }) => ({
-                    id: `${type}-${investment_id}-${item.date}`,
-                    investment_id,
-                    ...item,
-                  })),
-                  next: null,
-                }))
-            )
-          )
+          this.processMeta(data).then((list) => ({
+            type,
+            list,
+            next: null,
+          }))
         )
+    );
+  }
+
+  async sync(data = {}) {
+    return this.processMeta(data).then((list) =>
+      Promise.all(list.map((item) => this.process(item)))
     );
   }
 
