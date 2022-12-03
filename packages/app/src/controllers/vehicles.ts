@@ -171,7 +171,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                       transactionalPrice: z.number(),
                       dealer: z.object({
                         id: z.number(),
-                        buno: z.string(),
+                        buno: z.string().optional(),
                         owner: z.string(),
                         ownerName: z.string(),
                         name: z.string(),

@@ -137,6 +137,7 @@ export const VehicleBase = z.object({
   age: z.number().optional(),
   isYUC: z.boolean().optional(),
   reserved: z.boolean(),
+  extended: z.object({ brand: z.string(), buno: z.string() }).optional(),
   vin17: z.string().optional(),
   registration: z.string().optional(),
   emissionMeasurementStandard: z.string().optional(),

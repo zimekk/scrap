@@ -7,11 +7,13 @@ import {
   PropertyOtodomService,
   QuotesService,
   RatesService,
+  VehicleService,
 } from "./services";
 
 const { SYNC_URL } = process.env;
 
 export const Type = {
+  AUTOS: "AUTOS",
   FUNDS: "FUNDS",
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
@@ -60,6 +62,20 @@ export const sync = async () => {
               },
             })).parse,
           z.discriminatedUnion("type", [
+            z.object({
+              type: z.literal(Type.AUTOS),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new VehicleService({ summary });
+                  return service.sync(json);
+                }),
+            }),
             z.object({
               type: z.literal(Type.FUNDS),
               data: z

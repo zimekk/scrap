@@ -80,6 +80,12 @@ export class VehicleService extends Service {
       );
   }
 
+  async sync(data = {}) {
+    return VehicleData.transform(({ $list }) =>
+      Promise.all($list.map((item) => this.process(item)))
+    ).parseAsync(data);
+  }
+
   async process(item = {}): Promise<any> {
     return VehicleItem.parseAsync(item)
       .then(
