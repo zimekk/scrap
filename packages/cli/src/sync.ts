@@ -7,6 +7,7 @@ import {
   PropertyOtodomService,
   QuotesService,
   RatesService,
+  StationService,
   VehicleService,
 } from "./services";
 
@@ -22,6 +23,8 @@ export const Type = {
   OTODOM: "OTODOM",
   OTODOM_OFFER: "OTODOM_OFFER",
   RATES: "RATES",
+  STATIONS: "STATIONS",
+  STATION: "STATION",
 } as const;
 
 const post = (path: string, data?: object) =>
@@ -33,7 +36,7 @@ const post = (path: string, data?: object) =>
     body: data ? JSON.stringify(data) : null,
   });
 
-export const sync = async () => {
+export const sync = async (type = "") => {
   const summary = {
     created: [],
     checked: [],
@@ -41,9 +44,9 @@ export const sync = async () => {
     request: {},
   };
 
-  console.log(["sync"]);
+  console.log(["sync"], { type });
 
-  post("entries")
+  post("entries", { type })
     .then((response) => response.json())
     .then(
       z
@@ -173,6 +176,26 @@ export const sync = async () => {
                 })
                 .transform(({ json }) => {
                   const service = new RatesService({ summary });
+                  return service.sync(json);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.STATIONS),
+              data: z.object({
+                url: z.string(),
+              }),
+            }),
+            z.object({
+              type: z.literal(Type.STATION),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new StationService({ summary });
                   return service.sync(json);
                 }),
             }),

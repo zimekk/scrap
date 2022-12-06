@@ -98,6 +98,10 @@ export class StationService extends Service {
     );
   }
 
+  async sync(item = {}) {
+    console.log({ item });
+  }
+
   async process(item = {}): Promise<any> {
     return ItemSchema.parseAsync(item)
       .then(({ station_id }) =>

@@ -8,7 +8,7 @@ export const status = () => {
   remove(true);
 };
 
-export const sync = () => require("./sync").sync();
+export const sync = (type?: string) => require("./sync").sync(type);
 
 export const verify = () => require("./verify").verify();
 
