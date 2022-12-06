@@ -124,7 +124,7 @@ export class PromoService extends Service {
     );
   }
 
-  async sync({ data }: any, item: any): Promise<any> {
+  async sync({ data }: any, item: any) {
     return ItemSchema.transform((item) => ({
       id: createId(item.href),
       ...item,
@@ -137,10 +137,9 @@ export class PromoService extends Service {
             return promoItems.update({ ...last, _checked: _time });
           } else {
             this.summary.created.push(item.id);
-            return JsonSchema.transform((data) => {
-              console.log({ ...item, data });
-              return promoItems.insert({ ...item, data, _created: _time });
-            }).parseAsync(data);
+            return JsonSchema.transform((data) =>
+              promoItems.insert({ ...item, data, _created: _time })
+            ).parseAsync(data);
           }
         })
       );

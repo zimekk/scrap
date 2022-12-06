@@ -82,7 +82,7 @@ export class PropertyOtodomService extends PropertyService {
       });
   }
 
-  async sync(json: any): Promise<any> {
+  async sync(json = {}) {
     return z
       .object({
         props: z.object({
@@ -109,7 +109,6 @@ export class PropertyOtodomService extends PropertyService {
             this.summary.checked.push(last.id);
             return;
           }
-          console.log(["create"], { id, json });
           return Promise.resolve(scrapPropertyOtodomJson({ id }, json)).then(
             (item) => item && this.commit(item)
           );

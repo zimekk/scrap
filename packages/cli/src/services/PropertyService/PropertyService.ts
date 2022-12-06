@@ -14,7 +14,7 @@ export default class PropertyService extends Service {
       })
       .passthrough()
       .parseAsync(item)
-      .then((item) => {
+      .then((item) =>
         propertyItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
             const diff = diffPropertyItem(last, item);
@@ -36,7 +36,7 @@ export default class PropertyService extends Service {
               _created: _time,
             });
           }
-        });
-      });
+        })
+      );
   }
 }
