@@ -98,8 +98,35 @@ export class StationService extends Service {
     );
   }
 
-  async sync(item = {}) {
-    console.log({ item });
+  async sync({ json: { html }, ...item }: any = {}) {
+    return StationItemSchema.parseAsync({
+      ...item,
+      ...fromHtml(html),
+    })
+      .then((item) => this.processItem(item))
+      .catch((e) => console.log(e, item));
+  }
+
+  async processItem(item: any) {
+    return stationItems.findOne({ id: item.id }).then((last: any) => {
+      if (last) {
+        // if (item.map_img) {
+        //   return stationItems.update({ ...last, map_img: item.map_img });
+        // }
+        const diff = diffString(last.petrol, item.petrol);
+        if (diff) {
+          console.log(`[${last.id}]`, diff);
+          this.summary.updated.push(item.id);
+          return stationItems.update(updateItem(last, item));
+        } else {
+          this.summary.checked.push(item.id);
+          return stationItems.update({ ...last, _checked: _time });
+        }
+      } else {
+        this.summary.created.push(item.id);
+        return stationItems.insert({ ...item, _created: _time });
+      }
+    });
   }
 
   async process(item = {}): Promise<any> {
@@ -112,27 +139,7 @@ export class StationService extends Service {
           })
         )
       )
-      .then((item) =>
-        stationItems.findOne({ id: item.id }).then((last: any) => {
-          if (last) {
-            // if (item.map_img) {
-            //   return stationItems.update({ ...last, map_img: item.map_img });
-            // }
-            const diff = diffString(last.petrol, item.petrol);
-            if (diff) {
-              console.log(`[${last.id}]`, diff);
-              this.summary.updated.push(item.id);
-              return stationItems.update(updateItem(last, item));
-            } else {
-              this.summary.checked.push(item.id);
-              return stationItems.update({ ...last, _checked: _time });
-            }
-          } else {
-            this.summary.created.push(item.id);
-            return stationItems.insert({ ...item, _created: _time });
-          }
-        })
-      )
+      .then((item) => this.processItem(item))
       .catch((e) => console.log(e, item));
   }
 }

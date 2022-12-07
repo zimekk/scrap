@@ -191,12 +191,13 @@ export const sync = async (type = "") => {
                 .object({
                   url: z.string(),
                 })
+                .passthrough()
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform((item) => {
                   const service = new StationService({ summary });
-                  return service.sync(json);
+                  return service.sync(item);
                 }),
             }),
           ])
