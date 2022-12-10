@@ -23,6 +23,8 @@ const SORT_BY = {
   title: 1,
   brand: 1,
   _price: 1,
+  _priceChangeMax: 1,
+  _priceChangeMin: 1,
   _stars: -1,
   _created: -1,
   _updated: -1,
@@ -185,7 +187,11 @@ function Data({ version = "v1" }) {
           _updated,
           _history: {},
           ...item,
-          ...getMinMaxPrices(item),
+          ...((item) => ({
+            ...item,
+            _priceChangeMin: 100 * (item.priceNow / item.priceMin - 1),
+            _priceChangeMax: 100 * (item.priceNow / item.priceMax - 1),
+          }))(getMinMaxPrices(item)),
           barcode: getBarcode(item.label),
         }))
         // .filter((item: any) => (item.price.length > 1))
