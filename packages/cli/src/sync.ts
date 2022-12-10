@@ -19,7 +19,6 @@ export const Type = {
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
   HOTSHOT: "HOTSHOT",
-  HOTSHOT_ALTO: "HOTSHOT_ALTO",
   OTODOM: "OTODOM",
   OTODOM_OFFER: "OTODOM_OFFER",
   RATES: "RATES",
@@ -126,22 +125,10 @@ export const sync = async (type = "") => {
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
-                  const service = new HotShotService({ summary });
-                  return service.process(json);
-                }),
-            }),
-            z.object({
-              type: z.literal(Type.HOTSHOT_ALTO),
-              data: z
-                .object({
-                  url: z.string(),
-                })
-                .extend({
-                  json: z.any(),
-                })
-                .transform(({ json }) => {
-                  const service = new HotShotAltoService({ summary });
+                .transform(({ url, json }) => {
+                  const service = url.match(/al.to\/goracy_strzal/)
+                    ? new HotShotAltoService({ summary })
+                    : new HotShotService({ summary });
                   return service.process(json);
                 }),
             }),
