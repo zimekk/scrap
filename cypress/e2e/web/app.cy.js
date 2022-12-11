@@ -11,12 +11,18 @@ describe("app", () => {
 
   it("default section", () => {
     cy.get("h1").should("contain.text", "Scrap");
+    cy.get("h2").should("have.text", "Builder");
+  });
+
+  it("configure section", () => {
+    cy.get("h1").contains("configure").click();
     cy.get("h2").should("have.text", "Configure");
   });
 
   it("finances section", () => {
     cy.get("h1").contains("finances").click();
-    cy.get("h2").should("have.text", "Finances");
+    cy.get("h2:first").should("have.text", "Deposits");
+    cy.get("h2:last").should("have.text", "Finances");
   });
 
   it("games section", () => {
