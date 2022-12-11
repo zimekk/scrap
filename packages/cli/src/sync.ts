@@ -9,6 +9,7 @@ import {
   RatesService,
   StationService,
   VehicleService,
+  GameService,
 } from "./services";
 
 const { SYNC_URL } = process.env;
@@ -16,6 +17,7 @@ const { SYNC_URL } = process.env;
 export const Type = {
   AUTOS: "AUTOS",
   FUNDS: "FUNDS",
+  GAMES: "GAMES",
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
   HOTSHOT: "HOTSHOT",
@@ -89,6 +91,20 @@ export const sync = async (type = "") => {
                 })
                 .transform(({ json }) => {
                   const service = new QuotesService({ summary });
+                  return service.sync(json);
+                }),
+            }),
+            z.object({
+              type: z.literal(Type.GAMES),
+              data: z
+                .object({
+                  url: z.string(),
+                })
+                .extend({
+                  json: z.any(),
+                })
+                .transform(({ json }) => {
+                  const service = new GameService({ summary });
                   return service.sync(json);
                 }),
             }),

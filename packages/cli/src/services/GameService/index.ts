@@ -1,5 +1,5 @@
 import { diffString } from "json-diff";
-import { z } from "zod";
+import { promise, z } from "zod";
 import { gameItems } from "@dev/api/games";
 import { request } from "../../request";
 import Service from "../Service";
@@ -78,7 +78,7 @@ export class GameService extends Service {
         this.fetcher({ $type }).then((data) =>
           z
             .object({
-              Products: z.array(ItemSchema.passthrough()),
+              Products: ItemSchema.passthrough().array(),
             })
             .transform(({ Products }) => ({
               type,
@@ -90,7 +90,21 @@ export class GameService extends Service {
       );
   }
 
-  async process(item = {}): Promise<any> {
+  async sync(item = {}) {
+    return z
+      .object({
+        Products: ItemSchema.passthrough().array(),
+      })
+      .parseAsync(item)
+      .then(({ Products }) =>
+        Products.reduce<Promise<unknown>>(
+          (promise, item) => promise.then(() => this.process(item)),
+          Promise.resolve()
+        )
+      );
+  }
+
+  async process(item = {}) {
     return ItemSchema.passthrough()
       .transform((Product) => ({ id: Product.ProductId, ...Product }))
       .parseAsync(item)
