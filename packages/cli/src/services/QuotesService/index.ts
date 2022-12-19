@@ -104,13 +104,13 @@ export class QuotesService extends Service {
     );
   }
 
-  async sync(data = {}) {
+  async sync(data = {}, { timestamp: _fetched }: any = {}) {
     return this.processMeta(data).then((list) =>
       Promise.all(list.map((item) => this.process(item)))
     );
   }
 
-  async process(item = {}): Promise<any> {
+  async process(item = {}, { _fetched }: any = {}): Promise<any> {
     return ItemSchema.extend({
       id: z.string(),
       investment_id: z.number(),
@@ -119,6 +119,14 @@ export class QuotesService extends Service {
       .then((item) =>
         quotesItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             this.summary.checked.push(item.id);
             return last;
           } else {

@@ -90,7 +90,7 @@ export class GameService extends Service {
       );
   }
 
-  async sync(item = {}) {
+  async sync(item = {}, { timestamp: _fetched }: any = {}) {
     return z
       .object({
         Products: ItemSchema.passthrough().array(),
@@ -98,19 +98,28 @@ export class GameService extends Service {
       .parseAsync(item)
       .then(({ Products }) =>
         Products.reduce<Promise<unknown>>(
-          (promise, item) => promise.then(() => this.process(item)),
+          (promise, item) =>
+            promise.then(() => this.process(item, { _fetched })),
           Promise.resolve()
         )
       );
   }
 
-  async process(item = {}) {
+  async process(item = {}, { _fetched }: any = {}) {
     return ItemSchema.passthrough()
       .transform((Product) => ({ id: Product.ProductId, ...Product }))
       .parseAsync(item)
       .then((item) =>
         gameItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             const diff = diffItem(last, item);
             if (diff) {
               console.log(`[${last.id}]`, diff);

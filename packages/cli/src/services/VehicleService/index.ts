@@ -80,37 +80,41 @@ export class VehicleService extends Service {
       );
   }
 
-  async sync(data = {}) {
+  async sync(data = {}, { timestamp: _fetched }: any = {}) {
     return VehicleData.transform(({ $list }) =>
-      Promise.all($list.map((item) => this.process(item)))
+      Promise.all($list.map((item) => this.process(item, { _fetched })))
     ).parseAsync(data);
   }
 
-  async process(item = {}): Promise<any> {
+  async process(item = {}, { _fetched }: any = {}): Promise<any> {
     return VehicleItem.parseAsync(item)
-      .then(
-        (item) =>
-          // [41238].includes(item.id)&&
-          Boolean(item.id == 49829 && console.log(item)) ||
-          vehicleItems.findOne({ id: item.id }).then((last: any) => {
-            Boolean(item.id == 49829 && console.log(last));
-            if (last) {
-              const diff = diffItem(last, item);
-              // console.log({item, last})
-              if (diff || last._removed) {
-                console.log(`[${last.id}]`, diff);
-                delete last._removed;
-                this.summary.updated.push(item.id);
-                return vehicleItems.update(updateItem(last, item));
-              } else if (last._checked < _past) {
-                this.summary.checked.push(item.id);
-                return vehicleItems.update({ ...last, _checked: _time });
-              }
-            } else {
-              this.summary.created.push(item.id);
-              return vehicleItems.insert(createItem(item));
+      .then((item) =>
+        vehicleItems.findOne({ id: item.id }).then((last: any) => {
+          if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
             }
-          })
+            const diff = diffItem(last, item);
+            // console.log({item, last})
+            if (diff || last._removed) {
+              console.log(`[${last.id}]`, diff);
+              delete last._removed;
+              this.summary.updated.push(item.id);
+              return vehicleItems.update(updateItem(last, item));
+            } else if (last._checked < _past) {
+              this.summary.checked.push(item.id);
+              return vehicleItems.update({ ...last, _checked: _time });
+            }
+          } else {
+            this.summary.created.push(item.id);
+            return vehicleItems.insert(createItem(item));
+          }
+        })
       )
       .catch((e) => console.log(e, item));
   }

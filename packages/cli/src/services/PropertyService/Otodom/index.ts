@@ -82,7 +82,7 @@ export class PropertyOtodomService extends PropertyService {
       });
   }
 
-  async sync(json = {}) {
+  async sync(json = {}, { timestamp: _fetched }: any = {}) {
     return z
       .object({
         props: z.object({
@@ -106,8 +106,16 @@ export class PropertyOtodomService extends PropertyService {
       .then((id) =>
         propertyItems.findOne({ id }).then((last: any) => {
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             this.summary.checked.push(last.id);
-            return;
+            return propertyItems.update({ ...last, _checked: _time });
           }
           return Promise.resolve(scrapPropertyOtodomJson({ id }, json)).then(
             (item) => item && this.commit(item)

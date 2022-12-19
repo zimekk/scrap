@@ -16,6 +16,7 @@ const { SYNC_URL } = process.env;
 
 export const Type = {
   AUTOS: "AUTOS",
+  AUTOS_ITEM: "AUTOS_ITEM",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
   PROMO: "PROMO",
@@ -52,46 +53,60 @@ export const sync = async (type = "") => {
     .then(
       z
         .preprocess(
+          // .transform(t => (console.log(t), t))
           z
             .object({
               type: z.string(),
               data: z.object({}).passthrough(),
+              opts: z.object({}).passthrough(),
               returnvalue: z.object({}).passthrough(),
             })
-            .transform(({ type, data, returnvalue }) => ({
-              type,
-              data: {
-                ...data,
-                ...returnvalue,
-              },
-            })).parse,
+            .transform(
+              ({ type, data, opts, returnvalue }) => (
+                console.log(opts),
+                {
+                  type,
+                  data: {
+                    ...data,
+                    ...opts,
+                    ...returnvalue,
+                  },
+                }
+              )
+            ).parse,
           z.discriminatedUnion("type", [
             z.object({
               type: z.literal(Type.AUTOS),
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform(({ json, timestamp }) => {
                   const service = new VehicleService({ summary });
-                  return service.sync(json);
+                  return service.sync(json, { timestamp });
                 }),
+            }),
+            z.object({
+              type: z.literal(Type.AUTOS_ITEM),
+              data: z.object({}).passthrough(),
             }),
             z.object({
               type: z.literal(Type.FUNDS),
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform(({ json, timestamp }) => {
                   const service = new QuotesService({ summary });
-                  return service.sync(json);
+                  return service.sync(json, { timestamp });
                 }),
             }),
             z.object({
@@ -99,13 +114,14 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform(({ json, timestamp }) => {
                   const service = new GameService({ summary });
-                  return service.sync(json);
+                  return service.sync(json, { timestamp });
                 }),
             }),
             z.object({
@@ -117,6 +133,7 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   code: z.string().optional(),
@@ -137,15 +154,16 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ url, json }) => {
+                .transform(({ url, json, timestamp }) => {
                   const service = url.match(/al.to\/goracy_strzal/)
                     ? new HotShotAltoService({ summary })
                     : new HotShotService({ summary });
-                  return service.process(json);
+                  return service.sync(json, { timestamp });
                 }),
             }),
             z.object({
@@ -159,13 +177,14 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform(({ json, timestamp }) => {
                   const service = new PropertyOtodomService({ summary });
-                  return service.sync(json);
+                  return service.sync(json, { timestamp });
                 }),
             }),
             z.object({
@@ -173,13 +192,14 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .extend({
                   json: z.any(),
                 })
-                .transform(({ json }) => {
+                .transform(({ json, timestamp }) => {
                   const service = new RatesService({ summary });
-                  return service.sync(json);
+                  return service.sync(json, { timestamp });
                 }),
             }),
             z.object({
@@ -193,6 +213,7 @@ export const sync = async (type = "") => {
               data: z
                 .object({
                   url: z.string(),
+                  timestamp: z.number(),
                 })
                 .passthrough()
                 .extend({

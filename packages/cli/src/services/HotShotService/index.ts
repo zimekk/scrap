@@ -40,7 +40,11 @@ export class HotShotService extends Service {
       }));
   }
 
-  async process(item = {}): Promise<any> {
+  async sync(item: any, { timestamp: _fetched }: any) {
+    return this.process(item, { _fetched });
+  }
+
+  async process(item = {}, { _fetched }: any = {}): Promise<any> {
     return ItemSchema.transform((item) => ({
       id: item.Id,
       ...item,
@@ -50,6 +54,14 @@ export class HotShotService extends Service {
         hotShotItems.findOne({ id: item.id }).then((last: any) => {
           // console.log({ item });
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             const diff = diffItem(last, item);
             // console.log({ last });
             console.log(`[${last.id}]`, diff);

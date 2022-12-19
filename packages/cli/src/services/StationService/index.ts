@@ -98,18 +98,26 @@ export class StationService extends Service {
     );
   }
 
-  async sync({ json: { html }, ...item }: any = {}) {
+  async sync({ json: { html }, timestamp: _fetched, ...item }: any = {}) {
     return StationItemSchema.parseAsync({
       ...item,
       ...fromHtml(html),
     })
-      .then((item) => this.processItem(item))
+      .then((item) => this.processItem(item, { _fetched }))
       .catch((e) => console.log(e, item));
   }
 
-  async processItem(item: any) {
+  async processItem(item: any, { _fetched }: any = {}) {
     return stationItems.findOne({ id: item.id }).then((last: any) => {
       if (last) {
+        if (
+          _fetched &&
+          (_fetched < last._checked ||
+            _fetched < last._updated ||
+            _fetched < last._created)
+        ) {
+          return;
+        }
         // if (item.map_img) {
         //   return stationItems.update({ ...last, map_img: item.map_img });
         // }

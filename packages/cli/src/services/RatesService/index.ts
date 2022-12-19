@@ -75,18 +75,28 @@ export class RatesService extends Service {
     );
   }
 
-  async sync(data = {}): Promise<any> {
+  async sync(data = {}, { timestamp: _fetched }: any = {}): Promise<any> {
     return DataSchema.parseAsync(data).then(({ rates }) =>
-      Promise.all(mapRates(rates).map((item) => this.process(item)))
+      Promise.all(
+        mapRates(rates).map((item) => this.process(item, { _fetched }))
+      )
     );
   }
 
-  async process(item = {}): Promise<any> {
+  async process(item = {}, { _fetched }: any = {}): Promise<any> {
     // console.log({ item });
 
     return ItemSchema.parseAsync(item).then((item) =>
       ratesItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
+          if (
+            _fetched &&
+            (_fetched < last._checked ||
+              _fetched < last._updated ||
+              _fetched < last._created)
+          ) {
+            return;
+          }
           this.summary.checked.push(item.id);
           return last;
         } else {

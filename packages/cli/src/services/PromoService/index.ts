@@ -124,7 +124,7 @@ export class PromoService extends Service {
     );
   }
 
-  async sync({ data }: any, item: any) {
+  async sync({ data }: any, { timestamp: _fetched, ...item }: any) {
     return ItemSchema.transform((item) => ({
       id: createId(item.href),
       ...item,
@@ -133,6 +133,14 @@ export class PromoService extends Service {
       .then((item) =>
         promoItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             this.summary.checked.push(item.id);
             return promoItems.update({ ...last, _checked: _time });
           } else {
