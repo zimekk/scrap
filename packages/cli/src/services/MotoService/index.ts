@@ -50,11 +50,28 @@ export class MotoService extends Service {
       });
   }
 
+  async sync(json = {}, { timestamp: _fetched }: any = {}) {
+    return z
+      .object({
+        props: z.object({
+          pageProps: z.object({
+            urqlState: z.object({
+              list: MotoItem.transform((item) =>
+                this.commit(item, { _fetched })
+              ).array(),
+            }),
+          }),
+        }),
+      })
+      .parseAsync(json);
+    // .catch(console.warn);
+  }
+
   async process(item = {}): Promise<any> {
     return MotoItem.parseAsync(item).then((item) => this.commit(item));
   }
 
-  async commit(item = {}): Promise<any> {
+  async commit(item = {}, { _fetched }: any = {}): Promise<any> {
     return z
       .object({
         id: z.string(),
@@ -65,6 +82,14 @@ export class MotoService extends Service {
       .then((item) => {
         motoItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
+            if (
+              _fetched &&
+              (_fetched < last._checked ||
+                _fetched < last._updated ||
+                _fetched < last._created)
+            ) {
+              return;
+            }
             const diff = diffMotoItem(last, item);
             if (diff) {
               console.log(`[${last.id}]`, diff);

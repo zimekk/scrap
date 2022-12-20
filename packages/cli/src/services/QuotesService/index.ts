@@ -52,7 +52,7 @@ export class QuotesService extends Service {
     );
   }
 
-  async processMeta(data = {}, type = "investments") {
+  async processMeta(data = {}, { _fetched }: any = {}, type = "investments") {
     return DataSchema.parseAsync(data).then(({ meta, objects }) => {
       const investment_id = meta.id;
 
@@ -62,6 +62,14 @@ export class QuotesService extends Service {
           .then((last: any) => {
             const id = `${type}-${item.id}`;
             if (last) {
+              if (
+                _fetched &&
+                (_fetched < last._checked ||
+                  _fetched < last._updated ||
+                  _fetched < last._created)
+              ) {
+                return;
+              }
               const diff = diffItem(last, item);
               if (diff) {
                 console.log(`[${last.id}]`, diff);
@@ -105,8 +113,8 @@ export class QuotesService extends Service {
   }
 
   async sync(data = {}, { timestamp: _fetched }: any = {}) {
-    return this.processMeta(data).then((list) =>
-      Promise.all(list.map((item) => this.process(item)))
+    return this.processMeta(data, { _fetched }).then((list) =>
+      Promise.all(list.map((item) => this.process(item, { _fetched })))
     );
   }
 
@@ -128,7 +136,7 @@ export class QuotesService extends Service {
               return;
             }
             this.summary.checked.push(item.id);
-            return last;
+            return quotesItems.update({ ...last, _checked: _time });
           } else {
             this.summary.created.push(item.id);
             return quotesItems.insert({ ...item, _created: _time });
