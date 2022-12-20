@@ -121,7 +121,8 @@ export class PropertyOtodomService extends PropertyService {
             (item) => item && this.commit(item)
           );
         })
-      );
+      )
+      .catch(console.warn);
   }
 
   async process(item = {}): Promise<any> {

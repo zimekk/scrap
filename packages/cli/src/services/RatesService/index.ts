@@ -98,7 +98,7 @@ export class RatesService extends Service {
             return;
           }
           this.summary.checked.push(item.id);
-          return last;
+          return ratesItems.update({ ...last, _checked: _time });
         } else {
           this.summary.created.push(item.id);
           return ratesItems.insert({ ...item, _created: _time });
