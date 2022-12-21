@@ -66,7 +66,7 @@ export const remove = async (status = false) => {
 
       from(filtered)
         .pipe(
-          take(100),
+          take(500),
           mergeMap((item) => {
             const service = new VehicleService({ summary });
             return from(service.inspect(item));

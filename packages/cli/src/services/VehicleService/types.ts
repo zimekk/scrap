@@ -69,6 +69,7 @@ export const VehicleBase = z.object({
       // interestRates: z.array(z.array(z.null())),
     })
     .passthrough()
+    .or(z.string())
     .optional(),
   comfortLeaseProduct: z
     .object({
@@ -113,6 +114,7 @@ export const VehicleBase = z.object({
       // }),
     })
     .passthrough()
+    .or(z.string())
     .optional(),
   newPrice: z.number().optional(),
   optionsPrice: z.number().optional(),
@@ -136,7 +138,7 @@ export const VehicleBase = z.object({
   // created: z.string(),
   age: z.number().optional(),
   isYUC: z.boolean().optional(),
-  reserved: z.boolean(),
+  reserved: z.boolean().optional(),
   extended: z.object({ brand: z.string(), buno: z.string() }).optional(),
   vin17: z.string().optional(),
   registration: z.string().optional(),
