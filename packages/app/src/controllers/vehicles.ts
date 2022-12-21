@@ -120,6 +120,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                           // interestRates: z.array(z.array(z.null())),
                         })
                         .passthrough()
+                        .or(z.string().transform(() => undefined))
                         .optional(),
                       comfortLeaseProduct: z
                         .object({
@@ -164,6 +165,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                           // }),
                         })
                         .passthrough()
+                        .or(z.string().transform(() => undefined))
                         .optional(),
                       newPrice: z.number().optional(),
                       optionsPrice: z.number().optional(),
@@ -185,7 +187,7 @@ export const getVehiclesData: RequestHandler = (_req, res) =>
                       created: z.string(),
                       age: z.number().optional(),
                       isYUC: z.boolean().optional(),
-                      reserved: z.boolean(),
+                      reserved: z.boolean().optional(),
                     })
                     .passthrough()
                     .transform(
