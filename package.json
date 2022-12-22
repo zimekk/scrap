@@ -63,7 +63,6 @@
     "reset": "rm -rf node_modules packages/*/node_modules",
     "serve": "yarn workspace @dev/app serve",
     "start": "yarn workspace @dev/app start",
-    "dedupe": "yarn-deduplicate && yarn",
     "dedupe:list": "yarn-deduplicate --list",
     "update": "yarn upgrade-interactive",
     "update:browserlist": "browserslist --update-db",

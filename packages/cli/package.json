@@ -11,6 +11,7 @@
     "lib/"
   ],
   "bin": {
+    "dedupe": "bin/dedupe.js",
     "import": "bin/import.js",
     "remove": "bin/remove.js",
     "schema": "bin/schema.js",

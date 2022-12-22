@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+export const dedupe = () => require("./dedupe").dedupe();
+
 export const remove = (status = false) => require("./remove").remove(status);
 
 export const schema = () => require("./schema").schema();
