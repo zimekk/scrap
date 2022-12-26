@@ -14,3 +14,5 @@ export const profilesItems = new Entities(
 export const propertyItems = new Entities(
   resolve(__dirname, "../temp/property-items.db")
 );
+
+export const rooms = new Entities(resolve(__dirname, "../temp/rooms.db"));

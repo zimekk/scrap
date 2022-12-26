@@ -79,7 +79,7 @@ export class MotoService extends Service {
       })
       .passthrough()
       .parseAsync(item)
-      .then((item) => {
+      .then((item) =>
         motoItems.findOne({ id: item.id }).then((last: any) => {
           if (last) {
             if (
@@ -109,7 +109,7 @@ export class MotoService extends Service {
               _created: _time,
             });
           }
-        });
-      });
+        })
+      );
   }
 }

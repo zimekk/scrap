@@ -8,6 +8,7 @@ export * from "./moto";
 export * from "./products";
 export * from "./promo";
 export * from "./properties";
+export * from "./rooms";
 export * from "./stations";
 export * from "./quotes";
 export * from "./vehicles";

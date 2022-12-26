@@ -1,0 +1,34 @@
+.Section {
+  color: purple;
+  padding: 1em;
+}
+.Row {
+  position: relative;
+  min-height: 80px;
+  padding: 0.5em 1em 0.5em calc(100px + 1em);
+  border-top: 1px solid lightgray;
+}
+.Gallery {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  width: 95px;
+  height: 80px;
+  border: 1px solid lightgray;
+}
+.Logo {
+  width: 95px;
+  height: 80px;
+}
+.Table {
+  th,
+  td {
+    vertical-align: top;
+  }
+  td {
+    div {
+      max-height: 4.6em;
+      overflow: hidden;
+    }
+  }
+}

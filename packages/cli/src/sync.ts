@@ -8,6 +8,7 @@ import {
   PropertyOtodomService,
   QuotesService,
   RatesService,
+  RoomsService,
   StationService,
   VehicleService,
   GameService,
@@ -20,6 +21,7 @@ export const Type = {
   AUTOS_ITEM: "AUTOS_ITEM",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
+  GPASS: "GPASS",
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
   HOTSHOT: "HOTSHOT",
@@ -27,9 +29,12 @@ export const Type = {
   OTODOM_OFFER: "OTODOM_OFFER",
   OTOMOTO: "OTOMOTO",
   OTOMOTO_OFFER: "OTOMOTO_OFFER",
+  PRODUCTS: "PRODUCTS",
   RATES: "RATES",
+  ROOMS: "ROOMS",
   STATIONS: "STATIONS",
   STATION: "STATION",
+  UNKNOWN: "UNKNOWN",
 } as const;
 
 const post = (path: string, data?: object) =>
@@ -61,18 +66,16 @@ export const sync = async (type = "") => {
           opts: z.object({}).passthrough(),
           returnvalue: z.object({}).passthrough(),
         })
-        .transform(
-          ({ type, data, opts, returnvalue }) => (
-            console.log(opts),
-            {
-              type,
-              data: {
-                ...data,
-                ...opts,
-                ...returnvalue,
-              },
-            }
-          )
+        .transform(({ type, data, opts, returnvalue }) =>
+          // console.log(opts),
+          ({
+            type,
+            data: {
+              ...data,
+              ...opts,
+              ...returnvalue,
+            },
+          })
         ).parse,
       z.discriminatedUnion("type", [
         z.object({
@@ -123,6 +126,10 @@ export const sync = async (type = "") => {
               const service = new GameService({ summary });
               return service.sync(json, { timestamp });
             }),
+        }),
+        z.object({
+          type: z.literal(Type.GPASS),
+          data: z.object({}).passthrough(),
         }),
         z.object({
           type: z.literal(Type.PROMO),
@@ -209,6 +216,12 @@ export const sync = async (type = "") => {
           }),
         }),
         z.object({
+          type: z.literal(Type.PRODUCTS),
+          data: z.object({
+            url: z.string(),
+          }),
+        }),
+        z.object({
           type: z.literal(Type.RATES),
           data: z
             .object({
@@ -221,6 +234,21 @@ export const sync = async (type = "") => {
             .transform(({ json, timestamp }) => {
               const service = new RatesService({ summary });
               return service.sync(json, { timestamp });
+            }),
+        }),
+        z.object({
+          type: z.literal(Type.ROOMS),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp, url }) => {
+              const service = new RoomsService({ summary });
+              return service.sync(json, { timestamp, url });
             }),
         }),
         z.object({
@@ -244,6 +272,12 @@ export const sync = async (type = "") => {
               const service = new StationService({ summary });
               return service.sync(item);
             }),
+        }),
+        z.object({
+          type: z.literal(Type.UNKNOWN),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
       ])
     )

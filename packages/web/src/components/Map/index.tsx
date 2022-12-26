@@ -1,4 +1,5 @@
 import React, {
+  type MouseEventHandler,
   useCallback,
   useEffect,
   useMemo,
@@ -94,7 +95,7 @@ export function DraggableMarker({
 export function LocateControl() {
   const map = useMap();
 
-  const onLocate = useCallback(
+  const onLocate = useCallback<MouseEventHandler>(
     (event) => {
       event.preventDefault();
       map.locate({
