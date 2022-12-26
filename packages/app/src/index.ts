@@ -9,6 +9,7 @@ export const middleware = Router()
   .use("/api/data.json", controllers.getData)
   .use("/api/exchange/data.json", controllers.getRatesData)
   .use("/api/games/data.json", controllers.getGamesData)
+  .use("/api/gpass/data.json", controllers.getGpassData)
   .use("/api/holidays/data.json", controllers.getHolidaysData)
   .use(
     "/api/holidays/offers/data.json",

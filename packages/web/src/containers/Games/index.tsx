@@ -12,6 +12,7 @@ import slug from "slug";
 import useDebounce from "../useDebounce";
 import { Image, Perspective } from "../../components/Image";
 import { Link } from "../../components/Link";
+import Gpass from "./Gpass";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
@@ -494,6 +495,8 @@ function Details({ Conditions, LastModifiedDate, Price, UsageData }: ItemType) {
 export default function Section() {
   return (
     <div className={styles.Section}>
+      <h2>Gpass</h2>
+      <Gpass />
       <h2>Games</h2>
       <Data />
     </div>

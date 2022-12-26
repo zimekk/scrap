@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 import { z } from "zod";
 import {
+  GpassService,
   HotShotService,
   HotShotAltoService,
   MotoService,
@@ -129,7 +130,18 @@ export const sync = async (type = "") => {
         }),
         z.object({
           type: z.literal(Type.GPASS),
-          data: z.object({}).passthrough(),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp, url }) => {
+              const service = new GpassService({ summary });
+              return service.sync(json, { timestamp, url });
+            }),
         }),
         z.object({
           type: z.literal(Type.PROMO),

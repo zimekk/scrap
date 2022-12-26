@@ -3,6 +3,8 @@ import { Entities } from "./entities";
 
 export const items = new Entities(resolve(__dirname, "../temp/items.db"));
 
+export const gpass = new Entities(resolve(__dirname, "../temp/gpass.db"));
+
 export const motoItems = new Entities(
   resolve(__dirname, "../temp/moto-items.db")
 );
