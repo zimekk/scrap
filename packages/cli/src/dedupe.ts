@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import chunk from "chunk";
-import { promise, z } from "zod";
+import { z } from "zod";
 
 const { SYNC_URL } = process.env;
 
@@ -52,13 +52,15 @@ export const dedupe = async (type = "") => {
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     counter.total += entries.length;
-    await ProcessSchema.transform(({ id, data, opts }) => {
+    await ProcessSchema.transform(({ id, data, opts, type }) => {
       // console.log({ id, data, opts });
-      Object.assign(r, {
-        [data.url]: Object.assign(r[data.url] || {}, {
-          [id]: opts.timestamp,
-        }),
-      });
+      if (!["GPASS", "HOTSHOT", "UNKNOWN"].includes(type)) {
+        Object.assign(r, {
+          [data.url]: Object.assign(r[data.url] || {}, {
+            [id]: opts.timestamp,
+          }),
+        });
+      }
       return id;
     })
       .array()
