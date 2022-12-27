@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import L, { Icon, LatLng, LatLngBounds } from "leaflet";
+import L, { Icon, LatLng } from "leaflet";
 import { Marker, MapContainer, TileLayer, Tooltip } from "react-leaflet";
-import { DraggableMarker, LocateControl } from "../../components/Map";
+import { DraggableMarker, LocateControl } from "../../../components/Map";
 import cx from "classnames";
-import styles from "./Map.module.scss";
+import styles from "./styles.module.scss";
 
 type Location = {
   // description: null;
@@ -19,7 +19,7 @@ type Location = {
   country: string;
 };
 
-function getDirections({
+export function getDirections({
   origin,
   destination,
 }: {
@@ -36,6 +36,21 @@ function getDirections({
   window.open(link, "_blank");
 }
 
+export function getDirectionsLink(
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  },
+  origin: { lat: number; lng: number }
+) {
+  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
+  return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+    (({ lat, lng }) => `${lat},${lng}`)(origin)
+  )}&destination=${encodeURIComponent(
+    (({ latitude: lat, longitude: lng }) => `${lat},${lng}`)(coordinates)
+  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+}
+
 export function useBounds(list: { position: LatLng }[]) {
   return useMemo(
     () =>
@@ -47,9 +62,11 @@ export function useBounds(list: { position: LatLng }[]) {
 }
 
 export default function Map({
+  origin,
   list,
   zoom = 6,
 }: {
+  origin: { lat: number; lng: number };
   list: Location[];
   zoom?: number;
 }) {
@@ -62,9 +79,10 @@ export default function Map({
     });
   }, []);
 
-  const middle = useBounds([
-    { position: { lat: 52.1793, lng: 21.0498 } as LatLng },
-  ]);
+  const middle = useMemo(
+    () => useBounds([{ position: new LatLng(origin.lat, origin.lng) }]),
+    [origin]
+  );
 
   const [center, setCenter] = useState(() => middle.getCenter());
 
