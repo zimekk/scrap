@@ -12,25 +12,77 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 // import { format } from "date-fns";
-import { stringify } from "qs";
+// import { stringify } from "qs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import {
   Data,
   type DataType,
   type RoomsType,
-  getOccupancy,
+  // getOccupancy,
 } from "@dev/cli/src/services/RoomsService/types";
 import { Gallery } from "../../components/Gallery";
 import { Image } from "../../components/Image";
 import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
+import { type FilterType, Availability, getData } from "./Availability";
 import Map, { getDirectionsLink } from "./Map";
 import styles from "./styles.module.scss";
 
 interface FiltersState {
   search: string;
+  filter: number;
 }
+
+const FILTER = [
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 2,
+      children: [6, 10, 16],
+    },
+  },
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 3,
+      children: [6, 10],
+    },
+  },
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 2,
+      children: [10, 12],
+    },
+  },
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 1,
+      children: [10],
+    },
+  },
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 1,
+      children: [6, 16],
+    },
+  },
+  {
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
+    occupancy: {
+      adults: 2,
+    },
+  },
+] as FilterType[];
 
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/rooms/data.json?${version}`);
@@ -39,35 +91,8 @@ const asset = createAsset(async (version) => {
 
 const origin = { lat: 52.1793, lng: 21.0498 };
 
-const getData = (path: string, data?: object) =>
-  fetch(path, {
-    method: data ? "POST" : "GET",
-    headers: {
-      "Content-Type": "application/json",
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: data ? JSON.stringify(data) : null,
-  }).then((res) => res.json());
-
-const formatPrice = ({
-  amount,
-  currency,
-}: {
-  amount: number;
-  currency: string;
-}) => `${amount} ${currency}`;
-
-function Hotel({ item }: { item: RoomsType }) {
-  const [data, setData] = useState<DataType>(() => ({}));
-
-  const filter = {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 2,
-      children: [10, 12, 16],
-    },
-  };
+function Hotel({ filter, item }: { filter: FilterType; item: RoomsType }) {
+  const [data, setData] = useState<DataType>(() => item._cache || {});
 
   return (
     <div>
@@ -211,32 +236,6 @@ function Hotel({ item }: { item: RoomsType }) {
           offers
         </Link>
       </div>
-      <div>
-        <button
-          disabled={!data.personTypes}
-          onClick={useCallback<MouseEventHandler>(
-            (e) =>
-              (e.preventDefault(),
-              getData(
-                `api/rooms/${item.id}/availability?${stringify({
-                  checkIn: filter.checkIn,
-                  checkOut: filter.checkOut,
-                  occupancy: data.personTypes && [
-                    getOccupancy(data.personTypes, filter.occupancy),
-                  ],
-                })}`
-              )).then(
-                (availability) => (
-                  Data.parse({ availability }),
-                  setData((data) => ({ ...data, availability }))
-                )
-              ),
-            [filter, data.personTypes]
-          )}
-        >
-          availability
-        </button>
-      </div>
       {data.personTypes && (
         <div>
           <table className={styles.Table}>
@@ -301,93 +300,7 @@ function Hotel({ item }: { item: RoomsType }) {
           </tbody>
         </table>
       )}
-      {data.availability &&
-        data.availability.map(({ occupancy, proposals }, key) => (
-          <div key={key}>
-            <Json>{occupancy}</Json>
-            <table className={styles.Table}>
-              <tbody>
-                <tr>
-                  <th colSpan={8}>proposal</th>
-                  <th rowSpan={2}>roomCount</th>
-                </tr>
-                <tr>
-                  <th>OfferID</th>
-                  <th>RoomID</th>
-                  <th>from</th>
-                  <th>to</th>
-                  <th>price</th>
-                  <th>originalPrice</th>
-                  <th>simulatedPrice</th>
-                  <th>discounts</th>
-                </tr>
-                {proposals.map(({ proposal, roomCount }, key) => (
-                  <tr key={key}>
-                    {/* <td><pre>{JSON.stringify(proposal, null, 2)}</pre></td> */}
-                    <td>{proposal.OfferID}</td>
-                    <td>{proposal.RoomID}</td>
-                    <td>{proposal.stay.from}</td>
-                    <td>{proposal.stay.to}</td>
-                    <td>{formatPrice(proposal.price)}</td>
-                    <td>
-                      {proposal.originalPrice
-                        ? formatPrice(proposal.originalPrice)
-                        : "-"}
-                    </td>
-                    <td>
-                      {proposal.simulatedPrice
-                        ? formatPrice(proposal.simulatedPrice)
-                        : "-"}
-                    </td>
-                    {/* <td><pre>{JSON.stringify(proposal.discounts, null, 2)}</pre></td> */}
-                    <td>
-                      {proposal.discounts ? proposal.discounts.amount : "-"}
-                    </td>
-                    <td>{roomCount}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
-
-      {data.availability &&
-        data.offers &&
-        data.offers
-          .filter(({ id }) =>
-            data.availability
-              ?.map(({ proposals }) =>
-                proposals.map(({ proposal }) => proposal.OfferID)
-              )
-              .flat()
-              .includes(id)
-          )
-          .map((offer, key) => (
-            <div key={key}>
-              <Json>{offer}</Json>
-              <table className={styles.Table}>
-                <tbody>
-                  <tr>
-                    <th>id</th>
-                    <td>{offer.id}</td>
-                  </tr>
-                  {offer.translations
-                    .filter(({ locale }) => ["pl"].includes(locale))
-                    .map(({ messages }) => messages)
-                    .flat()
-                    .map(({ fieldName, value }, key) => (
-                      <tr key={key}>
-                        <th>{fieldName}</th>
-                        <td>
-                          <div dangerouslySetInnerHTML={{ __html: value }} />
-                        </td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          ))}
-
+      <Availability data={data} filter={filter} item={item} />
       <table className={styles.Table}>
         <tbody>
           {(item.translations || [])
@@ -408,7 +321,7 @@ function Hotel({ item }: { item: RoomsType }) {
   );
 }
 
-function Rooms({ rooms }: { rooms: RoomsType[] }) {
+function Rooms({ filter, rooms }: { filter: number; rooms: RoomsType[] }) {
   const [showMap, setShowMap] = useState(() => false);
   console.log({ rooms });
 
@@ -428,7 +341,7 @@ function Rooms({ rooms }: { rooms: RoomsType[] }) {
         </Link>
       )}
       {rooms.map((item, key) => (
-        <Hotel key={key} item={item} />
+        <Hotel key={key} filter={FILTER[filter]} item={item} />
       ))}
     </div>
   );
@@ -443,6 +356,7 @@ function Results({
 }) {
   return (
     <Rooms
+      filter={queries.filter}
       rooms={results.filter(
         (item) =>
           queries.search === "" ||
@@ -461,6 +375,30 @@ function Filters({
 }) {
   return (
     <fieldset>
+      <label>
+        <span>Occupancy</span>
+        <select
+          value={filters.filter}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                filter: Number(target.value),
+              })),
+            []
+          )}
+        >
+          {FILTER.map(
+            ({ checkIn, checkOut, occupancy: { adults, children } }, key) => (
+              <option key={key} value={key}>
+                {`${checkIn}-${checkOut} / ${adults} adults${
+                  children ? ` + ${children?.join(", ")} children` : ""
+                }`}
+              </option>
+            )
+          )}
+        </select>
+      </label>
       <label>
         <span>Search</span>
         <input
@@ -485,6 +423,7 @@ export default function Section({ version = "v1" }) {
 
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
+    filter: 0,
   }));
 
   const [queries, setQueries] = useState(() => filters);

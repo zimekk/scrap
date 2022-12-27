@@ -402,11 +402,12 @@ export type RoomsType = z.infer<typeof Rooms> & {
   _created: number;
   _checked: number;
   _updated: number;
+  _cache?: unknown;
 };
 
 export function getOccupancy(
   personTypes: z.infer<typeof PersonTypes>,
-  { adults, children }: { adults: number; children: number[] }
+  { adults, children }: { adults: number; children?: number[] }
 ) {
   return {
     adults,
@@ -415,7 +416,7 @@ export function getOccupancy(
         minAge,
         maxAge,
         count:
-          minAge === null || maxAge === null
+          minAge === null || maxAge === null || children === undefined
             ? 0
             : children.filter((age) => minAge <= age && age <= maxAge).length,
       }))

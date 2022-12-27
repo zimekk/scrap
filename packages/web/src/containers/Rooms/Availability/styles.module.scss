@@ -1,0 +1,12 @@
+.Table {
+  th,
+  td {
+    vertical-align: top;
+  }
+  td {
+    div {
+      max-height: 4.6em;
+      overflow: hidden;
+    }
+  }
+}
