@@ -1,7 +1,9 @@
 import { diffString } from "json-diff";
+import IntlMessageFormat from "intl-messageformat";
 import { productItems } from "@dev/api/products";
 import Service from "../Service";
 import { DiffSchema, ItemSchema } from "./types";
+import { z } from "zod";
 
 const ERA = 24 * 3600 * 1000;
 const _time = Date.now();
@@ -46,10 +48,90 @@ const updateItem = (
 });
 
 export default class extends Service {
-  async process(item = {}): Promise<any> {
+  async sync(json = {}, { timestamp: _fetched }: any = {}) {
+    return z
+      .object({
+        ProductHeader: z.object({
+          Id: z.string(),
+          Name: z.string(),
+          Price: z.number(),
+          OldPrice: z.number().nullable(),
+          Producer: z.object({
+            Name: z.string(),
+          }),
+          ProducerCode: z.string(),
+          MainPhoto: z.object({
+            ThumbnailUrl: z.string(),
+          }),
+          CommentsRating: z.number(),
+          CommentsCount: z.number(),
+          WebUrl: z.string(),
+        }),
+      })
+      .transform(
+        ({
+          ProductHeader: {
+            Id,
+            Name,
+            Price,
+            Producer,
+            ProducerCode,
+            MainPhoto,
+            CommentsRating,
+            CommentsCount,
+            WebUrl,
+          },
+        }) => ({
+          id: Id,
+          brand: Producer.Name,
+          codes: [],
+          image: [MainPhoto.ThumbnailUrl],
+          label: [
+            `od: ${Producer.Name}`,
+            `kod producenta: ${ProducerCode}`,
+            `kod x-kom: ${Id}`,
+          ],
+          price: [
+            `${new Intl.NumberFormat("pl-PL", {
+              minimumFractionDigits: 2,
+            }).format(Price)} zł`,
+          ],
+          title: `${Producer.Name} ${Name}`,
+          links: [],
+          proms: [],
+          stars: CommentsCount
+            ? `${new Intl.NumberFormat("pl-PL", {}).format(
+                CommentsRating
+              )} (${new IntlMessageFormat(
+                `{CommentsCount, plural,
+                one {# opinia}
+                few {# opinie}
+                many {# opinii}
+                other {# opinii}
+              }`,
+                "pl-PL"
+              ).format({ CommentsCount })})`
+            : `Brak opinii`,
+          url: WebUrl,
+        })
+      )
+      .transform((item) => this.process(item, { _fetched }))
+      .array()
+      .parseAsync(json);
+  }
+
+  async process(item = {}, { _fetched }: any = {}) {
     return ItemSchema.parseAsync(item).then((item) =>
       productItems.findOne({ id: item.id }).then((last: any) => {
         if (last) {
+          if (
+            _fetched &&
+            (_fetched < last._checked ||
+              _fetched < last._updated ||
+              _fetched < last._created)
+          ) {
+            return;
+          }
           const diff = diffItem(last, item);
           if (diff) {
             console.log(`[${last.id}]`, diff);

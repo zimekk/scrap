@@ -5,6 +5,7 @@ import {
   HotShotService,
   HotShotAltoService,
   MotoService,
+  ProductService,
   PromoService,
   PropertyOtodomService,
   QuotesService,
@@ -229,9 +230,18 @@ export const sync = async (type = "") => {
         }),
         z.object({
           type: z.literal(Type.PRODUCTS),
-          data: z.object({
-            url: z.string(),
-          }),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp }) => {
+              const service = new ProductService({ summary });
+              return service.sync(json, { timestamp });
+            }),
         }),
         z.object({
           type: z.literal(Type.RATES),
