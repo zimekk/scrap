@@ -15,9 +15,23 @@ function cache(id: string, type: string, callback: () => Promise<unknown>) {
     }
     return callback().then((data) => {
       if (item) {
-        const _cache = Object.assign({}, item._cache || {}, {
-          [type]: data,
-        });
+        const [_type, _key] = type.split(":");
+        const _cache = Object.assign(
+          {},
+          item._cache || {},
+          _key
+            ? {
+                [_type]: Object.assign(
+                  (item._cache && item._cache[_type]) || {},
+                  {
+                    [_key]: data,
+                  }
+                ),
+              }
+            : {
+                [type]: data,
+              }
+        );
         return rooms.update({ ...item, _cache }).then(() => data);
       }
       return data;
@@ -32,29 +46,27 @@ export const getRoomsData: RequestHandler = (_req, res) =>
 
 export const getRooms = Router()
   .get("/:id/availability", ({ params: { id }, query }, res) =>
-    AvailabilityQuery.parseAsync(query)
-      .then((query) =>
-        fetch(
-          `https://booking.profitroom.com/api/${id}/availability?${stringify(
-            query
-          )}`
-        )
-      )
-      .then((res) => res.json())
-      .then((data) => res.json(data))
-  )
-  .get("/:id/offers", ({ params: { id }, query }, res) =>
-    cache(id, "offers", () =>
-      OffersQuery.parseAsync(query)
-        .then((query) =>
+    AvailabilityQuery.parseAsync(query).then((query) =>
+      cache(
+        id,
+        ["availability", JSON.stringify(stringify(query))].join(":"),
+        () =>
           fetch(
-            `https://booking.profitroom.com/api/${id}/offers?${stringify(
+            `https://booking.profitroom.com/api/${id}/availability?${stringify(
               query
             )}`
-          )
-        )
-        .then((res) => res.json())
-    ).then((data) => res.json(data))
+          ).then((res) => res.json())
+      ).then((data) => res.json(data))
+    )
+  )
+  .get("/:id/offers", ({ params: { id }, query }, res) =>
+    OffersQuery.parseAsync(query).then((query) =>
+      cache(id, "offers", () =>
+        fetch(
+          `https://booking.profitroom.com/api/${id}/offers?${stringify(query)}`
+        ).then((res) => res.json())
+      ).then((data) => res.json(data))
+    )
   )
   .get("/:id/:type", ({ params: { id, type } }, res) =>
     cache(

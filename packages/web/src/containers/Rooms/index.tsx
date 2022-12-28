@@ -26,6 +26,7 @@ import { Image } from "../../components/Image";
 import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
 import { type FilterType, Availability, getData } from "./Availability";
+import { Hotel } from "./Hotel";
 import Map, { getDirectionsLink } from "./Map";
 import styles from "./styles.module.scss";
 
@@ -91,7 +92,13 @@ const asset = createAsset(async (version) => {
 
 const origin = { lat: 52.1793, lng: 21.0498 };
 
-function Hotel({ filter, item }: { filter: FilterType; item: RoomsType }) {
+export function _Hotel({
+  filter,
+  item,
+}: {
+  filter: FilterType;
+  item: RoomsType;
+}) {
   const [data, setData] = useState<DataType>(() => item._cache || {});
 
   return (
@@ -321,7 +328,17 @@ function Hotel({ filter, item }: { filter: FilterType; item: RoomsType }) {
   );
 }
 
-function Rooms({ filter, rooms }: { filter: number; rooms: RoomsType[] }) {
+function Rooms({
+  checked,
+  setChecked,
+  filter,
+  rooms,
+}: {
+  checked: string[];
+  setChecked: Dispatch<SetStateAction<string[]>>;
+  filter: number;
+  rooms: RoomsType[];
+}) {
   const [showMap, setShowMap] = useState(() => false);
   console.log({ rooms });
 
@@ -340,27 +357,38 @@ function Rooms({ filter, rooms }: { filter: number; rooms: RoomsType[] }) {
           Show map
         </Link>
       )}
-      {rooms.map((item, key) => (
-        <Hotel key={key} filter={FILTER[filter]} item={item} />
+      {rooms.map((item) => (
+        <Hotel
+          key={item.id}
+          checked={checked.includes(item.id)}
+          setChecked={setChecked}
+          filter={FILTER[filter]}
+          item={item}
+        />
       ))}
     </div>
   );
 }
 
 function Results({
+  checked,
+  setChecked,
   results,
   queries,
 }: {
+  checked: string[];
+  setChecked: Dispatch<SetStateAction<string[]>>;
   results: RoomsType[];
   queries: FiltersState;
 }) {
   return (
     <Rooms
+      checked={checked}
+      setChecked={setChecked}
       filter={queries.filter}
       rooms={results.filter(
         (item) =>
-          queries.search === "" ||
-          item.address.city.toLowerCase().match(queries.search)
+          queries.search === "" || item.id.toLowerCase().match(queries.search)
       )}
     />
   );
@@ -418,6 +446,34 @@ function Filters({
   );
 }
 
+function Checked({
+  results,
+  checked,
+  setChecked,
+}: {
+  results: { id: string }[];
+  checked: string[];
+  setChecked: Dispatch<SetStateAction<string[]>>;
+}) {
+  return (
+    <div>
+      <label>
+        <input
+          type="checkbox"
+          checked={results.length > 0 && checked.length === results.length}
+          disabled={results.length === 0}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setChecked(target.checked ? results.map(({ id }) => id) : []),
+            [results]
+          )}
+        />
+      </label>
+      <span>{`${checked.length} / ${results.length}`}</span>{" "}
+    </div>
+  );
+}
+
 export default function Section({ version = "v1" }) {
   const results = asset.read(version) as RoomsType[];
 
@@ -427,6 +483,8 @@ export default function Section({ version = "v1" }) {
   }));
 
   const [queries, setQueries] = useState(() => filters);
+
+  const [checked, setChecked] = useState<string[]>(() => []);
 
   const search$ = useMemo(() => new Subject<any>(), []);
 
@@ -459,7 +517,13 @@ export default function Section({ version = "v1" }) {
     <div className={styles.Section}>
       <h2>Rooms</h2>
       <Filters filters={filters} setFilters={setFilters} />
-      <Results results={results} queries={queries} />
+      <Checked results={results} checked={checked} setChecked={setChecked} />
+      <Results
+        results={results}
+        queries={queries}
+        checked={checked}
+        setChecked={setChecked}
+      />
     </div>
   );
 }

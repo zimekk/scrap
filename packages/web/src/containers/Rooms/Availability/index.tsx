@@ -35,7 +35,7 @@ export const getData = (path: string, data?: object) =>
     body: data ? JSON.stringify(data) : null,
   }).then((res) => res.json());
 
-const formatPrice = ({
+export const formatPrice = ({
   amount,
   currency,
 }: {
@@ -92,6 +92,7 @@ export function Availability({
         availability[filterKey]?.map(({ occupancy, proposals }, key) => (
           <div key={key}>
             <Json>{occupancy}</Json>
+            <Json>{proposals}</Json>
             <table className={styles.Table}>
               <tbody>
                 <tr>
@@ -143,7 +144,9 @@ export function Availability({
                     </td>
                     {/* <td><pre>{JSON.stringify(proposal.discounts, null, 2)}</pre></td> */}
                     <td>
-                      {proposal.discounts ? proposal.discounts.amount : "-"}
+                      {proposal.discounts
+                        .map(({ amount }) => amount)
+                        .join(", ") || "-"}
                     </td>
                     <td>{roomCount}</td>
                   </tr>

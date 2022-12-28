@@ -259,7 +259,13 @@ export const Data = z.object({
     .object({
       occupancy: z.object({
         adults: z.number(),
-        children: z.array(z.unknown()),
+        children: z
+          .object({
+            minAge: z.number(),
+            maxAge: z.number(),
+            count: z.number(),
+          })
+          .array(),
       }),
       proposals: z
         .object({
@@ -281,7 +287,13 @@ export const Data = z.object({
             stay: z.object({ from: z.string(), to: z.string() }),
             occupancy: z.object({
               adults: z.number(),
-              children: z.array(z.unknown()),
+              children: z
+                .object({
+                  minAge: z.number(),
+                  maxAge: z.number(),
+                  count: z.number(),
+                })
+                .array(),
             }),
             attributes: z
               .object({
@@ -402,7 +414,7 @@ export type RoomsType = z.infer<typeof Rooms> & {
   _created: number;
   _checked: number;
   _updated: number;
-  _cache?: unknown;
+  _cache?: Record<string, any>;
 };
 
 export function getOccupancy(
