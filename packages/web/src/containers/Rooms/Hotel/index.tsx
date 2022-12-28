@@ -129,6 +129,20 @@ export function Hotel({
         </Link>
       )}
       <button
+        disabled={Boolean(data.rooms)}
+        onClick={useCallback<MouseEventHandler>(
+          (e) =>
+            (e.preventDefault(), getData(`api/rooms/${item.id}/rooms`)).then(
+              (rooms) => (
+                Data.parse({ rooms }), setData((data) => ({ ...data, rooms }))
+              )
+            ),
+          []
+        )}
+      >
+        rooms
+      </button>
+      <button
         disabled={!data.personTypes}
         onClick={useCallback<MouseEventHandler>(
           (e) =>
@@ -300,6 +314,7 @@ export function Hotel({
                 <th>type</th>
                 <th>standard</th>
                 <th>area</th>
+                <th>rooms</th>
                 <th>numberOfPeople</th>
                 <th>adults</th>
                 <th>children</th>
@@ -315,7 +330,24 @@ export function Hotel({
                       <td>{standard.type}</td>
                       <td>{standard.standard}</td>
                       <td>{attributes.area}</td>
-                      <td>{`${limits.min.numberOfPeople}-${limits.max.numberOfPeople}`}</td>
+                      <td>
+                        {attributes.layout?.rooms || "-"}
+                        {(attributes.layout?.bathrooms ||
+                          attributes.layout?.kitchen) &&
+                          ` (${([] as string[])
+                            .concat(
+                              attributes.layout?.bathrooms
+                                ? `${attributes.layout?.bathrooms} bathrooms`
+                                : [],
+                              attributes.layout?.kitchen ? `kitchen` : []
+                            )
+                            .join(", ")})`}
+                      </td>
+                      <td>
+                        {`${limits.min.numberOfPeople}-${limits.max.numberOfPeople}`}
+                        {attributes.maxOccupancy?.extraBeds &&
+                          ` (${attributes.maxOccupancy.extraBeds} extraBeds)`}
+                      </td>
                       <td>{`${limits.min.occupancy.adults}-${limits.max.occupancy.adults}`}</td>
                       <td>
                         {limits.max.occupancy.children
