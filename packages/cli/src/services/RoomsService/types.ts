@@ -102,7 +102,18 @@ export const Data = z.object({
           })
           .nullable(),
       }),
-      address: z.null(),
+      address: z
+        .object({
+          name: z.string(),
+          city: z.string(),
+          street: z.string(),
+          district: z.null(),
+          postalCode: z.null(),
+          coordinates: z.null(),
+          country: z.null(),
+          description: z.null(),
+        })
+        .nullable(),
       translations: z
         .object({
           locale: z.string(),
@@ -422,16 +433,11 @@ export type OccupancyType = {
   children?: number[];
 };
 
-export const getOccupancyList = (
+export const getOccupancy = (
   personTypes: z.infer<typeof PersonTypes>,
   occupancy: OccupancyType[]
-) => occupancy.map((occupancy) => getOccupancy(personTypes, occupancy));
-
-export function getOccupancy(
-  personTypes: z.infer<typeof PersonTypes>,
-  { adults, children }: OccupancyType
-) {
-  return {
+) =>
+  occupancy.map(({ adults, children }) => ({
     adults,
     children: personTypes
       .map(({ minAge, maxAge }) => ({
@@ -443,5 +449,4 @@ export function getOccupancy(
             : children.filter((age) => minAge <= age && age <= maxAge).length,
       }))
       .filter(({ count }) => count > 0),
-  };
-}
+  }));

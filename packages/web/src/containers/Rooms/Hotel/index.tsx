@@ -4,22 +4,16 @@ import React, {
   type MouseEventHandler,
   type SetStateAction,
   useCallback,
-  // useEffect,
   useMemo,
   useState,
 } from "react";
-// import { Subject } from "rxjs";
-// import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
-// import { createAsset } from "use-asset";
-// import { format } from "date-fns";
-// import { stringify } from "qs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import {
   Data,
   type DataType,
   type RoomsType,
-  getOccupancyList,
+  getOccupancy,
 } from "@dev/cli/src/services/RoomsService/types";
 import { Json } from "../../../components/Json";
 import { Link } from "../../../components/Link";
@@ -31,15 +25,27 @@ import { stringify } from "qs";
 
 const origin = { lat: 52.1793, lng: 21.0498 };
 
+function checkOccupacy({ occupancy }: FilterType, { personTypes }: DataType) {
+  return (
+    personTypes &&
+    occupancy.every(({ children = [] }) =>
+      children.every(
+        (age) =>
+          personTypes.findIndex(
+            ({ minAge, maxAge }) => minAge <= age && age <= maxAge
+          ) >= 0
+      )
+    )
+  );
+}
+
 function getQueryParams(
   { checkIn, checkOut, occupancy }: FilterType,
-  item: RoomsType,
-  data: DataType
+  { defaultCurrency }: RoomsType,
+  { personTypes }: DataType
 ) {
-  return ([] as ReturnType<typeof getOccupancyList>)
-    .concat(
-      data.personTypes ? getOccupancyList(data.personTypes, occupancy) : []
-    )
+  return ([] as ReturnType<typeof getOccupancy>)
+    .concat(personTypes ? getOccupancy(personTypes, occupancy) : [])
     .reduce(
       (result, { adults, children }, key) =>
         Object.assign(
@@ -57,7 +63,7 @@ function getQueryParams(
       {
         "check-in": checkIn,
         "check-out": checkOut,
-        currency: item.defaultCurrency.code,
+        currency: defaultCurrency.code,
       }
     );
 }
@@ -85,8 +91,7 @@ export function Hotel({
         checkIn: filter.checkIn,
         checkOut: filter.checkOut,
         occupancy:
-          data.personTypes &&
-          getOccupancyList(data.personTypes, filter.occupancy),
+          data.personTypes && getOccupancy(data.personTypes, filter.occupancy),
       }),
     [filter, data.personTypes]
   );
@@ -146,7 +151,7 @@ export function Hotel({
         rooms
       </button>
       <button
-        disabled={!data.personTypes}
+        disabled={!checkOccupacy(filter, data)}
         onClick={useCallback<MouseEventHandler>(
           (e) =>
             (e.preventDefault(),
@@ -167,132 +172,136 @@ export function Hotel({
         availability
       </button>
 
-      <Json>{filter}</Json>
+      {checked && (
+        <div>
+          <Json>{filter}</Json>
 
-      {availability[availabilityKey] &&
-        availability[availabilityKey]?.map(({ occupancy, proposals }, key) => (
-          <div key={key}>
-            <Json>{occupancy}</Json>
-            <Json>{proposals}</Json>
-            <table className={styles.Table}>
-              <tbody>
-                {/* <tr>
+          {availability[availabilityKey] &&
+            availability[availabilityKey]?.map(
+              ({ occupancy, proposals }, key) => (
+                <div key={key}>
+                  <Json>{occupancy}</Json>
+                  <Json>{proposals}</Json>
+                  <table className={styles.Table}>
+                    <tbody>
+                      {/* <tr>
                   <th rowSpan={2}>hotel</th>
                   <th colSpan={10}>proposal</th>
                   <th rowSpan={2}>roomCount</th>
                 </tr> */}
-                <tr>
-                  <th>OfferID</th>
-                  <th>RoomID</th>
-                  <th>adults</th>
-                  <th>children</th>
-                  <th>from</th>
-                  <th>to</th>
-                  <th>price</th>
-                  <th>originalPrice</th>
-                  <th>simulatedPrice</th>
-                  <th>discounts</th>
-                  <th>roomCount</th>
-                </tr>
-                {proposals.map(({ proposal, roomCount }, key) => (
-                  <tr key={key}>
-                    {/* <td><pre>{JSON.stringify(proposal, null, 2)}</pre></td> */}
-                    {/* <td>
+                      <tr>
+                        <th>OfferID</th>
+                        <th>RoomID</th>
+                        <th>adults</th>
+                        <th>children</th>
+                        <th>from</th>
+                        <th>to</th>
+                        <th>price</th>
+                        <th>originalPrice</th>
+                        <th>simulatedPrice</th>
+                        <th>discounts</th>
+                        <th>roomCount</th>
+                      </tr>
+                      {proposals.map(({ proposal, roomCount }, key) => (
+                        <tr key={key}>
+                          {/* <td><pre>{JSON.stringify(proposal, null, 2)}</pre></td> */}
+                          {/* <td>
                       {item.url ? <Link href={item.url}>{item.url}</Link> : "-"}
                     </td> */}
-                    <td>{proposal.OfferID}</td>
-                    <td>{proposal.RoomID}</td>
-                    <td>{proposal.occupancy.adults}</td>
-                    <td>
-                      {proposal.occupancy.children
-                        .map(
-                          ({ minAge, maxAge, count }) =>
-                            `${count} (${minAge}-${maxAge})`
-                        )
-                        .join(", ")}
-                    </td>
-                    <td>{proposal.stay.from}</td>
-                    <td>{proposal.stay.to}</td>
-                    <td>{formatPrice(proposal.price)}</td>
-                    <td>
-                      {proposal.originalPrice
-                        ? formatPrice(proposal.originalPrice)
-                        : "-"}
-                    </td>
-                    <td>
-                      {proposal.simulatedPrice
-                        ? formatPrice(proposal.simulatedPrice)
-                        : "-"}
-                    </td>
-                    {/* <td><pre>{JSON.stringify(proposal.discounts, null, 2)}</pre></td> */}
-                    <td>
-                      {proposal.discounts
-                        .map(({ amount }) => amount)
-                        .join(", ") || "-"}
-                    </td>
-                    <td>{roomCount || "-"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ))}
+                          <td>{proposal.OfferID}</td>
+                          <td>{proposal.RoomID}</td>
+                          <td>{proposal.occupancy.adults}</td>
+                          <td>
+                            {proposal.occupancy.children
+                              .map(
+                                ({ minAge, maxAge, count }) =>
+                                  `${count} (${minAge}-${maxAge})`
+                              )
+                              .join(", ")}
+                          </td>
+                          <td>{proposal.stay.from}</td>
+                          <td>{proposal.stay.to}</td>
+                          <td>{formatPrice(proposal.price)}</td>
+                          <td>
+                            {proposal.originalPrice
+                              ? formatPrice(proposal.originalPrice)
+                              : "-"}
+                          </td>
+                          <td>
+                            {proposal.simulatedPrice
+                              ? formatPrice(proposal.simulatedPrice)
+                              : "-"}
+                          </td>
+                          {/* <td><pre>{JSON.stringify(proposal.discounts, null, 2)}</pre></td> */}
+                          <td>
+                            {proposal.discounts
+                              .map(({ amount }) => amount)
+                              .join(", ") || "-"}
+                          </td>
+                          <td>{roomCount || "-"}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )
+            )}
 
-      {availability[availabilityKey] && data.offers && (
-        <div>
-          <Json>{data.offers}</Json>
-          <table className={styles.Table}>
-            <tbody>
-              <tr>
-                <th>OfferID</th>
-                <th>deposit</th>
-                <th>from</th>
-                <th>to</th>
-                <th>minimumNights</th>
-                <th>name</th>
-                <th>mealPlanType</th>
-              </tr>
-              {data.offers
-                .filter(({ id }) =>
-                  availability[availabilityKey]
-                    ?.map(({ proposals }) =>
-                      proposals.map(({ proposal }) => proposal.OfferID)
-                    )
-                    .flat()
-                    .includes(id)
-                )
-                .map((offer, key) => (
-                  <tr key={key}>
-                    <td>{offer.id}</td>
-                    <td>
-                      {offer.profiles
-                        .map(({ deposit }) => deposit?.percentage)
-                        .join(", ")}
-                    </td>
-                    <td>
-                      {offer.attributes.dateRange
-                        ? offer.attributes.dateRange.from
-                        : "-"}
-                    </td>
-                    <td>
-                      {offer.attributes.dateRange
-                        ? offer.attributes.dateRange.to
-                        : "-"}
-                    </td>
-                    <td>{offer.attributes.minimumNights || "-"}</td>
-                    <td>
-                      {
-                        offer.translations
-                          .find(({ locale }) => locale === "pl")
-                          ?.messages.find(
-                            ({ fieldName }) => fieldName === "name"
-                          )?.value
-                      }
-                    </td>
-                    <td>{offer.attributes.mealPlanType}</td>
+          {availability[availabilityKey] && data.offers && (
+            <div>
+              <Json>{data.offers}</Json>
+              <table className={styles.Table}>
+                <tbody>
+                  <tr>
+                    <th>OfferID</th>
+                    <th>deposit</th>
+                    <th>from</th>
+                    <th>to</th>
+                    <th>minimumNights</th>
+                    <th>name</th>
+                    <th>mealPlanType</th>
                   </tr>
-                ))}
-              {/* {offer.translations
+                  {data.offers
+                    .filter(({ id }) =>
+                      availability[availabilityKey]
+                        ?.map(({ proposals }) =>
+                          proposals.map(({ proposal }) => proposal.OfferID)
+                        )
+                        .flat()
+                        .includes(id)
+                    )
+                    .map((offer, key) => (
+                      <tr key={key}>
+                        <td>{offer.id}</td>
+                        <td>
+                          {offer.profiles
+                            .map(({ deposit }) => deposit?.percentage)
+                            .join(", ")}
+                        </td>
+                        <td>
+                          {offer.attributes.dateRange
+                            ? offer.attributes.dateRange.from
+                            : "-"}
+                        </td>
+                        <td>
+                          {offer.attributes.dateRange
+                            ? offer.attributes.dateRange.to
+                            : "-"}
+                        </td>
+                        <td>{offer.attributes.minimumNights || "-"}</td>
+                        <td>
+                          {
+                            offer.translations
+                              .find(({ locale }) => locale === "pl")
+                              ?.messages.find(
+                                ({ fieldName }) => fieldName === "name"
+                              )?.value
+                          }
+                        </td>
+                        <td>{offer.attributes.mealPlanType}</td>
+                      </tr>
+                    ))}
+                  {/* {offer.translations
                     .filter(({ locale }) => ["pl"].includes(locale))
                     .map(({ messages }) => messages)
                     .flat()
@@ -304,83 +313,85 @@ export function Hotel({
                         </td>
                       </tr>
                     ))} */}
-            </tbody>
-          </table>
-        </div>
-      )}
+                </tbody>
+              </table>
+            </div>
+          )}
 
-      {data.rooms && (
-        <div>
-          <Json>{data.rooms}</Json>
-          <table className={styles.Table}>
-            <tbody>
-              <tr>
-                <th>RoomID</th>
-                <th>kind</th>
-                <th>type</th>
-                <th>standard</th>
-                <th>area</th>
-                <th>rooms</th>
-                <th>numberOfPeople</th>
-                <th>adults</th>
-                <th>children</th>
-                <th>facilities</th>
-                <th>totalRooms</th>
-              </tr>
-              {data.rooms.map(
-                ({ id, attributes, limits, totalRooms, standard }, key) =>
-                  limits ? (
-                    <tr key={key}>
-                      <td>{id}</td>
-                      <td>{standard.kind}</td>
-                      <td>{standard.type}</td>
-                      <td>{standard.standard}</td>
-                      <td>{attributes.area}</td>
-                      <td>
-                        {attributes.layout?.rooms || "-"}
-                        {(attributes.layout?.bathrooms ||
-                          attributes.layout?.kitchen) &&
-                          ` (${([] as string[])
-                            .concat(
-                              attributes.layout?.bathrooms
-                                ? `${attributes.layout?.bathrooms} bathrooms`
-                                : [],
-                              attributes.layout?.kitchen ? `kitchen` : []
-                            )
-                            .join(", ")})`}
-                      </td>
-                      <td>
-                        {`${limits.min.numberOfPeople}-${limits.max.numberOfPeople}`}
-                        {attributes.maxOccupancy?.extraBeds &&
-                          ` (${attributes.maxOccupancy.extraBeds} extraBeds)`}
-                      </td>
-                      <td>{`${limits.min.occupancy.adults}-${limits.max.occupancy.adults}`}</td>
-                      <td>
-                        {limits.max.occupancy.children
-                          .map(
-                            ({ count, minAge, maxAge }) =>
-                              `${count} (${minAge}-${maxAge})`
-                          )
-                          .join(", ")}
-                      </td>
-                      <td>
-                        {Object.entries(attributes.facilities || {})
-                          .filter(([_, exists]) => Boolean(exists))
-                          .map(([value]) => value)
-                          .join(", ")}
-                      </td>
-                      <td>{totalRooms}</td>
-                    </tr>
-                  ) : (
-                    <tr key={key}>
-                      <th>{id}</th>
-                      <td colSpan={3}>-</td>
-                      <td>{totalRooms}</td>
-                    </tr>
-                  )
-              )}
-            </tbody>
-          </table>
+          {data.rooms && (
+            <div>
+              <Json>{data.rooms}</Json>
+              <table className={styles.Table}>
+                <tbody>
+                  <tr>
+                    <th>RoomID</th>
+                    <th>kind</th>
+                    <th>type</th>
+                    <th>standard</th>
+                    <th>area</th>
+                    <th>rooms</th>
+                    <th>numberOfPeople</th>
+                    <th>adults</th>
+                    <th>children</th>
+                    <th>facilities</th>
+                    <th>totalRooms</th>
+                  </tr>
+                  {data.rooms.map(
+                    ({ id, attributes, limits, totalRooms, standard }, key) =>
+                      limits ? (
+                        <tr key={key}>
+                          <td>{id}</td>
+                          <td>{standard.kind}</td>
+                          <td>{standard.type}</td>
+                          <td>{standard.standard}</td>
+                          <td>{attributes.area}</td>
+                          <td>
+                            {attributes.layout?.rooms || "-"}
+                            {(attributes.layout?.bathrooms ||
+                              attributes.layout?.kitchen) &&
+                              ` (${([] as string[])
+                                .concat(
+                                  attributes.layout?.bathrooms
+                                    ? `${attributes.layout?.bathrooms} bathrooms`
+                                    : [],
+                                  attributes.layout?.kitchen ? `kitchen` : []
+                                )
+                                .join(", ")})`}
+                          </td>
+                          <td>
+                            {`${limits.min.numberOfPeople}-${limits.max.numberOfPeople}`}
+                            {attributes.maxOccupancy?.extraBeds &&
+                              ` (${attributes.maxOccupancy.extraBeds} extraBeds)`}
+                          </td>
+                          <td>{`${limits.min.occupancy.adults}-${limits.max.occupancy.adults}`}</td>
+                          <td>
+                            {limits.max.occupancy.children
+                              .map(
+                                ({ count, minAge, maxAge }) =>
+                                  `${count} (${minAge}-${maxAge})`
+                              )
+                              .join(", ")}
+                          </td>
+                          <td>
+                            {Object.entries(attributes.facilities || {})
+                              .filter(([_, exists]) => Boolean(exists))
+                              .map(([value]) => value)
+                              .join(", ")}
+                          </td>
+                          <td>{totalRooms}</td>
+                        </tr>
+                      ) : (
+                        <tr key={key}>
+                          <th>{id}</th>
+                          <td colSpan={3}>-</td>
+                          <td>{totalRooms}</td>
+                        </tr>
+                      )
+                  )}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       )}
     </div>

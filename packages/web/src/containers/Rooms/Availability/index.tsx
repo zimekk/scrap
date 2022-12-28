@@ -1,7 +1,6 @@
 import React, {
   type MouseEventHandler,
   useCallback,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -61,9 +60,9 @@ export function Availability({
                 `api/rooms/${item.id}/availability?${stringify({
                   checkIn: filter.checkIn,
                   checkOut: filter.checkOut,
-                  occupancy: data.personTypes && [
+                  occupancy:
+                    data.personTypes &&
                     getOccupancy(data.personTypes, filter.occupancy),
-                  ],
                 })}`
               )).then(
                 (availability) => (
