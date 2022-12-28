@@ -19,11 +19,12 @@ import {
   Data,
   type DataType,
   type RoomsType,
-  getOccupancy,
+  getOccupancyList,
 } from "@dev/cli/src/services/RoomsService/types";
 import { Json } from "../../../components/Json";
 import { Link } from "../../../components/Link";
-import { type FilterType, formatPrice, getData } from "../Availability";
+import { formatPrice, getData } from "../Availability";
+import { type FilterType } from "../Filters";
 import { getDirectionsLink } from "../Map";
 import styles from "./styles.module.scss";
 import { stringify } from "qs";
@@ -35,8 +36,10 @@ function getQueryParams(
   item: RoomsType,
   data: DataType
 ) {
-  return ([] as ReturnType<typeof getOccupancy>[])
-    .concat(data.personTypes ? [getOccupancy(data.personTypes, occupancy)] : [])
+  return ([] as ReturnType<typeof getOccupancyList>)
+    .concat(
+      data.personTypes ? getOccupancyList(data.personTypes, occupancy) : []
+    )
     .reduce(
       (result, { adults, children }, key) =>
         Object.assign(
@@ -81,9 +84,9 @@ export function Hotel({
       stringify({
         checkIn: filter.checkIn,
         checkOut: filter.checkOut,
-        occupancy: data.personTypes && [
-          getOccupancy(data.personTypes, filter.occupancy),
-        ],
+        occupancy:
+          data.personTypes &&
+          getOccupancyList(data.personTypes, filter.occupancy),
       }),
     [filter, data.personTypes]
   );
@@ -164,6 +167,8 @@ export function Hotel({
         availability
       </button>
 
+      <Json>{filter}</Json>
+
       {availability[availabilityKey] &&
         availability[availabilityKey]?.map(({ occupancy, proposals }, key) => (
           <div key={key}>
@@ -187,6 +192,7 @@ export function Hotel({
                   <th>originalPrice</th>
                   <th>simulatedPrice</th>
                   <th>discounts</th>
+                  <th>roomCount</th>
                 </tr>
                 {proposals.map(({ proposal, roomCount }, key) => (
                   <tr key={key}>
@@ -224,7 +230,7 @@ export function Hotel({
                         .map(({ amount }) => amount)
                         .join(", ") || "-"}
                     </td>
-                    {/* <td>{roomCount}</td> */}
+                    <td>{roomCount || "-"}</td>
                   </tr>
                 ))}
               </tbody>

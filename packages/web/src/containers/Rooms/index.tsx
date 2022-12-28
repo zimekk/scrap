@@ -25,65 +25,11 @@ import { Gallery } from "../../components/Gallery";
 import { Image } from "../../components/Image";
 import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
-import { type FilterType, Availability, getData } from "./Availability";
+import { Availability, getData } from "./Availability";
+import { FILTER, type FiltersState, type FilterType, Filters } from "./Filters";
 import { Hotel } from "./Hotel";
 import Map, { getDirectionsLink } from "./Map";
 import styles from "./styles.module.scss";
-
-interface FiltersState {
-  search: string;
-  filter: number;
-}
-
-const FILTER = [
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 2,
-      children: [6, 10, 16],
-    },
-  },
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 3,
-      children: [6, 10],
-    },
-  },
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 2,
-      children: [10, 12],
-    },
-  },
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 1,
-      children: [10],
-    },
-  },
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 1,
-      children: [6, 16],
-    },
-  },
-  {
-    checkIn: "2023-02-12",
-    checkOut: "2023-02-17",
-    occupancy: {
-      adults: 2,
-    },
-  },
-] as FilterType[];
 
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/rooms/data.json?${version}`);
@@ -336,7 +282,7 @@ function Rooms({
 }: {
   checked: string[];
   setChecked: Dispatch<SetStateAction<string[]>>;
-  filter: number;
+  filter: FilterType;
   rooms: RoomsType[];
 }) {
   const [showMap, setShowMap] = useState(() => false);
@@ -362,7 +308,7 @@ function Rooms({
           key={item.id}
           checked={checked.includes(item.id)}
           setChecked={setChecked}
-          filter={FILTER[filter]}
+          filter={filter}
           item={item}
         />
       ))}
@@ -381,68 +327,25 @@ function Results({
   results: RoomsType[];
   queries: FiltersState;
 }) {
+  const filter = useMemo(
+    () => ({
+      checkIn: queries.checkIn,
+      checkOut: queries.checkOut,
+      occupancy: queries.filter.map((occupancy) => JSON.parse(occupancy)),
+    }),
+    [queries]
+  );
+
   return (
     <Rooms
       checked={checked}
       setChecked={setChecked}
-      filter={queries.filter}
+      filter={filter}
       rooms={results.filter(
         (item) =>
           queries.search === "" || item.id.toLowerCase().match(queries.search)
       )}
     />
-  );
-}
-
-function Filters({
-  filters,
-  setFilters,
-}: {
-  filters: FiltersState;
-  setFilters: Dispatch<SetStateAction<FiltersState>>;
-}) {
-  return (
-    <fieldset>
-      <label>
-        <span>Occupancy</span>
-        <select
-          value={filters.filter}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                filter: Number(target.value),
-              })),
-            []
-          )}
-        >
-          {FILTER.map(
-            ({ checkIn, checkOut, occupancy: { adults, children } }, key) => (
-              <option key={key} value={key}>
-                {`${checkIn}-${checkOut} / ${adults} adults${
-                  children ? ` + ${children?.join(", ")} children` : ""
-                }`}
-              </option>
-            )
-          )}
-        </select>
-      </label>
-      <label>
-        <span>Search</span>
-        <input
-          type="search"
-          value={filters.search}
-          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                search: target.value,
-              })),
-            []
-          )}
-        />
-      </label>
-    </fieldset>
   );
 }
 
@@ -478,8 +381,10 @@ export default function Section({ version = "v1" }) {
   const results = asset.read(version) as RoomsType[];
 
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    checkIn: "2023-02-12",
+    checkOut: "2023-02-17",
     search: "",
-    filter: 0,
+    filter: [JSON.stringify(FILTER[0])],
   }));
 
   const [queries, setQueries] = useState(() => filters);

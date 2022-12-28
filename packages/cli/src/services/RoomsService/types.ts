@@ -319,7 +319,7 @@ export const Data = z.object({
               .object({ amount: z.number(), availableTo: z.null() })
               .array(),
           }),
-          roomCount: z.null(),
+          roomCount: z.number().nullable(),
         })
         .array(),
     })
@@ -417,9 +417,19 @@ export type RoomsType = z.infer<typeof Rooms> & {
   _cache?: Record<string, any>;
 };
 
+export type OccupancyType = {
+  adults: number;
+  children?: number[];
+};
+
+export const getOccupancyList = (
+  personTypes: z.infer<typeof PersonTypes>,
+  occupancy: OccupancyType[]
+) => occupancy.map((occupancy) => getOccupancy(personTypes, occupancy));
+
 export function getOccupancy(
   personTypes: z.infer<typeof PersonTypes>,
-  { adults, children }: { adults: number; children?: number[] }
+  { adults, children }: OccupancyType
 ) {
   return {
     adults,

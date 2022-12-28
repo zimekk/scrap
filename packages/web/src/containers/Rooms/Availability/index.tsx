@@ -14,16 +14,8 @@ import {
 } from "@dev/cli/src/services/RoomsService/types";
 import { Json } from "../../../components/Json";
 import { Link } from "../../../components/Link";
+import { type FilterType } from "../Filters";
 import styles from "./styles.module.scss";
-
-export type FilterType = {
-  checkIn: string;
-  checkOut: string;
-  occupancy: {
-    adults: number;
-    children?: number[];
-  };
-};
 
 export const getData = (path: string, data?: object) =>
   fetch(path, {
