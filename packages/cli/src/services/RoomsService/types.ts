@@ -325,7 +325,7 @@ export const Data = z.object({
                 }),
               })
               .nullable(),
-            offerDates: z.null(),
+            offerDates: z.record(z.number()).nullable(),
             discounts: z
               .object({ amount: z.number(), availableTo: z.null() })
               .array(),

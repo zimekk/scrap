@@ -32,11 +32,72 @@ function checkOccupacy({ occupancy }: FilterType, { personTypes }: DataType) {
       children.every(
         (age) =>
           personTypes.findIndex(
-            ({ minAge, maxAge }) => minAge <= age && age <= maxAge
+            ({ minAge, maxAge }) =>
+              minAge !== null &&
+              maxAge !== null &&
+              minAge <= age &&
+              age <= maxAge
           ) >= 0
       )
     )
   );
+}
+
+function findLowestPrices(availability: DataType["availability"]) {
+  return (
+    availability &&
+    availability
+      .map(({ proposals }) =>
+        proposals.reduce(
+          (result, { proposal: { price, originalPrice, simulatedPrice } }) =>
+            Object.entries({ price, originalPrice, simulatedPrice }).reduce(
+              (result, [key, price]) =>
+                Object.assign(
+                  result,
+                  price && (result[key]?.amount || Infinity) > price.amount
+                    ? {
+                        [key]: price,
+                      }
+                    : {}
+                ),
+              result
+            ),
+          {} as Record<string, { amount: number }>
+        )
+      )
+      .map((prices) =>
+        Object.entries(prices)
+          .sort((a, b) => a[1].amount - b[1].amount)
+          .slice(0, 1)
+          .flat()
+      )
+      .filter(({ length }) => length > 0)
+  );
+}
+
+function formatPrices(
+  lowestPrices: Array<[string, { amount: number; currency: string }]>
+) {
+  return lowestPrices
+    ?.concat(
+      lowestPrices.length > 1
+        ? [
+            [
+              "total",
+              lowestPrices.reduce(
+                (result, [_, { amount, currency }]) =>
+                  Object.assign(result, {
+                    amount: (result.amount || 0) + amount,
+                    currency,
+                  }),
+                {}
+              ),
+            ],
+          ]
+        : []
+    )
+    .map(([key, price]) => `${key}: ${formatPrice(price)}`)
+    .join(", ");
 }
 
 function getQueryParams(
@@ -171,11 +232,10 @@ export function Hotel({
       >
         availability
       </button>
-
+      [{formatPrices(findLowestPrices(availability[availabilityKey]))}]
       {checked && (
         <div>
           <Json>{filter}</Json>
-
           {availability[availabilityKey] &&
             availability[availabilityKey]?.map(
               ({ occupancy, proposals }, key) => (
