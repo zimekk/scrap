@@ -251,7 +251,7 @@ export const Data = z.object({
       ),
       restrictions: z.object({
         availableFrom: z.string().nullable(),
-        availableTo: z.string(),
+        availableTo: z.string().nullable(),
         minNights: z.number().nullable(),
         fixedNights: z.number().nullable(),
         checkInWeekDays: z.array(z.unknown()),

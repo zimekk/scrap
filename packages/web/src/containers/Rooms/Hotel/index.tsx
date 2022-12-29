@@ -44,25 +44,33 @@ function checkOccupacy({ occupancy }: FilterType, { personTypes }: DataType) {
   );
 }
 
-function findLowestPrices(availability: DataType["availability"]) {
+function findLowestPrices(
+  availability: DataType["availability"],
+  offerId?: number
+) {
   return (
     availability &&
     availability
       .map(({ proposals }) =>
         proposals.reduce(
-          (result, { proposal: { price, originalPrice, simulatedPrice } }) =>
-            Object.entries({ price, originalPrice, simulatedPrice }).reduce(
-              (result, [key, price]) =>
-                Object.assign(
-                  result,
-                  price && (result[key]?.amount || Infinity) > price.amount
-                    ? {
-                        [key]: price,
-                      }
-                    : {}
-                ),
-              result
-            ),
+          (
+            result,
+            { proposal: { price, originalPrice, simulatedPrice, OfferID } }
+          ) =>
+            !offerId || offerId === OfferID
+              ? Object.entries({ price, originalPrice, simulatedPrice }).reduce(
+                  (result, [key, price]) =>
+                    Object.assign(
+                      result,
+                      price && (result[key]?.amount || Infinity) > price.amount
+                        ? {
+                            [key]: price,
+                          }
+                        : {}
+                    ),
+                  result
+                )
+              : result,
           {} as Record<string, { amount: number }>
         )
       )
@@ -204,6 +212,20 @@ function HotelSummary({
           <FontAwesomeIcon icon={faCrosshairs} />
         </Link>
       )}
+      <button
+        disabled={Boolean(data.offers)}
+        onClick={useCallback<MouseEventHandler>(
+          (e) =>
+            (e.preventDefault(), getData(`api/rooms/${item.id}/offers`)).then(
+              (offers) => (
+                Data.parse({ offers }), setData((data) => ({ ...data, offers }))
+              )
+            ),
+          []
+        )}
+      >
+        offers
+      </button>
       <button
         disabled={Boolean(data.rooms)}
         onClick={useCallback<MouseEventHandler>(
@@ -357,6 +379,7 @@ function HotelDetails({
                   <th>minimumNights</th>
                   <th>name</th>
                   <th>mealPlanType</th>
+                  <th>minimumPrice</th>
                 </tr>
                 {data.offers
                   .filter(({ id }) => offerIds.has(id))
@@ -391,6 +414,14 @@ function HotelDetails({
                         }
                       </td>
                       <td align="right">{offer.attributes.mealPlanType}</td>
+                      <td>
+                        {formatPrices(
+                          findLowestPrices(
+                            availability[availabilityKey],
+                            offer.id
+                          )
+                        )}
+                      </td>
                     </tr>
                   ))}
                 {/* {offer.translations
