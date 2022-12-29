@@ -12,6 +12,7 @@ export interface FiltersState {
   checkOut: string;
   search: string;
   filter: string[];
+  available: boolean;
 }
 
 export type FilterType = {
@@ -171,6 +172,21 @@ export function Filters({
               []
             )}
           />
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={filters.available}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  available: target.checked,
+                })),
+              []
+            )}
+          />
+          <span>available</span>
         </label>
       </fieldset>
     </div>

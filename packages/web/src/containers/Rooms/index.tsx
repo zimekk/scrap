@@ -278,11 +278,13 @@ function Rooms({
   checked,
   setChecked,
   filter,
+  available,
   rooms,
 }: {
   checked: string[];
   setChecked: Dispatch<SetStateAction<string[]>>;
   filter: FilterType;
+  available: boolean;
   rooms: RoomsType[];
 }) {
   const [showMap, setShowMap] = useState(() => false);
@@ -308,6 +310,7 @@ function Rooms({
           key={item.id}
           checked={checked.includes(item.id)}
           setChecked={setChecked}
+          available={available}
           filter={filter}
           item={item}
         />
@@ -341,6 +344,7 @@ function Results({
       checked={checked}
       setChecked={setChecked}
       filter={filter}
+      available={queries.available}
       rooms={results.filter(
         (item) =>
           queries.search === "" || item.id.toLowerCase().match(queries.search)
@@ -385,6 +389,7 @@ export default function Section({ version = "v1" }) {
     checkOut: "2023-02-17",
     search: "",
     filter: [JSON.stringify(FILTER[0])],
+    available: false,
   }));
 
   const [queries, setQueries] = useState(() => filters);
