@@ -1,9 +1,30 @@
+.Selectable {
+  display: flex;
+  & > .Table {
+    flex: 1;
+  }
+}
 .Table {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7em;
+  border-collapse: collapse;
+  color: darkblue;
+  tr {
+    &:hover,
+    &:hover:nth-child(even) {
+      background-color: #e0e0e0;
+    }
+    &:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+  }
   th,
   td {
+    border-style: solid;
+    border-width: 1px;
+    border-color: silver;
+    padding: 0.25em;
     vertical-align: top;
-  }
-  td {
     div {
       max-height: 4.6em;
       overflow: hidden;
