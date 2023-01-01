@@ -49,74 +49,94 @@ const updateItem = (
 
 export default class extends Service {
   async sync(json = {}, { timestamp: _fetched }: any = {}) {
+    // console.log(json)
     return z
-      .object({
-        ProductHeader: z.object({
-          Id: z.string(),
-          Name: z.string(),
-          Price: z.number(),
-          OldPrice: z.number().nullable(),
-          Producer: z.object({
-            Name: z.string(),
-          }),
-          ProducerCode: z.string(),
-          MainPhoto: z.object({
-            ThumbnailUrl: z.string(),
-          }),
-          CommentsRating: z.number(),
-          CommentsCount: z.number(),
-          WebUrl: z.string(),
+      .discriminatedUnion("Type", [
+        z.object({
+          Type: z.literal("Category"),
         }),
-      })
-      .transform(
-        ({
-          ProductHeader: {
-            Id,
-            Name,
-            Price,
-            Producer,
-            ProducerCode,
-            MainPhoto,
-            CommentsRating,
-            CommentsCount,
-            WebUrl,
-          },
-        }) => ({
-          id: Id,
-          brand: Producer.Name,
-          codes: [],
-          image: [MainPhoto.ThumbnailUrl],
-          label: [
-            `od: ${Producer.Name}`,
-            `kod producenta: ${ProducerCode}`,
-            `kod x-kom: ${Id}`,
-          ],
-          price: [
-            `${new Intl.NumberFormat("pl-PL", {
-              minimumFractionDigits: 2,
-            }).format(Price)} zł`,
-          ],
-          title: `${Producer.Name} ${Name}`,
-          links: [],
-          proms: [],
-          stars: CommentsCount
-            ? `${new Intl.NumberFormat("pl-PL", {}).format(
-                CommentsRating
-              )} (${new IntlMessageFormat(
-                `{CommentsCount, plural,
-                one {# opinia}
-                few {# opinie}
-                many {# opinii}
-                other {# opinii}
-              }`,
-                "pl-PL"
-              ).format({ CommentsCount })})`
-            : `Brak opinii`,
-          url: WebUrl,
-        })
-      )
-      .transform((item) => this.process(item, { _fetched }))
+        z.object({
+          Type: z.literal("Product"),
+          ProductHeader: z
+            .object({
+              Id: z.string(),
+              Name: z.string(),
+              Price: z.number(),
+              OldPrice: z.number().nullable(),
+              Producer: z.object({
+                Name: z.string(),
+              }),
+              ProducerCode: z.string(),
+              MainPhoto: z
+                .object({
+                  ThumbnailUrl: z.string(),
+                })
+                .nullable(),
+              CommentsRating: z.number(),
+              CommentsCount: z.number(),
+              WebUrl: z.string(),
+            })
+            .transform(
+              ({
+                Id,
+                Name,
+                Price,
+                Producer,
+                ProducerCode,
+                MainPhoto,
+                CommentsRating,
+                CommentsCount,
+                WebUrl,
+              }) => ({
+                id: Id,
+                brand: Producer.Name,
+                codes: [],
+                image: MainPhoto ? [MainPhoto.ThumbnailUrl] : [],
+                label: [
+                  `od: ${Producer.Name}`,
+                  `kod producenta: ${ProducerCode}`,
+                  `kod x-kom: ${Id}`,
+                ],
+                price: [
+                  `${new Intl.NumberFormat("pl-PL", {
+                    minimumFractionDigits: 2,
+                  }).format(Price)} zł`,
+                ],
+                title: `${Producer.Name} ${Name}`,
+                links: [],
+                proms: [],
+                stars: CommentsCount
+                  ? `${new Intl.NumberFormat("pl-PL", {}).format(
+                      CommentsRating
+                    )} (${new IntlMessageFormat(
+                      `{CommentsCount, plural,
+                    one {# opinia}
+                    few {# opinie}
+                    many {# opinii}
+                    other {# opinii}
+                  }`,
+                      "pl-PL"
+                    ).format({ CommentsCount })})`
+                  : `Brak opinii`,
+                url: WebUrl,
+              })
+            ),
+        }),
+      ])
       .array()
+      .transform((list) =>
+        list
+          .filter(({ Type }) => Type === "Product")
+          .reduce<Promise<any>>(
+            (promise, item) =>
+              promise.then(() =>
+                item.Type === "Product"
+                  ? this.process(item.ProductHeader, { _fetched })
+                  : null
+              ),
+            Promise.resolve()
+          )
+      )
       .parseAsync(json);
   }
 
