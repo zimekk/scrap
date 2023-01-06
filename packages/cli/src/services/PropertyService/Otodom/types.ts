@@ -16,7 +16,7 @@ const AddressItem = z
     id: z.string(),
     code: z.string(),
     name: z.string(),
-    __typename: z.string(),
+    __typename: z.string().optional(),
   })
   .transform(({ name }) => name);
 

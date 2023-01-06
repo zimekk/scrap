@@ -55,11 +55,16 @@ export class MotoService extends Service {
       .object({
         props: z.object({
           pageProps: z.object({
-            urqlState: z.object({
-              list: MotoItem.transform((item) =>
-                this.commit(item, { _fetched })
-              ).array(),
-            }),
+            urqlState: z
+              .object({
+                list: MotoItem.transform((item) =>
+                  this.commit(item, { _fetched })
+                ).array(),
+              })
+              .optional()
+              .transform((t) =>
+                t ? t : console.warn(["urqlState:required"], json)
+              ),
           }),
         }),
       })
