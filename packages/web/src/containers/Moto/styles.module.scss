@@ -16,6 +16,23 @@
   height: 80px;
   border: 1px solid lightgray;
 }
+.Parameters {
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline;
+    & + li::before {
+      content: " · ";
+    }
+  }
+}
+.Description {
+  font-size: small;
+  padding: 0.25em 0;
+}
+.Location {
+  font-size: small;
+}
 .Vehicle {
   .Right {
     float: right;

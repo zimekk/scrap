@@ -11,6 +11,8 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import type { ItemType } from "@dev/cli/src/services/MotoService/types";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
@@ -38,6 +40,22 @@ function Vehicle({ item }: { item: ItemType }) {
         }).format(item.price)} PLN`}</span>
       </div>
       <Link href={item.url}>{`[${item.id}] ${item.title}`}</Link>
+      {item.parameters && (
+        <ul className={styles.Parameters}>
+          {item.parameters.map(({ key, displayValue }) => (
+            <li key={key}>{displayValue}</li>
+          ))}
+        </ul>
+      )}
+      {item.shortDescription && (
+        <div className={styles.Description}>{item.shortDescription}</div>
+      )}
+      {item.location && (
+        <div className={styles.Location}>
+          <FontAwesomeIcon icon={faMapMarkerAlt} /> {item.location.city.name} (
+          {item.location.region.name})
+        </div>
+      )}
       {/* <pre>{JSON.stringify(item, null, 2)}</pre> */}
     </div>
   );
