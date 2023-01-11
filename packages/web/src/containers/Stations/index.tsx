@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Chart from "../../components/ZoomableLineChart";
 import Map, { useBounds } from "./Map";
+import Leclerc from "./Leclerc";
 import { Link } from "../../components/Link";
 import Calculator, { PRICE_LIST, useFilters } from "./Calculator";
 import useDebounce from "../useDebounce";
@@ -560,6 +561,7 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Stations</h2>
+      <Leclerc />
       <Data />
     </div>
   );

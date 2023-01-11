@@ -5,6 +5,7 @@ export * from "./exchange";
 export * from "./games";
 export * from "./gpass";
 export * from "./holidays";
+export * from "./leclerc";
 export * from "./moto";
 export * from "./products";
 export * from "./promo";

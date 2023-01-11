@@ -2,6 +2,7 @@ export * from "./GameService";
 export * from "./GpassService";
 export * from "./HolidaysService";
 export * from "./HotShotService";
+export * from "./LeclercService";
 export * from "./MotoService";
 export * from "./ProductService";
 export * from "./PromoService";

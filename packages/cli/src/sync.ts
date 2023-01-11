@@ -4,6 +4,7 @@ import {
   GpassService,
   HotShotService,
   HotShotAltoService,
+  LeclercService,
   MotoService,
   ProductService,
   PromoService,
@@ -27,6 +28,7 @@ export const Type = {
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
   HOTSHOT: "HOTSHOT",
+  LECLERC: "LECLERC",
   OTODOM: "OTODOM",
   OTODOM_OFFER: "OTODOM_OFFER",
   OTOMOTO: "OTOMOTO",
@@ -187,6 +189,21 @@ export const sync = async (type = "") => {
             }),
         }),
         z.object({
+          type: z.literal(Type.LECLERC),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp }) => {
+              const service = new LeclercService({ summary });
+              return service.sync(json, { timestamp });
+            }),
+        }),
+        z.object({
           type: z.literal(Type.OTODOM),
           data: z.object({
             url: z.string(),
@@ -312,7 +329,7 @@ export const sync = async (type = "") => {
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     await ProcessSchema.parseAsync(entries);
-    if (!(items.length > limit) || start > 5000) {
+    if (!(items.length > limit) || start > 500) {
       break;
     }
   }

@@ -5,6 +5,8 @@ export const items = new Entities(resolve(__dirname, "../temp/items.db"));
 
 export const gpass = new Entities(resolve(__dirname, "../temp/gpass.db"));
 
+export const leclerc = new Entities(resolve(__dirname, "../temp/leclerc.db"));
+
 export const motoItems = new Entities(
   resolve(__dirname, "../temp/moto-items.db")
 );
