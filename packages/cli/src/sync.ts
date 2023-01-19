@@ -329,7 +329,7 @@ export const sync = async (type = "") => {
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     await ProcessSchema.parseAsync(entries);
-    if (!(items.length > limit) || start > 5000) {
+    if (!(items.length > limit) || start > 6000) {
       break;
     }
   }

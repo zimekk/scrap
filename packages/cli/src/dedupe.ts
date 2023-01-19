@@ -65,7 +65,7 @@ export const dedupe = async (type = "") => {
     })
       .array()
       .parseAsync(entries);
-    if (!(items.length > limit) || start + limit >= 5000) {
+    if (!(items.length > limit) || start + limit >= 6000) {
       break;
     }
   }
