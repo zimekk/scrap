@@ -41,14 +41,22 @@ export const Type = {
   UNKNOWN: "UNKNOWN",
 } as const;
 
-const post = (path: string, data?: object) =>
-  fetch(`${SYNC_URL}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: data ? JSON.stringify(data) : null,
-  });
+const post = async (path: string, data?: object) => {
+  for (let i = 0; i < 5; i++) {
+    const response = await fetch(`${SYNC_URL}${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: data ? JSON.stringify(data) : null,
+    });
+    if (response.status === 200) {
+      return await response.json();
+    }
+    console.log([`post retry #${i + 1}`], data);
+  }
+  return [];
+};
 
 export const sync = async (type = "") => {
   const summary = {
@@ -323,9 +331,7 @@ export const sync = async (type = "") => {
     .array();
 
   for (let start = 0, limit = 100; ; start += limit) {
-    const items = await post("entries", { type, start, limit: limit + 1 }).then(
-      (response) => response.json()
-    );
+    const items = await post("entries", { type, start, limit: limit + 1 });
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     await ProcessSchema.parseAsync(entries);
