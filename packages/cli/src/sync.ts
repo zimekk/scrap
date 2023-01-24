@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 import { z } from "zod";
 import {
+  DirectionsService,
   GpassService,
   HotShotService,
   HotShotAltoService,
@@ -22,6 +23,7 @@ const { SYNC_URL } = process.env;
 export const Type = {
   AUTOS: "AUTOS",
   AUTOS_ITEM: "AUTOS_ITEM",
+  DIRECTIONS: "DIRECTIONS",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
   GPASS: "GPASS",
@@ -108,6 +110,22 @@ export const sync = async (type = "") => {
         z.object({
           type: z.literal(Type.AUTOS_ITEM),
           data: z.object({}).passthrough(),
+        }),
+        z.object({
+          type: z.literal(Type.DIRECTIONS),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp, url }) => {
+              console.log({ json });
+              const service = new DirectionsService({ summary });
+              return service.sync(json, { timestamp, url });
+            }),
         }),
         z.object({
           type: z.literal(Type.FUNDS),
@@ -335,7 +353,7 @@ export const sync = async (type = "") => {
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     await ProcessSchema.parseAsync(entries);
-    if (!(items.length > limit) || start > 6000) {
+    if (!(items.length > limit) || start > 60) {
       break;
     }
   }

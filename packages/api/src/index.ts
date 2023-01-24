@@ -1,6 +1,10 @@
 import { resolve } from "path";
 import { Entities } from "./entities";
 
+export const directions = new Entities(
+  resolve(__dirname, "../temp/directions.db")
+);
+
 export const items = new Entities(resolve(__dirname, "../temp/items.db"));
 
 export const gpass = new Entities(resolve(__dirname, "../temp/gpass.db"));

@@ -1,3 +1,4 @@
+export * from "./DirectionsService";
 export * from "./GameService";
 export * from "./GpassService";
 export * from "./HolidaysService";
