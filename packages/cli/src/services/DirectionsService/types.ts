@@ -30,7 +30,12 @@ const TransitFareSchema = z
     text,
   }));
 
-enum TravelMode {
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
+
+export enum TravelMode {
   driving = "driving",
   walking = "walking",
   bicycling = "bicycling",
@@ -62,10 +67,10 @@ export const DirectionsInputSchema = z
                     z.string(),
                     z.null(),
                     z.number(),
-                  ])
-                  .transform(
-                    (t_0_0_x_0_0) => (console.log({ t_0_0_x_0_0 }), {})
-                  ),
+                  ]),
+                // .transform(
+                //   (t_0_0_x_0_0) => (console.log({ t_0_0_x_0_0 }), {})
+                // ),
               ])
               .rest(z.any()),
           ])
@@ -141,24 +146,22 @@ export const DirectionsInputSchema = z
               ])
               // RouteLeg
               // DirectionsStep
-              .transform(
-                (t_0_1_x_0) => (
-                  console.log({ t_0_1_x_0 }),
-                  {
-                    // TravelMode
-                    travel_mode: t_0_1_x_0[0],
-                    // Distance
-                    distance: t_0_1_x_0[2],
-                    // Duration
-                    duration: t_0_1_x_0[3],
-                    // departure_time:t_0_1_0[5][0],
-                    // arrival_time:t_0_1_0[5][1],
-                    start_location: t_0_1_x_0[7][3][2],
-                    end_location: t_0_1_x_0[7][3][3],
-                    // TransitFare
-                    fare: t_0_1_x_0[11],
-                  }
-                )
+              .transform((t_0_1_x_0) =>
+                // console.log({ t_0_1_x_0 }),
+                ({
+                  // TravelMode
+                  travel_mode: t_0_1_x_0[0],
+                  // Distance
+                  distance: t_0_1_x_0[2],
+                  // Duration
+                  duration: t_0_1_x_0[3],
+                  // departure_time:t_0_1_0[5][0],
+                  // arrival_time:t_0_1_0[5][1],
+                  start_location: t_0_1_x_0[7][3][2],
+                  end_location: t_0_1_x_0[7][3][3],
+                  // TransitFare
+                  fare: t_0_1_x_0[11],
+                })
               ),
           ])
           .rest(z.any())
@@ -180,7 +183,15 @@ export const DirectionsInputSchema = z
 
 export const DirectionsSchema = z.object({
   id: z.string(),
-  directions: z.object({}).passthrough().array(),
+  directions: z
+    .object({
+      travel_mode: z.nativeEnum(TravelMode),
+      distance: z.object({ value: z.number(), text: z.string() }),
+      duration: z.object({ value: z.number(), text: z.string() }),
+      start_location: z.object({ lat: z.number(), lng: z.number() }),
+      end_location: z.object({ lat: z.number(), lng: z.number() }),
+    })
+    .array(),
 });
 
 export const DiffSchema = DirectionsSchema;

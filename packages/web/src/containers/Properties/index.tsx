@@ -10,16 +10,12 @@ import React, {
 } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCrosshairs,
-  faMapMarkerAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import Truncate from "react-truncate";
 import { format } from "date-fns";
 import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import { Location, Directions, DistanceAndDuration } from "./Location";
 import Map, { useBounds } from "./Map";
 import { prepareItem } from "./utils";
 import cx from "classnames";
@@ -669,37 +665,6 @@ function Data({ version = "v1" }) {
   );
 }
 
-// https://developers.google.com/maps/documentation/urls/get-started#search-examples
-function Location({ coordinates: { latitude, longitude } }: any) {
-  // const link = usePlace([`${latitude},${longitude}|${canonical}`]);
-  // https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-  const link = `//www.google.pl/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl`;
-
-  return (
-    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
-      <FontAwesomeIcon icon={faMapMarkerAlt} />
-    </Link>
-  );
-}
-
-// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
-function Directions({ coordinates: { latitude, longitude } }: any) {
-  const origin = `${latitude},${longitude}`;
-  const destination = "52.2268,20.9921";
-  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
-  const link = `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-    origin
-  )}&destination=${encodeURIComponent(
-    destination
-  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
-
-  return (
-    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
-      <FontAwesomeIcon icon={faCrosshairs} />
-    </Link>
-  );
-}
-
 function Button({
   children,
   ...props
@@ -762,6 +727,7 @@ function Summary({
   _checked: number;
 }) {
   const [removed, setRemoved] = useState(false);
+  const [showDistance, setShowDistance] = useState(false);
 
   const confirmAndRemove = useCallback(() => {
     setRemoved(true);
@@ -780,6 +746,14 @@ function Summary({
     <div className={cx(styles.Summary, removed && styles.Removed)}>
       <div>
         <div className={styles.Sidebar}>
+          <Toggle
+            checked={showDistance}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setShowDistance(e.target.checked)
+            }
+          >
+            Distance
+          </Toggle>
           <Toggle
             checked={like.includes(id)}
             onChange={(e: ChangeEvent<HTMLInputElement>) => (
@@ -815,6 +789,9 @@ function Summary({
         </div>
       </div>
       <div style={{ clear: "right" }}>
+        {coordinates && (
+          <DistanceAndDuration coordinates={coordinates} show={showDistance} />
+        )}
         <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
         <h3>
           <Link href={canonical}>{title}</Link>{" "}

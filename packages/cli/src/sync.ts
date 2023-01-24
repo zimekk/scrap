@@ -122,7 +122,7 @@ export const sync = async (type = "") => {
               json: z.any(),
             })
             .transform(({ json, timestamp, url }) => {
-              console.log({ json });
+              // console.log({ json });
               const service = new DirectionsService({ summary });
               return service.sync(json, { timestamp, url });
             }),
@@ -353,7 +353,7 @@ export const sync = async (type = "") => {
     const entries = items.slice(0, limit);
     console.log(["process"], start, start + entries.length);
     await ProcessSchema.parseAsync(entries);
-    if (!(items.length > limit) || start > 60) {
+    if (!(items.length > limit) || start > 5000) {
       break;
     }
   }

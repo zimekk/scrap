@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { items } from "@dev/api";
+import { directions, items } from "@dev/api";
 
 export * from "./exchange";
 export * from "./games";
@@ -19,6 +19,6 @@ export const getData: RequestHandler = (_req, res) =>
   items.find({}).then((results) => res.json({ results }));
 
 export const getDirectionsData: RequestHandler = (_req, res) =>
-  Promise.all(require("@dev/api").directions.find({})).then((results) =>
+  Promise.all([require("@dev/api").directions.find({})]).then(([results]) =>
     res.json(results)
   );

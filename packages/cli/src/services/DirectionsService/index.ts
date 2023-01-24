@@ -27,7 +27,7 @@ export class DirectionsService extends Service {
   }
 
   async commit(item = {}, { _fetched }: any = {}) {
-    console.log(item);
+    // console.log(item);
     return z
       .object({
         id: z.string(),
