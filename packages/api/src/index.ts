@@ -15,6 +15,8 @@ export const motoItems = new Entities(
   resolve(__dirname, "../temp/moto-items.db")
 );
 
+export const plots = new Entities(resolve(__dirname, "../temp/plots.db"));
+
 export const profilesItems = new Entities(
   resolve(__dirname, "../temp/profiles-items.db")
 );

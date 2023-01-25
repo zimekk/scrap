@@ -7,6 +7,7 @@ import {
   HotShotAltoService,
   LeclercService,
   MotoService,
+  PlotsService,
   ProductService,
   PromoService,
   PropertyOtodomService,
@@ -35,6 +36,7 @@ export const Type = {
   OTODOM_OFFER: "OTODOM_OFFER",
   OTOMOTO: "OTOMOTO",
   OTOMOTO_OFFER: "OTOMOTO_OFFER",
+  PLOTS: "PLOTS",
   PRODUCTS: "PRODUCTS",
   RATES: "RATES",
   ROOMS: "ROOMS",
@@ -284,6 +286,21 @@ export const sync = async (type = "") => {
             .transform(({ json, timestamp }) => {
               const service = new ProductService({ summary });
               return service.sync(json, { timestamp });
+            }),
+        }),
+        z.object({
+          type: z.literal(Type.PLOTS),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp, url }) => {
+              const service = new PlotsService({ summary });
+              return service.sync(json, { timestamp, url });
             }),
         }),
         z.object({

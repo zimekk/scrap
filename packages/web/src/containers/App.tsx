@@ -14,6 +14,7 @@ const PAGES = {
   holidays: lazy(() => import("./Holidays")),
   "hot-shots": lazy(() => import("./HotShots")),
   // scrap: lazy(() => import("./Scrap")),
+  plots: lazy(() => import("./Plots")),
   products: lazy(() => import("./Products")),
   promos: lazy(() => import("./Promos")),
   properties: lazy(() => import("./Properties")),

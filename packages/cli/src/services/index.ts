@@ -5,6 +5,7 @@ export * from "./HolidaysService";
 export * from "./HotShotService";
 export * from "./LeclercService";
 export * from "./MotoService";
+export * from "./PlotsService";
 export * from "./ProductService";
 export * from "./PromoService";
 export * from "./PropertyService";

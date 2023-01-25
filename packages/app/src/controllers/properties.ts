@@ -17,7 +17,8 @@ export const getPropertiesData: RequestHandler = (_req, res) =>
           like: string[];
         }
     ),
-    propertyItems.find({}).then((results) => results.splice(0, 100)),
+    propertyItems.find({}),
+    // .then((results) => results.splice(0, 100)),
   ]).then(([{ hide, like }, results]) => res.json({ hide, like, results }));
 
 export const hideProperty: RequestHandler = (req, res) =>

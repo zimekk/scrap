@@ -1,0 +1,42 @@
+.Section {
+  color: purple;
+  padding: 1em;
+}
+.Row {
+  position: relative;
+  min-height: 80px;
+  padding: 0.5em 1em 0.5em calc(100px + 1em);
+  border-top: 1px solid lightgray;
+}
+.Gallery {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  width: 95px;
+  height: 80px;
+  border: 1px solid lightgray;
+}
+.Parameters {
+  font-size: small;
+  margin: 0;
+  padding: 0;
+  li {
+    display: inline;
+    & + li::before {
+      content: " · ";
+    }
+  }
+}
+.Description {
+  font-size: small;
+  padding: 0.25em 0;
+}
+.Location {
+  font-size: small;
+}
+.Item {
+  .Right {
+    float: right;
+    text-align: right;
+  }
+}
