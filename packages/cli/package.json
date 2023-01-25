@@ -37,7 +37,7 @@
     "json-diff": "^1.0.0",
     "microdata-node": "^2.0.0",
     "node-html-parser": "^6.1.4",
-    "puppeteer": "^19.5.2",
+    "puppeteer": "^19.6.0",
     "puppeteer-extra": "^3.3.4",
     "puppeteer-extra-plugin-stealth": "^2.11.1",
     "rxjs": "^7.8.0",
