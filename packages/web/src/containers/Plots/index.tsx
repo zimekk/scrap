@@ -29,6 +29,17 @@ const asset = createAsset(async (version) => {
   return await res.json();
 });
 
+function getDirectionsHref({ lat, lon }: { lat: number; lon: number }) {
+  const origin = `${lat},${lon}`;
+  const destination = "52.2268,20.9921";
+  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
+  return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+    origin
+  )}&destination=${encodeURIComponent(
+    destination
+  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+}
+
 function Item({ item }: { item: ItemType }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -48,7 +59,9 @@ function Item({ item }: { item: ItemType }) {
       <Link href={item.url}>{`[${item.id}] ${item.title}`}</Link>
       {item.location && (
         <div className={styles.Location}>
-          <FontAwesomeIcon icon={faMapMarkerAlt} /> {item.location.pathName}
+          <Link href={getDirectionsHref(item.map)}>
+            <FontAwesomeIcon icon={faMapMarkerAlt} /> {item.location.pathName}
+          </Link>
         </div>
       )}
       {item.params && (
