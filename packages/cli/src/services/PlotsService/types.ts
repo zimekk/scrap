@@ -311,7 +311,9 @@ export const ItemSchema = AdSchema.extend({
   id: z.number().transform((id) => `plot-${id}`),
 });
 
-export const DiffSchema = ItemSchema;
+export const DiffSchema = AdSchema.extend({
+  id: z.string(),
+});
 
 export type ItemType = z.infer<typeof ItemSchema> & {
   _id: string;

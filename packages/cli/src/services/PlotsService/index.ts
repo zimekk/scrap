@@ -15,7 +15,7 @@ export class PlotsService extends Service {
   }
 
   async commit(item = {}, { _fetched }: any = {}) {
-    console.log(item);
+    // console.log(item);
     return ItemSchema.parseAsync(item).then((item) =>
       items
         .findOne({ id: item.id })
