@@ -25,7 +25,12 @@ const SORT_BY = {
   _updated: -1,
 } as const;
 
+interface OptionsState {
+  type: Record<string, string>;
+}
+
 interface FiltersState {
+  type: string;
   search: string;
   sortBy: keyof typeof SORT_BY;
 }
@@ -138,8 +143,11 @@ function Results({
           results
             .filter(
               (item) =>
-                queries.search === "" ||
-                item.title.toLowerCase().match(queries.search)
+                item.params.find(
+                  (param) => param.normalizedValue === queries.type
+                ) &&
+                (queries.search === "" ||
+                  item.title.toLowerCase().match(queries.search))
             )
             .sort(
               (a: any, b: any) =>
@@ -153,14 +161,36 @@ function Results({
 }
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
+      <label>
+        <span>Type</span>
+        <select
+          value={filters.type}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                type: target.value,
+              })),
+            []
+          )}
+        >
+          {Object.entries(options.type).map(([value, label]) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </label>
       <label>
         <span>Search</span>
         <input
@@ -203,7 +233,28 @@ function Filters({
 export default function Section({ version = "v1" }) {
   const results = asset.read(version) as ItemType[];
 
+  const options = useMemo(
+    () =>
+      results.reduce(
+        (options, item) =>
+          item.params
+            .filter((param) => ["type"].includes(param.key))
+            .reduce(
+              (options: any, param) =>
+                Object.assign(options, {
+                  [param.key]: Object.assign(options[param.key], {
+                    [param.normalizedValue]: param.value,
+                  }),
+                }),
+              options
+            ),
+        { type: {} }
+      ),
+    [results]
+  );
+
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    type: "dzialki-budowlane",
     search: "",
     sortBy: Object.keys(SORT_BY)[0] as (typeof filters)["sortBy"],
   }));
@@ -240,7 +291,7 @@ export default function Section({ version = "v1" }) {
   return (
     <div className={styles.Section}>
       <h2>Plots</h2>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <Results results={results} queries={queries} />
     </div>
   );
