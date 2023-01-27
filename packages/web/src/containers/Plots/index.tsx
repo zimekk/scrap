@@ -20,8 +20,14 @@ import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
 
+const SORT_BY = {
+  _created: -1,
+  _updated: -1,
+} as const;
+
 interface FiltersState {
   search: string;
+  sortBy: keyof typeof SORT_BY;
 }
 
 const asset = createAsset(async (version) => {
@@ -104,7 +110,7 @@ function List({ list }: { list: ItemType[] }) {
     <div>
       {useMemo(() => list.slice(0, limit), [limit, list]).map((item, key) => (
         <div key={key} className={styles.Row}>
-          <Item item={item} />
+          <Item key={item.id} item={item} />
         </div>
       ))}
       {list.length > limit && (
@@ -127,10 +133,20 @@ function Results({
 }) {
   return (
     <List
-      list={results.filter(
-        (item) =>
-          queries.search === "" ||
-          item.title.toLowerCase().match(queries.search)
+      list={useMemo(
+        () =>
+          results
+            .filter(
+              (item) =>
+                queries.search === "" ||
+                item.title.toLowerCase().match(queries.search)
+            )
+            .sort(
+              (a: any, b: any) =>
+                SORT_BY[queries.sortBy] *
+                (a[queries.sortBy] > b[queries.sortBy] ? 1 : -1)
+            ),
+        [results, queries]
       )}
     />
   );
@@ -160,6 +176,26 @@ function Filters({
           )}
         />
       </label>
+      <label>
+        <span>Sort</span>
+        <select
+          value={filters.sortBy}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                sortBy: target.value as (typeof filters)["sortBy"],
+              })),
+            []
+          )}
+        >
+          {Object.entries(SORT_BY).map(([value]) => (
+            <option key={value} value={value}>
+              {value}
+            </option>
+          ))}
+        </select>
+      </label>
     </fieldset>
   );
 }
@@ -169,6 +205,7 @@ export default function Section({ version = "v1" }) {
 
   const [filters, setFilters] = useState<FiltersState>(() => ({
     search: "",
+    sortBy: Object.keys(SORT_BY)[0] as (typeof filters)["sortBy"],
   }));
 
   const [queries, setQueries] = useState(() => filters);
