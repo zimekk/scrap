@@ -6,6 +6,7 @@ import {
   HotShotService,
   HotShotAltoService,
   LeclercService,
+  MacanService,
   MotoService,
   PlotsService,
   ProductService,
@@ -28,6 +29,7 @@ export const Type = {
   FUNDS: "FUNDS",
   GAMES: "GAMES",
   GPASS: "GPASS",
+  MACAN: "MACAN",
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
   HOTSHOT: "HOTSHOT",
@@ -286,6 +288,21 @@ export const sync = async (type = "") => {
             .transform(({ json, timestamp }) => {
               const service = new ProductService({ summary });
               return service.sync(json, { timestamp });
+            }),
+        }),
+        z.object({
+          type: z.literal(Type.MACAN),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp, url }) => {
+              const service = new MacanService({ summary });
+              return service.sync(json, { timestamp, url });
             }),
         }),
         z.object({

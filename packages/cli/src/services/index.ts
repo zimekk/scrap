@@ -4,6 +4,7 @@ export * from "./GpassService";
 export * from "./HolidaysService";
 export * from "./HotShotService";
 export * from "./LeclercService";
+export * from "./MacanService";
 export * from "./MotoService";
 export * from "./PlotsService";
 export * from "./ProductService";
