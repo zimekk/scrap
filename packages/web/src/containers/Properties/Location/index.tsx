@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { createAsset } from "use-asset";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,19 +26,29 @@ export function Location({ coordinates: { latitude, longitude } }: any) {
   );
 }
 
-// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
-export function Directions({ coordinates: { latitude, longitude } }: any) {
-  const origin = `${latitude},${longitude}`;
-  const destination = "52.2268,20.9921";
-  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
-  const link = `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+function getDirectionsLink(
+  origin: string,
+  destination = "52.2268,20.9921",
+  travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving"
+) {
+  return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
     origin
   )}&destination=${encodeURIComponent(
     destination
   )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+}
+
+// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
+export function Directions({ coordinates: { latitude, longitude } }: any) {
+  const origin = `${latitude},${longitude}`;
 
   return (
-    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
+    <Link
+      href={getDirectionsLink(origin)}
+      rel=""
+      target="map"
+      style={{ margin: "0 .25em" }}
+    >
       <FontAwesomeIcon icon={faCrosshairs} />
     </Link>
   );
@@ -78,14 +88,38 @@ const normalize = (id: string) =>
   (([_, start_location, end_location, travel_mode]) =>
     [travel_mode]
       .concat(
-        start_location.split(",").map(formatKey),
-        end_location.split(",").map(formatKey)
+        start_location.split(",").map(Number).map(formatKey),
+        end_location.split(",").map(Number).map(formatKey)
       )
       .join(":"))(id.split(":"));
+
+const processAsset = createAsset((url) =>
+  fetch("api/process", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      data: {
+        url,
+      },
+      opts: {
+        delay: 1000,
+      },
+    }),
+  })
+);
+
+function ProcessUrl({ url }: { url: string }) {
+  processAsset.read(url);
+
+  return null;
+}
 
 export function DistanceAndDuration({
   coordinates: { latitude, longitude },
 }: any) {
+  const [process, setProcess] = useState(false);
   const origin = `${latitude},${longitude}`;
   const destination = "52.2268,20.9921";
   const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
@@ -115,5 +149,29 @@ export function DistanceAndDuration({
     [travelmode, origin, destination]
   );
 
-  return key in records ? <Json>{records[key]}</Json> : null;
+  return key in records ? (
+    <div>
+      <span>
+        {records[key]
+          .map(
+            ({ distance, duration }) => `${distance.text} (${duration.text})`
+          )
+          .join(", ")}
+      </span>
+      <Json>{records[key]}</Json>
+    </div>
+  ) : (
+    <div>
+      <button disabled={process} onClick={() => setProcess(true)}>
+        {process ? "Processing..." : "Get Directions"}
+      </button>
+      <Suspense>
+        {process && (
+          <ProcessUrl
+            url={`https:${getDirectionsLink(origin, destination, travelmode)}`}
+          />
+        )}
+      </Suspense>
+    </div>
+  );
 }

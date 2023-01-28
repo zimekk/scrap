@@ -23,3 +23,14 @@ export const getDirectionsData: RequestHandler = (_req, res) =>
 
 export const getPlotsData: RequestHandler = (_req, res) =>
   Promise.all([plots.find({})]).then(([results]) => res.json(results));
+
+export const processUrl: RequestHandler = ({ body }, res) =>
+  fetch("https://robot.phpsolutions.pl/process", {
+    method: Boolean(console.log({ body })) || "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  })
+    .then((res) => res.json())
+    .then((json) => res.json(json));

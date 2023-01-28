@@ -1,3 +1,4 @@
+import bodyParser from "body-parser";
 import express, { Express, Router } from "express";
 import http from "http";
 import * as controllers from "./controllers";
@@ -20,6 +21,7 @@ export const middleware = Router()
   .use("/api/leclerc/data.json", controllers.getLeclercData)
   .use("/api/moto/data.json", controllers.getMotoData)
   .use("/api/plots/data.json", controllers.getPlotsData)
+  .use("/api/process", bodyParser.json(), controllers.processUrl)
   .use("/api/products/data.json", controllers.getProductsData)
   .use("/api/promo/data.json", controllers.getPromoData)
   .use("/api/properties/data.json", controllers.getPropertiesData)
