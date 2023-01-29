@@ -11,7 +11,7 @@ import styles from "./styles.module.scss";
 
 function getValueNearDate(values, date) {
   for (let i = 0; i < 5; i++) {
-    let value = values[format(date, "yyyy-MM-dd")];
+    const value = values[format(date, "yyyy-MM-dd")];
     if (value) {
       return value;
     }

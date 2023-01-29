@@ -64,7 +64,7 @@ class Product {
     return this.toNet(this.transactionalPriceGross);
   }
   get interestRate() {
-    var t = this.lastIndexLessOrEqual(
+    const t = this.lastIndexLessOrEqual(
       this.product.interestRates,
       "term",
       this.term
@@ -83,7 +83,7 @@ class Product {
       .toNumber();
   }
   get downPaymentStepGross() {
-    var t = this.product.downPaymentLimits.step || 1;
+    const t = this.product.downPaymentLimits.step || 1;
     return t < 1 ? Big()(this.transactionalPriceGross).times(t).toNumber() : t;
   }
   get downPaymentDefaultGross() {
@@ -108,7 +108,7 @@ class Product {
     return this.product.termLimits.step || 1;
   }
   get termDefault() {
-    var t = Big()(this.product.termLimits.default)
+    const t = Big()(this.product.termLimits.default)
       .div(this.termStep)
       .round(0, 3)
       .times(this.termStep);
@@ -118,10 +118,10 @@ class Product {
     return Big()(this.transactionalPrice).minus(this.downPayment).toNumber();
   }
   get installment() {
-    var t = Big()(this.interestRatePerMonth),
+    const t = Big()(this.interestRatePerMonth),
       e = Big()(this.financedAmount);
     if (t.eq(0)) return e.plus(this.residualValue).div(this.term).toNumber();
-    var n = t.plus(1).pow(this.term);
+    const n = t.plus(1).pow(this.term);
     return e
       .times(n)
       .minus(this.residualValue)
@@ -133,13 +133,13 @@ class Product {
     return this.toGross(this.installment);
   }
   lastIndexLessOrEqual(t, e, n) {
-    var r = 0;
+    let r = 0;
     if (t[r][e] > n) return r;
-    var i,
+    let i,
       o = t.length - 1;
     if (t[o][e] < n) return o;
     for (; r < o; ) {
-      var a = r + o,
+      const a = r + o,
         s = t[(i = (a >> 1) + (1 & a))][e];
       if (s === n) return i;
       s > n ? (o = i - 1) : s < n && (r = i);
@@ -157,7 +157,7 @@ class Product {
     if (void 0 === n)
       return 0 === e ? 0 : Big()(t).div(e).times(100).toNumber();
     if (n === e) return 0;
-    var r = Big()(e).minus(n);
+    const r = Big()(e).minus(n);
     return Big()(t).minus(n).div(r).times(100).toNumber();
   }
 }
@@ -288,7 +288,7 @@ class ComfortLeaseProduct extends Product {
 
     )
       e--;
-    var n = this.tarRvDevRows[e].totalMileage;
+    let n = this.tarRvDevRows[e].totalMileage;
     return (
       "young_used" === this.vehicleType &&
         (n = Big()(n)
@@ -333,7 +333,7 @@ class ComfortLeaseProduct extends Product {
   get tarRvDev() {
     if (!this.interactive) return this.product.tarRvDev;
     if (null !== this.tarRvDevRows) {
-      var t = this.lastIndexLessOrEqual(
+      const t = this.lastIndexLessOrEqual(
           this.tarRvDevRows,
           "totalMileage",
           this.totalMileage
@@ -359,7 +359,7 @@ class ComfortLeaseProduct extends Product {
         .minus(this.accessoriesPrice)
         .toNumber();
     if (this.accessoryLimit <= -1) return this.newPrice;
-    var t = Big()(this.basePrice),
+    const t = Big()(this.basePrice),
       e = t.times(this.accessoryLimit);
     return e.gte(this.optionsPrice) ? this.newPrice : t.plus(e).toNumber();
   }
@@ -413,7 +413,7 @@ class LeaseProduct extends Product {
       .toNumber();
   }
   get termMax() {
-    var t = this.product.totalAgeLimit - this.vehicleAge;
+    const t = this.product.totalAgeLimit - this.vehicleAge;
     return Big()(Math.min(this.product.termLimits.max, t))
       .div(this.termStep)
       .round(0, 0)
@@ -421,7 +421,7 @@ class LeaseProduct extends Product {
       .toNumber();
   }
   get residualValueFactorLimits() {
-    var t = this.lastIndexLessOrEqual(
+    const t = this.lastIndexLessOrEqual(
       this.product.residualValueFactorLimits,
       "term",
       this.term
@@ -445,7 +445,7 @@ class LeaseProduct extends Product {
       .toNumber();
   }
   get residualValueStepGross() {
-    var t = this.product.residualValueStep || 1;
+    const t = this.product.residualValueStep || 1;
     return t < 1 ? Big()(this.transactionalPriceGross).times(t).toNumber() : t;
   }
   get residualValueDefaultGross() {

@@ -37,12 +37,12 @@ export function Perspective({
   // https://css-tricks.com/animate-a-container-on-mouse-over-using-perspective-and-transform/
   // https://armandocanals.com/posts/CSS-transform-rotating-a-3D-object-perspective-based-on-mouse-position.html
   useEffect(() => {
-    let constrain = 40;
+    const constrain = 40;
 
     function transforms(x: number, y: number, el: HTMLElement) {
-      let inner = el.getBoundingClientRect();
-      let calcX = -(y - inner.y - inner.height / 2) / constrain;
-      let calcY = (x - inner.x - inner.width / 2) / constrain;
+      const inner = el.getBoundingClientRect();
+      const calcX = -(y - inner.y - inner.height / 2) / constrain;
+      const calcY = (x - inner.x - inner.width / 2) / constrain;
 
       return `perspective(100px) rotateX(${calcX}deg) rotateY(${calcY}deg)`;
     }

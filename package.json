@@ -17,6 +17,7 @@
     },
     "extends": [
       "eslint:recommended",
+      "plugin:cypress/recommended",
       "plugin:@typescript-eslint/recommended"
     ],
     "parser": "@typescript-eslint/parser",
@@ -29,16 +30,20 @@
     "rules": {
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/ban-types": "warn",
+      "@typescript-eslint/consistent-type-imports": "warn",
       "@typescript-eslint/no-empty-function": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "@typescript-eslint/no-var-requires": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-var-requires": "off",
       "no-constant-condition": "warn",
+      "no-control-regex": "warn",
       "no-extra-boolean-cast": "warn",
+      "no-irregular-whitespace": "warn",
+      "no-useless-escape": "warn",
       "no-var": "warn"
     },
     "settings": {
       "jest": {
-        "version": 27
+        "version": "detect"
       },
       "react": {
         "version": "detect"
@@ -82,13 +87,14 @@
     "@types/jest": "^29.4.0",
     "@typescript-eslint/eslint-plugin": "^5.49.0",
     "@typescript-eslint/parser": "^5.49.0",
-    "cypress": "^12.4.0",
+    "cypress": "^12.4.1",
     "depcheck": "^1.4.3",
-    "eslint": "^8.32.0",
+    "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "^7.32.1",
+    "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",

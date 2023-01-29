@@ -19,7 +19,7 @@ const timeout =
   (data: any) =>
     new Promise((resolve) => setTimeout(() => resolve(data), timeout));
 
-let requestLimit = 1000;
+const requestLimit = 1000;
 
 export const cleanup = async (_created = _past) => {
   await requests.count().then((count: number) =>

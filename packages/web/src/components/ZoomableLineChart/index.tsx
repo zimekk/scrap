@@ -170,7 +170,7 @@ export default function Chart({
 
     // https://d3-graph-gallery.com/graph/stackedarea_basic.html
     // https://d3-graph-gallery.com/graph/stackedarea_template.html
-    var areaGenerator = area()
+    const areaGenerator = area()
       .x(function (d) {
         return xScale(d.date);
       })
