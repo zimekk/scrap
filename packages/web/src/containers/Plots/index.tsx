@@ -18,6 +18,7 @@ import type { ItemType } from "@dev/cli/src/services/PlotsService/types";
 import { Gallery } from "../../components/Gallery";
 import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
+import { DistanceAndDuration, getDirectionsLink } from "../Properties/Location";
 import styles from "./styles.module.scss";
 
 const SORT_BY = {
@@ -42,13 +43,7 @@ const asset = createAsset(async (version) => {
 
 function getDirectionsHref({ lat, lon }: { lat: number; lon: number }) {
   const origin = `${lat},${lon}`;
-  const destination = "52.2268,20.9921";
-  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
-  return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-    origin
-  )}&destination=${encodeURIComponent(
-    destination
-  )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
+  return getDirectionsLink(origin);
 }
 
 function Item({ item }: { item: ItemType }) {
@@ -74,6 +69,12 @@ function Item({ item }: { item: ItemType }) {
             <FontAwesomeIcon icon={faMapMarkerAlt} /> {item.location.pathName}
           </Link>
         </div>
+      )}
+      {item.location && (
+        <DistanceAndDuration
+          coordinates={{ latitude: item.map.lat, longitude: item.map.lon }}
+          show={false}
+        />
       )}
       {item.params && (
         <ul className={styles.Parameters}>

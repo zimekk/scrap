@@ -26,7 +26,7 @@ export function Location({ coordinates: { latitude, longitude } }: any) {
   );
 }
 
-function getDirectionsLink(
+export function getDirectionsLink(
   origin: string,
   destination = "52.2268,20.9921",
   travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving"
