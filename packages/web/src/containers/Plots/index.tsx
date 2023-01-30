@@ -34,6 +34,10 @@ interface FiltersState {
   type: string;
   search: string;
   sortBy: keyof typeof SORT_BY;
+  areaFrom: number;
+  areaTo: number;
+  priceFrom: number;
+  priceTo: number;
 }
 
 const asset = createAsset(async (version) => {
@@ -114,6 +118,7 @@ function List({ list }: { list: ItemType[] }) {
 
   return (
     <div>
+      <div>{`Found ${list.length} plots`}</div>
       {useMemo(() => list.slice(0, limit), [limit, list]).map((item, key) => (
         <div key={key} className={styles.Row}>
           <Item key={item.id} item={item} />
@@ -134,7 +139,10 @@ function Results({
   results,
   queries,
 }: {
-  results: ItemType[];
+  results: (ItemType & {
+    _area: number;
+    _price: number;
+  })[];
   queries: FiltersState;
 }) {
   return (
@@ -144,11 +152,18 @@ function Results({
           results
             .filter(
               (item) =>
-                item.params.find(
-                  (param) => param.normalizedValue === queries.type
-                ) &&
+                (queries.type === "" ||
+                  item.params.find(
+                    (param) => param.normalizedValue === queries.type
+                  )) &&
                 (queries.search === "" ||
-                  item.title.toLowerCase().match(queries.search))
+                  item.title.toLowerCase().match(queries.search)) &&
+                (queries.areaTo === AREA_LIST[0] ||
+                  (queries.areaFrom <= item._area &&
+                    item._area <= queries.areaTo)) &&
+                (queries.priceTo === PRICE_LIST[0] ||
+                  (queries.priceFrom <= item._price &&
+                    item._price <= queries.priceTo))
             )
             .sort(
               (a: any, b: any) =>
@@ -160,6 +175,15 @@ function Results({
     />
   );
 }
+
+const AREA_LIST = [
+  0, 250, 500, 750, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 5000,
+] as const;
+
+const PRICE_LIST = [
+  0, 200000, 500000, 1000000, 1500000, 2000000, 2500000, 3000000, 4000000,
+  5000000,
+] as const;
 
 function Filters({
   options,
@@ -185,11 +209,13 @@ function Filters({
             []
           )}
         >
-          {Object.entries(options.type).map(([value, label]) => (
-            <option key={value} value={value}>
-              {label}
-            </option>
-          ))}
+          {[[""]]
+            .concat(Object.entries(options.type))
+            .map(([value, label = "-"]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
         </select>
       </label>
       <label>
@@ -227,6 +253,114 @@ function Filters({
           ))}
         </select>
       </label>
+      <div>
+        <label>
+          <span>Area From</span>
+          <input
+            type="range"
+            list="area-list"
+            min={AREA_LIST[0]}
+            max={AREA_LIST[AREA_LIST.length - 1]}
+            value={filters.areaFrom}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ areaTo, ...criteria }) => {
+                  const areaFrom = Number(target.value);
+                  return {
+                    ...criteria,
+                    areaFrom,
+                    areaTo: areaTo < areaFrom ? areaFrom : areaTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <datalist id="area-list">
+            {AREA_LIST.map((value) => (
+              <option key={value} value={value}></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Area To</span>
+          <input
+            type="range"
+            list="area-list"
+            min={AREA_LIST[0]}
+            max={AREA_LIST[AREA_LIST.length - 1]}
+            value={filters.areaTo}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ areaFrom, ...criteria }) => {
+                  const areaTo = Number(target.value);
+                  return {
+                    ...criteria,
+                    areaFrom: areaTo > areaFrom ? areaFrom : areaTo,
+                    areaTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <span>{`${new Intl.NumberFormat().format(
+            filters.areaFrom
+          )} - ${new Intl.NumberFormat().format(filters.areaTo)} m2`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Price From</span>
+          <input
+            type="range"
+            list="price-list"
+            min={PRICE_LIST[0]}
+            max={PRICE_LIST[PRICE_LIST.length - 1]}
+            value={filters.priceFrom}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ priceTo, ...criteria }) => {
+                  const priceFrom = Number(target.value);
+                  return {
+                    ...criteria,
+                    priceFrom,
+                    priceTo: priceTo < priceFrom ? priceFrom : priceTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <datalist id="price-list">
+            {PRICE_LIST.map((value) => (
+              <option key={value} value={value}></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Price To</span>
+          <input
+            type="range"
+            list="price-list"
+            min={PRICE_LIST[0]}
+            max={PRICE_LIST[PRICE_LIST.length - 1]}
+            value={filters.priceTo}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ priceFrom, ...criteria }) => {
+                  const priceTo = Number(target.value);
+                  return {
+                    ...criteria,
+                    priceFrom: priceTo > priceFrom ? priceFrom : priceTo,
+                    priceTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <span>{`${new Intl.NumberFormat().format(
+            filters.priceFrom
+          )} - ${new Intl.NumberFormat().format(filters.priceTo)} PLN`}</span>
+        </label>
+      </div>
     </fieldset>
   );
 }
@@ -258,6 +392,10 @@ export default function Section({ version = "v1" }) {
     type: "dzialki-budowlane",
     search: "",
     sortBy: Object.keys(SORT_BY)[0] as (typeof filters)["sortBy"],
+    areaFrom: AREA_LIST[2],
+    areaTo: AREA_LIST[AREA_LIST.length - 1],
+    priceFrom: PRICE_LIST[1],
+    priceTo: PRICE_LIST[4],
   }));
 
   const [queries, setQueries] = useState(() => filters);
@@ -293,7 +431,22 @@ export default function Section({ version = "v1" }) {
     <div className={styles.Section}>
       <h2>Plots</h2>
       <Filters options={options} filters={filters} setFilters={setFilters} />
-      <Results results={results} queries={queries} />
+      <Results
+        results={useMemo(
+          () =>
+            results.map((item) =>
+              Object.assign(item, {
+                _area: Number(
+                  item.params.find((param) => param.key === "m")
+                    ?.normalizedValue
+                ),
+                _price: item.price.regularPrice.value,
+              })
+            ),
+          []
+        )}
+        queries={queries}
+      />
     </div>
   );
 }
