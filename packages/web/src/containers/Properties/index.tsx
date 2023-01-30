@@ -789,9 +789,7 @@ function Summary({
         </div>
       </div>
       <div style={{ clear: "right" }}>
-        {coordinates && (
-          <DistanceAndDuration coordinates={coordinates} show={showDistance} />
-        )}
+        {coordinates && <DistanceAndDuration coordinates={coordinates} />}
         <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
         <h3>
           <Link href={canonical}>{title}</Link>{" "}

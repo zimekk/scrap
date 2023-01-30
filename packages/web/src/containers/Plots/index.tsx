@@ -78,7 +78,13 @@ function Item({ item }: { item: ItemType }) {
       {item.location && (
         <DistanceAndDuration
           coordinates={{ latitude: item.map.lat, longitude: item.map.lon }}
-          show={false}
+          travelmode="driving"
+        />
+      )}
+      {item.location && (
+        <DistanceAndDuration
+          coordinates={{ latitude: item.map.lat, longitude: item.map.lon }}
+          travelmode="transit"
         />
       )}
       {item.params && (
@@ -392,7 +398,7 @@ export default function Section({ version = "v1" }) {
   const [filters, setFilters] = useState<FiltersState>(() => ({
     type: "dzialki-budowlane",
     search: "",
-    sortBy: Object.keys(SORT_BY)[0] as (typeof filters)["sortBy"],
+    sortBy: Object.keys(SORT_BY)[0] as FiltersState["sortBy"],
     areaFrom: AREA_LIST[2],
     areaTo: AREA_LIST[AREA_LIST.length - 1],
     priceFrom: PRICE_LIST[1],

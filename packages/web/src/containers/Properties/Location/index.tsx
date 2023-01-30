@@ -13,6 +13,8 @@ import type {
   LatLng,
 } from "@dev/cli/src/services/DirectionsService/types";
 
+type TravelMode = "driving" | "walking" | "bicycling" | "transit";
+
 // https://developers.google.com/maps/documentation/urls/get-started#search-examples
 export function Location({ coordinates: { latitude, longitude } }: any) {
   // const link = usePlace([`${latitude},${longitude}|${canonical}`]);
@@ -29,7 +31,7 @@ export function Location({ coordinates: { latitude, longitude } }: any) {
 export function getDirectionsLink(
   origin: string,
   destination = "52.2268,20.9921",
-  travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving"
+  travelmode: TravelMode = "driving"
 ) {
   return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
     origin
@@ -118,15 +120,18 @@ function ProcessUrl({ url }: { url: string }) {
 
 export function DistanceAndDuration({
   coordinates: { latitude, longitude },
-}: any) {
+  travelmode = "driving",
+}: {
+  coordinates: { latitude: number; longitude: number };
+  travelmode?: TravelMode;
+}) {
   const [process, setProcess] = useState(false);
   const origin = `${latitude},${longitude}`;
   const destination = "52.2268,20.9921";
-  const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
   const results = asset.read(travelmode); // As many cache keys as you need
   const records = useMemo(
     () =>
-      results.reduce(
+      results.reduce<Record<string, DirectionsType["directions"]>>(
         (records, { id, directions }) =>
           Object.assign(records, {
             [normalize(id)]: directions,
