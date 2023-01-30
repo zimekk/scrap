@@ -36,6 +36,7 @@
     "immutability-helper": "^3.1.1",
     "intl-messageformat": "^10.2.6",
     "leaflet": "^1.9.3",
+    "observable-hooks": "^4.2.1",
     "pako": "^2.1.0",
     "raf": "^3.4.1",
     "react": "^18.2.0",

@@ -20,6 +20,7 @@ import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
 import { DistanceAndDuration, getDirectionsLink } from "../Properties/Location";
 import styles from "./styles.module.scss";
+import { useSubscription } from "observable-hooks";
 
 const SORT_BY = {
   _created: -1,
@@ -402,24 +403,21 @@ export default function Section({ version = "v1" }) {
 
   const search$ = useMemo(() => new Subject<any>(), []);
 
-  useEffect(() => {
-    const subscription = search$
-      .pipe(
-        map(({ search, ...filters }) =>
-          JSON.stringify({
-            ...queries,
-            ...filters,
-            search: search.toLowerCase().trim(),
-          })
-        ),
-        distinctUntilChanged(),
-        debounceTime(400)
-      )
-      .subscribe((filters) =>
-        setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
-      );
-    return () => subscription.unsubscribe();
-  }, [search$]);
+  useSubscription(
+    search$.pipe(
+      map(({ search, ...filters }) =>
+        JSON.stringify({
+          ...queries,
+          ...filters,
+          search: search.toLowerCase().trim(),
+        })
+      ),
+      distinctUntilChanged(),
+      debounceTime(400)
+    ),
+    (filters) =>
+      setQueries((queries) => ({ ...queries, ...JSON.parse(filters) }))
+  );
 
   useEffect(() => {
     search$.next(filters);
