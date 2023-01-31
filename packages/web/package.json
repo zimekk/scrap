@@ -34,7 +34,7 @@
     "history": "^5.3.0",
     "hoist-non-react-statics": "^3.3.2",
     "immutability-helper": "^3.1.1",
-    "intl-messageformat": "^10.2.6",
+    "intl-messageformat": "^10.3.0",
     "leaflet": "^1.9.3",
     "observable-hooks": "^4.2.1",
     "pako": "^2.1.0",
