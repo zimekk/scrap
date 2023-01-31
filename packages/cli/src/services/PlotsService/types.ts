@@ -224,12 +224,14 @@ export const JsonSchema = z.object({
         .nullable(),
     }),
     popularSearches: z.unknown().array(),
-    seo: z.object({
-      title: z.string(),
-      description: z.string(),
-      h1: z.string(),
-      seoText: z.string(),
-    }),
+    seo: z
+      .object({
+        title: z.string(),
+        description: z.string(),
+        h1: z.string(),
+        seoText: z.string(),
+      })
+      .optional(),
     breadcrumbs: z
       .object({
         label: z.string(),
@@ -311,7 +313,11 @@ export const ItemSchema = AdSchema.extend({
   id: z.number().transform((id) => `plot-${id}`),
 });
 
-export const DiffSchema = AdSchema.extend({
+export const DiffSchema = AdSchema.omit({
+  lastRefreshTime: true,
+  searchReason: true,
+  user: true,
+}).extend({
   id: z.string(),
 });
 

@@ -163,4 +163,6 @@ export const VehicleItem = ExtendedItem.extend({
   // srcSet: z.string().array().optional(),
 }).strict();
 
-export const VehicleDiff = VehicleBase;
+export const VehicleDiff = VehicleBase.omit({
+  comfortLeaseProduct: true,
+});
