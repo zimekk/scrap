@@ -1,12 +1,15 @@
-import nedb from "nedb";
+// import nedb from "nedb";
+import nedb from "@seald-io/nedb";
 
 export class Entities {
   public db: any;
 
   constructor(filename: string) {
+    console.log(`db: ${filename}`);
     this.db = new nedb({
       filename,
       autoload: true,
+      corruptAlertThreshold: 1,
     });
     this.db.ensureIndex({ fieldName: "id", unique: true }, (err: any) =>
       err ? console.error(err) : null
