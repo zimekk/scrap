@@ -126,7 +126,7 @@ export const sync = async (type = "") => {
               json: z.any(),
             })
             .transform(({ json, timestamp, url }) => {
-              // console.log({ json });
+              // console.log({ url, json });
               const service = new DirectionsService({ summary });
               return service.sync(json, { timestamp, url });
             }),

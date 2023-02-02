@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function Json({ children }: { children: object }) {
+export function Json({ children }: { children: unknown }) {
   const [expand, setExpand] = useState(false);
 
   return (

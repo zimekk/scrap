@@ -157,7 +157,7 @@ export function DistanceAndDuration({
   return key in records ? (
     <div>
       <span>
-        {records[key]
+        {(records[key] || [])
           .map(
             ({ distance, duration }) => `${distance.text} (${duration.text})`
           )

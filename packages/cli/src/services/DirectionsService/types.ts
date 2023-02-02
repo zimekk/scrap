@@ -108,7 +108,7 @@ export const DirectionsInputSchema = z
                     z.null(),
                     z.any(),
                   ]),
-                z // [0][1][x][0]
+                z // [0][1][x][1]
                   .tuple([
                     TravelModeSchema,
                     z.string().nullable(),
@@ -129,7 +129,19 @@ export const DirectionsInputSchema = z
                       ]),
                     ]),
                     z.null(),
-                    z.null(),
+                    z
+                      .tuple([
+                        z
+                          .tuple([
+                            z.number(),
+                            z.literal(
+                              "Ta trasa obejmuje drogi prywatne lub o ograniczonym dostępie."
+                            ),
+                            z.null(),
+                          ])
+                          .rest(z.any()),
+                      ])
+                      .nullable(),
                     z
                       .tuple([
                         DurationSchema,
@@ -166,7 +178,8 @@ export const DirectionsInputSchema = z
           ])
           .rest(z.any())
           .transform((t) => t[0])
-          .array(),
+          .array()
+          .nullable(),
       ])
       .rest(z.any()),
   ])
@@ -191,7 +204,8 @@ export const DirectionsSchema = z.object({
       start_location: z.object({ lat: z.number(), lng: z.number() }),
       end_location: z.object({ lat: z.number(), lng: z.number() }),
     })
-    .array(),
+    .array()
+    .nullable(),
 });
 
 export const DiffSchema = DirectionsSchema;
