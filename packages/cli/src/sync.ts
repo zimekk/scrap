@@ -365,11 +365,19 @@ export const sync = async (type = "") => {
             })
             .passthrough()
             .extend({
-              json: z.any(),
+              json: z
+                .object({
+                  html: z.string(),
+                })
+                .optional(),
             })
             .transform((item) => {
-              const service = new StationService({ summary });
-              return service.sync(item);
+              if (item.json?.html) {
+                const service = new StationService({ summary });
+                return service.sync(item);
+              } else {
+                console.log({ item });
+              }
             }),
         }),
         z.object({
