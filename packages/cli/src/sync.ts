@@ -40,6 +40,7 @@ export const Type = {
   OTOMOTO_OFFER: "OTOMOTO_OFFER",
   PLOTS: "PLOTS",
   PRODUCTS: "PRODUCTS",
+  PRODUCTS2: "PRODUCTS2",
   RATES: "RATES",
   ROOMS: "ROOMS",
   STATIONS: "STATIONS",
@@ -288,6 +289,21 @@ export const sync = async (type = "") => {
             .transform(({ json, timestamp }) => {
               const service = new ProductService({ summary });
               return service.sync(json, { timestamp });
+            }),
+        }),
+        z.object({
+          type: z.literal(Type.PRODUCTS2),
+          data: z
+            .object({
+              url: z.string(),
+              timestamp: z.number(),
+            })
+            .extend({
+              json: z.any(),
+            })
+            .transform(({ json, timestamp }) => {
+              const service = new ProductService({ summary });
+              return service.sync2(json, { timestamp });
             }),
         }),
         z.object({

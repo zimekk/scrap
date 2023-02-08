@@ -1,0 +1,117 @@
+{
+  "featureSummary": [
+    "Procesor: Apple A12",
+    "Pamięć wewnętrzna: 64 GB",
+    "Łączność: Bluetooth, Odbiornik IR, Wi-Fi 802.11 a/b/g/n/ac/ax",
+    "System operacyjny: tvOS",
+    "Akcesoria: Pilot, Przewód zasilający, Kabel Lightning - USB"
+  ],
+  "featureSummaryStructured": [
+    {
+      "shortName": "Procesor",
+      "description": null,
+      "valueSeparator": ", ",
+      "valueGroups": [
+        {
+          "shortName": "Apple A12",
+          "description": null
+        }
+      ]
+    },
+    {
+      "shortName": "Pamięć wewnętrzna",
+      "description": null,
+      "valueSeparator": ", ",
+      "valueGroups": [
+        {
+          "shortName": "64 GB",
+          "description": null
+        }
+      ]
+    },
+    {
+      "shortName": "Łączność",
+      "description": null,
+      "valueSeparator": ", ",
+      "valueGroups": [
+        {
+          "shortName": "Bluetooth",
+          "description": null
+        },
+        {
+          "shortName": "Odbiornik IR",
+          "description": null
+        },
+        {
+          "shortName": "Wi-Fi 802.11 a/b/g/n/ac/ax",
+          "description": null
+        }
+      ]
+    },
+    {
+      "shortName": "System operacyjny",
+      "description": null,
+      "valueSeparator": ", ",
+      "valueGroups": [
+        {
+          "shortName": "tvOS",
+          "description": null
+        }
+      ]
+    },
+    {
+      "shortName": "Akcesoria",
+      "description": null,
+      "valueSeparator": ", ",
+      "valueGroups": [
+        {
+          "shortName": "Pilot",
+          "description": null
+        },
+        {
+          "shortName": "Przewód zasilający",
+          "description": null
+        },
+        {
+          "shortName": "Kabel Lightning - USB",
+          "description": null
+        }
+      ]
+    }
+  ],
+  "availabilityStatus": "Available",
+  "producerCode": "MXH02MP/A",
+  "installmentMinimum": 29.52,
+  "alternativeGroupId": "12356",
+  "alternativeProducts": [],
+  "priceInfo": {
+    "price": 899,
+    "oldPrice": null,
+    "isPriceVisible": true
+  },
+  "producer": {
+    "id": "357",
+    "name": "Apple"
+  },
+  "isEsd": false,
+  "esdType": "NotDefined",
+  "productLink": "USE_SELECTOR_PLZ",
+  "photo": {
+    "url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2022/7/pr_2022_7_12_14_53_32_755_00.jpg",
+    "thumbnailUrl": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-small,,2022/7/pr_2022_7_12_14_53_32_755_00.jpg",
+    "urlTemplate": "https://cdn.x-kom.pl/i/setup/images/prod/big/{SIZE},,2022/7/pr_2022_7_12_14_53_32_755_00.jpg"
+  },
+  "rating": 6,
+  "ratingCount": 10,
+  "commentsCount": 10,
+  "freeShipping": true,
+  "id": "648813",
+  "name": "TV 4K 64GB (2021)",
+  "price": 899,
+  "category": {
+    "id": "1425",
+    "parentGroupId": "8"
+  },
+  "questionsAndAnswers": false,
+  "isFetching": false
+}
