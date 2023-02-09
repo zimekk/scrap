@@ -5,12 +5,11 @@ import { DiffSchema, JsonSchema, type ItemType, ItemSchema } from "./types";
 
 export class PlotsService extends Service {
   async sync(json = {}, { timestamp: _fetched }: any = {}) {
-    return JsonSchema.transform(
-      ({
-        listing: {
-          listing: { ads },
-        },
-      }) => Promise.all(ads.map((item) => this.commit(item, { _fetched })))
+    return JsonSchema.transform(({ listing: { listing } }) =>
+      Object.values(listing.ads).reduce<Promise<any>>(
+        (promise, item) => promise.then(() => this.commit(item, { _fetched })),
+        Promise.resolve()
+      )
     ).parseAsync(json);
   }
 
