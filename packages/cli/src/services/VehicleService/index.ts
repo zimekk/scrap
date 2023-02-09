@@ -82,7 +82,10 @@ export class VehicleService extends Service {
 
   async sync(data = {}, { timestamp: _fetched }: any = {}) {
     return VehicleData.transform(({ $list }) =>
-      Promise.all($list.map((item) => this.process(item, { _fetched })))
+      Object.values($list).reduce<Promise<any>>(
+        (promise, item) => promise.then(() => this.process(item, { _fetched })),
+        Promise.resolve()
+      )
     ).parseAsync(data);
   }
 
