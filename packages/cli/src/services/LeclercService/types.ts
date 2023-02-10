@@ -1,25 +1,25 @@
 import { z } from "zod";
 
-export const Leclerc = z
+const PetrolList = z
   .object({
-    id: z.string(),
+    type: z.string(),
+    price: z.string(),
   })
-  .passthrough();
+  .array();
 
-export const DiffSchema = z.object({
+const Item = z.object({
   id: z.string(),
-  petrol_list: z
-    .object({
-      type: z.string(),
-      price: z.string(),
-    })
-    .array(),
+  petrol_list: PetrolList,
 });
+
+export const Leclerc = Item.passthrough();
+
+export const DiffSchema = Item.extend({});
 
 export type LeclercType = z.infer<typeof Leclerc> & {
   _id: string;
   _created: number;
   _checked: number;
   _updated: number;
-  _history: Record<string, object>;
+  _history: Record<string, { petrol_list: z.infer<typeof PetrolList> }>;
 };

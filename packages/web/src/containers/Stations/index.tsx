@@ -11,14 +11,15 @@ import { createAsset } from "use-asset";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import Chart from "../../components/ZoomableLineChart";
-import Map, { useBounds } from "./Map";
-import Leclerc from "./Leclerc";
 import { Link } from "../../components/Link";
 import Calculator, { PRICE_LIST, useFilters } from "./Calculator";
+import Leclerc from "./Leclerc";
+import Map, { useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+import type { LeclercType } from "@dev/cli/src/services/LeclercService/types";
 import type { StationItem } from "@dev/cli/src/services/StationService/types";
 
 const RADIUS_LIST = [1, 3, 5, 10, 20, 50, 100, 500];
@@ -58,19 +59,77 @@ const compare = (history: any, k: number, p: number) => {
   return null;
 };
 
+const LECLERC_TYPES = {
+  on: "on",
+  "on b7": "on",
+  "on max": "on+",
+  pb95: "pb",
+  "pb95 e5": "pb",
+};
+
+const mapLeclercPriceList = ({
+  type,
+  price,
+}: {
+  type: string;
+  price: string;
+}) => ({
+  type: LECLERC_TYPES[type as keyof typeof LECLERC_TYPES],
+  price: price.replace(",", "."),
+});
+
+const reducePetrolList = (
+  records: object,
+  { type, price }: { type: string; price: string }
+) =>
+  Object.assign(records, {
+    [type]: price,
+  });
+
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
 const asset = createAsset(async (version) => {
+  const leclercResults = await fetch(`api/leclerc/data.json?${version}`).then(
+    (res) => res.json()
+  );
   const res = await fetch(`api/stations/data.json?${version}`);
   return await res.json().then(({ results }: { results: StationItem[] }) => ({
-    results: results.map(({ _history = {}, ...item }: StationItem) => ({
-      ...item.petrol_list.reduce(
-        (list, { type, price }) =>
-          Object.assign(list, { [`_petrol_${type}`]: Number(price) || 0 }),
-        {}
-      ),
-      _history,
-      ...item,
-    })),
+    results: (
+      leclercResults.map((item: LeclercType) => ({
+        ...item,
+        address: "Warszawa, Ciszewskiego 15",
+        id: 0, //7810
+        map_img:
+          "/system/assets/images/fuel-station/network/map/no-map-45x60.png",
+        network_id: 0, // 119
+        network_name: "Leclerc",
+        petrol: item.petrol_list
+          .map(mapLeclercPriceList)
+          .reduce(reducePetrolList, {}),
+        petrol_list: item.petrol_list.map(mapLeclercPriceList),
+        _history: Object.entries(item._history).reduce(
+          (entries, [time, item]) =>
+            Object.assign(entries, {
+              [time]: item.petrol_list
+                .map(mapLeclercPriceList)
+                .reduce(reducePetrolList, {}),
+            }),
+          {}
+        ),
+        station_id: 0, // 7810
+        x: 52.154332124889,
+        y: 21.042253017076,
+      })) as StationItem[]
+    )
+      .concat(results)
+      .map(({ _history = {}, ...item }: StationItem) => ({
+        ...item.petrol_list.reduce(
+          (list, { type, price }) =>
+            Object.assign(list, { [`_petrol_${type}`]: Number(price) || 0 }),
+          {}
+        ),
+        _history,
+        ...item,
+      })),
   }));
 });
 
