@@ -70,6 +70,26 @@ Kwota operacji
 10 000,00 PLN
 Data operacji
 07.11.2022`,
+        `Tytuł
+WYGAŚNIĘCIE LOKATY NR 00001 37..96 3M7.5% OD 07-11-2022
+Kwota
+10 000,00 PLN
+Data przelewu
+06.02.2023
+Data waluty
+07.02.2023
+Rodzaj operacji
+Uznanie`,
+        `Tytuł
+ODSETKI NALEŻNE LOKATY NR00001
+Kwota
+153,12 PLN
+Data przelewu
+06.02.2023
+Data waluty
+07.02.2023
+Rodzaj operacji
+Naliczenie odsetek`,
       ],
       [
         `Tytuł przelewu
@@ -78,12 +98,93 @@ Kwota operacji
 10 000,00 PLN
 Data operacji
 07.11.2022`,
+        `Tytuł
+WYGAŚNIĘCIE LOKATY NR 32..88 3M7.5% OD 07-11-2022
+Kwota
+10 000,00 PLN
+Data przelewu
+06.02.2023
+Data waluty
+07.02.2023
+Rodzaj operacji
+Uznanie`,
+        `Tytuł
+ODSETKI NALEŻNE LOKATY NR00001
+Kwota
+153,12 PLN
+Data przelewu
+06.02.2023
+Data waluty
+07.02.2023
+Rodzaj operacji
+Naliczenie odsetek`,
       ],
-    ].map((transactions) => transactions.map(parseTransaction))
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 58..98 3M7.5% DO 27-04-2023
+Kwota
+-10 000,00 PLN
+Data przelewu
+27.01.2023
+Data waluty
+27.01.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 13..80 3M7.5% DO 27-04-2023
+Kwota
+-10 000,00 PLN
+Data przelewu
+27.01.2023
+Data waluty
+27.01.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+        OTWARCIE LOKATY NR 37..96 3M7.5% DO 09-05-2023
+        Kwota
+        -10 000,00 PLN
+        Data przelewu
+        09.02.2023
+        Data waluty
+        09.02.2023
+        Rodzaj operacji
+        Obciążenie`,
+      ],
+      [
+        `Tytuł
+        OTWARCIE LOKATY NR 32..88 3M7.5% DO 09-05-2023
+        Kwota
+        -10 000,00 PLN
+        Data przelewu
+        09.02.2023
+        Data waluty
+        09.02.2023
+        Rodzaj operacji
+        Obciążenie`,
+      ],
+    ].map((transactions) =>
+      transactions
+        .map(parseTransaction)
+        .reduce(
+          (result, item, key) =>
+            key > 1
+              ? ((result[1]["Kwota operacji"] += item["Kwota operacji"]),
+                result)
+              : result.concat(item),
+          [] as any
+        )
+    )
   );
 
   const [selected, setSelected] = useState<number[]>(() =>
-    deposits.filter(([_, income]) => Boolean(income)).map((_, i) => i)
+    deposits
+      .map(([_, income], i) => (Boolean(income) ? i : -1))
+      .filter((i) => i >= 0)
   );
   console.log(deposits);
 
