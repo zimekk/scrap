@@ -23,7 +23,6 @@ const PAGES = {
   vehicles: lazy(() => import("./Vehicles")),
   moto: lazy(() => import("./Moto")),
   rooms: lazy(() => import("./Rooms")),
-  // reader: lazy(() => import("./Reader")),
   hello: lazy(() => import("./Hello")),
 };
 
