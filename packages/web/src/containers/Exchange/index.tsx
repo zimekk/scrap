@@ -96,9 +96,11 @@ export default function Section({ version = "v1" }) {
           add: 60.0,
         }))
         .map((item) =>
-          Object.assign(item, {
-            pay: Math.round(100 * item.sell * item.value) / 100 + item.add,
-          })
+          ((pay) =>
+            Object.assign(item, {
+              pay,
+              sum: pay + item.add,
+            }))(Math.round(100 * item.sell * item.value) / 100)
         )
         .sort(
           (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
@@ -183,9 +185,22 @@ export default function Section({ version = "v1" }) {
             <th>Wartość</th>
             <th>Stała</th>
             <th>Kwota</th>
+            <th>Płatność</th>
           </tr>
           {list.map((item, i) => (
-            <tr key={i}>
+            <tr
+              key={i}
+              tabIndex={0}
+              onFocus={(e) => {
+                const range = document.createRange();
+                range.selectNode(e.target);
+                ((selection) =>
+                  selection &&
+                  (selection.removeAllRanges(), selection.addRange(range)))(
+                  window.getSelection()
+                );
+              }}
+            >
               <td align="right">{format(item.date, "dd.MM.yyyy")}</td>
               <td>{item.name}</td>
               <td align="right">
@@ -218,21 +233,28 @@ export default function Section({ version = "v1" }) {
                   minimumFractionDigits: 2,
                 }).format(item.pay)}
               </td>
+              <td align="right">
+                {new Intl.NumberFormat("pl-PL", {
+                  minimumFractionDigits: 2,
+                }).format(item.sum)}
+              </td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           {[
             list.reduce(
-              ({ value, add, pay }, item) => ({
+              ({ value, add, pay, sum }, item) => ({
                 value: value + item.value,
                 add: add + item.add,
                 pay: pay + item.pay,
+                sum: sum + item.sum,
               }),
               {
                 value: 0,
                 add: 0,
                 pay: 0,
+                sum: 0,
               }
             ),
           ].map((item, i) => (
@@ -252,6 +274,11 @@ export default function Section({ version = "v1" }) {
                 {new Intl.NumberFormat("pl-PL", {
                   minimumFractionDigits: 2,
                 }).format(item.pay)}
+              </td>
+              <td align="right">
+                {new Intl.NumberFormat("pl-PL", {
+                  minimumFractionDigits: 2,
+                }).format(item.sum)}
               </td>
             </tr>
           ))}
