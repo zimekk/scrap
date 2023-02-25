@@ -793,11 +793,16 @@ function Summary({
         <h4>{`${new Intl.NumberFormat().format(price)} PLN`}</h4>
         <h3>
           <Link href={canonical}>{title}</Link>{" "}
-          {coordinates && <Location coordinates={coordinates} />}
-          {coordinates && <Directions coordinates={coordinates} />}
         </h3>
       </div>
-      {_address && <h6>{_address.join(" / ")}</h6>}
+      <h5>
+        {coordinates && <Directions coordinates={coordinates} />}
+        {coordinates && (
+          <Location coordinates={coordinates}>
+            {_address && ` ${_address.join(" / ")}`}
+          </Location>
+        )}
+      </h5>
     </div>
   );
 }

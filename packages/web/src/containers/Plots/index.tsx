@@ -13,12 +13,19 @@ import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCrosshairs,
+  faMapMarkerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 import type { ItemType } from "@dev/cli/src/services/PlotsService/types";
 import { Gallery } from "../../components/Gallery";
 import { Json } from "../../components/Json";
 import { Link } from "../../components/Link";
-import { DistanceAndDuration, getDirectionsLink } from "../Properties/Location";
+import {
+  DistanceAndDuration,
+  getDirectionsLink,
+  getLocationLink,
+} from "../Properties/Location";
 import styles from "./styles.module.scss";
 import { useSubscription } from "observable-hooks";
 
@@ -51,6 +58,18 @@ function getDirectionsHref({ lat, lon }: { lat: number; lon: number }) {
   return getDirectionsLink(origin);
 }
 
+function getLocationHref({
+  lat,
+  lon,
+  zoom,
+}: {
+  lat: number;
+  lon: number;
+  zoom: number;
+}) {
+  return getLocationLink(`${lat},${lon}`, zoom);
+}
+
 function Item({ item }: { item: ItemType }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -69,8 +88,14 @@ function Item({ item }: { item: ItemType }) {
       </div>
       <Link href={item.url}>{`[${item.id}] ${item.title}`}</Link>
       {item.location && (
-        <div className={styles.Location}>
+        <div
+          className={styles.Location}
+          style={item.map.show_detailed ? { fontWeight: "bold" } : {}}
+        >
           <Link href={getDirectionsHref(item.map)}>
+            <FontAwesomeIcon icon={faCrosshairs} />
+          </Link>{" "}
+          <Link href={getLocationHref(item.map)}>
             <FontAwesomeIcon icon={faMapMarkerAlt} /> {item.location.pathName}
           </Link>
         </div>

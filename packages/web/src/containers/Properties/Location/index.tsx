@@ -15,19 +15,34 @@ import type {
 
 type TravelMode = "driving" | "walking" | "bicycling" | "transit";
 
-// https://developers.google.com/maps/documentation/urls/get-started#search-examples
-export function Location({ coordinates: { latitude, longitude } }: any) {
+// https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
+export function getLocationLink(location: string, zoom = 0) {
+  const [latitude, longitude] = location.split(",");
+  return `//www.google.com/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl${
+    zoom ? `&z=${zoom}` : ""
+  }`;
+}
+
+export function Location({
+  children,
+  coordinates: { latitude, longitude },
+}: any) {
   // const link = usePlace([`${latitude},${longitude}|${canonical}`]);
-  // https://stackoverflow.com/questions/2660201/what-parameters-should-i-use-in-a-google-maps-url-to-go-to-a-lat-lon
-  const link = `//www.google.pl/maps?t=k&q=loc:${latitude}+${longitude}&hl=pl`;
 
   return (
-    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
+    <Link
+      href={getLocationLink(`${latitude},${longitude}`)}
+      rel=""
+      target="map"
+      style={{ margin: "0 .25em" }}
+    >
       <FontAwesomeIcon icon={faMapMarkerAlt} />
+      {children}
     </Link>
   );
 }
 
+// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
 export function getDirectionsLink(
   origin: string,
   destination = "52.2268,20.9921",
@@ -40,7 +55,6 @@ export function getDirectionsLink(
   )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
 }
 
-// https://developers.google.com/maps/documentation/urls/get-started#directions-examples
 export function Directions({ coordinates: { latitude, longitude } }: any) {
   const origin = `${latitude},${longitude}`;
 
