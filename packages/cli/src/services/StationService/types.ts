@@ -73,6 +73,7 @@ export const StationTypeSchema = z
 export type StationItem = {
   _id: string;
   _created: number;
+  _checked: number;
   _updated: number;
   _history: Record<string, string>;
 } & z.infer<typeof StationItemSchema>;

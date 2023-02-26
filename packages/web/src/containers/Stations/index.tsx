@@ -1,6 +1,7 @@
 import React, {
-  ChangeEventHandler,
-  MouseEventHandler,
+  type ChangeEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
   useCallback,
   useMemo,
   useState,
@@ -135,9 +136,11 @@ const asset = createAsset(async (version) => {
 
 // https://developers.google.com/maps/documentation/urls/get-started#directions-examples
 export function Directions({
+  children,
   origin,
   destination,
 }: {
+  children?: ReactNode;
   origin: LatLng;
   destination: LatLng;
 }) {
@@ -149,8 +152,9 @@ export function Directions({
   )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
 
   return (
-    <Link href={link} rel="" target="map" style={{ margin: "0 .25em" }}>
+    <Link href={link} rel="" target="map">
       <FontAwesomeIcon icon={faCrosshairs} />
+      {children}
     </Link>
   );
 }
@@ -490,7 +494,7 @@ function Data({ version = "v1" }) {
       <table className={styles.Table}>
         <tbody>
           <tr>
-            <th>#</th>
+            <th style={{ textAlign: "right" }}>#</th>
             {Object.keys(TYPES).map((key) => (
               <th
                 key={key}
@@ -517,6 +521,7 @@ function Data({ version = "v1" }) {
               </th>
             ))}
             <th>updated</th>
+            <th>checked</th>
             <th></th>
           </tr>
           {sorted.map(({ i, name, item, position, history }, key) =>
@@ -524,7 +529,7 @@ function Data({ version = "v1" }) {
               .slice(0, toggle.includes(i) ? Infinity : 1)
               .map(([updated, petrol], k) => (
                 <tr key={`${key}-${k}`}>
-                  <td>{k === 0 && i}</td>
+                  <td style={{ textAlign: "right" }}>{k === 0 && i}</td>
                   {k === 0 && (
                     <td
                       rowSpan={toggle.includes(i) ? history.length : undefined}
@@ -545,17 +550,20 @@ function Data({ version = "v1" }) {
                             }))
                           )}
                         >
-                          {name} [
+                          <strong>{name}</strong> [
                           {new Intl.NumberFormat("pl-PL", {
                             maximumFractionDigits: 1,
                           }).format(item._distance / 1000)}{" "}
                           km]
                         </Link>
-                        <Directions
-                          origin={center}
-                          destination={position as LatLng}
-                        />
-                        <address>{item.address}</address>
+                        <address>
+                          <Directions
+                            origin={center}
+                            destination={position as LatLng}
+                          >
+                            {item.address}
+                          </Directions>
+                        </address>
                       </div>
                     </td>
                   )}
@@ -584,6 +592,11 @@ function Data({ version = "v1" }) {
                     </td>
                   ))}
                   <td>{format(Number(updated), "yyyy-MM-dd")}</td>
+                  <td>
+                    {k === 0 &&
+                      item._checked &&
+                      format(item._checked, "yyyy-MM-dd")}
+                  </td>
                   <td>
                     {history.length > 0 &&
                       k === 0 &&
