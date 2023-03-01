@@ -25,6 +25,7 @@ const { SYNC_URL } = process.env;
 export const Type = {
   AUTOS: "AUTOS",
   AUTOS_ITEM: "AUTOS_ITEM",
+  DEPOT: "DEPOT",
   DIRECTIONS: "DIRECTIONS",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
@@ -114,6 +115,10 @@ export const sync = async (type = "") => {
         }),
         z.object({
           type: z.literal(Type.AUTOS_ITEM),
+          data: z.object({}).passthrough(),
+        }),
+        z.object({
+          type: z.literal(Type.DEPOT),
           data: z.object({}).passthrough(),
         }),
         z.object({
