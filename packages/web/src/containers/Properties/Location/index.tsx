@@ -7,6 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Json } from "../../../components/Json";
 import { Link } from "../../../components/Link";
+import styles from "./styles.module.scss";
 
 import type {
   DirectionsType,
@@ -169,7 +170,39 @@ export function DistanceAndDuration({
   );
 
   return key in records ? (
-    <div>
+    <div className={styles.DistanceAndDuration}>
+      {
+        {
+          // bicycling: <img alt="Na rowerze" src="//maps.gstatic.com/consumer/images/icons/2x/directions_bike_grey800_24dp.png" />,
+          bicycling: (
+            <img
+              alt="Na rowerze"
+              src="//maps.gstatic.com/consumer/images/icons/2x/directions_bike_blue900_24dp.png"
+            />
+          ),
+          // driving: <img alt="Samochodem" src="//maps.gstatic.com/consumer/images/icons/2x/directions_car_grey800_24dp.png" />,
+          driving: (
+            <img
+              alt="Samochodem"
+              src="//maps.gstatic.com/consumer/images/icons/2x/directions_car_filled_blue900_24dp.png"
+            />
+          ),
+          // transit: <img alt="Transportem publicznym" src="//maps.gstatic.com/consumer/images/icons/2x/directions_transit_grey800_24dp.png" />,
+          transit: (
+            <img
+              alt="Transportem publicznym"
+              src="//maps.gstatic.com/consumer/images/icons/2x/directions_transit_filled_blue900_24dp.png"
+            />
+          ),
+          // walking: <img alt="Pieszo" src="//maps.gstatic.com/consumer/images/icons/2x/directions_walk_grey800_24dp.png" />,
+          walking: (
+            <img
+              alt="Pieszo"
+              src="//maps.gstatic.com/consumer/images/icons/2x/directions_walk_blue900_24dp.png"
+            />
+          ),
+        }[travelmode]
+      }
       <span>
         {(records[key] || [])
           .map(
