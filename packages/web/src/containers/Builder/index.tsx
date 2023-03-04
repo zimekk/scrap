@@ -1,8 +1,6 @@
 import React, {
   ChangeEvent,
   ChangeEventHandler,
-  Component,
-  ReactNode,
   useCallback,
   useEffect,
   useMemo,
@@ -15,6 +13,7 @@ import { Barcode } from "@darthmaim/react-barcode";
 // import { createAsset } from "use-asset";
 import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
+import { Shapes } from "../../components/Shapes";
 import styles from "./styles.module.scss";
 
 // https://github.com/pmndrs/use-asset#dealing-with-async-assets
@@ -242,6 +241,7 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Builder</h2>
+      <Shapes />
       <Filters />
       <Builder products={products} />
     </div>
