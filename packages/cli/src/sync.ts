@@ -44,6 +44,8 @@ export const Type = {
   PRODUCTS2: "PRODUCTS2",
   RATES: "RATES",
   ROOMS: "ROOMS",
+  ROSSM: "ROSSM",
+  THULE: "THULE",
   STATIONS: "STATIONS",
   STATION: "STATION",
   UNKNOWN: "UNKNOWN",
@@ -370,6 +372,18 @@ export const sync = async (type = "") => {
               const service = new RoomsService({ summary });
               return service.sync(json, { timestamp, url });
             }),
+        }),
+        z.object({
+          type: z.literal(Type.ROSSM),
+          data: z.object({
+            url: z.string(),
+          }),
+        }),
+        z.object({
+          type: z.literal(Type.THULE),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
         z.object({
           type: z.literal(Type.STATIONS),
