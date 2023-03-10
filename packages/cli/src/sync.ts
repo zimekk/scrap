@@ -294,8 +294,10 @@ export const sync = async (type = "") => {
               json: z.any(),
             })
             .transform(({ json, timestamp }) => {
-              const service = new ProductService({ summary });
-              return service.sync(json, { timestamp });
+              if (json) {
+                const service = new ProductService({ summary });
+                return service.sync(json, { timestamp });
+              }
             }),
         }),
         z.object({
