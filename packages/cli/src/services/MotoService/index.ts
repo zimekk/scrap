@@ -12,6 +12,89 @@ const { OTOMOTO_URL } = process.env as {
 
 const _time = Date.now();
 
+const UrqlState = z
+  .object({
+    advertSearch: z
+      .object({
+        edges: z
+          .object({
+            node: z.object({
+              id: z.string(),
+              title: z.string(),
+              shortDescription: z.string(),
+              url: z.string(),
+              location: z.object({
+                city: z.object({
+                  name: z.string(),
+                }),
+                region: z.object({
+                  name: z.string(),
+                }),
+              }),
+              thumbnail: z
+                .object({
+                  x1: z.string(),
+                  x2: z.string(),
+                })
+                .nullable(),
+              price: z
+                .object({
+                  amount: z.object({
+                    units: z.number(),
+                    currencyCode: z.enum(["EUR", "PLN"]),
+                  }),
+                })
+                .passthrough(),
+              parameters: z
+                .object({
+                  key: z.enum([
+                    "make",
+                    "year",
+                    "mileage",
+                    "engine_capacity",
+                    "fuel_type",
+                  ]),
+                  displayValue: z.string(),
+                  value: z.string(),
+                })
+                .array(),
+            }),
+          })
+          .transform(
+            ({
+              node: {
+                id,
+                location,
+                parameters,
+                shortDescription,
+                thumbnail,
+                title,
+                price: {
+                  amount: { units: price },
+                },
+                url,
+              },
+            }) =>
+              Object.assign(
+                {
+                  id,
+                  location,
+                  parameters,
+                  price,
+                  shortDescription,
+                  title,
+                  url,
+                },
+                thumbnail && (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail)
+              )
+          )
+          .array(),
+      })
+      .transform(({ edges }) => edges)
+      .optional(),
+  })
+  .transform(({ advertSearch }) => advertSearch);
+
 export class MotoService extends Service {
   async request(
     type: string,
@@ -55,21 +138,31 @@ export class MotoService extends Service {
       .object({
         props: z.object({
           pageProps: z.object({
-            urqlState: z
-              .object({
-                list: MotoItem.transform((item) =>
-                  this.commit(item, { _fetched })
-                ).array(),
-              })
-              .optional()
-              .transform((t) =>
-                t ? t : console.warn(["urqlState:required"], json)
-              ),
+            urqlState: z.record(
+              z
+                .object({
+                  data: z.string(),
+                })
+                .transform(({ data }) => UrqlState.parse(JSON.parse(data)))
+            ),
           }),
         }),
       })
+      .transform(
+        ({
+          props: {
+            pageProps: { urqlState },
+          },
+        }) => Object.values(urqlState).find(Boolean) || []
+      )
+      .transform((list) =>
+        list.reduce<Promise<any>>(
+          (promise, item) =>
+            promise.then(() => this.commit(item, { _fetched })),
+          Promise.resolve()
+        )
+      )
       .parseAsync(json);
-    // .catch(console.warn);
   }
 
   async process(item = {}): Promise<any> {
