@@ -186,7 +186,7 @@ Obciążenie`,
       .map(([_, income], i) => (Boolean(income) ? i : -1))
       .filter((i) => i >= 0)
   );
-  console.log(deposits);
+  // console.log(deposits);
 
   return (
     <div className={styles.Deposits}>

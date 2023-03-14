@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import Chart from "./Chart";
 import styles from "./styles.module.scss";
 
 const formatMin = (min: number | string) =>
@@ -55,6 +56,47 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-03-14",
+      number: "183",
+      amount: 8.95,
+      net: 872,
+      min: "15:23",
+      sms: 75,
+    },
+    {
+      date: "2023-03-14",
+      number: "938",
+      amount: 5.94,
+      net: 2_060,
+      min: 115,
+      sms: 149,
+    },
+    {
+      date: "2023-03-14",
+      number: "379",
+      amount: 2.72,
+      net: 9_890,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-03-14",
+      number: "818",
+      amount: 8.65,
+      net: 3_320,
+      min: 170,
+      sms: 140,
+    },
+    {
+      date: "2023-03-14",
+      number: "828",
+      amount: 0.2,
+      net: 299,
+      min: 150,
+      sms: 125,
+    },
+
     {
       date: "2023-03-13",
       number: "183",
@@ -285,6 +327,7 @@ function Data() {
 
   return (
     <div className={styles.Elixir}>
+      <Chart list={rows} />
       <table>
         <thead>
           <tr>
