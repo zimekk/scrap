@@ -317,14 +317,13 @@ export default function Chart({
         .selectAll(".label")
         .data(cities)
         .join((enter) => {
-          const label = enter.append("g").style("color", (d) => color(d));
+          const label = enter
+            .append("g")
+            .style("color", (d) => color(d) as string);
 
           label.append("circle").attr("fill", "currentColor").attr("r", 7);
 
-          label
-            .append("text")
-            .attr("transform", "translate(10,3)")
-            .text((d) => `${d}`);
+          label.append("text").attr("transform", "translate(10,4)");
 
           return label;
         })
@@ -336,7 +335,9 @@ export default function Chart({
               margin.left +
               ((width - margin.left - margin.right) / cities.length) * (i + 0.2)
             },${height * 0.05})`
-        );
+        )
+        .select("text")
+        .text((d) => d);
     }
 
     // https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
@@ -379,7 +380,7 @@ export default function Chart({
         .enter()
         .append("g")
         .attr("class", "mouse-per-line")
-        .style("color", (d) => color(d));
+        .style("color", (d) => color(d) as string);
 
       mousePerLine
         .append("circle")
@@ -416,9 +417,11 @@ export default function Chart({
           const [x, y] = pointer(event);
           // console.log(["mousemove"], x, y);
           select(".mouse-line").attr("d", () => `M${x},${height} ${x},${0}`);
-          selectAll(".mouse-per-line").attr(
-            "transform",
-            function (d: any, i: number): string {
+          selectAll(".mouse-per-line")
+            .attr("visibility", (d: any): string =>
+              data.get(d) ? "visible" : "hidden"
+            )
+            .attr("transform", function (d: any, i: number): string {
               const xDate = xScale.invert(x);
               const values = data.get(d);
               if (!values) {
@@ -435,8 +438,7 @@ export default function Chart({
                 );
               }
               return "translate(" + xScale(item.date) + "," + y + ")";
-            }
-          );
+            });
         });
     }
 
