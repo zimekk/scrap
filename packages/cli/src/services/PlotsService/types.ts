@@ -94,7 +94,7 @@ const AdSchema = z.object({
     id: z.number(),
     name: z.string(),
     photo: z.string().nullable(),
-    logo: z.null(),
+    logo: z.string().nullable(),
     otherAdsEnabled: z.boolean(),
     socialNetworkAccountType: z.string().nullable(),
     isOnline: z.boolean(),
@@ -107,7 +107,7 @@ const AdSchema = z.object({
     sellerType: z.null(),
     uuid: z.string(),
   }),
-  shop: z.object({ subdomain: z.null() }),
+  shop: z.object({ subdomain: z.string().nullable() }),
   safedeal: z.object({
     weight: z.number(),
     weight_grams: z.number(),
@@ -162,14 +162,15 @@ export const JsonSchema = z.object({
         favSearchNewAds: z.unknown().array(),
         location: z.null(),
         facets: z.object({
-          district: z.array(
-            z.object({
+          district: z
+            .object({
               id: z.number(),
               count: z.number(),
               label: z.string(),
               url: z.string(),
             })
-          ),
+            .array()
+            .optional(),
           category_without_exclusions: z
             .object({
               id: z.number(),
@@ -177,19 +178,20 @@ export const JsonSchema = z.object({
               label: z.string(),
               url: z.string(),
             })
-            .array(),
+            .array()
+            .optional(),
         }),
         searchReason: z.object({
           promoted: z.number().array().optional(),
           organic: z.number().array().optional(),
         }),
         subSections: z.unknown().array(),
-        search_request_id: z.string(),
+        search_request_id: z.string().optional(),
       }),
       links: z.object({
-        self: z.string(),
+        self: z.string().optional(),
         next: z.string().optional(),
-        first: z.string(),
+        first: z.string().optional(),
       }),
       params: z.object({
         offset: z.number(),
