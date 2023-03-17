@@ -48,9 +48,9 @@ const updateItem = (
 });
 
 export const PhotoSchema = z.object({
-  url: z.string(),
-  thumbnailUrl: z.string(),
-  urlTemplate: z.string(),
+  url: z.string().optional(),
+  thumbnailUrl: z.string().optional(),
+  urlTemplate: z.string().optional(),
 });
 
 export const ProductSchema = z
@@ -113,7 +113,7 @@ export const ProductSchema = z
       id,
       brand: producer.name,
       codes: [],
-      image: photo ? [photo.thumbnailUrl] : [],
+      image: photo ? [photo.thumbnailUrl].filter(Boolean) : [],
       label: [
         `od: ${producer.name}`,
         `kod producenta: ${producerCode}`,
