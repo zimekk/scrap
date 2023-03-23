@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import BalanceChart from "./BalanceChart";
 import Chart from "./Chart";
 import styles from "./styles.module.scss";
 
@@ -8,6 +9,11 @@ const formatNet = (net: number) =>
   net > 1100 ? `${net / 1000} GB` : `${net} MB`;
 const formatPln = (pln: number) => `${pln} zł`;
 const formatSms = (sms: number) => `${sms} sms`;
+
+const parseMin = (min: number | string) =>
+  typeof min === "number"
+    ? min
+    : (([m, s]) => Number(m) + Number(s) / 60)(min.split(":"));
 
 function Data() {
   const [recharges] = useState(() => [
@@ -56,6 +62,88 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-03-23",
+      number: "183",
+      amount: 8.95,
+      net: 739,
+      min: "12:10",
+      sms: 75,
+    },
+    {
+      date: "2023-03-23",
+      number: "938",
+      amount: 5.94,
+      net: 2_040,
+      min: 115,
+      sms: 149,
+    },
+    {
+      date: "2023-03-23",
+      number: "379",
+      amount: 2.72,
+      net: 9_020,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-03-23",
+      number: "818",
+      amount: 8.65,
+      net: 3_250,
+      min: 170,
+      sms: 140,
+    },
+    {
+      date: "2023-03-23",
+      number: "828",
+      amount: 0.2,
+      net: 299,
+      min: 150,
+      sms: 125,
+    },
+
+    {
+      date: "2023-03-17",
+      number: "183",
+      amount: 8.95,
+      net: 818,
+      min: "12:54",
+      sms: 75,
+    },
+    {
+      date: "2023-03-17",
+      number: "938",
+      amount: 5.94,
+      net: 2_050,
+      min: 115,
+      sms: 149,
+    },
+    {
+      date: "2023-03-17",
+      number: "379",
+      amount: 2.72,
+      net: 9_540,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-03-17",
+      number: "818",
+      amount: 8.65,
+      net: 3_290,
+      min: 170,
+      sms: 140,
+    },
+    {
+      date: "2023-03-17",
+      number: "828",
+      amount: 0.2,
+      net: 299,
+      min: 150,
+      sms: 125,
+    },
+
     {
       date: "2023-03-14",
       number: "183",
@@ -327,7 +415,46 @@ function Data() {
 
   return (
     <div className={styles.Elixir}>
+      {/* <h3>Recharges</h3>
+      <Chart list={recharges} />
+      <h3>Purchases</h3>
+      <Chart list={purchases} /> */}
+      <h3>Balance</h3>
+      <BalanceChart
+        list={recharges.concat(
+          purchases.map(({ date, number, amount }) => ({
+            date,
+            number,
+            amount: -amount,
+          }))
+        )}
+        balance={rows}
+      />
       <Chart list={rows} />
+      <h3>Internet</h3>
+      <Chart
+        list={rows.map(({ number, date, net }) => ({
+          number,
+          date,
+          amount: net / 1000,
+        }))}
+      />
+      <h3>Minutes</h3>
+      <Chart
+        list={rows.map(({ number, date, min }) => ({
+          number,
+          date,
+          amount: parseMin(min),
+        }))}
+      />
+      <h3>Messages</h3>
+      <Chart
+        list={rows.map(({ number, date, sms }) => ({
+          number,
+          date,
+          amount: sms,
+        }))}
+      />
       <table>
         <thead>
           <tr>
