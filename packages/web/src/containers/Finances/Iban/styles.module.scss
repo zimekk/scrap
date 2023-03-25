@@ -1,0 +1,40 @@
+.Section {
+  color: purple;
+}
+.Iban {
+  font-family: Arial, Helvetica, sans-serif;
+  input {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 4em;
+    border: 0;
+    letter-spacing: 0.25ch;
+    line-height: 1em;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+  }
+  ul {
+    font-size: 0.7em;
+  }
+  table {
+    font-size: 0.5em;
+    border-collapse: collapse;
+    line-height: 2em;
+  }
+  th,
+  td {
+    padding: 0;
+  }
+  th {
+    text-align: left;
+  }
+  td {
+    text-align: center;
+    &.blue {
+      background-color: lightcyan;
+    }
+    &.pink {
+      background-color: pink;
+    }
+  }
+}

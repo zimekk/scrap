@@ -2,6 +2,7 @@ import React from "react";
 import { Calculator, ProductTypes } from "../../components/Calculator";
 import Deposits from "./Deposits";
 import Elixir from "./Elixir";
+import Iban from "./Iban";
 import Mobile from "./Mobile";
 import styles from "./styles.module.scss";
 
@@ -107,6 +108,7 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <Mobile />
+      <Iban />
       <Elixir />
       <Deposits />
       <h2>Finances</h2>
