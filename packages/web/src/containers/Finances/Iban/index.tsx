@@ -6,6 +6,8 @@ import React, {
 } from "react";
 import styles from "./styles.module.scss";
 
+const { isValid: isValidIban } = require("iban");
+
 function Data() {
   const [number, setNumber] = useState("25106010282276727214385741");
   // https://ewib.nbp.pl/faces/pages/daneDoPobrania.xhtml
@@ -53,8 +55,6 @@ function Data() {
     []
   );
 
-  console.log(ewib);
-
   const filtered = useMemo(
     () =>
       ewib.filter(({ code }) =>
@@ -63,6 +63,13 @@ function Data() {
         )
       ),
     [ewib, number]
+  );
+
+  const code = useMemo(() => `PL`, []);
+
+  const validIban = useMemo(
+    () => isValidIban(`${code}${number}`),
+    [code, number]
   );
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -84,10 +91,11 @@ function Data() {
           <tr>
             <td className={styles.pink}>
               <input
-                value={`PL`}
+                value={code}
                 readOnly
                 style={{
                   width: "calc(1.25 * 2ch)",
+                  color: validIban ? "green" : "red",
                 }}
               />
             </td>
@@ -97,6 +105,7 @@ function Data() {
                 onChange={handleChange}
                 style={{
                   width: "calc(1.25 * 26ch)",
+                  color: validIban ? "green" : "red",
                 }}
               />
             </td>
