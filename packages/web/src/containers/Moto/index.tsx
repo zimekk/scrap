@@ -18,7 +18,16 @@ import { Gallery } from "../../components/Gallery";
 import { Link } from "../../components/Link";
 import styles from "./styles.module.scss";
 
+interface OptionsState {
+  make: Record<string, string>;
+  fuel_type: Record<string, string>;
+  year: Record<string, string>;
+}
+
 interface FiltersState {
+  make: string;
+  fuel_type: string;
+  year: string;
   search: string;
 }
 
@@ -97,22 +106,103 @@ function Results({
     <Vehicles
       vehicles={results.filter(
         (item) =>
-          queries.search === "" ||
-          item.title.toLowerCase().match(queries.search)
+          (queries.make === "" ||
+            (item.parameters || []).findIndex(
+              ({ key, value }) => key === "make" && value === queries.make
+            ) >= 0) &&
+          (queries.fuel_type === "" ||
+            (item.parameters || []).findIndex(
+              ({ key, value }) =>
+                key === "fuel_type" && value === queries.fuel_type
+            ) >= 0) &&
+          (queries.year === "" ||
+            (item.parameters || []).findIndex(
+              ({ key, value }) => key === "year" && value === queries.year
+            ) >= 0) &&
+          (queries.search === "" ||
+            item.title.toLowerCase().match(queries.search))
       )}
     />
   );
 }
 
 function Filters({
+  options,
   filters,
   setFilters,
 }: {
+  options: OptionsState;
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
   return (
     <fieldset>
+      <label>
+        <span>Make</span>
+        <select
+          value={filters.make}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                make: target.value,
+              })),
+            []
+          )}
+        >
+          {[[""]]
+            .concat(Object.entries(options.make))
+            .map(([value, label = "-"]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+        </select>
+      </label>
+      <label>
+        <span>Fuel</span>
+        <select
+          value={filters.fuel_type}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                fuel_type: target.value,
+              })),
+            []
+          )}
+        >
+          {[[""]]
+            .concat(Object.entries(options.fuel_type))
+            .map(([value, label = "-"]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+        </select>
+      </label>
+      <label>
+        <span>Year</span>
+        <select
+          value={filters.year}
+          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                year: target.value,
+              })),
+            []
+          )}
+        >
+          {[[""]]
+            .concat(Object.entries(options.year))
+            .map(([value, label = "-"]) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+        </select>
+      </label>
       <label>
         <span>Search</span>
         <input
@@ -137,7 +227,37 @@ export default function Section({ version = "v1" }) {
     results: ItemType[];
   };
 
+  const options = useMemo(
+    () =>
+      results.reduce(
+        (options, item) =>
+          (item.parameters || [])
+            // .filter((parameters) => ["type"].includes(param.key))
+            .reduce(
+              (options: any, { key, value, displayValue }) =>
+                Object.assign(options, {
+                  [key]: Object.assign(
+                    options[key] || {},
+                    ["engine_capacity", "fuel_type", "make", "year"].includes(
+                      key
+                    )
+                      ? {
+                          [value]: displayValue.trim(),
+                        }
+                      : {}
+                  ),
+                }),
+              options
+            ),
+        {} as OptionsState
+      ),
+    [results]
+  );
+
   const [filters, setFilters] = useState<FiltersState>(() => ({
+    make: "",
+    fuel_type: "",
+    year: "",
     search: "",
   }));
 
@@ -168,12 +288,13 @@ export default function Section({ version = "v1" }) {
     search$.next(filters);
   }, [filters]);
 
+  console.log({ options });
   console.log({ results, filters, queries });
 
   return (
     <div className={styles.Section}>
       <h2>Moto</h2>
-      <Filters filters={filters} setFilters={setFilters} />
+      <Filters options={options} filters={filters} setFilters={setFilters} />
       <Results results={results} queries={queries} />
     </div>
   );
