@@ -58,9 +58,11 @@ function Data() {
   const filtered = useMemo(
     () =>
       ewib.filter(({ code }) =>
-        number.startsWith(
-          code.substring(0, Math.min(number.length, code.length))
-        )
+        number
+          .substring(2)
+          .startsWith(
+            code.substring(0, Math.min(number.length - 2, code.length))
+          )
       ),
     [ewib, number]
   );
