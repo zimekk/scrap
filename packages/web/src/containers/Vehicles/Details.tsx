@@ -1,14 +1,18 @@
 import React, {
-  ComponentProps,
-  Dispatch,
-  MouseEventHandler,
-  ReactNode,
-  SetStateAction,
+  type ComponentProps,
+  type Dispatch,
+  type MouseEventHandler,
+  type ReactNode,
+  type SetStateAction,
   useState,
 } from "react";
 import { format } from "date-fns";
 import { Link } from "../../components/Link";
-import { Calculator, ProductTypes, Vehicle } from "../../components/Calculator";
+import {
+  Calculator,
+  ProductTypes,
+  type Vehicle,
+} from "../../components/Calculator";
 import Options from "./Options";
 import cx from "classnames";
 import styles from "./Details.module.scss";

@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { quotesItems, quotesMetas } from "@dev/api/quotes";
 import type { Item, Meta } from "@dev/cli/src/services/QuotesService/types";
 

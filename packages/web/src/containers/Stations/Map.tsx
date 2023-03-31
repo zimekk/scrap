@@ -1,5 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useMemo } from "react";
-import L, { Icon, LatLng, LatLngBounds } from "leaflet";
+import React, {
+  type Dispatch,
+  type SetStateAction,
+  useEffect,
+  useMemo,
+} from "react";
+import L, { Icon, type LatLng, type LatLngBounds } from "leaflet";
 import { Marker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
 import cx from "classnames";

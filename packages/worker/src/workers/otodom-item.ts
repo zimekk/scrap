@@ -1,4 +1,4 @@
-import { ProcessCallbackFunction } from "bull";
+import { type ProcessCallbackFunction } from "bull";
 import { resolve } from "path";
 import { Entities } from "@dev/api/src/entities";
 import { browser } from "@dev/cli/src/request";

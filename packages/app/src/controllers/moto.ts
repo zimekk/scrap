@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { motoItems } from "@dev/api";
 import type { ItemType } from "@dev/cli/src/services/MotoService/types";
 

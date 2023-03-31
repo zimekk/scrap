@@ -1,7 +1,7 @@
 import React, {
-  ChangeEventHandler,
-  Dispatch,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,
@@ -16,10 +16,10 @@ export const PRICE_LIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 export const AMOUNT_LIST = [0, 10, 20, 30, 40, 50, 60, 70];
 
 interface FiltersState {
-  consumption: typeof CONSUMPTION_LIST[number];
-  distance: typeof DISTANCE_LIST[number];
-  price: typeof PRICE_LIST[number];
-  amount: typeof AMOUNT_LIST[number];
+  consumption: (typeof CONSUMPTION_LIST)[number];
+  distance: (typeof DISTANCE_LIST)[number];
+  price: (typeof PRICE_LIST)[number];
+  amount: (typeof AMOUNT_LIST)[number];
   roundTrip: boolean;
 }
 

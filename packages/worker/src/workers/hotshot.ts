@@ -1,4 +1,4 @@
-import { ProcessCallbackFunction } from "bull";
+import { type ProcessCallbackFunction } from "bull";
 import { z } from "zod";
 import { HotShotAltoService, HotShotService } from "@dev/cli/src/services";
 

@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { headingDistanceTo } from "geolocation-utils";
 import { stationItems } from "@dev/api/stations";
 import type { StationItem } from "@dev/cli/src/services/StationService/types";

@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { hotShotItems, promoItems } from "@dev/api/promo";
 import type { PromoType } from "@dev/cli/src/services/PromoService/types";
 import type { ItemType } from "@dev/cli/src/services/HotShotService/types";

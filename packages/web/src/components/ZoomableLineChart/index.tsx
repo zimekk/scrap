@@ -1,5 +1,5 @@
 import React, {
-  ReactNode,
+  type ReactNode,
   createContext,
   useContext,
   useEffect,
@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import {
-  ZoomTransform,
+  type ZoomTransform,
   area,
   bisector,
   brushX,

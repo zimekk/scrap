@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { directions, items, plots } from "@dev/api";
 
 export * from "./exchange";

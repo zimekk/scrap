@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { gpass } from "@dev/api";
 import type { GpassType } from "@dev/cli/src/services/GpassService/types";
 

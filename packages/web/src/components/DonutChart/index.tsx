@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
-import { PieArcDatum } from "d3-shape";
+import { type PieArcDatum } from "d3-shape";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 

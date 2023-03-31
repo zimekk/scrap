@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import fetch from "isomorphic-fetch";
 import path from "path";
 import { constants, promises } from "fs";

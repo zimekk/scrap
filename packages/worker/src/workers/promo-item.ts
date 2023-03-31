@@ -1,4 +1,4 @@
-import { ProcessCallbackFunction } from "bull";
+import { type ProcessCallbackFunction } from "bull";
 import { PromoService } from "@dev/cli/src/services";
 
 type Summary = {

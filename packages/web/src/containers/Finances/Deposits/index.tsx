@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useCallback, useState } from "react";
+import React, { type ChangeEventHandler, useCallback, useState } from "react";
 import { format } from "date-fns";
 import { parseTransaction } from "./utils";
 import styles from "./styles.module.scss";
@@ -182,9 +182,7 @@ Obciążenie`,
   );
 
   const [selected, setSelected] = useState<number[]>(() =>
-    deposits
-      .map(([_, income], i) => (Boolean(income) ? i : -1))
-      .filter((i) => i >= 0)
+    deposits.map(([_, income], i) => (income ? i : -1)).filter((i) => i >= 0)
   );
   // console.log(deposits);
 

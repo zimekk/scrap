@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from "react";
+import { type RefObject, useEffect, useState } from "react";
 import ResizeObserver from "resize-observer-polyfill";
 
 // https://github.com/muratkemaldar/using-react-hooks-with-d3/blob/16-zoomable-line-chart/src/useResizeObserver.js

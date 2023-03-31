@@ -1,8 +1,8 @@
 import React, {
-  ChangeEventHandler,
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
+  type ChangeEventHandler,
+  type Dispatch,
+  type MouseEventHandler,
+  type SetStateAction,
   useCallback,
   useEffect,
   useMemo,

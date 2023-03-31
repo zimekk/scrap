@@ -7,7 +7,7 @@ import React, {
   useState,
 } from "react";
 import { format } from "date-fns";
-import { LatLng } from "leaflet";
+import { type LatLng } from "leaflet";
 import { createAsset } from "use-asset";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";

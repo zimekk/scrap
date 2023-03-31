@@ -1,4 +1,4 @@
-import { ProcessCallbackFunction } from "bull";
+import { type ProcessCallbackFunction } from "bull";
 import { PropertyOtodomService } from "@dev/cli/src/services";
 
 type Summary = {

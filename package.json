@@ -31,7 +31,12 @@
     "rules": {
       "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/ban-types": "warn",
-      "@typescript-eslint/consistent-type-imports": "warn",
+      "@typescript-eslint/consistent-type-imports": [
+        "warn",
+        {
+          "fixStyle": "inline-type-imports"
+        }
+      ],
       "@typescript-eslint/no-empty-function": "warn",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-var-requires": "off",

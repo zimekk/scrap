@@ -1,6 +1,6 @@
 import React, {
-  ChangeEvent,
-  ChangeEventHandler,
+  type ChangeEvent,
+  type ChangeEventHandler,
   useCallback,
   useEffect,
   useMemo,

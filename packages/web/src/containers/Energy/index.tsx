@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Calculations from "./Calculations";
 import styles from "./styles.module.scss";
 
-import { Items, RATES_1, RATES_2, Rates } from "./utils";
+import { type Items, RATES_1, RATES_2, type Rates } from "./utils";
 
 export const ITEMS_1: Items[] = [
   [

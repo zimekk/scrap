@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import L from "leaflet";
+import type L from "leaflet";
 import { Marker, Tooltip, useMap } from "react-leaflet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";

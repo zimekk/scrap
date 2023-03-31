@@ -1,7 +1,6 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { z } from "zod";
-import { items } from "@dev/api";
-import { profilesItems, propertyItems } from "@dev/api";
+import { items, profilesItems, propertyItems } from "@dev/api";
 
 require("dotenv").config();
 

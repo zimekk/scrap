@@ -1,5 +1,5 @@
 import bodyParser from "body-parser";
-import express, { Express, Router } from "express";
+import express, { type Express, Router } from "express";
 import http from "http";
 import * as controllers from "./controllers";
 

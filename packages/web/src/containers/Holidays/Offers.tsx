@@ -1,5 +1,5 @@
 import React, {
-  MouseEventHandler,
+  type MouseEventHandler,
   Suspense,
   useCallback,
   useMemo,

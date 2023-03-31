@@ -1,6 +1,6 @@
 import path from "path";
 import { Configuration, EnvironmentPlugin } from "webpack";
-import "webpack-dev-server";
+// import "webpack-dev-server";
 import { RequestHandler } from "webpack-dev-server";
 import config from "@dev/bundle";
 import client from "@dev/web/webpack.config";

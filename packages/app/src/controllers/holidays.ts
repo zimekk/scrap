@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { holidaysItems, holidaysTuiItems } from "@dev/api/holidays";
 import {
   BASE_URL,

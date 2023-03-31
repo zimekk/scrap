@@ -1,11 +1,11 @@
 import React, {
-  ChangeEventHandler,
-  MouseEventHandler,
+  type ChangeEventHandler,
+  type MouseEventHandler,
   useCallback,
   useState,
 } from "react";
 import { format } from "date-fns";
-import { Items, Rates, getMatch } from "./utils";
+import { type Items, type Rates, getMatch } from "./utils";
 import styles from "./styles.module.scss";
 
 const formatRange = (from: string, to: string) =>

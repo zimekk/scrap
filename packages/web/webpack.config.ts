@@ -4,10 +4,10 @@ import CopyWebpackPlugin from "copy-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import {
-  Configuration,
+  type Configuration,
   EnvironmentPlugin,
   ProvidePlugin,
-  WebpackPluginInstance,
+  type WebpackPluginInstance,
 } from "webpack";
 import * as config from "@dev/bundle";
 

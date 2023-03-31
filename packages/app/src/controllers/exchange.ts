@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { ratesItems } from "@dev/api/rates";
 import type { Rate } from "@dev/cli/src/services/RatesService/types";
 

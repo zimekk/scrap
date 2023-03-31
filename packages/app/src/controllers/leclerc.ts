@@ -1,4 +1,4 @@
-import { RequestHandler } from "express";
+import { type RequestHandler } from "express";
 import { leclerc } from "@dev/api";
 import type { LeclercType } from "@dev/cli/src/services/LeclercService/types";
 

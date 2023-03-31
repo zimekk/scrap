@@ -1,6 +1,6 @@
 import React, {
   createContext,
-  MouseEventHandler,
+  type MouseEventHandler,
   useContext,
   useState,
 } from "react";
