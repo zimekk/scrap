@@ -1,0 +1,25 @@
+.Section {
+  color: purple;
+}
+.History {
+  margin: 1em;
+}
+.Divider {
+  border-top: 2px solid purple;
+  a {
+    position: relative;
+    top: -0.6em;
+    padding-right: 0.25em;
+    background: white;
+    color: currentColor;
+    text-decoration: none;
+  }
+}
+.Details {
+  h4 {
+    margin: 0.5em 0;
+  }
+  td {
+    vertical-align: top;
+  }
+}
