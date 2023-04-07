@@ -72,6 +72,47 @@ function Data() {
   ]);
   const [balance] = useState(() => [
     {
+      date: "2023-04-07",
+      number: "183",
+      amount: 3.64,
+      net: 1_160,
+      min: "93:43",
+      sms: 61,
+    },
+    {
+      date: "2023-04-07",
+      number: "938",
+      amount: 10.94,
+      net: 2_000,
+      min: 112,
+      sms: 127,
+    },
+    {
+      date: "2023-04-07",
+      number: "379",
+      amount: 27.72,
+      net: 7_690,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-04-07",
+      number: "818",
+      amount: 13.65,
+      net: 2_930,
+      min: 166,
+      sms: 112,
+    },
+    {
+      date: "2023-04-07",
+      number: "828",
+      amount: 5.2,
+      net: 268,
+      min: 150,
+      sms: 112,
+    },
+
+    {
       date: "2023-04-04",
       number: "183",
       amount: 3.95,
