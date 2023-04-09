@@ -123,7 +123,7 @@ function Data({ version = "v1" }) {
   const [filters, setFilters] = useState(() => ({
     category: "",
     search: "",
-    onlyReduced: false,
+    onlyReduced: true,
     priceFrom: PRICE_LIST[0],
     priceTo: PRICE_LIST[PRICE_LIST.length - 1],
   }));
