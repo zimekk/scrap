@@ -17,6 +17,8 @@ const parseMin = (min: number | string) =>
 
 function Data() {
   const [recharges] = useState(() => [
+    { date: "2023-04-19", number: "183", amount: 10 },
+
     { date: "2023-04-01", number: "183", amount: 15 },
     { date: "2023-04-01", number: "938", amount: 5 },
     { date: "2023-04-01", number: "379", amount: 25 },
@@ -39,6 +41,9 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 5 },
   ]);
   const [purchases] = useState(() => [
+    { date: "2023-04-19", number: "183", amount: 9, net: "2GB" },
+    { date: "2023-04-19", number: "828", amount: 5, net: "1GB" },
+
     {
       date: "2023-04-10",
       number: "379",
@@ -79,6 +84,94 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-04-21",
+      number: "183",
+      amount: 4.95,
+      net: 2_100,
+      min: "89:36",
+      sms: 45,
+    },
+    {
+      date: "2023-04-21",
+      number: "938",
+      amount: 10.94,
+      net: 1_970,
+      min: "99:37",
+      sms: 111,
+    },
+    {
+      date: "2023-04-21",
+      number: "379",
+      amount: 2.72,
+      net: 8_640,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-04-21",
+      number: "818",
+      amount: 13.65,
+      net: 2_830,
+      min: 166,
+      sms: 105,
+    },
+    {
+      date: "2023-04-21",
+      number: "828",
+      amount: 0.2,
+      // net: 1_210,
+      net: 1_210,
+      min: 150,
+      sms: 77,
+    },
+
+    {
+      date: "2023-04-19",
+      number: "183",
+      amount: 3.95,
+      // amount: 13.95,
+      // amount: 4.95,
+      net: 125,
+      // net: 2_120,
+      min: "89:36",
+      sms: 45,
+    },
+    {
+      date: "2023-04-19",
+      number: "938",
+      amount: 10.94,
+      net: 1_970,
+      min: 101,
+      sms: 111,
+    },
+    {
+      date: "2023-04-19",
+      number: "379",
+      amount: 2.72,
+      net: 8_850,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-04-19",
+      number: "818",
+      amount: 13.65,
+      net: 2_870,
+      min: 166,
+      sms: 105,
+    },
+    {
+      date: "2023-04-19",
+      number: "828",
+      amount: 5.2,
+      // amount: .2,
+      net: 225,
+      // net: 1_210,
+      min: 150,
+      sms: 77,
+    },
+
     {
       date: "2023-04-17",
       number: "183",
