@@ -145,27 +145,135 @@ Obciążenie`,
       ],
       [
         `Tytuł
-        OTWARCIE LOKATY NR 37..96 3M7.5% DO 09-05-2023
-        Kwota
-        -10 000,00 PLN
-        Data przelewu
-        09.02.2023
-        Data waluty
-        09.02.2023
-        Rodzaj operacji
-        Obciążenie`,
+OTWARCIE LOKATY NR 37..96 3M7.5% DO 09-05-2023
+Kwota
+-10 000,00 PLN
+Data przelewu
+09.02.2023
+Data waluty
+09.02.2023
+Rodzaj operacji
+Obciążenie`,
       ],
       [
         `Tytuł
-        OTWARCIE LOKATY NR 32..88 3M7.5% DO 09-05-2023
-        Kwota
-        -10 000,00 PLN
-        Data przelewu
-        09.02.2023
-        Data waluty
-        09.02.2023
-        Rodzaj operacji
-        Obciążenie`,
+OTWARCIE LOKATY NR 32..88 3M7.5% DO 09-05-2023
+Kwota
+-10 000,00 PLN
+Data przelewu
+09.02.2023
+Data waluty
+09.02.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 88..04 3 M DO 27-05-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+27.02.2023
+Data waluty
+27.02.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 14..80 3 M DO 09-06-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+09.03.2023
+Data waluty
+09.03.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 32..98 3 M DO 09-06-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+09.03.2023
+Data waluty
+09.03.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 80..45 3 M DO 09-06-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+09.03.2023
+Data waluty
+09.03.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 17..25 3 M DO 29-06-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+29.03.2023
+Data waluty
+29.03.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 65..25 3 M DO 26-07-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+26.04.2023
+Data waluty
+26.04.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 70..33 3 M DO 26-07-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+26.04.2023
+Data waluty
+26.04.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00001 48..41 3 M DO 26-07-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+26.04.2023
+Data waluty
+26.04.2023
+Rodzaj operacji
+Obciążenie`,
+      ],
+      [
+        `Tytuł
+OTWARCIE LOKATY NR 00002 13..80 3 M DO 27-07-2023 OPROC.ST. 7,500000%
+Kwota
+-10 000,00 PLN
+Data przelewu
+27.04.2023
+Data waluty
+27.04.2023
+Rodzaj operacji
+Obciążenie`,
       ],
     ].map((transactions) =>
       transactions

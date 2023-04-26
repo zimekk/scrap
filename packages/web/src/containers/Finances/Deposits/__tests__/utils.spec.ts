@@ -43,8 +43,7 @@ Data operacji
         Rodzaj operacji
         Obciążenie`,
         result: {
-          "Tytuł przelewu":
-            "OTWARCIE LOKATY NR 00002 32..88 3 M DO 09-05-2023 OPROC.ST. 7,500000%",
+          "Tytuł przelewu": "OTWARCIE LOKATY NR 32..88 3M7.5% DO 09-05-2023",
           "Kwota operacji": 10000,
           "Data operacji": parse("09.02.2023", "dd.MM.yyyy", now),
         },

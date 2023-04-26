@@ -3,6 +3,21 @@ import { z } from "zod";
 
 export const now = Date.now();
 
+export const parseTitle = (s: string) =>
+  (([_, title, _nr, number, months, to, percent]) =>
+    _
+      ? [
+          title,
+          number,
+          `${months}M${Number((percent || "").replace(",", "."))}%`,
+          to,
+        ].join(" ")
+      : s)(
+    s.match(
+      /^(OTWARCIE LOKATY NR)( \d+)? (\d[\.\d]+\d) (\d) M (DO [-\d]+) OPROC.ST. ([,\d]+)%$/
+    ) || []
+  );
+
 export const parseTransaction = (s: string) =>
   z
     .union([
@@ -46,7 +61,7 @@ export const parseTransaction = (s: string) =>
           z.enum(["Naliczenie odsetek", "Obciążenie", "Uznanie"]),
         ])
         .transform(([_k1, title, _k2, amount, _k3, date]) => ({
-          "Tytuł przelewu": title,
+          "Tytuł przelewu": parseTitle(title),
           "Kwota operacji": Math.abs(amount),
           "Data operacji": date,
         })),
