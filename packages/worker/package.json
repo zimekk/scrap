@@ -24,8 +24,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@bull-board/api": "^5.1.1",
-    "@bull-board/express": "^5.1.1",
+    "@bull-board/api": "^5.1.2",
+    "@bull-board/express": "^5.1.2",
     "bull": "^4.10.4",
     "dotenv": "^16.0.3",
     "milliseconds": "^1.0.3"
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/bull": "^4.10.0",
     "@types/milliseconds": "^0.0.30",
-    "@types/node": "^18.16.1",
+    "@types/node": "^18.16.3",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
