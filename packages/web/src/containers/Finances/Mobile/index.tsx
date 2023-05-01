@@ -17,6 +17,12 @@ const parseMin = (min: number | string) =>
 
 function Data() {
   const [recharges] = useState(() => [
+    { date: "2023-05-01", number: "183", amount: 5 },
+    { date: "2023-05-01", number: "938", amount: 5 },
+    { date: "2023-05-01", number: "379", amount: 25 },
+    { date: "2023-05-01", number: "818", amount: 5 },
+    { date: "2023-05-01", number: "828", amount: 5 },
+
     { date: "2023-04-19", number: "183", amount: 10 },
 
     { date: "2023-04-01", number: "183", amount: 15 },
@@ -41,6 +47,8 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 5 },
   ]);
   const [purchases] = useState(() => [
+    { date: "2023-05-01", number: "938", amount: 15, min: 100 },
+
     { date: "2023-04-19", number: "183", amount: 9, net: "2GB" },
     { date: "2023-04-19", number: "828", amount: 5, net: "1GB" },
 
@@ -84,6 +92,50 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-05-01",
+      number: "183",
+      amount: 4.95,
+      // amount: 9.95,
+      net: 1_870,
+      min: "88:05",
+      sms: 45,
+    },
+    {
+      date: "2023-05-01",
+      number: "938",
+      amount: 10.94,
+      // amount: 0.94,
+      net: 1_950,
+      min: "99:37",
+      // min: 199,
+      sms: 111,
+    },
+    {
+      date: "2023-05-01",
+      number: "379",
+      amount: 2.72,
+      net: 7_450,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-05-01",
+      number: "818",
+      amount: 13.65,
+      net: 2_780,
+      min: 166,
+      sms: 105,
+    },
+    {
+      date: "2023-05-01",
+      number: "828",
+      amount: 0.2,
+      net: 1_080,
+      min: 150,
+      sms: 77,
+    },
+
     {
       date: "2023-04-26",
       number: "183",
