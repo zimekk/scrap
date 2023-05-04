@@ -48,9 +48,10 @@ export const Type = {
   ROSSM: "ROSSM",
   RYNEK: "RYNEK",
   SALOM: "SALOM",
-  THULE: "THULE",
   STATIONS: "STATIONS",
   STATION: "STATION",
+  STOCK: "STOCK",
+  THULE: "THULE",
   UNKNOWN: "UNKNOWN",
 } as const;
 
@@ -403,12 +404,6 @@ export const sync = async (type = "") => {
           }),
         }),
         z.object({
-          type: z.literal(Type.THULE),
-          data: z.object({
-            url: z.string(),
-          }),
-        }),
-        z.object({
           type: z.literal(Type.STATIONS),
           data: z.object({
             url: z.string(),
@@ -437,6 +432,18 @@ export const sync = async (type = "") => {
                 console.log({ item });
               }
             }),
+        }),
+        z.object({
+          type: z.literal(Type.STOCK),
+          data: z.object({
+            url: z.string(),
+          }),
+        }),
+        z.object({
+          type: z.literal(Type.THULE),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
         z.object({
           type: z.literal(Type.UNKNOWN),
