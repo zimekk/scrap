@@ -144,36 +144,64 @@ export default function Section({ version = "v1" }) {
       ["2023-02-23"]: [504.65],
       ["2023-03-23"]: [504.65],
       ["2023-04-21"]: [504.65],
+      ["2023-05-23"]: [193.21, 331.03],
+      ["2023-06-23"]: [182.98, 341.26],
+      ["2023-07-21"]: [194.73, 329.51],
     }),
     []
   );
 
-  const list = useMemo(
-    () =>
-      rates
-        .filter((item) => item.code === code)
-        .filter((item) => Object.keys(values).includes(item.date))
-        .map(({ buy, code, date, sell, spread, time, units }) => ({
-          date: new Date(date),
+  const list = useMemo(() => {
+    const result = Object.entries(values).reduce(
+      (result, [date, factors]) =>
+        Object.assign(result, {
+          [date]: {
+            date: new Date(date),
+            value: factors.reduce((sum, val) => sum + val, 0),
+            add: 60.0,
+          },
+        }),
+      {} as Record<
+        string,
+        {
+          date: Date;
+          value: number;
+          add: number;
+          name?: string;
+          buy?: number;
+          sell?: number;
+          spread?: number;
+          pay?: number;
+          sum?: number;
+        }
+      >
+    );
+
+    rates
+      .filter((item) => item.code === code && item.date in result)
+      .forEach(({ buy, code, date, sell, spread, units }) =>
+        Object.assign(result[date], {
           name: `${units} ${code}`,
           buy: Number(buy),
           sell: Number(sell),
           spread: Number(spread),
           value: values[date].reduce((sum, val) => sum + val, 0),
-          add: 60.0,
-        }))
-        .map((item) =>
-          ((pay) =>
-            Object.assign(item, {
-              pay,
-              sum: pay + item.add,
-            }))(Math.round(100 * item.sell * item.value) / 100)
+        })
+      );
+    return Object.values(result)
+      .map((item) =>
+        Object.assign(
+          item,
+          item.sell
+            ? ((pay) => ({
+                pay,
+                sum: pay + item.add,
+              }))(Math.round(100 * item.sell * item.value) / 100)
+            : {}
         )
-        .sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-        ),
-    [rates, values, code]
-  );
+      )
+      .sort((a, b) => b.date.getTime() - a.date.getTime());
+  }, [rates, values, code]);
 
   const series = useMemo(
     () =>
@@ -271,19 +299,25 @@ export default function Section({ version = "v1" }) {
               <td align="right">{format(item.date, "dd.MM.yyyy")}</td>
               <td>{item.name}</td>
               <td align="right">
-                {new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 4,
-                }).format(item.buy)}
+                {item.buy
+                  ? new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 4,
+                    }).format(item.buy)
+                  : ""}
               </td>
               <td align="right">
-                {new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 4,
-                }).format(item.sell)}
+                {item.sell
+                  ? new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 4,
+                    }).format(item.sell)
+                  : ""}
               </td>
               <td align="right">
-                {new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 4,
-                }).format(item.spread)}
+                {item.spread
+                  ? new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 4,
+                    }).format(item.spread)
+                  : ""}
               </td>
               <td align="right">
                 {new Intl.NumberFormat("pl-PL", {
@@ -296,14 +330,18 @@ export default function Section({ version = "v1" }) {
                 }).format(item.add)}
               </td>
               <td align="right">
-                {new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 2,
-                }).format(item.pay)}
+                {item.pay
+                  ? new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 2,
+                    }).format(item.pay)
+                  : ""}
               </td>
               <td align="right">
-                {new Intl.NumberFormat("pl-PL", {
-                  minimumFractionDigits: 2,
-                }).format(item.sum)}
+                {item.sum
+                  ? new Intl.NumberFormat("pl-PL", {
+                      minimumFractionDigits: 2,
+                    }).format(item.sum)
+                  : ""}
               </td>
             </tr>
           ))}
@@ -314,8 +352,8 @@ export default function Section({ version = "v1" }) {
               ({ value, add, pay, sum }, item) => ({
                 value: value + item.value,
                 add: add + item.add,
-                pay: pay + item.pay,
-                sum: sum + item.sum,
+                pay: pay + (item.pay || 0),
+                sum: sum + (item.sum || 0),
               }),
               {
                 value: 0,
