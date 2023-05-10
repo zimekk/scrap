@@ -11,6 +11,7 @@ import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
+import update from "immutability-helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import type { ItemType } from "@dev/cli/src/services/MotoService/types";
@@ -20,14 +21,18 @@ import styles from "./styles.module.scss";
 
 interface OptionsState {
   make: Record<string, string>;
+  engine_capacity: number[];
   fuel_type: Record<string, string>;
-  year: Record<string, string>;
+  year: number[];
 }
 
 interface FiltersState {
   make: string;
   fuel_type: string;
-  year: string;
+  capacityFrom: number;
+  capacityTo: number;
+  yearFrom: number;
+  yearTo: number;
   priceFrom: number;
   priceTo: number;
   mileageFrom: number;
@@ -35,17 +40,28 @@ interface FiltersState {
   search: string;
 }
 
-const PRICE_LIST = [
-  0, 25000, 50000, 100000, 150000, 200000, 250000, 300000, 400000, 500000,
+const MILEAGE_LIST = [
+  0, 10000, 20000, 30000, 50000, 70000, 100000, 150000, 200000, 300000, 500000,
 ] as const;
 
-const MILEAGE_LIST = [
-  0, 10000, 20000, 30000, 50000, 70000, 100000, 150000, 200000, 300000,
+const PRICE_LIST = [
+  0, 25000, 50000, 100000, 150000, 200000, 250000, 300000, 400000, 500000,
+  600000,
 ] as const;
 
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/moto/data.json?${version}`);
-  return await res.json().then((list) => list);
+  return await res
+    .json()
+    .then(
+      (list) =>
+        list as {
+          results: ItemType[];
+        }
+    )
+    .then(({ results }) => ({
+      results: results.sort((a, b) => b._created - a._created),
+    }));
 });
 
 function Vehicle({ item }: { item: ItemType }) {
@@ -114,9 +130,9 @@ function Results({
   results: ItemType[];
   queries: FiltersState;
 }) {
-  return (
-    <Vehicles
-      vehicles={results.filter(
+  const vehicles = useMemo(
+    () =>
+      results.filter(
         (item) =>
           (queries.make === "" ||
             (item.parameters || []).findIndex(
@@ -127,23 +143,41 @@ function Results({
               ({ key, value }) =>
                 key === "fuel_type" && value === queries.fuel_type
             ) >= 0) &&
-          (queries.year === "" ||
-            (item.parameters || []).findIndex(
-              ({ key, value }) => key === "year" && value === queries.year
-            ) >= 0) &&
-          (item.parameters || []).findIndex(
-            ({ key, value }) =>
-              key === "mileage" &&
+          ((parameter) =>
+            !parameter ||
+            (({ value }) =>
+              queries.yearFrom <= Number(value) &&
+              Number(value) <= queries.yearTo)(parameter))(
+            (item.parameters || []).find(({ key }) => key === "year")
+          ) &&
+          ((parameter) =>
+            !parameter ||
+            (({ value }) =>
+              queries.capacityFrom <= Number(value) &&
+              Number(value) <= queries.capacityTo)(parameter))(
+            (item.parameters || []).find(({ key }) => key === "engine_capacity")
+          ) &&
+          ((parameter) =>
+            !parameter ||
+            (({ value }) =>
               queries.mileageFrom <= Number(value) &&
-              Number(value) <= queries.mileageTo
-          ) >= 0 &&
-          (queries.priceTo === PRICE_LIST[0] ||
+              Number(value) <= queries.mileageTo)(parameter))(
+            (item.parameters || []).find(({ key }) => key === "mileage")
+          ) &&
+          (queries.priceFrom === PRICE_LIST[0] ||
             (queries.priceFrom <= item.price &&
               item.price <= queries.priceTo)) &&
           (queries.search === "" ||
-            item.title.toLowerCase().match(queries.search))
-      )}
-    />
+            item.title.toLowerCase().match(queries.search) ||
+            item.shortDescription?.toLowerCase().match(queries.search))
+      ),
+    [results, queries]
+  );
+  return (
+    <div>
+      <div>{`Found ${vehicles.length} vehicles out of a total of ${results.length}`}</div>
+      <Vehicles vehicles={vehicles} />
+    </div>
   );
 }
 
@@ -156,6 +190,9 @@ function Filters({
   filters: FiltersState;
   setFilters: Dispatch<SetStateAction<FiltersState>>;
 }) {
+  const CAPACITY_LIST = options.engine_capacity;
+  const YEAR_LIST = options.year;
+
   return (
     <fieldset>
       <label>
@@ -203,28 +240,6 @@ function Filters({
         </select>
       </label>
       <label>
-        <span>Year</span>
-        <select
-          value={filters.year}
-          onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
-            ({ target }) =>
-              setFilters((filters) => ({
-                ...filters,
-                year: target.value,
-              })),
-            []
-          )}
-        >
-          {[[""]]
-            .concat(Object.entries(options.year))
-            .map(([value, label = "-"]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-        </select>
-      </label>
-      <label>
         <span>Search</span>
         <input
           type="search"
@@ -239,6 +254,118 @@ function Filters({
           )}
         />
       </label>
+      <div>
+        <label>
+          <span>Capacity From</span>
+          <input
+            type="range"
+            list="capacity-list"
+            min={CAPACITY_LIST[0]}
+            max={CAPACITY_LIST[CAPACITY_LIST.length - 1]}
+            value={filters.capacityFrom}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ capacityTo, ...criteria }) => {
+                  const capacityFrom = Number(target.value);
+                  return {
+                    ...criteria,
+                    capacityFrom,
+                    capacityTo:
+                      capacityTo < capacityFrom ? capacityFrom : capacityTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <datalist id="capacity-list">
+            {CAPACITY_LIST.map((value) => (
+              <option key={value} value={value}></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Capacity To</span>
+          <input
+            type="range"
+            list="capacity-list"
+            min={CAPACITY_LIST[0]}
+            max={CAPACITY_LIST[CAPACITY_LIST.length - 1]}
+            value={filters.capacityTo}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ capacityFrom, ...criteria }) => {
+                  const capacityTo = Number(target.value);
+                  return {
+                    ...criteria,
+                    capacityFrom:
+                      capacityTo > capacityFrom ? capacityFrom : capacityTo,
+                    capacityTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <span>{`${new Intl.NumberFormat().format(
+            filters.capacityFrom
+          )} - ${new Intl.NumberFormat().format(
+            filters.capacityTo
+          )} cm3`}</span>
+        </label>
+      </div>
+      <div>
+        <label>
+          <span>Year From</span>
+          <input
+            type="range"
+            list="year-list"
+            min={YEAR_LIST[0]}
+            max={YEAR_LIST[YEAR_LIST.length - 1]}
+            value={filters.yearFrom}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ yearTo, ...criteria }) => {
+                  const yearFrom = Number(target.value);
+                  return {
+                    ...criteria,
+                    yearFrom,
+                    yearTo: yearTo < yearFrom ? yearFrom : yearTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <datalist id="year-list">
+            {YEAR_LIST.map((value) => (
+              <option key={value} value={value}></option>
+            ))}
+          </datalist>
+        </label>
+        <label>
+          <span>Year To</span>
+          <input
+            type="range"
+            list="year-list"
+            min={YEAR_LIST[0]}
+            max={YEAR_LIST[YEAR_LIST.length - 1]}
+            value={filters.yearTo}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters(({ yearFrom, ...criteria }) => {
+                  const yearTo = Number(target.value);
+                  return {
+                    ...criteria,
+                    yearFrom: yearTo > yearFrom ? yearFrom : yearTo,
+                    yearTo,
+                  };
+                }),
+              []
+            )}
+          />
+          <span>{`${new Intl.NumberFormat().format(
+            filters.yearFrom
+          )} - ${new Intl.NumberFormat().format(filters.yearTo)}`}</span>
+        </label>
+      </div>
       <div>
         <label>
           <span>Mileage From</span>
@@ -354,29 +481,45 @@ function Filters({
 }
 
 export default function Section({ version = "v1" }) {
-  const { results } = asset.read(version) as {
-    results: ItemType[];
-  };
+  const { results } = asset.read(version);
 
   const options = useMemo(
     () =>
-      results.reduce(
-        (options, item) =>
-          (item.parameters || []).reduce(
-            (options: any, { key, value, displayValue }) =>
-              Object.assign(options, {
-                [key]: Object.assign(
-                  options[key] || {},
-                  ["engine_capacity", "fuel_type", "make", "year"].includes(key)
-                    ? {
-                        [value]: displayValue.trim(),
-                      }
-                    : {}
-                ),
-              }),
-            options
-          ),
-        {} as OptionsState
+      update(
+        results.reduce(
+          (options, item) =>
+            (item.parameters || []).reduce(
+              (options: any, { key, value, displayValue }) =>
+                Object.assign(options, {
+                  [key]: Object.assign(
+                    options[key] || {},
+                    ["engine_capacity", "fuel_type", "make", "year"].includes(
+                      key
+                    )
+                      ? {
+                          [value]: displayValue.trim(),
+                        }
+                      : {}
+                  ),
+                }),
+              options
+            ),
+          {} as OptionsState
+        ),
+        {
+          engine_capacity: {
+            $apply: (engine_capacity: object) =>
+              Object.keys(engine_capacity)
+                .map(Number)
+                .sort((a, b) => a - b),
+          },
+          year: {
+            $apply: (year: object) =>
+              Object.keys(year)
+                .map(Number)
+                .sort((a, b) => a - b),
+          },
+        }
       ),
     [results]
   );
@@ -384,7 +527,10 @@ export default function Section({ version = "v1" }) {
   const [filters, setFilters] = useState<FiltersState>(() => ({
     make: "",
     fuel_type: "",
-    year: "",
+    capacityFrom: options.engine_capacity[0],
+    capacityTo: options.engine_capacity[options.engine_capacity.length - 1],
+    yearFrom: options.year[0],
+    yearTo: options.year[options.year.length - 1],
     mileageFrom: MILEAGE_LIST[0],
     mileageTo: MILEAGE_LIST[MILEAGE_LIST.length - 1],
     priceFrom: PRICE_LIST[0],
