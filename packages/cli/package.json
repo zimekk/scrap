@@ -37,7 +37,7 @@
     "html-entities": "^2.3.3",
     "intl-messageformat": "^10.3.5",
     "isomorphic-fetch": "^3.0.0",
-    "json-diff": "^1.0.4",
+    "json-diff": "^1.0.3",
     "microdata-node": "^2.0.0",
     "node-html-parser": "^6.1.5",
     "puppeteer": "^20.2.0",

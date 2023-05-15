@@ -39,7 +39,7 @@
     "leaflet": "^1.9.3",
     "observable-hooks": "^4.2.1",
     "pako": "^2.1.0",
-    "qs": "^6.11.0",
+    "qs": "^6.11.2",
     "raf": "^3.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -88,7 +88,7 @@
     "stream-browserify": "^3.0.0",
     "style-loader": "^3.3.2",
     "webpack": "^5.82.1",
-    "webpack-cli": "^5.1.0",
+    "webpack-cli": "^5.1.1",
     "webpack-dev-server": "^4.15.0"
   }
 }
