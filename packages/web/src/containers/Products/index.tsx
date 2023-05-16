@@ -126,6 +126,7 @@ function Data({ version = "v1" }) {
     brand: options.brand[0],
     category: "",
     search: "",
+    onlyMinimal: true,
     onlyPromoted: false,
     onlyReduced: false,
     priceFrom: PRICE_LIST[0],
@@ -202,6 +203,7 @@ function Data({ version = "v1" }) {
             item.priceNow <= filters.priceTo &&
             filterPriceChange(item, filters.priceChange) &&
             (!filters.brand || [item.brand].includes(filters.brand)) &&
+            (!filters.onlyMinimal || item.priceNow === item.priceMin) &&
             (!filters.onlyPromoted || item.proms.length > 0) &&
             (!filters.onlyReduced || item.price.length > 1)
         ),
@@ -212,6 +214,7 @@ function Data({ version = "v1" }) {
       filters.priceFrom,
       filters.priceTo,
       filters.priceChange,
+      filters.onlyMinimal,
       filters.onlyPromoted,
       filters.onlyReduced,
     ]
@@ -286,6 +289,21 @@ function Data({ version = "v1" }) {
         <label>
           <input
             type="checkbox"
+            checked={filters.onlyMinimal}
+            onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+              ({ target }) =>
+                setFilters((filters) => ({
+                  ...filters,
+                  onlyMinimal: target.checked,
+                })),
+              []
+            )}
+          />
+          <span>Minimal</span>
+        </label>
+        <label>
+          <input
+            type="checkbox"
             checked={filters.onlyPromoted}
             onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
               ({ target }) =>
@@ -296,7 +314,7 @@ function Data({ version = "v1" }) {
               []
             )}
           />
-          <span>Only Promoted</span>
+          <span>Promoted</span>
         </label>
         <label>
           <input
@@ -311,7 +329,7 @@ function Data({ version = "v1" }) {
               []
             )}
           />
-          <span>Only Reduced</span>
+          <span>Reduced</span>
         </label>
         <div>
           <label>
