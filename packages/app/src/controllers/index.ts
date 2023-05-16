@@ -1,5 +1,5 @@
 import { type RequestHandler } from "express";
-import { directions, items, plots } from "@dev/api";
+import { directions, items } from "@dev/api";
 
 export * from "./exchange";
 export * from "./games";
@@ -7,6 +7,7 @@ export * from "./gpass";
 export * from "./holidays";
 export * from "./leclerc";
 export * from "./moto";
+export * from "./plots";
 export * from "./products";
 export * from "./promo";
 export * from "./properties";
@@ -20,9 +21,6 @@ export const getData: RequestHandler = (_req, res) =>
 
 export const getDirectionsData: RequestHandler = (_req, res) =>
   Promise.all([directions.find({})]).then(([results]) => res.json(results));
-
-export const getPlotsData: RequestHandler = (_req, res) =>
-  Promise.all([plots.find({})]).then(([results]) => res.json(results));
 
 export const processUrl: RequestHandler = ({ body }, res) =>
   fetch("https://robot.phpsolutions.pl/process", {

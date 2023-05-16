@@ -1,6 +1,8 @@
 import React, {
+  type ChangeEvent,
   type ChangeEventHandler,
   type Dispatch,
+  type ReactNode,
   type SetStateAction,
   useCallback,
   useEffect,
@@ -28,6 +30,7 @@ import {
 } from "../Properties/Location";
 import styles from "./styles.module.scss";
 import { useSubscription } from "observable-hooks";
+import cx from "classnames";
 
 const SORT_BY = {
   _created: -1,
@@ -42,11 +45,15 @@ interface FiltersState {
   type: string;
   search: string;
   sortBy: keyof typeof SORT_BY;
+  showHide: boolean;
+  onlyLike: boolean;
   areaFrom: number;
   areaTo: number;
   priceFrom: number;
   priceTo: number;
 }
+
+type LocalItemType = ItemType & { _hide: boolean; _like: boolean };
 
 const asset = createAsset(async (version) => {
   const res = await fetch(`api/plots/data.json?${version}`);
@@ -70,7 +77,31 @@ function getLocationHref({
   return getLocationLink(`${lat},${lon}`, zoom);
 }
 
-function Item({ item }: { item: ItemType }) {
+function Toggle({
+  children,
+  ...props
+}: {
+  children: ReactNode;
+  checked: boolean;
+  onChange: ChangeEventHandler;
+}) {
+  return (
+    <label>
+      <input type="checkbox" {...props} />
+      <span>{children}</span>
+    </label>
+  );
+}
+
+function Item({
+  item,
+  setHide,
+  setLike,
+}: {
+  item: LocalItemType;
+  setHide: Function;
+  setLike: Function;
+}) {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -87,6 +118,32 @@ function Item({ item }: { item: ItemType }) {
         }`}</span>
       </div>
       <Link href={item.url}>{`[${item.id}] ${item.title}`}</Link>
+      <Toggle
+        checked={item._like}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => (
+          fetch(`api/plots/like.json?id=${item.id}`),
+          setLike((like: string[]) =>
+            e.target.checked
+              ? like.concat(item.id)
+              : like.filter((like: string) => like !== item.id)
+          )
+        )}
+      >
+        Like
+      </Toggle>
+      <Toggle
+        checked={item._hide}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => (
+          fetch(`api/plots/hide.json?id=${item.id}`),
+          setHide((hide: string[]) =>
+            e.target.checked
+              ? hide.concat(item.id)
+              : hide.filter((hide: string) => hide !== item.id)
+          )
+        )}
+      >
+        Hide
+      </Toggle>
       {item.location && (
         <div
           className={styles.Location}
@@ -145,15 +202,30 @@ function Item({ item }: { item: ItemType }) {
 
 const LIMIT = 25;
 
-function List({ list }: { list: ItemType[] }) {
+function List({
+  list,
+  setHide,
+  setLike,
+}: {
+  list: LocalItemType[];
+  setHide: Function;
+  setLike: Function;
+}) {
   const [limit, setLimit] = useState(() => LIMIT);
 
   return (
     <div>
       <div>{`Found ${list.length} plots`}</div>
       {useMemo(() => list.slice(0, limit), [limit, list]).map((item, key) => (
-        <div key={key} className={styles.Row}>
-          <Item key={item.id} item={item} />
+        <div
+          key={key}
+          className={cx(
+            styles.Row,
+            item._like && styles.Like,
+            item._hide && styles.Hide
+          )}
+        >
+          <Item key={item.id} item={item} setHide={setHide} setLike={setLike} />
         </div>
       ))}
       {list.length > limit && (
@@ -170,18 +242,32 @@ function List({ list }: { list: ItemType[] }) {
 function Results({
   results,
   queries,
+  hide,
+  like,
+  setHide,
+  setLike,
 }: {
   results: (ItemType & {
     _area: number;
     _price: number;
   })[];
   queries: FiltersState;
+  hide: string[];
+  like: string[];
+  setHide: Function;
+  setLike: Function;
 }) {
   return (
     <List
       list={useMemo(
         () =>
           results
+            .map((item) =>
+              Object.assign(item, {
+                _like: like.includes(item.id),
+                _hide: hide.includes(item.id),
+              })
+            )
             .filter(
               (item) =>
                 (queries.type === "" ||
@@ -190,6 +276,8 @@ function Results({
                   )) &&
                 (queries.search === "" ||
                   item.title.toLowerCase().match(queries.search)) &&
+                (!queries.onlyLike || item._like) &&
+                (queries.showHide || !item._hide) &&
                 (queries.areaTo === AREA_LIST[0] ||
                   (queries.areaFrom <= item._area &&
                     item._area <= queries.areaTo)) &&
@@ -202,8 +290,10 @@ function Results({
                 SORT_BY[queries.sortBy] *
                 (a[queries.sortBy] > b[queries.sortBy] ? 1 : -1)
             ),
-        [results, queries]
+        [results, queries, hide, like]
       )}
+      setHide={setHide}
+      setLike={setLike}
     />
   );
 }
@@ -284,6 +374,36 @@ function Filters({
             </option>
           ))}
         </select>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={filters.showHide}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                showHide: target.checked,
+              })),
+            []
+          )}
+        />
+        <span>Show hidden</span>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={filters.onlyLike}
+          onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
+            ({ target }) =>
+              setFilters((filters) => ({
+                ...filters,
+                onlyLike: target.checked,
+              })),
+            []
+          )}
+        />
+        <span>Only likes</span>
       </label>
       <div>
         <label>
@@ -398,7 +518,17 @@ function Filters({
 }
 
 export default function Section({ version = "v1" }) {
-  const results = asset.read(version) as ItemType[];
+  const {
+    results,
+    hide: initialHide,
+    like: initialLike,
+  } = asset.read(version) as {
+    results: ItemType[];
+    hide: string[];
+    like: string[];
+  };
+  const [hide, setHide] = useState<string[]>(initialHide);
+  const [like, setLike] = useState<string[]>(initialLike);
 
   const options = useMemo(
     () =>
@@ -424,6 +554,8 @@ export default function Section({ version = "v1" }) {
     type: "dzialki-budowlane",
     search: "",
     sortBy: Object.keys(SORT_BY)[0] as FiltersState["sortBy"],
+    showHide: true,
+    onlyLike: false,
     areaFrom: AREA_LIST[2],
     areaTo: AREA_LIST[AREA_LIST.length - 1],
     priceFrom: PRICE_LIST[1],
@@ -475,6 +607,10 @@ export default function Section({ version = "v1" }) {
           []
         )}
         queries={queries}
+        hide={hide}
+        like={like}
+        setHide={setHide}
+        setLike={setLike}
       />
     </div>
   );
