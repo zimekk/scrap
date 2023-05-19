@@ -36,7 +36,7 @@
     "iban": "^0.0.14",
     "immutability-helper": "^3.1.1",
     "intl-messageformat": "^10.3.5",
-    "leaflet": "^1.9.3",
+    "leaflet": "^1.9.4",
     "observable-hooks": "^4.2.1",
     "pako": "^2.1.0",
     "qs": "^6.11.2",
