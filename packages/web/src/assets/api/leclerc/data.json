@@ -1,0 +1,476 @@
+[
+  {
+    "id": "petrol-station",
+    "petrol_list": [
+      { "type": "on", "price": "6,05" },
+      { "type": "on max", "price": "6,15" },
+      { "type": "pb95", "price": "6,39" }
+    ],
+    "_id": "JjAF9tif2dxGrxTO",
+    "_created": 1673477402182,
+    "_updated": 1684319318026,
+    "_history": {
+      "1673477402182": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,43" },
+          { "type": "on max", "price": "7,53" },
+          { "type": "pb95", "price": "6,33" }
+        ]
+      },
+      "1673647183567": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,43" },
+          { "type": "on max", "price": "7,53" },
+          { "type": "pb95", "price": "6,29" }
+        ],
+        "_checked": 1673648889909
+      },
+      "1673731338500": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,43" },
+          { "type": "on max", "price": "7,53" },
+          { "type": "pb95", "price": "6,31" }
+        ]
+      },
+      "1673818908423": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,43" },
+          { "type": "on max", "price": "7,53" },
+          { "type": "pb95", "price": "6,33" }
+        ],
+        "_checked": 1673994029595
+      },
+      "1674115995487": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,45" },
+          { "type": "on max", "price": "7,55" },
+          { "type": "pb95", "price": "6,35" }
+        ]
+      },
+      "1674289029976": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,45" },
+          { "type": "on max", "price": "7,55" },
+          { "type": "pb95", "price": "6,39" }
+        ],
+        "_checked": 1674498499378
+      },
+      "1674577435723": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,43" }
+        ]
+      },
+      "1674639084563": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,49" }
+        ]
+      },
+      "1674729491889": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,51" }
+        ]
+      },
+      "1674815341742": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,54" }
+        ],
+        "_checked": 1675073816249
+      },
+      "1675199336754": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,56" }
+        ],
+        "_checked": 1675449811201
+      },
+      "1675506673598": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,49" },
+          { "type": "on max", "price": "7,59" },
+          { "type": "pb95 e5", "price": "6,52" }
+        ],
+        "_checked": 1675609950819
+      },
+      "1675729207443": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,44" },
+          { "type": "on max", "price": "7,54" },
+          { "type": "pb95 e5", "price": "6,52" }
+        ],
+        "_checked": 1675878747554
+      },
+      "1675976932744": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,28" },
+          { "type": "on max", "price": "7,38" },
+          { "type": "pb95 e5", "price": "6,52" }
+        ]
+      },
+      "1676058349129": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,28" },
+          { "type": "on max", "price": "7,38" },
+          { "type": "pb95 e5", "price": "6,55" }
+        ],
+        "_checked": 1676111946027
+      },
+      "1676362944255": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,28" },
+          { "type": "on max", "price": "7,38" },
+          { "type": "pb95 e5", "price": "6,57" }
+        ],
+        "_checked": 1676496267564
+      },
+      "1676667873354": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on b7", "price": "7,28" },
+          { "type": "on max", "price": "7,38" },
+          { "type": "pb95 e5", "price": "6,59" }
+        ]
+      },
+      "1676822104929": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,25" },
+          { "type": "on max", "price": "7,35" },
+          { "type": "pb95", "price": "6,59" }
+        ],
+        "_checked": 1676884122917
+      },
+      "1676999366002": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,22" },
+          { "type": "on max", "price": "7,32" },
+          { "type": "pb95", "price": "6,59" }
+        ]
+      },
+      "1677077071798": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,12" },
+          { "type": "on max", "price": "7,22" },
+          { "type": "pb95", "price": "6,57" }
+        ]
+      },
+      "1677143792299": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,09" },
+          { "type": "on max", "price": "7,19" },
+          { "type": "pb95", "price": "6,55" }
+        ]
+      },
+      "1677231049463": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,07" },
+          { "type": "on max", "price": "7,17" },
+          { "type": "pb95", "price": "6,57" }
+        ],
+        "_checked": 1677495410756
+      },
+      "1677597137159": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "7,05" },
+          { "type": "on max", "price": "7,15" },
+          { "type": "pb95", "price": "6,57" }
+        ],
+        "_checked": 1677662438439
+      },
+      "1677761935417": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,97" },
+          { "type": "on max", "price": "7,07" },
+          { "type": "pb95", "price": "6,57" }
+        ]
+      },
+      "1677847593136": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,97" },
+          { "type": "on max", "price": "7,07" },
+          { "type": "pb95", "price": "6,59" }
+        ],
+        "_checked": 1678094501861
+      },
+      "1678187995015": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,97" },
+          { "type": "on max", "price": "7,07" },
+          { "type": "pb95", "price": "6,61" }
+        ],
+        "_checked": 1678390939584
+      },
+      "1678523022731": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,97" },
+          { "type": "on max", "price": "7,07" },
+          { "type": "pb95", "price": "6,63" }
+        ],
+        "_checked": 1678702168160
+      },
+      "1678808137803": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,95" },
+          { "type": "on max", "price": "7,05" },
+          { "type": "pb95", "price": "6,63" }
+        ]
+      },
+      "1678895576981": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,91" },
+          { "type": "on max", "price": "7,01" },
+          { "type": "pb95", "price": "6,61" }
+        ],
+        "_checked": 1679003166176
+      },
+      "1679135284047": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,86" },
+          { "type": "on max", "price": "6,96" },
+          { "type": "pb95", "price": "6,61" }
+        ]
+      },
+      "1679255837944": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,83" },
+          { "type": "on max", "price": "6,93" },
+          { "type": "pb95", "price": "6,61" }
+        ]
+      },
+      "1679350065636": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,83" },
+          { "type": "on max", "price": "6,93" },
+          { "type": "pb95", "price": "6,56" }
+        ]
+      },
+      "1679491558158": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,76" },
+          { "type": "on max", "price": "6,86" },
+          { "type": "pb95", "price": "6,56" }
+        ],
+        "_checked": 1679562885024
+      },
+      "1679678859592": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,74" },
+          { "type": "on max", "price": "6,84" },
+          { "type": "pb95", "price": "6,56" }
+        ],
+        "_checked": 1679750363585
+      },
+      "1679859721700": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,69" },
+          { "type": "on max", "price": "6,79" },
+          { "type": "pb95", "price": "6,56" }
+        ],
+        "_checked": 1680123747982
+      },
+      "1680209949501": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,66" },
+          { "type": "on max", "price": "6,76" },
+          { "type": "pb95", "price": "6,56" }
+        ]
+      },
+      "1680291696582": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,66" },
+          { "type": "on max", "price": "6,76" },
+          { "type": "pb95", "price": "6,59" }
+        ]
+      },
+      "1680356209874": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,66" },
+          { "type": "on max", "price": "6,76" },
+          { "type": "pb95", "price": "6,62" }
+        ],
+        "_checked": 1680509798438
+      },
+      "1680605282514": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,65" },
+          { "type": "on max", "price": "6,75" },
+          { "type": "pb95", "price": "6,65" }
+        ],
+        "_checked": 1680689071628
+      },
+      "1680786721315": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,64" },
+          { "type": "on max", "price": "6,74" },
+          { "type": "pb95", "price": "6,65" }
+        ],
+        "_checked": 1680896058041
+      },
+      "1680986898030": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,64" },
+          { "type": "on max", "price": "6,74" },
+          { "type": "pb95", "price": "6,68" }
+        ],
+        "_checked": 1681369072841
+      },
+      "1681413249234": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,64" },
+          { "type": "on max", "price": "6,74" },
+          { "type": "pb95", "price": "6,74" }
+        ]
+      },
+      "1681499646629": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,64" },
+          { "type": "on max", "price": "6,74" },
+          { "type": "pb95", "price": "6,71" }
+        ],
+        "_checked": 1681842688469
+      },
+      "1681939220536": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,64" },
+          { "type": "on max", "price": "6,74" },
+          { "type": "pb95", "price": "6,69" }
+        ]
+      },
+      "1682024154903": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,62" },
+          { "type": "on max", "price": "6,72" },
+          { "type": "pb95", "price": "6,67" }
+        ]
+      },
+      "1682152747334": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,57" },
+          { "type": "on max", "price": "6,67" },
+          { "type": "pb95", "price": "6,67" }
+        ]
+      },
+      "1682277513726": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,55" },
+          { "type": "on max", "price": "6,65" },
+          { "type": "pb95", "price": "6,65" }
+        ]
+      },
+      "1682418791338": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,42" },
+          { "type": "on max", "price": "6,52" },
+          { "type": "pb95", "price": "6,62" }
+        ]
+      },
+      "1682540158382": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,39" },
+          { "type": "on max", "price": "6,49" },
+          { "type": "pb95", "price": "6,59" }
+        ],
+        "_checked": 1682626222463
+      },
+      "1682848835935": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,29" },
+          { "type": "on max", "price": "6,39" },
+          { "type": "pb95", "price": "6,49" }
+        ],
+        "_checked": 1683228044247
+      },
+      "1683355640170": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,25" },
+          { "type": "on max", "price": "6,35" },
+          { "type": "pb95", "price": "6,45" }
+        ],
+        "_checked": 1683536317265
+      },
+      "1683620195212": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,14" },
+          { "type": "on max", "price": "6,24" },
+          { "type": "pb95", "price": "6,44" }
+        ]
+      },
+      "1683713685351": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,11" },
+          { "type": "on max", "price": "6,21" },
+          { "type": "pb95", "price": "6,41" }
+        ],
+        "_checked": 1684175295512
+      },
+      "1684232036172": {
+        "id": "petrol-station",
+        "petrol_list": [
+          { "type": "on", "price": "6,05" },
+          { "type": "on max", "price": "6,15" },
+          { "type": "pb95", "price": "6,41" }
+        ]
+      }
+    },
+    "_checked": 1684569696955
+  }
+]
