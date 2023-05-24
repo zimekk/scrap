@@ -27,6 +27,7 @@ export const Type = {
   AUTOS_ITEM: "AUTOS_ITEM",
   DEPOT: "DEPOT",
   DIRECTIONS: "DIRECTIONS",
+  EURO: "EURO",
   FLATS: "FLATS",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
@@ -142,6 +143,12 @@ export const sync = async (type = "") => {
               const service = new DirectionsService({ summary });
               return service.sync(json, { timestamp, url });
             }),
+        }),
+        z.object({
+          type: z.literal(Type.EURO),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
         z.object({
           type: z.literal(Type.FLATS),
