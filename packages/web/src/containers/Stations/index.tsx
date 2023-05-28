@@ -15,7 +15,7 @@ import Chart from "../../components/ZoomableLineChart";
 import { Link } from "../../components/Link";
 import Calculator, { PRICE_LIST, useFilters } from "./Calculator";
 import Leclerc from "./Leclerc";
-import Map, { useBounds } from "./Map";
+import Map, { getIconUrl, useBounds } from "./Map";
 import useDebounce from "../useDebounce";
 import cx from "classnames";
 import styles from "./styles.module.scss";
@@ -534,6 +534,14 @@ function Data({ version = "v1" }) {
                     <td
                       rowSpan={toggle.includes(i) ? history.length : undefined}
                     >
+                      {item.map_img && (
+                        <img
+                          src={getIconUrl(item.map_img)}
+                          alt={name}
+                          referrerPolicy="no-referrer"
+                          className={styles.Icon}
+                        />
+                      )}
                       <div className={styles.Station}>
                         <Link
                           onClick={(e) => (

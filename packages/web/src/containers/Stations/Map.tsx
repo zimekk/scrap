@@ -10,6 +10,9 @@ import { DraggableMarker, LocateControl } from "../../components/Map";
 import cx from "classnames";
 import styles from "./Map.module.scss";
 
+export const getIconUrl = (url: string) =>
+  new URL(url, "https://www.autocentrum.pl").toString();
+
 function Table({
   data,
 }: {
@@ -126,7 +129,7 @@ export default function Map({
             icon={
               new Icon({
                 iconUrl: item.map_img
-                  ? `https://www.autocentrum.pl${item.map_img}`
+                  ? getIconUrl(item.map_img)
                   : require("leaflet/dist/images/marker-icon.png").default,
                 iconSize: [30, 40],
               })
