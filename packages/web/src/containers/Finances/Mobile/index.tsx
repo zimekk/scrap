@@ -17,6 +17,11 @@ const parseMin = (min: number | string) =>
 
 function Data() {
   const [recharges] = useState(() => [
+    { date: "2023-06-02", number: "183", amount: 5 },
+    { date: "2023-06-02", number: "938", amount: 5 },
+    { date: "2023-06-02", number: "379", amount: 25 },
+    { date: "2023-06-02", number: "828", amount: 5 },
+
     { date: "2023-05-01", number: "183", amount: 5 },
     { date: "2023-05-01", number: "938", amount: 5 },
     { date: "2023-05-01", number: "379", amount: 25 },
@@ -47,6 +52,11 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 5 },
   ]);
   const [purchases] = useState(() => [
+    { date: "2023-06-02", number: "183", amount: 9, net: "2GB" },
+    { date: "2023-06-02", number: "183", amount: 5, sms: 100 },
+    { date: "2023-06-02", number: "818", amount: 5, sms: 100 },
+    { date: "2023-06-02", number: "828", amount: 5, sms: 100 },
+
     { date: "2023-05-01", number: "938", amount: 15, min: 100 },
 
     { date: "2023-04-19", number: "183", amount: 9, net: "2GB" },
@@ -92,6 +102,96 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-06-05",
+      number: "183",
+      amount: 0.95,
+      net: 2_040,
+      min: "77:12",
+      sms: 132,
+    },
+    {
+      date: "2023-06-05",
+      number: "938",
+      amount: 5.94,
+      net: 1_800,
+      min: 158,
+      sms: 111,
+    },
+    {
+      date: "2023-06-05",
+      number: "379",
+      amount: 27.72,
+      net: 4_990,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-06-05",
+      number: "818",
+      amount: 13.65,
+      net: 2_640,
+      min: 166,
+      sms: 176,
+    },
+    {
+      date: "2023-06-05",
+      number: "828",
+      amount: 4.61, // ?
+      net: 720,
+      min: 136,
+      sms: 121,
+    },
+
+    {
+      date: "2023-06-02",
+      number: "183",
+      amount: 9.95,
+      // amount: 0.95,
+      net: 148, // ?
+      // net: 2_140,
+      min: "82:53",
+      sms: 32,
+      // sms: 132,
+    },
+    {
+      date: "2023-06-02",
+      number: "938",
+      amount: 0.94, // ?
+      // amount: 5.94,
+      net: 1_820,
+      min: 158,
+      sms: 111,
+    },
+    {
+      date: "2023-06-02",
+      number: "379",
+      amount: 2.72, // ?
+      // amount: 27.72,
+      net: 6_020,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-06-02",
+      number: "818",
+      amount: 18.65,
+      // amount: 13.65,
+      net: 2_650,
+      min: 166,
+      sms: 76, // ?
+      // sms: 176,
+    },
+    {
+      date: "2023-06-02",
+      number: "828",
+      amount: 4.61, // ?
+      net: 729,
+      min: 139,
+      sms: 28, // ?
+      // sms: 128,
+    },
+
     {
       date: "2023-05-30",
       number: "183",
