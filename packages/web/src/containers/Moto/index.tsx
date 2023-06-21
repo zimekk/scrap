@@ -74,7 +74,7 @@ function Vehicle({ item }: { item: ItemType }) {
         <div>{format(new Date(item._created), "yyyy-MM-dd HH:mm")}</div>
         <span className={styles.Price}>{`${new Intl.NumberFormat("pl-PL", {
           minimumFractionDigits: 2,
-        }).format(item.price)} PLN`}</span>
+        }).format(item.price)} ${item.priceCurrency || "PLN"}`}</span>
       </div>
       <Link href={item.url}>{`[${item.id}] ${item.title}`}</Link>
       {item.parameters && (

@@ -25,6 +25,7 @@ export const MotoItem = z.object({
     .array()
     .optional(),
   price: z.number(),
+  priceCurrency: z.enum(["EUR", "PLN"]).optional(),
   shortDescription: z.string().optional(),
   thumbnail: z.string().optional(),
   title: z.string(),

@@ -70,7 +70,7 @@ const UrqlState = z
                 thumbnail,
                 title,
                 price: {
-                  amount: { units: price },
+                  amount: { units: price, currencyCode: priceCurrency },
                 },
                 url,
               },
@@ -81,6 +81,7 @@ const UrqlState = z
                   location,
                   parameters,
                   price,
+                  priceCurrency,
                   shortDescription,
                   title,
                   url,
