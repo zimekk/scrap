@@ -1,5 +1,23 @@
 import { z } from "zod";
 
+export const AdvertParameterSchema = z.object({
+  key: z.enum([
+    "country_origin",
+    "engine_capacity",
+    "engine_power",
+    "fuel_type",
+    "gearbox",
+    "make",
+    "mileage",
+    "model",
+    "version",
+    "year",
+  ]),
+  displayValue: z.string(),
+  value: z.string(),
+  __typename: z.enum(["AdvertParameter"]),
+});
+
 export const MotoItem = z.object({
   id: z.string(),
   location: z
@@ -15,13 +33,7 @@ export const MotoItem = z.object({
       // __typename: z.enum(["Location"]),
     })
     .optional(),
-  parameters: z
-    .object({
-      key: z.enum(["make", "year", "mileage", "engine_capacity", "fuel_type"]),
-      displayValue: z.string(),
-      value: z.string(),
-      // __typename: z.enum(["AdvertParameter"]),
-    })
+  parameters: AdvertParameterSchema.omit({ __typename: true })
     .array()
     .optional(),
   price: z.number(),

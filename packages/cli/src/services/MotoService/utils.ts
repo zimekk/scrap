@@ -1,9 +1,108 @@
 import { diffString } from "json-diff";
 import { parse } from "node-html-parser";
 import { z } from "zod";
-import { MotoDiff } from "./types";
+import { AdvertParameterSchema, MotoDiff } from "./types";
 
 const _time = Date.now();
+
+export const AdvertEdgeSchema = z.object({
+  vas: z
+    .object({
+      isHighlighted: z.boolean(),
+      isPromoted: z.boolean(),
+      // bumpDate: null,
+      __typename: z.enum(["AdvertListingVAS"]),
+    })
+    .passthrough(),
+  node: z
+    .object({
+      id: z.string(),
+      title: z.string(),
+      createdAt: z.string(),
+      shortDescription: z.string(),
+      url: z.string(),
+      // badges: [],
+      category: z.object({
+        id: z.string(),
+        __typename: z.enum(["Category"]),
+      }),
+      location: z.object({
+        city: z.object({
+          name: z.string(),
+          __typename: z.enum(["AdministrativeLevel"]),
+        }),
+        region: z.object({
+          name: z.string(),
+          __typename: z.enum(["AdministrativeLevel"]),
+        }),
+        __typename: z.enum(["Location"]),
+      }),
+      thumbnail: z
+        .object({
+          x1: z.string(),
+          x2: z.string(),
+          __typename: z.enum(["Image"]),
+        })
+        .nullable(),
+      price: z
+        .object({
+          amount: z.object({
+            units: z.number(),
+            currencyCode: z.enum(["EUR", "PLN"]),
+            __typename: z.enum(["Money"]),
+          }),
+          // badges: [],
+          __typename: z.enum(["Price"]),
+        })
+        .passthrough(),
+      parameters: AdvertParameterSchema.array(),
+      sellerLink: z.object({
+        id: z.string(),
+        name: z.string().nullable(),
+        websiteUrl: z.string().nullable(),
+        logo: z
+          .object({
+            x1: z.string(),
+            __typename: z.enum(["Image"]),
+          })
+          .nullable(),
+        __typename: z.enum(["AdvertSellerLink"]),
+      }),
+      brandProgram: z
+        .object({
+          // logo: null,
+          // searchUrl: null,
+          __typename: z.enum(["BrandProgram"]),
+        })
+        .passthrough(),
+      dealer4thPackage: z
+        .object({
+          package: z.object({
+            id: z.string(),
+            name: z.string(),
+            __typename: z.enum(["SellerPackage"]),
+          }),
+          // services: [],
+          photos: z
+            .object({
+              //  nodes: [Array],
+              totalCount: z.number(),
+              __typename: z.enum(["PhotosCollection"]),
+            })
+            .passthrough(),
+          __typename: z.enum(["AdvertDealer4thPackage"]),
+        })
+        .passthrough()
+        .nullable(),
+      priceEvaluation: z.object({
+        indicator: z.enum(["ABOVE", "BELOW", "IN", "NONE"]),
+        __typename: z.enum(["PriceEvaluation"]),
+      }),
+      __typename: z.enum(["Advert"]),
+    })
+    .passthrough(),
+  __typename: z.enum(["AdvertEdge"]),
+});
 
 const UrqlState = z
   .object({
@@ -70,120 +169,7 @@ const UrqlState = z
             __typename: z.enum(["AlternativeLinksBlock"]),
           })
           .array(),
-        edges: z
-          .object({
-            vas: z
-              .object({
-                isHighlighted: z.boolean(),
-                isPromoted: z.boolean(),
-                // bumpDate: null,
-                __typename: z.enum(["AdvertListingVAS"]),
-              })
-              .passthrough(),
-            node: z
-              .object({
-                id: z.string(),
-                title: z.string(),
-                createdAt: z.string(),
-                shortDescription: z.string(),
-                url: z.string(),
-                // badges: [],
-                category: z.object({
-                  id: z.string(),
-                  __typename: z.enum(["Category"]),
-                }),
-                location: z.object({
-                  city: z.object({
-                    name: z.string(),
-                    __typename: z.enum(["AdministrativeLevel"]),
-                  }),
-                  region: z.object({
-                    name: z.string(),
-                    __typename: z.enum(["AdministrativeLevel"]),
-                  }),
-                  __typename: z.enum(["Location"]),
-                }),
-                thumbnail: z
-                  .object({
-                    x1: z.string(),
-                    x2: z.string(),
-                    __typename: z.enum(["Image"]),
-                  })
-                  .nullable(),
-                price: z
-                  .object({
-                    amount: z.object({
-                      units: z.number(),
-                      currencyCode: z.enum(["EUR", "PLN"]),
-                      __typename: z.enum(["Money"]),
-                    }),
-                    // badges: [],
-                    __typename: z.enum(["Price"]),
-                  })
-                  .passthrough(),
-                parameters: z
-                  .object({
-                    key: z.enum([
-                      "make",
-                      "year",
-                      "mileage",
-                      "engine_capacity",
-                      "fuel_type",
-                    ]),
-                    displayValue: z.string(),
-                    value: z.string(),
-                    __typename: z.enum(["AdvertParameter"]),
-                  })
-                  .array(),
-                sellerLink: z.object({
-                  id: z.string(),
-                  name: z.string().nullable(),
-                  websiteUrl: z.string().nullable(),
-                  logo: z
-                    .object({
-                      x1: z.string(),
-                      __typename: z.enum(["Image"]),
-                    })
-                    .nullable(),
-                  __typename: z.enum(["AdvertSellerLink"]),
-                }),
-                brandProgram: z
-                  .object({
-                    // logo: null,
-                    // searchUrl: null,
-                    __typename: z.enum(["BrandProgram"]),
-                  })
-                  .passthrough(),
-                dealer4thPackage: z
-                  .object({
-                    package: z.object({
-                      id: z.string(),
-                      name: z.string(),
-                      __typename: z.enum(["SellerPackage"]),
-                    }),
-                    // services: [],
-                    photos: z
-                      .object({
-                        //  nodes: [Array],
-                        totalCount: z.number(),
-                        __typename: z.enum(["PhotosCollection"]),
-                      })
-                      .passthrough(),
-                    __typename: z.enum(["AdvertDealer4thPackage"]),
-                  })
-                  .passthrough()
-                  .nullable(),
-                priceEvaluation: z.object({
-                  indicator: z.enum(["ABOVE", "BELOW", "IN", "NONE"]),
-                  __typename: z.enum(["PriceEvaluation"]),
-                }),
-                __typename: z.enum(["Advert"]),
-              })
-              .passthrough(),
-            __typename: z.enum(["AdvertEdge"]),
-          })
-          .passthrough()
-          .array(),
+        edges: AdvertEdgeSchema.passthrough().array(),
       })
       .passthrough()
       .transform(

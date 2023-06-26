@@ -4,7 +4,12 @@ import { browser } from "../../request";
 import Service from "../Service";
 import { saveProductHtml } from "../utils";
 import { MotoItem } from "./types";
-import { diffMotoItem, scrapMotoList, updateMotoItem } from "./utils";
+import {
+  AdvertEdgeSchema,
+  diffMotoItem,
+  scrapMotoList,
+  updateMotoItem,
+} from "./utils";
 
 const { OTOMOTO_URL } = process.env as {
   OTOMOTO_URL: string;
@@ -16,80 +21,35 @@ const UrqlState = z
   .object({
     advertSearch: z
       .object({
-        edges: z
-          .object({
-            node: z.object({
-              id: z.string(),
-              title: z.string(),
-              shortDescription: z.string(),
-              url: z.string(),
-              location: z.object({
-                city: z.object({
-                  name: z.string(),
-                }),
-                region: z.object({
-                  name: z.string(),
-                }),
-              }),
-              thumbnail: z
-                .object({
-                  x1: z.string(),
-                  x2: z.string(),
-                })
-                .nullable(),
-              price: z
-                .object({
-                  amount: z.object({
-                    units: z.number(),
-                    currencyCode: z.enum(["EUR", "PLN"]),
-                  }),
-                })
-                .passthrough(),
-              parameters: z
-                .object({
-                  key: z.enum([
-                    "make",
-                    "year",
-                    "mileage",
-                    "engine_capacity",
-                    "fuel_type",
-                  ]),
-                  displayValue: z.string(),
-                  value: z.string(),
-                })
-                .array(),
-            }),
-          })
-          .transform(
-            ({
-              node: {
+        edges: AdvertEdgeSchema.transform(
+          ({
+            node: {
+              id,
+              location,
+              parameters,
+              shortDescription,
+              thumbnail,
+              title,
+              price: {
+                amount: { units: price, currencyCode: priceCurrency },
+              },
+              url,
+            },
+          }) =>
+            Object.assign(
+              {
                 id,
                 location,
                 parameters,
+                price,
+                priceCurrency,
                 shortDescription,
-                thumbnail,
                 title,
-                price: {
-                  amount: { units: price, currencyCode: priceCurrency },
-                },
                 url,
               },
-            }) =>
-              Object.assign(
-                {
-                  id,
-                  location,
-                  parameters,
-                  price,
-                  priceCurrency,
-                  shortDescription,
-                  title,
-                  url,
-                },
-                thumbnail && (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail)
-              )
-          )
-          .array(),
+              thumbnail && (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail)
+            )
+        ).array(),
       })
       .transform(({ edges }) => edges)
       .optional(),
