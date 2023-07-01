@@ -17,6 +17,12 @@ const parseMin = (min: number | string) =>
 
 function Data() {
   const [recharges] = useState(() => [
+    { date: "2023-07-01", number: "183", amount: 5 },
+    { date: "2023-07-01", number: "938", amount: 5 },
+    { date: "2023-07-01", number: "379", amount: 25 },
+    { date: "2023-07-01", number: "818", amount: 5 },
+    { date: "2023-07-01", number: "828", amount: 5 },
+
     { date: "2023-06-26", number: "828", amount: 5 },
 
     { date: "2023-06-15", number: "828", amount: 5 },
@@ -110,6 +116,52 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-07-01",
+      number: "183",
+      // amount: 0.95,
+      amount: 5.95,
+      net: 1_020,
+      min: "75:18",
+      sms: 126,
+    },
+    {
+      date: "2023-07-01",
+      number: "938",
+      // amount: 5.94,
+      amount: 10.94,
+      net: 1_720,
+      min: 148,
+      sms: 111,
+    },
+    {
+      date: "2023-07-01",
+      number: "379",
+      // amount: 2.72,
+      amount: 27.72,
+      net: 7_380,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-07-01",
+      number: "818",
+      // amount: 13.65,
+      amount: 18.65,
+      net: 1_220,
+      min: 166,
+      sms: 176,
+    },
+    {
+      date: "2023-07-01",
+      number: "828",
+      // amount: 0.61,
+      amount: 5.61,
+      net: 1_330,
+      min: 132,
+      sms: 102,
+    },
+
     {
       date: "2023-06-26",
       number: "183",
