@@ -98,6 +98,7 @@ function Data({ version = "v1" }) {
     { date: "2022-06-23", investment_id: 33, value: 907.62 }, // PKO Akcji Plus
     { date: "2022-07-29", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
     { date: "2022-08-29", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
+    { date: "2023-06-29", investment_id: 79, value: 1000 }, // PKO Akcji Rynku Złota
   ]);
 
   const options = useMemo(
@@ -197,7 +198,7 @@ function Data({ version = "v1" }) {
     format(unified[unified.length - 1].date.getTime(), "yyyy-MM-dd")
   );
   const [investmentsSelected, setInvestmentsSelected] = useState<number[]>(
-    () => [34, 35, 79]
+    () => [34, 35, 44, 79]
   );
 
   const list = useMemo(
