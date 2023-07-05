@@ -3,7 +3,6 @@ import { Calculator, ProductTypes } from "../../components/Calculator";
 import Deposits from "./Deposits";
 import Elixir from "./Elixir";
 import Iban from "./Iban";
-import Mobile from "./Mobile";
 import styles from "./styles.module.scss";
 
 const METADATA = Object.assign({
@@ -107,7 +106,6 @@ const METADATA = Object.assign({
 export default function Section() {
   return (
     <div className={styles.Section}>
-      <Mobile />
       <Iban />
       <Elixir />
       <Deposits />

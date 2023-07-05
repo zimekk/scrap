@@ -50,7 +50,16 @@ export default function Chart({
 
     // scales + line generator
     const xScale = scaleTime()
-      .domain(extent(data, ({ date }) => date) as [Date, Date])
+      .domain(
+        extent(
+          data.concat({
+            date: new Date(Date.now() + 5 * 24 * 3600 * 1000),
+            group: "",
+            value: 0,
+          }),
+          ({ date }) => date
+        ) as [Date, Date]
+      )
       .range([margin.left, width - margin.right]);
 
     const yScale = scaleLinear()

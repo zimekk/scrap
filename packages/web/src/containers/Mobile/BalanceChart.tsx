@@ -52,7 +52,14 @@ export default function Chart({
 
     // scales + line generator
     const xScale = scaleTime()
-      .domain(extent(balance, ({ date }) => new Date(date)) as [Date, Date])
+      .domain(
+        extent(
+          balance.concat({
+            date: new Date(Date.now() + 5 * 24 * 3600 * 1000).toISOString(),
+          }),
+          ({ date }) => new Date(date)
+        ) as [Date, Date]
+      )
       .range([margin.left, width - margin.right]);
 
     const yScale = scaleLinear()
