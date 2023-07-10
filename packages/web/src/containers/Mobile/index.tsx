@@ -62,6 +62,8 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 5 },
   ]);
   const [purchases] = useState(() => [
+    { date: "2023-07-10", number: "183", amount: 5, net: "1GB" },
+
     { date: "2023-07-05", number: "828", amount: 5, sms: 100 },
 
     { date: "2023-06-26", number: "828", amount: 5, sms: 100 },
@@ -118,6 +120,53 @@ function Data() {
     { date: "2023-02-02", number: "828", amount: 15, min: 100 },
   ]);
   const [balance] = useState(() => [
+    {
+      date: "2023-07-10",
+      number: "183",
+      // amount: 5.95,
+      amount: 0.95,
+      // net: 186,
+      net: 1_180,
+      min: "74:37",
+      sms: 121,
+    },
+    {
+      date: "2023-07-10",
+      number: "938",
+      amount: 10.94,
+      net: 1_680,
+      min: 148,
+      sms: 111,
+    },
+    {
+      date: "2023-07-10",
+      number: "379",
+      // amount: 27.72,
+      amount: 2.72,
+      // net: 23,
+      net: 10_200,
+      min: "1:22",
+      sms: 130,
+    },
+    {
+      date: "2023-07-10",
+      number: "818",
+      amount: 18.65,
+      net: 1_190,
+      min: 166,
+      sms: 176,
+    },
+    {
+      date: "2023-07-10",
+      number: "828",
+      // amount: 5.61,
+      amount: 0.61,
+      net: 708,
+      min: 132,
+      // sms: 84,
+      sms: 184,
+    },
+
     {
       date: "2023-07-05",
       number: "183",
