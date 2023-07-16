@@ -16,7 +16,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "serve": "node lib",
-    "start": "webpack serve --mode development"
+    "start": "NODE_OPTIONS=--max-old-space-size=4096 webpack serve --mode development"
   },
   "dependencies": {
     "@dev/api": "1.0.0",
