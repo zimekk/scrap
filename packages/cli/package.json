@@ -44,7 +44,7 @@
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "rxjs": "^7.8.1",
-    "slug": "^8.2.2",
+    "slug": "^8.2.3",
     "zod": "^3.21.4"
   },
   "devDependencies": {
