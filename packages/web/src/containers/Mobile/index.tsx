@@ -16,22 +16,35 @@ const parseMin = (min: number | string) =>
     : (([m, s]) => Number(m) + Number(s) / 60)(min.split(":"));
 
 function Data() {
-  const [recharges] = useState(() => [
+  const [operations] = useState(() => [
+    { date: "2023-09-01", number: "183", amount: -5, net: "1GB" },
     { date: "2023-09-01", number: "183", amount: 10 },
+    // { date: "2023-09-01", number: "938", amount: -5, sms: 100 },
     { date: "2023-09-01", number: "938", amount: 5 },
     { date: "2023-09-01", number: "379", amount: 25 },
+    // { date: "2023-09-01", number: "818", amount: -5, net: "1GB" },
     { date: "2023-09-01", number: "818", amount: 5 },
+    { date: "2023-09-01", number: "828", amount: -9, net: "2GB" },
     { date: "2023-09-01", number: "828", amount: 10 },
 
+    { date: "2023-08-01", number: "183", amount: -10, net: "4GB" },
     { date: "2023-08-01", number: "183", amount: 10 },
+    { date: "2023-08-01", number: "938", amount: -5, sms: 100 },
     // { date: "2023-08-01", number: "938", amount: 5 },
     { date: "2023-08-01", number: "379", amount: 25 },
+    { date: "2023-08-01", number: "818", amount: -5, net: "1GB" },
     // { date: "2023-08-01", number: "818", amount: 5 },
+    { date: "2023-08-01", number: "828", amount: -10, net: "4GB" },
     { date: "2023-08-01", number: "828", amount: 10 },
 
+    { date: "2023-07-20", number: "828", amount: -5, net: "1GB" },
     { date: "2023-07-20", number: "828", amount: 5 },
 
     { date: "2023-07-15", number: "183", amount: 10 },
+
+    { date: "2023-07-10", number: "183", amount: -5, net: "1GB" },
+
+    { date: "2023-07-05", number: "828", amount: -5, sms: 100 },
 
     { date: "2023-07-01", number: "183", amount: 5 },
     { date: "2023-07-01", number: "938", amount: 5 },
@@ -39,114 +52,96 @@ function Data() {
     { date: "2023-07-01", number: "818", amount: 5 },
     { date: "2023-07-01", number: "828", amount: 5 },
 
+    { date: "2023-06-26", number: "828", amount: -5, sms: 100 },
     { date: "2023-06-26", number: "828", amount: 5 },
 
+    { date: "2023-06-15", number: "828", amount: -9, net: "2GB" },
     { date: "2023-06-15", number: "828", amount: 5 },
 
+    { date: "2023-06-02", number: "183", amount: -9, net: "2GB" },
+    { date: "2023-06-02", number: "183", amount: -5, sms: 100 },
     { date: "2023-06-02", number: "183", amount: 5 },
     { date: "2023-06-02", number: "938", amount: 5 },
     { date: "2023-06-02", number: "379", amount: 25 },
+    { date: "2023-06-02", number: "818", amount: -5, sms: 100 },
+    { date: "2023-06-02", number: "828", amount: -5, sms: 100 },
     { date: "2023-06-02", number: "828", amount: 5 },
 
     { date: "2023-05-01", number: "183", amount: 5 },
+    { date: "2023-05-01", number: "938", amount: -15, min: 100 },
     { date: "2023-05-01", number: "938", amount: 5 },
     { date: "2023-05-01", number: "379", amount: 25 },
     { date: "2023-05-01", number: "818", amount: 5 },
     { date: "2023-05-01", number: "828", amount: 5 },
 
+    { date: "2023-04-19", number: "183", amount: -9, net: "2GB" },
     { date: "2023-04-19", number: "183", amount: 10 },
+    { date: "2023-04-19", number: "828", amount: -5, net: "1GB" },
 
+    {
+      date: "2023-04-10",
+      number: "379",
+      amount: -25,
+      net: 10_000,
+      package: "SOLO M (10 GB)",
+    },
+
+    { date: "2023-04-01", number: "183", amount: -15, min: 100 },
+    { date: "2023-04-01", number: "183", amount: -5, net: "1GB" },
     { date: "2023-04-01", number: "183", amount: 15 },
     { date: "2023-04-01", number: "938", amount: 5 },
     { date: "2023-04-01", number: "379", amount: 25 },
     { date: "2023-04-01", number: "818", amount: 5 },
     { date: "2023-04-01", number: "828", amount: 5 },
 
-    { date: "2023-03-01", number: "183", amount: 5 },
-    { date: "2023-03-01", number: "938", amount: 5 },
-    { date: "2023-03-01", number: "379", amount: 25 },
-    { date: "2023-03-01", number: "828", amount: 5 },
-
-    { date: "2023-02-19", number: "828", amount: 5 },
-
-    { date: "2023-02-18", number: "183", amount: 5 },
-
-    { date: "2023-02-10", number: "379", amount: 25 },
-
-    { date: "2023-02-02", number: "183", amount: 5 },
-    { date: "2023-02-02", number: "938", amount: 5 },
-    { date: "2023-02-02", number: "828", amount: 5 },
-  ]);
-  const [purchases] = useState(() => [
-    { date: "2023-09-01", number: "183", amount: 5, net: "1GB" },
-    // { date: "2023-09-01", number: "938", amount: 5, sms: 100 },
-    // { date: "2023-09-01", number: "818", amount: 5, net: "1GB" },
-    { date: "2023-09-01", number: "828", amount: 9, net: "2GB" },
-
-    { date: "2023-08-01", number: "183", amount: 10, net: "4GB" },
-    { date: "2023-08-01", number: "938", amount: 5, sms: 100 },
-    { date: "2023-08-01", number: "818", amount: 5, net: "1GB" },
-    { date: "2023-08-01", number: "828", amount: 10, net: "4GB" },
-
-    { date: "2023-07-20", number: "828", amount: 5, net: "1GB" },
-
-    { date: "2023-07-10", number: "183", amount: 5, net: "1GB" },
-
-    { date: "2023-07-05", number: "828", amount: 5, sms: 100 },
-
-    { date: "2023-06-26", number: "828", amount: 5, sms: 100 },
-
-    { date: "2023-06-15", number: "828", amount: 9, net: "2GB" },
-
-    { date: "2023-06-02", number: "183", amount: 9, net: "2GB" },
-    { date: "2023-06-02", number: "183", amount: 5, sms: 100 },
-    { date: "2023-06-02", number: "818", amount: 5, sms: 100 },
-    { date: "2023-06-02", number: "828", amount: 5, sms: 100 },
-
-    { date: "2023-05-01", number: "938", amount: 15, min: 100 },
-
-    { date: "2023-04-19", number: "183", amount: 9, net: "2GB" },
-    { date: "2023-04-19", number: "828", amount: 5, net: "1GB" },
-
-    {
-      date: "2023-04-10",
-      number: "379",
-      amount: 25,
-      net: 10_000,
-      package: "SOLO M (10 GB)",
-    },
-
-    { date: "2023-04-01", number: "183", amount: 15, min: 100 },
-    { date: "2023-04-01", number: "183", amount: 5, net: "1GB" },
-
     {
       date: "2023-03-10",
       number: "379",
-      amount: 25,
+      amount: -25,
       net: 10_000,
       package: "SOLO M (10 GB)",
     },
 
-    { date: "2023-03-01", number: "818", amount: 5, net: "1GB" },
-    { date: "2023-03-01", number: "828", amount: 5, sms: 100 },
+    { date: "2023-03-01", number: "183", amount: 5 },
+    { date: "2023-03-01", number: "938", amount: 5 },
+    { date: "2023-03-01", number: "379", amount: 25 },
+    { date: "2023-03-01", number: "818", amount: -5, net: "1GB" },
+    { date: "2023-03-01", number: "828", amount: -5, sms: 100 },
+    { date: "2023-03-01", number: "828", amount: 5 },
 
-    { date: "2023-02-19", number: "828", amount: 5, sms: 100 },
+    { date: "2023-02-19", number: "828", amount: -5, sms: 100 },
+    { date: "2023-02-19", number: "828", amount: 5 },
 
-    { date: "2023-02-18", number: "183", amount: 9, net: "2GB" },
+    { date: "2023-02-18", number: "183", amount: -9, net: "2GB" },
+    { date: "2023-02-18", number: "183", amount: 5 },
 
     {
       date: "2023-02-10",
       number: "379",
-      amount: 25,
+      amount: -25,
       net: "10GB",
       package: "SOLO M (10 GB)",
     },
+    { date: "2023-02-10", number: "379", amount: 25 },
 
-    { date: "2023-02-02", number: "183", amount: 5, net: "1GB" },
-    { date: "2023-02-02", number: "938", amount: 15, min: 100 },
-    { date: "2023-02-02", number: "818", amount: 5, net: "1GB" },
-    { date: "2023-02-02", number: "828", amount: 15, min: 100 },
+    { date: "2023-02-02", number: "183", amount: -5, net: "1GB" },
+    { date: "2023-02-02", number: "183", amount: 5 },
+    { date: "2023-02-02", number: "938", amount: -15, min: 100 },
+    { date: "2023-02-02", number: "938", amount: 5 },
+    { date: "2023-02-02", number: "818", amount: -5, net: "1GB" },
+    { date: "2023-02-02", number: "828", amount: -15, min: 100 },
+    { date: "2023-02-02", number: "828", amount: 5 },
   ]);
+
+  const recharges = useMemo(
+    () => operations.filter(({ amount }) => amount > 0),
+    [operations]
+  );
+  const purchases = useMemo(
+    () => operations.filter(({ amount }) => amount < 0),
+    [operations]
+  );
+
   const [balance] = useState(() => [
     {
       date: "2023-09-01",
@@ -2087,17 +2082,18 @@ function Data() {
       <Chart list={recharges} />
       <h3>Purchases</h3>
       <Chart list={purchases} /> */}
-      <h3>Balance</h3>
+      <h3>Recharges & Purchases</h3>
       <BalanceChart
         list={recharges.concat(
           purchases.map(({ date, number, amount }) => ({
             date,
             number,
-            amount: -amount,
+            amount,
           }))
         )}
         balance={rows}
       />
+      <h3>Balance</h3>
       <Chart list={rows} />
       <h3>Internet</h3>
       <Chart
