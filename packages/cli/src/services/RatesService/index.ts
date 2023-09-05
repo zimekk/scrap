@@ -77,8 +77,9 @@ export class RatesService extends Service {
 
   async sync(data = {}, { timestamp: _fetched }: any = {}): Promise<any> {
     return DataSchema.parseAsync(data).then(({ rates }) =>
-      Promise.all(
-        mapRates(rates).map((item) => this.process(item, { _fetched }))
+      mapRates(rates).reduce(
+        (promise, item) => promise.then(() => this.process(item, { _fetched })),
+        Promise.resolve()
       )
     );
   }
