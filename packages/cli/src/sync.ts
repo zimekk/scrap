@@ -28,10 +28,12 @@ export const Type = {
   DEPOT: "DEPOT",
   DIRECTIONS: "DIRECTIONS",
   EURO: "EURO",
+  EXPERT: "EXPERT",
   FLATS: "FLATS",
   FUNDS: "FUNDS",
   GAMES: "GAMES",
   GPASS: "GPASS",
+  GRATKA: "GRATKA",
   MACAN: "MACAN",
   PROMO: "PROMO",
   PROMO_ITEM: "PROMO_ITEM",
@@ -200,6 +202,18 @@ export const sync = async (type = "") => {
               const service = new GpassService({ summary });
               return service.sync(json, { timestamp, url });
             }),
+        }),
+        z.object({
+          type: z.literal(Type.GRATKA),
+          data: z.object({
+            url: z.string(),
+          }),
+        }),
+        z.object({
+          type: z.literal(Type.EXPERT),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
         z.object({
           type: z.literal(Type.PROMO),
