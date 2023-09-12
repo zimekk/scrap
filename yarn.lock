@@ -4859,10 +4859,10 @@ denque@^2.1.0:
   resolved "https://registry.yarnpkg.com/denque/-/denque-2.1.0.tgz#e93e1a6569fb5e66f16a3c2a2964617d349d6ab1"
   integrity sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==
 
-depcheck@^1.4.5:
-  version "1.4.5"
-  resolved "https://registry.yarnpkg.com/depcheck/-/depcheck-1.4.5.tgz#f71bc6bd97707384dfd1fda40f2834f3de308f66"
-  integrity sha512-bgt8SfRJ5UQi+uieuTnx6Vd++xJaP7g28FwxM8pZlXHAVXe6mKfSyDDtTfKpF5PS5S6PrgW/o13CYn8YuWDnbQ==
+depcheck@^1.4.6:
+  version "1.4.6"
+  resolved "https://registry.yarnpkg.com/depcheck/-/depcheck-1.4.6.tgz#36e3d67d44f862131e84fa27f7ee0d3396635370"
+  integrity sha512-Jxy9+u1DE+Svj2N0V/ueEQiOgH2X3KRPAsBfM0m/vCtuiG5QSC//b1mt0rbN/u3BFFEzXqpHzYiwDjmvAydEsw==
   dependencies:
     "@babel/parser" "7.22.5"
     "@babel/traverse" "7.22.5"
@@ -4885,7 +4885,6 @@ depcheck@^1.4.5:
     require-package-name "^2.0.1"
     resolve "^1.18.1"
     resolve-from "^5.0.0"
-    sass "^1.50.1"
     semver "^7.3.2"
     yargs "^16.1.0"
 
@@ -9769,7 +9768,7 @@ sass-loader@^13.3.2:
   dependencies:
     neo-async "^2.6.2"
 
-sass@^1.50.1, sass@^1.66.1:
+sass@^1.66.1:
   version "1.66.1"
   resolved "https://registry.yarnpkg.com/sass/-/sass-1.66.1.tgz#04b51c4671e4650aa393740e66a4e58b44d055b1"
   integrity sha512-50c+zTsZOJVgFfTgwwEzkjA3/QACgdNsKueWPyAR0mRINIvLAStVQBbPg14iuqEQ74NPDbXzJARJ/O4SI1zftA==
