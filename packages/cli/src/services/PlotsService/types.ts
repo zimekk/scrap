@@ -208,7 +208,7 @@ export const JsonSchema = z.object({
         query: z.string(),
         params: z.object({}),
         options: z.object({
-          spellCheckerDisabledByExperiment: z.boolean(),
+          spellCheckerDisabledByExperiment: z.boolean().optional(),
           mWebAdlimitPerPageVariant: z.string().optional(),
         }),
       }),
