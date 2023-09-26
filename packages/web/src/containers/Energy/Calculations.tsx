@@ -209,8 +209,18 @@ export default function Calculations({
                               <tfoot>
                                 <tr>
                                   <th align="left">Razem</th>
-                                  <td colSpan={3}></td>
-                                  <td align="right"></td>
+                                  <td colSpan={4}></td>
+                                  <td align="right">
+                                    {new Intl.NumberFormat("pl-PL", {
+                                      minimumFractionDigits: 2,
+                                    }).format(
+                                      item.reduce(
+                                        (result, { start, value }) =>
+                                          result + value - start,
+                                        0
+                                      )
+                                    )}
+                                  </td>
                                 </tr>
                               </tfoot>
                             </table>
