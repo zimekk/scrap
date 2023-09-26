@@ -65,7 +65,7 @@
     "@types/d3": "^7.4.1",
     "@types/d3-brush": "^3.0.4",
     "@types/html-webpack-plugin": "^3.2.7",
-    "@types/leaflet": "^1.9.4",
+    "@types/leaflet": "^1.9.6",
     "@types/node": "^18.17.18",
     "@types/pako": "^2.0.0",
     "@types/react": "^18.2.22",
