@@ -73,7 +73,7 @@
     "@types/react-truncate": "^2.3.4",
     "@types/slug": "^5.0.5",
     "@types/use-persisted-state": "^0.3.2",
-    "@types/webpack": "^5.28.2",
+    "@types/webpack": "^5.28.3",
     "@types/webpack-dev-server": "^4.7.2",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
