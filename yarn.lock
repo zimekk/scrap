@@ -2572,10 +2572,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-truncate@^2.3.4":
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/@types/react-truncate/-/react-truncate-2.3.4.tgz#1d5002e71e393b81b7877a147992a050f40075fa"
-  integrity sha512-+ugDlho66dRn7Sw/lPkE/wlOi0KUIRwY2KOiUiehWjFf7EmiMDjMpHqrBhiLJfH2Z9EC+qRBHC9o7iZoEmmWQw==
+"@types/react-truncate@^2.3.5":
+  version "2.3.5"
+  resolved "https://registry.yarnpkg.com/@types/react-truncate/-/react-truncate-2.3.5.tgz#c9cb2b8171663c89e9a23108d50251bd65056062"
+  integrity sha512-ee02dFa43/eeJ6VTZzEz6bzwCAGrVVnKPsyWPC4fSd5zGlJmp4tBQeodXlu3y8BulpeGD/3l/eUa7dahpBSgiA==
   dependencies:
     "@types/react" "*"
 
