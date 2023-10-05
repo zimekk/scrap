@@ -53,6 +53,7 @@ export const Type = {
   SALOM: "SALOM",
   STATIONS: "STATIONS",
   STATION: "STATION",
+  STATUS: "STATUS",
   STOCK: "STOCK",
   THULE: "THULE",
   UNKNOWN: "UNKNOWN",
@@ -453,6 +454,12 @@ export const sync = async (type = "") => {
                 console.log({ item });
               }
             }),
+        }),
+        z.object({
+          type: z.literal(Type.STATUS),
+          data: z.object({
+            url: z.string(),
+          }),
         }),
         z.object({
           type: z.literal(Type.STOCK),
