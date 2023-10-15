@@ -10,6 +10,7 @@ import {
   axisLeft,
 } from "d3";
 import cx from "classnames";
+import { COLORS } from "./Chart";
 import styles from "./styles.module.scss";
 
 export default function Chart({
@@ -68,17 +69,7 @@ export default function Chart({
 
     const color = scaleOrdinal<string, string>()
       .domain(grouped.keys())
-      .range([
-        "#e41a1c",
-        "#377eb8",
-        "#4daf4a",
-        "#984ea3",
-        "#ff7f00",
-        "#ffff33",
-        "#a65628",
-        "#f781bf",
-        "#999999",
-      ]);
+      .range(COLORS);
 
     // Object.assign(window, { svg });
 

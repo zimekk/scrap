@@ -13,6 +13,18 @@ import {
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+export const COLORS = [
+  "#e41a1c",
+  "#377eb8",
+  "#4daf4a",
+  "#984ea3",
+  "#ff7f00",
+  "#ffff33",
+  "#a65628",
+  "#f781bf",
+  "#999999",
+];
+
 export default function Chart({
   list,
 }: {
@@ -68,17 +80,7 @@ export default function Chart({
 
     const color = scaleOrdinal<string, string>()
       .domain(grouped.keys())
-      .range([
-        "#e41a1c",
-        "#377eb8",
-        "#4daf4a",
-        "#984ea3",
-        "#ff7f00",
-        "#ffff33",
-        "#a65628",
-        "#f781bf",
-        "#999999",
-      ]);
+      .range(COLORS);
 
     // render the line
     svgContent
