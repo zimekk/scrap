@@ -595,7 +595,24 @@ function Data({ version = "v1" }) {
                             }[type])(compare(history, k, p))
                         )}
                       >
-                        {price ?? "-"}
+                        {price ? (
+                          <Link
+                            style={{ color: "inherit" }}
+                            onClick={(e) => (
+                              e.preventDefault(),
+                              setFilters((filters) => ({
+                                ...filters,
+                                distance:
+                                  Math.round((10 * item._distance) / 1000) / 10,
+                                price: Number(price),
+                              }))
+                            )}
+                          >
+                            {price}
+                          </Link>
+                        ) : (
+                          "-"
+                        )}
                       </div>
                     </td>
                   ))}
