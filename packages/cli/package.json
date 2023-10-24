@@ -48,7 +48,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/chunk": "^0.0.0",
+    "@types/chunk": "^0.0.1",
     "@types/isomorphic-fetch": "^0.0.37",
     "@types/json-diff": "^0.9.1",
     "@types/node": "^18.18.6",
