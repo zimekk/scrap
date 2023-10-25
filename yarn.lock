@@ -2119,10 +2119,10 @@
   dependencies:
     "@types/d3-selection" "*"
 
-"@types/d3-brush@*", "@types/d3-brush@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@types/d3-brush/-/d3-brush-3.0.4.tgz#dbbd71a980c7fd198771e4ae79ccba75debdc76f"
-  integrity sha512-Kg5uIsdJNMCs5lTqeZFsTKqj9lBvpiFRDkYN3j2CDlPhonNDg9/gXVpv1E/MKh3tEqArryIj9o6RBGE/MQe+6Q==
+"@types/d3-brush@*", "@types/d3-brush@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/d3-brush/-/d3-brush-3.0.5.tgz#94d869e11d7d28dee7e68eee080fa8aa0b9371ca"
+  integrity sha512-JROQXZNq1X6QdWstESDUv1VilwZ2hBCQnWB91yal+5yZvYwGQvYsGCjrkHGfKK/8/AcX1JnERmpQzdDDuLRUsA==
   dependencies:
     "@types/d3-selection" "*"
 
