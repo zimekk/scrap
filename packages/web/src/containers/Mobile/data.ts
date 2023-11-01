@@ -1,4 +1,10 @@
 export const operations = [
+  { date: "2023-11-01", number: "183", amount: 10 },
+  { date: "2023-11-01", number: "938", amount: -15, min: 100 },
+  { date: "2023-11-01", number: "379", amount: 25 },
+  { date: "2023-11-01", number: "818", amount: 5 },
+  { date: "2023-11-01", number: "828", amount: 5 },
+
   { date: "2023-10-15", number: "828", amount: -5, net: "1GB" },
 
   { date: "2023-10-10", number: "183", amount: -9, net: "2GB" },
@@ -134,6 +140,53 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2023-11-01",
+    number: "183",
+    // amount: 2.95,
+    amount: 12.95,
+    net: 1_420,
+    min: "97:55",
+    sms: 106,
+  },
+  {
+    date: "2023-11-01",
+    number: "938",
+    // amount: 15.94,
+    amount: 0.94,
+    net: 1_170,
+    // min: "74:08",
+    min: 174,
+    sms: 208,
+  },
+  {
+    date: "2023-11-01",
+    number: "379",
+    // amount: 2.72,
+    amount: 27.72,
+    net: 6_190,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2023-11-01",
+    number: "818",
+    // amount: 6.11,
+    amount: 11.11,
+    net: 3_540,
+    min: 166,
+    sms: 169,
+  },
+  {
+    date: "2023-11-01",
+    number: "828",
+    // amount: 0.98,
+    amount: 5.98,
+    net: 1_260,
+    min: 116,
+    sms: 180,
+  },
+
   {
     date: "2023-10-30",
     number: "183",
