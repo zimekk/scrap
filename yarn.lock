@@ -2496,10 +2496,10 @@
   resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
   integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
 
-"@types/slug@^5.0.6":
-  version "5.0.6"
-  resolved "https://registry.yarnpkg.com/@types/slug/-/slug-5.0.6.tgz#853926edebc15ae65eda18722a031877b9baa188"
-  integrity sha512-7z9pKAJRwVN/aJnDm8CHgq+0qizT3OuunI4M8IlZ0UcsWYbG3EW2ob7qbaeB+qk1wygoi88/i1/KvUDpHX5zRA==
+"@types/slug@^5.0.7":
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/@types/slug/-/slug-5.0.7.tgz#dc0e5d3ea6ab6daf29bafaa2bcf689cfefaab28a"
+  integrity sha512-u5T21+PqfRpHszRWSv5gJYDIkm6lmYUXLjZVYvQyWNO9aC0zs+a11qqtbxbsNRiNLTmw0Xi+5NWK/Qz+JjaB9w==
 
 "@types/sockjs@^0.3.33":
   version "0.3.33"
