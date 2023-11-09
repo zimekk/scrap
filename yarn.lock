@@ -2004,10 +2004,10 @@
   dependencies:
     "@types/d3-selection" "*"
 
-"@types/d3-brush@*", "@types/d3-brush@^3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@types/d3-brush/-/d3-brush-3.0.5.tgz#94d869e11d7d28dee7e68eee080fa8aa0b9371ca"
-  integrity sha512-JROQXZNq1X6QdWstESDUv1VilwZ2hBCQnWB91yal+5yZvYwGQvYsGCjrkHGfKK/8/AcX1JnERmpQzdDDuLRUsA==
+"@types/d3-brush@*", "@types/d3-brush@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@types/d3-brush/-/d3-brush-3.0.6.tgz#c2f4362b045d472e1b186cdbec329ba52bdaee6c"
+  integrity sha512-nH60IZNNxEcrh6L1ZSMNA28rj27ut/2ZmI3r96Zd+1jrZD++zD3LsMIjWlvg4AYrHn/Pqz4CF3veCxGjtbqt7A==
   dependencies:
     "@types/d3-selection" "*"
 
