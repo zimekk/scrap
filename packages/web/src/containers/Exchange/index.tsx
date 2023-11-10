@@ -150,8 +150,11 @@ export default function Section({ version = "v1" }) {
       ["2023-08-23"]: [174.32, 369.8],
       ["2023-09-22"]: [175.1, 369.02],
       ["2023-10-23"]: [187.77, 356.35],
+      ["2023-11-23"]: [172.45, 380.45],
+      ["2023-12-22"]: [185.5, 367.4],
+      ["2024-01-23"]: [174.12, 378.78],
     }),
-    []
+    [],
   );
 
   const list = useMemo(() => {
@@ -177,7 +180,7 @@ export default function Section({ version = "v1" }) {
           pay?: number;
           sum?: number;
         }
-      >
+      >,
     );
 
     rates
@@ -189,7 +192,7 @@ export default function Section({ version = "v1" }) {
           sell: Number(sell),
           spread: Number(spread),
           value: values[date].reduce((sum, val) => sum + val, 0),
-        })
+        }),
       );
     return Object.values(result)
       .map((item) =>
@@ -200,8 +203,8 @@ export default function Section({ version = "v1" }) {
                 pay,
                 sum: pay + item.add,
               }))(Math.round(100 * item.sell * item.value) / 100)
-            : {}
-        )
+            : {},
+        ),
       )
       .sort((a, b) => b.date.getTime() - a.date.getTime());
   }, [rates, values, code]);
@@ -218,9 +221,9 @@ export default function Section({ version = "v1" }) {
           group: code,
         }))
         .sort(
-          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
         ),
-    [rates, checked]
+    [rates, checked],
   );
 
   console.log({ rates, code, list });
@@ -241,9 +244,9 @@ export default function Section({ version = "v1" }) {
                   setCheckedOptions((checked) =>
                     target.checked
                       ? checked.concat(target.value)
-                      : checked.filter((value) => value !== target.value)
+                      : checked.filter((value) => value !== target.value),
                   ),
-                []
+                [],
               )}
             />
             <span>{code}</span>
@@ -261,7 +264,7 @@ export default function Section({ version = "v1" }) {
             value={code}
             onChange={useCallback<ChangeEventHandler<HTMLSelectElement>>(
               ({ target }) => setCode(target.value),
-              []
+              [],
             )}
           >
             {CODES.map((code) => (
@@ -295,7 +298,7 @@ export default function Section({ version = "v1" }) {
                 ((selection) =>
                   selection &&
                   (selection.removeAllRanges(), selection.addRange(range)))(
-                  window.getSelection()
+                  window.getSelection(),
                 );
               }}
             >
@@ -363,7 +366,7 @@ export default function Section({ version = "v1" }) {
                 add: 0,
                 pay: 0,
                 sum: 0,
-              }
+              },
             ),
           ].map((item, i) => (
             <tr key={i}>
