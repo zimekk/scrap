@@ -7,7 +7,7 @@ const AdSchema = z.object({
   category: z.object({
     id: z.number(),
     type: z.string().optional(),
-    itemType: z.string(),
+    itemType: z.string().optional(),
   }),
   map: z.object({
     zoom: z.number(),

@@ -1,5 +1,5 @@
-import { EMPTY, Subject, from } from "rxjs";
-import { expand, filter, map, mergeMap, tap } from "rxjs/operators";
+import { Subject, from } from "rxjs";
+import { map, mergeMap } from "rxjs/operators";
 import Service from "./services/Service";
 import { request } from "./request";
 
@@ -15,7 +15,7 @@ class ProductService extends Service {
         url: `${MORELE_URL}${name}/`,
         html: true,
       },
-      this.summary
+      this.summary,
     );
   }
 
@@ -46,8 +46,8 @@ export const schema = () => {
       mergeMap(
         ({ name }) =>
           from(service.request(name)).pipe(map((html) => ({ name, html }))),
-        1
-      )
+        1,
+      ),
     )
     .subscribe({
       next: (item) => {
@@ -76,13 +76,13 @@ export const schema = () => {
       ?.map((i) => i.match(/\n(Wysokość|Szerokość|Głębokość)\n(\d+) mm/))
       .reduce(
         (result, [_, p, v]: any) => Object.assign(result, { [p]: Number(v) }),
-        {}
+        {},
       );
     // console.log({ r });
     if (r) {
       const l = Object.values(r).reduce(
         (result: number, v: any) => (result * v) / 100,
-        1
+        1,
       );
       console.log({ l });
     }
