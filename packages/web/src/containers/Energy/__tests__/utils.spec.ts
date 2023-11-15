@@ -1,4 +1,5 @@
-import { RATES_1 as RATES, getMatch, getRates } from "../utils";
+import { RATES_1 as RATES } from "../rates";
+import { getMatch, getRates } from "../utils";
 
 describe("utils", () => {
   it("match", () =>
@@ -93,46 +94,26 @@ describe("utils", () => {
             ],
             "Opłata abonamentowa": [
               {
-                count: 4,
+                count: 5,
                 from: "2020-08-07",
                 price: 0.42,
-                tax: 0.3864,
-                to: "2020-12-31",
-                total: 2.0664,
-                value: 1.68,
-                vat: 0.23,
-              },
-              {
-                count: 1,
-                from: "2021-01-01",
-                price: 0.42,
-                tax: 0.0966,
+                tax: 0.48300000000000004,
                 to: "2021-01-31",
-                total: 0.5166,
-                value: 0.42,
+                total: 2.583,
+                value: 2.1,
                 vat: 0.23,
               },
             ],
             "Opłata jakościowa": [
               {
                 from: "2020-08-07",
-                to: "2020-12-31",
-                count: 269,
-                price: 0.0133,
-                value: 3.58,
-                vat: 0.23,
-                tax: 0.8234,
-                total: 4.4034,
-              },
-              {
-                from: "2021-01-01",
                 to: "2021-01-31",
-                count: 68,
+                count: 337,
                 price: 0.0133,
-                value: 0.9,
                 vat: 0.23,
-                tax: 0.20700000000000002,
-                total: 1.107,
+                tax: 1.0304000000000002,
+                value: 4.48,
+                total: 5.510400000000001,
               },
             ],
             "Opłata kogeneracyjna": [
@@ -171,67 +152,37 @@ describe("utils", () => {
             ],
             "Opłata przejściowa": [
               {
-                count: 4,
+                count: 5,
                 from: "2020-08-07",
                 price: 0.1,
-                tax: 0.020000000000000004,
-                to: "2020-12-31",
-                total: 0.42000000000000004,
-                value: 0.4,
-                vat: 0.05,
-              },
-              {
-                count: 1,
-                from: "2021-01-01",
-                price: 0.1,
-                tax: 0.005000000000000001,
+                tax: 0.025,
                 to: "2021-01-31",
-                total: 0.10500000000000001,
-                value: 0.1,
+                total: 0.525,
+                value: 0.5,
                 vat: 0.05,
               },
             ],
             "Opłata sieciowa stała": [
               {
                 from: "2020-08-07",
-                to: "2020-12-31",
-                count: 4,
-                price: 10.55,
-                value: 42.2,
-                vat: 0.23,
-                tax: 9.706000000000001,
-                total: 51.906000000000006,
-              },
-              {
-                from: "2021-01-01",
                 to: "2021-01-31",
-                count: 1,
+                count: 5,
                 price: 10.55,
-                value: 10.55,
+                value: 52.75,
                 vat: 0.23,
-                tax: 2.4265000000000003,
-                total: 12.976500000000001,
+                tax: 12.1325,
+                total: 64.8825,
               },
             ],
             "Opłata sieciowa zmienna": [
               {
-                count: 269,
+                count: 337,
                 from: "2020-08-07",
                 price: 0.1372,
-                tax: 8.4893,
-                to: "2020-12-31",
-                total: 45.3993,
-                value: 36.91,
-                vat: 0.23,
-              },
-              {
-                count: 68,
-                from: "2021-01-01",
-                price: 0.1372,
-                tax: 2.1459,
+                tax: 10.635200000000001,
                 to: "2021-01-31",
-                total: 11.4759,
-                value: 9.33,
+                total: 56.8752,
+                value: 46.24,
                 vat: 0.23,
               },
             ],
@@ -376,7 +327,7 @@ describe("utils", () => {
         },
       },
     ].forEach(({ item, list, result }) =>
-      expect(getMatch(item, list)).toEqual(result)
+      expect(getMatch(item, list)).toEqual(result),
     ));
 
   it("rates", () =>

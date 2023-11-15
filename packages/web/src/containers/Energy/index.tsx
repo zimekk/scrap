@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Calculations from "./Calculations";
+import { RATES_1, RATES_2 } from "./rates";
 import styles from "./styles.module.scss";
 
-import { type Items, RATES_1, RATES_2, type Rates } from "./utils";
+import type { Items, Rates } from "./utils";
 
 export const ITEMS_1: Items[] = [
   [
@@ -330,6 +331,20 @@ export const ITEMS_2: Items[] = [
       value: 21_582.0,
     },
   ],
+  [
+    {
+      from: "2023-04-12",
+      to: "2023-07-31",
+      start: 21_582.0,
+      value: 21_582.0 + 1678,
+    },
+    {
+      from: "2023-08-01",
+      to: "2023-10-16",
+      start: 21_582.0 + 1678,
+      value: 23_983.0,
+    },
+  ],
 ];
 // .map((item) => ({ contract: "8586", counter: "2752", ...item }))
 
@@ -343,7 +358,7 @@ function Data({
   rates: Rates;
 }) {
   const [selected, setSelected] = useState<number[]>(() =>
-    items.map((_, i) => i)
+    items.map((_, i) => i),
   );
 
   return (

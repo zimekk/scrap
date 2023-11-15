@@ -1,0 +1,535 @@
+import { type Rates, getRates } from "./utils";
+
+export const RATES_1: Rates = {
+  "Sprzedaż energii elektrycznej": {
+    "Energia czynna": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.2762,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.3195,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.4346,
+          vat: 0.05,
+        },
+        "2022-06-01": {
+          price: 0.4522,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.414,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.698,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata handlowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 4.29,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 6.25,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 7.8,
+          vat: 0.05,
+        },
+        "2022-06-01": {
+          price: 8.38, // ?
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 8.38,
+          vat: 0.23,
+        },
+        "2023-03-01": {
+          price: 0,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 8.38,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+  "Dystrybucja energii elektrycznej": {
+    "Opłata jakościowa": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.013,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.0133,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.0102,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.0095,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.0095,
+          vat: 0.23,
+        },
+        // "2023-08-01": {
+        //   price: 0.0242,
+        //   vat: 0.23,
+        // },
+        "2099-01-01": {
+          price: 0.0242,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata OZE": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2020-01-01": {
+          price: 0.0,
+          vat: 0.23,
+        },
+        "2021-01-01": {
+          price: 0.0022,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.0009,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.0,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.0,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata sieciowa zmienna": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.1349,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.1372,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.1391,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.1459,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.1459,
+          vat: 0.23,
+        },
+        // "2023-08-01": {
+        //   price: 0.2244,
+        //   vat: 0.23,
+        // },
+        "2099-01-01": {
+          price: 0.2244,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata kogeneracyjna": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.00158,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.00139,
+          vat: 0.23,
+        },
+        "2021-01-01": {
+          price: 0.0,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.00406,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.00496,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.00496,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata sieciowa stała": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 10.29,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 10.55,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 10.7,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 11.32,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 11.32,
+          vat: 0.23,
+        },
+        // "2023-08-01": {
+        //   price: 17.53,
+        //   vat: 0.23,
+        // },
+        "2099-01-01": {
+          price: 17.53,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata przejściowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2020-01-01": {
+          price: 0.1,
+          vat: 0.05,
+        },
+        "2022-01-01": {
+          price: 0.1,
+          vat: 0.05,
+        },
+        "2022-04-01": {
+          price: 0.1,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.1,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.1,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata mocowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2021-01-01": {
+          price: 4.48,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 5.68,
+          vat: 0.05,
+        },
+        "2022-04-01": {
+          price: 5.68,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 5.72,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 5.72,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata abonamentowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.4,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.42,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.42,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.42,
+          vat: 0.23,
+        },
+        // "2023-08-01": {
+        //   price: 0.46,
+        //   vat: 0.23,
+        // },
+        "2099-01-01": {
+          price: 0.46,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+};
+
+export const RATES_2: Rates = {
+  "Sprzedaż energii elektrycznej": {
+    ...RATES_1["Sprzedaż energii elektrycznej"],
+    "Energia czynna": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.2762,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.3195,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.4346,
+          vat: 0.05,
+        },
+        "2022-06-01": {
+          price: 0.4522,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.414,
+          vat: 0.23,
+        },
+        "2023-08-01": {
+          price: 0.698,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.698,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+  "Dystrybucja energii elektrycznej": {
+    ...RATES_1["Dystrybucja energii elektrycznej"],
+    "Opłata jakościowa": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.013,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.0133,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.0102,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.0095,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.0095,
+          vat: 0.23,
+        },
+        "2023-08-01": {
+          price: 0.0242,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.0242,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata sieciowa zmienna": {
+      value: ({ value }) => value,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.1349,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.1372,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 0.1391,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.1459,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.1459,
+          vat: 0.23,
+        },
+        "2023-08-01": {
+          price: 0.2244,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.2244,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata sieciowa stała": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 10.29,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 10.55,
+          vat: 0.23,
+        },
+        "2021-02-01": {
+          price: 10.7,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 11.32,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 11.32,
+          vat: 0.23,
+        },
+        "2023-08-01": {
+          price: 17.53,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 17.53,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata przejściowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.33,
+          vat: 0.05,
+        },
+        "2022-04-01": {
+          price: 0.33,
+          // price: 0.33, // ?
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata mocowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2021-01-01": {
+          price: 4.48,
+          vat: 0.23,
+        },
+        "2021-04-04": {
+          price: 10.46,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 13.25,
+          vat: 0.05,
+        },
+        "2022-04-01": {
+          price: 13.25,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 13.35,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 13.35,
+          vat: 0.23,
+        },
+      }),
+    },
+    "Opłata abonamentowa": {
+      value: ({ count }) => count,
+      rates: getRates({
+        "2019-10-20": {
+          price: 0.4,
+          vat: 0.23,
+        },
+        "2020-01-01": {
+          price: 0.42,
+          vat: 0.23,
+        },
+        "2022-01-01": {
+          price: 0.42,
+          vat: 0.05,
+        },
+        "2023-01-01": {
+          price: 0.42,
+          vat: 0.23,
+        },
+        "2023-08-01": {
+          price: 0.46,
+          vat: 0.23,
+        },
+        "2099-01-01": {
+          price: 0.46,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+};

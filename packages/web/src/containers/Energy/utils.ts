@@ -30,18 +30,33 @@ interface Rate {
 export type Items = Item[];
 export type Rates = Record<string, Record<string, Cost>>;
 
-export const getMatch = (item: Item[], list: Rates) => {
+export const getMatch = (
+  item: Item[],
+  list: Rates,
+): Record<
+  string,
+  Record<
+    string,
+    (Item & {
+      tax: number;
+      count: number;
+      price: number;
+      vat: number;
+      total: number;
+    })[]
+  >
+> => {
   return Object.entries(list).reduce(
-    (result, [key, value]) =>
+    (result, [name, value]) =>
       Object.assign(result, {
-        [key]: Object.entries(value).reduce(
+        [name]: Object.entries(value).reduce(
           (result, [key, cost]) =>
             Object.assign(result, {
               [key]: item
                 .map((item) =>
                   cost.rates
                     .filter(
-                      (price) => price.from <= item.to && item.from <= price.to
+                      (price) => price.from <= item.to && item.from <= price.to,
                     )
                     .map(({ from, to, price, vat }) =>
                       (({ from, to, value }) => ({
@@ -56,9 +71,9 @@ export const getMatch = (item: Item[], list: Rates) => {
                               }),
                               {
                                 months: 1,
-                              }
+                              },
                             ),
-                            new Date(from)
+                            new Date(from),
                           ),
                           days: differenceInDays(new Date(to), new Date(from)),
                         }),
@@ -68,28 +83,52 @@ export const getMatch = (item: Item[], list: Rates) => {
                         from: from > item.from ? from : item.from,
                         to: to < item.to ? to : item.to,
                         value: Math.round(item.value - item.start),
-                      })
-                    )
-                    .map((item) =>
-                      ((value) => ({
-                        ...item,
-                        value,
-                        tax: item.vat * value,
-                        total: (1 + item.vat) * value,
-                      }))(Math.round(100 * item.count * item.price) / 100)
-                    )
+                      }),
+                    ),
                 )
-                .flat(),
+                .flat()
+                .reduce(
+                  (result, item) => {
+                    if (
+                      ["Dystrybucja energii elektrycznej"].includes(name) &&
+                      result.length > 0
+                    ) {
+                      const last = result[result.length - 1];
+                      if (
+                        item.price === last.price &&
+                        item.vat === last.vat &&
+                        format(
+                          sub(new Date(item.from), { days: 1 }),
+                          "yyyy-MM-dd",
+                        ) === last.to
+                      ) {
+                        last.count += item.count;
+                        last.to = item.to;
+                        return result;
+                      }
+                    }
+                    return result.concat(item);
+                  },
+                  [] as (Rate & { count: number })[],
+                )
+                .map((item) =>
+                  ((value) => ({
+                    ...item,
+                    value,
+                    tax: item.vat * value,
+                    total: (1 + item.vat) * value,
+                  }))(Math.round(100 * item.count * item.price) / 100),
+                ),
             }),
-          {}
+          {},
         ),
       }),
-    {}
+    {},
   );
 };
 
 export const getRates = (
-  item: Record<string, { price: number; vat: number }>
+  item: Record<string, { price: number; vat: number }>,
 ) =>
   Object.entries(item).map(([from, item], i, list) => ({
     ...item,
@@ -104,361 +143,10 @@ export const getRates = (
               }),
               {
                 months: 1,
-              }
+              },
             ),
-        { days: 1 }
+        { days: 1 },
       ),
-      "yyyy-MM-dd"
+      "yyyy-MM-dd",
     ),
   }));
-
-export const RATES_1: Rates = {
-  "Sprzedaż energii elektrycznej": {
-    "Energia czynna": {
-      value: ({ value }) => value,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.2762,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 0.3195,
-          vat: 0.23,
-        },
-        "2021-02-01": {
-          price: 0.33,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.4346,
-          vat: 0.05,
-        },
-        "2022-06-01": {
-          price: 0.4522,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.414,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.414,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata handlowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2019-10-20": {
-          price: 4.29,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 6.25,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 7.8,
-          vat: 0.05,
-        },
-        "2022-06-01": {
-          price: 8.38, // ?
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 8.38,
-          vat: 0.23,
-        },
-        "2023-03-01": {
-          price: 0,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 8.38,
-          vat: 0.23,
-        },
-      }),
-    },
-  },
-  "Dystrybucja energii elektrycznej": {
-    "Opłata jakościowa": {
-      value: ({ value }) => value,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.013,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 0.0133,
-          vat: 0.23,
-        },
-        "2021-02-01": {
-          price: 0.0102,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.0095,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.0095,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.0095,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata OZE": {
-      value: ({ value }) => value,
-      rates: getRates({
-        "2020-01-01": {
-          price: 0.0,
-          vat: 0.23,
-        },
-        "2021-01-01": {
-          price: 0.0022,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.0009,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.0,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.0,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata sieciowa zmienna": {
-      value: ({ value }) => value,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.1349,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 0.1372,
-          vat: 0.23,
-        },
-        "2021-02-01": {
-          price: 0.1391,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.1459,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.1459,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.1459,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata kogeneracyjna": {
-      value: ({ value }) => value,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.00158,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 0.00139,
-          vat: 0.23,
-        },
-        "2021-01-01": {
-          price: 0.0,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.00406,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.00496,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.00496,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata sieciowa stała": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2019-10-20": {
-          price: 10.29,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 10.55,
-          vat: 0.23,
-        },
-        "2021-02-01": {
-          price: 10.7,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 11.32,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 11.32,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 11.32,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata przejściowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2020-01-01": {
-          price: 0.1,
-          vat: 0.05,
-        },
-        "2022-01-01": {
-          price: 0.1,
-          vat: 0.05,
-        },
-        "2022-04-01": {
-          price: 0.1,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.1,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.1,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata mocowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2021-01-01": {
-          price: 4.48,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 5.68,
-          vat: 0.05,
-        },
-        "2022-04-01": {
-          price: 5.68,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 5.72,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 5.72,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata abonamentowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.4,
-          vat: 0.23,
-        },
-        "2020-01-01": {
-          price: 0.42,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.42,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.42,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.42,
-          vat: 0.23,
-        },
-      }),
-    },
-  },
-};
-
-export const RATES_2: Rates = {
-  ...RATES_1,
-  "Dystrybucja energii elektrycznej": {
-    ...RATES_1["Dystrybucja energii elektrycznej"],
-    "Opłata przejściowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2019-10-20": {
-          price: 0.33,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 0.33,
-          vat: 0.05,
-        },
-        "2022-04-01": {
-          price: 0.33,
-          // price: 0.33, // ?
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 0.33,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 0.33,
-          vat: 0.23,
-        },
-      }),
-    },
-    "Opłata mocowa": {
-      value: ({ count }) => count,
-      rates: getRates({
-        "2021-01-01": {
-          price: 4.48,
-          vat: 0.23,
-        },
-        "2021-04-04": {
-          price: 10.46,
-          vat: 0.23,
-        },
-        "2022-01-01": {
-          price: 13.25,
-          vat: 0.05,
-        },
-        "2022-04-01": {
-          price: 13.25,
-          vat: 0.05,
-        },
-        "2023-01-01": {
-          price: 13.35,
-          vat: 0.23,
-        },
-        "2099-01-01": {
-          price: 13.35,
-          vat: 0.23,
-        },
-      }),
-    },
-  },
-};
