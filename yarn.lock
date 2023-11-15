@@ -1976,10 +1976,10 @@
   dependencies:
     bull "*"
 
-"@types/chunk@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@types/chunk/-/chunk-0.0.1.tgz#c1d03eaef87e1b13c780fb9f91332b7a986ab7e4"
-  integrity sha512-YS5XNUNOXhm2IWe1g+r8hE0AV5d//+AlPNKEtln40GKAGazOTGXAm7J4b2ZnGrS1RBPJ6RZ688mYVjmPZGPn/g==
+"@types/chunk@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@types/chunk/-/chunk-0.0.2.tgz#9a13596381797af0427d3fd1227dd046683d1b8c"
+  integrity sha512-pKxhCljOuleDrDq/VlGrReAHS7jSuduB0C27s+eTlE4rGi0XJPcR+Q4WLnxZNs+7aPnvyKGHBJ+pYIMqUxTO4A==
 
 "@types/clean-css@*":
   version "4.2.5"
