@@ -94,7 +94,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@commitlint/cli": "^18.4.2",
+    "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@types/jest": "^29.5.10",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
