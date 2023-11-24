@@ -73,7 +73,7 @@ export const ItemSchema = z
     Product: ProductSchema,
     Price: z.number(),
     OldPrice: z.number(),
-    PromotionGainText: z.string().optional(),
+    PromotionGainText: z.string().nullable().optional(),
     PromotionGainTextLines: z.string().array(),
     PromotionGainValue: z.number(),
     PromotionTotalCount: z.number(),
