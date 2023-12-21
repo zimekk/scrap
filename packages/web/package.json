@@ -29,7 +29,7 @@
     "classnames": "^2.3.2",
     "d3": "^7.8.5",
     "d3-shape": "^3.2.0",
-    "date-fns": "^3.0.1",
+    "date-fns": "^3.0.5",
     "events": "^3.3.0",
     "history": "^5.3.0",
     "hoist-non-react-statics": "^3.3.2",
