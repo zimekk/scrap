@@ -6,7 +6,7 @@ const _time = Date.now();
 
 export const scrapPropertyGratkaList = (
   item: Partial<{ id: string }>,
-  html: string
+  html: string,
 ) => {
   const $root = parse(html);
 
@@ -18,7 +18,7 @@ export const scrapPropertyGratkaList = (
           id: z.string(),
           name: z.string(),
           href: z.string(),
-        })
+        }),
       ),
       nextPage: z.string().optional(),
     })
@@ -53,7 +53,7 @@ export const Category = z.enum([
 
 export const scrapPropertyGratkaItem = (
   item: Partial<{ id: string }>,
-  html: string
+  html: string,
 ) => {
   const $root = parse(html);
 
@@ -81,7 +81,7 @@ export const scrapPropertyGratkaItem = (
         z.object({
           label: z.string(),
           value: z.string().transform((value) => value.replace(/\s+/g, " ")),
-        })
+        }),
       ),
     })
     .parse(
@@ -92,7 +92,7 @@ export const scrapPropertyGratkaItem = (
         address: $root
           .querySelectorAll("script")
           ?.map(($node: any) =>
-            $node.text.match(/const addressObject = (\{.+\});/)
+            $node.text.match(/const addressObject = (\{.+\});/),
           )
           .filter(Boolean)
           .map((m) => JSON.parse(m[1]))[0],
@@ -115,10 +115,10 @@ export const scrapPropertyGratkaItem = (
                   z.object({
                     url: z.string(),
                     thumb: z.string().optional(),
-                  })
+                  }),
                 )
                 .parse(data)
-                .map(({ url }) => url)
+                .map(({ url }) => url),
             )[0] || [],
         location: (({
           lokalizacja_miejscowosc,
@@ -132,15 +132,15 @@ export const scrapPropertyGratkaItem = (
           $root
             .querySelectorAll("script")
             ?.map(($node: any) =>
-              $node.text.match(/const addressObject = (\{.+\});/)
+              $node.text.match(/const addressObject = (\{.+\});/),
             )
             .filter(Boolean)
-            .map((m) => JSON.parse(m[1]))[0]
+            .map((m) => JSON.parse(m[1]))[0],
         ),
         title: $root.querySelector("h1.sticker__title")?.text.trim(),
         price: $root
           .querySelector("span.priceInfo__value")
-          ?.firstChild.text.trim(),
+          ?.firstChild?.text.trim(),
         description:
           $root
             .querySelector("div.description__rolled")
@@ -161,7 +161,7 @@ export const scrapPropertyGratkaItem = (
               .text.trim(),
             value: $div.text.trim(),
           })),
-      })
+      }),
     );
 };
 
@@ -181,7 +181,7 @@ const PropertyDiff = z.object({
 export const diffPropertyItem = (last: any, item: any) =>
   ((last, item) => diffString(last, item))(
     PropertyDiff.parse(last),
-    PropertyDiff.parse(item)
+    PropertyDiff.parse(item),
   );
 
 export const updatePropertyItem = (last: any, item: any, updated = _time) =>
@@ -203,5 +203,5 @@ export const updatePropertyItem = (last: any, item: any, updated = _time) =>
       })
       .passthrough()
       .parse(last),
-    PropertyDiff.parse(item)
+    PropertyDiff.parse(item),
   );
