@@ -24,7 +24,7 @@ const diffItem = (
     _updated: number;
     _history: {};
   },
-  item: {}
+  item: {},
 ) => diffString(DiffSchema.parse(last), DiffSchema.parse(item));
 
 const updateItem = (
@@ -35,7 +35,7 @@ const updateItem = (
     _history = {},
     ...last
   }: { _id: string; _created: number; _updated: number; _history: {} },
-  item: {}
+  item: {},
 ) => ({
   ...item,
   _id,
@@ -95,7 +95,7 @@ export const ProductSchema = z
       id: z.string(),
       parentGroupId: z.string().optional(),
     }),
-    questionsAndAnswers: z.boolean(),
+    questionsAndAnswers: z.boolean().optional(),
     isFetching: z.boolean(),
   })
   .transform(
@@ -136,7 +136,7 @@ export const ProductSchema = z
       proms: [],
       stars: ratingCount
         ? `${new Intl.NumberFormat("pl-PL", {}).format(
-            rating
+            rating,
           )} (${new IntlMessageFormat(
             `{ratingCount, plural,
               one {# opinia}
@@ -144,11 +144,11 @@ export const ProductSchema = z
               many {# opinii}
               other {# opinii}
             }`,
-            "pl-PL"
+            "pl-PL",
           ).format({ ratingCount })})`
         : `Brak opinii`,
       url: `https://www.x-kom.pl/p/${id}`,
-    })
+    }),
   );
 
 export default class extends Service {
@@ -165,8 +165,8 @@ export default class extends Service {
         Object.values(app.products).reduce<Promise<any>>(
           (promise, item) =>
             promise.then(() => this.process(item, { _fetched })),
-          Promise.resolve()
-        )
+          Promise.resolve(),
+        ),
       )
       .parseAsync(json);
   }
@@ -230,7 +230,7 @@ export default class extends Service {
                 proms: [],
                 stars: CommentsCount
                   ? `${new Intl.NumberFormat("pl-PL", {}).format(
-                      CommentsRating
+                      CommentsRating,
                     )} (${new IntlMessageFormat(
                       `{CommentsCount, plural,
                     one {# opinia}
@@ -238,11 +238,11 @@ export default class extends Service {
                     many {# opinii}
                     other {# opinii}
                   }`,
-                      "pl-PL"
+                      "pl-PL",
                     ).format({ CommentsCount })})`
                   : `Brak opinii`,
                 url: WebUrl,
-              })
+              }),
             ),
         }),
       ])
@@ -255,10 +255,10 @@ export default class extends Service {
               promise.then(() =>
                 item.Type === "Product"
                   ? this.process(item.ProductHeader, { _fetched })
-                  : null
+                  : null,
               ),
-            Promise.resolve()
-          )
+            Promise.resolve(),
+          ),
       )
       .parseAsync(json);
   }
@@ -288,7 +288,7 @@ export default class extends Service {
           this.summary.created.push(item.id);
           return productItems.insert({ ...item, _created: _time });
         }
-      })
+      }),
     );
   }
 }
