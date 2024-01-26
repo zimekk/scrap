@@ -10,7 +10,7 @@ export const PhotoSchema = z
 
 export const ProductSchema = z
   .object({
-    Photos: PhotoSchema.array(),
+    Photos: PhotoSchema.array().nullable(),
     // Comments: [],
     // OnlineAvailability: [Object],
     // DepartmentsAvailability: [Array],
