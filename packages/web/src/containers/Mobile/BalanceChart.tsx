@@ -1,13 +1,15 @@
 import React, { useEffect, useMemo, useRef } from "react";
 import {
+  axisBottom,
+  axisLeft,
   extent,
   group,
-  select,
   scaleLinear,
   scaleOrdinal,
   scaleTime,
-  axisBottom,
-  axisLeft,
+  select,
+  timeDay,
+  timeMonth,
 } from "d3";
 import cx from "classnames";
 import { COLORS } from "./Chart";
@@ -30,7 +32,7 @@ export default function Chart({
         group: number,
         value: amount,
       })),
-    [list]
+    [list],
   );
 
   useEffect(() => {
@@ -58,8 +60,8 @@ export default function Chart({
           balance.concat({
             date: new Date(Date.now() + 5 * 24 * 3600 * 1000).toISOString(),
           }),
-          ({ date }) => new Date(date)
-        ) as [Date, Date]
+          ({ date }) => new Date(date),
+        ) as [Date, Date],
       )
       .range([margin.left, width - margin.right]);
 
@@ -86,34 +88,62 @@ export default function Chart({
       .attr(
         "x",
         ({ value, date, group }) =>
-          xScale(date) + 5 * groups.indexOf(group) + (value > 0 ? -1 : 1)
+          xScale(date) + 5 * groups.indexOf(group) + (value > 0 ? -1 : 1),
       )
       .attr("y", ({ value }) => (value > 0 ? yScale(value) : yScale(0)))
       .attr("width", 2)
       .attr("height", ({ value }) =>
-        value > 0 ? yScale(0) - yScale(value) : yScale(value) - yScale(0)
+        value > 0 ? yScale(0) - yScale(value) : yScale(value) - yScale(0),
       );
 
+    // billing periods
+    svg.select(".ticks").remove();
+    svg
+      .append("g")
+      .attr("class", "ticks")
+      .selectAll("g")
+      .data(
+        xScale
+          .ticks(timeMonth)
+          .map((date) => groups.map((group) => ({ date, group })))
+          .flat(),
+      )
+      .join("g")
+      .attr(
+        "transform",
+        ({ date, group }) =>
+          `translate(${xScale(
+            timeDay.offset(date, [25, 19, 15, 1, 1][groups.indexOf(group)]),
+          )},${0})`,
+      )
+      .append("line")
+      .attr("stroke", ({ group }) => color(group))
+      .attr("y1", () => margin.bottom)
+      .attr("y2", height - margin.bottom)
+      .attr("stroke-opacity", 0.5)
+      .attr("stroke-dasharray", "2,2");
+
     // axes
-    const xAxis = axisBottom(xScale).tickSizeInner(
-      margin.top + margin.bottom - height
-    );
+    const xAxis = axisBottom(xScale);
+    // .tickSizeInner(
+    //   margin.top + margin.bottom - height
+    // );
     svg.select(".xaxis").remove();
     svg
       .append("g")
       .attr("class", "xaxis")
       .attr("transform", `translate(0, ${height})`)
-      .call(xAxis)
-      .call((g) =>
-        g
-          .selectAll(".tick line")
-          .attr("transform", `translate(0,${-margin.bottom})`)
-          .attr("stroke-opacity", 0.5)
-          .attr("stroke-dasharray", "2,2")
-      );
+      .call(xAxis);
+    // .call((g) =>
+    //   g
+    //     .selectAll(".tick line")
+    //     .attr("transform", `translate(0,${-margin.bottom})`)
+    //     .attr("stroke-opacity", 0.5)
+    //     .attr("stroke-dasharray", "2,2")
+    // );
 
     const yAxis = axisLeft(yScale).tickSizeInner(
-      margin.left + margin.right - width
+      margin.left + margin.right - width,
     );
     svg.select(".yaxis").remove();
     svg
@@ -125,7 +155,7 @@ export default function Chart({
           .selectAll(".tick line")
           .attr("transform", `translate(${margin.left},0)`)
           .attr("stroke-opacity", 0.5)
-          .attr("stroke-dasharray", "2,2")
+          .attr("stroke-dasharray", "2,2"),
       );
   }, [data, balance]);
 
