@@ -1,4 +1,6 @@
 export const operations = [
+  { date: "2024-03-10", number: "183", amount: -9, net: "2GB" },
+
   { date: "2024-03-01", number: "183", amount: 10 },
   { date: "2024-03-01", number: "938", amount: 5 },
   { date: "2024-03-01", number: "379", amount: 25 },
@@ -179,15 +181,17 @@ export const operations = [
 
 export const balance = [
   {
-    date: "2024-03-01",
+    date: "2024-03-10",
     number: "183",
-    amount: 13.95,
-    net: 677,
-    min: 150,
-    sms: 60,
+    // amount: 13.95,
+    amount: 4.95,
+    // net: 475,
+    net: 2_460,
+    min: 143,
+    sms: 59,
   },
   {
-    date: "2024-03-01",
+    date: "2024-03-10",
     number: "938",
     amount: 10.35,
     net: 1_600,
@@ -195,7 +199,48 @@ export const balance = [
     sms: 172,
   },
   {
-    date: "2024-03-01",
+    date: "2024-03-10",
+    number: "379",
+    amount: 2.72,
+    net: 10_020,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2024-03-10",
+    number: "818",
+    amount: 11.11,
+    net: 4_510,
+    min: 166,
+    sms: 167,
+  },
+  {
+    date: "2024-03-10",
+    number: "828",
+    amount: 5.21,
+    net: 1_060,
+    min: 128,
+    sms: 167,
+  },
+
+  {
+    date: "2024-03-05",
+    number: "183",
+    amount: 13.95,
+    net: 677,
+    min: 150,
+    sms: 60,
+  },
+  {
+    date: "2024-03-05",
+    number: "938",
+    amount: 10.35,
+    net: 1_600,
+    min: 160,
+    sms: 172,
+  },
+  {
+    date: "2024-03-05",
     number: "379",
     amount: 27.72,
     net: 2_930,
@@ -203,7 +248,7 @@ export const balance = [
     sms: 130,
   },
   {
-    date: "2024-03-01",
+    date: "2024-03-05",
     number: "818",
     amount: 11.11,
     net: 4_560,
@@ -211,7 +256,7 @@ export const balance = [
     sms: 167,
   },
   {
-    date: "2024-03-01",
+    date: "2024-03-05",
     number: "828",
     amount: 5.21,
     net: 1_160,
