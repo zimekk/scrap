@@ -68,7 +68,7 @@
     "@types/leaflet": "^1.9.8",
     "@types/node": "^18.19.26",
     "@types/pako": "^2.0.3",
-    "@types/react": "^18.2.70",
+    "@types/react": "^18.2.72",
     "@types/react-dom": "^18.2.22",
     "@types/react-truncate": "^2.3.7",
     "@types/slug": "^5.0.8",
