@@ -48,11 +48,27 @@ export const getMatch = (
 > => {
   return Object.entries(list).reduce(
     (result, [name, value]) =>
-      Object.assign(result, {
-        [name]: Object.entries(value).reduce(
+      ((obj) =>
+        Object.assign(
+          result,
+          Object.keys(obj).length
+            ? {
+                [name]: obj,
+              }
+            : {},
+        ))(
+        Object.entries(value).reduce(
           (result, [key, cost]) =>
-            Object.assign(result, {
-              [key]: item
+            ((list) =>
+              Object.assign(
+                result,
+                list.length
+                  ? {
+                      [key]: list,
+                    }
+                  : {},
+              ))(
+              item
                 .map((item) =>
                   cost.rates
                     .filter(
@@ -119,10 +135,10 @@ export const getMatch = (
                     total: (1 + item.vat) * value,
                   }))(Math.round(100 * item.count * item.price) / 100),
                 ),
-            }),
+            ),
           {},
         ),
-      }),
+      ),
     {},
   );
 };

@@ -154,6 +154,9 @@ export const ITEMS_1: Items[] = [
       value: 174.78 + 67.22,
     },
   ],
+];
+
+export const ITEMS_3: Items[] = [
   [
     {
       from: "2023-02-08",
@@ -168,14 +171,20 @@ export const ITEMS_1: Items[] = [
       value: 558,
     },
   ],
-  // [
-  //   {
-  //     from: "2023-05-17",
-  //     to: "2023-08-09",
-  //     start: 406.75,
-  //     value: 558,
-  //   },
-  // ],
+  [
+    {
+      from: "2023-08-10",
+      to: "2023-12-31",
+      start: 558,
+      value: 558 + 315.19,
+    },
+    {
+      from: "2024-01-01",
+      to: "2024-02-05",
+      start: 873.19,
+      value: 966,
+    },
+  ],
 ];
 // .map((item) => ({ contract: "0351", counter: "8586", ...item }))
 
@@ -379,6 +388,7 @@ export default function Section() {
     <div className={styles.Section}>
       <h2>Energy</h2>
       <Data counter="9057" items={ITEMS_1} rates={RATES_1} />
+      <Data counter="4201" items={ITEMS_3} rates={RATES_1} />
       <Data counter="7224" items={ITEMS_2} rates={RATES_2} />
     </div>
   );

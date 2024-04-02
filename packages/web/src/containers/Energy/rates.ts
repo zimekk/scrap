@@ -184,8 +184,12 @@ export const RATES_1: Rates = {
           price: 0.00496,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.00618,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.00496,
+          price: 0.00618,
           vat: 0.23,
         },
       }),
@@ -267,8 +271,12 @@ export const RATES_1: Rates = {
           price: 5.72,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 6.39,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 5.72,
+          price: 6.39,
           vat: 0.23,
         },
       }),
@@ -298,6 +306,17 @@ export const RATES_1: Rates = {
         // },
         "2099-01-01": {
           price: 0.46,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+  "Rozporządzenie MKiS z 09.09.2023 r.": {
+    "Obniżka należności za 2023 r.": {
+      value: () => 1,
+      rates: getRates({
+        "2023-08-10": {
+          price: -101.9,
           vat: 0.23,
         },
       }),
