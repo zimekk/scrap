@@ -2,10 +2,16 @@ import React, { useMemo, useState } from "react";
 import BalanceChart from "./BalanceChart";
 import Chart, { COLORS } from "./Chart";
 import * as data from "./data";
+import cx from "classnames";
 import styles from "./styles.module.scss";
 
 const formatMin = (min: number | string) =>
-  typeof min === "number" ? `${min} min` : min;
+  typeof min === "number"
+    ? `${min} min`
+    : min
+        .split(":")
+        .map((v, i) => `${v} ${["min", "s"][i]}`)
+        .join(" ");
 const formatNet = (net: number) =>
   net > 1100 ? `${net / 1000} GB` : `${net} MB`;
 const formatPln = (pln: number) => `${pln} zł`;
@@ -46,11 +52,11 @@ function Data() {
 
   const recharges = useMemo(
     () => operations.filter(({ amount }) => amount > 0),
-    [operations]
+    [operations],
   );
   const purchases = useMemo(
     () => operations.filter(({ amount }) => amount < 0),
-    [operations]
+    [operations],
   );
 
   const [balance] = useState(() => data.balance);
@@ -65,11 +71,11 @@ function Data() {
         min,
         sms,
       })),
-    [balance]
+    [balance],
   );
 
   return (
-    <div className={styles.Elixir}>
+    <div className={styles.Mobile}>
       {/* <h3>Recharges</h3>
       <Chart list={recharges} />
       <h3>Purchases</h3>
@@ -81,7 +87,7 @@ function Data() {
             date,
             number,
             amount,
-          }))
+          })),
         )}
         balance={rows}
       />
@@ -130,9 +136,13 @@ function Data() {
                 <MobileNumber number={number} />
               </td>
               <td>{formatPln(amount)}</td>
-              <td>{formatNet(net)}</td>
-              <td>{formatMin(min)}</td>
-              <td>{formatSms(sms)}</td>
+              <td className={cx(net < 1_000 && styles.warn)}>
+                {formatNet(net)}
+              </td>
+              <td className={cx(parseMin(min) < 100 && styles.warn)}>
+                {formatMin(min)}
+              </td>
+              <td className={cx(sms < 100 && styles.warn)}>{formatSms(sms)}</td>
             </tr>,
           ])}
         </tbody>
