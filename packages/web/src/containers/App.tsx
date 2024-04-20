@@ -6,6 +6,7 @@ const Spinner = () => <span>Loading...</span>;
 
 const PAGES = {
   builder: lazy(() => import("./Builder")),
+  auto: lazy(() => import("./Auto")),
   configure: lazy(() => import("./Configure")),
   energy: lazy(() => import("./Energy")),
   exchange: lazy(() => import("./Exchange")),
@@ -30,7 +31,7 @@ const PAGES = {
 const getPage = (location: { hash: string }) => {
   const [_, hash] = decodeURI(location.hash).match(/^#([-\w]+)/) || [];
   return ((keys) => (keys.includes(hash) ? hash : keys[0]))(
-    Object.keys(PAGES)
+    Object.keys(PAGES),
   ) as keyof typeof PAGES;
 };
 
@@ -40,8 +41,8 @@ export default function App() {
   useEffect(() =>
     // location is an object like window.location
     history.listen(({ location, action, ...rest }) =>
-      setPage(getPage(location))
-    )
+      setPage(getPage(location)),
+    ),
   );
 
   const Page = PAGES[page];
