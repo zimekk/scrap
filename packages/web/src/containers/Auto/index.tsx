@@ -37,7 +37,7 @@ KOLOR NADWOZIA\tGlacier White Metallic
 
 Systemy multimedialne
 
-Współpraca z LTE dla Audi phone box
+Współpraca z LTE\tdla Audi phone box
 Audi smartphone interface\tz Application Store
 Bang & Olufsen Premium Sound System z dźwiękiem 3D
 Audi phone box
@@ -47,27 +47,27 @@ Systemy wspomagające kierowcę
 Kamera cofania
 Wyświetlacz Head-Up
 Pakiet systemów wspomagających w ruchu pozamiejskim
-Kamera z czujnikiem odległości (w systemie wspomagającym kierowcę)
+Kamera z czujnikiem odległości\t(w systemie wspomagającym kierowcę)
 Adaptacyjny asystent jazdy z Emergency Assist
 Asystent parkowania z Audi parking system plus
 Adaptacyjny asystent prędkości z ogranicznikiem prędkości, asystentem efektywności, asystentem omijania i asystentem skrętu
 
 Materiał
 
-Kombinacja mikrofibra Dinamica Frequenz/skóra z wytłoczonym logo S
+Tapicerka tkaninowa\tKombinacja mikrofibra Dinamica Frequenz/skóra z wytłoczonym logo S
 
 Fotele
 
 Pakiet bezpieczeństwa dzieci
-Siedzenia sportowe z przodu
+Fotele przednie sportowe
 Mocowanie ISOFIX do fotelika dziecięcego przy prawym przednim fotelu
-Ogrzewanie przednich i tylnych siedzeń
+Ogrzewanie foteli przednich\ti skrajnych siedzeń tylnych
 4-kierunkowa regulacja podparcia odcinka lędźwiowego kręgosłupa dla przednich siedzeń
 
 Reflektory
 
 Reflektory Matrix LED, światła tylne LED i układ zmywania reflektorów
-Reflektory przednie Matrix LED
+Reflektory przednie\tMatrix LED
 Reflektory tylne w technice LED
 Układ zmywania reflektorów
 
@@ -99,9 +99,10 @@ Diody w przednich drzwiach z projekcją logo na podłożu
 Linie i pakiety
 
 Pakiet S Line Interieur
+
 Technika i bezpieczeństwo
 
-Zbiornik paliwa o zwiększonej pojemności
+Zbiornik paliwa\to zwiększonej pojemności
 Poduszki powietrzne z przodu, prawa poduszka z możliwością dezaktywacji
 Boczne poduszki powietrzne z przodu oraz system kurtyn powietrznych chroniących głowy i podświetlane zamki pasów bezpieczeństwa
 Kierownice i elementy obsługi
@@ -113,7 +114,7 @@ Wygląd zewnętrzny
 
 Brak oznaczenia modelu i mocy/technologii
 Relingi dachowe\tczarne
-Pakiet optyczny Czerń plus
+Pakiet optyczny Czerń\tplus
 Obudowy lusterek w kolorze czarnym
 
 Koła i opony
@@ -144,7 +145,7 @@ KOLOR NADWOZIA\tszary Daytona metalik
 
 Systemy multimedialne
 
-Współpraca z LTE dla Audi phone box
+Współpraca z LTE\tdla Audi phone box
 Audi smartphone interface
 Złącza USB z funkcją ładowania w tylnej części kabiny
 Audi virtual cockpit Plus
@@ -155,7 +156,7 @@ Wygląd wewnętrzny
 
 Przyciski obsługowe czarne z połyskiem, z haptycznym feedbackiem i elementami w optyce aluminium
 Pedały i podparcie pod lewą nogę ze stali nierdzewnej
-Listwy progowe w przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
+Listwy progowe\tw przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
 Aplikacje dekoracyjne\tz matowego aluminium
 Podsufitka tkaninowa w kolorze czarnym
 Deska rozdzielcza i wyłożenie drzwi dwuczęściowe, jedno lub dwukolorowe
@@ -164,7 +165,7 @@ Systemy wspomagające kierowcę
 
 Asystent skrzyżowań
 Kamery obserwujące otoczenie
-Kamera z czujnikiem odległości (w systemie wspomagającym kierowcę)
+Kamera z czujnikiem odległości\t(w systemie wspomagającym kierowcę)
 System rozpoznawania znaków drogowych\twspółpracujący z kamerą
 Adaptacyjny asystent jazdy z Emergency Assist
 Audi pre sense front
@@ -175,7 +176,8 @@ Adaptacyjny asystent prędkości z ogranicznikiem prędkości, asystentem efekty
 
 Materiał
 
-Kombinacja mikrofibra Dinamica Frequenz/skóra z wytłoczonym logo S
+Tapicerka tkaninowa\tKombinacja mikrofibra Dinamica Frequenz/skóra z wytłoczonym logo S
+
 Komfort
 
 Kluczyk komfortowy z czujnikiem zwalniającym blokadę bagażnika i autoalarmem
@@ -189,7 +191,7 @@ Fotele
 Pakiet bezpieczeństwa dzieci
 Mocowanie ISOFIX do fotelika dziecięcego przy prawym przednim fotelu
 Przednie siedzenia z elektryczną regulacją i pamięcią ustawień dla fotela kierowcy
-Ogrzewanie przednich siedzeń
+Ogrzewanie foteli przednich
 
 Linie i pakiety
 
@@ -198,8 +200,8 @@ Pakiet sportowy S line
 
 Reflektory
 
-Reflektory przednie HD Matrix LED
-Reflektory przednie HD Matrix LED
+Reflektory przednie\tHD Matrix LED
+Reflektory przednie\tHD Matrix LED
 Światła tylne w technice LED z dynamicznymi kierunkowskazami
 Układ zmywania reflektorów
 
@@ -220,7 +222,7 @@ Logo S line, na zewnątrz
 Zderzaki S line
 Brak oznaczenia modelu i mocy/technologii
 Relingi dachowe\tczarne
-Pakiet optyczny Czerń plus
+Pakiet optyczny Czerń\tplus
 Spojler dachowy RS
 Obudowy lusterek w kolorze czarnym
 
@@ -263,7 +265,7 @@ KOLOR NADWOZIA\tczarny Mythos metalik (LY9T)
 
 Systemy multimedialne
 
-Współpraca z LTE dla Audi phone box
+Współpraca z LTE\tdla Audi phone box
 Audi smartphone interface
 Złącza USB z funkcją ładowania w tylnej części kabiny
 Audi virtual cockpit Plus
@@ -275,7 +277,7 @@ Systemy wspomagające kierowcę
 Asystent skrzyżowań
 Kamery obserwujące otoczenie
 Wyświetlacz Head-Up
-Kamera z czujnikiem odległości (w systemie wspomagającym kierowcę)
+Kamera z czujnikiem odległości\t(w systemie wspomagającym kierowcę)
 System rozpoznawania znaków drogowych\twspółpracujący z kamerą
 Adaptacyjny asystent jazdy z Emergency Assist
 Audi pre sense front
@@ -286,14 +288,14 @@ Adaptacyjny asystent prędkości z ogranicznikiem prędkości, asystentem efekty
 
 Materiał
 
-Tapicerka tkaninowa "Sequenz"/ częściowo skórzana z tłoczeniem "S"
+Tapicerka tkaninowa\t"Sequenz"/ częściowo skórzana z tłoczeniem "S"
 
 Fotele
 
 Pakiet bezpieczeństwa dzieci
 Mocowanie ISOFIX do fotelika dziecięcego przy prawym przednim fotelu
 Przednie siedzenia z elektryczną regulacją i pamięcią ustawień dla fotela kierowcy
-Ogrzewanie przednich siedzeń
+Ogrzewanie foteli przednich
 
 Linie i pakiety
 
@@ -302,8 +304,8 @@ Pakiet sportowy S line
 
 Reflektory
 
-Reflektory przednie HD Matrix LED
-Reflektory przednie HD Matrix LED
+Reflektory przednie\tHD Matrix LED
+Reflektory przednie\tHD Matrix LED
 Światła tylne w technice LED z dynamicznymi kierunkowskazami
 Układ zmywania reflektorów
 
@@ -327,13 +329,13 @@ Pakiet oświetlenia Ambiente
 Wygląd wewnętrzny
 
 Pedały i podparcie pod lewą nogę ze stali nierdzewnej
-Listwy progowe w przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
+Listwy progowe\tw przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
 Aplikacje dekoracyjne\tz matowego aluminium
 Podsufitka tkaninowa w kolorze czarnym
 
 Technika i bezpieczeństwo
 
-Zbiornik paliwa o zwiększonej pojemności
+Zbiornik paliwa\to zwiększonej pojemności
 Zawieszenie sportowe
 Poduszki powietrzne z przodu, prawa poduszka z możliwością dezaktywacji
 
@@ -343,7 +345,7 @@ Logo S line, na zewnątrz
 Zderzaki S line
 Brak oznaczenia modelu i mocy/technologii
 Relingi dachowe\tczarne
-Pakiet optyczny Czerń plus
+Pakiet optyczny Czerń\tplus
 Tylny spojler w kolorze nadwozia
 
 Kierownice i elementy obsługi
@@ -380,7 +382,7 @@ KOLOR NADWOZIA\tszary Chronos metalik
 
 Systemy multimedialne
 
-Współpraca z LTE dla Audi phone box
+Współpraca z LTE\tdla Audi phone box
 Audi smartphone interface
 Złącza USB z funkcją ładowania w tylnej części kabiny
 Audi virtual cockpit Plus
@@ -392,7 +394,7 @@ Systemy wspomagające kierowcę
 Kamera cofania
 Wyświetlacz Head-Up
 Pakiet systemów wspomagających w ruchu pozamiejskim
-Kamera z czujnikiem odległości (w systemie wspomagającym kierowcę)
+Kamera z czujnikiem odległości\t(w systemie wspomagającym kierowcę)
 System rozpoznawania znaków drogowych\twspółpracujący z kamerą
 Adaptacyjny asystent jazdy z Emergency Assist
 Asystent parkowania z Audi parking system plus
@@ -400,14 +402,14 @@ Adaptacyjny asystent prędkości z ogranicznikiem prędkości, asystentem efekty
 
 Materiał
 
-Tapicerka tkaninowa "Sequenz"/ częściowo skórzana z tłoczeniem "S"
+Tapicerka tkaninowa\t"Sequenz"/ częściowo skórzana z tłoczeniem "S"
 
 Fotele
 
 Pakiet bezpieczeństwa dzieci
 Mocowanie ISOFIX do fotelika dziecięcego przy prawym przednim fotelu
 Przednie siedzenia z elektryczną regulacją i pamięcią ustawień dla fotela kierowcy
-Ogrzewanie przednich i tylnych siedzeń
+Ogrzewanie foteli przednich\ti skrajnych siedzeń tylnych
 
 Linie i pakiety
 
@@ -416,8 +418,7 @@ Pakiet sportowy S line
 
 Reflektory
 
-Reflektory przednie HD Matrix LED
-Reflektory przednie HD Matrix LED
+Reflektory przednie\tHD Matrix LED
 Światła tylne w technice LED z dynamicznymi kierunkowskazami
 Układ zmywania reflektorów
 
@@ -428,7 +429,7 @@ Hak holowniczy
 Lusterko wewnętrzne automatycznie przyciemniane, bez ramki
 Lusterka zewnętrzne elektrycznie regulowane, ogrzewane i składane, automatycznie przyciemniane, z funkcją pamięci ustawień lusterka podczas manewru cofania
 Klimatyzacja automatyczna\t4-strefowa
-Ogrzewanie postojowe i wentylacja
+Ogrzewanie postojowe\ti wentylacja
 
 Systemy dachowe i przeszklenie
 
@@ -438,16 +439,17 @@ Wycieraczki przedniej szyby adaptacyjne, z wbudowanymi dyszami
 Oświetlenie
 
 Pakiet oświetlenia Ambiente
+
 Wygląd wewnętrzny
 
 Pedały i podparcie pod lewą nogę ze stali nierdzewnej
-Listwy progowe w przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
+Listwy progowe\tw przednich i tylnych drzwiach z aluminiowymi wstawkami, podświetlane, przednie z logo S
 Aplikacje dekoracyjne\tz matowego aluminium
 Podsufitka tkaninowa w kolorze czarnym
 
 Technika i bezpieczeństwo
 
-Zbiornik paliwa o zwiększonej pojemności
+Zbiornik paliwa\to zwiększonej pojemności
 Zawieszenie sportowe
 Poduszki powietrzne z przodu, prawa poduszka z możliwością dezaktywacji
 
@@ -457,7 +459,7 @@ Logo S line, na zewnątrz
 Zderzaki S line
 Brak oznaczenia modelu i mocy/technologii
 Relingi dachowe\tczarne
-Pakiet "Czerń"
+Pakiet optyczny Czerń
 Tylny spojler w kolorze nadwozia
 
 Koła i opony
@@ -492,12 +494,12 @@ VIN\tWAUZZZF24PN057466
 (PQD) "S line" exterior package
 (2K7)Sportowa stylistyka przednich i tylnych zderzaków
 (0NB)Napis S-Line, na zewnatrz
-(VT5)Listwy progowe aluminiowe, na przednich listwach logo "S", podświetlane
+(VT5)Listwy progowe\taluminiowe, na przednich listwach logo "S", podświetlane
 (5J4)Body-colored rear spoiler
 (5TG) Aplikacje dekoracyjne z matowego aluminium
 
 (PBY) Assistance package Plus with remote park assist plus
-(QK1)Kamera z czujnikiem odległości (dla systemu wspomagającego kierowcę Pre sense city)
+(QK1)Kamera z czujnikiem odległości\t(dla systemu wspomagającego kierowcę Pre sense city)
 (KA6)System kamer 360
 (7X5)Asystent parkowania
 (QR9)System rozpoznawania znaków drogowych
@@ -517,44 +519,44 @@ VIN\tWAUZZZF24PN057466
 (9ZE)Audi phone box
 (9PF)Wycieraczki przedniej szyby adaptacyjne, z wbudowanymi dyszami
 (4L6)Lusterko wewnętrzne z automatyczną funkcją przeciwoślepieniową
-(GB1)Wsparcie LTE dla Audi phone box
+(GB1)Współpraca z LTE\tdla Audi phone box
 (PGC) Comfort key with sensor-controlled luggage compartment release
 (4I3)Comfort key with sensor-controlled luggage compartment release without SAFELOCK
 (1D4) Hak holowniczy
-(6XL) Lusterka zewnętrzne regulowane i składane elektrycznie, podgrzewane,
+(6XL) Lusterka zewnętrzne regulowane i składane elektrycznie\tpodgrzewane
 (6FJ) Lusterka zewnętrzne w kolorze czarnym zpołyskiem
 (PV3) Memory feature for the driver seat
-(3L4)Elektryczna regulacja foteli przednich z funkcją pamięci ustawień dla fotela kierowcy
+(3L4)Elektryczna regulacja foteli przednich\tz funkcją pamięci ustawień dla fotela kierowcy
 (PIH) Mocowanie fotelika dla dziecka ISOFIX do fotela pasażera
 (3G4)Isofix - mocowanie fotelika dziecięcegona skrajnych fotelach z tyłu i fotelu pasażera z przodu
 (4UF)Poduszki powietrzne z dezaktywacją poduszki powietrznej pasażera
-(52Y) Obręcze kół ze stopu metali lekkich Audi Sport 8,5Jx20", 5 - ramienne, z
+(52Y) Obręcze kół ze stopu metali lekkich\tAudi Sport 8,5Jx20", 5 - ramienne, z
 (4A3) Ogrzewanie foteli przednich
 (9M9) Ogrzewanie postojowe
-(QQ1) Oświetlenie wnętrza ambiente
+(QQ1) Pakiet oświetlenia Ambiente
 (2V9) Pakiet Air Quality
 
 (QE1) Pakiet dodatkowych schowków
 
-(4ZP) Pakiet optyczny Czerń plus
+(4ZP) Pakiet optyczny Czerń\tplus
 
 (WQS) Pakiet stylistyczny wnętrza S line Interieur
 (0NB)Napis S-Line, na zewnatrz
 (6NQ)Podsufitka tkaninowa w kolorze czarnym
 (1BE)Zawieszenie sportowe
-(VT5)Listwy progowe aluminiowe, na przednich listwach logo "S", podświetlane
+(VT5)Listwy progowe\taluminiowe, na przednich listwach logo "S", podświetlane
 (VF1)Aluminiowe nakładki na pedały
 (6F7)Oznaczenie S line
 (EA8) Przedluzenie gwarancji 3 lata, maks. 100.000 km
 (QL5) Przyciemnione szyby tylne (szyby privacy)
-(PX6) Reflektory przednie Matrix LED
+(PX6) Reflektory przednie\tMatrix LED
 (8X1)Układ zmywania reflektorów
 (8G4)Reflektory przednie LED Audi Matrix
 (8SP)Reflektory tylne w technice LED
 (3S2) Relingi dachowe\tw kolorze czarnym
-(N7V) Tapicerka tkaninowa "Sequenz"/ częściowo skórzana z tłoczeniem "S"
+(N7V) Tapicerka tkaninowa\t"Sequenz"/ częściowo skórzana z tłoczeniem "S"
 (KS1) Wyświetlacz Head-Up
-(0M5) Zbiornik paliwa 73l
+(0M5) Zbiornik paliwa\t73l
 `,
   },
   {
@@ -579,7 +581,7 @@ VIN\tWAUZZZF22PN064349
 (PQD) "S line" exterior package
 (2K7)Sportowa stylistyka przednich i tylnych zderzaków
 (0NB)Napis S-Line, na zewnatrz
-(VT5)Listwy progowe aluminiowe, na przednich listwach logo "S", podświetlane
+(VT5)Listwy progowe\taluminiowe, na przednich listwach logo "S", podświetlane
 (5J4)Body-colored rear spoiler
 (5TG) Aplikacje dekoracyjne z matowego aluminium
 (7X5) Asystent parkowania
@@ -592,49 +594,49 @@ VIN\tWAUZZZF22PN064349
 (9ZE)Audi phone box
 (9PF)Wycieraczki przedniej szyby adaptacyjne, z wbudowanymi dyszami
 (4L6)Lusterko wewnętrzne z automatyczną funkcją przeciwoślepieniową
-(GB1)Wsparcie LTE dla Audi phone box
+(GB1)Współpraca z LTE\tdla Audi phone box
 (PGC) Comfort key with sensor-controlled luggage compartment release
 (4I3)Comfort key with sensor-controlled luggage compartment release without
 
 
 (1D4) Hak holowniczy
 (KA2) Kamera cofania
-(6XL) Lusterka zewnętrzne regulowane i składane elektrycznie, podgrzewane,
+(6XL) Lusterka zewnętrzne regulowane i składane elektrycznie\tpodgrzewane
 (PV3) Memory feature for the driver seat
-(3L4)Elektryczna regulacja foteli przednich z funkcją pamięci ustawień dla fotela kierowcy
+(3L4)Elektryczna regulacja foteli przednich\tz funkcją pamięci ustawień dla fotela kierowcy
 (PIH) Mocowanie fotelika dla dziecka ISOFIX do fotela pasażera
 (3G4)Isofix - mocowanie fotelika dziecięcegona skrajnych fotelach z tyłu i fotelu pasażera z przodu
 (4UF)Poduszki powietrzne z dezaktywacją poduszki powietrznej pasażera
 (53A) Obręcze kół ze stopu metali lekkich\tAudi Sport 8,5Jx21", 5 - ramienne z
-(4A4) Ogrzewanie foteli przednich i skrajnych siedzeń tylnych
+(4A4) Ogrzewanie foteli przednich\ti skrajnych siedzeń tylnych
 (9M9) Ogrzewanie postojowe
-(QQ1) Oświetlenie wnętrza ambiente
+(QQ1) Pakiet oświetlenia Ambiente
 (QE1) Pakiet dodatkowych schowków
 
 (WQS) Pakiet stylistyczny wnętrza S line Interieur
 (0NB)Napis S-Line, na zewnatrz
 (6NQ)Podsufitka tkaninowa w kolorze czarnym
 (1BE)Zawieszenie sportowe
-(VT5)Listwy progowe aluminiowe, na przednich listwach logo "S", podświetlane
+(VT5)Listwy progowe\taluminiowe, na przednich listwach logo "S", podświetlane
 (VF1)Aluminiowe nakładki na pedały
 (6F7)Oznaczenie S line
 
-(PCC) Pakiet systemów wspomagających kierowcęw ruchu pozamiejskim
+(PCC) Pakiet systemów wspomagających w ruchu pozamiejskim
 (6I6)Ostrzeżenie o zjechaniu z pasa ruchu, asystent wspomagający kierowcę w nagłych przypadkach medycznych i automatyczne wzy
 (8T5)Adaptive cruise control
-(QK1)Kamera z czujnikiem odległości (dla systemu wspomagającego kierowcę Pre sense city)
+(QK1)Kamera z czujnikiem odległości\t(dla systemu wspomagającego kierowcę Pre sense city)
 
 (EA8) Przedluzenie gwarancji 3 lata, maks. 100.000 km
 (QL5) Przyciemnione szyby tylne (szyby privacy)
-(PXC) Reflektory przednie HD Matrix LED
+(PXC) Reflektory przednie\tHD Matrix LED
 (8X1)Układ zmywania reflektorów
 (8SQ)Światła tylne w technice LED z dynamicznymi kierunkowskazami
-(8G5)Reflektory przednie HD Matrix LED
+(8G5)Reflektory przednie\tHD Matrix LED
 (QR9) System rozpoznawania znaków drogowych
-(N7V) Tapicerka tkaninowa "Sequenz"/ częściowo skórzana z tłoczeniem "S"
+(N7V) Tapicerka tkaninowa\t"Sequenz"/ częściowo skórzana z tłoczeniem "S"
 (UE8) Wejście USB do ładowania w konsoli z tyłu
 (KS1) Wyświetlacz Head-Up
-(0M5) Zbiornik paliwa 73l
+(0M5) Zbiornik paliwa\t73l
 `,
   },
   {
@@ -659,7 +661,7 @@ VIN\tWAUZZZF22PN066652
 (PQD) Pakiet zewnętrzny „S line”.
 (2K7) Sportowa stylistyka przednich i przednich zderzaków
 (0NB) Napis S-Line, na zewnatrz
-(VT5) Listwy progowe aluminiowe, na przednich listwach logo "S", podświetlane
+(VT5) Listwy progowe\taluminiowe, na przednich listwach logo "S", podświetlane
 (5J4) Tylny spojler w kolorze nadwozia
 (5TG) Aplikacje dekoracyjne z matowego aluminium
 (7X5) Asystent parkowania
@@ -668,33 +670,33 @@ VIN\tWAUZZZF22PN066652
 (WDC) Pakiet biznes
 (9AQ) Klimatyzacja automatyczna\t4-strefowa
 (9PF) Wycieraczki adaptacyjne z wbudowanymi dyszami
-(GB1) Wsparcie LTE
+(GB1) Współpraca z LTE
 (4I3) Klucz komfortowy z otwieraniem bagażnika sterowanym czujnikiem, bez ZAMEK BEZPIECZEŃSTWA
 (1D4) Hak holowniczy
-(6XL) Lusterka zewnętrzne regulowane elektrycznie, podgrzewane
+(6XL) Lusterka zewnętrzne regulowane i składane elektrycznie\tpodgrzewane
 (PV3) Funkcja pamięci fotela kierowcy
 (3L4) Elektryczna regulacja foteli przednich
 (3G4) Isofix - mocowanie fotelika dziecięcego w ekstremalnych fotelach z tylnym i fotelu pasażera z przodu
 (4UF) Poduszka powietrzna z dezaktywacją poduszek powietrznych i pasażerskich
-(4A4) Ogrzewanie foteli przednich i skrajnych siedzeń tylnich
-(QQ1) Oświetlenie wnętrza ambiente
+(4A4) Ogrzewanie foteli przednich\ti skrajnych siedzeń tylnych
+(QQ1) Pakiet oświetlenia Ambiente
 (QE1) Pakiet dodatkowych schowków
 (WQS) Pakiet stylistyczny wnętrza S line Interior
 (6NQ) Podsufitka tkanina w kolorze czarnym
 (1BE) Zawieszenie sportowe
 (VF1) Aluminiowe nakładki na pedały
-(PCC) Pakiet systemów wspomagających kierowcę ruchu pozamiejskiego
+(PCC) Pakiet systemów wspomagających w ruchu pozamiejskim
 (6I6) Ostrzeżenie o zjechaniu z pasa ruchu, asystent wspomagający kierowcę w nagłych przypadkach medycznych i automatyczne wzywanie pomocy
 (8T5) Tempomat adaptacyjny
-(QK1) Kamera z czujnikiem odległości (dla systemu wspomagającego kierowcę Pre sense city) 
+(QK1) Kamera z czujnikiem odległości\t(dla systemu wspomagającego kierowcę Pre sense city) 
 (8X1) Układ zmywania reflektorów
 (8G4) Reflektory przednie LED Audi Matrix
 (8SP) Reflektory tylne w technice LED
 (QR9) System rozpoznawania znaków drogowych
-(N7V) Tapicerka tkaniny "Sequenz"/ częściowo skórzana z tłoczeniem "S"
+(N7V) Tapicerka tkaninowa\t"Sequenz"/ częściowo skórzana z tłoczeniem "S"
 (UE8) Wejście USB do ładowania w konsoli z tyłu
 (KS1) Wyświetlacz Head-Up
-(0M5) Zbiornik paliwo 73l
+(0M5) Zbiornik paliwa\t73l
 
 Wyposażenie standardowe:
 ABS
@@ -729,13 +731,13 @@ Lampy : Światła do jazdy dziennej
 Lampy : Światła tylne w technice LED
 Lampy przednie w technologii LED
 Listwy ozdobne wokół szyb w kolorze srebrnym
-Listwy progowe - aluminiowe
+Listwy progowe\taluminiowe
 Lusterka boczne w kolorze nadwozia
 Lusterka zewnętrzne regulowane i składane elektrycznie
 Lusterko wewnętrzne z automatyczną funkcją przeciwoślepieniową
 Napęd quattro
 Oznaczenie modelu i typu silnika
-Oświetlenie wnętrza Ambiente
+Pakiet oświetlenia Ambiente
 Panel obsługi z przyciskami z matowej czerni
 Podparcie odcinka lędźwiowego dla foteli przednich 4-zakresowe
 Podsufitka tkaninowa
@@ -752,7 +754,7 @@ System Start/Stop
 System nagłośnienia - 8 głośników
 Szyby termoizolacyjne
 Tablica wskaźników z prędkościomierzem
-Tapicerka tkaninowa Rhythmus
+Tapicerka tkaninowa\tRhythmus
 Tempomat z regulacją prędkości i limiterem prędkości
 Trójkąt ostrzegawczy i apteczka
 Układ wydechowy
