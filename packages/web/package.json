@@ -84,7 +84,7 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.1",
-    "serve": "^14.2.2",
+    "serve": "^14.2.3",
     "stream-browserify": "^3.0.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.91.0",
