@@ -9691,10 +9691,10 @@ react-nl2br@^1.0.4:
   resolved "https://registry.yarnpkg.com/react-nl2br/-/react-nl2br-1.0.4.tgz#20079e2660b9e9a5293b115466e3749abeed6d87"
   integrity sha512-KQ+uwmjYk3B04xDl0hus2OeGoqkR8qkoyDBtsIqVacOUMNeaP0W+r/+anded2ehii/FlgFqEuu0T72CJLWFp4A==
 
-react-refresh@^0.14.0:
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.0.tgz#4e02825378a5f227079554d4284889354e5f553e"
-  integrity sha512-wViHqhAd8OHeLS/IRMJjTSDHF3U9eWi62F/MledQGPdJGDhodXJ9PBLNGr6WWL7qlH12Mt3TyTpbS+hGXMjCzQ==
+react-refresh@^0.14.1:
+  version "0.14.1"
+  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.14.1.tgz#b15177f9f4f3710aa5be0fd3ca244c44dab24fbc"
+  integrity sha512-iZiRCtNGY3QYP3pYOSSBOvQmBpQTcJccr/VcK2blpJrpPTUDjeN51mxm5nsrkCzBwsbGUj+TN9q2oPz5E13FLg==
 
 react-truncate@^2.4.0:
   version "2.4.0"
