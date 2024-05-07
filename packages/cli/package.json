@@ -35,7 +35,7 @@
     "dotenv": "^16.4.5",
     "geolocation-utils": "^1.2.5",
     "html-entities": "^2.5.2",
-    "intl-messageformat": "^10.5.11",
+    "intl-messageformat": "^10.5.12",
     "isomorphic-fetch": "^3.0.0",
     "json-diff": "^1.0.3",
     "microdata-node": "^2.0.0",
