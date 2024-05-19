@@ -122,6 +122,10 @@ export const RATES_1: Rates = {
           price: 0.0,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.0,
+          vat: 0.23,
+        },
         "2099-01-01": {
           price: 0.0,
           vat: 0.23,
@@ -358,8 +362,12 @@ export const RATES_2: Rates = {
           price: 0.698,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.414,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.698,
+          price: 0.414,
           vat: 0.23,
         },
       }),
@@ -394,8 +402,12 @@ export const RATES_2: Rates = {
           price: 0.0242,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.0095,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.0242,
+          price: 0.0095,
           vat: 0.23,
         },
       }),
@@ -427,8 +439,12 @@ export const RATES_2: Rates = {
           price: 0.2244,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.1459,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.2244,
+          price: 0.1459,
           vat: 0.23,
         },
       }),
@@ -460,8 +476,12 @@ export const RATES_2: Rates = {
           price: 17.53,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 11.32,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 17.53,
+          price: 11.32,
           vat: 0.23,
         },
       }),
@@ -483,6 +503,10 @@ export const RATES_2: Rates = {
           vat: 0.05,
         },
         "2023-01-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2024-01-01": {
           price: 0.33,
           vat: 0.23,
         },
@@ -515,8 +539,12 @@ export const RATES_2: Rates = {
           price: 13.35,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 14.9,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 13.35,
+          price: 14.9,
           vat: 0.23,
         },
       }),
@@ -544,8 +572,23 @@ export const RATES_2: Rates = {
           price: 0.46,
           vat: 0.23,
         },
+        "2024-01-01": {
+          price: 0.42,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.46,
+          price: 0.42,
+          vat: 0.23,
+        },
+      }),
+    },
+  },
+  "Rozporządzenie MKiS z 09.09.2023 r.": {
+    "Obniżka należności za 2023 r.": {
+      value: () => 1,
+      rates: getRates({
+        "2023-10-17": {
+          price: -101.9,
           vat: 0.23,
         },
       }),
