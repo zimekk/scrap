@@ -15,7 +15,7 @@ const queue = new Queue("scrap")
 const BASE_PATH = "/board";
 
 export const router = () => {
-  const serverAdapter = new ExpressAdapter();
+  const serverAdapter: any = new ExpressAdapter();
   serverAdapter.setBasePath(BASE_PATH);
 
   createBullBoard({
