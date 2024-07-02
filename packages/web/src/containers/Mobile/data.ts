@@ -1,12 +1,21 @@
 export const operations = [
-  { date: "2023-06-25", number: "828", amount: -10, net: "4GB" },
-  { date: "2023-06-25", number: "828", amount: 10 },
+  { date: "2024-07-01", number: "183", amount: 10 },
+  { date: "2024-07-01", number: "183", amount: -10, net: "4GB" },
+  { date: "2024-07-01", number: "938", amount: 5 },
+  { date: "2024-07-01", number: "938", amount: -5, net: "1GB" },
+  { date: "2024-07-01", number: "379", amount: 25 },
+  { date: "2024-07-01", number: "821", amount: 5 },
+  { date: "2024-07-01", number: "828", amount: 5 },
+
+  { date: "2024-06-25", number: "828", amount: -10, net: "4GB" },
+  { date: "2024-06-25", number: "828", amount: 10 },
 
   { date: "2024-06-10", number: "183", amount: -15, min: 100 },
   { date: "2024-06-10", number: "183", amount: 10 },
 
   { date: "2024-06-01", number: "183", amount: -9, net: "2GB" },
   { date: "2024-06-01", number: "938", amount: 5 },
+  { date: "2024-06-01", number: "379", amount: 25 },
   { date: "2024-06-01", number: "818", amount: 5 },
 
   { date: "2024-05-01", number: "183", amount: 10 },
@@ -205,6 +214,56 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2024-07-01",
+    number: "183",
+    // amount: 1.95,
+    // amount: 11.95,
+    amount: 1.95,
+    // net: 1_630,
+    net: 5_630,
+    min: 117,
+    sms: 33, // ?
+  },
+  {
+    date: "2024-07-01",
+    number: "938",
+    // amount: 2.98,
+    // amount: 7.98,
+    amount: 2.98,
+    // net: 653,
+    net: 1_630,
+    min: 230,
+    sms: 144,
+  },
+  {
+    date: "2024-07-01",
+    number: "379",
+    // amount: 2.72,
+    amount: 27.72,
+    net: 6_590,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2024-07-01",
+    number: "818",
+    // amount: 6.11,
+    amount: 11.11,
+    net: 3_450,
+    min: 266,
+    sms: 162,
+  },
+  {
+    date: "2024-07-01",
+    number: "828",
+    // amount: 2.21,
+    amount: 7.21,
+    net: 2_750,
+    min: 116,
+    sms: 166,
+  },
+
   {
     date: "2024-06-30",
     number: "183",
