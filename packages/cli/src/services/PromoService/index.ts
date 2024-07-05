@@ -3,7 +3,7 @@ import { createHash } from "crypto";
 import { promoItems } from "@dev/api/promo";
 import { browser } from "../../request";
 import Service from "../Service";
-import { saveProductHtml } from "../utils";
+// import { saveProductHtml } from "../utils";
 import { fromHtml } from "./utils";
 import { ItemSchema, JsonSchema } from "./types";
 
@@ -20,7 +20,7 @@ export class PromoService extends Service {
         id: [site, this.mk, type].join("-"),
         url: `${URL}${type}`,
       },
-      this.summary
+      this.summary,
     );
   }
 
@@ -112,14 +112,14 @@ export class PromoService extends Service {
           this.fetcher(type.split(":"))
             .then((html) =>
               // saveProductHtml(name, html) ||
-              fromHtml(html)
+              fromHtml(html),
             )
             .catch((e) => console.error(e))
             .then((item) => ({
               type,
               list: item ? item.list : [],
               next: null,
-            }))
+            })),
         )
     );
   }
@@ -145,11 +145,13 @@ export class PromoService extends Service {
             return promoItems.update({ ...last, _checked: _time });
           } else {
             this.summary.created.push(item.id);
-            return JsonSchema.transform((data) =>
-              promoItems.insert({ ...item, data, _created: _time })
-            ).parseAsync(data);
+            return Array.isArray(data)
+              ? null
+              : JsonSchema.transform((data) =>
+                  promoItems.insert({ ...item, data, _created: _time }),
+                ).parseAsync(data);
           }
-        })
+        }),
       );
   }
 
@@ -177,15 +179,15 @@ export class PromoService extends Service {
                     url: href,
                   },
                   this.summary,
-                  {}
-                )
+                  {},
+                ),
               )
               .then(({ data }) =>
                 Boolean(console.log({ data })) || data
                   ? JsonSchema.parseAsync(data).then((data) =>
-                      Object.assign(item, { data })
+                      Object.assign(item, { data }),
                     )
-                  : item
+                  : item,
               )
               .then((item) => {
                 console.log(item);
@@ -199,7 +201,7 @@ export class PromoService extends Service {
                 return promoItems.insert({ ...item, _created: _time });
               });
           }
-        })
+        }),
       );
   }
 }
@@ -211,7 +213,7 @@ export class PromoAltoService extends PromoService {
         id: [site, this.mk, type].join("-"),
         url: `${STORE_ALTO_URL}${type}`,
       },
-      this.summary
+      this.summary,
     );
   }
 }
