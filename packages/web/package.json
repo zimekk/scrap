@@ -22,7 +22,7 @@
     "@dev/bundle": "1.0.0",
     "@dev/cli": "1.0.0",
     "@fortawesome/fontawesome-svg-core": "^6.6.0",
-    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "big.js": "^6.2.1",
     "buffer": "^6.0.3",
