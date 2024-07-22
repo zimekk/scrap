@@ -1,5 +1,7 @@
 export const operations = [
+  { date: "2024-07-20", number: "379", amount: -5, net: "1GB" },
   { date: "2024-07-20", number: "379", amount: 5 },
+  { date: "2024-07-20", number: "828", amount: -5, net: "1GB" },
   { date: "2024-07-20", number: "828", amount: 5 },
 
   { date: "2024-07-15", number: "828", amount: -5, net: "1GB" },
