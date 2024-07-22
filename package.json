@@ -121,7 +121,7 @@
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.3",
     "type-coverage": "^2.29.1",
-    "typescript": "^5.5.3",
+    "typescript": "^5.5.4",
     "yarn-deduplicate": "^6.0.2"
   },
   "resolutions": {
