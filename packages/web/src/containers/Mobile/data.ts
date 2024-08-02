@@ -1,4 +1,14 @@
 export const operations = [
+  { date: "2024-08-02", number: "379", amount: 5 },
+  { date: "2024-08-02", number: "379", amount: -5, net: "1GB" },
+
+  { date: "2024-08-01", number: "183", amount: 10 },
+  { date: "2024-08-01", number: "183", amount: -5, sms: 100 },
+  { date: "2024-08-01", number: "938", amount: 5 },
+  { date: "2024-08-01", number: "379", amount: 25 },
+  { date: "2024-08-01", number: "818", amount: 5 },
+  { date: "2024-08-01", number: "828", amount: 5 },
+
   { date: "2024-07-20", number: "379", amount: -5, net: "1GB" },
   { date: "2024-07-20", number: "379", amount: 5 },
   { date: "2024-07-20", number: "828", amount: -5, net: "1GB" },
@@ -11,7 +21,7 @@ export const operations = [
   { date: "2024-07-01", number: "938", amount: 5 },
   { date: "2024-07-01", number: "938", amount: -5, net: "1GB" },
   { date: "2024-07-01", number: "379", amount: 25 },
-  { date: "2024-07-01", number: "821", amount: 5 },
+  { date: "2024-07-01", number: "818", amount: 5 },
   { date: "2024-07-01", number: "828", amount: 5 },
 
   { date: "2024-06-25", number: "828", amount: -10, net: "4GB" },
@@ -221,6 +231,100 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2024-08-02",
+    number: "183",
+    amount: 6.95,
+    net: 1_420,
+    min: 110,
+    sms: 128,
+  },
+  {
+    date: "2024-08-02",
+    number: "938",
+    amount: 7.98,
+    net: 1_240,
+    min: 228,
+    sms: 144,
+  },
+  {
+    date: "2024-08-02",
+    number: "379",
+    // amount: 27.72,
+    // amount: 22.72,
+    amount: 27.72,
+    // net: 198, // ?
+    net: 1_190,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2024-08-02",
+    number: "818",
+    amount: 16.11,
+    net: 2_870,
+    min: 266,
+    sms: 162,
+  },
+  {
+    date: "2024-08-02",
+    number: "828",
+    amount: 7.21,
+    net: 1_730,
+    min: 116,
+    sms: 166,
+  },
+
+  {
+    date: "2024-08-01",
+    number: "183",
+    // amount: 1.95,
+    // amount: 11.95,
+    amount: 6.95,
+    net: 1_660,
+    min: 111,
+    // sms: 28, // ?
+    sms: 128,
+  },
+  {
+    date: "2024-08-01",
+    number: "938",
+    // amount: 2.98,
+    amount: 7.98,
+    net: 1_240,
+    min: 228,
+    sms: 144,
+  },
+  {
+    date: "2024-08-01",
+    number: "379",
+    // amount: 2.72,
+    amount: 27.72,
+    // net: 419, // ?
+    // net: 398, // ?
+    net: 373, // ?
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2024-08-01",
+    number: "818",
+    // amount: 11.11,
+    amount: 16.11,
+    net: 2_900,
+    min: 266,
+    sms: 162,
+  },
+  {
+    date: "2024-08-01",
+    number: "828",
+    // amount: 2.21,
+    amount: 7.21,
+    net: 1_730,
+    min: 116,
+    sms: 166,
+  },
+
   {
     date: "2024-07-30",
     number: "183",
