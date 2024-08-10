@@ -1,4 +1,7 @@
 export const operations = [
+  { date: "2024-08-10", number: "183", amount: 5 },
+  { date: "2024-08-10", number: "183", amount: -10, net: "4GB" },
+
   { date: "2024-08-02", number: "379", amount: 5 },
   { date: "2024-08-02", number: "379", amount: -5, net: "1GB" },
 
@@ -231,6 +234,50 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2024-08-10",
+    number: "183",
+    // amount: 6.95,
+    // amount: 11.95,
+    amount: 1.95,
+    // net: 988,
+    net: 4_960,
+    min: 110,
+    sms: 128,
+  },
+  {
+    date: "2024-08-10",
+    number: "938",
+    amount: 7.98,
+    net: 1_210,
+    min: 226,
+    sms: 144,
+  },
+  {
+    date: "2024-08-10",
+    number: "379",
+    amount: 2.72,
+    net: 10_540,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2024-08-10",
+    number: "818",
+    amount: 16.11,
+    net: 2_840,
+    min: 266,
+    sms: 162,
+  },
+  {
+    date: "2024-08-10",
+    number: "828",
+    amount: 7.21,
+    net: 1_630,
+    min: 116,
+    sms: 166,
+  },
+
   {
     date: "2024-08-05",
     number: "183",
