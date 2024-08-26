@@ -21,4 +21,5 @@ export const transactions = [
   { date: "2022-08-29", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
   { date: "2023-06-29", investment_id: 79, value: 1000 }, // PKO Akcji Rynku Złota
   { date: "2023-12-11", investment_id: 44, value: 1000 }, // PKO Zabezpieczenia Emerytalnego 2050
+  { date: "2024-08-20", investment_id: 35, value: 1000 }, // PKO Technologii i Innowacji Globalny
 ];
