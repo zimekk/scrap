@@ -1203,36 +1203,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@5.22.0":
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-5.22.0.tgz#2f146fe62f2bd3aea1397c4c81fc89d58c8db161"
-  integrity sha512-ESvmeM7CWxBrkbVrqsleCBDmZBVUPUFtR5GtbvgqOwuB76rTZLDjfEqs8mzi2nOmqZYYh6NuXw/DvrKNoOBs+A==
-  dependencies:
-    redis-info "^3.0.8"
-
-"@bull-board/api@^5.23.0":
+"@bull-board/api@5.23.0", "@bull-board/api@^5.23.0":
   version "5.23.0"
   resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-5.23.0.tgz#42a742e68bcfc4f547bee417e4b91745adfa40ea"
   integrity sha512-ZZGsWJ+XBG49GAlNgAL9tTEV6Ms7gMkQnZDbzwUhjGChCKWy62RWuPoZSefNXau9QH9+QzlzHRUeFvt4xr5wiw==
   dependencies:
     redis-info "^3.0.8"
 
-"@bull-board/express@^5.22.0":
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-5.22.0.tgz#c787ff5813409f8c1594fe6acad83d0228c35433"
-  integrity sha512-KY/r3T4LdXTYB6yQ+razTkH5Rx1ttifGpMyr+XiZCOEhHt5UNmQ/Boigryr+7dxJfY1eURtt5xHuz/spirT/Jw==
+"@bull-board/express@^5.23.0":
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-5.23.0.tgz#766e253e093fb60abf3aa9e9d22cf45c252d664c"
+  integrity sha512-t/mHzJMlZBtSKD8v81kbZoexOmtQxKVnHZfHJ0um5vrkHNJJuzKuwbR+n9nf1u89AGdyXoWxqDhBDslxv3zrrQ==
   dependencies:
-    "@bull-board/api" "5.22.0"
-    "@bull-board/ui" "5.22.0"
+    "@bull-board/api" "5.23.0"
+    "@bull-board/ui" "5.23.0"
     ejs "^3.1.10"
     express "^4.19.2"
 
-"@bull-board/ui@5.22.0":
-  version "5.22.0"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-5.22.0.tgz#919156df2fa6e3a02da910597bb915e9db4a186d"
-  integrity sha512-R/aVlKSoykTxhmnZfAzx2ykPDLHNa29wh5EnBOivo/hD3UJB46XTFZ8dUALl0n9Rx+cGn9eAO/TGJIvb4oUGkA==
+"@bull-board/ui@5.23.0":
+  version "5.23.0"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-5.23.0.tgz#74c1ab638f7aed3596566702c1ddca5cc84ae445"
+  integrity sha512-iI/Ssl8T5ZEn9s899Qz67m92M6RU8thf/aqD7cUHB2yHmkCjqbw7s7NaODTsyArAsnyu7DGJMWm7EhbfFXDNgQ==
   dependencies:
-    "@bull-board/api" "5.22.0"
+    "@bull-board/api" "5.23.0"
 
 "@commitlint/cli@^19.5.0":
   version "19.5.0"
