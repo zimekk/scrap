@@ -185,6 +185,20 @@ export const ITEMS_3: Items[] = [
       value: 966,
     },
   ],
+  [
+    {
+      from: "2024-02-06",
+      to: "2024-06-30",
+      start: 966,
+      value: 966 + 360.97,
+    },
+    {
+      from: "2024-07-01",
+      to: "2024-08-09",
+      start: 1_326.97,
+      value: 1_396,
+    },
+  ],
 ];
 // .map((item) => ({ contract: "0351", counter: "8586", ...item }))
 
