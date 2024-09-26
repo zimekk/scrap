@@ -2497,10 +2497,10 @@
   dependencies:
     "@types/geojson" "*"
 
-"@types/milliseconds@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/milliseconds/-/milliseconds-0.0.33.tgz#f1a2d61849f490a423dc38f701aa61828e19c04e"
-  integrity sha512-RMJhntbMMTZ5VHJYuMiMjF6zM9lkpq+SCHwLaiCdBq38wkp9L+iEFRAmQuHi+aTsO62VBu5HRPodr1pWFiQpqA==
+"@types/milliseconds@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/milliseconds/-/milliseconds-1.0.0.tgz#b7eff32d731f8b1bf1b91695dd2af521aad1b1ee"
+  integrity sha512-ATdXRf6Nu5Du6tSUKxjKCvu1ch0k5Zgr8IxkRyOf38Yc2N4V/tkbyKJJLAign+CQDljoOP+7P9UQpKTzqilgrQ==
 
 "@types/mime@*":
   version "3.0.4"
