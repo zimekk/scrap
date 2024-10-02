@@ -166,3 +166,52 @@ export const getRates = (
       "yyyy-MM-dd",
     ),
   }));
+
+export const getTitle = (item: Item[]) =>
+  `Szczegóły rozliczenia za okres od ${format(
+    new Date(item[0].from),
+    "dd.MM.yyyy",
+  )} do ${format(new Date(item[item.length - 1].to), "dd.MM.yyyy")}`;
+
+export const getTitleSummary = (item: Item[], list: Rates) => {
+  const { total } = Object.values(getMatch(item, list)).reduce(
+    (result, line) =>
+      Object.entries(line).reduce(
+        (result, [_, list]) =>
+          list.reduce(
+            ({ total }, item) => ({
+              total: total + item.total,
+            }),
+            result,
+          ),
+        result,
+      ),
+    {
+      total: 0,
+    },
+  );
+
+  const value = item.reduce(
+    (result, { start, value }) => result + value - start,
+    0,
+  );
+
+  const count = differenceInMonths(
+    add(
+      set(new Date(item[item.length - 1].to), {
+        date: 1,
+      }),
+      {
+        months: 1,
+      },
+    ),
+    new Date(item[0].from),
+  );
+
+  return `${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+  }).format(value)} kWh / ${count} ~ ${new Intl.NumberFormat("pl-PL", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(total / count)} zł/m`;
+};

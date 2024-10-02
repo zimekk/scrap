@@ -387,10 +387,12 @@ export const ITEMS_2: Items[] = [
 // .map((item) => ({ contract: "8586", counter: "2752", ...item }))
 
 function Data({
+  address,
   counter,
   items,
   rates,
 }: {
+  address: string;
   counter: string;
   items: Items[];
   rates: Rates;
@@ -402,6 +404,7 @@ function Data({
   return (
     <div>
       <Calculations
+        address={address}
         counter={counter}
         items={items}
         rates={rates}
@@ -416,9 +419,9 @@ export default function Section() {
   return (
     <div className={styles.Section}>
       <h2>Energy</h2>
-      <Data counter="9057" items={ITEMS_1} rates={RATES_1} />
-      <Data counter="4201" items={ITEMS_3} rates={RATES_1} />
-      <Data counter="7224" items={ITEMS_2} rates={RATES_2} />
+      <Data address="KAB" counter="9057" items={ITEMS_1} rates={RATES_1} />
+      <Data address="KAB" counter="4201" items={ITEMS_3} rates={RATES_1} />
+      <Data address="WIL" counter="7224" items={ITEMS_2} rates={RATES_2} />
     </div>
   );
 }

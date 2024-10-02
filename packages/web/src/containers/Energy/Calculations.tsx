@@ -5,14 +5,20 @@ import React, {
   useState,
 } from "react";
 import { format } from "date-fns";
-import { type Items, type Rates, getMatch } from "./utils";
+import {
+  type Items,
+  type Rates,
+  getMatch,
+  getTitleSummary,
+  getTitle,
+} from "./utils";
 import styles from "./styles.module.scss";
 
 const formatRange = (from: string, to: string) =>
   `${format(new Date(from), "dd.MM.yy")}-${format(new Date(to), "dd.MM.yy")}`;
 
 const getSummary = (
-  line: Record<string, { value: number; tax: number; total: number }[]>
+  line: Record<string, { value: number; tax: number; total: number }[]>,
 ) =>
   Object.entries(line).reduce(
     (result, [_, list]) =>
@@ -22,22 +28,24 @@ const getSummary = (
           tax: tax + item.tax,
           total: total + item.total,
         }),
-        result
+        result,
       ),
     {
       value: 0,
       tax: 0,
       total: 0,
-    }
+    },
   );
 
 export default function Calculations({
+  address,
   counter,
   items,
   rates,
   selected,
   setSelected,
 }: {
+  address: string;
   counter: string;
   items: Items[];
   rates: Rates;
@@ -49,7 +57,7 @@ export default function Calculations({
 
   return (
     <div className={styles.Calculations}>
-      <h3>Calculations</h3>
+      <h3>Calculations ({address})</h3>
       <table>
         <tbody>
           <tr>
@@ -60,7 +68,7 @@ export default function Calculations({
                 onChange={useCallback<ChangeEventHandler<HTMLInputElement>>(
                   ({ target }) =>
                     setSelected(target.checked ? items.map((_, i) => i) : []),
-                  []
+                  [],
                 )}
               />
             </th>
@@ -81,15 +89,15 @@ export default function Calculations({
                           tax: tax + item.tax,
                           total: total + item.total,
                         }),
-                        result
+                        result,
                       ),
-                    result
+                    result,
                   ),
                 {
                   value: 0,
                   tax: 0,
                   total: 0,
-                }
+                },
               ),
             ]
               .map(({ value, tax, total }) => (
@@ -105,9 +113,9 @@ export default function Calculations({
                           setSelected((selected: number[]) =>
                             !target.checked
                               ? selected.filter((n) => n !== i)
-                              : selected.concat(i)
+                              : selected.concat(i),
                           ),
-                        []
+                        [],
                       )}
                     />
                   </td>
@@ -120,20 +128,15 @@ export default function Calculations({
                           setExpanded((expanded) =>
                             expanded.includes(i)
                               ? expanded.filter((n) => n !== i)
-                              : expanded.concat(i)
+                              : expanded.concat(i),
                           )
                         ),
-                        []
+                        [],
                       )}
                     >
-                      {`${counter} / Szczegóły rozliczenia za okres od ${format(
-                        new Date(item[0].from),
-                        "dd.MM.yyyy"
-                      )} do ${format(
-                        new Date(item[item.length - 1].to),
-                        "dd.MM.yyyy"
-                      )}`}
+                      {`${counter} / ${getTitle(item)}`}
                     </a>
+                    {` / ${getTitleSummary(item, rates)}`}
                   </td>
                   <td align="right">
                     {new Intl.NumberFormat("pl-PL", {
@@ -157,7 +160,7 @@ export default function Calculations({
                   ? [
                       <tr key={`${i}-details`}>
                         <td></td>
-                        <td colSpan={6}>
+                        <td colSpan={4}>
                           <div>
                             <h4>Wskazania układu pomiarowego</h4>
                             <table width="100%">
@@ -177,7 +180,7 @@ export default function Calculations({
                                 {item.map(
                                   (
                                     { from, to, start, value, estimated },
-                                    k
+                                    k,
                                   ) => (
                                     <tr key={k}>
                                       <td>{counter}</td>
@@ -203,7 +206,7 @@ export default function Calculations({
                                         }).format(value - start)}
                                       </td>
                                     </tr>
-                                  )
+                                  ),
                                 )}
                               </tbody>
                               <tfoot>
@@ -217,8 +220,8 @@ export default function Calculations({
                                       item.reduce(
                                         (result, { start, value }) =>
                                           result + value - start,
-                                        0
-                                      )
+                                        0,
+                                      ),
                                     )}
                                   </td>
                                 </tr>
@@ -255,7 +258,7 @@ export default function Calculations({
                                               tax,
                                               total,
                                             },
-                                            j
+                                            j,
                                           ) => (
                                             <tr key={`${i}-${j}`}>
                                               <td>{label}</td>
@@ -269,7 +272,7 @@ export default function Calculations({
                                                   {
                                                     minimumFractionDigits: 4,
                                                     maximumFractionDigits: 5,
-                                                  }
+                                                  },
                                                 ).format(price)}
                                               </td>
                                               <td align="right">
@@ -277,7 +280,7 @@ export default function Calculations({
                                                   "pl-PL",
                                                   {
                                                     minimumFractionDigits: 2,
-                                                  }
+                                                  },
                                                 ).format(value)}
                                               </td>
                                               <td align="right">{vat}</td>
@@ -286,7 +289,7 @@ export default function Calculations({
                                                   "pl-PL",
                                                   {
                                                     minimumFractionDigits: 2,
-                                                  }
+                                                  },
                                                 ).format(tax)}
                                               </td>
                                               <td align="right">
@@ -294,12 +297,12 @@ export default function Calculations({
                                                   "pl-PL",
                                                   {
                                                     minimumFractionDigits: 2,
-                                                  }
+                                                  },
                                                 ).format(total)}
                                               </td>
                                             </tr>
-                                          )
-                                        )
+                                          ),
+                                        ),
                                     )}
                                   </tbody>
                                   <tfoot>
@@ -328,13 +331,13 @@ export default function Calculations({
                                   </tfoot>
                                 </table>
                               </div>
-                            )
+                            ),
                           )}
                         </td>
                       </tr>,
                     ]
-                  : []
-              )
+                  : [],
+              ),
           )}
         </tbody>
         <tfoot>
@@ -353,17 +356,17 @@ export default function Calculations({
                               tax: tax + item.tax,
                               total: total + item.total,
                             }),
-                            result
+                            result,
                           ),
-                        result
+                        result,
                       ),
-                    result
+                    result,
                   ),
                 {
                   value: 0,
                   tax: 0,
                   total: 0,
-                }
+                },
               ),
           ].map(({ value, tax, total }, i) => (
             <tr key={i}>
