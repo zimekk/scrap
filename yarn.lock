@@ -1033,10 +1033,17 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@6.0.0", "@bull-board/api@^6.0.0":
+"@bull-board/api@6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.0.0.tgz#4c4abf250807ad1fd15d3188c8c06f994093539c"
   integrity sha512-O0IsIwAOU47bPTJnqRO7RtKFQToMvwRebbuPi6M+SG1gXyiqixLg9pycnfXgSeroaT9E7QQ2PsCPW1HO8VORvw==
+  dependencies:
+    redis-info "^3.0.8"
+
+"@bull-board/api@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.0.2.tgz#509125dea16b791b60f6c41d4d72214ae0f6e4e9"
+  integrity sha512-GdSdHD9/1U1cTnzadtgHUNNRtwMz2kn+Qo+YNfkA4VZjrBFMCOqlyeI4SPt2OOL8RH3wjYCNK4pmnFny6WCy4A==
   dependencies:
     redis-info "^3.0.8"
 
