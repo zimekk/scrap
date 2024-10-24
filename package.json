@@ -120,7 +120,7 @@
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
-    "type-coverage": "^2.29.1",
+    "type-coverage": "^2.29.7",
     "typescript": "^5.6.3",
     "yarn-deduplicate": "^6.0.2"
   },
