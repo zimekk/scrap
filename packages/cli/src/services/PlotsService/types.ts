@@ -225,7 +225,7 @@ export const JsonSchema = z.object({
         })
         .nullable(),
     }),
-    popularSearches: z.unknown().array(),
+    popularSearches: z.unknown().array().optional(),
     seo: z
       .object({
         title: z.string(),
