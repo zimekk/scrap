@@ -6,7 +6,7 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": "^14 || ^16 || ^18 || ^20",
+    "node": "^18 || ^20 || ^22",
     "yarn": "^1.22.0"
   },
   "eslintConfig": {
