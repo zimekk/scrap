@@ -33,7 +33,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/bull": "^4.10.0",
+    "@types/bull": "^4.10.4",
     "@types/milliseconds": "^1.0.0",
     "@types/node": "^22.8.4",
     "ts-node": "^10.9.2",
