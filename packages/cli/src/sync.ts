@@ -28,6 +28,7 @@ export const Type = {
   BIKES: "BIKES",
   DEPOT: "DEPOT",
   DIRECTIONS: "DIRECTIONS",
+  DYSON: "DYSON",
   EURO: "EURO",
   EXPERT: "EXPERT",
   FLATS: "FLATS",
@@ -56,6 +57,7 @@ export const Type = {
   STATION: "STATION",
   STATUS: "STATUS",
   STOCK: "STOCK",
+  TAURUS: "TAURUS",
   THULE: "THULE",
   UNKNOWN: "UNKNOWN",
 } as const;
@@ -150,6 +152,12 @@ export const sync = async (type = "") => {
             const service = new DirectionsService({ summary });
             return service.sync(json, { timestamp, url });
           }),
+      }),
+      z.object({
+        type: z.literal(Type.DYSON),
+        data: z.object({
+          url: z.string(),
+        }),
       }),
       z.object({
         type: z.literal(Type.EURO),
@@ -467,6 +475,12 @@ export const sync = async (type = "") => {
       }),
       z.object({
         type: z.literal(Type.STOCK),
+        data: z.object({
+          url: z.string(),
+        }),
+      }),
+      z.object({
+        type: z.literal(Type.TAURUS),
         data: z.object({
           url: z.string(),
         }),
