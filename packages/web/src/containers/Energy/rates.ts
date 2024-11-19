@@ -29,6 +29,14 @@ export const RATES_1: Rates = {
           price: 0.414,
           vat: 0.23,
         },
+        // "2023-08-01": {
+        //   price: 0.698,
+        //   vat: 0.23,
+        // },
+        // "2024-01-01": {
+        //   price: 0.414,
+        //   vat: 0.23,
+        // },
         "2024-07-01": {
           price: 0.505,
           vat: 0.23,
@@ -392,10 +400,15 @@ export const RATES_2: Rates = {
         },
         "2024-01-01": {
           price: 0.414,
+          // price: 0.698,
+          vat: 0.23,
+        },
+        "2024-07-01": {
+          price: 0.505,
           vat: 0.23,
         },
         "2099-01-01": {
-          price: 0.414,
+          price: 0.505,
           vat: 0.23,
         },
       }),
@@ -434,8 +447,13 @@ export const RATES_2: Rates = {
           price: 0.0095,
           vat: 0.23,
         },
+        "2024-07-01": {
+          price: 0.0314,
+          // price: 0.0095,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.0095,
+          price: 0.0314,
           vat: 0.23,
         },
       }),
@@ -471,8 +489,13 @@ export const RATES_2: Rates = {
           price: 0.1459,
           vat: 0.23,
         },
+        "2024-07-01": {
+          price: 0.226,
+          // price: 0.1459,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.1459,
+          price: 0.226,
           vat: 0.23,
         },
       }),
@@ -508,8 +531,13 @@ export const RATES_2: Rates = {
           price: 11.32,
           vat: 0.23,
         },
+        "2024-07-01": {
+          price: 17.71,
+          // price: 11.32,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 11.32,
+          price: 17.71,
           vat: 0.23,
         },
       }),
@@ -535,6 +563,10 @@ export const RATES_2: Rates = {
           vat: 0.23,
         },
         "2024-01-01": {
+          price: 0.33,
+          vat: 0.23,
+        },
+        "2024-07-01": {
           price: 0.33,
           vat: 0.23,
         },
@@ -571,8 +603,12 @@ export const RATES_2: Rates = {
           price: 14.9,
           vat: 0.23,
         },
+        "2024-07-01": {
+          price: 0,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 14.9,
+          price: 0,
           vat: 0.23,
         },
       }),
@@ -604,8 +640,12 @@ export const RATES_2: Rates = {
           price: 0.42,
           vat: 0.23,
         },
+        "2024-07-01": {
+          price: 0.48,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.42,
+          price: 0.48,
           vat: 0.23,
         },
       }),
