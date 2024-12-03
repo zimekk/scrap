@@ -27,7 +27,7 @@
     "@bull-board/api": "^6.5.3",
     "@bull-board/express": "^6.5.3",
     "bull": "^4.16.4",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "milliseconds": "^1.0.3",
     "zod": "^3.23.8"
