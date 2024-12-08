@@ -2,7 +2,7 @@ import { minutes } from "milliseconds";
 import { Names } from "./constants";
 import { queue } from "./worker";
 
-const JOB_ID = "broker";
+// const JOB_ID = "broker";
 
 export const broker = async () => {
   console.log(["broker"]);
@@ -20,13 +20,11 @@ export const broker = async () => {
   //   .then(({ id, data }) => console.log(["add"], { id, data }));
 
   await Promise.all(
-    (
-      await queue.getRepeatableJobs()
-    ).map(
+    (await queue.getRepeatableJobs()).map(
       async ({ key }) =>
         Boolean(console.log(["removeRepeatableByKey"], { key })) ||
-        (await queue.removeRepeatableByKey(key))
-    )
+        (await queue.removeRepeatableByKey(key)),
+    ),
   );
 
   // await queue
@@ -49,7 +47,7 @@ export const broker = async () => {
       },
       {
         repeat: { cron: "1 10,22 * * *" },
-      }
+      },
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
 
@@ -61,7 +59,7 @@ export const broker = async () => {
       },
       {
         repeat: { cron: "1 9,21 * * *" },
-      }
+      },
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
 
@@ -73,7 +71,7 @@ export const broker = async () => {
       },
       {
         repeat: { every: minutes(15) },
-      }
+      },
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
 
@@ -85,7 +83,7 @@ export const broker = async () => {
       },
       {
         repeat: { every: minutes(15) },
-      }
+      },
     )
     .then(({ id, data }) => console.log(["add"], { id, data }));
 
@@ -99,13 +97,13 @@ export const broker = async () => {
         name: Names.PROPERTY_OTODOM,
         data: { type },
         opts: {},
-      }))
+      })),
     )
     .then((jobs) =>
       console.log(
         ["add"],
-        jobs.map(({ id }) => id)
-      )
+        jobs.map(({ id }) => id),
+      ),
     );
 
   await queue.close().then(() => console.log(["close"]));

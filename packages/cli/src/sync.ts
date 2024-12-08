@@ -25,10 +25,7 @@ const { SYNC_URL } = process.env;
 export const Type = {
   AUTOS: "AUTOS",
   AUTOS_ITEM: "AUTOS_ITEM",
-  BIKES: "BIKES",
-  DEPOT: "DEPOT",
   DIRECTIONS: "DIRECTIONS",
-  DYSON: "DYSON",
   EURO: "EURO",
   EXPERT: "EXPERT",
   FLATS: "FLATS",
@@ -57,7 +54,6 @@ export const Type = {
   STATION: "STATION",
   STATUS: "STATUS",
   STOCK: "STOCK",
-  TAURUS: "TAURUS",
   THULE: "THULE",
   UNKNOWN: "UNKNOWN",
 } as const;
@@ -101,7 +97,7 @@ export const sync = async (type = "") => {
       .transform(({ type, data, opts, returnvalue }) =>
         // console.log(opts),
         ({
-          type,
+          type: Object.values(Type).includes(type as any) ? type : Type.UNKNOWN,
           data: {
             ...data,
             ...opts,
@@ -130,14 +126,6 @@ export const sync = async (type = "") => {
         data: z.object({}).passthrough(),
       }),
       z.object({
-        type: z.literal(Type.BIKES),
-        data: z.object({}).passthrough(),
-      }),
-      z.object({
-        type: z.literal(Type.DEPOT),
-        data: z.object({}).passthrough(),
-      }),
-      z.object({
         type: z.literal(Type.DIRECTIONS),
         data: z
           .object({
@@ -152,12 +140,6 @@ export const sync = async (type = "") => {
             const service = new DirectionsService({ summary });
             return service.sync(json, { timestamp, url });
           }),
-      }),
-      z.object({
-        type: z.literal(Type.DYSON),
-        data: z.object({
-          url: z.string(),
-        }),
       }),
       z.object({
         type: z.literal(Type.EURO),
@@ -475,12 +457,6 @@ export const sync = async (type = "") => {
       }),
       z.object({
         type: z.literal(Type.STOCK),
-        data: z.object({
-          url: z.string(),
-        }),
-      }),
-      z.object({
-        type: z.literal(Type.TAURUS),
         data: z.object({
           url: z.string(),
         }),

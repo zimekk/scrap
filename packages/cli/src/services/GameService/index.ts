@@ -1,5 +1,5 @@
 import { diffString } from "json-diff";
-import { promise, z } from "zod";
+import { z } from "zod";
 import { gameItems } from "@dev/api/games";
 import { request } from "../../request";
 import Service from "../Service";
@@ -24,7 +24,7 @@ const diffItem = (
     _updated: number;
     _history: {};
   },
-  item: {}
+  item: {},
 ) => diffString(DiffSchema.parse(last), DiffSchema.parse(item));
 
 const updateItem = (
@@ -35,7 +35,7 @@ const updateItem = (
     _history = {},
     ...last
   }: { _id: string; _created: number; _updated: number; _history: {} },
-  item: {}
+  item: {},
 ) => ({
   ...item,
   _id,
@@ -57,13 +57,13 @@ export class GameService extends Service {
         id: ["displaycatalog", this.mk, $type].join("-"),
         url: `https://displaycatalog.mp.microsoft.com/v7.0/products?bigIds=${type}&market=PL&languages=pl-pl&MS-CV=${mscv}`,
       },
-      this.summary
+      this.summary,
     );
   }
 
   async request(
     type: string,
-    args = {}
+    args = {},
   ): Promise<{
     type: string;
     list: any[];
@@ -85,8 +85,8 @@ export class GameService extends Service {
               list: Products,
               next: null,
             }))
-            .parseAsync(data)
-        )
+            .parseAsync(data),
+        ),
       );
   }
 
@@ -100,8 +100,8 @@ export class GameService extends Service {
         Products.reduce<Promise<unknown>>(
           (promise, item) =>
             promise.then(() => this.process(item, { _fetched })),
-          Promise.resolve()
-        )
+          Promise.resolve(),
+        ),
       );
   }
 
@@ -133,7 +133,7 @@ export class GameService extends Service {
             this.summary.created.push(item.id);
             return gameItems.insert({ ...item, _created: _time });
           }
-        })
+        }),
       );
   }
 }
