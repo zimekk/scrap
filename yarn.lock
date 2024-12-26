@@ -1032,29 +1032,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@6.5.3", "@bull-board/api@^6.5.3":
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.5.3.tgz#07fccb2b25e1e36bf3f4759013b9d5c647a6c1ea"
-  integrity sha512-k58OlCheALXaoN+5l8U0VfLo9jQvl2nSR3/6vUmFQV8wcNBPfRtQRxUBh9/SbTDmFvtvmzvMkc+J3yWGMCDrAw==
+"@bull-board/api@6.5.4", "@bull-board/api@^6.5.3":
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.5.4.tgz#2e581c943283b0a26199b4ac72c345ebeeac4e1a"
+  integrity sha512-5EFs4lSzfTf/TUMOKaADjSVyJAnP9/jJw0TAW2NBD+LzxjJCSpqN8y3vxoQo1vnKCf/iiLS6wwSRNDObNDz1XA==
   dependencies:
     redis-info "^3.0.8"
 
-"@bull-board/express@^6.5.3":
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.5.3.tgz#b26396844549c4da8d1d7848c4f8cf309749d696"
-  integrity sha512-Jv8llFCJy297MBxFKahL+OsYS4z2b3xsNalYMRFcI635uGWa1rASEV+jR8lYPNBJlpzvZI3fJ0mIJegv94eIbg==
+"@bull-board/express@^6.5.4":
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.5.4.tgz#c5b1b300f14d7f0b3d60f0bc5cb95663e4efbcbf"
+  integrity sha512-QodSuJNBjBIxsPU6YSkZf2iAPsIa3ihtcuS1o6JY2bhYpPrtegjVL8j7suLX801OlU1JRXgXe+Z+eGWFjSWu+Q==
   dependencies:
-    "@bull-board/api" "6.5.3"
-    "@bull-board/ui" "6.5.3"
+    "@bull-board/api" "6.5.4"
+    "@bull-board/ui" "6.5.4"
     ejs "^3.1.10"
-    express "^4.21.1"
+    express "^4.21.1 || ^5.0.0"
 
-"@bull-board/ui@6.5.3":
-  version "6.5.3"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.5.3.tgz#eabe62fc8ecbd72d0451d873506fb129fd4b51de"
-  integrity sha512-h2A7HX6Mb1+/sMTYueK5zBgOCPiPyu9ENHUapPiPdrl58xm+J9vHA/TYxzv9vgJ9DckWczXg1JP11P9SmC1oxQ==
+"@bull-board/ui@6.5.4":
+  version "6.5.4"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.5.4.tgz#5d7811864a54f75939b8184314272b1889c2bb18"
+  integrity sha512-5K39CaJk+p5fyckXI0jAc9lVJZAJ+tkj8wlyv8X3qszO6jKg/rYE20HaNgUOIBpQK9yQQDwgaxpip767svjnVQ==
   dependencies:
-    "@bull-board/api" "6.5.3"
+    "@bull-board/api" "6.5.4"
 
 "@commitlint/cli@^19.6.1":
   version "19.6.1"
@@ -5943,7 +5943,7 @@ expect@^29.0.0, expect@^29.7.0:
     jest-message-util "^29.7.0"
     jest-util "^29.7.0"
 
-express@^4.21.1, express@^4.21.2:
+"express@^4.21.1 || ^5.0.0", express@^4.21.2:
   version "4.21.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.21.2.tgz#cf250e48362174ead6cea4a566abef0162c1ec32"
   integrity sha512-28HqgMZAmih1Czt9ny7qr6ek2qddF4FclbMzwhCREB6OFfH+rXAnuNCwo1/wFvrtbgsQDb4kSbX9de9lFbrXnA==
