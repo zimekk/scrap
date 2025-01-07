@@ -1032,36 +1032,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@6.5.4":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.5.4.tgz#2e581c943283b0a26199b4ac72c345ebeeac4e1a"
-  integrity sha512-5EFs4lSzfTf/TUMOKaADjSVyJAnP9/jJw0TAW2NBD+LzxjJCSpqN8y3vxoQo1vnKCf/iiLS6wwSRNDObNDz1XA==
-  dependencies:
-    redis-info "^3.0.8"
-
-"@bull-board/api@^6.6.1":
+"@bull-board/api@6.6.1", "@bull-board/api@^6.6.1":
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.6.1.tgz#3fccdd686da868b3e9c4e8f8bba1e83146bd48d3"
   integrity sha512-IlG60N/r/pGfZH39/IZz2rfzBXOuTpKA+5SOLX5ESqk/JPtHq2ipnaczdxSsXIcXtefmhwyhBBfQujW1bJdJlw==
   dependencies:
     redis-info "^3.0.8"
 
-"@bull-board/express@^6.5.4":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.5.4.tgz#c5b1b300f14d7f0b3d60f0bc5cb95663e4efbcbf"
-  integrity sha512-QodSuJNBjBIxsPU6YSkZf2iAPsIa3ihtcuS1o6JY2bhYpPrtegjVL8j7suLX801OlU1JRXgXe+Z+eGWFjSWu+Q==
+"@bull-board/express@^6.6.1":
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.6.1.tgz#cdfd12f8303c6ebc6bf066a50b8b8d145b8f0ba8"
+  integrity sha512-/3ghya2Uroq3yIEQfK4XG4oT/zGR4NMbEveqLFcOuvhvm4x3IAO3z04ugp0eDvr8pxgD3uS2Tg1cQimzUOIo4A==
   dependencies:
-    "@bull-board/api" "6.5.4"
-    "@bull-board/ui" "6.5.4"
+    "@bull-board/api" "6.6.1"
+    "@bull-board/ui" "6.6.1"
     ejs "^3.1.10"
     express "^4.21.1 || ^5.0.0"
 
-"@bull-board/ui@6.5.4":
-  version "6.5.4"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.5.4.tgz#5d7811864a54f75939b8184314272b1889c2bb18"
-  integrity sha512-5K39CaJk+p5fyckXI0jAc9lVJZAJ+tkj8wlyv8X3qszO6jKg/rYE20HaNgUOIBpQK9yQQDwgaxpip767svjnVQ==
+"@bull-board/ui@6.6.1":
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.6.1.tgz#b63234ddd30d4da10ecb032200b933a74c042b40"
+  integrity sha512-L4xELOzDgUz4o7mQssGM0sef1QD41AyJ3iHbXIi8V72jj2FXeDwv63BoccZTC3GZHHNo21RkslcJvBYPkUsEnA==
   dependencies:
-    "@bull-board/api" "6.5.4"
+    "@bull-board/api" "6.6.1"
 
 "@commitlint/cli@^19.6.1":
   version "19.6.1"
