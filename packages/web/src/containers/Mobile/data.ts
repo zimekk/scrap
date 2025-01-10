@@ -286,6 +286,48 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-01-10",
+    number: "183",
+    amount: 3.95,
+    net: 5_420,
+    min: 137,
+    sms: 95, // ?
+  },
+  {
+    date: "2025-01-10",
+    number: "938",
+    amount: 17.4,
+    net: 2_050,
+    min: 185,
+    sms: 118,
+  },
+  {
+    date: "2025-01-10",
+    number: "379",
+    // amount: 25.34,
+    amount: 0.34,
+    net: 9_970,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-01-10",
+    number: "818",
+    amount: 7.11,
+    net: 5_240,
+    min: 265,
+    sms: 161,
+  },
+  {
+    date: "2025-01-10",
+    number: "828",
+    amount: 0.85,
+    net: 1_910,
+    min: "67:58",
+    sms: 158,
+  },
+
+  {
     date: "2025-01-05",
     number: "183",
     // amount: 13.95,
