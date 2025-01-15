@@ -5,6 +5,22 @@ import * as data from "./data";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+interface Item {
+  date: string;
+  number: string;
+  amount: number;
+  net: number;
+  min: number | string;
+  sms: number;
+}
+
+const isItem = (item: Partial<Item>): item is Item =>
+  !(
+    item.amount === undefined ||
+    item.min === undefined ||
+    item.sms === undefined
+  );
+
 const formatMin = (min: number | string) =>
   typeof min === "number"
     ? `${min} min`
@@ -63,7 +79,7 @@ function Data() {
 
   const rows = useMemo(
     () =>
-      balance.map(({ date, number, amount, net, min, sms }) => ({
+      balance.filter(isItem).map(({ date, number, amount, net, min, sms }) => ({
         date,
         number,
         amount,
