@@ -24,7 +24,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "@bull-board/api": "^6.6.2",
+    "@bull-board/api": "^6.7.1",
     "@bull-board/express": "^6.6.2",
     "bull": "^4.16.5",
     "dotenv": "^16.4.7",
