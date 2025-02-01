@@ -1,4 +1,13 @@
 export const operations = [
+  { date: "2025-02-01", number: "183", amount: 10 },
+  { date: "2025-02-01", number: "183", amount: -5, sms: 100 },
+  { date: "2025-02-01", number: "938", amount: -15, min: 100 },
+  { date: "2025-02-01", number: "379", amount: 25 },
+  // { date: "2025-02-01", number: "818", amount: 5 },
+  // { date: "2025-02-01", number: "828", amount: 15 },
+  // { date: "2025-02-01", number: "828", amount: -15, min: 100 },
+  // { date: "2025-02-01", number: "828", amount: -9, net: "2GB" },
+
   { date: "2025-01-05", number: "183", amount: -10, net: "4GB" },
   { date: "2025-01-05", number: "818", amount: 5 },
   { date: "2025-01-05", number: "828", amount: 10 },
@@ -286,6 +295,58 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-02-01",
+    number: "183",
+    // amount: 3.95,
+    // amount: 13.95, //
+    amount: 8.95,
+    net: 2_790,
+    min: 123,
+    // sms: 79,
+    sms: 179, //
+  },
+  {
+    date: "2025-02-01",
+    number: "938",
+    // amount: 17.4,
+    amount: 2.4,
+    net: 1_930,
+    // min: 185,
+    min: 285, //
+    sms: 118,
+  },
+  {
+    date: "2025-02-01",
+    number: "379",
+    // amount: 0.34,
+    amount: 25.34, //
+    net: 5_740,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-02-01",
+    number: "818",
+    amount: 7.11,
+    net: 5_100,
+    min: 265,
+    sms: 155,
+  },
+  {
+    date: "2025-02-01",
+    number: "828",
+    amount: 0.06,
+    net: 311, // ?
+    min: "47:33", // ?
+    sms: 112,
+  },
+  {
+    date: "2025-02-01",
+    number: "102",
+    net: 150_000,
+  },
+
+  {
     date: "2025-01-30",
     number: "183",
     amount: 3.95,
@@ -323,7 +384,7 @@ export const balance = [
     amount: 0.06,
     net: 652, // ?
     min: "47:33", // ?
-    sms: 111,
+    sms: 112,
   },
   {
     date: "2025-01-30",
