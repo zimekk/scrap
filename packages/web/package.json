@@ -83,7 +83,7 @@
     "react-refresh": "^0.16.0",
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.84.0",
-    "sass-loader": "^16.0.4",
+    "sass-loader": "^16.0.5",
     "serve": "^14.2.4",
     "stream-browserify": "^3.0.0",
     "style-loader": "^4.0.0",
