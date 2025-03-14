@@ -160,7 +160,7 @@ export const JsonSchema = z.object({
           })
           .nullable(),
         favSearchNewAds: z.unknown().array(),
-        location: z.null(),
+        location: z.object({}).passthrough().nullable(),
         facets: z.object({
           district: z
             .object({
