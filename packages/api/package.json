@@ -22,7 +22,7 @@
     "build": "NODE_ENV=production tsc"
   },
   "dependencies": {
-    "@seald-io/nedb": "^4.1.0"
+    "@seald-io/nedb": "^4.1.1"
   },
   "devDependencies": {
     "@types/node": "^22.13.10",
