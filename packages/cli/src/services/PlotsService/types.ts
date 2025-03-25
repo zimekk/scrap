@@ -46,7 +46,7 @@ const AdSchema = z.object({
       name: z.string(),
       type: z.string(),
       value: z.string(),
-      normalizedValue: z.string(),
+      normalizedValue: z.string().optional(),
     })
     .array(),
   itemCondition: z.string(),
@@ -109,10 +109,10 @@ const AdSchema = z.object({
   }),
   shop: z.object({ subdomain: z.string().nullable() }),
   safedeal: z.object({
-    weight: z.number(),
+    weight: z.number().optional(),
     weight_grams: z.number(),
-    status: z.string(),
-    safedeal_blocked: z.boolean(),
+    status: z.string().optional(),
+    safedeal_blocked: z.boolean().optional(),
     allowed_quantity: z.unknown().array(),
   }),
   searchReason: z.string(),
@@ -213,7 +213,7 @@ export const JsonSchema = z.object({
         }),
       }),
       categoryId: z.number(),
-      categories: z.null(),
+      categories: z.null().optional(),
       viewType: z.string(),
       expansionListing: z
         .object({
