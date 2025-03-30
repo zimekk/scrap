@@ -1,4 +1,8 @@
 export const operations = [
+  { date: "2025-04-01", number: "183", amount: 5 },
+  { date: "2025-04-01", number: "828", amount: 5 },
+  { date: "2025-04-01", number: "828", amount: -5, sms: 100 },
+
   { date: "2025-03-15", number: "183", amount: -5, net: "1GB" },
 
   { date: "2025-03-05", number: "938", amount: 5 },
@@ -304,6 +308,110 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2025-04-01",
+    number: "183",
+    // amount: 3.95,
+    amount: 8.95,
+    net: 1_500,
+    min: 106,
+    sms: 177,
+  },
+  {
+    date: "2025-04-01",
+    number: "938",
+    amount: 7.4,
+    net: 1_740,
+    min: 242,
+    sms: 116,
+  },
+  {
+    date: "2025-04-01",
+    number: "379",
+    amount: 0.34,
+    net: 3_380,
+    roaming: 7_050,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-04-01",
+    number: "818",
+    amount: 7.11,
+    net: 5_660,
+    roaming: 1_410,
+    min: 265,
+    sms: 146,
+  },
+  {
+    date: "2025-04-01",
+    number: "828",
+    // amount: 1.27,
+    // amount: 6.27,
+    amount: 1.27,
+    net: 978,
+    roaming: 7_610,
+    min: "40:12", // ?
+    // sms: 19,
+    sms: 119,
+  },
+  {
+    date: "2025-04-01",
+    number: "102",
+    net: 150_000,
+    roaming: 8_450,
+  },
+
+  {
+    date: "2025-03-30",
+    number: "183",
+    amount: 3.95, //
+    net: 1_500, //
+    min: 106,
+    sms: 177,
+  },
+  {
+    date: "2025-03-30",
+    number: "938",
+    amount: 7.4, //
+    net: 1_740,
+    min: 261,
+    sms: 116,
+  },
+  {
+    date: "2025-03-30",
+    number: "379",
+    amount: 0.34, //
+    net: 4_400,
+    roaming: 7_050,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-03-30",
+    number: "818",
+    amount: 7.11,
+    net: 5_670, //
+    roaming: 1_410,
+    min: 265,
+    sms: 146,
+  },
+  {
+    date: "2025-03-30",
+    number: "828",
+    amount: 1.27, //
+    net: 1_030, //
+    roaming: 7_610,
+    min: "41:43", // ?
+    sms: 20, // ?
+  },
+  {
+    date: "2025-03-30",
+    number: "102",
+    net: 150_000,
+    roaming: 8_450,
+  },
+
   {
     date: "2025-03-25",
     number: "183",
