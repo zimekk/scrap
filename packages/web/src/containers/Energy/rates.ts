@@ -1,5 +1,6 @@
 import { type Rates, getRates } from "./utils";
 
+// kab
 export const RATES_1: Rates = {
   "Sprzedaż energii elektrycznej": {
     "Energia czynna": {
@@ -113,8 +114,12 @@ export const RATES_1: Rates = {
           price: 0.0314,
           vat: 0.23,
         },
+        "2025-01-01": {
+          price: 0.0321,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.0314,
+          price: 0.0321,
           vat: 0.23,
         },
       }),
@@ -142,8 +147,12 @@ export const RATES_1: Rates = {
           price: 0.0,
           vat: 0.23,
         },
+        "2025-01-01": {
+          price: 0.0035,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.0,
+          price: 0.0035,
           vat: 0.23,
         },
       }),
@@ -179,8 +188,12 @@ export const RATES_1: Rates = {
           price: 0.226,
           vat: 0.23,
         },
+        "2025-01-01": {
+          price: 0.2233,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.226,
+          price: 0.2233,
           vat: 0.23,
         },
       }),
@@ -212,8 +225,12 @@ export const RATES_1: Rates = {
           price: 0.00618,
           vat: 0.23,
         },
+        "2025-01-01": {
+          price: 0.003,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.00618,
+          price: 0.003,
           vat: 0.23,
         },
       }),
@@ -249,8 +266,12 @@ export const RATES_1: Rates = {
           price: 17.71,
           vat: 0.23,
         },
+        "2025-01-01": {
+          price: 17.59,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 17.71,
+          price: 17.59,
           vat: 0.23,
         },
       }),
@@ -275,6 +296,10 @@ export const RATES_1: Rates = {
           vat: 0.23,
         },
         "2024-07-01": {
+          price: 0.1,
+          vat: 0.23,
+        },
+        "2025-01-01": {
           price: 0.1,
           vat: 0.23,
         },
@@ -308,6 +333,10 @@ export const RATES_1: Rates = {
           vat: 0.23,
         },
         "2024-07-01": {
+          price: 0,
+          vat: 0.23,
+        },
+        "2025-01-01": {
           price: 0,
           vat: 0.23,
         },
@@ -364,6 +393,7 @@ export const RATES_1: Rates = {
   },
 };
 
+// wil
 export const RATES_2: Rates = {
   "Sprzedaż energii elektrycznej": {
     ...RATES_1["Sprzedaż energii elektrycznej"],

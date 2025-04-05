@@ -5,6 +5,7 @@ import styles from "./styles.module.scss";
 
 import type { Items, Rates } from "./utils";
 
+// kab
 export const ITEMS_1: Items[] = [
   [
     {
@@ -156,6 +157,7 @@ export const ITEMS_1: Items[] = [
   ],
 ];
 
+// kab
 export const ITEMS_3: Items[] = [
   [
     {
@@ -199,9 +201,25 @@ export const ITEMS_3: Items[] = [
       value: 1_396,
     },
   ],
+  [
+    {
+      from: "2024-08-10",
+      to: "2024-12-31",
+      start: 1_396,
+      value: 1_396 + 328.59,
+      estimated: true,
+    },
+    {
+      from: "2025-01-01",
+      to: "2025-02-10",
+      start: 1_724.59,
+      value: 1_834.0,
+    },
+  ],
 ];
 // .map((item) => ({ contract: "0351", counter: "8586", ...item }))
 
+// wil
 export const ITEMS_2: Items[] = [
   [
     {
