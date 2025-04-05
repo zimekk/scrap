@@ -1,4 +1,8 @@
 export const operations = [
+  { date: "2025-04-05", number: "938", amount: -5, net: "1GB" },
+  { date: "2025-04-05", number: "379", amount: 25 },
+  { date: "2025-04-05", number: "818", amount: -5, net: "1GB" },
+
   { date: "2025-04-01", number: "183", amount: 5 },
   { date: "2025-04-01", number: "828", amount: 5 },
   { date: "2025-04-01", number: "828", amount: -5, sms: 100 },
@@ -309,10 +313,68 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-04-05",
+    number: "183",
+    amount: 8.95, //
+    net: 1_100,
+    roaming: 1_410,
+    min: 104,
+    sms: 176,
+  },
+  {
+    date: "2025-04-05",
+    number: "938",
+    // amount: 7.4,
+    amount: 2.4,
+    // net: 1_720,
+    net: 2_720, //
+    roaming: 1_410,
+    min: 242,
+    sms: 116,
+  },
+  {
+    date: "2025-04-05",
+    number: "379",
+    // amount: 0.34,
+    amount: 25.34, //
+    // net: 2_560,
+    net: 2_420,
+    roaming: 7_050,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-04-05",
+    number: "818",
+    // amount: 7.11,
+    amount: 2.11,
+    // net: 5_600,
+    net: 6_600, //
+    roaming: 2_820,
+    min: 265,
+    sms: 146,
+  },
+  {
+    date: "2025-04-05",
+    number: "828",
+    amount: 1.27, //
+    net: 491,
+    roaming: 7_610,
+    min: "40:08", // ?
+    sms: 96, //
+  },
+  {
+    date: "2025-04-05",
+    number: "102",
+    net: 150_000,
+    roaming: 8_450,
+  },
+
+  {
     date: "2025-04-01",
     number: "183",
     // amount: 3.95,
-    amount: 8.95,
+    amount: 8.95, //
     net: 1_500,
     min: 106,
     sms: 177,
@@ -353,7 +415,7 @@ export const balance = [
     roaming: 7_610,
     min: "40:12", // ?
     // sms: 19,
-    sms: 119,
+    sms: 119, //
   },
   {
     date: "2025-04-01",
