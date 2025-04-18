@@ -1,4 +1,6 @@
 export const operations = [
+  { date: "2025-04-18", number: "183", amount: -5, net: "1GB" },
+
   { date: "2025-04-10", number: "828", amount: 5 },
   { date: "2025-04-10", number: "828", amount: -5, net: "1GB" },
 
@@ -315,6 +317,17 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2025-04-18",
+    number: "183",
+    // amount: 8.95, //
+    amount: 3.95, //
+    net: 1_410, //
+    roaming: 2_820,
+    min: "91:00",
+    sms: 176,
+  },
+
   {
     date: "2025-04-15",
     number: "183",
