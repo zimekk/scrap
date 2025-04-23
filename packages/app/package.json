@@ -38,7 +38,7 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.14.1",
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "require-from-string": "^2.0.2",
     "typescript": "^5.8.3",
     "webpack": "^5.99.6",
