@@ -1,4 +1,12 @@
+// yyyy-mm-19 183
+// yyyy-mm-15 938
+// yyyy-mm-25 379
+// yyyy-mm-01 818
+// yyyy-mm-01 828
+// yyyy-mm-01 102
 export const operations = [
+  { date: "2025-04-30", number: "828", amount: 10 },
+
   { date: "2025-04-18", number: "183", amount: -5, net: "1GB" },
 
   { date: "2025-04-10", number: "828", amount: 5 },
@@ -317,6 +325,115 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2025-05-01",
+    number: "183",
+    amount: 3.95,
+    net: 729,
+    roaming: 2_810,
+    min: "90:21",
+    sms: 176,
+  },
+  {
+    date: "2025-05-01",
+    number: "938",
+    amount: 2.4,
+    net: 2_590,
+    roaming: 1_450,
+    min: 242,
+    sms: 88,
+  },
+  {
+    date: "2025-05-01",
+    number: "379",
+    amount: 0.34,
+    net: 4_230,
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-05-01",
+    number: "818",
+    amount: 2.11,
+    net: 6_430,
+    roaming: 2_910,
+    min: 265,
+    sms: 146,
+  },
+  {
+    date: "2025-05-01",
+    number: "828",
+    amount: 1.27,
+    net: 1_090,
+    roaming: 8_140,
+    min: "37:49", // ?
+    sms: 100,
+  },
+  {
+    date: "2025-05-01",
+    number: "102",
+    net: 150_000,
+    roaming: 8_710,
+  },
+
+  {
+    date: "2025-04-30",
+    number: "183",
+    amount: 3.95, //
+    net: 748, //
+    roaming: 2_820,
+    min: "90:21",
+    sms: 176,
+  },
+  {
+    date: "2025-04-30",
+    number: "938",
+    amount: 2.4,
+    net: 2_590, //
+    roaming: 1_410,
+    min: 242,
+    sms: 88,
+  },
+  {
+    date: "2025-04-30",
+    number: "379",
+    amount: 0.34, //
+    net: 4_270,
+    roaming: 7_050,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-04-30",
+    number: "818",
+    amount: 2.11,
+    net: 6_430, //
+    roaming: 2_820,
+    min: 265,
+    sms: 146,
+  },
+  {
+    date: "2025-04-30",
+    number: "828",
+    // amount: 1.27, //
+    // amount: 11.27,
+    // amount: 6.27,
+    amount: 1.27, //
+    // net: 95, // ?
+    net: 1_090, //
+    roaming: 6_490,
+    min: "37:49", // ?
+    // sms: 0, // ?
+    sms: 100, //
+  },
+  {
+    date: "2025-04-30",
+    number: "102",
+    net: 146_370,
+    roaming: 8_450,
+  },
+
   {
     date: "2025-04-25",
     number: "183",
