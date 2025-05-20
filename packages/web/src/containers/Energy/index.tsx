@@ -424,6 +424,21 @@ export const ITEMS_2: Items[] = [
       value: 28_447.0,
     },
   ],
+  [
+    {
+      from: "2024-10-09",
+      to: "2024-12-31",
+      start: 28_447.0,
+      value: 28_447.0 + 1273.33,
+      estimated: true,
+    },
+    {
+      from: "2025-01-01",
+      to: "2025-04-15",
+      start: 28_447.0 + 1273.33,
+      value: 30_992.95,
+    },
+  ],
 ];
 // .map((item) => ({ contract: "8586", counter: "2752", ...item }))
 
