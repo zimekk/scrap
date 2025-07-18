@@ -158,7 +158,7 @@ export default class extends Service {
     return z
       .object({
         app: z.object({
-          products: z.record(ProductSchema),
+          products: z.record(z.string(), ProductSchema),
         }),
       })
       .transform(({ app }) =>
@@ -250,15 +250,9 @@ export default class extends Service {
       .transform((list) =>
         list
           .filter(({ Type }) => Type === "Product")
-          .reduce<Promise<any>>(
-            (promise, item) =>
-              promise.then(() =>
-                item.Type === "Product"
-                  ? this.process(item.ProductHeader, { _fetched })
-                  : null,
-              ),
-            Promise.resolve(),
-          ),
+          .reduce<
+            Promise<any>
+          >((promise, item) => promise.then(() => (item.Type === "Product" ? this.process(item.ProductHeader, { _fetched }) : null)), Promise.resolve()),
       )
       .parseAsync(json);
   }

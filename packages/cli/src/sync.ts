@@ -87,24 +87,28 @@ export const sync = async (type = "") => {
 
   const ProcessSchema = z.preprocess(
     // .transform(t => (console.log(t), t))
-    z
-      .object({
-        type: z.string(),
-        data: z.object({}).passthrough(),
-        opts: z.object({}).passthrough(),
-        returnvalue: z.object({}).passthrough(),
-      })
-      .transform(({ type, data, opts, returnvalue }) =>
-        // console.log(opts),
-        ({
-          type: Object.values(Type).includes(type as any) ? type : Type.UNKNOWN,
-          data: {
-            ...data,
-            ...opts,
-            ...returnvalue,
-          },
-        }),
-      ).parse,
+    (v) =>
+      z
+        .object({
+          type: z.string(),
+          data: z.object({}).passthrough(),
+          opts: z.object({}).passthrough(),
+          returnvalue: z.object({}).passthrough(),
+        })
+        .transform(({ type, data, opts, returnvalue }) =>
+          // console.log(opts),
+          ({
+            type: Object.values(Type).includes(type as any)
+              ? type
+              : Type.UNKNOWN,
+            data: {
+              ...data,
+              ...opts,
+              ...returnvalue,
+            },
+          }),
+        )
+        .parse(v),
     z.discriminatedUnion("type", [
       z.object({
         type: z.literal(Type.AUTOS),

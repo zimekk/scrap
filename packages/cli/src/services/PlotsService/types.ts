@@ -259,6 +259,7 @@ export const JsonSchema = z.object({
     }),
     filters: z.object({
       data: z.record(
+        z.string(),
         z
           .object({
             type: z.string(),
@@ -295,12 +296,20 @@ export const JsonSchema = z.object({
       }),
       headers: z.object({ "x-request-id": z.string() }),
     }),
-    filteredCounts: z.number().nullable().array().or(z.record(z.number())),
+    filteredCounts: z
+      .number()
+      .nullable()
+      .array()
+      .or(z.record(z.string(), z.number())),
   }),
   categories: z
     .object({
-      list: z.record(CategorySchema),
-      counts: z.number().nullable().array().or(z.record(z.number())),
+      list: z.record(z.string(), CategorySchema),
+      counts: z
+        .number()
+        .nullable()
+        .array()
+        .or(z.record(z.string(), z.number())),
       promos: z.array(
         z.object({
           icon: z.object({ image_url: z.string(), big_image_url: z.string() }),

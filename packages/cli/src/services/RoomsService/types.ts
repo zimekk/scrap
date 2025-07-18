@@ -247,7 +247,7 @@ export const Data = z.object({
           messages: z
             .object({ fieldName: z.string(), value: z.string() })
             .array(),
-        })
+        }),
       ),
       restrictions: z.object({
         availableFrom: z.string().nullable(),
@@ -325,7 +325,7 @@ export const Data = z.object({
                 }),
               })
               .nullable(),
-            offerDates: z.record(z.number()).nullable(),
+            offerDates: z.record(z.string(), z.number()).nullable(),
             discounts: z
               .object({ amount: z.number(), availableTo: z.null() })
               .array(),
@@ -386,7 +386,7 @@ export const Details = z.object({
         messages: z
           .object({ fieldName: z.string(), value: z.string() })
           .array(),
-      })
+      }),
     )
     .nullable(),
   hasVouchers: z.boolean(),
@@ -435,7 +435,7 @@ export type OccupancyType = {
 
 export const getOccupancy = (
   personTypes: z.infer<typeof PersonTypes>,
-  occupancy: OccupancyType[]
+  occupancy: OccupancyType[],
 ) =>
   occupancy.map(({ adults, children }) => ({
     adults,
