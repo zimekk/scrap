@@ -13,7 +13,7 @@ export const createItem = (item: {}) => ({ ...item, _created: _time });
 export const diffItem = (last: any, item: any) =>
   ((last, item) => diffString(last, item))(
     VehicleDiff.parse(last),
-    VehicleDiff.parse(item)
+    VehicleDiff.parse(item),
   );
 
 export const reduceHistory = (_history: any[]) =>
@@ -24,19 +24,19 @@ export const reduceHistory = (_history: any[]) =>
         const [_last_date, last] = entries[entries.length - 1];
 
         const diff = diffItem(last, item);
-        console.log(
-          `${item.id}[${date}]`,
-          _key,
-          format(Number(date), "yyyy-MM-dd, HH:mm:ss")
-          // diff ? diffString(last, item) : null
-        );
+        // console.log(
+        //   `${item.id}[${date}]`,
+        //   _key,
+        //   format(Number(date), "yyyy-MM-dd, HH:mm:ss")
+        //   // diff ? diffString(last, item) : null
+        // );
         if (!diff) {
           return history;
         }
       }
       return Object.assign(history, { [date]: item });
     },
-    {}
+    {},
   );
 
 export const updateItem = (last: unknown, item: unknown, updated = _time) =>
@@ -75,11 +75,13 @@ export const scrapOptions = (item: object, html: string) => {
           $el
             .querySelectorAll("*")
             .map(($el) => $el.text.replace(/\s+/g, " ").trim())
-            .join("\t")
-        )
+            .join("\t"),
+        ),
       )
       .concat(
-        $root.querySelectorAll("ul.list-group li").map(($el) => $el.text.trim())
+        $root
+          .querySelectorAll("ul.list-group li")
+          .map(($el) => $el.text.trim()),
       ),
   };
 };

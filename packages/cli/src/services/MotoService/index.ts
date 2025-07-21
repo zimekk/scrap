@@ -47,8 +47,8 @@ const UrqlState = z
                 title,
                 url,
               },
-              thumbnail && (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail)
-            )
+              thumbnail && (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail),
+            ),
         ).array(),
       })
       .transform(({ edges }) => edges)
@@ -59,7 +59,7 @@ const UrqlState = z
 export class MotoService extends Service {
   async request(
     type: string,
-    args = {}
+    args = {},
   ): Promise<{
     type: string;
     list: any[];
@@ -83,7 +83,7 @@ export class MotoService extends Service {
             id: ["moto", this.mk, name].join("-"),
             url: url.toString(),
           },
-          this.summary
+          this.summary,
         )
           .then((html) => saveProductHtml(name, html) || scrapMotoList(html))
           .then(({ list, nextPage } = { list: [], nextPage: null }) => ({
@@ -100,11 +100,12 @@ export class MotoService extends Service {
         props: z.object({
           pageProps: z.object({
             urqlState: z.record(
+              z.string(),
               z
                 .object({
                   data: z.string(),
                 })
-                .transform(({ data }) => UrqlState.parse(JSON.parse(data)))
+                .transform(({ data }) => UrqlState.parse(JSON.parse(data))),
             ),
           }),
         }),
@@ -114,14 +115,14 @@ export class MotoService extends Service {
           props: {
             pageProps: { urqlState },
           },
-        }) => Object.values(urqlState).find(Boolean) || []
+        }) => Object.values(urqlState).find(Boolean) || [],
       )
       .transform((list) =>
         list.reduce<Promise<any>>(
           (promise, item) =>
             promise.then(() => this.commit(item, { _fetched })),
-          Promise.resolve()
-        )
+          Promise.resolve(),
+        ),
       )
       .parseAsync(json);
   }
@@ -168,7 +169,7 @@ export class MotoService extends Service {
               _created: _time,
             });
           }
-        })
+        }),
       );
   }
 }

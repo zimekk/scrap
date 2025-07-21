@@ -115,6 +115,7 @@ export const Vehicle5Data = z
           }),
           render_gallery: z
             .record(
+              z.string(),
               z
                 .object({
                   original: z.string(),
@@ -127,11 +128,11 @@ export const Vehicle5Data = z
                   adform_medium: z.string(),
                   facebook_xlarge: z.string(),
                 })
-                .nullable()
+                .nullable(),
             )
             .nullable(),
         })
-        .passthrough()
+        .passthrough(),
     ),
   })
   .strict();

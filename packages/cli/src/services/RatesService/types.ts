@@ -23,6 +23,6 @@ export type Rate = z.infer<typeof RateSchema>;
 
 export const DataSchema = z.object({
   date: z.string(),
-  rates: z.record(z.array(RateSchema)),
+  rates: z.record(z.string(), z.array(RateSchema)),
   range: z.object({ minRateDate: z.string(), maxRateDate: z.string() }),
 });

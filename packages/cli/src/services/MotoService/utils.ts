@@ -208,10 +208,10 @@ const UrqlState = z
                     url,
                   },
                   thumbnail &&
-                    (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail)
-                )
+                    (({ x1: thumbnail }) => ({ thumbnail }))(thumbnail),
+                ),
             ),
-          }
+          },
       )
       .optional(),
     click2Buy: z
@@ -229,11 +229,11 @@ const UrqlState = z
 
 export const scrapMotoList = (
   // item: Partial<{ id: string }>,
-  html: string
+  html: string,
 ) => {
   const $root = parse(html);
   const json = JSON.parse(
-    $root.querySelector("script#__NEXT_DATA__")?.text || "{}"
+    $root.querySelector("script#__NEXT_DATA__")?.text || "{}",
     // $root.querySelector("script#listing-json-ld")?.text || "{}"
   );
   try {
@@ -287,19 +287,20 @@ export const scrapMotoList = (
               currentUrl: z.string(),
               urqlState: z
                 .record(
+                  z.string(),
                   z.object({
                     data: z
                       .string()
                       .transform((data) => UrqlState.parse(JSON.parse(data)))
                       .optional(),
-                  })
+                  }),
                 )
                 .transform(
                   (urqlState) =>
                     Boolean(console.log(urqlState)) ||
                     Object.values(urqlState)
                       .map(({ data }) => data)
-                      .find(Boolean)
+                      .find(Boolean),
                 ),
             }),
           }),
@@ -312,7 +313,7 @@ export const scrapMotoList = (
             props: {
               pageProps: { urqlState },
             },
-          }) => urqlState
+          }) => urqlState,
         )
         // .transform(({mainEntity: {itemListElement}}) => ({
         //   list: itemListElement
@@ -330,7 +331,7 @@ export const scrapMotoList = (
 export const diffMotoItem = (last: any, item: any) =>
   ((last, item) => diffString(last, item))(
     MotoDiff.parse(last),
-    MotoDiff.parse(item)
+    MotoDiff.parse(item),
   );
 
 export const updateMotoItem = (last: any, item: any, updated = _time) =>
@@ -352,5 +353,5 @@ export const updateMotoItem = (last: any, item: any, updated = _time) =>
       })
       .passthrough()
       .parse(last),
-    MotoDiff.parse(item)
+    MotoDiff.parse(item),
   );
