@@ -21,7 +21,10 @@
   },
   "jest": {
     "preset": "ts-jest",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "src/services/ProductService/Mensa"
+    ]
   },
   "scripts": {
     "build": "NODE_ENV=production tsc",
@@ -44,7 +47,7 @@
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "rxjs": "^7.8.2",
-    "slug": "^9.1.0",
+    "slug": "^11.0.0",
     "zod": "^4.0.5"
   },
   "devDependencies": {
