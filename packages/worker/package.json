@@ -30,7 +30,7 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "milliseconds": "^1.0.3",
-    "zod": "^4.0.5"
+    "zod": "^4.0.8"
   },
   "devDependencies": {
     "@types/bull": "^4.10.4",
