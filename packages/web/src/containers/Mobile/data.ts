@@ -5,6 +5,8 @@
 // yyyy-mm-01 828
 // yyyy-mm-01 102
 export const operations = [
+  { date: "2025-07-25", number: "379", amount: 5 },
+
   { date: "2025-07-15", number: "183", amount: -9, net: "2GB" },
   { date: "2025-07-15", number: "183", amount: 5 },
 
@@ -355,6 +357,59 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2025-07-25",
+    number: "183",
+    amount: 0.95, //
+    net: 1_750, //
+    roaming: 5_230,
+    min: 104, //
+    sms: 143,
+  },
+  {
+    date: "2025-07-25",
+    number: "938",
+    amount: 1.08,
+    net: 1_720,
+    roaming: 0,
+    min: 221,
+    sms: 185, //
+  },
+  {
+    date: "2025-07-25",
+    number: "379",
+    // amount: 0.34,
+    amount: 3.34,
+    net: 6_170, //
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-07-25",
+    number: "818",
+    amount: 17.11, //
+    net: 5_150,
+    roaming: 0,
+    min: 265,
+    sms: 143,
+  },
+  {
+    date: "2025-07-25",
+    number: "828",
+    amount: 0.48,
+    net: 3_380, //
+    roaming: 4_360,
+    min: 114,
+    sms: 16, // ?
+  },
+  {
+    date: "2025-07-25",
+    number: "102",
+    net: 147_130,
+    roaming: 8_710,
+  },
+
   {
     date: "2025-07-20",
     number: "183",
