@@ -1,9 +1,4 @@
-import React, {
-  type Dispatch,
-  type SetStateAction,
-  useEffect,
-  useMemo,
-} from "react";
+import React, { type Dispatch, type SetStateAction, useMemo } from "react";
 import L, { Icon, type LatLng, type LatLngBounds } from "leaflet";
 import { Marker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
@@ -54,9 +49,9 @@ export function useBounds(list: { position: LatLng }[]) {
   return useMemo(
     () =>
       L.featureGroup(
-        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
+        list.map(({ position: { lat, lng } }) => L.marker([lat, lng])),
       ).getBounds(),
-    []
+    [],
   );
 }
 
@@ -97,16 +92,6 @@ export default function Map({
   }[];
   zoom?: number;
 }) {
-  // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
-  useEffect(() => {
-    delete Icon.Default.prototype._getIconUrl;
-    Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
-      iconUrl: require("leaflet/dist/images/marker-icon.png").default,
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
-    });
-  }, []);
-
   const displayMap = useMemo(
     () => (
       <MapContainer
@@ -150,18 +135,18 @@ export default function Map({
                           item.petrol_list.reduce(
                             (list, { type, price }) =>
                               Object.assign(list, { [type]: price }),
-                            {}
+                            {},
                           ),
                       },
-                      item._history
-                    )
+                      item._history,
+                    ),
                   ).reduce(
                     (table, [time, list]) =>
                       Object.assign(table, {
                         header: Object.keys(list).reduce(
                           (header, item) =>
                             Object.assign(header, { [item]: item }),
-                          table.header
+                          table.header,
                         ),
                         rows: table.rows.concat([
                           {
@@ -176,7 +161,7 @@ export default function Map({
                         date: number;
                         list: Record<string, string>;
                       }[],
-                    }
+                    },
                   )}
                 />
               </section>
@@ -186,7 +171,7 @@ export default function Map({
         <LocateControl />
       </MapContainer>
     ),
-    [list, center]
+    [list, center],
   );
 
   // https://react-leaflet.js.org/docs/start-setup/
@@ -195,7 +180,7 @@ export default function Map({
       className={cx(styles.Layout)}
       onClick={(e) =>
         ((a) => a && a.getAttribute("href") === "#close" && e.preventDefault())(
-          (e.target as Element).closest("a")
+          (e.target as Element).closest("a"),
         )
       }
     >

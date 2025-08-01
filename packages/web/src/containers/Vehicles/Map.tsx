@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import L from "leaflet";
 import { CircleMarker, MapContainer, TileLayer, Popup } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../components/Map";
@@ -9,23 +9,13 @@ export function useBounds(list: { position: L.LatLng }[]) {
   return useMemo(
     () =>
       L.featureGroup(
-        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
+        list.map(({ position: { lat, lng } }) => L.marker([lat, lng])),
       ).getBounds(),
-    []
+    [],
   );
 }
 
 export default function Map({ bounds, center, setCenter, list }) {
-  // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
-  useEffect(() => {
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
-      iconUrl: require("leaflet/dist/images/marker-icon.png").default,
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
-    });
-  }, []);
-
   // const [map, setMap] = useState<L.Map | null>(null);
 
   const displayMap = useMemo(
@@ -73,7 +63,7 @@ export default function Map({ bounds, center, setCenter, list }) {
         <LocateControl />
       </MapContainer>
     ),
-    [list, center]
+    [list, center],
   );
 
   // https://react-leaflet.js.org/docs/start-setup/
@@ -82,7 +72,7 @@ export default function Map({ bounds, center, setCenter, list }) {
       className={cx(styles.Layout)}
       onClick={(e) =>
         ((a) => a && a.getAttribute("href") === "#close" && e.preventDefault())(
-          (e.target as Element).closest("a")
+          (e.target as Element).closest("a"),
         )
       }
     >
