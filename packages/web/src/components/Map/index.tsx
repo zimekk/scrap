@@ -7,12 +7,20 @@ import React, {
   useState,
 } from "react";
 import type L from "leaflet";
+import { Icon } from "leaflet";
 import { Marker, Tooltip, useMap } from "react-leaflet";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 // import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import cx from "classnames";
 import styles from "./styles.module.scss";
+
+// delete Icon.Default.prototype._getIconUrl;
+Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
+  iconUrl: require("leaflet/dist/images/marker-icon.png").default,
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
+});
 
 export function DisplayPosition({ map }: { map: L.Map }) {
   const [initial] = useState(() => ({
@@ -77,7 +85,7 @@ export function DraggableMarker({
         }
       },
     }),
-    []
+    [],
   );
 
   return (
@@ -102,7 +110,7 @@ export function LocateControl() {
         setView: true,
       });
     },
-    [map]
+    [map],
   );
 
   return (

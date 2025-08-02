@@ -6,6 +6,7 @@ import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import {
   type Configuration,
   EnvironmentPlugin,
+  NormalModuleReplacementPlugin,
   ProvidePlugin,
   type WebpackPluginInstance,
 } from "webpack";
@@ -88,6 +89,18 @@ export default (env: {
     new ProvidePlugin({
       Buffer: ["buffer", "Buffer"],
     }),
+    new NormalModuleReplacementPlugin(
+      /\/assets\/marker-icon-2x.png/,
+      require.resolve("./src/assets/favicon.ico"),
+    ),
+    new NormalModuleReplacementPlugin(
+      /\/assets\/marker-icon.png/,
+      require.resolve("./src/assets/favicon.ico"),
+    ),
+    new NormalModuleReplacementPlugin(
+      /\/assets\/marker-shadow.png/,
+      require.resolve("./src/assets/favicon.ico"),
+    ),
     new CopyWebpackPlugin({
       patterns: [
         {

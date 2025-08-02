@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import L, { Icon, LatLng } from "leaflet";
+import React, { useMemo, useState } from "react";
+import L, { LatLng } from "leaflet";
 import { Marker, MapContainer, TileLayer, Tooltip } from "react-leaflet";
 import { DraggableMarker, LocateControl } from "../../../components/Map";
 import cx from "classnames";
@@ -28,9 +28,9 @@ export function getDirections({
 }) {
   const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
   const link = `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-    (({ lat, lng }) => `${lat},${lng}`)(origin)
+    (({ lat, lng }) => `${lat},${lng}`)(origin),
   )}&destination=${encodeURIComponent(
-    (({ lat, lng }) => `${lat},${lng}`)(destination)
+    (({ lat, lng }) => `${lat},${lng}`)(destination),
   )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
 
   window.open(link, "_blank");
@@ -41,13 +41,13 @@ export function getDirectionsLink(
     latitude: number;
     longitude: number;
   },
-  origin: { lat: number; lng: number }
+  origin: { lat: number; lng: number },
 ) {
   const travelmode: "driving" | "walking" | "bicycling" | "transit" = "driving";
   return `//www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-    (({ lat, lng }) => `${lat},${lng}`)(origin)
+    (({ lat, lng }) => `${lat},${lng}`)(origin),
   )}&destination=${encodeURIComponent(
-    (({ latitude: lat, longitude: lng }) => `${lat},${lng}`)(coordinates)
+    (({ latitude: lat, longitude: lng }) => `${lat},${lng}`)(coordinates),
   )}&travelmode=${encodeURIComponent(travelmode)}&hl=pl`;
 }
 
@@ -55,9 +55,9 @@ export function useBounds(list: { position: LatLng }[]) {
   return useMemo(
     () =>
       L.featureGroup(
-        list.map(({ position: { lat, lng } }) => L.marker([lat, lng]))
+        list.map(({ position: { lat, lng } }) => L.marker([lat, lng])),
       ).getBounds(),
-    []
+    [],
   );
 }
 
@@ -70,18 +70,9 @@ export default function Map({
   list: Location[];
   zoom?: number;
 }) {
-  // https://stackoverflow.com/questions/40719689/how-to-include-leaflet-css-in-a-react-app-with-webpack
-  useEffect(() => {
-    Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png").default,
-      iconUrl: require("leaflet/dist/images/marker-icon.png").default,
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png").default,
-    });
-  }, []);
-
   const middle = useMemo(
     () => useBounds([{ position: new LatLng(origin.lat, origin.lng) }]),
-    [origin]
+    [origin],
   );
 
   const [center, setCenter] = useState(() => middle.getCenter());
@@ -92,7 +83,7 @@ export default function Map({
         ...address,
         position: new LatLng(coordinates.latitude, coordinates.longitude),
       })),
-    [list]
+    [list],
   );
 
   const bounds = useBounds(nearby);
@@ -128,7 +119,7 @@ export default function Map({
         <LocateControl />
       </MapContainer>
     ),
-    [list, center]
+    [list, center],
   );
 
   // https://react-leaflet.js.org/docs/start-setup/
