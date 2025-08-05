@@ -5,6 +5,15 @@
 // yyyy-mm-01 828
 // yyyy-mm-01 102
 export const operations = [
+  { date: "2025-08-05", number: "183", amount: 10 },
+  { date: "2025-08-05", number: "938", amount: 5 },
+  { date: "2025-08-05", number: "379", amount: 25 },
+  { date: "2025-08-05", number: "818", amount: -5, net: "1GB" },
+  { date: "2025-08-05", number: "828", amount: -10, net: "4GB" },
+  { date: "2025-08-05", number: "828", amount: 10 },
+  { date: "2025-08-05", number: "828", amount: -5, sms: 100 },
+  { date: "2025-08-05", number: "828", amount: 5 },
+
   { date: "2025-07-25", number: "379", amount: 5 },
 
   { date: "2025-07-15", number: "183", amount: -9, net: "2GB" },
@@ -358,6 +367,68 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-08-05",
+    number: "183",
+    // amount: 0.95,
+    amount: 10.95, //
+    net: 1_470,
+    roaming: 5_230,
+    min: 104,
+    sms: 143,
+  },
+  {
+    date: "2025-08-05",
+    number: "938",
+    // amount: 1.08,
+    amount: 6.08, //
+    net: 1_670,
+    roaming: 0,
+    min: 220,
+    sms: 185,
+  },
+  {
+    date: "2025-08-05",
+    number: "379",
+    // amount: 3.34, //
+    amount: 28.34, //
+    net: 5_480,
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-08-05",
+    number: "818",
+    // amount: 17.11,
+    amount: 12.11,
+    // net: 5_140,
+    net: 6_140, //
+    roaming: 0,
+    min: 265,
+    sms: 143,
+  },
+  {
+    date: "2025-08-05",
+    number: "828",
+    // amount: 0.48, //
+    // amount: 5.48, //
+    // amount: 10.48, //
+    amount: 0.48, //
+    // net: 129, // ?
+    net: 4_120, //
+    roaming: 0,
+    min: 114,
+    // sms: 16, // ?
+    sms: 116, //
+  },
+  {
+    date: "2025-08-05",
+    number: "102",
+    net: 146_380,
+    roaming: 8_710,
+  },
+
+  {
     date: "2025-08-01",
     number: "183",
     amount: 0.95,
@@ -379,7 +450,7 @@ export const balance = [
     date: "2025-08-01",
     number: "379",
     amount: 3.34,
-    net: 6_140, //
+    net: 6_140,
     roaming: 7_260,
     min: "1:22",
     sms: 130,
