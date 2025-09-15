@@ -377,6 +377,128 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-09-15",
+    number: "183",
+    amount: 10.95, //
+    net: 1_850,
+    roaming: 5_520,
+    min: "69:21",
+    sms: 121,
+  },
+  {
+    date: "2025-09-15",
+    number: "938",
+    amount: 11.08, //
+    net: 1_510,
+    roaming: 0,
+    min: "73:58",
+    sms: 184,
+  },
+  {
+    date: "2025-09-15",
+    number: "379",
+    amount: 3.34, //
+    net: 8_680,
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-09-15",
+    number: "818",
+    amount: 7.11,
+    net: 5_720, //
+    roaming: 2_910,
+    min: 265,
+    sms: 142,
+  },
+  {
+    date: "2025-09-15",
+    number: "828",
+    amount: 0.48, //
+    net: 484, //
+    roaming: 1_450,
+    min: "61:53",
+    sms: 79, //
+  },
+  {
+    date: "2025-09-15",
+    number: "796",
+    amount: 0,
+    net: 329_970,
+    roaming: 8_720,
+    min: 0,
+    sms: 0,
+  },
+  {
+    date: "2025-09-15",
+    number: "102",
+    net: 149_500,
+    roaming: 8_710,
+  },
+
+  {
+    date: "2025-09-10",
+    number: "183",
+    amount: 10.95, //
+    net: 2_010,
+    roaming: 5_520,
+    min: "69:21",
+    sms: 123,
+  },
+  {
+    date: "2025-09-10",
+    number: "938",
+    amount: 11.08, //
+    net: 1_530,
+    roaming: 0,
+    min: "95:11",
+    sms: 184,
+  },
+  {
+    date: "2025-09-10",
+    number: "379",
+    amount: 3.34, //
+    net: 10_090,
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-09-10",
+    number: "818",
+    amount: 7.11,
+    net: 6_570, //
+    roaming: 2_910,
+    min: 265,
+    sms: 142,
+  },
+  {
+    date: "2025-09-10",
+    number: "828",
+    amount: 0.48, //
+    net: 922, //
+    roaming: 1_450,
+    min: "70:51",
+    sms: 90, //
+  },
+  {
+    date: "2025-09-10",
+    number: "796",
+    amount: 0,
+    net: 330_010,
+    roaming: 8_720,
+    min: 0,
+    sms: 0,
+  },
+  {
+    date: "2025-09-10",
+    number: "102",
+    net: 149_570,
+    roaming: 8_710,
+  },
+
+  {
     date: "2025-09-05",
     number: "183",
     // amount: 0.95,
@@ -410,7 +532,7 @@ export const balance = [
     date: "2025-09-05",
     number: "818",
     // amount: 12.11,
-    amount: 12.11,
+    amount: 7.11,
     // net: 5_740,
     net: 6_730, //
     roaming: 2_910,
