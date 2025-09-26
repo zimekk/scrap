@@ -5,8 +5,11 @@
 // yyyy-mm-01 828
 // yyyy-mm-01 102
 export const operations = [
-  { date: "2025-09-05", number: "828", amount: -10, net: "2GB" },
-  { date: "2025-09-05", number: "828", amount: 10 },
+  { date: "2025-09-25", number: "183", amount: -9, net: "2GB" },
+  { date: "2025-09-25", number: "796", amount: 10 },
+
+  { date: "2025-09-20", number: "828", amount: -10, net: "2GB" },
+  { date: "2025-09-20", number: "828", amount: 10 },
   { date: "2025-09-20", number: "796", amount: -5, net: "1GB" },
   { date: "2025-09-20", number: "796", amount: 5 },
 
@@ -382,6 +385,70 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-09-25",
+    number: "183",
+    // amount: 10.95, //
+    amount: 1.95, //
+    // net: 475,
+    net: 2_460, //
+    roaming: 2_610,
+    min: "69:21",
+    sms: 121,
+  },
+  {
+    date: "2025-09-25",
+    number: "938",
+    amount: 11.08, //
+    net: 1_480,
+    roaming: 0,
+    min: "45:26",
+    sms: 184,
+  },
+  {
+    date: "2025-09-25",
+    number: "379",
+    amount: 3.34, //
+    net: 2_410,
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-09-25",
+    number: "818",
+    amount: 7.11,
+    net: 5_070, //
+    roaming: 2_910,
+    min: 265,
+    sms: 142,
+  },
+  {
+    date: "2025-09-25",
+    number: "828",
+    amount: 1.48, //
+    net: 1_890, //
+    roaming: 4_070,
+    min: "61:15",
+    sms: 47, //
+  },
+  {
+    date: "2025-09-25",
+    number: "796",
+    // amount: 0, //
+    amount: 10, // ważne do 10.10
+    net: 301_090,
+    roaming: 1_450,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-09-25",
+    number: "102",
+    net: 148_900,
+    roaming: 8_710,
+  },
+
+  {
     date: "2025-09-20",
     number: "183",
     amount: 10.95, //
@@ -434,9 +501,10 @@ export const balance = [
     number: "796",
     // amount: 0,
     // amount: 5, //
-    amount: 0, //
-    net: 300_090,
-    roaming: 0,
+    amount: 0, // ważne do 25.09
+    // net: 300_090,
+    net: 301_090, //
+    roaming: 1_450,
     min: 10,
     sms: 100,
   },
