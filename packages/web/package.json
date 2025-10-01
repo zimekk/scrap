@@ -21,7 +21,7 @@
     "@darthmaim/react-barcode": "^1.0.3",
     "@dev/bundle": "1.0.0",
     "@dev/cli": "1.0.0",
-    "@fortawesome/fontawesome-svg-core": "^7.0.1",
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
     "@fortawesome/react-fontawesome": "^3.0.2",
     "big.js": "^7.0.1",
