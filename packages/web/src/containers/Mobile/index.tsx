@@ -5,6 +5,16 @@ import * as data from "./data";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
+interface Operation {
+  date: string;
+  number: string;
+  amount: number;
+  net?: number | string | undefined;
+  min?: number;
+  sms?: number;
+  package?: string;
+}
+
 interface Item {
   date: string;
   number: string;
@@ -12,6 +22,8 @@ interface Item {
   net: number;
   min: number | string;
   sms: number;
+  roaming?: number;
+  operations?: Omit<Operation, "date" | "number">[];
 }
 
 const isItem = (item: Partial<Item>): item is Item =>
@@ -45,6 +57,8 @@ function MobileNumber({ number }: { number: string }) {
     ["379", `501 *** ${number}`],
     ["818", `575 *** ${number}`],
     ["828", `575 *** ${number}`],
+    ["796", `${number} *** 379`],
+    ["102", `535 *** ${number}`],
   ]);
 
   return (
@@ -64,7 +78,16 @@ function MobileNumber({ number }: { number: string }) {
 }
 
 function Data() {
-  const [operations] = useState(() => data.operations);
+  const [operations] = useState<Operation[]>(() => {
+    const operations: Operation[] = data.operations;
+    return operations.concat(
+      data.balance.reduce(
+        (result, { date, number, operations = [] }) =>
+          result.concat(operations.map((item) => ({ date, number, ...item }))),
+        [] as Operation[],
+      ),
+    );
+  });
 
   const recharges = useMemo(
     () => operations.filter(({ amount }) => amount > 0),
@@ -75,7 +98,18 @@ function Data() {
     [operations],
   );
 
-  const [balance] = useState(() => data.balance);
+  const [balance] = useState<Item[]>(() =>
+    data.balance.map(
+      ({ date, number, amount = 0, min = 0, net = 0, sms = 0 }) => ({
+        date,
+        number,
+        amount,
+        min,
+        net,
+        sms,
+      }),
+    ),
+  );
 
   const rows = useMemo(
     () =>
@@ -92,10 +126,6 @@ function Data() {
 
   return (
     <div className={styles.Mobile}>
-      {/* <h3>Recharges</h3>
-      <Chart list={recharges} />
-      <h3>Purchases</h3>
-      <Chart list={purchases} /> */}
       <h3>Recharges & Purchases</h3>
       <BalanceChart
         list={recharges.concat(
