@@ -385,6 +385,85 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-10-08",
+    number: "183",
+    amount: 11.95, //
+    net: 2_100,
+    roaming: 5_230,
+    min: "67:37",
+    sms: 119,
+  },
+  {
+    date: "2025-10-08",
+    number: "938",
+    // amount: 16.08, //
+    amount: 1.08, //
+    net: 1_430,
+    roaming: 0,
+    // min: "13:56",
+    min: 113, //
+    sms: 184,
+    operations: [
+      {
+        amount: -15,
+        min: 100,
+      },
+    ],
+  },
+  {
+    date: "2025-10-08",
+    number: "379",
+    // amount: 22.61, //
+    // amount: 17.61, //
+    amount: 27.61, //
+    // net: 0,
+    net: 1_000, //
+    roaming: 7_260,
+    min: "1:22",
+    sms: 130,
+    operations: [
+      {
+        amount: -5,
+        net: "1GB",
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2025-10-08",
+    number: "818",
+    amount: 2.11,
+    net: 5_240, //
+    roaming: 4_360,
+    min: 263,
+    sms: 142,
+  },
+  {
+    date: "2025-10-08",
+    number: "828",
+    amount: 1.48, //
+    net: 1_300,
+    roaming: 4_070,
+    min: "23:02",
+    sms: 147, //
+  },
+  {
+    date: "2025-10-08",
+    number: "796",
+    amount: 10, // traci ważność za 2 dni
+    net: 302_090, //
+    roaming: 2_910,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-10-08",
+    number: "102",
+    net: 150_420,
+    roaming: 8_710,
+  },
+
+  {
     date: "2025-10-05",
     number: "183",
     // amount: 1.95,
