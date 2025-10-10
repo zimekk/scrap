@@ -9,7 +9,7 @@ interface Operation {
   date: string;
   number: string;
   amount: number;
-  net?: number | string | undefined;
+  net?: number | string;
   min?: number;
   sms?: number;
   package?: string;
