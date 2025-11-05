@@ -5,7 +5,8 @@
 // yyyy-mm-01 828
 // yyyy-mm-01 102
 
-const GB = 1_000;
+const MB = 1;
+const GB = 1_000 * MB;
 
 export const operations = [
   { date: "2025-09-25", number: "183", amount: -9, net: "2GB" },
@@ -388,6 +389,87 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-11-05",
+    number: "183",
+    // amount: 11.95,
+    amount: 2.95,
+    // net: 817 * MB,
+    net: 2.79 * GB, //
+    roaming: 2.61 * GB,
+    min: "66:47",
+    sms: 97,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB",
+      },
+    ],
+  },
+  {
+    date: "2025-11-05",
+    number: "938",
+    // amount: 1.08,
+    amount: 6.08, //
+    net: 1.13 * GB,
+    roaming: 0,
+    min: 112,
+    sms: 183,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "379",
+    // amount: 2.61,
+    amount: 27.61, //
+    net: 5.68 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "818",
+    // amount: 2.11,
+    amount: 7.11, //
+    net: 3.73 * GB,
+    roaming: 2.91 * GB,
+    min: 260,
+    sms: 142,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "828",
+    // amount: 2.48,
+    // amount: 17.48, //
+    amount: 2.48, //
+    net: 1.79 * GB,
+    roaming: 6.68 * GB,
+    // min: "12:23",
+    min: 112,
+    sms: 128,
+    operations: [
+      {
+        amount: -15,
+        min: 100,
+      },
+      { amount: 15 },
+    ],
+  },
+  {
+    date: "2025-11-05",
+    number: "796",
+    // amount: 35, // konto utraciło ważność
+    amount: 40, // traci ważność za 5 dni
+    net: 300.09 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+
+  {
     date: "2025-11-01",
     number: "183",
     amount: 11.95,
@@ -431,13 +513,6 @@ export const balance = [
     roaming: 6.68 * GB,
     min: "12:23",
     sms: 128,
-    operations: [
-      {
-        amount: -9,
-        net: "1GB",
-      },
-      { amount: 10 },
-    ],
   },
   {
     date: "2025-11-01",
@@ -505,7 +580,7 @@ export const balance = [
     operations: [
       {
         amount: -9,
-        net: "1GB",
+        net: "2GB",
       },
       { amount: 10 },
     ],
