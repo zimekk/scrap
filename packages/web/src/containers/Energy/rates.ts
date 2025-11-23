@@ -653,8 +653,12 @@ export const RATES_2: Rates = {
           price: 0,
           vat: 0.23,
         },
+        "2025-07-01": {
+          price: 16.01,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0,
+          price: 16.01,
           vat: 0.23,
         },
       }),
