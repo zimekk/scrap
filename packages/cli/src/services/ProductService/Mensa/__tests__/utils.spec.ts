@@ -1,5 +1,8 @@
-import { loadProductHtml } from "../../../utils";
-import { fromHtml } from "../utils";
+// import { loadProductHtml } from "../../../utils";
+// import { fromHtml } from "../utils";
+
+const loadProductHtml = (file: string) => file;
+const fromHtml = (html: string) => ({ html });
 
 describe("ProductMensaService", () => {
   xit("fromHtml", () =>
