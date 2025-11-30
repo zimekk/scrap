@@ -40,18 +40,18 @@
     "json-diff": "^1.0.3",
     "microdata-node": "^2.0.0",
     "node-html-parser": "^7.0.1",
-    "puppeteer": "^24.24.0",
+    "puppeteer": "^24.31.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "rxjs": "^7.8.2",
     "slug": "^11.0.1",
-    "zod": "^4.1.12"
+    "zod": "^4.1.13"
   },
   "devDependencies": {
     "@types/chunk": "^0.0.2",
     "@types/isomorphic-fetch": "^0.0.39",
     "@types/json-diff": "^0.9.1",
-    "@types/node": "^24.7.1",
+    "@types/node": "^24.10.1",
     "@types/puppeteer": "^7.0.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

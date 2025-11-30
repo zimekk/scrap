@@ -4,6 +4,10 @@
 // yyyy-mm-01 818
 // yyyy-mm-01 828
 // yyyy-mm-01 102
+
+const MB = 1;
+const GB = 1_000 * MB;
+
 export const operations = [
   { date: "2025-09-25", number: "183", amount: -9, net: "2GB" },
   { date: "2025-09-25", number: "796", amount: 10 },
@@ -384,6 +388,717 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2025-11-30",
+    number: "183",
+    amount: 2.95,
+    net: 1.87 * GB, //
+    roaming: 5.23 * GB,
+    min: "62:54",
+    sms: 92,
+  },
+  {
+    date: "2025-11-30",
+    number: "938",
+    amount: 6.08, //
+    net: 1.02 * GB,
+    roaming: 0,
+    min: 111,
+    sms: 183,
+  },
+  {
+    date: "2025-11-30",
+    number: "379",
+    amount: 2.61, //
+    net: 6.29 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-30",
+    number: "818",
+    amount: 7.11, //
+    net: 2.26 * GB,
+    roaming: 2.91 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2025-11-30",
+    number: "828",
+    amount: 2.48, //
+    net: 765 * MB,
+    roaming: 6.68 * GB,
+    min: 105,
+    sms: 104,
+  },
+  {
+    date: "2025-11-30",
+    number: "796",
+    amount: 50, // konto utraciło ważność
+    net: 0 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-11-30",
+    number: "102",
+    net: 146.9 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
+    date: "2025-11-25",
+    number: "183",
+    amount: 2.95,
+    net: 2.08 * GB, //
+    roaming: 5.23 * GB,
+    min: "62:54",
+    sms: 92,
+  },
+  {
+    date: "2025-11-25",
+    number: "938",
+    amount: 6.08, //
+    net: 1.04 * GB,
+    roaming: 0,
+    min: 111,
+    sms: 183,
+  },
+  {
+    date: "2025-11-25",
+    number: "379",
+    amount: 2.61, //
+    net: 7.68 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-25",
+    number: "818",
+    amount: 7.11, //
+    net: 2.97 * GB,
+    roaming: 2.91 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2025-11-25",
+    number: "828",
+    amount: 2.48, //
+    net: 969 * MB,
+    roaming: 6.68 * GB,
+    min: 105,
+    sms: 111,
+  },
+  {
+    date: "2025-11-25",
+    number: "796",
+    amount: 50, // konto utraciło ważność
+    net: 0 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-11-25",
+    number: "102",
+    net: 147.01 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
+    date: "2025-11-20",
+    number: "183",
+    amount: 2.95,
+    net: 2.08 * GB, //
+    roaming: 5.23 * GB,
+    min: "63:33",
+    sms: 96,
+  },
+  {
+    date: "2025-11-20",
+    number: "938",
+    amount: 6.08, //
+    net: 1.05 * GB,
+    roaming: 0,
+    min: 111,
+    sms: 183,
+  },
+  {
+    date: "2025-11-20",
+    number: "379",
+    amount: 2.61, //
+    net: 8.3 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-20",
+    number: "818",
+    amount: 7.11, //
+    net: 3.11 * GB,
+    roaming: 2.91 * GB,
+    min: 260,
+    sms: 141,
+  },
+  {
+    date: "2025-11-20",
+    number: "828",
+    amount: 2.48, //
+    net: 1.25 * GB,
+    roaming: 6.68 * GB,
+    min: 105,
+    sms: 118,
+  },
+  {
+    date: "2025-11-20",
+    number: "796",
+    amount: 50, // traci ważność dziś
+    net: 0 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-11-20",
+    number: "102",
+    net: 148.88 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
+    date: "2025-11-15",
+    number: "183",
+    amount: 2.95,
+    net: 2.54 * GB, //
+    roaming: 5.23 * GB,
+    min: "66:15",
+    sms: 97,
+  },
+  {
+    date: "2025-11-15",
+    number: "938",
+    amount: 6.08, //
+    net: 1.08 * GB,
+    roaming: 0,
+    min: 111,
+    sms: 183,
+  },
+  {
+    date: "2025-11-15",
+    number: "379",
+    amount: 2.61, //
+    net: 9.67 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-15",
+    number: "818",
+    amount: 7.11, //
+    net: 3.39 * GB,
+    roaming: 2.91 * GB,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-11-15",
+    number: "828",
+    amount: 2.48, //
+    net: 1.42 * GB,
+    roaming: 6.68 * GB,
+    min: 105,
+    sms: 125,
+  },
+  {
+    date: "2025-11-15",
+    number: "796",
+    // amount: 45, // traci ważność dziś
+    amount: 50, // traci ważność za 5 dni
+    net: 300.09 * GB, // traci ważność za 3 dni
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2025-11-15",
+    number: "102",
+    net: 149.78 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
+    date: "2025-11-10",
+    number: "183",
+    amount: 2.95,
+    net: 2.61 * GB, //
+    roaming: 5.23 * GB,
+    min: "66:47",
+    sms: 97,
+  },
+  {
+    date: "2025-11-10",
+    number: "938",
+    amount: 6.08, //
+    net: 1.12 * GB,
+    roaming: 0,
+    min: 112,
+    sms: 183,
+  },
+  {
+    date: "2025-11-10",
+    number: "379",
+    amount: 2.61, //
+    net: 10.89 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-10",
+    number: "818",
+    amount: 7.11, //
+    net: 3.58 * GB,
+    roaming: 2.91 * GB,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-11-10",
+    number: "828",
+    amount: 2.48, //
+    net: 1.52 * GB,
+    roaming: 6.68 * GB,
+    min: 106,
+    sms: 128,
+  },
+  {
+    date: "2025-11-10",
+    number: "796",
+    // amount: 40, // traci ważność dziś
+    amount: 45, // traci ważność za 5 dni
+    net: 300.09 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+
+  {
+    date: "2025-11-05",
+    number: "183",
+    // amount: 11.95,
+    amount: 2.95,
+    // net: 817 * MB,
+    net: 2.79 * GB, //
+    roaming: 2.61 * GB,
+    min: "66:47",
+    sms: 97,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB",
+      },
+    ],
+  },
+  {
+    date: "2025-11-05",
+    number: "938",
+    // amount: 1.08,
+    amount: 6.08, //
+    net: 1.13 * GB,
+    roaming: 0,
+    min: 112,
+    sms: 183,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "379",
+    // amount: 2.61,
+    amount: 27.61, //
+    net: 5.68 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "818",
+    // amount: 2.11,
+    amount: 7.11, //
+    net: 3.73 * GB,
+    roaming: 2.91 * GB,
+    min: 260,
+    sms: 142,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2025-11-05",
+    number: "828",
+    // amount: 2.48,
+    // amount: 17.48, //
+    amount: 2.48, //
+    net: 1.79 * GB,
+    roaming: 6.68 * GB,
+    // min: "12:23",
+    min: 112,
+    sms: 128,
+    operations: [
+      {
+        amount: -15,
+        min: 100,
+      },
+      { amount: 15 },
+    ],
+  },
+  {
+    date: "2025-11-05",
+    number: "796",
+    // amount: 35, // konto utraciło ważność
+    amount: 40, // traci ważność za 5 dni
+    net: 300.09 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+
+  {
+    date: "2025-11-01",
+    number: "183",
+    amount: 11.95,
+    net: 1.11 * GB,
+    roaming: 2.61 * GB,
+    min: "66:47",
+    sms: 98,
+  },
+  {
+    date: "2025-11-01",
+    number: "938",
+    amount: 1.08,
+    net: 1.15 * GB,
+    roaming: 0,
+    min: 112,
+    sms: 183,
+  },
+  {
+    date: "2025-11-01",
+    number: "379",
+    amount: 2.61,
+    net: 6.75 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-11-01",
+    number: "818",
+    amount: 2.11,
+    net: 3.98 * GB,
+    roaming: 4.36 * GB,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-11-01",
+    number: "828",
+    amount: 2.48,
+    net: 1.96 * GB,
+    roaming: 6.68 * GB,
+    min: "12:23",
+    sms: 128,
+  },
+  {
+    date: "2025-11-01",
+    number: "796",
+    amount: 35, // traci ważność za 3 dni
+    net: 301.09 * GB,
+    roaming: 1.45 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-11-01",
+    number: "102",
+    net: 150.47 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
+    date: "2025-10-30",
+    number: "183",
+    amount: 11.95, //
+    net: 1.14 * GB,
+    roaming: 2.61 * GB,
+    min: "67:37",
+    sms: 98,
+  },
+  {
+    date: "2025-10-30",
+    number: "938",
+    amount: 1.08, //
+    net: 1.16 * GB,
+    roaming: 0,
+    min: 112, //
+    sms: 183,
+  },
+  {
+    date: "2025-10-30",
+    number: "379",
+    amount: 2.61, //
+    net: 7.1 * GB, //
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-10-30",
+    number: "818",
+    amount: 2.11,
+    net: 4.08 * GB, //
+    roaming: 4.36 * GB,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-10-30",
+    number: "828",
+    // amount: 1.48, //
+    // amount: 11.48, //
+    amount: 2.48, //
+    // net: 53,
+    net: 2.05 * GB, //
+    roaming: 6.68 * GB,
+    min: "12:23",
+    sms: 131, //
+    operations: [
+      {
+        amount: -9,
+        net: "2GB",
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2025-10-30",
+    number: "796",
+    // amount: 30, // traci ważność dziś
+    amount: 35, // traci ważność za 5 dni
+    net: 301_090, //
+    roaming: 2_910,
+    min: 10,
+    sms: 100,
+    operations: [
+      {
+        amount: 5,
+      },
+    ],
+  },
+  {
+    date: "2025-10-30",
+    number: "102",
+    net: 144_900,
+    roaming: 8_710,
+  },
+
+  {
+    date: "2025-10-25",
+    number: "183",
+    amount: 11.95, //
+    net: 1_260,
+    roaming: 2_610,
+    min: "67:37",
+    sms: 100,
+  },
+  {
+    date: "2025-10-25",
+    number: "938",
+    amount: 1.08, //
+    net: 1_180,
+    roaming: 0,
+    min: 113, //
+    sms: 183,
+  },
+  {
+    date: "2025-10-25",
+    number: "379",
+    amount: 2.61, //
+    net: 7_670, //
+    roaming: 8_720,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-10-25",
+    number: "818",
+    amount: 2.11,
+    net: 4_340, //
+    roaming: 4_360,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-10-25",
+    number: "828",
+    amount: 1.48, //
+    net: 353,
+    roaming: 4_070,
+    min: "13:16",
+    sms: 135, //
+  },
+  {
+    date: "2025-10-25",
+    number: "796",
+    amount: 30, // traci ważność za 5 dni
+    net: 301_090, //
+    roaming: 2_910,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-10-25",
+    number: "102",
+    net: 145_050,
+    roaming: 0,
+  },
+
+  {
+    date: "2025-10-20",
+    number: "183",
+    amount: 11.95, //
+    net: 1_530,
+    roaming: 2_610,
+    min: "67:37",
+    sms: 104,
+  },
+  {
+    date: "2025-10-20",
+    number: "938",
+    amount: 1.08, //
+    net: 1_380,
+    roaming: 0,
+    min: 113, //
+    sms: 183,
+  },
+  {
+    date: "2025-10-20",
+    number: "379",
+    amount: 2.61, //
+    net: 9_240, //
+    roaming: 8_720,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-10-20",
+    number: "818",
+    amount: 2.11,
+    net: 4_720, //
+    roaming: 4_360,
+    min: 260,
+    sms: 142,
+  },
+  {
+    date: "2025-10-20",
+    number: "828",
+    amount: 1.48, //
+    net: 601,
+    roaming: 4_070,
+    min: "20:18",
+    sms: 142, //
+  },
+  {
+    date: "2025-10-20",
+    number: "796",
+    // amount: 20, // traci ważność dziś
+    amount: 30, // traci ważność 30 października
+    net: 302_090, //
+    roaming: 2_910,
+    min: 10,
+    sms: 100,
+    operations: [
+      {
+        amount: 10,
+      },
+    ],
+  },
+  {
+    date: "2025-10-20",
+    number: "102",
+    net: 150_000, // bez limitu
+    roaming: 8_710,
+  },
+
+  {
+    date: "2025-10-15",
+    number: "183",
+    amount: 11.95, //
+    net: 1_730,
+    roaming: 2_610,
+    min: "67:37",
+    sms: 118,
+  },
+  {
+    date: "2025-10-15",
+    number: "938",
+    amount: 1.08, //
+    net: 1_390,
+    roaming: 0,
+    min: 113, //
+    sms: 184,
+  },
+  {
+    date: "2025-10-15",
+    number: "379",
+    amount: 2.61, //
+    net: 9_810, //
+    roaming: 8_720,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-10-15",
+    number: "818",
+    amount: 2.11,
+    net: 4_910, //
+    roaming: 4_360,
+    min: 263,
+    sms: 142,
+  },
+  {
+    date: "2025-10-15",
+    number: "828",
+    amount: 1.48, //
+    net: 829,
+    roaming: 4_070,
+    min: "20:38",
+    sms: 145, //
+  },
+  {
+    date: "2025-10-15",
+    number: "796",
+    amount: 20, // traci ważność za 5 dni
+    net: 302_090, //
+    roaming: 2_910,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-10-15",
+    number: "102",
+    net: 150_000, // bez limitu
+    roaming: 8_710,
+  },
+
   {
     date: "2025-10-10",
     number: "183",
