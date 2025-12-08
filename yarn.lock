@@ -1008,36 +1008,29 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bull-board/api@6.14.2":
-  version "6.14.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.14.2.tgz#e55d6e1605e5dcd344c36160ec547bcc6ca75651"
-  integrity sha512-UzkvN/wM+1qS73BS43a75LYkRzpBpCCUKlaGq0hp3dM5MNmdF1mx7LMGYgXPt91gqF8j4jq9Y/zCpC3Sqs3RLQ==
-  dependencies:
-    redis-info "^3.1.0"
-
-"@bull-board/api@^6.15.0":
+"@bull-board/api@6.15.0", "@bull-board/api@^6.15.0":
   version "6.15.0"
   resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.15.0.tgz#110ecc2003cbdcf8530ce5071582efbb1496ac93"
   integrity sha512-z8qLZ4uv83hZNu+0YnHzhVoWv1grULuYh80FdC2xXLg8M1EwsOZD9cJ5CNpgBFqHb+NVByTmf5FltIvXdOU8tQ==
   dependencies:
     redis-info "^3.1.0"
 
-"@bull-board/express@^6.14.2":
-  version "6.14.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.14.2.tgz#dd626d3c5ee101fa8e6035683e4b4ee860b25d33"
-  integrity sha512-nghb4MpYDodYZpeiZvI9tXFDHqiAXE8FhrLOFDkuQL0GBhw0gEOuGSISjdKrnFDAW72LWVq0XfGKWYD8V5nF0w==
+"@bull-board/express@^6.15.0":
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/@bull-board/express/-/express-6.15.0.tgz#8202458c5bd242024cff90f21aa01d031eb4c113"
+  integrity sha512-c/nnxr5evLNgqoSSEvTwPb+6WaTB3PN3Bq2oMTBtwCUJlZr+s1UX7gx0wVIYHjeZyUdYR7fX7hhh2cRLO5vqeg==
   dependencies:
-    "@bull-board/api" "6.14.2"
-    "@bull-board/ui" "6.14.2"
+    "@bull-board/api" "6.15.0"
+    "@bull-board/ui" "6.15.0"
     ejs "^3.1.10"
-    express "^4.21.1 || ^5.0.0"
+    express "^5.2.0"
 
-"@bull-board/ui@6.14.2":
-  version "6.14.2"
-  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.14.2.tgz#aafb1ec9d3caaa49a9f5dbc169742e40b32b7b04"
-  integrity sha512-OTCsBbMAhYoB2NJc6FxkkREWWPUFvEhL2Az1gAKpdNOBqup4CsKj7eBK3rcWSRLZ4LnaOaPK8E8tiogkhrRuOA==
+"@bull-board/ui@6.15.0":
+  version "6.15.0"
+  resolved "https://registry.yarnpkg.com/@bull-board/ui/-/ui-6.15.0.tgz#921852808a4527fe2cea8ddcbd7e3a7d61c3790a"
+  integrity sha512-bb/j6VMq2cfPoE/ZiUO7AcYTL0IjtxvKxkYV0zu+i1pc+JEv3ct4BItCII57knJR/YjZKGmdfr079KJFvzXC5A==
   dependencies:
-    "@bull-board/api" "6.14.2"
+    "@bull-board/api" "6.15.0"
 
 "@commitlint/cli@^20.1.0":
   version "20.1.0"
@@ -5971,40 +5964,6 @@ expect@30.2.0, expect@^30.0.0:
     jest-mock "30.2.0"
     jest-util "30.2.0"
 
-"express@^4.21.1 || ^5.0.0", express@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/express/-/express-5.2.1.tgz#8f21d15b6d327f92b4794ecf8cb08a72f956ac04"
-  integrity sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==
-  dependencies:
-    accepts "^2.0.0"
-    body-parser "^2.2.1"
-    content-disposition "^1.0.0"
-    content-type "^1.0.5"
-    cookie "^0.7.1"
-    cookie-signature "^1.2.1"
-    debug "^4.4.0"
-    depd "^2.0.0"
-    encodeurl "^2.0.0"
-    escape-html "^1.0.3"
-    etag "^1.8.1"
-    finalhandler "^2.1.0"
-    fresh "^2.0.0"
-    http-errors "^2.0.0"
-    merge-descriptors "^2.0.0"
-    mime-types "^3.0.0"
-    on-finished "^2.4.1"
-    once "^1.4.0"
-    parseurl "^1.3.3"
-    proxy-addr "^2.0.7"
-    qs "^6.14.0"
-    range-parser "^1.2.1"
-    router "^2.2.0"
-    send "^1.1.0"
-    serve-static "^2.2.0"
-    statuses "^2.0.1"
-    type-is "^2.0.1"
-    vary "^1.1.2"
-
 express@^4.21.2:
   version "4.21.2"
   resolved "https://registry.yarnpkg.com/express/-/express-4.21.2.tgz#cf250e48362174ead6cea4a566abef0162c1ec32"
@@ -6041,6 +6000,40 @@ express@^4.21.2:
     type-is "~1.6.18"
     utils-merge "1.0.1"
     vary "~1.1.2"
+
+express@^5.2.0, express@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/express/-/express-5.2.1.tgz#8f21d15b6d327f92b4794ecf8cb08a72f956ac04"
+  integrity sha512-hIS4idWWai69NezIdRt2xFVofaF4j+6INOpJlVOLDO8zXGpUVEVzIYk12UUi2JzjEzWL3IOAxcTubgz9Po0yXw==
+  dependencies:
+    accepts "^2.0.0"
+    body-parser "^2.2.1"
+    content-disposition "^1.0.0"
+    content-type "^1.0.5"
+    cookie "^0.7.1"
+    cookie-signature "^1.2.1"
+    debug "^4.4.0"
+    depd "^2.0.0"
+    encodeurl "^2.0.0"
+    escape-html "^1.0.3"
+    etag "^1.8.1"
+    finalhandler "^2.1.0"
+    fresh "^2.0.0"
+    http-errors "^2.0.0"
+    merge-descriptors "^2.0.0"
+    mime-types "^3.0.0"
+    on-finished "^2.4.1"
+    once "^1.4.0"
+    parseurl "^1.3.3"
+    proxy-addr "^2.0.7"
+    qs "^6.14.0"
+    range-parser "^1.2.1"
+    router "^2.2.0"
+    send "^1.1.0"
+    serve-static "^2.2.0"
+    statuses "^2.0.1"
+    type-is "^2.0.1"
+    vary "^1.1.2"
 
 extend@~3.0.2:
   version "3.0.2"
