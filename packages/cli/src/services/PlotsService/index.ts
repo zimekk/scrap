@@ -5,11 +5,11 @@ import { DiffSchema, JsonSchema, type ItemType, ItemSchema } from "./types";
 
 export class PlotsService extends Service {
   async sync(json = {}, { timestamp: _fetched }: any = {}) {
-    return JsonSchema.transform(({ listing: { listing } }) =>
-      Object.values(listing.ads).reduce<Promise<any>>(
+    return JsonSchema.transform(({ listing }) =>
+      (listing ? Object.values(listing.listing.ads) : []).reduce<Promise<any>>(
         (promise, item) => promise.then(() => this.commit(item, { _fetched })),
-        Promise.resolve()
-      )
+        Promise.resolve(),
+      ),
     ).parseAsync(json);
   }
 
@@ -31,7 +31,7 @@ export class PlotsService extends Service {
             }
             const diff = diffString(
               DiffSchema.parse(last),
-              DiffSchema.parse(item)
+              DiffSchema.parse(item),
             );
             if (diff) {
               console.log(`[${last.id}]`, diff);
@@ -48,7 +48,7 @@ export class PlotsService extends Service {
               _created: _time,
             });
           }
-        })
+        }),
     );
   }
 }
