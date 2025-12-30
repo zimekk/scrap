@@ -31,7 +31,7 @@
     "geolocation-utils": "^1.2.6",
     "isomorphic-fetch": "^3.0.0",
     "morgan": "^1.10.1",
-    "qs": "^6.14.0",
+    "qs": "^6.14.1",
     "zod": "^4.2.1"
   },
   "devDependencies": {
