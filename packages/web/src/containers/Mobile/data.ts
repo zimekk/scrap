@@ -389,6 +389,67 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2025-12-30",
+    number: "183",
+    amount: 3.95, //
+    net: 1.42 * GB, //
+    roaming: 5.23 * GB,
+    min: "60:51",
+    sms: 92,
+  },
+  {
+    date: "2025-12-30",
+    number: "938",
+    amount: 11.08, //
+    net: 848,
+    roaming: 0,
+    min: 107,
+    sms: 163,
+  },
+  {
+    date: "2025-12-30",
+    number: "379",
+    amount: 2.61, //
+    net: 7.61 * GB,
+    roaming: 8.72 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2025-12-30",
+    number: "818",
+    amount: 3.11, //
+    net: 2.59 * GB,
+    roaming: 4.07 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2025-12-30",
+    number: "828",
+    amount: 3.48, //
+    net: 1.53 * GB, //
+    roaming: 5.23 * GB,
+    min: "94:45",
+    sms: 62,
+  },
+  {
+    date: "2025-12-30",
+    number: "796",
+    amount: 45, // konto utraciło ważność
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2025-12-30",
+    number: "102",
+    net: 145.04 * GB,
+    roaming: 8.71 * GB,
+  },
+
+  {
     date: "2025-12-27",
     number: "183",
     amount: 3.95, //
