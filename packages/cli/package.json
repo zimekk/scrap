@@ -39,7 +39,7 @@
     "isomorphic-fetch": "^3.0.0",
     "json-diff": "^1.0.3",
     "microdata-node": "^2.0.0",
-    "node-html-parser": "^7.0.1",
+    "node-html-parser": "^7.0.2",
     "puppeteer": "^24.34.0",
     "puppeteer-extra": "^3.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
