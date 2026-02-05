@@ -389,6 +389,105 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2026-02-05",
+    number: "183",
+    // amount: 3.95,
+    // amount: 13.95, //
+    amount: 4.95, //
+    // net: 1.08 * GB,
+    net: 3.09 * GB, //
+    // roaming: 3.09 * GB,
+    roaming: 6.18 * GB,
+    min: "45:17",
+    sms: 84,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2026-02-05",
+    number: "938",
+    // amount: 6.08,
+    amount: 11.08, //
+    net: 1.65 * GB,
+    roaming: 1.71 * GB,
+    min: "79:43",
+    sms: 146,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-02-05",
+    number: "379",
+    // amount: 2.61,
+    amount: 27.61, //
+    net: 4.47 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-02-05",
+    number: "818",
+    // amount: 0,
+    // amount: 5, //
+    amount: 0, //
+    // net: 604,
+    net: 1.58 * GB, //
+    // roaming: 7.9 * GB,
+    roaming: 9.62 * GB,
+    min: 256,
+    sms: 141,
+    operations: [
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB bez terminu ważności
+      },
+      { amount: 5 },
+    ],
+  },
+  {
+    date: "2026-02-05",
+    number: "828",
+    // amount: 3.69,
+    // amount: 8.69, //
+    amount: 3.69, //
+    net: 1.96 * GB,
+    roaming: 6.18 * GB,
+    min: "65:01",
+    // sms: 20,
+    sms: 120, //
+    operations: [
+      {
+        amount: -5,
+        sms: 100, // 100 SMS-ów do innych sieci
+      },
+      { amount: 5 },
+    ],
+  },
+  {
+    date: "2026-02-05",
+    number: "796",
+    // amount: 50, // konto utraciło ważność
+    amount: 55, // traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-02-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
     date: "2026-02-01",
     number: "183",
     amount: 3.95,
