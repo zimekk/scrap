@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, map } from "rxjs/operators";
-import IntlMessageFormat from "intl-messageformat";
+import { IntlMessageFormat } from "intl-messageformat";
 import { createAsset } from "use-asset";
 import { format } from "date-fns";
 import type {
