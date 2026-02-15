@@ -50,7 +50,13 @@ const parseMin = (min: number | string) =>
     ? min
     : (([m, s]) => Number(m) + Number(s) / 60)(min.split(":"));
 
-function MobileNumber({ number }: { number: string }) {
+function MobileNumber({
+  number,
+  onSelect,
+}: {
+  number: string;
+  onSelect: (number: string) => void;
+}) {
   const NUMBER = new Map([
     ["183", `507 *** ${number}`],
     ["938", `509 *** ${number}`],
@@ -72,7 +78,14 @@ function MobileNumber({ number }: { number: string }) {
           borderRadius: "50%",
         }}
       ></i>{" "}
-      {NUMBER.get(number)}
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          onSelect(number);
+        }}
+      >
+        {NUMBER.get(number)}
+      </a>
     </span>
   );
 }
@@ -111,17 +124,22 @@ function Data() {
     ),
   );
 
+  const [mobile, setMobile] = useState<string | null>(null);
+
   const rows = useMemo(
     () =>
-      balance.filter(isItem).map(({ date, number, amount, net, min, sms }) => ({
-        date,
-        number,
-        amount,
-        net,
-        min,
-        sms,
-      })),
-    [balance],
+      balance
+        .filter(isItem)
+        .filter(({ number }) => [number, null].includes(mobile))
+        .map(({ date, number, amount, net, min, sms }) => ({
+          date,
+          number,
+          amount,
+          net,
+          min,
+          sms,
+        })),
+    [balance, mobile],
   );
 
   return (
@@ -163,6 +181,15 @@ function Data() {
           amount: sms,
         }))}
       />
+      {mobile && (
+        <div>
+          <MobileNumber
+            number={mobile}
+            onSelect={(mobile) => setMobile(mobile)}
+          />{" "}
+          <button onClick={() => setMobile(null)}>x</button>
+        </div>
+      )}
       <table>
         <thead>
           <tr>
@@ -179,7 +206,10 @@ function Data() {
             <tr key={i}>
               <th>{date}</th>
               <td>
-                <MobileNumber number={number} />
+                <MobileNumber
+                  number={number}
+                  onSelect={(mobile) => setMobile(mobile)}
+                />
               </td>
               <td>{formatPln(amount)}</td>
               <td className={cx(net < 1_000 && styles.warn)}>
