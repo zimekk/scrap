@@ -1,5 +1,5 @@
 import { diffString } from "json-diff";
-import IntlMessageFormat from "intl-messageformat";
+import { IntlMessageFormat } from "intl-messageformat";
 import { productItems } from "@dev/api/products";
 import Service from "../Service";
 import { DiffSchema, ItemSchema } from "./types";

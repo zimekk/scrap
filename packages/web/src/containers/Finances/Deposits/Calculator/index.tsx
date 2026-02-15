@@ -4,7 +4,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import IntlMessageFormat from "intl-messageformat";
+import { IntlMessageFormat } from "intl-messageformat";
 
 const INTEREST_CAP = {
   END: "na koniec okresu",
