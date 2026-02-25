@@ -1057,10 +1057,10 @@
   dependencies:
     redis-info "^3.1.0"
 
-"@bull-board/api@^6.19.0":
-  version "6.19.0"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.19.0.tgz#756ff99817140f022200d264791697418654f1f5"
-  integrity sha512-qOE9ho99W+MaYKTx8Od7nOIR/y6ySwD2QxR4Cx81EhZHSUifPhjTzHop3paQjxPnrAm/y8kcqebmmhKWEgjZGA==
+"@bull-board/api@^6.20.2":
+  version "6.20.2"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-6.20.2.tgz#7130d8498d6bdc744453826a0ec4f7e7c5f1cf38"
+  integrity sha512-Bhz9Myh+2CMIPtvPkQ6tNrlfVjc8gEnYLDgSjQAsMRIPXcGfE9dRs7uGtW4a67oDSjUpX/jk97VmeooyMVAphA==
   dependencies:
     redis-info "^3.1.0"
 
