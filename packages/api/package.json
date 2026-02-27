@@ -25,7 +25,7 @@
     "@seald-io/nedb": "^4.1.2"
   },
   "devDependencies": {
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.3.2",
     "typescript": "^5.8.3"
   }
 }
