@@ -389,15 +389,102 @@ export const operations = [
 
 export const balance = [
   {
-    date: "2026-03-01",
+    date: "2026-03-05",
+    number: "183",
+    // amount: 4.95,
+    amount: 9.95, // ważne do 18 marca 2027
+    net: 2.14 * GB,
+    roaming: 6.18 * GB,
+    min: "38:49",
+    sms: 79,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-03-05",
+    number: "938",
+    // amount: 11.08,
+    // amount: 16.08, // ważne do 6 marca 2027
+    amount: 1.08, // ważne do 14 marca 2027
+    net: 1.47 * GB,
+    roaming: 1.71 * GB,
+    // min: "62:16",
+    min: 162, //
+    sms: 141,
+    operations: [
+      {
+        amount: -15,
+        min: 100, // 100 min do innych sieci i na numery stacjonarne
+      },
+      { amount: 5 },
+    ],
+  },
+  {
+    date: "2026-03-05",
+    number: "379",
+    // amount: 2.61,
+    amount: 27.61, // ważne do 6 marca 2027
+    net: 4.24 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-03-05",
+    number: "818",
+    amount: 0.97, // ważne do 31 marca 2027
+    net: 1.88 * GB, //
+    roaming: 12.72 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2026-03-05",
+    number: "828",
+    // amount: 3.69,
+    // amount: 13.69, // ważne do 6 marca 2027
+    amount: 4.69, // ważne do 6 marca 2027
+    // net: 400 * MB,
+    net: 2.39 * GB,
+    roaming: 9.28 * GB,
+    min: "46:36",
+    sms: 108,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2026-03-05",
+    number: "796",
+    // amount: 55, // konto utraciło ważność / traci ważność dziś
+    amount: 60, // traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-03-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-03-03",
     number: "818",
     // amount: 0,
     // amount: 5, // ważne do 31 marca 2027
     // amount: 4.99, // ważne do 31 marca 2027
     // amount: 9.98, // ważne do 31 marca 2027
-    amount: 0.97, //
+    amount: 0.97, // ważne do 31 marca 2027
     // net: 0 * MB,
-    net: 2 * GB,
+    net: 2 * GB, //
     roaming: 9.62 * GB,
     min: 256,
     sms: 141,
