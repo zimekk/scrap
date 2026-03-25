@@ -389,6 +389,67 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2026-03-25",
+    number: "183",
+    amount: 9.95, // ważne do 18 marca 2027
+    net: 1.32 * GB,
+    roaming: 3.09 * GB,
+    min: "25:17",
+    sms: 73,
+  },
+  {
+    date: "2026-03-25",
+    number: "938",
+    amount: 1.08, // ważne do 14 marca 2027
+    net: 1.4 * GB,
+    roaming: 1.71 * GB,
+    min: 162, //
+    sms: 137,
+  },
+  {
+    date: "2026-03-25",
+    number: "379",
+    amount: 2.61, // ważne do 24 marca 2027
+    net: 7.92 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2026-03-25",
+    number: "818",
+    amount: 0.97, // ważne do 31 marca 2027
+    net: 747 * MB, //
+    roaming: 9.62 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2026-03-25",
+    number: "828",
+    amount: 4.69, // ważne do 6 marca 2027
+    net: 1.28 * GB, //
+    roaming: 6.18 * GB,
+    min: "36:47",
+    sms: 94,
+  },
+  {
+    date: "2026-03-25",
+    number: "796",
+    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2026-03-25",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
     date: "2026-03-16",
     number: "183",
     amount: 9.95, // ważne do 18 marca 2027
