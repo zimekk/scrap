@@ -27,6 +27,8 @@ interface Rate {
   vat: number;
 }
 
+const round = (value: number) => Math.round(100 * value) / 100;
+
 export type Items = Item[];
 export type Rates = Record<string, Record<string, Cost>>;
 
@@ -131,9 +133,9 @@ export const getMatch = (
                   ((value) => ({
                     ...item,
                     value,
-                    tax: item.vat * value,
-                    total: (1 + item.vat) * value,
-                  }))(Math.round(100 * item.count * item.price) / 100),
+                    tax: round(item.vat * value),
+                    total: round((1 + item.vat) * value),
+                  }))(round(item.count * item.price)),
                 ),
             ),
           {},
