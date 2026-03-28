@@ -91,7 +91,7 @@ const AdSchema = z.object({
     phone: z.boolean(),
   }),
   user: z.object({
-    id: z.number().nullable(),
+    id: z.number().or(z.object({}).loose()).nullable(),
     name: z.string(),
     photo: z.string().nullable(),
     logo: z.string().nullable(),
@@ -115,7 +115,7 @@ const AdSchema = z.object({
     safedeal_blocked: z.boolean().optional(),
     allowed_quantity: z.unknown().array(),
   }),
-  searchReason: z.string(),
+  searchReason: z.string().optional(),
   isNewFavouriteAd: z.boolean(),
 });
 
