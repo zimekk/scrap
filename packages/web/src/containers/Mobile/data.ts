@@ -389,6 +389,223 @@ export const operations = [
 
 export const balance = [
   {
+    date: "2026-04-05",
+    number: "183",
+    // amount: 9.95, // ważne do 18 marca 2027
+    // amount: 19.95, // ważne do 18 kwietnia 2027
+    amount: 4.95, // ważne do 18 kwietnia 2027
+    net: 1.06 * GB,
+    roaming: 3.09 * GB,
+    // min: "21:57",
+    min: 121,
+    sms: 72,
+    operations: [
+      {
+        amount: -15,
+        min: 100, // 100 min do innych sieci i na numery stacjonarne
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2026-04-05",
+    number: "938",
+    // amount: 1.08, // ważne do 14 marca 2027
+    amount: 6.08, // ważne do 6 kwietnia 2027
+    net: 1.34 * GB,
+    roaming: 1.71 * GB,
+    min: 150,
+    sms: 119,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-04-05",
+    number: "379",
+    // amount: 2.61, // ważne do 24 marca 2027
+    amount: 27.61, // ważne do 24 kwietnia 2027
+    net: 5.78 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-04-05",
+    number: "818",
+    // amount: 0.97, // ważne do 31 marca 2027
+    // amount: 5.97, // ważne do 6 kwietnia 2027
+    amount: 0.97, // ważne do 30 kwietnia 2027
+    net: 1.57 * GB,
+    roaming: 9.62 * GB,
+    min: 256,
+    sms: 141,
+    operations: [
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB bez terminu ważności
+      },
+      { amount: 5 },
+    ],
+  },
+  {
+    date: "2026-04-05",
+    number: "828",
+    // amount: 4.69, // ważne do 6 marca 2027
+    // amount: 9.69, // ważne do 6 kwietnia 2027
+    amount: 0.69, // ważne do 30 kwietnia 2027
+    net: 600 * MB,
+    roaming: 6.18 * GB,
+    min: "26:01",
+    sms: 93,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+      { amount: 5 },
+    ],
+  },
+  {
+    date: "2026-04-05",
+    number: "796",
+    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-04-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-04-01",
+    number: "183",
+    amount: 9.95, // ważne do 18 marca 2027
+    net: 1.23 * GB,
+    roaming: 3.09 * GB,
+    min: "23:40",
+    sms: 72,
+  },
+  {
+    date: "2026-04-01",
+    number: "938",
+    amount: 1.08, // ważne do 14 marca 2027
+    net: 1.36 * GB,
+    roaming: 1.71 * GB,
+    min: 162,
+    sms: 137,
+  },
+  {
+    date: "2026-04-01",
+    number: "379",
+    amount: 2.61, // ważne do 24 marca 2027
+    net: 6.75 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2026-04-01",
+    number: "818",
+    amount: 0.97, // ważne do 31 marca 2027
+    net: 611 * MB,
+    roaming: 9.62 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2026-04-01",
+    number: "828",
+    amount: 4.69, // ważne do 6 marca 2027
+    net: 737 * MB,
+    roaming: 6.18 * GB,
+    min: "30:39",
+    sms: 93,
+  },
+  {
+    date: "2026-04-01",
+    number: "796",
+    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2026-04-01",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-03-30",
+    number: "183",
+    amount: 9.95, // ważne do 18 marca 2027
+    net: 1.27 * GB,
+    roaming: 3.09 * GB,
+    min: "23:40",
+    sms: 72,
+  },
+  {
+    date: "2026-03-30",
+    number: "938",
+    amount: 1.08, // ważne do 14 marca 2027
+    net: 1.37 * GB,
+    roaming: 1.71 * GB,
+    min: 162, //
+    sms: 137,
+  },
+  {
+    date: "2026-03-30",
+    number: "379",
+    amount: 2.61, // ważne do 24 marca 2027
+    net: 7.3 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+  },
+  {
+    date: "2026-03-30",
+    number: "818",
+    amount: 0.97, // ważne do 31 marca 2027
+    net: 697 * MB, //
+    roaming: 9.62 * GB,
+    min: 256,
+    sms: 141,
+  },
+  {
+    date: "2026-03-30",
+    number: "828",
+    amount: 4.69, // ważne do 6 marca 2027
+    net: 1.03 * GB, //
+    roaming: 6.18 * GB,
+    min: "35:02",
+    sms: 93,
+  },
+  {
+    date: "2026-03-30",
+    number: "796",
+    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+  },
+  {
+    date: "2026-03-30",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
     date: "2026-03-25",
     number: "183",
     amount: 9.95, // ważne do 18 marca 2027
