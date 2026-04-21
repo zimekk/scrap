@@ -83,7 +83,7 @@
     "html-webpack-plugin": "^5.6.6",
     "react-refresh": "^0.18.0",
     "regenerator-runtime": "^0.14.1",
-    "sass": "^1.97.3",
+    "sass": "^1.99.0",
     "sass-loader": "^16.0.7",
     "serve": "^14.2.6",
     "stream-browserify": "^3.0.0",
