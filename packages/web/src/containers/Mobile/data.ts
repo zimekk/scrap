@@ -9,23 +9,6 @@ const MB = 1;
 const GB = 1_000 * MB;
 
 export const operations = [
-  { date: "2025-04-30", number: "828", amount: 10 },
-
-  { date: "2025-04-18", number: "183", amount: -5, net: "1GB" },
-
-  { date: "2025-04-10", number: "828", amount: 5 },
-  { date: "2025-04-10", number: "828", amount: -5, net: "1GB" },
-
-  { date: "2025-04-05", number: "938", amount: -5, net: "1GB" },
-  { date: "2025-04-05", number: "379", amount: 25 },
-  { date: "2025-04-05", number: "818", amount: -5, net: "1GB" },
-
-  { date: "2025-04-01", number: "183", amount: 5 },
-  { date: "2025-04-01", number: "828", amount: 5 },
-  { date: "2025-04-01", number: "828", amount: -5, sms: 100 },
-
-  { date: "2025-03-15", number: "183", amount: -5, net: "1GB" },
-
   { date: "2025-03-05", number: "938", amount: 5 },
   { date: "2025-03-05", number: "379", amount: 25 },
   { date: "2025-03-05", number: "818", amount: -5, net: "1GB" },
@@ -329,6 +312,87 @@ export const operations = [
 ];
 
 export const balance = [
+  {
+    date: "2026-05-05",
+    number: "183",
+    // amount: 0.95, // ważne do 18 maja 2027
+    amount: 5.95, // ważne do 18 maja 2027
+    net: 1.84 * GB,
+    roaming: 6.18 * GB,
+    min: 101,
+    sms: 61,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-05-05",
+    number: "938",
+    // amount: 6.08, // ważne do 14 kwietnia 2027
+    amount: 11.08, // ważne do 6 maja 2027
+    net: 1.22 * GB,
+    roaming: 0 * GB,
+    min: 149,
+    sms: 109,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-05-05",
+    number: "379",
+    // amount: 1.37, // ważne do 24 kwietnia 2027
+    amount: 26.37, // ważne do 24 maja 2027
+    net: 3.35 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-05-05",
+    number: "818",
+    // amount: 0.97, // ważne do 30 kwietnia 2027
+    amount: 5.97, // ważne do 31 maja 2027
+    net: 1.21 * GB,
+    roaming: 6.53 * GB,
+    min: 255,
+    sms: 141,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-05-05",
+    number: "828",
+    // amount: 0.01, // ważne do 30 kwietnia 2027
+    // amount: 15.01, // ważne do 31 maja 2027
+    amount: 0.01, // ważne do 31 maja 2027
+    // net: 677 * MB,
+    net: 675 * MB,
+    roaming: 6.18 * GB,
+    min: 100, //
+    sms: 63,
+    operations: [
+      {
+        amount: -15,
+        min: 100, // 100 min do innych sieci i na numery stacjonarne
+      },
+      { amount: 15 },
+    ],
+  },
+  {
+    date: "2026-05-05",
+    number: "796",
+    // amount: 65, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // traci ważność za 5 dni
+    net: 0 * GB,
+    roaming: 0 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-05-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
   {
     date: "2026-05-01",
     number: "183",
@@ -5723,6 +5787,7 @@ export const balance = [
     min: "37:49", // ?
     // sms: 0, // ?
     sms: 100, //
+    operations: [{ amount: 10 }],
   },
   {
     date: "2025-04-30",
@@ -5844,6 +5909,7 @@ export const balance = [
     roaming: 2_820,
     min: "91:00",
     sms: 176,
+    operations: [{ amount: -5, net: "1GB" }],
   },
 
   {
@@ -5945,6 +6011,7 @@ export const balance = [
     roaming: 5_070,
     min: "39:28", // ?
     sms: 70, //
+    operations: [{ amount: -5, net: "1GB" }, { amount: 5 }],
   },
   {
     date: "2025-04-10",
@@ -5972,6 +6039,7 @@ export const balance = [
     roaming: 1_410,
     min: 242,
     sms: 116,
+    operations: [{ amount: -5, net: "1GB" }],
   },
   {
     date: "2025-04-05",
@@ -5983,6 +6051,7 @@ export const balance = [
     roaming: 7_050,
     min: "1:22",
     sms: 130,
+    operations: [{ amount: 25 }],
   },
   {
     date: "2025-04-05",
@@ -5994,6 +6063,7 @@ export const balance = [
     roaming: 2_820,
     min: 265,
     sms: 146,
+    operations: [{ amount: -5, net: "1GB" }],
   },
   {
     date: "2025-04-05",
@@ -6019,6 +6089,7 @@ export const balance = [
     net: 1_500,
     min: 106,
     sms: 177,
+    operations: [{ amount: 5 }],
   },
   {
     date: "2025-04-01",
@@ -6057,6 +6128,7 @@ export const balance = [
     min: "40:12", // ?
     // sms: 19,
     sms: 119, //
+    operations: [{ amount: 5 }, { amount: -5, sms: 100 }],
   },
   {
     date: "2025-04-01",
@@ -6224,6 +6296,7 @@ export const balance = [
     net: 2_140, //
     min: 109,
     sms: 177,
+    operations: [{ amount: -5, net: "1GB" }],
   },
   {
     date: "2025-03-15",
