@@ -534,8 +534,16 @@ export const RATES_2: Rates = {
           price: 0.0321,
           vat: 0.23,
         },
+        "2026-01-01": {
+          price: 0.0331,
+          vat: 0.23,
+        },
+        "2026-02-01": {
+          price: 0.0332,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.0321,
+          price: 0.0332,
           vat: 0.23,
         },
       }),
@@ -580,8 +588,12 @@ export const RATES_2: Rates = {
           price: 0.2233,
           vat: 0.23,
         },
+        "2026-01-01": {
+          price: 0.2342,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 0.2233,
+          price: 0.2342,
           vat: 0.23,
         },
       }),
@@ -626,8 +638,12 @@ export const RATES_2: Rates = {
           price: 17.59,
           vat: 0.23,
         },
+        "2026-01-01": {
+          price: 18.53,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 17.59,
+          price: 18.53,
           vat: 0.23,
         },
       }),
@@ -664,8 +680,8 @@ export const RATES_2: Rates = {
           price: 0.33,
           vat: 0.23,
         },
-        "2099-01-01": {
-          price: 0.33,
+        "2026-01-01": {
+          price: 0,
           vat: 0.23,
         },
       }),
@@ -705,8 +721,12 @@ export const RATES_2: Rates = {
           price: 16.01,
           vat: 0.23,
         },
+        "2026-01-01": {
+          price: 24.05,
+          vat: 0.23,
+        },
         "2099-01-01": {
-          price: 16.01,
+          price: 24.05,
           vat: 0.23,
         },
       }),
