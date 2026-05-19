@@ -1015,10 +1015,10 @@
   dependencies:
     redis-info "^3.1.0"
 
-"@bull-board/api@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-7.0.0.tgz#5b9d6df29bda7126be5d175c51ec518aba23d2b0"
-  integrity sha512-ISNspLHVmUWUSq/eLw+wd1FuBBUnqpLbYP2xUNmehpfKhS+NoZWMbBvqjUYVeE/HLfUkRcR1edzMKpl5n9zlSw==
+"@bull-board/api@^7.1.5":
+  version "7.1.5"
+  resolved "https://registry.yarnpkg.com/@bull-board/api/-/api-7.1.5.tgz#070eeab053bc2774c7ff5e65d777214487df6da9"
+  integrity sha512-EW0sbTtGIysu9vipdVpPQeToPqOpPgVZTt+pn1Ut3gbSS/GLWbEgIfFtMmSQDUoSL9WH00RzjgUY5K+43nWh0A==
   dependencies:
     redis-info "^3.1.0"
 
