@@ -2,32 +2,13 @@ import React, { useMemo, useState } from "react";
 import BalanceChart from "./BalanceChart";
 import Chart, { COLORS } from "./Chart";
 import * as data from "./data";
+import type { Item, Operation } from "./types";
 import cx from "classnames";
 import styles from "./styles.module.scss";
 
-interface Operation {
-  date: string;
-  number: string;
-  amount: number;
-  net?: number | string;
-  min?: number;
-  sms?: number;
-  package?: string;
-}
-
-interface Item {
-  date: string;
-  number: string;
-  amount: number;
-  net: number;
-  min: number | string;
-  sms: number;
-  roaming?: number;
-  operations?: Omit<Operation, "date" | "number">[];
-}
-
 const isItem = (item: Partial<Item>): item is Item =>
   !(
+    item.number === undefined ||
     item.amount === undefined ||
     item.min === undefined ||
     item.sms === undefined
