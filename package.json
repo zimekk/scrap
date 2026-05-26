@@ -117,7 +117,7 @@
     "husky": "^9.1.7",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
-    "lint-staged": "^16.3.3",
+    "lint-staged": "^17.0.5",
     "prettier": "^3.8.1",
     "ts-jest": "^29.4.6",
     "type-coverage": "^2.29.7",
