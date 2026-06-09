@@ -18,6 +18,28 @@ export type Balance = (Omit<Item, "amount" | "min" | "net" | "sms"> & {
 
 export const balance: Balance = [
   {
+    date: "2026-06-09",
+    number: "379",
+    amount: 26.37, // ważne do 24 czerwca 2027
+    net: 481 * MB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-06-09",
+    number: "818",
+    // amount: 1.97, // ważne do 30 czerwca 2027
+    amount: 6.97, // ważne do 30 czerwca 2027
+    net: 2.78 * GB,
+    roaming: 4.81 * GB,
+    min: 255,
+    sms: 141,
+    operations: [{ amount: 5 }],
+  },
+
+  {
     date: "2026-06-05",
     number: "183",
     // amount: 5.95, // ważne do 18 maja 2027
