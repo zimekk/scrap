@@ -118,7 +118,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "lint-staged": "^17.0.5",
-    "prettier": "^3.8.1",
+    "prettier": "^3.8.4",
     "ts-jest": "^29.4.11",
     "type-coverage": "^2.29.7",
     "typescript": "^5.8.3",
