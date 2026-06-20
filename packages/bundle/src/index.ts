@@ -7,7 +7,12 @@ export const module = {
       options: {
         presets: [
           "@babel/preset-env",
-          "@babel/preset-react",
+          [
+            "@babel/preset-react",
+            {
+              runtime: "classic",
+            },
+          ],
           "@babel/preset-typescript",
         ],
       },
