@@ -212,7 +212,7 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.29.7.tgz#c0a0766f1a13617d8a17407d7ab8f9d486225ea4"
   integrity sha512-G7sHYigPY17oO5SYWnfD/0MTBwVR781S/JI643e/JhUYgVgWE/61SoW3NH9KWUKyKq5LVh3npif99Wkt6j86Jw==
 
-"@babel/helper-plugin-utils@^8.0.0", "@babel/helper-plugin-utils@^8.0.1":
+"@babel/helper-plugin-utils@^8.0.1":
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-8.0.1.tgz#d1c9d8ae225902c597deac8c79ace4227feac8af"
   integrity sha512-3PKFgjTyPlhFhorfP+SjKQxLViIL++zWjFOO4hGriYU+Bsm983DxEM1JmDRJVWXV0O9npu+xXRqz7Pbd3mh70g==
@@ -857,13 +857,13 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.27.1"
 
-"@babel/plugin-transform-runtime@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-8.0.0.tgz#490dc12220a980985944c2d84f5dc36773689251"
-  integrity sha512-hEylRzDAe9Gefwn4u62+msvdqxEwev5JOF7DWrPwh9NIDP7Xw8zhZNLQsQSrthSpMmUyUJdl2vqAeGNONUja3g==
+"@babel/plugin-transform-runtime@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-8.0.1.tgz#4b199eb337c3bdda9c7e6d6d25ec387e1d4f7dd6"
+  integrity sha512-MPDpKBrxn+thQay3eJmUiSeHswiT7MkINb48hHkX6OzodB149PKq1kred+lpMebrDzHA+G1ekCQnlYSkyEqAOw==
   dependencies:
     "@babel/helper-module-imports" "^8.0.0"
-    "@babel/helper-plugin-utils" "^8.0.0"
+    "@babel/helper-plugin-utils" "^8.0.1"
 
 "@babel/plugin-transform-shorthand-properties@^7.27.1":
   version "7.27.1"
