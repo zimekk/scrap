@@ -18,6 +18,833 @@ export type Balance = (Omit<Item, "amount" | "min" | "net" | "sms"> & {
 
 export const balance: Balance = [
   {
+    date: "2026-09-05",
+    number: "183",
+    // amount: 3.95, // ważne do 18 sierpnia 2027
+    // amount: 8.95, // ważne do 18 września 2027
+    amount: 3.95, // ważne do 18 września 2027
+    // net: 542 * MB,
+    net: 1.52 * GB,
+    roaming: 6.18 * GB,
+    min: "35:48",
+    // sms: 12,
+    sms: 112,
+    operations: [
+      { amount: 10 },
+      {
+        amount: -5,
+        sms: 100, // 100 SMS-ów do innych sieci
+      },
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB na 30 dni
+      },
+    ],
+  },
+  {
+    date: "2026-09-05",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 731 * MB,
+    roaming: 0 * GB,
+    min: 150,
+    sms: 95,
+    // operations: [],
+  },
+  {
+    date: "2026-09-05",
+    number: "379",
+    // amount: 1.37, // ważne do 24 sierpnia 2027
+    amount: 26.37, // ważne do 24 sierpnia 2027
+    net: 1.8 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-09-05",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.66 * GB,
+    roaming: 0 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-09-05",
+    number: "828",
+    // amount: 0.43, // ważne do 31 sierpnia 2027
+    // amount: 10.43, // ważne do 31 sierpnia 2027
+    amount: 1.43, // ważne do 30 września 2027
+    // net: 714 * MB,
+    net: 2.69 * GB,
+    roaming: 3.09 * GB,
+    min: "66:30", //
+    sms: 79,
+    operations: [
+      { amount: 1 },
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+    ],
+  },
+  {
+    date: "2026-09-05",
+    number: "796",
+    // amount: 104.99, // stracą ważność jutro
+    amount: 109.99, // stracą ważność za 5 dni / traci ważność dziś / traci ważność jutro / konto utraciło ważność
+    net: 756 * MB,
+    roaming: 3.44 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-09-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-09-01",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 853 * MB,
+    roaming: 9.28 * GB,
+    min: "36:02",
+    sms: 12,
+    // operations: [],
+  },
+  {
+    date: "2026-09-01",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 742 * MB,
+    roaming: 0 * GB,
+    min: 154,
+    sms: 95,
+    // operations: [],
+  },
+  {
+    date: "2026-09-01",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 2.47 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    // operations: [],
+  },
+  {
+    date: "2026-09-01",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.73 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-09-01",
+    number: "828",
+    amount: 0.43, // ważne do 31 sierpnia 2027
+    net: 1.16 * GB,
+    roaming: 3.09 * GB,
+    min: "67:06", //
+    sms: 79,
+    // operations: [],
+  },
+  {
+    date: "2026-09-01",
+    number: "796",
+    // amount: 99.99, // konto utraciło ważność
+    amount: 104.99, // traci ważność za 5 dni / traci ważność dziś / traci ważność jutro / konto utraciło ważność
+    net: 884 * MB,
+    roaming: 3.44 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-09-01",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-30",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 869 * MB,
+    roaming: 9.28 * GB,
+    min: "36:02",
+    sms: 12,
+    operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 778 * MB,
+    roaming: 0 * GB,
+    min: 154,
+    sms: 96,
+    operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 3.76 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.76 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "828",
+    amount: 0.43, // ważne do 31 sierpnia 2027
+    net: 1.25 * GB,
+    roaming: 3.09 * GB,
+    min: "67:06", //
+    sms: 79,
+    operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "796",
+    amount: 99.99, // traci ważność dziś / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    net: 894 * MB,
+    roaming: 3.44 * GB,
+    min: 10,
+    sms: 100,
+    operations: [],
+  },
+  {
+    date: "2026-08-30",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-28",
+    number: "796",
+    // amount: 104.99, // traci ważność dziś / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    amount: 99.99, // traci ważność za 5 dni
+    // net: 0 * MB,
+    net: 1023 * MB,
+    // roaming: 1.71 * GB,
+    roaming: 3.44 * GB,
+    min: 10,
+    sms: 100,
+    operations: [
+      // { amount: 5 },
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB na 30 dni
+      },
+    ],
+  },
+
+  {
+    date: "2026-08-25",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 1.02 * GB,
+    roaming: 9.28 * GB,
+    min: "36:43",
+    sms: 15,
+    operations: [],
+  },
+  {
+    date: "2026-08-25",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 791 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 96,
+    operations: [],
+  },
+  {
+    date: "2026-08-25",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 5.28 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-08-25",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.79 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-25",
+    number: "828",
+    amount: 0.43, // ważne do 31 sierpnia 2027
+    net: 1.71 * GB,
+    roaming: 3.09 * GB,
+    min: "71:01", //
+    sms: 83,
+    operations: [],
+  },
+  {
+    date: "2026-08-25",
+    number: "796",
+    // amount: 99.99, // traci ważność dziś / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    amount: 104.99, // traci ważność za 5 dni
+    net: 258 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-25",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-20",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 1.28 * GB,
+    roaming: 9.28 * GB,
+    min: "37:12",
+    sms: 15,
+    operations: [],
+  },
+  {
+    date: "2026-08-20",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 803 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 96,
+    operations: [],
+  },
+  {
+    date: "2026-08-20",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 6.93 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-08-20",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.86 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-20",
+    number: "828",
+    amount: 1.22, // ważne do 31 sierpnia 2027
+    net: 2 * GB,
+    roaming: 3.09 * GB,
+    min: "80:58", //
+    sms: 89,
+    operations: [],
+  },
+  {
+    date: "2026-08-20",
+    number: "796",
+    // amount: 94.99, // traci ważność dziś / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    amount: 99.99, // traci ważność za 5 dni
+    net: 571 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-20",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-15",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 1.54 * GB,
+    roaming: 9.28 * GB,
+    min: "37:12",
+    sms: 16,
+    operations: [],
+  },
+  {
+    date: "2026-08-15",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 836 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 96,
+    operations: [],
+  },
+  {
+    date: "2026-08-15",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 8.39 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-08-15",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.94 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-15",
+    number: "828",
+    amount: 2.01, // ważne do 31 sierpnia 2027
+    net: 2.14 * GB,
+    roaming: 6.18 * GB,
+    min: "80:58", //
+    sms: 90,
+    operations: [],
+  },
+  {
+    date: "2026-08-15",
+    number: "796",
+    // amount: 89.99, // traci ważność dziś / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    amount: 94.99, // traci ważność za 5 dni
+    net: 810 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-15",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-10",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 2.13 * GB,
+    roaming: 9.28 * GB,
+    min: "51:59",
+    sms: 20,
+    operations: [],
+  },
+  {
+    date: "2026-08-10",
+    number: "938",
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 856 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 96,
+    operations: [],
+  },
+  {
+    date: "2026-08-10",
+    number: "379",
+    amount: 1.37, // ważne do 24 sierpnia 2027
+    net: 10.28 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-08-10",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 1.97 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-10",
+    number: "828",
+    amount: 2.01, // ważne do 31 sierpnia 2027
+    net: 2.32 * GB,
+    roaming: 6.18 * GB,
+    min: "80:58", //
+    sms: 98,
+    operations: [],
+  },
+  {
+    date: "2026-08-10",
+    number: "796",
+    // amount: 89.99, // traci ważność dziś
+    // amount: 84.99, // traci ważność dziś
+    amount: 89.99, // traci ważność za 5 dni / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    // net: 222 * MB, // traci ważność za 3 dni
+    net: 1.21 * GB,
+    // roaming: 1.71 * GB,
+    roaming: 3.44 * GB,
+    min: 10,
+    sms: 100,
+    operations: [
+      { amount: 5 },
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB na 30 dni
+      },
+    ],
+  },
+  {
+    date: "2026-08-10",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-05",
+    number: "183",
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    net: 2.2 * GB,
+    roaming: 9.28 * GB,
+    min: "51:59",
+    sms: 20,
+    operations: [],
+  },
+  {
+    date: "2026-08-05",
+    number: "938",
+    // amount: 6.08, // ważne do 14 lipca 2027
+    amount: 11.08, // ważne do 14 sierpnia 2027
+    net: 879 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 97,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-05",
+    number: "379",
+    // amount: 1.37, // ważne do 24 lipca 2027
+    amount: 26.37, // ważne do 24 sierpnia 2027
+    net: 2.79 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [{ amount: 25 }],
+  },
+  {
+    date: "2026-08-05",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 2.02 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-05",
+    number: "828",
+    amount: 2.01, // ważne do 31 sierpnia 2027
+    net: 2.4 * GB,
+    roaming: 6.18 * GB,
+    min: "82:35", //
+    sms: 99,
+    operations: [],
+  },
+  {
+    date: "2026-08-05",
+    number: "796",
+    // amount: 84.99, // traci ważność jutro / konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 89.99, // traci ważność za 5 dni / traci ważność jutro / konto utraciło ważność / traci ważność dziś
+    net: 448 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-05",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-08-01",
+    number: "183",
+    // amount: 2.95, // ważne do 18 sierpnia 2027
+    // amount: 12.95, // ważne do 18 sierpnia 2027
+    amount: 3.95, // ważne do 18 sierpnia 2027
+    // net: 505 * MB,
+    // net: 380 * MB,
+    net: 2.37 * GB,
+    roaming: 6.18 * GB,
+    min: "52:10",
+    sms: 20,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2026-08-01",
+    number: "938",
+    amount: 6.08, // ważne do 14 lipca 2027
+    // net: 890 * MB,
+    net: 889 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 97,
+    // operations: [],
+  },
+  {
+    date: "2026-08-01",
+    number: "379",
+    amount: 1.37, // ważne do 24 lipca 2027
+    // net: 4.2 * GB,
+    net: 3.59 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    // operations: [],
+  },
+  {
+    date: "2026-08-01",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    // net: 2.04 * GB,
+    net: 2.03 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    // operations: [],
+  },
+  {
+    date: "2026-08-01",
+    number: "828",
+    // amount: 1.01, // ważne do 31 lipca 2027
+    // amount: 11.01, // ważne do 31 sierpnia 2027
+    amount: 2.01, // ważne do 31 sierpnia 2027
+    // net: 636 * MB,
+    // net: 492 * MB,
+    net: 2.48 * GB,
+    // roaming: 6.53 * GB,
+    roaming: 9.62 * GB,
+    min: "82:54", //
+    sms: 99,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+      { amount: 10 },
+    ],
+  },
+  {
+    date: "2026-08-01",
+    number: "796",
+    // amount: 79.99, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 84.99, // traci ważność za 5 dni
+    // net: 598 * MB,
+    net: 594 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-08-01",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-07-30",
+    number: "183",
+    amount: 2.95, // ważne do 18 sierpnia 2027
+    net: 681 * MB,
+    roaming: 6.18 * GB,
+    min: "52:10",
+    sms: 20,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "938",
+    amount: 6.08, // ważne do 14 lipca 2027
+    net: 896 * MB,
+    roaming: 0 * GB,
+    min: 155,
+    sms: 97,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "379",
+    amount: 1.37, // ważne do 24 lipca 2027
+    net: 4.62 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 2.09 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "828",
+    amount: 1.01, // ważne do 31 lipca 2027
+    net: 810 * MB,
+    roaming: 6.48 * GB,
+    min: "82:54", //
+    sms: 99,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "796",
+    // amount: 74.99, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 79.99, // traci ważność jutro
+    net: 613 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [],
+  },
+  {
+    date: "2026-07-30",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
+    date: "2026-07-26",
+    number: "183",
+    amount: 2.95, // ważne do 18 lipca 2027
+    net: 1.38 * GB,
+    roaming: 6.18 * GB,
+    min: "52:10",
+    sms: 20,
+    operations: [],
+  },
+  {
+    date: "2026-07-26",
+    number: "938",
+    amount: 6.08, // ważne do 14 lipca 2027
+    net: 902 * MB,
+    roaming: 0 * GB,
+    min: 158,
+    sms: 97,
+    operations: [],
+  },
+  {
+    date: "2026-07-26",
+    number: "379",
+    amount: 1.37, // ważne do 24 lipca 2027
+    net: 6.46 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-07-26",
+    number: "818",
+    amount: 11.97, // ważne do 31 lipca 2027
+    net: 2.25 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    operations: [],
+  },
+  {
+    date: "2026-07-26",
+    number: "828",
+    amount: 1.01, // ważne do 31 lipca 2027
+    net: 1.32 * GB,
+    roaming: 6.48 * GB,
+    min: "82:54", //
+    sms: 104,
+    operations: [],
+  },
+  {
+    date: "2026-07-26",
+    number: "796",
+    // amount: 74.99, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 79.99, // traci ważność za 5 dni
+    net: 682 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-07-26",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 150 * GB,
+  },
+
+  {
     date: "2026-07-20",
     number: "183",
     amount: 2.95, // ważne do 18 lipca 2027
@@ -70,7 +897,7 @@ export const balance: Balance = [
   {
     date: "2026-07-20",
     number: "796",
-    // amount: 69.99, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 69.99, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     amount: 74.99, // traci ważność za 5 dni
     net: 809 * MB,
     roaming: 1.71 * GB,
@@ -224,7 +1051,7 @@ export const balance: Balance = [
   {
     date: "2026-07-14",
     number: "796",
-    // amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     // amount: 75, // traci ważność za 5 dni
     amount: 69.99, // traci ważność za 5 dni
     net: 1023 * MB,
@@ -299,7 +1126,7 @@ export const balance: Balance = [
   {
     date: "2026-07-10",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -379,7 +1206,7 @@ export const balance: Balance = [
   {
     date: "2026-07-05",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -446,7 +1273,7 @@ export const balance: Balance = [
   {
     date: "2026-07-01",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -513,7 +1340,7 @@ export const balance: Balance = [
   {
     date: "2026-06-30",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -580,7 +1407,7 @@ export const balance: Balance = [
   {
     date: "2026-06-25",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -647,7 +1474,7 @@ export const balance: Balance = [
   {
     date: "2026-06-20",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -714,7 +1541,7 @@ export const balance: Balance = [
   {
     date: "2026-06-15",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -781,7 +1608,7 @@ export const balance: Balance = [
   {
     date: "2026-06-10",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -903,7 +1730,7 @@ export const balance: Balance = [
   {
     date: "2026-06-05",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -970,7 +1797,7 @@ export const balance: Balance = [
   {
     date: "2026-06-01",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1037,7 +1864,7 @@ export const balance: Balance = [
   {
     date: "2026-05-30",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1124,7 +1951,7 @@ export const balance: Balance = [
   {
     date: "2026-05-25",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1201,7 +2028,7 @@ export const balance: Balance = [
   {
     date: "2026-05-20",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1268,7 +2095,7 @@ export const balance: Balance = [
   {
     date: "2026-05-15",
     number: "796",
-    amount: 70, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 70, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1336,7 +2163,7 @@ export const balance: Balance = [
   {
     date: "2026-05-10",
     number: "796",
-    // amount: 65, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 65, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     amount: 70, // traci ważność dziś
     net: 0 * GB,
     roaming: 0 * GB,
@@ -1417,7 +2244,7 @@ export const balance: Balance = [
   {
     date: "2026-05-05",
     number: "796",
-    // amount: 65, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 65, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     amount: 70, // traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
@@ -1485,8 +2312,8 @@ export const balance: Balance = [
   {
     date: "2026-05-01",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
-    amount: 65, // konto utraciło waność
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // konto utraciło ważność
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1553,8 +2380,8 @@ export const balance: Balance = [
   {
     date: "2026-04-30",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
-    amount: 65, // konto utraciło waność
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // konto utraciło ważność
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1621,8 +2448,8 @@ export const balance: Balance = [
   {
     date: "2026-04-25",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
-    amount: 65, // konto utraciło waność
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // konto utraciło ważność
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1698,8 +2525,8 @@ export const balance: Balance = [
   {
     date: "2026-04-20",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
-    amount: 65, // konto utraciło waność
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // konto utraciło ważność
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1766,8 +2593,8 @@ export const balance: Balance = [
   {
     date: "2026-04-15",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
-    amount: 65, // konto utraciło waność
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
+    amount: 65, // konto utraciło ważność
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -1834,7 +2661,7 @@ export const balance: Balance = [
   {
     date: "2026-04-10",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     amount: 65, // traci ważność dziś
     net: 0 * GB,
     roaming: 0 * GB,
@@ -1930,7 +2757,7 @@ export const balance: Balance = [
   {
     date: "2026-04-05",
     number: "796",
-    // amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    // amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     amount: 65, // traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
@@ -1993,7 +2820,7 @@ export const balance: Balance = [
   {
     date: "2026-04-01",
     number: "796",
-    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -2054,7 +2881,7 @@ export const balance: Balance = [
   {
     date: "2026-03-30",
     number: "796",
-    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -2115,7 +2942,7 @@ export const balance: Balance = [
   {
     date: "2026-03-25",
     number: "796",
-    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
@@ -2176,7 +3003,7 @@ export const balance: Balance = [
   {
     date: "2026-03-16",
     number: "796",
-    amount: 60, // konto utraciło waność / traci ważność dziś / traci ważność za 5 dni
+    amount: 60, // konto utraciło ważność / traci ważność dziś / traci ważność za 5 dni
     net: 0 * GB,
     roaming: 0 * GB,
     min: 10,
