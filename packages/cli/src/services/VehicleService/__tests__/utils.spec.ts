@@ -5,7 +5,7 @@ const _time = 1666626732299;
 const stripAnsi = (s: string) =>
   s.replace(
     /[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,
-    ""
+    "",
   );
 
 describe("VehicleService", () => {
@@ -89,7 +89,7 @@ Wyposażenie zewnętrzne
         },
       },
     ].forEach(({ item, html, result }) =>
-      expect(scrapOptions(item, html)).toEqual(result)
+      expect(scrapOptions(item, html)).toEqual(result),
     ));
 
   it("diffItem", () =>
@@ -637,7 +637,7 @@ Wyposażenie zewnętrzne
         last,
         item,
         result: "",
-      }))(require("./last_59195"), require("./item_59195")),
+      }))(require("./last_59195.json"), require("./item_59195.json")),
       ((last, item) => ({
         last,
         item: { ...item, images: 1 },
@@ -646,9 +646,9 @@ Wyposażenie zewnętrzne
 +  images: 1
  }
 `,
-      }))(require("./last_55569"), require("./item_55569")),
+      }))(require("./last_55569.json"), require("./item_55569.json")),
     ].forEach(({ item, last, result }) =>
-      expect(stripAnsi(diffItem(last, item))).toEqual(result)
+      expect(stripAnsi(diffItem(last, item))).toEqual(result),
     ));
 
   it("updateItem", () =>
@@ -669,7 +669,7 @@ Wyposażenie zewnętrzne
         },
       }))(require("./last_55569"), require("./item_55569")),
     ].forEach(({ last, item, result }) =>
-      expect(updateItem(last, item, _time)).toEqual(result)
+      expect(updateItem(last, item, _time)).toEqual(result),
     ));
 
   it("reduceHistory", () =>
@@ -683,6 +683,6 @@ Wyposażenie zewnętrzne
         result: reduced._history,
       }))(require("./last_33500"), require("./reduced_33500")),
     ].forEach(({ last, result }) =>
-      expect(reduceHistory(last._history)).toEqual(result)
+      expect(reduceHistory(last._history)).toEqual(result),
     ));
 });
