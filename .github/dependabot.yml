@@ -16,3 +16,10 @@ updates:
     commit-message:
       # Prefix all commit messages with "chore: "
       prefix: "chore"
+    groups:
+      framework:
+        applies-to: version-updates
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react*"
