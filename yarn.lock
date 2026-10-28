@@ -899,10 +899,10 @@
   dependencies:
     "@babel/helper-plugin-utils" "^8.0.1"
 
-"@babel/plugin-transform-runtime@^8.0.1":
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-8.0.1.tgz#4b199eb337c3bdda9c7e6d6d25ec387e1d4f7dd6"
-  integrity sha512-MPDpKBrxn+thQay3eJmUiSeHswiT7MkINb48hHkX6OzodB149PKq1kred+lpMebrDzHA+G1ekCQnlYSkyEqAOw==
+"@babel/plugin-transform-runtime@^8.0.6":
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-8.0.6.tgz#658897701b48250ce285955e5c2cbe2ab9dc4b6b"
+  integrity sha512-2djup+i7z4taCN9VCJsmPNC0GT5A0FhI+S0tZwK+FRDZdaEOQUYVmfKOg/hIKhMBXjOFxEsBHvGE0Thqj71edA==
   dependencies:
     "@babel/helper-module-imports" "^8.0.0"
     "@babel/helper-plugin-utils" "^8.0.1"
