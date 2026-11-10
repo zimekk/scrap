@@ -57,7 +57,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-runtime": "^8.0.6",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.2",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.6.3",
     "@testing-library/dom": "^10.4.2",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.3",
