@@ -18,6 +18,111 @@ export type Balance = (Omit<Item, "amount" | "min" | "net" | "sms"> & {
 
 export const balance: Balance = [
   {
+    date: "2026-11-10",
+    number: "183",
+    amount: 5.95, // ważne do 18 listopada 2027
+    net: 1.65 * MB,
+    roaming: 7.9 * GB,
+    min: "16:11",
+    sms: 107,
+    // operations: [],
+  },
+  {
+    date: "2026-11-10",
+    number: "938",
+    // amount: 10.29, // ważne do 14 sierpnia 2027
+    amount: 5.29, // ważne do 14 listopada 2027
+    // net: 480 * MB,
+    net: 1.46 * GB,
+    // roaming: 0 * GB,
+    roaming: 1.71 * GB,
+    min: 130,
+    sms: 86,
+    operations: [
+      {
+        amount: -5,
+        net: "1GB", // Pakiet 1 GB na 30 dni
+      },
+    ],
+  },
+  {
+    date: "2026-11-10",
+    number: "379",
+    // amount: 26.37, // ważne do 24 listopada 2027
+    amount: 1.37, // ważne do 24 listopada 2027
+    net: 10.25 * GB,
+    roaming: 8.59 * GB,
+    min: "1:22",
+    sms: 130,
+    operations: [],
+  },
+  {
+    date: "2026-11-10",
+    number: "818",
+    amount: 2.97, // ważne do 30 listopada 2027
+    net: 2.42 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    operations: [],
+  },
+  {
+    date: "2026-11-10",
+    number: "828",
+    // amount: 1.25, // ważne do 31 października 2027
+    // amount: 11.25, // ważne do 31 października 2027
+    amount: 2.25, // ważne do 31 października 2027
+    // net: 334 * MB,
+    net: 2.32 * GB,
+    // roaming: 9.28 * GB,
+    roaming: 12.37 * GB,
+    min: "90:40",
+    sms: 71,
+    operations: [
+      { amount: 10 },
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+    ],
+  },
+  {
+    date: "2026-11-10",
+    number: "796",
+    // amount: 138.51, // traci ważność dziś
+    amount: 143.51, // stracą ważność za 5 dni / konto utraciło ważność / traci ważność dziś
+    net: 809 * MB,
+    roaming: 1.71 * GB,
+    min: 10,
+    sms: 100,
+    operations: [{ amount: 5 }],
+  },
+  {
+    date: "2026-11-10",
+    number: "102",
+    roaming: 10.3 * GB,
+    net: 148.39 * GB,
+  },
+
+  {
+    date: "2026-11-06",
+    number: "818",
+    // amount: 11.97, // ważne do 31 lipca 2027
+    amount: 2.97, // ważne do 30 listopada 2027
+    // net: 487 * MB,
+    net: 2.47 * GB,
+    roaming: 3.09 * GB,
+    min: 255,
+    sms: 141,
+    operations: [
+      {
+        amount: -9,
+        net: "2GB", // Pakiet 2 GB bez terminu ważności
+      },
+    ],
+  },
+
+  {
     date: "2026-11-05",
     number: "183",
     amount: 5.95, // ważne do 18 listopada 2027
