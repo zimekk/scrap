@@ -5811,6 +5811,11 @@ entities@^6.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-6.0.1.tgz#c28c34a43379ca7f61d074130b2f5f7020a30694"
   integrity sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==
 
+entities@^8.0.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-8.1.0.tgz#9632d69619ebdbe0cf0ef22f53088fe5a2163d86"
+  integrity sha512-kxL7msIffSuh9aaFAMD7rxAIuTRMAHMeBtgHW2yUdWw732ZNh4MehkF2gdjvtdmikkaIP9bFDDJOPlsvm7avrA==
+
 env-paths@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/env-paths/-/env-paths-2.2.1.tgz#420399d416ce1fbe9bc0a07c62fa68d67fd0f8f2"
@@ -6959,7 +6964,7 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
-he@1.2.0, he@^1.2.0:
+he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
@@ -8993,13 +8998,13 @@ node-gyp-build-optional-packages@5.0.7:
   resolved "https://registry.yarnpkg.com/node-gyp-build-optional-packages/-/node-gyp-build-optional-packages-5.0.7.tgz#5d2632bbde0ab2f6e22f1bbac2199b07244ae0b3"
   integrity sha512-YlCCc6Wffkx0kHkmam79GKvDQ6x+QZkMjFGrIMxgFNILFvGSbCp2fCBC55pGTT9gVaz8Na5CLmxt/urtzRv36w==
 
-node-html-parser@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-7.1.0.tgz#48e83bd705dd8b89415c00bf670aebfe267312d7"
-  integrity sha512-iJo8b2uYGT40Y8BTyy5ufL6IVbN8rbm/1QK2xffXU/1a/v3AAa0d1YAoqBNYqaS4R/HajkWIpIfdE6KcyFh1AQ==
+node-html-parser@^9.0.7:
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/node-html-parser/-/node-html-parser-9.0.7.tgz#a3ba0212bb9f60ad98a308c0f0c81500cf2cd24c"
+  integrity sha512-0Io6nKYNN2e+QSoJFxU991Z8kX4H2Ogy3l14Ow0XxR2Wonk9l5qBonx1dYO97UyVfYJ1U9H0WHZOIZW6q5KPrA==
   dependencies:
     css-select "^5.1.0"
-    he "1.2.0"
+    entities "^8.0.0"
 
 node-int64@^0.4.0:
   version "0.4.0"
