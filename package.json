@@ -116,7 +116,7 @@
     "eslint-plugin-react": "^7.37.5",
     "husky": "^9.1.7",
     "jest": "^30.5.2",
-    "jest-environment-jsdom": "^30.4.1",
+    "jest-environment-jsdom": "^30.5.2",
     "lint-staged": "^17.0.5",
     "prettier": "^3.9.10",
     "ts-jest": "^29.4.15",
